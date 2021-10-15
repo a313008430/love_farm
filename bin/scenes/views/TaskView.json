@@ -1,0 +1,1 @@
+{"type":"View","props":{"y":0,"x":0,"width":750,"mouseEnabled":true,"height":1334},"compId":2,"child":[{"type":"Script","props":{"y":102,"x":590,"image":"@node:36","runtime":"view/TaskControl.ts"},"compId":12},{"type":"Sprite","props":{"y":169,"x":68.5,"texture":"res/bg1.png","name":"close","mouseEnabled":true},"compId":36}],"loadList":["res/bg1.png"],"loadList3D":[]}

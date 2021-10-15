@@ -1,0 +1,47 @@
+D .
+D game
+P D35B29C2 backward.png
+P 6AD6B36E balance_1.png
+P 462E3840 balance_2.png
+P 2BAEFF24 balance_3.png
+P 30CBE6F4 bt_blue.png
+P 2C2D5F49 bt_gray.png
+P 77F1C8AA bt_green.png
+P B33B5812 bt_lb_1.png
+P 25055AF1 diamonds.png
+P 00D54146 fontclip_lb.png
+P B27E79BC game_1024.png
+P 2C5595DB game_128.png
+P 0FF83F34 game_16.png
+P F1AB1BD4 game_2048.png
+P 3EBC725A game_256.png
+P FEF7B71A game_32.png
+P C7A1E35F game_512.png
+P 521AEECC game_64.png
+P 7DA71D27 game_8.png
+P CCC8DC0D game_bg_alpha_50.png
+P 1D2889F5 game_bg_alpha_70.png
+P D7B944E6 game_exit.png
+P AF2FB17D game_list_bg_1.png
+P F27B95B8 game_list_bg_2.png
+P 1E777141 game_rule.png
+P 01D884C2 go.png
+P F44CA121 head0.png
+P C16DEEDB head1.png
+P 23C73298 head_mask0.png
+P D72E10EA heidi0.png
+P 5058E228 horn_close.png
+P 66142FA0 horn_open.png
+P 3D66E3ED icon_1.png
+P 3B733FC1 img_add_friend.png
+P 27302322 lead.png
+P E5E868AD mike_close.png
+P 40A53B09 mike_close_1.png
+P 39420461 mike_open.png
+P 9AA2410A mike_open_1.png
+P 5966E8B5 name0.png
+P A86CD3A9 number0.png
+P A67EDBD7 sex_icon_1.png
+P DC3FCB4E true.png
+P DD3E32EA vs.png
+D res

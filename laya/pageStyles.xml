@@ -1,0 +1,5 @@
+<page>
+   <item name="view/MainScene.scene" props="" ifExport="默认" aName="主页"/>
+   <item name="view/MainView.scene" props="" ifExport="默认" aName="主页"/>
+   <item name="view/LoadDialog.scene" props="" ifExport="默认" aName="弹窗加载"/>
+</page>

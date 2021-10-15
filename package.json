@@ -1,0 +1,25 @@
+{
+    "name": "layabas2_12",
+    "version": "1.0.0",
+    "description": "",
+    "main": "ayabox_esbuild_config@1-1-55.js",
+    "bin": {
+        "layabas2_12": "bin/index.js"
+    },
+    "dependencies": {
+        "chokidar": "^3.5.2",
+        "esbuild": "^0.13.4",
+        "esbuild-windows-64": "^0.13.4",
+        "tslib": "^2.3.1"
+    },
+    "scripts": {
+        "start": "node libs/hd/index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://gitee.com/XZsmile/layabas2_12.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}

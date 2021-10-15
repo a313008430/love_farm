@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "es6",
+        "target": "es6",
+        "noEmitHelpers": true,
+        "sourceMap": true,
+
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+
+        "paths": {
+            "tslib": ["tslib/tslib.d.ts"]
+        },
+        "baseUrl": ".", //必需，否则paths配置不会生效
+        "lib": [
+            "esnext", //在低版本浏览器上支持 async、await
+            "dom", //dom 支持
+            "es2015.promise" //在低版本浏览器上支持 promise
+        ]
+    },
+    "exclude": ["node_modules"]
+}
