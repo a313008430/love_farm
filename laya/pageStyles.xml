@@ -2,4 +2,5 @@
    <item name="view/MainScene.scene" props="" ifExport="默认" aName="主页"/>
    <item name="view/MainView.scene" props="" ifExport="默认" aName="主页"/>
    <item name="view/LoadDialog.scene" props="" ifExport="默认" aName="弹窗加载"/>
+   <item name="scenes/views/ShopView.scene" props="" ifExport="默认" aName="集市"/>
 </page>

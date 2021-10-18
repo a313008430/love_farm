@@ -2,16 +2,16 @@
 import LoadView from "./view/LoadView"
 import MainView from "./view/MainView"
 import Button from "./components/Button"
-import ShaderSpriteBase from "./core/ShaderSpriteBase"
+import ShopView from "./view/ShopView"
 import TaskControl from "./view/TaskControl"
 /*
 * 游戏初始化配置;
 */
 export default class GameConfig{
-    static width:number=750;
-    static height:number=1334;
+    static width:number=1080;
+    static height:number=1920;
     static scaleMode:string="fixedwidth";
-    static screenMode:string="vertical";
+    static screenMode:string="none";
     static alignV:string="middle";
     static alignH:string="center";
     static startScene:any="scenes/views/MainView.scene";
@@ -26,7 +26,7 @@ export default class GameConfig{
         reg("view/LoadView.ts",LoadView);
         reg("view/MainView.ts",MainView);
         reg("components/Button.ts",Button);
-        reg("core/ShaderSpriteBase.ts",ShaderSpriteBase);
+        reg("view/ShopView.ts",ShopView);
         reg("view/TaskControl.ts",TaskControl);
     }
 }

@@ -1,7 +1,8 @@
+import GameScript from "src/core/GameScript";
 import { EventMaps } from "../common/EventMaps";
 import EventGlobal from "../core/EventGlobal";
 
-export default class LoadView extends Laya.Script {
+export default class LoadView extends GameScript {
     /** @prop {name:loadLabel, tips:"load 文本", type:Node}*/
     public loadLabel: Laya.Label = null;
 

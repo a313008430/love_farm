@@ -9,6 +9,8 @@
         LoadDialog = "scenes/views/LoadDialog.scene", 
         /** scenes/views/MainView.scene */
         MainView = "scenes/views/MainView.scene", 
+        /** scenes/views/ShopView.scene */
+        ShopView = "scenes/views/ShopView.scene", 
         /** scenes/views/TaskView.scene */
         TaskView = "scenes/views/TaskView.scene", 
     }
@@ -34,11 +36,13 @@
  */
  export const scenes = [
          "scenes/views/TaskView.scene",
+         "scenes/views/ShopView.scene",
          "scenes/views/MainView.scene",
          "scenes/views/LoadDialog.scene",
          "scenes/components/Button.prefab",
             "res/Xasdfasd.png",
             "res/rule_text.png",
+            "res/img_homepageBg.png",
             "res/bg1.png",
             "res/shader/vs.vs",
             "res/shader/ps.fs",
@@ -48,10 +52,9 @@
             "res/audio/go.mp3",
             "res/audio/fail.mp3",
             "res/audio/draw.mp3",
-            "res/atlas/win.png",
-            "res/atlas/win.atlas",
-            "res/atlas/lose.png",
-            "res/atlas/lose.atlas",
+            "res/atlas/main_sence.png",
+            "res/atlas/main_sence.atlas",
+            "res/atlas/game1.png",
             "res/atlas/game.png",
             "res/atlas/game.atlas"];
     

@@ -5,6 +5,7 @@ import GameScript from "../core/GameScript";
 import ObservableProperty from "../core/ObservableProperty";
 import { ViewManager } from "../core/ViewManager";
 
+//  MainView extends Laya.Script {
 export default class MainView extends GameScript {
     /** @prop {name:image, tips:"布尔类型示例", type:Node}*/
     public image: Laya.Label = null;
@@ -14,6 +15,8 @@ export default class MainView extends GameScript {
     // 更多参数说明请访问: https://ldc2.layabox.com/doc/?nav=zh-as-2-4-0
 
     onHdEnable(): void {
+        console.log(111);
+
         console.log(this.shaderImage);
 
         let a = 0;
@@ -25,9 +28,7 @@ export default class MainView extends GameScript {
             // }
         }, 1000);
 
-        ObservableProperty.watch(UserInfo, this).key("nickname", (e) => {
-            this.image.text = e;
-        });
+        ObservableProperty.watch(UserInfo, this).key("nickname", (e) => {});
     }
 
     onClick(e) {
@@ -35,6 +36,10 @@ export default class MainView extends GameScript {
             case "openTask":
                 console.log("open task");
                 ViewManager.inst.open(Res.views.TaskView);
+                break;
+            case "shop":
+                // console.log("open task");
+                ViewManager.inst.open(Res.views.ShopView);
                 break;
         }
     }

@@ -4,7 +4,7 @@ import ObservableProperty from "./ObservableProperty";
 /**
  * 组件
  */
-export default abstract class GameScript extends Laya.Script {
+export default class GameScript extends Laya.Script {
     constructor() {
         super();
         let bindEvent = EventClass.get(this.constructor.prototype);
