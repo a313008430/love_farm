@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":317,
-    "selecteID":334,
+    "selectedBox":2,
+    "selecteID":336,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":335,
+    "maxID":338,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -35,7 +35,7 @@
             "x":15,
             "type":"Image",
             "searchKey":"Image",
-            "props":{"skin":"res/img_homepageBg.png","centerY":0,"centerX":0},
+            "props":{"width":1080,"top":0,"skin":"res/img_homepageBg1.png","centerX":0,"bottom":1422},
             "nodeParent":2,
             "label":"Image",
             "isDirectory":false,
@@ -44,8 +44,36 @@
             "compId":81,
             "child":[
                 ],
-            "$LOCKED":true,
-            "$HIDDEN":true
+            "$LOCKED":false,
+            "$HIDDEN":false
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image",
+            "props":{"y":497,"skin":"res/img_homepageBg2.png","centerX":0,"alpha":1},
+            "nodeParent":2,
+            "label":"Image",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":336,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image",
+            "props":{"top":1106,"skin":"res/img_homepageBg3.png","bottom":0},
+            "nodeParent":2,
+            "label":"Image",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":337,
+            "child":[
+                ]
         },
         {
             "x":15,
@@ -1170,18 +1198,33 @@
             "props":{"x":-13,"width":1162,"name":"bottom_box","height":379,"bottom":0},
             "nodeParent":2,
             "label":"bottom_box",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":243,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
-                    "props":{"y":258,"x":169,"skin":"main_sence/img_daytimeTask.png","anchorY":0.5,"anchorX":0.5},
+                    "props":{"y":197,"x":15,"skin":"main_sence/img_menuWoodBg.png"},
                     "nodeParent":243,
                     "label":"Image",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":335,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image,task",
+                    "props":{"y":258,"x":169,"skin":"main_sence/img_daytimeTask.png","name":"task","anchorY":0.5,"anchorX":0.5},
+                    "nodeParent":243,
+                    "label":"task",
                     "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
@@ -1206,11 +1249,12 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
-                    "searchKey":"Image",
-                    "props":{"y":258,"x":362,"skin":"main_sence/img_clock.png","anchorY":0.5,"anchorX":0.5},
+                    "searchKey":"Image,signIn",
+                    "props":{"y":258,"x":362,"skin":"main_sence/img_clock.png","name":"signIn","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":243,
-                    "label":"Image",
+                    "label":"signIn",
                     "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
@@ -1235,6 +1279,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":258,"x":554,"skin":"main_sence/img_egg.png","anchorY":0.5,"anchorX":0.5},
@@ -1264,11 +1309,12 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
-                    "searchKey":"Image",
-                    "props":{"y":258,"x":747,"skin":"main_sence/img_emailMenu.png","anchorY":0.5,"anchorX":0.5},
+                    "searchKey":"Image,mail",
+                    "props":{"y":258,"x":747,"skin":"main_sence/img_emailMenu.png","name":"mail","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":243,
-                    "label":"Image",
+                    "label":"mail",
                     "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
@@ -1293,11 +1339,12 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
-                    "searchKey":"Image",
-                    "props":{"y":258,"x":939,"skin":"main_sence/img_settingMenu.png","anchorY":0.5,"anchorX":0.5},
+                    "searchKey":"Image,setting",
+                    "props":{"y":258,"x":939,"skin":"main_sence/img_settingMenu.png","name":"setting","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":243,
-                    "label":"Image",
+                    "label":"setting",
                     "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
@@ -1305,6 +1352,7 @@
                     "compId":241,
                     "child":[
                         {
+                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -1322,6 +1370,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,msg_box",
                     "props":{"y":47,"x":-10,"width":689,"skin":"main_sence/img_taskBg2.png","name":"msg_box","height":86},
@@ -1334,6 +1383,7 @@
                     "compId":244,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,icon",
                             "props":{"y":34,"skin":"main_sence/img_coinBtn.png","right":-24,"name":"icon","anchorY":0.5,"anchorX":0.5},
@@ -1346,6 +1396,7 @@
                             "compId":274,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"FontClip",
                                     "searchKey":"FontClip",
                                     "props":{"y":73,"x":37,"value":"x100","spaceX":-8,"skin":"main_sence/fontClip_coinBtnNumber.png","sheet":"0123456789x","anchorY":0.5,"anchorX":0.5,"align":"center"},
@@ -1360,6 +1411,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,lb",
                             "props":{"y":24,"x":33,"text":"任务：辣椒(3/10) 胡萝卜(10/10)","name":"lb","fontSize":38,"font":"Microsoft YaHei","color":"#906344","bold":true},
@@ -1374,7 +1426,7 @@
                         }],
                     "$HIDDEN":false
                 }],
-            "$HIDDEN":true
+            "$HIDDEN":false
         },
         {
             "x":15,
@@ -1383,17 +1435,16 @@
             "props":{"visible":true,"top":0,"right":0,"name":"add_land_layer","mouseEnabled":true,"left":0,"bottom":0},
             "nodeParent":2,
             "label":"add_land_layer",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":316,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,bg",
-                    "props":{"top":0,"skin":"game/img_shield.png","right":0,"name":"bg","left":0,"bottom":0},
+                    "props":{"top":0,"skin":"game/img_shield.png","right":0,"name":"bg","left":0,"bottom":0,"alpha":0.75},
                     "nodeParent":316,
                     "label":"bg",
                     "isDirectory":false,
@@ -1402,10 +1453,9 @@
                     "compId":332,
                     "child":[
                         ],
-                    "$HIDDEN":true
+                    "$HIDDEN":false
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":625,"x":84,"skin":"main_sence/img_popUpBg.png","mouseEnabled":true,"centerY":50,"centerX":0},
@@ -1418,7 +1468,6 @@
                     "compId":317,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":110,"x":131,"skin":"main_sence/img_greenLand.png"},
@@ -1432,7 +1481,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,ad_btn",
                             "props":{"y":652,"x":654,"skin":"main_sence/img_videoBtn.png","name":"ad_btn","anchorY":0.5,"anchorX":0.5},
@@ -1462,7 +1510,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label",
                             "props":{"y":543,"x":458,"text":"扩建土地种植更多蔬菜","fontSize":48,"font":"Microsoft YaHei","color":"#906344","bold":true,"anchorY":0.5,"anchorX":0.5},
@@ -1476,7 +1523,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":-115.5,"x":164.5,"skin":"game/img_woodtitle.png"},
@@ -1490,7 +1536,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,closeAddLandLayer",
                             "props":{"y":22,"x":870,"skin":"game/img_x.png","name":"closeAddLandLayer","anchorY":0.5,"anchorX":0.5},
@@ -1503,7 +1548,6 @@
                             "compId":319,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Script",
                                     "switchAble":true,
                                     "source":"src/components/Button.ts",
@@ -1520,7 +1564,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Circle",
                                     "searchKey":"Circle",
                                     "props":{"y":41.5,"x":41,"renderType":"hit","radius":77,"lineWidth":1,"fillColor":"#ff0000"},
@@ -1535,7 +1578,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,cost_gold",
                             "props":{"y":651,"x":268,"skin":"game/img_buybtm.png","name":"cost_gold","anchorY":0.5,"anchorX":0.5},
@@ -1606,7 +1648,6 @@
                             "$HIDDEN":false
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":-37.5,"x":296.5,"skin":"main_sence/img_expand.png"},
@@ -1621,7 +1662,7 @@
                         }],
                     "$HIDDEN":false
                 }],
-            "$HIDDEN":false
+            "$HIDDEN":true
         }],
     "animations":[
         {

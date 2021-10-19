@@ -7,10 +7,14 @@
     {
         /** scenes/views/LoadDialog.scene */
         LoadDialog = "scenes/views/LoadDialog.scene", 
+        /** scenes/views/MailView.scene */
+        MailView = "scenes/views/MailView.scene", 
         /** scenes/views/MainView.scene */
         MainView = "scenes/views/MainView.scene", 
         /** scenes/views/ShopView.scene */
         ShopView = "scenes/views/ShopView.scene", 
+        /** scenes/views/SignInView.scene */
+        SignInView = "scenes/views/SignInView.scene", 
         /** scenes/views/TaskView.scene */
         TaskView = "scenes/views/TaskView.scene", 
     }
@@ -36,13 +40,18 @@
  */
  export const scenes = [
          "scenes/views/TaskView.scene",
+         "scenes/views/SignInView.scene",
          "scenes/views/ShopView.scene",
          "scenes/views/MainView.scene",
+         "scenes/views/MailView.scene",
          "scenes/views/LoadDialog.scene",
          "scenes/prefab/PlotPrefab.prefab",
          "scenes/components/Button.prefab",
             "res/Xasdfasd.png",
             "res/rule_text.png",
+            "res/img_homepageBg3.png",
+            "res/img_homepageBg2.png",
+            "res/img_homepageBg1.png",
             "res/img_homepageBg.png",
             "res/bg1.png",
             "res/shader/vs.vs",

@@ -1,3 +1,4 @@
+import FloatViewShowAni from "src/components/FloatViewShowAni";
 import Res, { views } from "../common/Res";
 import ViewShowAni from "../components/ViewShowAni";
 import { Instance } from "./Instance";
@@ -84,7 +85,12 @@ export class ViewManager {
      * @param all 同一个界面被 多次打开，全删除用这个
      * @param destroy 销毁   TODO（默认会销毁所有子节点，未测试是否有问题）
      */
-    async close(url: views, all: boolean = false, destroy: boolean = false, aniCom = ViewShowAni) {
+    async close(
+        url: views,
+        all: boolean = false,
+        destroy: boolean = false,
+        aniCom: typeof ViewShowAni | typeof FloatViewShowAni = ViewShowAni
+    ) {
         //TODO 这里现在全部用destroy 引擎remove好像有点问题，再通过view.open会重新构建组件
         destroy = true;
 
@@ -93,7 +99,8 @@ export class ViewManager {
             if (url === viewMaps[x].url) {
                 let v = viewMaps[x];
                 viewMaps.splice(x, 1);
-                vAni = v.view.getComponent(aniCom);
+
+                vAni = v.view.getComponent(aniCom as any);
                 if (vAni) {
                     vAni.closeView().then(() => {
                         if (destroy) {

@@ -4,9 +4,9 @@
     "selectedBox":2,
     "selecteID":38,
     "searchKey":"View",
-    "props":{"y":0,"x":0,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/TaskView.png","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
+    "props":{"y":0,"x":0,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MailView.png","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":57,
+    "maxID":64,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -33,20 +33,19 @@
             "x":15,
             "type":"Image",
             "searchKey":"Image,box",
-            "props":{"x":538,"width":1082,"skin":"game/img_popUpBg.png","name":"box","mouseEnabled":true,"height":821,"bottom":0,"anchorY":1,"anchorX":0.5},
+            "props":{"x":538,"width":1082,"skin":"game/img_popUpBg.png","name":"box","height":1188,"bottom":0,"anchorY":1,"anchorX":0.5},
             "nodeParent":2,
             "label":"box",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":38,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
-                    "props":{"y":-115.5,"x":254,"skin":"game/img_woodtitle.png"},
+                    "props":{"x":254,"top":-114,"skin":"game/img_woodtitle.png"},
                     "nodeParent":38,
                     "label":"Image",
                     "isOpen":false,
@@ -57,10 +56,10 @@
                     "child":[
                         {
                             "type":"Image",
-                            "searchKey":"Image",
-                            "props":{"y":74.5,"x":132.5,"skin":"game/img_datatask.png"},
+                            "searchKey":"Image,title",
+                            "props":{"y":115,"x":293,"skin":"game/img_email.png","name":"title","anchorY":0.5,"anchorX":0.5},
                             "nodeParent":39,
-                            "label":"Image",
+                            "label":"title",
                             "isDirectory":false,
                             "isAniNode":true,
                             "hasChild":false,
@@ -71,10 +70,9 @@
                     "$LOCKED":true
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,close",
-                    "props":{"y":24,"x":1029,"skin":"game/img_x.png","name":"close","anchorY":0.5,"anchorX":0.5},
+                    "props":{"x":1029,"top":-26,"skin":"game/img_x.png","name":"close","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":38,
                     "label":"close",
                     "isOpen":false,
@@ -114,122 +112,48 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"List",
                     "searchKey":"List",
-                    "props":{"y":119,"x":43,"width":1003,"spaceY":20,"repeatY":3,"repeatX":1,"height":669},
+                    "props":{"y":119,"x":43,"width":1003,"spaceY":20,"repeatY":4,"repeatX":1,"height":899},
                     "nodeParent":38,
                     "label":"List",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":53,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"x":-0.5,"skin":"game/img_listBg.png","renderType":"render","mouseEnabled":true},
                             "nodeParent":53,
                             "label":"Image",
-                            "isOpen":true,
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":false,
                             "hasChild":true,
                             "compId":52,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Image",
-                                    "searchKey":"Image",
-                                    "props":{"y":49,"x":30,"skin":"game/img_barm.png"},
+                                    "searchKey":"Image,icon",
+                                    "props":{"y":66,"x":786,"skin":"game/img_getAubergine.png","name":"icon"},
                                     "nodeParent":52,
-                                    "label":"Image",
+                                    "label":"icon",
                                     "isDirectory":false,
                                     "isAniNode":false,
                                     "hasChild":false,
-                                    "compId":44,
+                                    "compId":56,
                                     "child":[
                                         ]
                                 },
                                 {
-                                    "x":60,
-                                    "type":"Image",
-                                    "searchKey":"Image,btn",
-                                    "props":{"y":138,"x":819,"skin":"game/img_tomarow.png","name":"btn","anchorY":0.5,"anchorX":0.5},
-                                    "nodeParent":52,
-                                    "label":"btn",
-                                    "isOpen":null,
-                                    "isDirectory":true,
-                                    "isAniNode":false,
-                                    "hasChild":true,
-                                    "compId":45,
-                                    "child":[
-                                        {
-                                            "type":"Script",
-                                            "switchAble":true,
-                                            "source":"src/components/Button.ts",
-                                            "searchKey":"Script,Button",
-                                            "removeAble":true,
-                                            "props":{"isScale":true},
-                                            "nodeParent":45,
-                                            "label":"Button",
-                                            "isDirectory":false,
-                                            "isAniNode":false,
-                                            "hasChild":false,
-                                            "compId":56,
-                                            "child":[
-                                                ]
-                                        }]
-                                },
-                                {
-                                    "x":60,
-                                    "type":"HBox",
-                                    "searchKey":"HBox",
-                                    "props":{"y":57,"x":822,"space":20,"anchorY":0.5,"anchorX":0.5,"align":"none"},
-                                    "nodeParent":52,
-                                    "label":"HBox",
-                                    "isOpen":false,
-                                    "isDirectory":true,
-                                    "isAniNode":false,
-                                    "hasChild":true,
-                                    "compId":47,
-                                    "child":[
-                                        {
-                                            "type":"Image",
-                                            "searchKey":"Image",
-                                            "props":{"skin":"game/img_bankdiamond.png"},
-                                            "nodeParent":47,
-                                            "label":"Image",
-                                            "isDirectory":false,
-                                            "isAniNode":false,
-                                            "hasChild":false,
-                                            "compId":46,
-                                            "child":[
-                                                ]
-                                        },
-                                        {
-                                            "type":"Label",
-                                            "searchKey":"Label",
-                                            "props":{"y":6,"x":77,"text":"+100","fontSize":44,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
-                                            "nodeParent":47,
-                                            "label":"Label",
-                                            "isDirectory":false,
-                                            "isAniNode":false,
-                                            "hasChild":false,
-                                            "compId":48,
-                                            "child":[
-                                                ]
-                                        }]
-                                },
-                                {
-                                    "x":60,
                                     "type":"Label",
-                                    "searchKey":"Label",
-                                    "props":{"y":51,"x":210,"text":"菜地收获10次","fontSize":50,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
+                                    "searchKey":"Label,title",
+                                    "props":{"y":48,"x":37,"text":"系统邮件","name":"title","fontSize":48,"font":"Microsoft YaHei","color":"#5A3F2A"},
                                     "nodeParent":52,
-                                    "label":"Label",
+                                    "label":"title",
                                     "isDirectory":false,
                                     "isAniNode":false,
                                     "hasChild":false,
@@ -238,19 +162,87 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Label",
-                                    "searchKey":"Label",
-                                    "props":{"y":133,"x":208,"text":"还差6次","fontSize":36,"font":"Microsoft YaHei","color":"#D13210","bold":true},
+                                    "searchKey":"Label,time",
+                                    "props":{"y":59,"x":275,"text":"2021.10.13 15:28:29","name":"time","fontSize":40,"font":"Microsoft YaHei","color":"#5A3F2A"},
                                     "nodeParent":52,
-                                    "label":"Label",
+                                    "label":"time",
                                     "isDirectory":false,
                                     "isAniNode":false,
                                     "hasChild":false,
-                                    "compId":51,
+                                    "compId":54,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Label",
+                                    "searchKey":"Label,desc",
+                                    "props":{"y":126,"x":42,"text":"xxx潜入菜地偷菜，被狗狗发现并追加了作物","name":"desc","fontSize":36,"font":"Microsoft YaHei","color":"#916443"},
+                                    "nodeParent":52,
+                                    "label":"desc",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":55,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Label",
+                                    "searchKey":"Label,num",
+                                    "props":{"y":86,"x":890,"text":"x1","name":"num","fontSize":44,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
+                                    "nodeParent":52,
+                                    "label":"num",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":57,
                                     "child":[
                                         ]
                                 }]
+                        }]
+                },
+                {
+                    "type":"Image",
+                    "searchKey":"Image",
+                    "props":{"y":1094,"x":541,"skin":"game/img_buybtm.png","anchorY":0.5,"anchorX":0.5},
+                    "nodeParent":38,
+                    "label":"Image",
+                    "isOpen":true,
+                    "isDirectory":true,
+                    "isAniNode":true,
+                    "hasChild":true,
+                    "compId":58,
+                    "child":[
+                        {
+                            "type":"Image",
+                            "searchKey":"Image",
+                            "props":{"y":17,"x":48,"skin":"game/img_oneKeyGet.png"},
+                            "nodeParent":58,
+                            "label":"Image",
+                            "isOpen":true,
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":59,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "type":"Script",
+                            "switchAble":true,
+                            "source":"src/components/Button.ts",
+                            "searchKey":"Script,Button",
+                            "removeAble":true,
+                            "props":{"y":0,"x":0,"isScale":true},
+                            "nodeParent":58,
+                            "label":"Button",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":60,
+                            "child":[
+                                ]
                         }]
                 }],
             "$HIDDEN":false
@@ -259,16 +251,16 @@
             "x":15,
             "type":"Script",
             "switchAble":true,
-            "source":"src/view/TaskView.ts",
-            "searchKey":"Script,TaskView",
+            "source":"src/view/MailView.ts",
+            "searchKey":"Script,MailView",
             "removeAble":true,
             "props":{},
             "nodeParent":2,
-            "label":"TaskView",
+            "label":"MailView",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
-            "compId":54,
+            "compId":61,
             "child":[
                 ]
         },
@@ -285,7 +277,7 @@
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
-            "compId":55,
+            "compId":63,
             "child":[
                 ]
         }],

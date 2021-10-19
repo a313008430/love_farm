@@ -39,16 +39,20 @@ export default class MainView extends GameScript {
     onClick(e: Laya.Event) {
         console.log(e.target.name);
         switch (e.target.name) {
-            case "openTask":
-                console.log("open task");
-                ViewManager.inst.open(Res.views.TaskView);
-                break;
-            case "shop":
-                // console.log("open task");
-                ViewManager.inst.open(Res.views.ShopView);
-                break;
             case "closeAddLandLayer":
                 this.addLandLayer.visible = false;
+                break;
+            case "task":
+                ViewManager.inst.open(Res.views.TaskView);
+                break;
+            case "signIn":
+                ViewManager.inst.open(Res.views.SignInView);
+                break;
+            case "mail":
+                ViewManager.inst.open(Res.views.MailView);
+                break;
+            case "shop":
+                ViewManager.inst.open(Res.views.ShopView);
                 break;
         }
     }

@@ -5,7 +5,8 @@ import GameScript from "../core/GameScript";
 import ObservableProperty from "../core/ObservableProperty";
 import { ViewManager } from "../core/ViewManager";
 
-export default class TaskControl extends GameScript {
+//  TaskView extends Laya.Script {
+export default class TaskView extends GameScript {
     /** @prop {name:image, tips:"布尔类型示例", type:Node}*/
     public image: Laya.Label = null;
 

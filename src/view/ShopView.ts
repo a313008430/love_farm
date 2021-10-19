@@ -1,4 +1,5 @@
 import Res from "src/common/Res";
+import FloatViewShowAni from "src/components/FloatViewShowAni";
 import GameScript from "src/core/GameScript";
 import { ViewManager } from "src/core/ViewManager";
 
@@ -67,7 +68,7 @@ export default class ShopView extends GameScript {
     onClick(e: Laya.Event) {
         switch (e.target.name) {
             case "close":
-                ViewManager.inst.close(Res.views.ShopView);
+                ViewManager.inst.close(Res.views.ShopView, false, true, FloatViewShowAni);
                 break;
 
             case "seed":
