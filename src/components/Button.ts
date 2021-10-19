@@ -8,13 +8,18 @@ export default class Button extends Laya.Script {
     /** @prop {name:scaleVal, tips:"缩放的值",type:Number, default:0.9}*/
     private scaleVal: number = 0.9;
 
+    private oldScaleX: number;
+    private oldScaleY: number;
+
     onEnable(): void {
         // console.log(this.isScale);
+        (this.owner as Laya.Button).mouseEnabled = true;
+        this.oldScaleX = (this.owner as Laya.Button).get_scaleX();
+        this.oldScaleY = (this.owner as Laya.Button).get_scaleY();
     }
 
     onMouseDown() {
         this.setSkin(this.downRes);
-
         this.setAni(this.scaleVal);
     }
 
@@ -31,7 +36,7 @@ export default class Button extends Laya.Script {
         if (!this.isScale) return;
         Laya.Tween.to(
             this.owner,
-            { scaleX: scale, scaleY: scale },
+            { scaleX: scale * this.oldScaleX, scaleY: scale * this.oldScaleY },
             300,
             Laya.Ease.backOut,
             null,

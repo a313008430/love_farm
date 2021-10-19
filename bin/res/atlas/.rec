@@ -17,15 +17,17 @@ P 60C0F648 img_buybtm.png
 P 170FB60D img_calender.png
 P 7FFCAEBD img_chocolate.png
 P FE3F903F img_coins.png
-P FA97C047 img_cover.png
+P 0F155576 img_cover.png
 P E73CD3A5 img_datatask.png
 P 3B632D85 img_dog1.png
 P 001A108F img_done.png
 P 9B73E4D6 img_email.png
+P 7EA4F044 img_findThief.png
 P 08BD269C img_foodnNormal.png
 P F6E8E452 img_foodnSelected.png
 P 73764C7F img_get.png
 P A98CD842 img_getAubergine.png
+P A797887F img_getBack.png
 P B0B9D4EA img_halfstar.png
 P EA54F163 img_housetop.png
 P F562DFFB img_invite.png
@@ -34,6 +36,7 @@ P 7D0F5553 img_listDiamond.png
 P BE29A02C img_nuts.png
 P 2033E93B img_oneKeyGet.png
 P 01FF6B53 img_petbag.png
+P 90F4F302 img_petbagSelected.png
 P 33ECA11F img_petNormal.png
 P A516C197 img_petSelected.png
 P 04D022D1 img_popUpBg.png
@@ -44,6 +47,7 @@ P B6CF864F img_progressBa2.png
 P B53EA540 img_progressBabg2.png
 P 1920AB1D img_progressBarBg.png
 P 6CDDE238 img_record.png
+P 26225C98 img_residue.png
 P 505DFF4D img_rocket.png
 P 468DC33D img_seedaubergine.png
 P 80AD2A3C img_seedcarrat.png

@@ -12,4 +12,6 @@
    <item name="game/img_window.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=41,59,42,52" picType="0" scale="0"/>
    <item name="game/img_petbag.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=60,65,58,56" picType="0" scale="0"/>
    <item name="game/img_shield.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=2,2,2,2" picType="0" scale="0"/>
+   <item name="game/img_listBg.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,133,0,138" picType="0" scale="0"/>
+   <item name="game/img_cover.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,28,0,23" picType="0" scale="0"/>
 </res>
