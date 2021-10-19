@@ -11,10 +11,15 @@ export default class MainView extends GameScript {
     public image: Laya.Label = null;
     /** @prop {name:shaderImage, tips:"shader用的图", type:Node}*/
     private shaderImage: Laya.Sprite = null;
+    /** @prop {name:addLandBg, tips:"拓展土地的背景", type:Node}*/
+    private addLandBg: Laya.Image = null;
+    /** @prop {name:addLandLayer, tips:"拓展土地容器", type:Node}*/
+    private addLandLayer: Laya.Box = null;
 
     // 更多参数说明请访问: https://ldc2.layabox.com/doc/?nav=zh-as-2-4-0
 
     onHdEnable(): void {
+        this.addLandBg.alpha = 0.75;
         console.log(111);
 
         console.log(this.shaderImage);
@@ -31,7 +36,8 @@ export default class MainView extends GameScript {
         ObservableProperty.watch(UserInfo, this).key("nickname", (e) => {});
     }
 
-    onClick(e) {
+    onClick(e: Laya.Event) {
+        console.log(e.target.name);
         switch (e.target.name) {
             case "openTask":
                 console.log("open task");
@@ -40,6 +46,9 @@ export default class MainView extends GameScript {
             case "shop":
                 // console.log("open task");
                 ViewManager.inst.open(Res.views.ShopView);
+                break;
+            case "closeAddLandLayer":
+                this.addLandLayer.visible = false;
                 break;
         }
     }

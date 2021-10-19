@@ -39,6 +39,7 @@
          "scenes/views/ShopView.scene",
          "scenes/views/MainView.scene",
          "scenes/views/LoadDialog.scene",
+         "scenes/prefab/PlotPrefab.prefab",
          "scenes/components/Button.prefab",
             "res/Xasdfasd.png",
             "res/rule_text.png",

@@ -56,6 +56,7 @@ export default class ShopView extends GameScript {
         // console.log(cell);
         // cell.setImg(cell.dataSource);
         (cell.getChildByName("hbox").getChildByName("num") as Laya.FontClip).value = index;
+
         if (index == this.itemListSelectIndex) {
             cell.skin = this.itemSelectBg[1];
         } else {

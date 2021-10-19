@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":97,
+    "selectedBox":317,
+    "selecteID":334,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":276,
+    "maxID":335,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -21,7 +21,7 @@
             "source":"src/view/MainView.ts",
             "searchKey":"Script,MainView",
             "removeAble":true,
-            "props":{"y":0,"x":0,"width":14,"height":14},
+            "props":{"y":0,"x":0,"width":14,"height":14,"addLandLayer":"@node:316","addLandBg":"@node:332"},
             "nodeParent":2,
             "label":"MainView",
             "isDirectory":false,
@@ -45,7 +45,7 @@
             "child":[
                 ],
             "$LOCKED":true,
-            "$HIDDEN":false
+            "$HIDDEN":true
         },
         {
             "x":15,
@@ -54,14 +54,13 @@
             "props":{"width":1083,"name":"center_box","height":1149,"centerY":0,"centerX":0,"anchorY":0.5,"anchorX":0.5},
             "nodeParent":2,
             "label":"center_box",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":96,
             "child":[
                 {
-                    "x":30,
                     "type":"Box",
                     "searchKey":"Box,house_box",
                     "props":{"y":-57,"x":-106,"name":"house_box"},
@@ -74,7 +73,6 @@
                     "compId":101,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,shop",
                             "props":{"y":252,"x":1003,"skin":"main_sence/img_marketBuilding.png","name":"shop","anchorY":0.5,"anchorX":0.5},
@@ -105,7 +103,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":149,"x":657,"skin":"main_sence/img_otherBuilding.png","anchorY":0.5,"anchorX":0.5},
@@ -135,7 +132,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":272,"x":270,"skin":"main_sence/img_storehouseBuilding.png","anchorY":0.5,"anchorX":0.5},
@@ -166,10 +162,9 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Box",
                     "searchKey":"Box,land_box",
-                    "props":{"y":403,"x":-46,"name":"land_box"},
+                    "props":{"y":452,"x":15,"width":1087,"name":"land_box","height":610},
                     "nodeParent":96,
                     "label":"land_box",
                     "isOpen":false,
@@ -180,258 +175,609 @@
                     "child":[
                         {
                             "type":"Image",
+                            "selectedBox":105,
+                            "selecteID":253,
                             "searchKey":"Image",
-                            "props":{"y":219,"skin":"main_sence/img_wasteland.png"},
+                            "props":{"y":61,"x":550,"skin":"main_sence/img_land.png","presetID":1,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
                             "nodeParent":112,
-                            "label":"Image",
-                            "isOpen":true,
+                            "maxID":254,
+                            "label":"Image(PlotPrefab)",
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
-                            "compId":109,
+                            "compId":284,
                             "child":[
                                 {
                                     "type":"Poly",
                                     "searchKey":"Poly",
-                                    "props":{"y":65,"x":130,"renderType":"hit","points":"-133,41,76,-65,276,30,62,140","lineWidth":1,"lineColor":"#ff0000","fillColor":"#00ffff"},
-                                    "nodeParent":109,
-                                    "label":"Poly",
+                                    "props":{"presetID":2,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":284,
+                                    "label":"Poly(PlotPrefab)",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":268,
+                                    "compId":285,
                                     "child":[
-                                        ]
-                                }]
-                        },
-                        {
-                            "type":"Image",
-                            "searchKey":"Image",
-                            "props":{"y":109,"x":216,"skin":"main_sence/img_wasteland.png"},
-                            "nodeParent":112,
-                            "label":"Image",
-                            "isOpen":true,
-                            "isDirectory":true,
-                            "isAniNode":true,
-                            "hasChild":true,
-                            "compId":110,
-                            "child":[
+                                        ],
+                                    "$HIDDEN":true
+                                },
                                 {
-                                    "type":"Poly",
-                                    "searchKey":"Poly",
-                                    "props":{"y":65,"x":130,"renderType":"hit","points":"-133,41,79,-65,276,30,67,140","lineWidth":1,"lineColor":"#ff0000","fillColor":"#00ffff"},
-                                    "nodeParent":110,
-                                    "label":"Poly",
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":3,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":284,
+                                    "label":"icon",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":267,
-                                    "child":[
-                                        ]
-                                }]
-                        },
-                        {
-                            "type":"Image",
-                            "searchKey":"Image",
-                            "props":{"x":428,"skin":"main_sence/img_wasteland.png"},
-                            "nodeParent":112,
-                            "label":"Image",
-                            "isOpen":true,
-                            "isDirectory":true,
-                            "isAniNode":true,
-                            "hasChild":true,
-                            "compId":111,
-                            "child":[
-                                {
-                                    "type":"Poly",
-                                    "searchKey":"Poly",
-                                    "props":{"y":65,"x":130,"renderType":"hit","points":"-133,41,79,-65,276,30,59,142","lineWidth":1,"lineColor":"#ff0000","fillColor":"#00ffff"},
-                                    "nodeParent":111,
-                                    "label":"Poly",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":266,
-                                    "child":[
-                                        ]
-                                }]
-                        },
-                        {
-                            "type":"Image",
-                            "searchKey":"Image",
-                            "props":{"y":318,"x":195,"skin":"main_sence/img_wasteland.png"},
-                            "nodeParent":112,
-                            "label":"Image",
-                            "isOpen":true,
-                            "isDirectory":true,
-                            "isAniNode":true,
-                            "hasChild":true,
-                            "compId":106,
-                            "child":[
-                                {
-                                    "type":"Poly",
-                                    "searchKey":"Poly",
-                                    "props":{"y":65,"x":130,"renderType":"hit","points":"-133,41,79,-65,274,33,58,147","lineWidth":1,"lineColor":"#ff0000","fillColor":"#00ffff"},
-                                    "nodeParent":106,
-                                    "label":"Poly",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":265,
-                                    "child":[
-                                        ]
-                                }]
-                        },
-                        {
-                            "type":"Image",
-                            "searchKey":"Image",
-                            "props":{"y":208,"x":413,"width":403,"skin":"main_sence/img_wasteland.png","height":202},
-                            "nodeParent":112,
-                            "label":"Image",
-                            "isOpen":true,
-                            "isDirectory":true,
-                            "isAniNode":true,
-                            "hasChild":true,
-                            "compId":107,
-                            "child":[
-                                {
-                                    "type":"Poly",
-                                    "searchKey":"Poly",
-                                    "props":{"y":65,"x":130,"renderType":"hit","points":"-133,41,79,-65,276,30,64,142","lineWidth":1,"lineColor":"#ff0000","fillColor":"#00ffff"},
-                                    "nodeParent":107,
-                                    "label":"Poly",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":264,
-                                    "child":[
-                                        ]
-                                }]
-                        },
-                        {
-                            "type":"Image",
-                            "searchKey":"Image",
-                            "props":{"y":200,"x":826,"skin":"main_sence/img_wasteland.png","mouseThrough":true,"mouseEnabled":true,"anchorY":0.5,"anchorX":0.5},
-                            "nodeParent":112,
-                            "label":"Image",
-                            "isOpen":true,
-                            "isDirectory":true,
-                            "isAniNode":true,
-                            "hasChild":true,
-                            "compId":108,
-                            "child":[
-                                {
-                                    "type":"Script",
-                                    "switchAble":true,
-                                    "source":"src/components/Button.ts",
-                                    "searchKey":"Script,Button",
-                                    "removeAble":true,
-                                    "props":{"isScale":true},
-                                    "nodeParent":108,
-                                    "label":"Button",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":245,
+                                    "compId":298,
                                     "child":[
                                         ]
                                 },
                                 {
-                                    "type":"Poly",
-                                    "searchKey":"Poly",
-                                    "props":{"y":65,"x":130,"renderType":"hit","points":"-133,41,77,-67,269,36,68,142","lineWidth":1,"lineColor":"#ff0000","fillColor":"#00ffff"},
-                                    "nodeParent":108,
-                                    "label":"Poly",
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":4,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":284,
+                                    "label":"Image(PlotPrefab)",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":269,
-                                    "child":[
-                                        ]
-                                }]
-                        },
-                        {
-                            "type":"Image",
-                            "searchKey":"Image",
-                            "props":{"y":419,"x":396,"skin":"main_sence/img_wasteland.png"},
-                            "nodeParent":112,
-                            "label":"Image",
-                            "isOpen":true,
-                            "isDirectory":true,
-                            "isAniNode":true,
-                            "hasChild":true,
-                            "compId":102,
-                            "child":[
-                                {
-                                    "type":"Poly",
-                                    "searchKey":"Poly",
-                                    "props":{"y":65,"x":130,"renderType":"hit","points":"-141,46,79,-65,279,33,67,139","lineWidth":1,"lineColor":"#ff0000","fillColor":"#00ffff"},
-                                    "nodeParent":102,
-                                    "label":"Poly",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":263,
+                                    "compId":299,
                                     "child":[
                                         ],
-                                    "$HIDDEN":false
-                                }]
+                                    "$LOCKED":true
+                                }],
+                            "animations":[
+                                {
+                                    "nodes":[
+                                        ],
+                                    "name":"ani1",
+                                    "id":1,
+                                    "frameRate":24,
+                                    "action":0
+                                }],
+                            "$LOCKED":true,
+                            "$HIDDEN":false
                         },
                         {
                             "type":"Image",
+                            "selectedBox":105,
+                            "selecteID":253,
                             "searchKey":"Image",
-                            "props":{"y":309,"x":612,"skin":"main_sence/img_wasteland.png"},
+                            "props":{"y":168,"x":342,"presetID":1,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
                             "nodeParent":112,
-                            "label":"Image",
-                            "isOpen":true,
+                            "maxID":254,
+                            "label":"Image(PlotPrefab)",
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
-                            "compId":103,
+                            "compId":282,
                             "child":[
                                 {
                                     "type":"Poly",
                                     "searchKey":"Poly",
-                                    "props":{"y":65,"x":130,"renderType":"hit","points":"-133,41,79,-65,273,34,68,140","lineWidth":1,"lineColor":"#ff0000","fillColor":"#00ffff"},
-                                    "nodeParent":103,
-                                    "label":"Poly",
+                                    "props":{"presetID":2,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":282,
+                                    "label":"Poly(PlotPrefab)",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":262,
+                                    "compId":283,
+                                    "child":[
+                                        ],
+                                    "$HIDDEN":true
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":3,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":282,
+                                    "label":"icon",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":300,
                                     "child":[
                                         ]
-                                }]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":4,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":282,
+                                    "label":"Image(PlotPrefab)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":301,
+                                    "child":[
+                                        ],
+                                    "$LOCKED":true
+                                }],
+                            "animations":[
+                                {
+                                    "nodes":[
+                                        ],
+                                    "name":"ani1",
+                                    "id":1,
+                                    "frameRate":24,
+                                    "action":0
+                                }],
+                            "$LOCKED":true,
+                            "$HIDDEN":false
                         },
                         {
                             "type":"Image",
+                            "selectedBox":105,
+                            "selecteID":253,
                             "searchKey":"Image",
-                            "props":{"y":200,"x":824,"skin":"main_sence/img_wasteland.png"},
+                            "props":{"y":277,"x":140,"presetID":1,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
                             "nodeParent":112,
-                            "label":"Image",
-                            "isOpen":true,
+                            "maxID":254,
+                            "label":"Image(PlotPrefab)",
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
-                            "compId":105,
+                            "compId":279,
                             "child":[
                                 {
                                     "type":"Poly",
                                     "searchKey":"Poly",
-                                    "props":{"y":65,"x":130,"renderType":"hit","points":"-133,41,79,-65,276,30,67,138","lineWidth":1,"lineColor":"#ff0000","fillColor":"#00ffff"},
-                                    "nodeParent":105,
-                                    "label":"Poly",
+                                    "props":{"presetID":2,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":279,
+                                    "label":"Poly(PlotPrefab)",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
                                     "compId":253,
                                     "child":[
+                                        ],
+                                    "$HIDDEN":true
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":3,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":279,
+                                    "label":"icon",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":302,
+                                    "child":[
                                         ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":4,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":279,
+                                    "label":"Image(PlotPrefab)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":303,
+                                    "child":[
+                                        ],
+                                    "$LOCKED":true
+                                }],
+                            "animations":[
+                                {
+                                    "nodes":[
+                                        ],
+                                    "name":"ani1",
+                                    "id":1,
+                                    "frameRate":24,
+                                    "action":0
+                                }],
+                            "$LOCKED":true,
+                            "$HIDDEN":false
+                        },
+                        {
+                            "type":"Image",
+                            "selectedBox":105,
+                            "selecteID":253,
+                            "searchKey":"Image",
+                            "props":{"y":162,"x":745,"skin":"main_sence/img_land.png","presetID":1,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                            "nodeParent":112,
+                            "maxID":254,
+                            "label":"Image(PlotPrefab)",
+                            "isOpen":false,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":286,
+                            "child":[
+                                {
+                                    "type":"Poly",
+                                    "searchKey":"Poly",
+                                    "props":{"presetID":2,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":286,
+                                    "label":"Poly(PlotPrefab)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":289,
+                                    "child":[
+                                        ],
+                                    "$HIDDEN":true
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":3,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":286,
+                                    "label":"icon",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":304,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":4,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":286,
+                                    "label":"Image(PlotPrefab)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":305,
+                                    "child":[
+                                        ],
+                                    "$LOCKED":true
+                                }],
+                            "animations":[
+                                {
+                                    "nodes":[
+                                        ],
+                                    "name":"ani1",
+                                    "id":1,
+                                    "frameRate":24,
+                                    "action":0
+                                }],
+                            "$LOCKED":true
+                        },
+                        {
+                            "type":"Image",
+                            "selectedBox":105,
+                            "selecteID":253,
+                            "searchKey":"Image",
+                            "props":{"y":267,"x":536,"presetID":1,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                            "nodeParent":112,
+                            "maxID":254,
+                            "label":"Image(PlotPrefab)",
+                            "isOpen":false,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":287,
+                            "child":[
+                                {
+                                    "type":"Poly",
+                                    "searchKey":"Poly",
+                                    "props":{"presetID":2,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":287,
+                                    "label":"Poly(PlotPrefab)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":290,
+                                    "child":[
+                                        ],
+                                    "$HIDDEN":true
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":3,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":287,
+                                    "label":"icon",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":306,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":4,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":287,
+                                    "label":"Image(PlotPrefab)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":307,
+                                    "child":[
+                                        ],
+                                    "$LOCKED":true
+                                }],
+                            "animations":[
+                                {
+                                    "nodes":[
+                                        ],
+                                    "name":"ani1",
+                                    "id":1,
+                                    "frameRate":24,
+                                    "action":0
+                                }],
+                            "$LOCKED":true
+                        },
+                        {
+                            "type":"Image",
+                            "selectedBox":105,
+                            "selecteID":253,
+                            "searchKey":"Image",
+                            "props":{"y":376,"x":334,"skin":"main_sence/img_land.png","presetID":1,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                            "nodeParent":112,
+                            "maxID":254,
+                            "label":"Image(PlotPrefab)",
+                            "isOpen":false,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":288,
+                            "child":[
+                                {
+                                    "type":"Poly",
+                                    "searchKey":"Poly",
+                                    "props":{"presetID":2,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":288,
+                                    "label":"Poly(PlotPrefab)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":291,
+                                    "child":[
+                                        ],
+                                    "$HIDDEN":true
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":3,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":288,
+                                    "label":"icon",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":308,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":4,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":288,
+                                    "label":"Image(PlotPrefab)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":309,
+                                    "child":[
+                                        ],
+                                    "$LOCKED":true
+                                }],
+                            "animations":[
+                                {
+                                    "nodes":[
+                                        ],
+                                    "name":"ani1",
+                                    "id":1,
+                                    "frameRate":24,
+                                    "action":0
+                                }],
+                            "$LOCKED":true
+                        },
+                        {
+                            "type":"Image",
+                            "selectedBox":105,
+                            "selecteID":253,
+                            "searchKey":"Image",
+                            "props":{"y":257.5,"x":943,"skin":"main_sence/img_land.png","presetID":1,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                            "nodeParent":112,
+                            "maxID":254,
+                            "label":"Image(PlotPrefab)",
+                            "isOpen":false,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":292,
+                            "child":[
+                                {
+                                    "type":"Poly",
+                                    "searchKey":"Poly",
+                                    "props":{"presetID":2,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":292,
+                                    "label":"Poly(PlotPrefab)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":295,
+                                    "child":[
+                                        ],
+                                    "$HIDDEN":true
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":3,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":292,
+                                    "label":"icon",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":310,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":4,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":292,
+                                    "label":"Image(PlotPrefab)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":311,
+                                    "child":[
+                                        ],
+                                    "$LOCKED":true
+                                }],
+                            "animations":[
+                                {
+                                    "nodes":[
+                                        ],
+                                    "name":"ani1",
+                                    "id":1,
+                                    "frameRate":24,
+                                    "action":0
+                                }]
+                        },
+                        {
+                            "type":"Image",
+                            "selectedBox":105,
+                            "selecteID":253,
+                            "searchKey":"Image",
+                            "props":{"y":361,"x":735,"presetID":1,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                            "nodeParent":112,
+                            "maxID":254,
+                            "label":"Image(PlotPrefab)",
+                            "isOpen":false,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":293,
+                            "child":[
+                                {
+                                    "type":"Poly",
+                                    "searchKey":"Poly",
+                                    "props":{"presetID":2,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":293,
+                                    "label":"Poly(PlotPrefab)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":296,
+                                    "child":[
+                                        ],
+                                    "$HIDDEN":true
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":3,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":293,
+                                    "label":"icon",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":312,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":4,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":293,
+                                    "label":"Image(PlotPrefab)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":313,
+                                    "child":[
+                                        ],
+                                    "$LOCKED":true
+                                }],
+                            "animations":[
+                                {
+                                    "nodes":[
+                                        ],
+                                    "name":"ani1",
+                                    "id":1,
+                                    "frameRate":24,
+                                    "action":0
+                                }]
+                        },
+                        {
+                            "type":"Image",
+                            "selectedBox":105,
+                            "selecteID":253,
+                            "searchKey":"Image",
+                            "props":{"y":470,"x":533,"skin":"main_sence/img_land.png","presetID":1,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                            "nodeParent":112,
+                            "maxID":254,
+                            "label":"Image(PlotPrefab)",
+                            "isOpen":false,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":294,
+                            "child":[
+                                {
+                                    "type":"Poly",
+                                    "searchKey":"Poly",
+                                    "props":{"presetID":2,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":294,
+                                    "label":"Poly(PlotPrefab)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":297,
+                                    "child":[
+                                        ],
+                                    "$HIDDEN":true
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":3,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":294,
+                                    "label":"icon",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":314,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":4,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
+                                    "nodeParent":294,
+                                    "label":"Image(PlotPrefab)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":315,
+                                    "child":[
+                                        ],
+                                    "$LOCKED":true
+                                }],
+                            "animations":[
+                                {
+                                    "nodes":[
+                                        ],
+                                    "name":"ani1",
+                                    "id":1,
+                                    "frameRate":24,
+                                    "action":0
                                 }]
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":889,"x":30,"skin":"main_sence/img_billboard.png"},
@@ -445,7 +791,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":897,"x":858,"skin":"main_sence/img_dogHouse.png"},
@@ -459,7 +804,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":1058,"x":718,"skin":"main_sence/img_dog1.png"},
@@ -473,7 +817,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":1132,"x":941,"skin":"main_sence/img_bowl.png"},
@@ -486,7 +829,7 @@
                     "child":[
                         ]
                 }],
-            "$HIDDEN":false
+            "$HIDDEN":true
         },
         {
             "x":15,
@@ -981,10 +1324,10 @@
                 {
                     "type":"Image",
                     "searchKey":"Image,msg_box",
-                    "props":{"y":47,"x":-10,"width":629,"skin":"main_sence/img_taskBg2.png","name":"msg_box","height":86},
+                    "props":{"y":47,"x":-10,"width":689,"skin":"main_sence/img_taskBg2.png","name":"msg_box","height":86},
                     "nodeParent":243,
                     "label":"msg_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
@@ -992,10 +1335,10 @@
                     "child":[
                         {
                             "type":"Image",
-                            "searchKey":"Image",
-                            "props":{"y":34,"skin":"main_sence/img_coinBtn.png","right":-24,"anchorY":0.5,"anchorX":0.5},
+                            "searchKey":"Image,icon",
+                            "props":{"y":34,"skin":"main_sence/img_coinBtn.png","right":-24,"name":"icon","anchorY":0.5,"anchorX":0.5},
                             "nodeParent":244,
-                            "label":"Image",
+                            "label":"icon",
                             "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
@@ -1015,9 +1358,270 @@
                                     "child":[
                                         ]
                                 }]
+                        },
+                        {
+                            "type":"Label",
+                            "searchKey":"Label,lb",
+                            "props":{"y":24,"x":33,"text":"任务：辣椒(3/10) 胡萝卜(10/10)","name":"lb","fontSize":38,"font":"Microsoft YaHei","color":"#906344","bold":true},
+                            "nodeParent":244,
+                            "label":"lb",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":276,
+                            "child":[
+                                ]
                         }],
                     "$HIDDEN":false
-                }]
+                }],
+            "$HIDDEN":true
+        },
+        {
+            "x":15,
+            "type":"Box",
+            "searchKey":"Box,add_land_layer",
+            "props":{"visible":true,"top":0,"right":0,"name":"add_land_layer","mouseEnabled":true,"left":0,"bottom":0},
+            "nodeParent":2,
+            "label":"add_land_layer",
+            "isOpen":true,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":316,
+            "child":[
+                {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image,bg",
+                    "props":{"top":0,"skin":"game/img_shield.png","right":0,"name":"bg","left":0,"bottom":0},
+                    "nodeParent":316,
+                    "label":"bg",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":332,
+                    "child":[
+                        ],
+                    "$HIDDEN":true
+                },
+                {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image",
+                    "props":{"y":625,"x":84,"skin":"main_sence/img_popUpBg.png","mouseEnabled":true,"centerY":50,"centerX":0},
+                    "nodeParent":316,
+                    "label":"Image",
+                    "isOpen":true,
+                    "isDirectory":true,
+                    "isAniNode":true,
+                    "hasChild":true,
+                    "compId":317,
+                    "child":[
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image",
+                            "props":{"y":110,"x":131,"skin":"main_sence/img_greenLand.png"},
+                            "nodeParent":317,
+                            "label":"Image",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":322,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image,ad_btn",
+                            "props":{"y":652,"x":654,"skin":"main_sence/img_videoBtn.png","name":"ad_btn","anchorY":0.5,"anchorX":0.5},
+                            "nodeParent":317,
+                            "label":"ad_btn",
+                            "isOpen":null,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":324,
+                            "child":[
+                                {
+                                    "type":"Script",
+                                    "switchAble":true,
+                                    "source":"src/components/Button.ts",
+                                    "searchKey":"Script,Button",
+                                    "removeAble":true,
+                                    "props":{"isScale":true},
+                                    "nodeParent":324,
+                                    "label":"Button",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":325,
+                                    "child":[
+                                        ]
+                                }]
+                        },
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "searchKey":"Label",
+                            "props":{"y":543,"x":458,"text":"扩建土地种植更多蔬菜","fontSize":48,"font":"Microsoft YaHei","color":"#906344","bold":true,"anchorY":0.5,"anchorX":0.5},
+                            "nodeParent":317,
+                            "label":"Label",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":323,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image",
+                            "props":{"y":-115.5,"x":164.5,"skin":"game/img_woodtitle.png"},
+                            "nodeParent":317,
+                            "label":"Image",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":318,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image,closeAddLandLayer",
+                            "props":{"y":22,"x":870,"skin":"game/img_x.png","name":"closeAddLandLayer","anchorY":0.5,"anchorX":0.5},
+                            "nodeParent":317,
+                            "label":"closeAddLandLayer",
+                            "isOpen":true,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":319,
+                            "child":[
+                                {
+                                    "x":60,
+                                    "type":"Script",
+                                    "switchAble":true,
+                                    "source":"src/components/Button.ts",
+                                    "searchKey":"Script,Button",
+                                    "removeAble":true,
+                                    "props":{"isScale":true},
+                                    "nodeParent":319,
+                                    "label":"Button",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":320,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Circle",
+                                    "searchKey":"Circle",
+                                    "props":{"y":41.5,"x":41,"renderType":"hit","radius":77,"lineWidth":1,"fillColor":"#ff0000"},
+                                    "nodeParent":319,
+                                    "label":"Circle",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":321,
+                                    "child":[
+                                        ]
+                                }]
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image,cost_gold",
+                            "props":{"y":651,"x":268,"skin":"game/img_buybtm.png","name":"cost_gold","anchorY":0.5,"anchorX":0.5},
+                            "nodeParent":317,
+                            "label":"cost_gold",
+                            "isOpen":false,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":326,
+                            "child":[
+                                {
+                                    "type":"HBox",
+                                    "searchKey":"HBox",
+                                    "props":{"y":46,"x":160,"space":4,"anchorY":0.5,"anchorX":0.5,"align":"middle"},
+                                    "nodeParent":326,
+                                    "label":"HBox",
+                                    "isOpen":true,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":329,
+                                    "child":[
+                                        {
+                                            "type":"Image",
+                                            "searchKey":"Image",
+                                            "props":{"x":0,"skin":"game/img_coins.png"},
+                                            "nodeParent":329,
+                                            "label":"Image",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":327,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"FontClip",
+                                            "searchKey":"FontClip",
+                                            "props":{"value":"1000","skin":"game/fontClip_price.png","sheet":"0123456789"},
+                                            "nodeParent":329,
+                                            "label":"FontClip",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":331,
+                                            "child":[
+                                                ]
+                                        }]
+                                },
+                                {
+                                    "type":"Script",
+                                    "switchAble":true,
+                                    "source":"src/components/Button.ts",
+                                    "searchKey":"Script,Button",
+                                    "removeAble":true,
+                                    "props":{"isScale":true},
+                                    "nodeParent":326,
+                                    "label":"Button",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":333,
+                                    "child":[
+                                        ]
+                                }],
+                            "$LOCKED":true,
+                            "$HIDDEN":false
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image",
+                            "props":{"y":-37.5,"x":296.5,"skin":"main_sence/img_expand.png"},
+                            "nodeParent":317,
+                            "label":"Image",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":334,
+                            "child":[
+                                ]
+                        }],
+                    "$HIDDEN":false
+                }],
+            "$HIDDEN":false
         }],
     "animations":[
         {

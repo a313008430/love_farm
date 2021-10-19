@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":91,
-    "selecteID":185,
+    "selectedBox":2,
+    "selecteID":19,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/ShopView.png","right":0,"left":0,"height":1920,"btnList":"@arr:,,","bottom":0},
     "nodeParent":-1,
@@ -1267,7 +1267,7 @@
                             "$HIDDEN":true
                         }],
                     "$LOCKED":true,
-                    "$HIDDEN":true
+                    "$HIDDEN":false
                 }],
             "$HIDDEN":false
         }],
