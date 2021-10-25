@@ -1,39 +1,40 @@
+import { ApiHttp } from "src/common/NetMaps";
+import Core from "src/core/index";
 import Res from "../common/Res";
 import UserInfo from "../common/UserInfo";
-import EventGlobal, { EventOn } from "../core/EventGlobal";
-import GameScript from "../core/GameScript";
-import ObservableProperty from "../core/ObservableProperty";
-import { ViewManager } from "../core/ViewManager";
 
 //  MainView extends Laya.Script {
-export default class MainView extends GameScript {
-    /** @prop {name:image, tips:"布尔类型示例", type:Node}*/
-    public image: Laya.Label = null;
-    /** @prop {name:shaderImage, tips:"shader用的图", type:Node}*/
-    private shaderImage: Laya.Sprite = null;
-    /** @prop {name:addLandBg, tips:"拓展土地的背景", type:Node}*/
-    private addLandBg: Laya.Image = null;
+export default class MainView extends Core.gameScript {
     /** @prop {name:addLandLayer, tips:"拓展土地容器", type:Node}*/
     private addLandLayer: Laya.Box = null;
+
+    /** @prop {name:diamondNode, tips:"钻石节点", type:Node}*/
+    private diamondNode: Laya.FontClip = null;
+    /** @prop {name:goldNode, tips:"金币节点", type:Node}*/
+    private goldNode: Laya.FontClip = null;
+    /** @prop {name:avatarNode, tips:"头像节点", type:Node}*/
+    private avatarNode: Laya.FontClip = null;
 
     // 更多参数说明请访问: https://ldc2.layabox.com/doc/?nav=zh-as-2-4-0
 
     onHdEnable(): void {
-        this.addLandBg.alpha = 0.75;
-        console.log(111);
+        Core.observableProperty
+            .watch(UserInfo, this)
+            .key("diamond", (e) => {
+                this.diamondNode.value = e;
+            })
+            .key("gold", (e) => {
+                this.goldNode.value = e;
+            })
+            .key("avatar", (e) => {
+                this.avatarNode.skin = e;
+            });
+    }
 
-        console.log(this.shaderImage);
-
-        let a = 0;
-        setInterval(() => {
-            UserInfo.nickname = "1231231" + ++a;
-            EventGlobal.event("aa", "asdfa");
-            // if (a == 1) {
-            //     EventGlobal.off("aa", this, this.myEvent);
-            // }
-        }, 1000);
-
-        ObservableProperty.watch(UserInfo, this).key("nickname", (e) => {});
+    @Core.eventOn(ApiHttp.init)
+    private gameInit(d: NetInit) {
+        console.log(d);
+        let a = d.data.landList;
     }
 
     onClick(e: Laya.Event) {
@@ -43,16 +44,16 @@ export default class MainView extends GameScript {
                 this.addLandLayer.visible = false;
                 break;
             case "task":
-                ViewManager.inst.open(Res.views.TaskView);
+                Core.view.open(Res.views.TaskView);
                 break;
             case "signIn":
-                ViewManager.inst.open(Res.views.SignInView);
+                Core.view.open(Res.views.SignInView);
                 break;
             case "mail":
-                ViewManager.inst.open(Res.views.MailView);
+                Core.view.open(Res.views.MailView);
                 break;
             case "shop":
-                ViewManager.inst.open(Res.views.ShopView);
+                Core.view.open(Res.views.ShopView);
                 break;
         }
     }

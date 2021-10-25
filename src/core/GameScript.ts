@@ -7,6 +7,7 @@ import ObservableProperty from "./ObservableProperty";
 export default class GameScript extends Laya.Script {
     constructor() {
         super();
+        //EventOn装饰器事件绑定
         let bindEvent = EventClass.get(this.constructor.prototype);
         bindEvent && EventGlobal.on(bindEvent.key, this, bindEvent.fn);
     }
