@@ -49,6 +49,7 @@
          "scenes/components/Button.prefab",
             "res/Xasdfasd.png",
             "res/rule_text.png",
+            "res/img_landBg.png",
             "res/img_homepageBg3.png",
             "res/img_homepageBg2.png",
             "res/img_homepageBg1.png",

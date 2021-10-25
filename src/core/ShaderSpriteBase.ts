@@ -13,6 +13,8 @@ export default class ShaderSpriteBase extends GameScript {
     onHdEnable() {
         this.shaderImage.customRenderEnable = true;
 
+        return;
+
         Config["customRenderID"].push(this.shaderImage.texture.bitmap["_id"]);
 
         let shader = new Laya.Value2D(

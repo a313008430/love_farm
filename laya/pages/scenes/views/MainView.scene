@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":336,
+    "selectedBox":80,
+    "selecteID":87,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":338,
+    "maxID":350,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -44,14 +44,14 @@
             "compId":81,
             "child":[
                 ],
-            "$LOCKED":false,
+            "$LOCKED":true,
             "$HIDDEN":false
         },
         {
             "x":15,
             "type":"Image",
             "searchKey":"Image",
-            "props":{"y":497,"skin":"res/img_homepageBg2.png","centerX":0,"alpha":1},
+            "props":{"skin":"res/img_homepageBg2.png","centerY":-158,"centerX":0,"alpha":1},
             "nodeParent":2,
             "label":"Image",
             "isDirectory":false,
@@ -59,7 +59,8 @@
             "hasChild":false,
             "compId":336,
             "child":[
-                ]
+                ],
+            "$LOCKED":true
         },
         {
             "x":15,
@@ -73,7 +74,8 @@
             "hasChild":false,
             "compId":337,
             "child":[
-                ]
+                ],
+            "$LOCKED":true
         },
         {
             "x":15,
@@ -88,6 +90,19 @@
             "hasChild":true,
             "compId":96,
             "child":[
+                {
+                    "type":"Image",
+                    "searchKey":"Image",
+                    "props":{"y":391,"x":-107.5,"skin":"res/img_landBg.png"},
+                    "nodeParent":96,
+                    "label":"Image",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":339,
+                    "child":[
+                        ]
+                },
                 {
                     "type":"Box",
                     "searchKey":"Box,house_box",
@@ -195,7 +210,7 @@
                     "props":{"y":452,"x":15,"width":1087,"name":"land_box","height":610},
                     "nodeParent":96,
                     "label":"land_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
@@ -747,7 +762,7 @@
                             "nodeParent":112,
                             "maxID":254,
                             "label":"Image(PlotPrefab)",
-                            "isOpen":false,
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
@@ -773,12 +788,28 @@
                                     "props":{"presetID":3,"preset":"laya/pages/scenes/prefab/PlotPrefab.prefab"},
                                     "nodeParent":294,
                                     "label":"icon",
-                                    "isDirectory":false,
+                                    "isOpen":null,
+                                    "isDirectory":true,
                                     "isAniNode":true,
-                                    "hasChild":false,
+                                    "hasChild":true,
                                     "compId":314,
                                     "child":[
-                                        ]
+                                        {
+                                            "type":"Script",
+                                            "switchAble":true,
+                                            "source":"src/core/ShaderSpriteBase.ts",
+                                            "searchKey":"Script,ShaderSpriteBase",
+                                            "removeAble":true,
+                                            "props":{"shaderImage":"@node:314"},
+                                            "nodeParent":314,
+                                            "label":"ShaderSpriteBase",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":338,
+                                            "child":[
+                                                ]
+                                        }]
                                 },
                                 {
                                     "type":"Image",
@@ -866,13 +897,14 @@
             "props":{"y":49,"x":120,"width":932,"top":49,"skin":"main_sence/img_portraitBg.png","name":"top_box","height":123},
             "nodeParent":2,
             "label":"top_box",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":67,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":-15,"x":-58,"skin":"main_sence/img_portrait.png"},
@@ -886,18 +918,20 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,glod_box",
                     "props":{"y":26,"x":378,"width":233,"skin":"main_sence/img_coinbg.png","name":"glod_box"},
                     "nodeParent":67,
                     "label":"glod_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":71,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":-11,"x":-29,"skin":"main_sence/img_coin.png"},
@@ -911,9 +945,10 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"FontClip",
                             "searchKey":"FontClip",
-                            "props":{"y":11,"x":136,"value":"12345","spaceX":0,"skin":"main_sence/fontClip_head.png","sheet":"0123456789","anchorX":0.5,"align":"center"},
+                            "props":{"y":11,"x":136,"value":"12345","spaceX":-6,"skin":"main_sence/fontClip_head.png","sheet":"0123456789","anchorX":0.5,"align":"center"},
                             "nodeParent":71,
                             "label":"FontClip",
                             "isDirectory":false,
@@ -925,18 +960,20 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,diamond_box",
                     "props":{"y":26,"x":668,"width":233,"skin":"main_sence/img_coinbg.png","name":"diamond_box"},
                     "nodeParent":67,
                     "label":"diamond_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":77,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":-7,"x":-23,"skin":"main_sence/img_diamond.png"},
@@ -950,9 +987,10 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"FontClip",
                             "searchKey":"FontClip",
-                            "props":{"y":11,"x":138,"value":"12345","spaceX":0,"skin":"main_sence/fontClip_head.png","sheet":"0123456789","anchorX":0.5,"align":"center"},
+                            "props":{"y":11,"x":138,"value":"12345","spaceX":-6,"skin":"main_sence/fontClip_head.png","sheet":"0123456789","anchorX":0.5,"align":"center"},
                             "nodeParent":77,
                             "label":"FontClip",
                             "isDirectory":false,
@@ -964,18 +1002,20 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,task_box",
                     "props":{"y":120,"x":37,"skin":"main_sence/img_taskbg.png","name":"task_box"},
                     "nodeParent":67,
                     "label":"task_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":80,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "selectedBox":2,
                             "searchKey":"Image",
@@ -1016,6 +1056,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,item",
                             "props":{"y":54,"x":172,"width":100,"name":"item","height":100},
@@ -1081,6 +1122,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,item",
                             "props":{"y":54,"x":321,"width":100,"name":"item","height":100},
@@ -1146,6 +1188,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label",
                             "props":{"y":38,"x":565,"text":"完成1级订单","fontSize":30,"color":"#D23210","bold":true,"anchorX":0.5},
@@ -1157,10 +1200,77 @@
                             "compId":93,
                             "child":[
                                 ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Box",
+                            "searchKey":"Box,item",
+                            "props":{"y":54,"x":321,"width":100,"name":"item","height":100},
+                            "nodeParent":80,
+                            "label":"item",
+                            "isOpen":false,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":345,
+                            "child":[
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"y":22,"x":50,"width":52,"skin":"main_sence/img_aubergineMature.png","height":56,"anchorY":0.5,"anchorX":0.5},
+                                    "nodeParent":345,
+                                    "label":"Image",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":346,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"y":54,"x":3,"skin":"main_sence/img_headBarBg.png"},
+                                    "nodeParent":345,
+                                    "label":"Image",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":347,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"y":56,"x":5,"width":87,"skin":"main_sence/img_headBar.png","height":12},
+                                    "nodeParent":345,
+                                    "label":"Image",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":348,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Label",
+                                    "searchKey":"Label",
+                                    "props":{"y":77,"x":51,"text":"9/10","fontSize":34,"color":"#755037","bold":true,"anchorX":0.5},
+                                    "nodeParent":345,
+                                    "label":"Label",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":349,
+                                    "child":[
+                                        ]
+                                }]
                         }],
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label",
                     "props":{"y":11.5,"x":105,"text":"江洋大盗","strokeColor":"#9d682f","stroke":4,"fontSize":50,"font":"SimHei","color":"#ffffff","bold":true},
@@ -1175,6 +1285,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label",
                     "props":{"y":69,"x":102,"text":"ID:123456","strokeColor":"#9d682f","stroke":4,"fontSize":36,"font":"SimHei","color":"#ffffff","bold":true},
@@ -1188,7 +1299,7 @@
                     "child":[
                         ]
                 }],
-            "$LOCKED":true,
+            "$LOCKED":false,
             "$HIDDEN":false
         },
         {
@@ -1198,14 +1309,13 @@
             "props":{"x":-13,"width":1162,"name":"bottom_box","height":379,"bottom":0},
             "nodeParent":2,
             "label":"bottom_box",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":243,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":197,"x":15,"skin":"main_sence/img_menuWoodBg.png"},
@@ -1219,7 +1329,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,task",
                     "props":{"y":258,"x":169,"skin":"main_sence/img_daytimeTask.png","name":"task","anchorY":0.5,"anchorX":0.5},
@@ -1249,7 +1358,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,signIn",
                     "props":{"y":258,"x":362,"skin":"main_sence/img_clock.png","name":"signIn","anchorY":0.5,"anchorX":0.5},
@@ -1279,7 +1387,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":258,"x":554,"skin":"main_sence/img_egg.png","anchorY":0.5,"anchorX":0.5},
@@ -1309,7 +1416,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,mail",
                     "props":{"y":258,"x":747,"skin":"main_sence/img_emailMenu.png","name":"mail","anchorY":0.5,"anchorX":0.5},
@@ -1339,7 +1445,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,setting",
                     "props":{"y":258,"x":939,"skin":"main_sence/img_settingMenu.png","name":"setting","anchorY":0.5,"anchorX":0.5},
@@ -1352,7 +1457,6 @@
                     "compId":241,
                     "child":[
                         {
-                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -1370,7 +1474,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,msg_box",
                     "props":{"y":47,"x":-10,"width":689,"skin":"main_sence/img_taskBg2.png","name":"msg_box","height":86},
@@ -1383,7 +1486,6 @@
                     "compId":244,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,icon",
                             "props":{"y":34,"skin":"main_sence/img_coinBtn.png","right":-24,"name":"icon","anchorY":0.5,"anchorX":0.5},
@@ -1396,7 +1498,6 @@
                             "compId":274,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"FontClip",
                                     "searchKey":"FontClip",
                                     "props":{"y":73,"x":37,"value":"x100","spaceX":-8,"skin":"main_sence/fontClip_coinBtnNumber.png","sheet":"0123456789x","anchorY":0.5,"anchorX":0.5,"align":"center"},
@@ -1411,7 +1512,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,lb",
                             "props":{"y":24,"x":33,"text":"任务：辣椒(3/10) 胡萝卜(10/10)","name":"lb","fontSize":38,"font":"Microsoft YaHei","color":"#906344","bold":true},
@@ -1432,7 +1532,7 @@
             "x":15,
             "type":"Box",
             "searchKey":"Box,add_land_layer",
-            "props":{"visible":true,"top":0,"right":0,"name":"add_land_layer","mouseEnabled":true,"left":0,"bottom":0},
+            "props":{"visible":true,"top":0,"right":0,"name":"add_land_layer","mouseEnabled":true,"left":2,"bottom":0},
             "nodeParent":2,
             "label":"add_land_layer",
             "isOpen":false,

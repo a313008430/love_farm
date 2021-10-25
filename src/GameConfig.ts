@@ -4,6 +4,7 @@ import Button from "./components/Button"
 import MailView from "./view/MailView"
 import ViewShowAni from "./components/ViewShowAni"
 import MainView from "./view/MainView"
+import ShaderSpriteBase from "./core/ShaderSpriteBase"
 import ShopView from "./view/ShopView"
 import FloatViewShowAni from "./components/FloatViewShowAni"
 import SignInView from "./view/SignInView"
@@ -32,6 +33,7 @@ export default class GameConfig{
         reg("view/MailView.ts",MailView);
         reg("components/ViewShowAni.ts",ViewShowAni);
         reg("view/MainView.ts",MainView);
+        reg("core/ShaderSpriteBase.ts",ShaderSpriteBase);
         reg("view/ShopView.ts",ShopView);
         reg("components/FloatViewShowAni.ts",FloatViewShowAni);
         reg("view/SignInView.ts",SignInView);
