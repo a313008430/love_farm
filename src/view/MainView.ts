@@ -1,4 +1,6 @@
 import { ApiHttp } from "src/common/NetMaps";
+import { Table } from "src/common/Table";
+import TableAnalyze from "src/common/TableAnalyze";
 import Core from "src/core/index";
 import Res from "../common/Res";
 import UserInfo from "../common/UserInfo";
@@ -29,6 +31,8 @@ export default class MainView extends Core.gameScript {
             .key("avatar", (e) => {
                 this.avatarNode.skin = e;
             });
+
+        console.log(TableAnalyze.table("order").list);
     }
 
     @Core.eventOn(ApiHttp.init)
