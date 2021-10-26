@@ -15,4 +15,18 @@ export function EventOn(name: string) {
     };
 }
 
+/**
+ * 储存的需要绑定属性查找绑定名称的类列表
+ */
+export const BindNameClass: Map<any, string[]> = new Map();
+export function FindByName(target: any, propertyKey: string) {
+    //  (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
+
+    if (!BindNameClass.has(target)) {
+        BindNameClass.set(target, []);
+    }
+    BindNameClass.get(target).push(propertyKey);
+    // };
+}
+
 export default EventGlobal;

@@ -1,4 +1,4 @@
-import EventGlobal, { EventOn } from "./EventGlobal";
+import EventGlobal, { EventOn, FindByName } from "./EventGlobal";
 import GameScript from "./GameScript";
 import { Instance } from "./Instance";
 import ObservableProperty from "./ObservableProperty";
@@ -15,6 +15,8 @@ const Core = {
     instance: Instance,
     /** 事件绑定 => 绑定到装饰器上 【只用在GameScript继承的子类身上】 */
     eventOn: EventOn,
+    /** 查找属性名称属性到节点上 【只用在GameScript继承的子类身上】 */
+    findByName: FindByName,
     /** 全局事件 */
     eventGlobal: EventGlobal,
 };

@@ -1,4 +1,4 @@
-import EventGlobal, { EventClass } from "./EventGlobal";
+import EventGlobal, { BindNameClass, EventClass } from "./EventGlobal";
 import ObservableProperty from "./ObservableProperty";
 
 /**
@@ -17,6 +17,9 @@ export default class GameScript extends Laya.Script {
      * @deprecated
      */
     onAwake() {
+        BindNameClass.get(this.constructor.prototype)?.forEach((e) => {
+            this[e] = this.owner.getChildByName(e);
+        });
         this.onHdAwake();
     }
     /**
