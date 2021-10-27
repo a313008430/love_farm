@@ -2,36 +2,38 @@ import GameScript from "./GameScript";
 
 import fs from "../shader/ppppp.fs";
 import vs from "../shader/vvvv.vs";
+import Core from "./index";
 
 /**
  * shader
  */
+//  ShaderSpriteBase extends Laya.Script {
 export default class ShaderSpriteBase extends GameScript {
-    /** @prop {name:shaderImage, tips:"shader用的图", type:Node}*/
-    private shaderImage: Laya.Sprite = null;
+    @Core.findByName
+    private icon: Laya.Image = null;
+    private shaderImage: Laya.Image = null;
 
     onHdEnable() {
+        this.shaderImage = this.icon;
         this.shaderImage.customRenderEnable = true;
 
-        return;
+        console.log(this.shaderImage);
+        // return;
 
-        Config["customRenderID"].push(this.shaderImage.texture.bitmap["_id"]);
+        let id = this.shaderImage["$_GID"];
 
-        let shader = new Laya.Value2D(
-            Laya.ShaderDefines2D.TEXTURE2D,
-            this.shaderImage.texture.bitmap["_id"]
-        );
-        shader.shader = new Laya.Shader2X(
-            vs,
-            fs,
-            Laya.ShaderDefines2D.TEXTURE2D | this.shaderImage.texture.bitmap["_id"]
-        );
+        Config["customRenderID"].push(id);
+        Laya.Filter;
+        // this.shaderImage.filters
+
+        let shader = new Laya.Value2D(Laya.ShaderDefines2D.TEXTURE2D, id);
+        shader.shader = new Laya.Shader2X(vs, fs, Laya.ShaderDefines2D.TEXTURE2D | id);
 
         // shader["myTime"] = 0.1;
 
         this.shaderImage.customRender = (context: Laya.Context, x, y) => {
             context.drawTarget(
-                this.shaderImage.texture as any,
+                this.shaderImage["_bitmap"]["_drawGridCmd"].texture as any,
                 x,
                 y,
                 this.shaderImage.width,

@@ -15,6 +15,7 @@ interface ViewOpenParm {
     hideLoadDelay?: number;
     /** 是否关闭其他场景，默认为true（可选），【注意】被关闭的场景，如果没有设置autoDestroyAtRemoved=true，则资源可能不能被回收，需要自己手动回收
      * todo 现在这个调用的是引擎自带的方法，没有走这里的缓存，可能会有问题，后期优化
+     * 现在全是false 后期有需要再优化这个东西，不能关闭其它所有界面还未实现
      */
     closeOther?: boolean;
     /** 打开页面的参数，会传递给onOpened方法（可选） */
@@ -62,6 +63,7 @@ export class ViewManager {
             }
         }
 
+        data.closeOther = false;
         Laya.View.open(
             url,
             data.closeOther,

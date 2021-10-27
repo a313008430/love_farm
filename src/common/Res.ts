@@ -5,6 +5,8 @@
  */
  export enum views 
     {
+        /** scenes/views/AddLandView.scene */
+        AddLandView = "scenes/views/AddLandView.scene", 
         /** scenes/views/LoadDialog.scene */
         LoadDialog = "scenes/views/LoadDialog.scene", 
         /** scenes/views/MailView.scene */
@@ -45,16 +47,24 @@
          "scenes/views/MainView.scene",
          "scenes/views/MailView.scene",
          "scenes/views/LoadDialog.scene",
-         "scenes/prefab/Image.prefab",
+         "scenes/views/AddLandView.scene",
          "scenes/prefab/FieldPrefab.prefab",
          "scenes/components/Button.prefab",
             "res/Xasdfasd.png",
             "res/rule_text.png",
+            "res/loadingBg.png",
+            "res/img_woodtitle.png",
+            "res/img_storeHouseBg.png",
+            "res/img_storebg.png",
+            "res/img_shelf.png",
+            "res/img_popUpBg.png",
             "res/img_landBg.png",
+            "res/img_housetop.png",
             "res/img_homepageBg3.png",
             "res/img_homepageBg2.png",
             "res/img_homepageBg1.png",
             "res/img_homepageBg.png",
+            "res/img_farmlandLogo.png",
             "res/bg1.png",
             "res/shader/vs.vs",
             "res/shader/ps.fs",
@@ -64,8 +74,8 @@
             "res/audio/go.mp3",
             "res/audio/fail.mp3",
             "res/audio/draw.mp3",
-            "res/atlas/main_sence.png",
-            "res/atlas/main_sence.atlas",
+            "res/atlas/main_scene.png",
+            "res/atlas/main_scene.atlas",
             "res/atlas/game1.png",
             "res/atlas/game.png",
             "res/atlas/game.atlas"];

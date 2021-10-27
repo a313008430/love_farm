@@ -4,10 +4,10 @@
    <item name="res/bg1.png" type="Sprite" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
    <item name="res/rule_text.png" type="Sprite" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
    <item name="game" type="" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
-   <item name="main_sence/img_portraitBg.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=25,42,45,43" picType="0" scale="0"/>
-   <item name="main_sence/img_coinbg.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,58,0,56" picType="0" scale="0"/>
-   <item name="main_sence/img_headBar.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,6,0,4" picType="0" scale="0"/>
-   <item name="main_sence/img_taskBg2.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,82,0,31" picType="0" scale="0"/>
+   <item name="main_scene/img_portraitBg.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=25,42,45,43" picType="0" scale="0"/>
+   <item name="main_scene/img_coinbg.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,58,0,56" picType="0" scale="0"/>
+   <item name="main_scene/img_headBar.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,6,0,4" picType="0" scale="0"/>
+   <item name="main_scene/img_taskBg2.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,82,0,31" picType="0" scale="0"/>
    <item name="game/img_storebg.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=135,117,111,117" picType="0" scale="0"/>
    <item name="game/img_window.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=41,59,42,52" picType="0" scale="0"/>
    <item name="game/img_petbag.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=60,65,58,56" picType="0" scale="0"/>
@@ -19,4 +19,7 @@
    <item name="game/img_progressBa2.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,37,0,38" picType="0" scale="0"/>
    <item name="game/img_progressBarBg.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,20,0,17" picType="0" scale="0"/>
    <item name="game/img_progressBa.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,18,0,20" picType="0" scale="0"/>
+   <item name="main_scene/img_taskbg.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="main_scene/img_menuWoodBg.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="main_scene/img_landBg.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
 </res>

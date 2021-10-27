@@ -17,6 +17,7 @@ export default class GameScript extends Laya.Script {
      * @deprecated
      */
     onAwake() {
+        //给装饰器记录的属性，查找节点
         BindNameClass.get(this.constructor.prototype)?.forEach((e) => {
             this[e] = this.owner.getChildByName(e);
         });

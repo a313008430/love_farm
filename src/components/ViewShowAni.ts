@@ -4,6 +4,10 @@ export default class ViewShowAni extends Laya.Script {
     /** @prop {name:content, tips:"内容容器", type:Node}*/
     public content: Laya.Image = null;
 
+    /** @prop {name:aniType,tips:"动画类型",type:EditOption,option:"bottomToShow,scaleShow"}*/
+    // 返回字符串
+    aniType: string;
+
     private tweenList: Laya.Tween[] = [];
 
     /**
@@ -33,19 +37,40 @@ export default class ViewShowAni extends Laya.Script {
             )
         );
 
-        this.content.bottom = -this.content.height;
-        this.tweenList.push(
-            Laya.Tween.to(
-                this.content,
-                { bottom: 0 },
-                300,
-                Laya.Ease.circOut,
-                Laya.Handler.create(this, this.doOpen, [dialog]),
-                0,
-                false,
-                false
-            )
-        );
+        console.log(this.aniType);
+
+        switch (this.aniType) {
+            case "scaleShow":
+                this.content.scale(1, 1);
+                this.tweenList.push(
+                    Laya.Tween.from(
+                        this.content,
+                        { x: Laya.stage.width / 2, y: Laya.stage.height / 2, scaleX: 0, scaleY: 0 },
+                        300,
+                        Laya.Ease.backOut,
+                        Laya.Handler.create(this, this.doOpen, [dialog]),
+                        0,
+                        false,
+                        false
+                    )
+                );
+                break;
+            default:
+                this.content.bottom = -this.content.height;
+                this.tweenList.push(
+                    Laya.Tween.to(
+                        this.content,
+                        { bottom: 0 },
+                        300,
+                        Laya.Ease.circOut,
+                        Laya.Handler.create(this, this.doOpen, [dialog]),
+                        0,
+                        false,
+                        false
+                    )
+                );
+                break;
+        }
     }
 
     closeView() {
@@ -61,34 +86,67 @@ export default class ViewShowAni extends Laya.Script {
                     0,
                     false,
                     false
-                ),
-                Laya.Tween.to(
-                    this.content,
-                    { bottom: -this.content.height },
-                    200,
-                    null,
-                    new Laya.Handler(
-                        this,
-                        () => {
-                            this.doClose();
-                            resolve(null);
-                        },
-                        [dialog]
-                    ),
-
-                    // Laya.Handler.create(
-                    //     this,
-                    //     () => {
-                    //         this.doClose();
-                    //         resolve(null);
-                    //     },
-                    //     [dialog]
-                    // ),
-                    0,
-                    false,
-                    false
                 )
             );
+            switch (this.aniType) {
+                case "scaleShow":
+                    this.tweenList.push(
+                        Laya.Tween.to(
+                            this.content,
+                            {
+                                x: Laya.stage.width / 2,
+                                y: Laya.stage.height / 2,
+                                scaleX: 0,
+                                scaleY: 0,
+                            },
+                            300,
+                            Laya.Ease.strongOut,
+                            new Laya.Handler(
+                                this,
+                                () => {
+                                    this.doClose();
+                                    resolve(null);
+                                },
+                                [dialog]
+                            ),
+
+                            0,
+                            false,
+                            false
+                        )
+                    );
+                    break;
+                default:
+                    this.tweenList.push(
+                        Laya.Tween.to(
+                            this.content,
+                            { bottom: -this.content.height },
+                            200,
+                            null,
+                            new Laya.Handler(
+                                this,
+                                () => {
+                                    this.doClose();
+                                    resolve(null);
+                                },
+                                [dialog]
+                            ),
+
+                            // Laya.Handler.create(
+                            //     this,
+                            //     () => {
+                            //         this.doClose();
+                            //         resolve(null);
+                            //     },
+                            //     [dialog]
+                            // ),
+                            0,
+                            false,
+                            false
+                        )
+                    );
+                    break;
+            }
         });
     }
 

@@ -8,4 +8,11 @@ export default class Tools {
     static parseString(str: string, format: string = ",") {
         return str.split(format);
     }
+
+    /**
+     * 秒转换成00:00:00
+     * @param s 转换时间的秒
+     * @returns 00:00:00
+     */
+    static formatSeconds = (s) => new Date(s * 1000).toISOString().substr(11, 8);
 }
