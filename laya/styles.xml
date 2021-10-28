@@ -22,4 +22,8 @@
    <item name="main_scene/img_taskbg.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
    <item name="main_scene/img_menuWoodBg.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
    <item name="main_scene/img_landBg.png" type="Image" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="res/img_storebg.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=188,169,181,172" picType="0" scale="0"/>
+   <item name="game/img_petbagNormal.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=92,92,92,70" picType="0" scale="0"/>
+   <item name="game/img_loadingScroll1.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,31,0,28" picType="0" scale="0"/>
+   <item name="game/img_loadingScroll2.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,20,0,18" picType="0" scale="0"/>
 </res>

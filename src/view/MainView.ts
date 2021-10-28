@@ -20,29 +20,19 @@ export default class MainView extends Core.gameScript {
     private avatarNode: Laya.FontClip = null;
     /** @prop {name:landBox, tips:"土地容器", type:Node}*/
     private landBox: Laya.Box = null;
+    /** @prop {name:centerBox, tips:"中间区域", type:Node}*/
+    private centerBox: Laya.Box = null;
+
+    /** @prop {name:landUpLayer, tips:"土地升级窗口", type:Node}*/
+    private landUpLayer: Laya.Image = null;
 
     /** 土地组件 列表 */
     private landList: FieldComponent[] = [];
 
-    onHdEnable(): void {
-        Core.observableProperty
-            .watch(UserInfo, this)
-            .key("diamond", (e) => {
-                this.diamondNode.value = e;
-            })
-            .key("gold", (e) => {
-                this.goldNode.value = e;
-            })
-            .key("avatar", (e) => {
-                this.avatarNode.skin = e;
-            });
-
-        // console.log(TableAnalyze.table("order").list);
-
-        this.addLandLayer.visible = false;
-    }
-
     onHdAwake() {
+        this.landUpLayer.visible = false;
+        this.landUpLayer.active = false;
+
         for (let x = 0; x < this.landBox.numChildren; x++) {
             this.landList.push(this.landBox.getChildAt(x).getComponent(FieldComponent));
         }
@@ -62,7 +52,7 @@ export default class MainView extends Core.gameScript {
                         //正在生长的东西的id 种子id, 如果剩余时间为0，表示 已熟，前端自己去查对应可生产的东西，然后改变显示状态
                         productId: 1000,
                         //剩余时间 如果为0 就为成熟 单位秒
-                        matureTimeLeft: 999,
+                        matureTimeLeft: 3,
                     },
                     {
                         //土地id对应的也是下标
@@ -72,7 +62,7 @@ export default class MainView extends Core.gameScript {
                         //正在生长的东西的id 种子id, 如果剩余时间为0，表示 已熟，前端自己去查对应可生产的东西，然后改变显示状态
                         productId: 1000,
                         //剩余时间 如果为0 就为成熟 单位秒
-                        matureTimeLeft: 999,
+                        matureTimeLeft: 0,
                     },
                 ],
             });
@@ -84,6 +74,31 @@ export default class MainView extends Core.gameScript {
                 }
             }
         });
+    }
+
+    onHdEnable(): void {
+        // this.maskLayer.graphics.drawCircle(0, 0, 100, "#ff0000");
+        // this.maskLayer.graphics.drawPoly(
+        //     -35,
+        //     223,
+        //     [172, -330, 789, 57, 166, 393, -453, 83],
+        //     "#ff0000"
+        // );
+        Core.observableProperty
+            .watch(UserInfo, this)
+            .key("diamond", (e) => {
+                this.diamondNode.value = e;
+            })
+            .key("gold", (e) => {
+                this.goldNode.value = e;
+            })
+            .key("avatar", (e) => {
+                this.avatarNode.skin = e;
+            });
+
+        // console.log(TableAnalyze.table("order").list);
+
+        this.addLandLayer.visible = false;
     }
 
     @Core.eventOn(ApiHttp.init)
@@ -112,6 +127,60 @@ export default class MainView extends Core.gameScript {
                 break;
             case "land":
                 break;
+            case "landLevelUp":
+                this.LandLevelUp(true);
+                break;
+            case "close_up":
+                this.LandLevelUp(false);
+                break;
+        }
+    }
+
+    private LandLevelUp(show: boolean) {
+        let bg = this.landUpLayer.getChildByName("bg") as Laya.Image;
+        if (show) {
+            bg.alpha = 0;
+            Laya.Tween.to(bg, { alpha: 0.75 }, 150);
+            this.landUpLayer.getChildByName("land_outer").addChild(this.landBox);
+            this.landUpLayer.active = true;
+            this.landUpLayer.visible = true;
+            this.landList.forEach((e) => {
+                if (e.date) {
+                    e.showIcon(false);
+                }
+                e.setStateIconSkin(2);
+                e.showTimeBox(false);
+                e.showShadowIcon(false);
+                e.buildIng = true;
+            });
+        } else {
+            Laya.Tween.to(
+                bg,
+                { alpha: 0 },
+                150,
+                null,
+                Laya.Handler.create(this, () => {
+                    this.landUpLayer.active = false;
+                    this.landUpLayer.visible = false;
+                    this.centerBox.addChild(this.landBox);
+                })
+            );
+
+            this.landList.forEach((e) => {
+                if (e.date) {
+                    e.showIcon(true);
+                    if (e.date.matureTimeLeft) e.showTimeBox(true);
+                    e.showShadowIcon(true);
+                }
+                e.buildIng = false;
+                if (e.date) {
+                    if (e.date.productId) {
+                        e.setStateIconSkin(e.date.matureTimeLeft ? 1 : 3);
+                    }
+                } else {
+                    e.setStateIconSkin(1);
+                }
+            });
         }
     }
 }

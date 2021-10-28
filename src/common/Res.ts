@@ -7,6 +7,8 @@
     {
         /** scenes/views/AddLandView.scene */
         AddLandView = "scenes/views/AddLandView.scene", 
+        /** scenes/views/FieldLevelUpView.scene */
+        FieldLevelUpView = "scenes/views/FieldLevelUpView.scene", 
         /** scenes/views/LoadDialog.scene */
         LoadDialog = "scenes/views/LoadDialog.scene", 
         /** scenes/views/MailView.scene */
@@ -19,6 +21,8 @@
         SignInView = "scenes/views/SignInView.scene", 
         /** scenes/views/TaskView.scene */
         TaskView = "scenes/views/TaskView.scene", 
+        /** scenes/views/test.scene */
+        test = "scenes/views/test.scene", 
     }
 
  export enum audios 
@@ -41,12 +45,14 @@
  * 界面列表
  */
  export const scenes = [
+         "scenes/views/test.scene",
          "scenes/views/TaskView.scene",
          "scenes/views/SignInView.scene",
          "scenes/views/ShopView.scene",
          "scenes/views/MainView.scene",
          "scenes/views/MailView.scene",
          "scenes/views/LoadDialog.scene",
+         "scenes/views/FieldLevelUpView.scene",
          "scenes/views/AddLandView.scene",
          "scenes/prefab/FieldPrefab.prefab",
          "scenes/components/Button.prefab",

@@ -2,11 +2,11 @@
     "x":0,
     "type":"View",
     "selectedBox":2,
-    "selecteID":480,
+    "selecteID":833,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":482,
+    "maxID":834,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -21,10 +21,11 @@
             "source":"src/view/MainView.ts",
             "searchKey":"Script,MainView",
             "removeAble":true,
-            "props":{"y":0,"x":0,"width":14,"landBox":"@node:112","height":14,"goldNode":"@node:73","diamondNode":"@node:79","avatarNode":"@node:350","addLandLayer":"@node:316","addLandBg":"@node:332"},
+            "props":{"y":0,"x":0,"width":14,"landUpLayer":"@node:496","landBox":"@node:112","height":14,"goldNode":"@node:73","diamondNode":"@node:79","center_box":"@node:96","centerBox":"@node:96","avatarNode":"@node:350","addLandLayer":"@node:316","addLandBg":"@node:332"},
             "nodeParent":2,
             "label":"MainView",
             "isDirectory":false,
+            "isClose":true,
             "isAniNode":true,
             "hasChild":false,
             "compId":65,
@@ -51,7 +52,7 @@
             "x":15,
             "type":"Image",
             "searchKey":"Image",
-            "props":{"skin":"res/img_homepageBg2.png","centerY":-158,"centerX":0,"alpha":1},
+            "props":{"width":1080,"skin":"res/img_homepageBg2.png","height":611,"centerY":-246,"centerX":0,"alpha":1},
             "nodeParent":2,
             "label":"Image",
             "isDirectory":false,
@@ -147,10 +148,10 @@
                         },
                         {
                             "type":"Image",
-                            "searchKey":"Image",
-                            "props":{"y":149,"x":657,"skin":"main_scene/img_landUpdate.png","anchorY":0.5,"anchorX":0.5},
+                            "searchKey":"Image,landLevelUp",
+                            "props":{"y":149,"x":657,"skin":"main_scene/img_landUpdate.png","name":"landLevelUp","anchorY":0.5,"anchorX":0.5},
                             "nodeParent":101,
-                            "label":"Image",
+                            "label":"landLevelUp",
                             "isOpen":null,
                             "isDirectory":true,
                             "isAniNode":true,
@@ -205,12 +206,90 @@
                         }]
                 },
                 {
+                    "type":"Image",
+                    "searchKey":"Image",
+                    "props":{"y":889,"x":30,"skin":"main_scene/img_billboard.png"},
+                    "nodeParent":96,
+                    "label":"Image",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":113,
+                    "child":[
+                        ]
+                },
+                {
+                    "type":"Image",
+                    "searchKey":"Image",
+                    "props":{"y":897,"x":858,"skin":"main_scene/img_dogHouse.png"},
+                    "nodeParent":96,
+                    "label":"Image",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":114,
+                    "child":[
+                        ]
+                },
+                {
+                    "type":"Image",
+                    "searchKey":"Image",
+                    "props":{"y":1058,"x":718,"skin":"main_scene/img_dog1.png"},
+                    "nodeParent":96,
+                    "label":"Image",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":115,
+                    "child":[
+                        ]
+                },
+                {
+                    "type":"Image",
+                    "searchKey":"Image",
+                    "props":{"y":1132,"x":941,"width":102,"skin":"main_scene/img_bowlWithFood.png","height":72},
+                    "nodeParent":96,
+                    "label":"Image",
+                    "isOpen":false,
+                    "isDirectory":true,
+                    "isAniNode":true,
+                    "hasChild":true,
+                    "compId":116,
+                    "child":[
+                        {
+                            "type":"Image",
+                            "searchKey":"Image",
+                            "props":{"y":80,"x":0,"skin":"main_scene/img_timerBg.png"},
+                            "nodeParent":116,
+                            "label":"Image",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":472,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "type":"Label",
+                            "searchKey":"Label,countDownLb",
+                            "props":{"text":"00:00:00","name":"countDownLb","fontSize":20,"font":"Arial","color":"#ffffff","centerY":59,"centerX":7},
+                            "nodeParent":116,
+                            "label":"countDownLb",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":473,
+                            "child":[
+                                ]
+                        }]
+                },
+                {
                     "type":"Box",
                     "searchKey":"Box,land_box",
                     "props":{"y":452,"x":15,"width":1087,"name":"land_box","mouseEnabled":true,"height":610},
                     "nodeParent":96,
                     "label":"land_box",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
@@ -1466,85 +1545,8 @@
                                     "frameRate":24,
                                     "action":0
                                 }]
-                        }]
-                },
-                {
-                    "type":"Image",
-                    "searchKey":"Image",
-                    "props":{"y":889,"x":30,"skin":"main_scene/img_billboard.png"},
-                    "nodeParent":96,
-                    "label":"Image",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":113,
-                    "child":[
-                        ]
-                },
-                {
-                    "type":"Image",
-                    "searchKey":"Image",
-                    "props":{"y":897,"x":858,"skin":"main_scene/img_dogHouse.png"},
-                    "nodeParent":96,
-                    "label":"Image",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":114,
-                    "child":[
-                        ]
-                },
-                {
-                    "type":"Image",
-                    "searchKey":"Image",
-                    "props":{"y":1058,"x":718,"skin":"main_scene/img_dog1.png"},
-                    "nodeParent":96,
-                    "label":"Image",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":115,
-                    "child":[
-                        ]
-                },
-                {
-                    "type":"Image",
-                    "searchKey":"Image",
-                    "props":{"y":1132,"x":941,"width":102,"skin":"main_scene/img_bowlWithFood.png","height":72},
-                    "nodeParent":96,
-                    "label":"Image",
-                    "isOpen":true,
-                    "isDirectory":true,
-                    "isAniNode":true,
-                    "hasChild":true,
-                    "compId":116,
-                    "child":[
-                        {
-                            "type":"Image",
-                            "searchKey":"Image",
-                            "props":{"y":80,"x":0,"skin":"main_scene/img_timerBg.png"},
-                            "nodeParent":116,
-                            "label":"Image",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":472,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "type":"Label",
-                            "searchKey":"Label,countDownLb",
-                            "props":{"text":"00:00:00","name":"countDownLb","fontSize":20,"font":"Arial","color":"#ffffff","centerY":59,"centerX":7},
-                            "nodeParent":116,
-                            "label":"countDownLb",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":473,
-                            "child":[
-                                ]
-                        }]
+                        }],
+                    "$HIDDEN":false
                 }],
             "$HIDDEN":false
         },
@@ -2202,14 +2204,13 @@
             "props":{"visible":true,"top":0,"right":0,"name":"add_land_layer","mouseEnabled":true,"left":0,"bottom":0},
             "nodeParent":2,
             "label":"add_land_layer",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":316,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,bg",
                     "props":{"top":0,"skin":"game/img_shield.png","right":0,"name":"bg","left":0,"bottom":0,"alpha":0.75},
@@ -2224,7 +2225,6 @@
                     "$HIDDEN":false
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":1010,"x":540,"skin":"main_scene/img_popUpBg.png","mouseEnabled":true,"centerY":50,"centerX":0,"anchorY":0.5,"anchorX":0.5},
@@ -2423,31 +2423,92 @@
         {
             "x":15,
             "type":"Image",
-            "searchKey":"Image",
-            "props":{"y":812,"x":408,"skin":"game/img_withdrawbtn.png","renderType":"mask","alpha":0.7},
+            "searchKey":"Image,upLayer",
+            "props":{"top":0,"right":0,"name":"upLayer","mouseEnabled":true,"left":0,"bottom":0},
             "nodeParent":2,
-            "label":"Image",
+            "label":"upLayer",
             "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
-            "compId":481,
+            "compId":496,
             "child":[
                 {
                     "x":30,
                     "type":"Image",
-                    "searchKey":"Image",
-                    "props":{"y":-812,"x":-408,"top":0,"skin":"game/img_shield.png","right":0,"left":0,"bottom":0,"alpha":0.7},
-                    "nodeParent":481,
-                    "label":"Image",
-                    "isOpen":true,
+                    "searchKey":"Image,bg",
+                    "props":{"y":0,"x":0,"top":0,"skin":"game/img_shield.png","right":0,"name":"bg","left":0,"bottom":0,"alpha":0.75},
+                    "nodeParent":496,
+                    "label":"bg",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
-                    "compId":480,
+                    "compId":497,
                     "child":[
-                        ]
-                }]
+                        ],
+                    "$LOCKED":true,
+                    "$HIDDEN":false
+                },
+                {
+                    "x":30,
+                    "type":"Box",
+                    "searchKey":"Box,land_outer",
+                    "props":{"width":1083,"name":"land_outer","height":1149,"centerY":0,"centerX":0},
+                    "nodeParent":496,
+                    "label":"land_outer",
+                    "isOpen":true,
+                    "isDirectory":true,
+                    "isAniNode":true,
+                    "hasChild":true,
+                    "compId":582,
+                    "child":[
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image,close_up",
+                            "props":{"y":1099,"x":541,"skin":"game/img_x.png","name":"close_up","mouseEnabled":true,"anchorY":0.5,"anchorX":0.5},
+                            "nodeParent":582,
+                            "label":"close_up",
+                            "isOpen":false,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":830,
+                            "child":[
+                                {
+                                    "type":"Circle",
+                                    "searchKey":"Circle",
+                                    "props":{"y":41.5,"x":41,"renderType":"hit","radius":80,"lineWidth":1,"fillColor":"#ff0000"},
+                                    "nodeParent":830,
+                                    "label":"Circle",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":831,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Script",
+                                    "switchAble":true,
+                                    "source":"src/components/Button.ts",
+                                    "searchKey":"Script,Button",
+                                    "removeAble":true,
+                                    "props":{"isScale":true},
+                                    "nodeParent":830,
+                                    "label":"Button",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":832,
+                                    "child":[
+                                        ]
+                                }]
+                        }],
+                    "$LOCKED":true,
+                    "$HIDDEN":false
+                }],
+            "$HIDDEN":true
         }],
     "animations":[
         {

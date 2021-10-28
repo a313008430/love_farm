@@ -25,7 +25,7 @@ export default class ShopView extends GameScript {
     /** 商品列表点击下标 */
     private itemListSelectIndex: number = 0;
     /** 商品列表背景纹理 */
-    private itemSelectBg: string[] = ["game/img_petbag.png", "game/img_petbagSelected.png"];
+    private itemSelectBg: string[] = ["game/img_petbagNormal.png", "game/img_petbagSelected.png"];
 
     onHdEnable() {}
 
@@ -110,20 +110,25 @@ export default class ShopView extends GameScript {
     private updateBottom() {
         for (let x = 0; x < this.bottomBox.numChildren; x++) {
             (this.bottomBox.getChildAt(x) as Laya.Box).visible = false;
+            (this.bottomBox.getChildAt(x) as Laya.Box).active = false;
         }
 
         switch (this.topBtnSelectIndex) {
             case 0:
                 (this.bottomBox.getChildAt(0) as Laya.Box).visible = true;
+                (this.bottomBox.getChildAt(0) as Laya.Box).active = true;
                 break;
             case 1:
                 (this.bottomBox.getChildAt(1) as Laya.Box).visible = true;
+                (this.bottomBox.getChildAt(1) as Laya.Box).active = true;
                 break;
             case 2:
                 (this.bottomBox.getChildAt(0) as Laya.Box).visible = true;
+                (this.bottomBox.getChildAt(0) as Laya.Box).active = true;
                 break;
             case 3:
                 (this.bottomBox.getChildAt(2) as Laya.Box).visible = true;
+                (this.bottomBox.getChildAt(2) as Laya.Box).active = true;
                 break;
         }
     }

@@ -2,11 +2,11 @@
     "x":0,
     "type":"View",
     "selectedBox":2,
-    "selecteID":8,
+    "selecteID":7,
     "searchKey":"View",
-    "props":{"zOrder":999,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/AddLandView.jpg","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
+    "props":{"width":1080,"top":0,"sceneColor":"#000000","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":24,
+    "maxID":25,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -36,13 +36,14 @@
             "props":{"y":1020,"x":550,"skin":"main_scene/img_popUpBg.png","mouseEnabled":true,"centerY":50,"centerX":0,"anchorY":0.5,"anchorX":0.5},
             "nodeParent":2,
             "label":"Image",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":8,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":110,"x":131,"skin":"main_scene/img_greenLand.png"},
@@ -56,6 +57,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,ad_btn",
                     "props":{"y":652,"x":654,"skin":"main_scene/img_videoBtn.png","name":"ad_btn","anchorY":0.5,"anchorX":0.5},
@@ -85,6 +87,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label",
                     "props":{"y":543,"x":458,"text":"扩建土地种植更多蔬菜","fontSize":48,"font":"Microsoft YaHei","color":"#906344","bold":true,"anchorY":0.5,"anchorX":0.5},
@@ -98,25 +101,43 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
-                    "props":{"y":-115.5,"x":164.5,"skin":"game/img_woodtitle.png"},
+                    "props":{"y":-115.5,"x":164.5,"skin":"res/img_woodtitle.png"},
                     "nodeParent":8,
                     "label":"Image",
+                    "isOpen":true,
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
                     "compId":13,
                     "child":[
+                        ],
+                    "$HIDDEN":false
+                },
+                {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image",
+                    "props":{"y":-41,"x":297,"skin":"game/img_expand.png"},
+                    "nodeParent":8,
+                    "label":"Image",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":24,
+                    "child":[
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,closeAddLandLayer",
                     "props":{"y":22,"x":870,"skin":"game/img_x.png","name":"closeAddLandLayer","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":8,
                     "label":"closeAddLandLayer",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
@@ -150,9 +171,11 @@
                             "compId":16,
                             "child":[
                                 ]
-                        }]
+                        }],
+                    "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,cost_gold",
                     "props":{"y":651,"x":268,"skin":"game/img_buybtm.png","name":"cost_gold","anchorY":0.5,"anchorX":0.5},

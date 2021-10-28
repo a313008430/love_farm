@@ -3,8 +3,11 @@ import { EventMaps } from "../common/EventMaps";
 import EventGlobal from "../core/EventGlobal";
 
 export default class LoadView extends GameScript {
-    /** @prop {name:loadLabel, tips:"load 文本", type:Node}*/
-    public loadLabel: Laya.Label = null;
+    /** @prop {name:loadBar, tips:"load bar", type:Node}*/
+    private loadBar: Laya.Image = null;
+
+    /** 进度条默认宽度 */
+    private loadBarOldWidth: number = 0;
 
     onAwake() {
         // this.owner.i
@@ -13,11 +16,13 @@ export default class LoadView extends GameScript {
     onEnable(): void {
         // console.log(this.loadLabel);
         EventGlobal.on(EventMaps.load_progress, this, this.loadProgress);
-        this.loadLabel.text = "Load....0%";
+        // this.loadLabel.text = "Load....0%";
+        this.loadBarOldWidth = this.loadBar.width;
+        this.loadBar.width = 0;
     }
 
     private loadProgress(v) {
-        this.loadLabel.text = `Load....${(v * 100).toFixed(2)}%`;
+        this.loadBar.width = v * this.loadBarOldWidth;
     }
 
     onDisable(): void {

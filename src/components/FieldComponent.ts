@@ -36,13 +36,14 @@ export default class FieldComponent extends Core.gameScript {
     private emptyFieldNode: Laya.Image = null;
     /** @prop {name:unlockIcon, tips:"拓展土地icon地址", type:String,accept:res}*/
     private unlockIcon: string = "";
-    /** @prop {name:fieldId, tips:"土地下标", type:Number,}*/
-    /** 土地id */
+    /** @prop {name:fieldId, tips:"土地id", type:Number,}*/
     fieldId: number = null;
 
     /** 顶部icon浮动动画 */
     private topStateIconTween: Laya.TimeLine;
 
+    /** 建筑中 */
+    buildIng: boolean = false;
     /** 土地数据 */
     date: NetInit["data"]["landList"][0];
 
@@ -53,8 +54,7 @@ export default class FieldComponent extends Core.gameScript {
     }
 
     init() {
-        this.shadow.visible = false;
-        this.shadow.active = false;
+        this.showShadowIcon(false);
         this.timeBox.visible = false;
         this.timeBox.active = false;
         this.topStateIcon.visible = false;
@@ -75,15 +75,23 @@ export default class FieldComponent extends Core.gameScript {
             console.log(this.icon);
             this.fieldNode.skin = this.fieldEmptyRes;
             this.showIcon(Boolean(this.date.productId));
+            this.lvNode.visible = true;
             if (this.date.matureTimeLeft) {
                 this.timeBox.visible = true;
                 this.timeBox.active = true;
-                this.lvNode.visible = true;
-                this.shadow.visible = true;
+
+                this.showShadowIcon(true);
                 this.updateCountDown();
                 this.updateLevel();
                 this.topStateIcon.visible = true;
                 this.topStateIconAni(true);
+            } else {
+                if (this.date.productId) {
+                    this.topStateIcon.visible = true;
+                    this.showShadowIcon(true);
+                    this.topStateIconAni(true);
+                    this.updateCountDown();
+                }
             }
         } else {
             this.icon.skin = this.unlockIcon;
@@ -97,6 +105,41 @@ export default class FieldComponent extends Core.gameScript {
      */
     showIcon(show: boolean) {
         this.icon.visible = show;
+    }
+
+    /**
+     * 设置状态icon纹理
+     * @param skinType 1 浇水加速状态 2 建筑状态 3 成熟状态
+     */
+    setStateIconSkin(skinType: 1 | 2 | 3) {
+        switch (skinType) {
+            case 1:
+                this.topStateIcon.skin = "main_scene/img_speedUp.png";
+                break;
+            case 2:
+                this.topStateIcon.skin = "main_scene/img_landUpdateBtn2.png";
+                break;
+            case 3:
+                this.topStateIcon.skin = "main_scene/img_harvest.png";
+                break;
+        }
+    }
+
+    /**
+     * 设置时间容器的显示隐藏状态
+     * @param show 显示或隐藏
+     */
+    showTimeBox(show: boolean) {
+        this.timeBox.visible = show;
+    }
+
+    /**
+     * 设置阴影显示隐藏状态
+     * @param show 显示或隐藏
+     */
+    showShadowIcon(show: boolean) {
+        this.shadow.visible = show;
+        this.shadow.active = show;
     }
 
     /**
@@ -132,7 +175,9 @@ export default class FieldComponent extends Core.gameScript {
             });
         } else {
             console.log("倒计时结束 ");
-            this.topStateIconAni(false);
+            // this.topStateIconAni(false);
+            if (!this.buildIng) this.setStateIconSkin(3);
+            this.showTimeBox(false);
         }
     }
 
@@ -144,7 +189,7 @@ export default class FieldComponent extends Core.gameScript {
     }
 
     onClick() {
-        console.log(this.fieldId);
+        console.log(this.fieldId, this.buildIng);
         if (this.date) {
         } else {
             Core.view.open(Res.views.AddLandView, { parm: this.fieldId });
