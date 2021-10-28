@@ -14,11 +14,11 @@ let outFilePath = path.join(path.resolve(__dirname, "../../src/common/"), "Res.t
 
 /**监听资源 变化  */
 let resWatch = chokidar.watch(["laya/pages/**/*.scene", "bin/res/**/*"], {
-    interval: 1500,
+    interval: 3000,
     awaitWriteFinish: {
         //文件发生变化发出事件之前保持多少毫秒不变
-        stabilityThreshold: 2000,
-        pollInterval: 1500,
+        stabilityThreshold: 3000,
+        pollInterval: 3000,
     },
 });
 resWatch.once("ready", (eventName) => {
