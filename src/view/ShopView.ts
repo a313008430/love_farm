@@ -48,6 +48,11 @@ export default class ShopView extends GameScript {
         this.itemList.vScrollBarSkin = null;
     }
 
+    onOpened(e) {
+        this.topBtnSelectIndex = e || 0;
+        this.updateTopBtnState();
+    }
+
     onSelect(e) {
         console.log(e);
         this.itemListSelectIndex = e;

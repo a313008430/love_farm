@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":38,
+    "selectedBox":38,
+    "selecteID":39,
     "searchKey":"View",
     "props":{"y":0,"x":0,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MailView.png","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -33,19 +33,20 @@
             "x":15,
             "type":"Image",
             "searchKey":"Image,box",
-            "props":{"x":538,"width":1082,"skin":"game/img_popUpBg.png","name":"box","height":1188,"bottom":0,"anchorY":1,"anchorX":0.5},
+            "props":{"x":538,"width":1082,"skin":"res/img_popUpBg.png","name":"box","height":1188,"bottom":0,"anchorY":1,"anchorX":0.5},
             "nodeParent":2,
             "label":"box",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":38,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
-                    "props":{"x":254,"top":-114,"skin":"game/img_woodtitle.png"},
+                    "props":{"x":254,"top":-114,"skin":"res/img_woodtitle.png"},
                     "nodeParent":38,
                     "label":"Image",
                     "isOpen":false,
@@ -70,6 +71,7 @@
                     "$LOCKED":true
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,close",
                     "props":{"x":1029,"top":-26,"skin":"game/img_x.png","name":"close","anchorY":0.5,"anchorX":0.5},
@@ -112,6 +114,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"List",
                     "searchKey":"List",
                     "props":{"y":119,"x":43,"width":1003,"spaceY":20,"repeatY":4,"repeatX":1,"height":899},
@@ -203,6 +206,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":1094,"x":541,"skin":"game/img_buybtm.png","anchorY":0.5,"anchorX":0.5},
@@ -215,6 +219,7 @@
                     "compId":58,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":17,"x":48,"skin":"game/img_oneKeyGet.png"},
@@ -229,6 +234,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",

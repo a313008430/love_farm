@@ -191,6 +191,9 @@ export default class FieldComponent extends Core.gameScript {
     onClick() {
         console.log(this.fieldId, this.buildIng);
         if (this.date) {
+            if (this.buildIng) {
+                Core.view.open(Res.views.FieldLevelUpView, { parm: this.fieldId });
+            }
         } else {
             Core.view.open(Res.views.AddLandView, { parm: this.fieldId });
         }

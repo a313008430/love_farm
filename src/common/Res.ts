@@ -15,14 +15,18 @@
         MailView = "scenes/views/MailView.scene", 
         /** scenes/views/MainView.scene */
         MainView = "scenes/views/MainView.scene", 
+        /** scenes/views/OrderView.scene */
+        OrderView = "scenes/views/OrderView.scene", 
+        /** scenes/views/SettingView.scene */
+        SettingView = "scenes/views/SettingView.scene", 
         /** scenes/views/ShopView.scene */
         ShopView = "scenes/views/ShopView.scene", 
         /** scenes/views/SignInView.scene */
         SignInView = "scenes/views/SignInView.scene", 
         /** scenes/views/TaskView.scene */
         TaskView = "scenes/views/TaskView.scene", 
-        /** scenes/views/test.scene */
-        test = "scenes/views/test.scene", 
+        /** scenes/views/WarehouseView.scene */
+        WarehouseView = "scenes/views/WarehouseView.scene", 
     }
 
  export enum audios 
@@ -45,10 +49,12 @@
  * 界面列表
  */
  export const scenes = [
-         "scenes/views/test.scene",
+         "scenes/views/WarehouseView.scene",
          "scenes/views/TaskView.scene",
          "scenes/views/SignInView.scene",
          "scenes/views/ShopView.scene",
+         "scenes/views/SettingView.scene",
+         "scenes/views/OrderView.scene",
          "scenes/views/MainView.scene",
          "scenes/views/MailView.scene",
          "scenes/views/LoadDialog.scene",

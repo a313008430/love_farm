@@ -68,8 +68,12 @@ export class ViewManager {
             url,
             data.closeOther,
             data.parm,
-            Laya.Handler.create(this, (e) => {
+            Laya.Handler.create(this, (e: Laya.View) => {
                 if (url != Res.views.LoadDialog) viewMaps.push({ url: url, view: e });
+                let conList = e.getComponents(Laya.Script);
+                if (conList) {
+                    conList.forEach((e) => e.enabled && e.onOpened && e.onOpened(data.parm));
+                }
                 data.complete && data.complete(e);
                 console.log(
                     `%c ==> open %c${url.match(/\w+(?=\.)/)[0]} `,

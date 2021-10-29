@@ -30,7 +30,7 @@ function EsBuildTs() {
             loader: { ".fs": "text", ".vs": "text", ".glsl": "text" },
         })
         .then((result) => {
-            rebuild = result;
+            // rebuild = result;
             // result.rebuild
             // console.log(result);
             // Call "stop" on the result when you're done

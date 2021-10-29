@@ -77,13 +77,6 @@ export default class MainView extends Core.gameScript {
     }
 
     onHdEnable(): void {
-        // this.maskLayer.graphics.drawCircle(0, 0, 100, "#ff0000");
-        // this.maskLayer.graphics.drawPoly(
-        //     -35,
-        //     223,
-        //     [172, -330, 789, 57, 166, 393, -453, 83],
-        //     "#ff0000"
-        // );
         Core.observableProperty
             .watch(UserInfo, this)
             .key("diamond", (e) => {
@@ -95,8 +88,6 @@ export default class MainView extends Core.gameScript {
             .key("avatar", (e) => {
                 this.avatarNode.skin = e;
             });
-
-        // console.log(TableAnalyze.table("order").list);
 
         this.addLandLayer.visible = false;
     }
@@ -124,6 +115,21 @@ export default class MainView extends Core.gameScript {
                 break;
             case "shop":
                 Core.view.open(Res.views.ShopView);
+                break;
+            case "head":
+                Core.view.open(Res.views.SettingView);
+                break;
+            case "warehouse":
+                Core.view.open(Res.views.WarehouseView);
+                break;
+            case "buy_feed":
+                Core.view.open(Res.views.ShopView, { parm: 2 });
+                break;
+            case "dog":
+                Core.view.open(Res.views.ShopView, { parm: 1 });
+                break;
+            case "order_box":
+                Core.view.open(Res.views.OrderView);
                 break;
             case "land":
                 break;

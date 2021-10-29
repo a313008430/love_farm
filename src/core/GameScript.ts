@@ -23,6 +23,14 @@ export default class GameScript extends Laya.Script {
         });
         this.onHdAwake();
     }
+
+    /**
+     * 打开界面传入参数
+     * 此方法为虚方法，使用时重写覆盖即可
+     * @param e
+     */
+    onOpened(e) {}
+
     /**
      * 组件被激活后执行，此时所有节点和组件均已创建完毕，次方法只执行一次
      * 此方法为虚方法，使用时重写覆盖即可
@@ -107,4 +115,12 @@ export default class GameScript extends Laya.Script {
      * 此方法为虚方法，使用时重写覆盖即可
      */
     onHdDestroy() {}
+
+    // /**
+    //  * 界面打开以后带入的参数
+    //  * 此方法为虚方法，使用时重写覆盖即可
+    //  */
+    // onOpened(d) {
+    //     console.log(111);
+    // }
 }

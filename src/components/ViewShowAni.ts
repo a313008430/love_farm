@@ -1,4 +1,7 @@
-export default class ViewShowAni extends Laya.Script {
+import GameScript from "src/core/GameScript";
+
+//class ViewShowAni extends Laya.Script
+export default class ViewShowAni extends GameScript {
     /** @prop {name:bg, tips:"背景", type:Node}*/
     public bg: Laya.Image = null;
     /** @prop {name:content, tips:"内容容器", type:Node}*/
