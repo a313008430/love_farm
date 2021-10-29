@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":52,
+    "selectedBox":38,
+    "selecteID":81,
     "searchKey":"View",
     "props":{"y":0,"x":0,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/OrderView.jpg","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":81,
+    "maxID":83,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -504,32 +504,60 @@
                 },
                 {
                     "x":30,
-                    "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":138,"x":149.8759765625,"text":"完成所有订单，累积可获得          元","fontSize":50,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
+                    "type":"HBox",
+                    "searchKey":"HBox",
+                    "props":{"y":125,"x":149.8759765625},
                     "nodeParent":38,
-                    "label":"Label",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":58,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":125,"x":761,"text":"888","fontSize":70,"font":"Microsoft YaHei","color":"#D23210","bold":true},
-                    "nodeParent":38,
-                    "label":"Label",
+                    "label":"HBox",
                     "isOpen":true,
-                    "isDirectory":false,
+                    "isDirectory":true,
                     "isAniNode":true,
-                    "hasChild":false,
-                    "compId":57,
+                    "hasChild":true,
+                    "compId":81,
                     "child":[
-                        ]
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "searchKey":"Label",
+                            "props":{"y":13,"text":"完成所有订单，累积可获得","fontSize":50,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
+                            "nodeParent":81,
+                            "label":"Label",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":58,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "searchKey":"Label",
+                            "props":{"text":"888","fontSize":70,"font":"Microsoft YaHei","color":"#D23210","bold":true},
+                            "nodeParent":81,
+                            "label":"Label",
+                            "isOpen":true,
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":57,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "searchKey":"Label",
+                            "props":{"y":13,"text":"元","fontSize":50,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
+                            "nodeParent":81,
+                            "label":"Label",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":82,
+                            "child":[
+                                ]
+                        }]
                 }],
             "$HIDDEN":false
         },

@@ -23,6 +23,8 @@
         ShopView = "scenes/views/ShopView.scene", 
         /** scenes/views/SignInView.scene */
         SignInView = "scenes/views/SignInView.scene", 
+        /** scenes/views/SpeedUpView.scene */
+        SpeedUpView = "scenes/views/SpeedUpView.scene", 
         /** scenes/views/TaskView.scene */
         TaskView = "scenes/views/TaskView.scene", 
         /** scenes/views/WarehouseView.scene */
@@ -51,6 +53,7 @@
  export const scenes = [
          "scenes/views/WarehouseView.scene",
          "scenes/views/TaskView.scene",
+         "scenes/views/SpeedUpView.scene",
          "scenes/views/SignInView.scene",
          "scenes/views/ShopView.scene",
          "scenes/views/SettingView.scene",

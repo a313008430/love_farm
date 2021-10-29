@@ -3,6 +3,11 @@ import FloatViewShowAni from "src/components/FloatViewShowAni";
 import GameScript from "src/core/GameScript";
 import { ViewManager } from "src/core/ViewManager";
 
+interface ShopViewData {
+    id: number;
+    call?: Function;
+}
+
 export default class ShopView extends GameScript {
     /** @prop {name:alphaBg, tips:"透明背景层", type:Node}*/
     private alphaBg: Laya.Image = null;
@@ -27,13 +32,15 @@ export default class ShopView extends GameScript {
     /** 商品列表背景纹理 */
     private itemSelectBg: string[] = ["game/img_petbagNormal.png", "game/img_petbagSelected.png"];
 
+    private data: ShopViewData;
+
     onHdEnable() {}
 
     onHdAwake() {
         this.updateTopBtnState();
         this.alphaBg.alpha = 0.75;
 
-        console.log(this.itemList);
+        // console.log(this.itemList);
         // this.itemList.itemRender = this.listItem;
 
         let ar = [];
@@ -48,8 +55,10 @@ export default class ShopView extends GameScript {
         this.itemList.vScrollBarSkin = null;
     }
 
-    onOpened(e) {
-        this.topBtnSelectIndex = e || 0;
+    onOpened(e: ShopViewData) {
+        console.log(e);
+        this.data = e;
+        this.topBtnSelectIndex = e?.id || 0;
         this.updateTopBtnState();
     }
 
@@ -71,6 +80,7 @@ export default class ShopView extends GameScript {
     }
 
     onClick(e: Laya.Event) {
+        console.log(e.target.name);
         switch (e.target.name) {
             case "close":
                 ViewManager.inst.close(Res.views.ShopView, false, true, FloatViewShowAni);
@@ -85,7 +95,10 @@ export default class ShopView extends GameScript {
                     this.topBtnSelectIndex = topBtnIndex;
                     this.updateTopBtnState();
                 }
-
+                break;
+            case "buy_btn":
+                ViewManager.inst.close(Res.views.ShopView);
+                if (this.data?.call) this.data.call(111);
                 break;
         }
     }

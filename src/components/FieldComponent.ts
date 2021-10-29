@@ -76,7 +76,7 @@ export default class FieldComponent extends Core.gameScript {
             this.fieldNode.skin = this.fieldEmptyRes;
             this.showIcon(Boolean(this.date.productId));
             this.lvNode.visible = true;
-            if (this.date.matureTimeLeft) {
+            if (this.date.productId && this.date.matureTimeLeft) {
                 this.timeBox.visible = true;
                 this.timeBox.active = true;
 
@@ -193,7 +193,37 @@ export default class FieldComponent extends Core.gameScript {
         if (this.date) {
             if (this.buildIng) {
                 Core.view.open(Res.views.FieldLevelUpView, { parm: this.fieldId });
+                return;
             }
+
+            if (this.date.productId && this.date.matureTimeLeft) {
+                console.log("加速");
+                Core.view.open(Res.views.SpeedUpView);
+                return;
+            }
+
+            Core.view.open(Res.views.ShopView, {
+                parm: {
+                    id: 0,
+                    call: (d) => {
+                        console.log(d);
+                        this.updateDate({
+                            landList: [
+                                {
+                                    //土地id对应的也是下标
+                                    id: 0,
+                                    //土地等级
+                                    lv: 1,
+                                    //正在生长的东西的id 种子id, 如果剩余时间为0，表示 已熟，前端自己去查对应可生产的东西，然后改变显示状态
+                                    productId: 1000,
+                                    //剩余时间 如果为0 就为成熟 单位秒
+                                    matureTimeLeft: 3000,
+                                },
+                            ],
+                        });
+                    },
+                },
+            });
         } else {
             Core.view.open(Res.views.AddLandView, { parm: this.fieldId });
         }

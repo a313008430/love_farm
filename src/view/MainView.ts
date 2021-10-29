@@ -50,7 +50,7 @@ export default class MainView extends Core.gameScript {
                         //土地等级
                         lv: 1,
                         //正在生长的东西的id 种子id, 如果剩余时间为0，表示 已熟，前端自己去查对应可生产的东西，然后改变显示状态
-                        productId: 1000,
+                        productId: null,
                         //剩余时间 如果为0 就为成熟 单位秒
                         matureTimeLeft: 3,
                     },
@@ -60,7 +60,7 @@ export default class MainView extends Core.gameScript {
                         //土地等级
                         lv: 9,
                         //正在生长的东西的id 种子id, 如果剩余时间为0，表示 已熟，前端自己去查对应可生产的东西，然后改变显示状态
-                        productId: 1000,
+                        productId: null,
                         //剩余时间 如果为0 就为成熟 单位秒
                         matureTimeLeft: 0,
                     },
@@ -123,10 +123,10 @@ export default class MainView extends Core.gameScript {
                 Core.view.open(Res.views.WarehouseView);
                 break;
             case "buy_feed":
-                Core.view.open(Res.views.ShopView, { parm: 2 });
+                Core.view.open(Res.views.ShopView, { parm: { id: 2 } });
                 break;
             case "dog":
-                Core.view.open(Res.views.ShopView, { parm: 1 });
+                Core.view.open(Res.views.ShopView, { parm: { id: 2 } });
                 break;
             case "order_box":
                 Core.view.open(Res.views.OrderView);

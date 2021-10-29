@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":90,
-    "selecteID":43,
+    "selectedBox":49,
+    "selecteID":51,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/ShopView.jpg","right":0,"left":0,"height":1920,"btnList":"@arr:,,","bottom":0},
     "nodeParent":-1,
-    "maxID":201,
+    "maxID":202,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -35,10 +35,10 @@
         {
             "x":15,
             "type":"Image",
-            "searchKey":"Image",
-            "props":{"top":0,"skin":"game/img_shield.png","sizeGrid":"1,1,1,1","right":0,"left":0,"bottom":0,"alpha":0.75},
+            "searchKey":"Image,bg",
+            "props":{"top":0,"skin":"game/img_shield.png","sizeGrid":"1,1,1,1","right":0,"name":"bg","left":0,"bottom":0,"alpha":0.75},
             "nodeParent":2,
-            "label":"Image",
+            "label":"bg",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
@@ -325,10 +325,10 @@
                                 {
                                     "x":60,
                                     "type":"Image",
-                                    "searchKey":"Image,btn",
-                                    "props":{"y":1068,"x":424,"skin":"game/img_buybtm.png","name":"btn","anchorY":0.5,"anchorX":0.5},
+                                    "searchKey":"Image,buy_btn",
+                                    "props":{"y":1068,"x":424,"skin":"game/img_buybtm.png","name":"buy_btn","mouseEnabled":true,"anchorY":0.5,"anchorX":0.5},
                                     "nodeParent":90,
-                                    "label":"btn",
+                                    "label":"buy_btn",
                                     "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":true,
@@ -373,7 +373,7 @@
                                     "props":{"y":853,"x":100,"width":100,"name":"item_box","height":100},
                                     "nodeParent":90,
                                     "label":"item_box",
-                                    "isOpen":false,
+                                    "isOpen":true,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
@@ -386,13 +386,14 @@
                                             "props":{"y":-833,"x":-92,"width":836,"spaceY":30,"spaceX":28,"selectedIndex":0,"selectEnable":true,"repeatY":3,"repeatX":3,"name":"item_list","height":740},
                                             "nodeParent":43,
                                             "label":"item_list",
-                                            "isOpen":false,
+                                            "isOpen":true,
                                             "isDirectory":true,
                                             "isAniNode":true,
                                             "hasChild":true,
                                             "compId":86,
                                             "child":[
                                                 {
+                                                    "x":90,
                                                     "type":"Image",
                                                     "searchKey":"Image,item",
                                                     "props":{"y":0,"x":0,"width":260,"skin":"game/img_petbagNormal.png","renderType":"render","name":"item","mouseEnabled":true,"height":260},
@@ -405,9 +406,10 @@
                                                     "compId":49,
                                                     "child":[
                                                         {
+                                                            "x":105,
                                                             "type":"Label",
                                                             "searchKey":"Label,name",
-                                                            "props":{"y":48,"x":114,"text":"茄子","name":"name","fontSize":44,"font":"SimHei","color":"#906344","anchorY":0.5,"anchorX":0.5},
+                                                            "props":{"y":49,"x":130,"text":"茄子","name":"name","fontSize":44,"font":"SimHei","color":"#906344","anchorY":0.5,"anchorX":0.5},
                                                             "nodeParent":49,
                                                             "label":"name",
                                                             "isDirectory":false,
@@ -418,6 +420,7 @@
                                                                 ]
                                                         },
                                                         {
+                                                            "x":105,
                                                             "type":"Image",
                                                             "searchKey":"Image",
                                                             "props":{"y":143,"x":114,"skin":"game/img_nuts.png","anchorY":0.5,"anchorX":0.5},
@@ -431,6 +434,7 @@
                                                                 ]
                                                         },
                                                         {
+                                                            "x":105,
                                                             "type":"HBox",
                                                             "searchKey":"HBox,hbox",
                                                             "props":{"y":222,"x":130,"space":10,"rotation":0,"name":"hbox","anchorY":0.5,"anchorX":0.5,"align":"middle"},
@@ -443,6 +447,7 @@
                                                             "compId":56,
                                                             "child":[
                                                                 {
+                                                                    "x":120,
                                                                     "type":"Image",
                                                                     "searchKey":"Image",
                                                                     "props":{"skin":"game/img_coins.png"},
@@ -456,6 +461,7 @@
                                                                         ]
                                                                 },
                                                                 {
+                                                                    "x":120,
                                                                     "type":"FontClip",
                                                                     "searchKey":"FontClip,num",
                                                                     "props":{"y":0,"x":0,"value":"10099","spaceX":-2,"skin":"game/fontClip_coin.png","sheet":"0123456789","name":"num"},
@@ -1400,16 +1406,16 @@
             "x":15,
             "type":"Script",
             "switchAble":true,
-            "source":"src/components/FloatViewShowAni.ts",
-            "searchKey":"Script,FloatViewShowAni",
+            "source":"src/components/ViewShowAni.ts",
+            "searchKey":"Script,ViewShowAni",
             "removeAble":true,
-            "props":{"content":"@node:19"},
+            "props":{"content":"@node:19","bg":"@node:21","aniType":"scaleShow"},
             "nodeParent":2,
-            "label":"FloatViewShowAni",
+            "label":"ViewShowAni",
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,
-            "compId":186,
+            "compId":201,
             "child":[
                 ]
         }],

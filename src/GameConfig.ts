@@ -10,8 +10,8 @@ import FieldComponent from "./components/FieldComponent"
 import OrderView from "./view/OrderView"
 import SettingView from "./view/SettingView"
 import ShopView from "./view/ShopView"
-import FloatViewShowAni from "./components/FloatViewShowAni"
 import SignInView from "./view/SignInView"
+import SpeedUpView from "./view/SpeedUpView"
 import TaskView from "./view/TaskView"
 import WarehouseView from "./view/WarehouseView"
 /*
@@ -44,8 +44,8 @@ export default class GameConfig{
         reg("view/OrderView.ts",OrderView);
         reg("view/SettingView.ts",SettingView);
         reg("view/ShopView.ts",ShopView);
-        reg("components/FloatViewShowAni.ts",FloatViewShowAni);
         reg("view/SignInView.ts",SignInView);
+        reg("view/SpeedUpView.ts",SpeedUpView);
         reg("view/TaskView.ts",TaskView);
         reg("view/WarehouseView.ts",WarehouseView);
     }

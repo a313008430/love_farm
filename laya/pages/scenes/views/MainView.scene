@@ -2,7 +2,7 @@
     "x":0,
     "type":"View",
     "selectedBox":2,
-    "selecteID":115,
+    "selecteID":244,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
