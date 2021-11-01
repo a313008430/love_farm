@@ -6,6 +6,7 @@ export default class Tools {
      * @returns 解析好的字符列表
      */
     static parseString(str: string, format: string = ",") {
+        if (!str) return [];
         return str.split(format);
     }
 

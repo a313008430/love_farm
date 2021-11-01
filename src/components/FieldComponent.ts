@@ -1,7 +1,10 @@
 import { EventMaps } from "src/common/EventMaps";
 import Res from "src/common/Res";
+import { Table } from "src/common/Table";
+import TableAnalyze from "src/common/TableAnalyze";
 import Tools from "src/common/Tools";
 import Core from "src/core/index";
+import { GetFloatRewardObj } from "src/view/MainView";
 
 //  FieldComponent extends Laya.Script {
 /**
@@ -47,6 +50,8 @@ export default class FieldComponent extends Core.gameScript {
     /** 土地数据 */
     date: NetInit["data"]["landList"][0];
 
+    private landList: NetInit["data"]["landList"];
+
     onHdAwake() {
         this.fieldNode = <Laya.Image>this.owner;
         this.countDownLb = this.timeBox.getChildByName("countDownLb") as any;
@@ -54,6 +59,7 @@ export default class FieldComponent extends Core.gameScript {
     }
 
     init() {
+        this.icon.skin = null;
         this.showShadowIcon(false);
         this.timeBox.visible = false;
         this.timeBox.active = false;
@@ -63,6 +69,7 @@ export default class FieldComponent extends Core.gameScript {
 
     @Core.eventOn(EventMaps.update_field)
     updateDate(d: { landList: NetInit["data"]["landList"] }) {
+        this.landList = d.landList;
         for (let x = 0; x < d.landList.length; x++) {
             if (d.landList[x].id == this.fieldId) {
                 this.date = d.landList[x];
@@ -79,6 +86,8 @@ export default class FieldComponent extends Core.gameScript {
             if (this.date.productId && this.date.matureTimeLeft) {
                 this.timeBox.visible = true;
                 this.timeBox.active = true;
+
+                this.icon.skin = TableAnalyze.table("plant").get(this.date.productId).icon;
 
                 this.showShadowIcon(true);
                 this.updateCountDown();
@@ -166,7 +175,7 @@ export default class FieldComponent extends Core.gameScript {
      * 更新倒计时
      */
     private updateCountDown() {
-        if (this.date.matureTimeLeft) {
+        if (this.date.matureTimeLeft > 0) {
             this.countDownLb.text = Tools.formatSeconds(this.date.matureTimeLeft);
             Laya.timer.once(1000, this, () => {
                 this.date.matureTimeLeft--;
@@ -174,6 +183,7 @@ export default class FieldComponent extends Core.gameScript {
                 return this.updateCountDown();
             });
         } else {
+            this.date.matureTimeLeft = 0;
             console.log("倒计时结束 ");
             // this.topStateIconAni(false);
             if (!this.buildIng) this.setStateIconSkin(3);
@@ -188,6 +198,17 @@ export default class FieldComponent extends Core.gameScript {
         this.lvNode.skin = `main_scene/img_level${this.date.lv}.png`;
     }
 
+    /**
+     * 清空土地
+     */
+    private clearField() {
+        this.topStateIcon.visible = false;
+        this.date.productId = null;
+        this.icon.skin = null;
+        this.showIcon(false);
+        this.showShadowIcon(false);
+    }
+
     onClick() {
         console.log(this.fieldId, this.buildIng);
         if (this.date) {
@@ -196,10 +217,32 @@ export default class FieldComponent extends Core.gameScript {
                 return;
             }
 
-            if (this.date.productId && this.date.matureTimeLeft) {
-                console.log("加速");
-                Core.view.open(Res.views.SpeedUpView);
-                return;
+            if (this.date.productId) {
+                if (this.date.matureTimeLeft) {
+                    console.log("加速");
+                    Core.view.open(Res.views.SpeedUpView);
+                    return;
+                } else {
+                    console.log("收获");
+                    this.clearField();
+                    Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
+                        node: this.owner,
+                        list: [
+                            { obj: TableAnalyze.table("plant").get(1001), count: 10, posType: 1 },
+                            {
+                                obj: TableAnalyze.table("currency").get(1001),
+                                count: 20,
+                                posType: 2,
+                            },
+                            {
+                                obj: TableAnalyze.table("currency").get(1002),
+                                count: 990,
+                                posType: 1,
+                            },
+                        ],
+                    });
+                    return;
+                }
             }
 
             Core.view.open(Res.views.ShopView, {
@@ -211,13 +254,13 @@ export default class FieldComponent extends Core.gameScript {
                             landList: [
                                 {
                                     //土地id对应的也是下标
-                                    id: 0,
+                                    id: this.fieldId,
                                     //土地等级
                                     lv: 1,
                                     //正在生长的东西的id 种子id, 如果剩余时间为0，表示 已熟，前端自己去查对应可生产的东西，然后改变显示状态
-                                    productId: 1000,
+                                    productId: 1001,
                                     //剩余时间 如果为0 就为成熟 单位秒
-                                    matureTimeLeft: 3000,
+                                    matureTimeLeft: 1,
                                 },
                             ],
                         });
@@ -225,7 +268,26 @@ export default class FieldComponent extends Core.gameScript {
                 },
             });
         } else {
-            Core.view.open(Res.views.AddLandView, { parm: this.fieldId });
+            console.log(this.date);
+            Core.view.open(Res.views.AddLandView, {
+                parm: {
+                    id: this.fieldId,
+                    call: () => {
+                        this.landList.push({
+                            //土地id对应的也是下标
+                            id: this.fieldId,
+                            //土地等级
+                            lv: 1,
+                            //正在生长的东西的id 种子id, 如果剩余时间为0，表示 已熟，前端自己去查对应可生产的东西，然后改变显示状态
+                            productId: null,
+                            //剩余时间 如果为0 就为成熟 单位秒
+                            matureTimeLeft: 0,
+                        });
+                        this.updateDate({ landList: this.landList });
+                        console.log(this.landList);
+                    },
+                },
+            });
         }
     }
 }

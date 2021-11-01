@@ -34,7 +34,16 @@ interface PlantBase {
     icon: string;
     gain: RewardCurrencyBase[];
     desc: string;
-    lost_sum: number;
+    /** 种子价格 */
+    seed_price: RewardCurrencyBase;
+    /** 收获可得数量 */
+    harvest: number;
+    /** 成熟时间 */
+    mature_time: number;
+    /** 解锁消耗 */
+    unlock_cost: RewardCurrencyBase;
+    /** 解锁奖励 */
+    unlock_reward: RewardCurrencyBase[];
 }
 
 /**
@@ -42,7 +51,7 @@ interface PlantBase {
  */
 interface OrderBase {
     id: number;
-    reward: RewardCurrencyBase;
+    commission: number;
     condition: {
         plant: PlantBase;
         count: number;

@@ -15,13 +15,9 @@ const TablePropertyEvent = {
      * @param d 数据
      */
     order(d: typeof Table.order[0]) {
-        let r = Tools.parseString(d.reward, ":");
         return <OrderBase>{
             id: d.id,
-            reward: {
-                obj: TableAnalyze.table("currency").get(Number(r[0])),
-                count: Number(r[1]),
-            },
+            commission: Number(d.commission),
             condition: Tools.parseString(d.condition).map((e) => {
                 let v = Tools.parseString(e, ":");
                 return {
@@ -40,16 +36,14 @@ const TablePropertyEvent = {
         return <PlantBase>{
             id: d.id,
             name: d.name,
-            icon: d.icon,
-            gain: Tools.parseString(d.gain).map((e) => {
-                let v = Tools.parseString(e, ":");
-                return <RewardCurrencyBase>{
-                    obj: TableAnalyze.table("currency").get(Number(v[0])),
-                    count: Number(v[1]),
-                };
-            }),
+            icon: d.icon || `plant_icon/1001_seed.png`,
+            gain: Tools.parseString(d.gain).map((e) => getRewardCurrencyBase(e)),
             desc: d.desc,
-            lost_sum: d.lost_sum,
+            seed_price: getRewardCurrencyBase(d.seed_price),
+            harvest: Number(d.harvest),
+            mature_time: Number(d.mature_time),
+            unlock_cost: getRewardCurrencyBase(d.unlock_cost),
+            unlock_reward: Tools.parseString(d.unlock_reward).map((e) => getRewardCurrencyBase(e)),
         };
     },
 
@@ -65,6 +59,20 @@ const TablePropertyEvent = {
         };
     },
 };
+
+/**
+ * 解析货币
+ * @param str 解析的货币数据结构 id:num
+ */
+function getRewardCurrencyBase(str: string) {
+    if (!str) return [];
+    let list = Tools.parseString(str, ":");
+
+    return <RewardCurrencyBase>{
+        obj: TableAnalyze.table("currency").get(Number(list[0])),
+        count: Number(list[1]),
+    };
+}
 
 type typeTable = typeof TablePropertyEvent;
 

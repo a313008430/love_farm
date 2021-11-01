@@ -7,4 +7,26 @@ export const enum EventMaps {
 
     /** 更新土地 */
     update_field = "update_field",
+
+    /**
+     * 播放获得奖励动画
+     *
+     * @example
+    {
+        //需要飞金币的参考节点
+        node: this.owner,
+        //要飞的数据列表
+        list: [
+            {
+                //解析好的带icon的数据
+                obj: TableAnalyze.table("currency").get(1001),
+                //数量
+                count: 20,
+                //要飞去的位置 1 金币 2 钻石
+                posType: 2,
+            }
+        ],
+    }
+     */
+    play_get_reward = "play_get_reward",
 }

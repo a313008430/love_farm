@@ -1,0 +1,25 @@
+{
+    "x":0,
+    "type":"Image",
+    "selectedBox":2,
+    "searchKey":"Image",
+    "props":{"y":27,"x":28,"skin":"game/img_bankdiamond.png","sceneWidth":640,"sceneHeight":1136,"sceneColor":"#000000","presetID":1,"preset":"laya/pages/scenes/prefab/FloatRewardIcon.prefab","isPresetRoot":true,"anchorY":0.5,"anchorX":0.5},
+    "nodeParent":-1,
+    "maxID":3,
+    "label":"Image(FloatRewardIcon)",
+    "isDirectory":false,
+    "isAniNode":true,
+    "hasChild":false,
+    "compId":2,
+    "child":[
+        ],
+    "animations":[
+        {
+            "nodes":[
+                ],
+            "name":"ani1",
+            "id":1,
+            "frameRate":24,
+            "action":0
+        }]
+}
