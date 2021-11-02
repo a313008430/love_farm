@@ -1,9 +1,11 @@
 import { EventMaps } from "./common/EventMaps";
 import Res from "./common/Res";
-import UserInfo from "./common/UserInfo";
+import UserInfo from "./dataService/UserInfo";
 import EventGlobal from "./core/EventGlobal";
 import { ViewManager } from "./core/ViewManager";
 import GameConfig from "./GameConfig";
+import PlantService from "./dataService/PlantService";
+import LandService from "./dataService/LandService";
 class Main {
     /** 自定义渲染id列表 */
     static customRenderID: number[] = [];
@@ -47,6 +49,7 @@ class Main {
     async onConfigLoaded() {
         // 自定义渲染id
         Config["customRenderID"] = [];
+        this.initGameData();
 
         // Laya.SoundManager.playSound("res/audio/draw.mp3");
         //如果通过设备静音键让音频自动跟随设备静音。需要将useAudioMusic设置为false。
@@ -85,6 +88,32 @@ class Main {
                 false
             )
         );
+    }
+
+    initGameData() {
+        PlantService.init();
+        LandService.init([
+            {
+                //土地id对应的也是下标
+                id: 0,
+                //土地等级
+                lv: 1,
+                //正在生长的东西的id 种子id, 如果剩余时间为0，表示 已熟，前端自己去查对应可生产的东西，然后改变显示状态
+                productId: null,
+                //剩余时间 如果为0 就为成熟 单位秒
+                matureTimeLeft: 3,
+            },
+            {
+                //土地id对应的也是下标
+                id: 3,
+                //土地等级
+                lv: 9,
+                //正在生长的东西的id 种子id, 如果剩余时间为0，表示 已熟，前端自己去查对应可生产的东西，然后改变显示状态
+                productId: null,
+                //剩余时间 如果为0 就为成熟 单位秒
+                matureTimeLeft: 0,
+            },
+        ]);
     }
 }
 //激活启动类

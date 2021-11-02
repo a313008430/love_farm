@@ -1,7 +1,13 @@
 import Res from "src/common/Res";
+import { FeedBase, PlantBase } from "src/common/TableObject";
+import Tools from "src/common/Tools";
 import FloatViewShowAni from "src/components/FloatViewShowAni";
 import GameScript from "src/core/GameScript";
+import Core from "src/core/index";
 import { ViewManager } from "src/core/ViewManager";
+import FeedService from "src/dataService/FeedService";
+import PetService from "src/dataService/PetService";
+import PlantService from "src/dataService/PlantService";
 
 interface ShopViewData {
     id: number;
@@ -9,14 +15,42 @@ interface ShopViewData {
 }
 
 export default class ShopView extends GameScript {
-    /** @prop {name:alphaBg, tips:"透明背景层", type:Node}*/
-    private alphaBg: Laya.Image = null;
     /** @prop {name:itemList, tips:"商品列表", type:Node}*/
     private itemList: Laya.List = null;
     /** @prop {name:btnBoxTop, tips:"顶部按钮列表容器", type:Node}*/
     private btnBoxTop: Laya.Image = null;
     /** @prop {name:bottomBox, tips:"底部数据列表", type:Node}*/
     private bottomBox: Laya.Node = null;
+
+    //种子
+    /** @prop {name:seedDesc, tips:"描述", type:Node}*/
+    private seedDesc: Laya.Label = null;
+    /** @prop {name:matureTime, tips:"成熟时间", type:Node}*/
+    private matureTime: Laya.Label = null;
+    /** @prop {name:matureGainBox, tips:"收益容器", type:Node}*/
+    private matureGainBox: Laya.Label = null;
+    /** @prop {name:lockBtnBox, tips:"解锁按钮容器", type:Node}*/
+    private lockBtnBox: Laya.Box = null;
+    /** @prop {name:itemBuyBtn, tips:"购买按钮节点", type:Node}*/
+    private itemBuyBtn: Laya.Image = null;
+
+    //饲料
+    /** @prop {name:feedBuyBtn, tips:"饲料购按钮", type:Node}*/
+    private feedBuyBtn: Laya.Image = null;
+    /** @prop {name:feedDesc, tips:"饲料描述文本", type:Node}*/
+    private feedDesc: Laya.Label = null;
+
+    //宠物
+    /** @prop {name:petIcon, tips:"宠物icon", type:Node}*/
+    private petIcon: Laya.Image = null;
+    /** @prop {name:petDesc, tips:"宠物描述", type:Node}*/
+    private petDesc: Laya.Label = null;
+    /** @prop {name:petName, tips:"宠物名称", type:Node}*/
+    private petName: Laya.Label = null;
+    /** @prop {name:vitalityMax, tips:"体力上限", type:Node}*/
+    private vitalityMax: Laya.FontClip = null;
+    /** @prop {name:petButBtn, tips:"购买宠物按钮", type:Node}*/
+    private petButBtn: Laya.Image = null;
 
     /** 顶部按钮文字资源列表 */
     private btnTopResList: string[][] = [
@@ -37,18 +71,6 @@ export default class ShopView extends GameScript {
     onHdEnable() {}
 
     onHdAwake() {
-        this.updateTopBtnState();
-        this.alphaBg.alpha = 0.75;
-
-        // console.log(this.itemList);
-        // this.itemList.itemRender = this.listItem;
-
-        let ar = [];
-        for (let x = 0; x < 30; x++) {
-            ar.push({ name: x });
-        }
-        // this.itemList.scrollBar.hide = true;
-        this.itemList.array = ar;
         this.itemList.renderHandler = new Laya.Handler(this, this.updateItem);
 
         this.itemList.selectHandler = new Laya.Handler(this, this.onSelect);
@@ -62,20 +84,114 @@ export default class ShopView extends GameScript {
         this.updateTopBtnState();
     }
 
+    /**
+     * 种子或是饲料选中时的下标
+     * @param e 选中的下标
+     */
     onSelect(e) {
-        console.log(e);
         this.itemListSelectIndex = e;
     }
 
+    /**
+     * 获取种子或饮料列表数据
+     * @returns
+     */
+    private getDataList() {
+        if (this.topBtnSelectIndex == 0) {
+            return PlantService.list;
+        }
+        if (this.topBtnSelectIndex == 2) {
+            if (!FeedService.list.length) FeedService.init();
+            return FeedService.list;
+        }
+    }
+
+    /**
+     * 渲染种子或是饲料的列表
+     * @param cell 列表节点
+     * @param index 下标
+     * @returns
+     */
     updateItem(cell: Laya.Image, index) {
-        // console.log(cell);
-        // cell.setImg(cell.dataSource);
-        (cell.getChildByName("hbox").getChildByName("num") as Laya.FontClip).value = index;
+        let d = this.getDataList()[index];
+        let priceBox = cell.getChildByName("hbox") as Laya.Box,
+            lockIcon = cell.getChildByName("lock_icon") as Laya.Image;
+        if (!d) return console.warn("数据丢失");
+        if (d.lock) {
+            lockIcon.visible = true;
+            lockIcon.active = true;
+            priceBox.visible = false;
+            priceBox.active = false;
+        } else {
+            lockIcon.visible = false;
+            lockIcon.active = false;
+            priceBox.visible = true;
+            priceBox.active = true;
+
+            let count = 0,
+                icon = "";
+            if (this.topBtnSelectIndex == 0) {
+                count = (<PlantBase>d.base).seed_price.count;
+                icon = (<PlantBase>d.base).seed_price.obj.icon;
+            } else {
+                count = (<FeedBase>d.base).cost.count;
+                icon = (<FeedBase>d.base).cost.obj.icon;
+            }
+
+            (priceBox.getChildByName("num") as Laya.FontClip).value = count + "";
+            (priceBox.getChildByName("gold_icon") as Laya.Image).skin = icon;
+        }
+
+        (cell.getChildByName("icon") as Laya.Image).skin = d.base.icon;
+        (cell.getChildByName("name") as Laya.Label).text = d.base.name;
 
         if (index == this.itemListSelectIndex) {
             cell.skin = this.itemSelectBg[1];
+            this.updateSelectDesc();
         } else {
             cell.skin = this.itemSelectBg[0];
+        }
+    }
+
+    /**
+     * 更新种子或是饲料低部，选择物品时的数据显示
+     */
+    private updateSelectDesc() {
+        let d = this.getDataList()[this.itemListSelectIndex];
+        console.log(d);
+        if (this.topBtnSelectIndex === 2) {
+            //饲料
+            (this.seedDesc.parent as Laya.Box).visible = false;
+            this.feedDesc.text = d.base.desc.replace("&", (<FeedBase>d.base).vitality + "");
+            this.feedDesc.visible = true;
+
+            return;
+        }
+        //种子
+        let base = d.base as PlantBase;
+        (this.seedDesc.parent as Laya.Box).visible = true;
+        this.feedDesc.visible = false;
+        this.seedDesc.text = base.desc;
+        this.matureTime.text = Tools.formatSeconds(base.mature_time);
+        this.itemBuyBtn.visible = !d.lock;
+        this.lockBtnBox.visible = d.lock;
+        this.lockBtnBox.active = d.lock;
+        let gainList = base.gain;
+        for (let x = 0; x < 3; x++) {
+            let itemBox = this.matureGainBox.getChildAt(x) as Laya.Box,
+                icon = null,
+                count = 0,
+                gainData = gainList[x - 1];
+            if (x === 0) {
+                count = base.harvest;
+                icon = base.icon;
+            } else if (gainData) {
+                icon = gainData.obj.icon;
+                count = gainData.count * base.harvest;
+            }
+
+            (itemBox.getChildByName("icon") as Laya.Image).skin = icon;
+            (itemBox.getChildByName("count") as Laya.Label).text = "x" + count;
         }
     }
 
@@ -83,22 +199,48 @@ export default class ShopView extends GameScript {
         console.log(e.target.name);
         switch (e.target.name) {
             case "close":
-                ViewManager.inst.close(Res.views.ShopView, false, true, FloatViewShowAni);
+                ViewManager.inst.close(Res.views.ShopView);
                 break;
 
             case "seed":
+
             case "pet":
             case "feed":
+
             case "bank":
                 let topBtnIndex = this.btnBoxTop.getChildIndex(e.target);
                 if (this.topBtnSelectIndex != topBtnIndex) {
-                    this.topBtnSelectIndex = topBtnIndex;
+                    this.topBtnSelectIndex = Number(topBtnIndex);
+
                     this.updateTopBtnState();
                 }
                 break;
             case "buy_btn":
                 ViewManager.inst.close(Res.views.ShopView);
-                if (this.data?.call) this.data.call(111);
+                if (this.data?.call) this.data.call(this.getDataList()[this.itemListSelectIndex]);
+                break;
+            case "unlock_buy":
+            case "ad_unlock":
+                PlantService.list[this.itemListSelectIndex].lock = false;
+                this.itemList.changeItem(
+                    this.itemListSelectIndex,
+                    PlantService.list[this.itemListSelectIndex]
+                );
+                break;
+
+            case "left":
+                this.selectPetIndex--;
+                if (this.selectPetIndex < 0) {
+                    this.selectPetIndex = PetService.list.length - 1;
+                }
+                this.updatePet();
+                break;
+            case "right":
+                this.selectPetIndex++;
+                if (this.selectPetIndex >= PetService.list.length) {
+                    this.selectPetIndex = 0;
+                }
+                this.updatePet();
                 break;
         }
     }
@@ -127,27 +269,84 @@ export default class ShopView extends GameScript {
      */
     private updateBottom() {
         for (let x = 0; x < this.bottomBox.numChildren; x++) {
-            (this.bottomBox.getChildAt(x) as Laya.Box).visible = false;
-            (this.bottomBox.getChildAt(x) as Laya.Box).active = false;
+            this.updateCenterBoxState(x, false);
         }
-
+        let itemBuyBox = this.itemBuyBtn.parent as Laya.Box;
         switch (this.topBtnSelectIndex) {
-            case 0:
-                (this.bottomBox.getChildAt(0) as Laya.Box).visible = true;
-                (this.bottomBox.getChildAt(0) as Laya.Box).active = true;
+            case 0: //种子
+                this.updateCenterBoxState(0, true);
+                this.resetPetOrFeedList();
+                this.feedBuyBtn.visible = false;
+                itemBuyBox.visible = true;
+                itemBuyBox.active = true;
                 break;
             case 1:
-                (this.bottomBox.getChildAt(1) as Laya.Box).visible = true;
-                (this.bottomBox.getChildAt(1) as Laya.Box).active = true;
+                this.updateCenterBoxState(1, true);
+                this.updatePet();
                 break;
-            case 2:
-                (this.bottomBox.getChildAt(0) as Laya.Box).visible = true;
-                (this.bottomBox.getChildAt(0) as Laya.Box).active = true;
+            case 2: //饲料
+                this.updateCenterBoxState(0, true);
+                this.resetPetOrFeedList();
+                this.feedBuyBtn.visible = true;
+                itemBuyBox.visible = false;
+                itemBuyBox.active = false;
                 break;
             case 3:
-                (this.bottomBox.getChildAt(2) as Laya.Box).visible = true;
-                (this.bottomBox.getChildAt(2) as Laya.Box).active = true;
+                this.updateCenterBoxState(2, true);
                 break;
         }
+    }
+
+    /** 当前选择的宠物下标 */
+    private selectPetIndex: number = 0;
+
+    /**
+     * 更新宠物数据
+     */
+    private updatePet() {
+        if (!PetService.list.length) PetService.init();
+        let pet = PetService.list[this.selectPetIndex];
+        this.petIcon.skin = pet.base.icon;
+        this.petName.text = pet.base.name;
+        this.petDesc.text = pet.base.desc;
+        this.vitalityMax.value = pet.base.vitality_max + "";
+        let btn_box = this.petButBtn.getChildByName("btn_box") as Laya.Box;
+        (btn_box.getChildByName("icon") as Laya.Image).skin = pet.base.cost.obj.icon;
+        (btn_box.getChildByName("value") as Laya.FontClip).value = pet.base.cost.count + "";
+
+        let petBox = this.bottomBox.getChildAt(1),
+            findBox = petBox.getChildByName("find_box") as Laya.Box,
+            back_box = petBox.getChildByName("back_box") as Laya.Box,
+            starIcon: Laya.Image;
+        for (let x = 0; x < 5; x++) {
+            starIcon = findBox.getChildAt(x) as Laya.Image;
+            starIcon.visible = x * 20 < pet.base.sensitive;
+            starIcon.skin =
+                x * 20 + 10 < pet.base.sensitive ? "game/img_star.png" : "game/img_halfstar.png";
+            starIcon = back_box.getChildAt(x) as Laya.Image;
+            starIcon.visible = x * 20 < pet.base.ability;
+            starIcon.skin =
+                x * 20 + 10 < pet.base.ability ? "game/img_star.png" : "game/img_halfstar.png";
+        }
+    }
+
+    /**
+     * 重置种子或是饲料数据
+     */
+    private resetPetOrFeedList() {
+        this.itemListSelectIndex = 0;
+        this.itemList.selectedIndex = 0;
+        this.itemList.array = this.getDataList();
+        this.itemList.refresh();
+    }
+
+    /**
+     * 更新中间内容显示隐藏切换
+     * @param i 下标
+     * @param show 显示或隐藏
+     */
+    private updateCenterBoxState(i: number, show: boolean) {
+        (this.bottomBox.getChildAt(i) as Laya.Box).visible = show;
+        (this.bottomBox.getChildAt(i) as Laya.Box).active = show;
     }
 }

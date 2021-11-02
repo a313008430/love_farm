@@ -93,6 +93,8 @@
             "res/audio/draw.mp3",
             "res/atlas/plant_icon.png",
             "res/atlas/plant_icon.atlas",
+            "res/atlas/pet_feed.png",
+            "res/atlas/pet_feed.atlas",
             "res/atlas/main_scene.png",
             "res/atlas/main_scene.atlas",
             "res/atlas/game1.png",

@@ -4,6 +4,8 @@ import { Table } from "src/common/Table";
 import TableAnalyze from "src/common/TableAnalyze";
 import Tools from "src/common/Tools";
 import Core from "src/core/index";
+import LandService, { LandObj } from "src/dataService/LandService";
+import { PlantDataBase } from "src/dataService/PlantService";
 import { GetFloatRewardObj } from "src/view/MainView";
 
 //  FieldComponent extends Laya.Script {
@@ -48,9 +50,9 @@ export default class FieldComponent extends Core.gameScript {
     /** 建筑中 */
     buildIng: boolean = false;
     /** 土地数据 */
-    date: NetInit["data"]["landList"][0];
+    data: LandObj;
 
-    private landList: NetInit["data"]["landList"];
+    private landList: Map<number, LandObj>;
 
     onHdAwake() {
         this.fieldNode = <Laya.Image>this.owner;
@@ -68,26 +70,24 @@ export default class FieldComponent extends Core.gameScript {
     }
 
     @Core.eventOn(EventMaps.update_field)
-    updateDate(d: { landList: NetInit["data"]["landList"] }) {
-        this.landList = d.landList;
-        for (let x = 0; x < d.landList.length; x++) {
-            if (d.landList[x].id == this.fieldId) {
-                this.date = d.landList[x];
-                break;
-            }
-        }
+    updateData() {
+        this.landList = LandService.list;
+        this.data = this.landList.get(this.fieldId);
 
-        if (this.date) {
+        this.renderData();
+    }
+
+    private renderData() {
+        if (this.data) {
             this.showIcon(true);
-            console.log(this.icon);
             this.fieldNode.skin = this.fieldEmptyRes;
-            this.showIcon(Boolean(this.date.productId));
+            this.showIcon(Boolean(this.data.productId));
             this.lvNode.visible = true;
-            if (this.date.productId && this.date.matureTimeLeft) {
+            if (this.data.productId && this.data.matureTimeLeft) {
                 this.timeBox.visible = true;
                 this.timeBox.active = true;
 
-                this.icon.skin = TableAnalyze.table("plant").get(this.date.productId).icon;
+                this.icon.skin = TableAnalyze.table("plant").get(this.data.productId).icon;
 
                 this.showShadowIcon(true);
                 this.updateCountDown();
@@ -95,7 +95,7 @@ export default class FieldComponent extends Core.gameScript {
                 this.topStateIcon.visible = true;
                 this.topStateIconAni(true);
             } else {
-                if (this.date.productId) {
+                if (this.data.productId) {
                     this.topStateIcon.visible = true;
                     this.showShadowIcon(true);
                     this.topStateIconAni(true);
@@ -175,15 +175,15 @@ export default class FieldComponent extends Core.gameScript {
      * 更新倒计时
      */
     private updateCountDown() {
-        if (this.date.matureTimeLeft > 0) {
-            this.countDownLb.text = Tools.formatSeconds(this.date.matureTimeLeft);
+        if (this.data.matureTimeLeft > 0) {
+            this.countDownLb.text = Tools.formatSeconds(this.data.matureTimeLeft);
             Laya.timer.once(1000, this, () => {
-                this.date.matureTimeLeft--;
-                this.countDownLb.text = Tools.formatSeconds(this.date.matureTimeLeft);
+                this.data.matureTimeLeft--;
+                this.countDownLb.text = Tools.formatSeconds(this.data.matureTimeLeft);
                 return this.updateCountDown();
             });
         } else {
-            this.date.matureTimeLeft = 0;
+            this.data.matureTimeLeft = 0;
             console.log("倒计时结束 ");
             // this.topStateIconAni(false);
             if (!this.buildIng) this.setStateIconSkin(3);
@@ -195,7 +195,7 @@ export default class FieldComponent extends Core.gameScript {
      * 更新等级
      */
     private updateLevel() {
-        this.lvNode.skin = `main_scene/img_level${this.date.lv}.png`;
+        this.lvNode.skin = `main_scene/img_level${this.data.lv}.png`;
     }
 
     /**
@@ -203,7 +203,7 @@ export default class FieldComponent extends Core.gameScript {
      */
     private clearField() {
         this.topStateIcon.visible = false;
-        this.date.productId = null;
+        this.data.productId = null;
         this.icon.skin = null;
         this.showIcon(false);
         this.showShadowIcon(false);
@@ -211,36 +211,43 @@ export default class FieldComponent extends Core.gameScript {
 
     onClick() {
         console.log(this.fieldId, this.buildIng);
-        if (this.date) {
+        if (this.data) {
             if (this.buildIng) {
                 Core.view.open(Res.views.FieldLevelUpView, { parm: this.fieldId });
                 return;
             }
 
-            if (this.date.productId) {
-                if (this.date.matureTimeLeft) {
+            if (this.data.productId) {
+                if (this.data.matureTimeLeft) {
                     console.log("加速");
                     Core.view.open(Res.views.SpeedUpView);
                     return;
                 } else {
                     console.log("收获");
-                    this.clearField();
-                    Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
-                        node: this.owner,
-                        list: [
-                            { obj: TableAnalyze.table("plant").get(1001), count: 10, posType: 1 },
+
+                    let plantObj = TableAnalyze.table("plant").get(this.data.productId),
+                        rewardList: any[] = [
                             {
-                                obj: TableAnalyze.table("currency").get(1001),
-                                count: 20,
-                                posType: 2,
-                            },
-                            {
-                                obj: TableAnalyze.table("currency").get(1002),
-                                count: 990,
+                                obj: plantObj,
+                                count: plantObj.harvest,
                                 posType: 1,
                             },
-                        ],
+                        ];
+
+                    plantObj.gain.forEach((d) => {
+                        rewardList.push({
+                            obj: TableAnalyze.table("currency").get(d.obj.id),
+                            count: d.count,
+                            posType: 1001 == d.obj.id ? 2 : 1,
+                        });
                     });
+
+                    Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
+                        node: this.owner,
+                        list: rewardList,
+                    });
+
+                    this.clearField();
                     return;
                 }
             }
@@ -248,32 +255,24 @@ export default class FieldComponent extends Core.gameScript {
             Core.view.open(Res.views.ShopView, {
                 parm: {
                     id: 0,
-                    call: (d) => {
+                    call: (d: PlantDataBase) => {
                         console.log(d);
-                        this.updateDate({
-                            landList: [
-                                {
-                                    //土地id对应的也是下标
-                                    id: this.fieldId,
-                                    //土地等级
-                                    lv: 1,
-                                    //正在生长的东西的id 种子id, 如果剩余时间为0，表示 已熟，前端自己去查对应可生产的东西，然后改变显示状态
-                                    productId: 1001,
-                                    //剩余时间 如果为0 就为成熟 单位秒
-                                    matureTimeLeft: 1,
-                                },
-                            ],
-                        });
+
+                        this.landList.get(this.fieldId).productId = d.base.id;
+                        this.landList.get(this.fieldId).matureTimeLeft = 1;
+
+                        this.data = this.landList.get(this.fieldId);
+                        this.renderData();
                     },
                 },
             });
         } else {
-            console.log(this.date);
+            console.log(this.data);
             Core.view.open(Res.views.AddLandView, {
                 parm: {
                     id: this.fieldId,
                     call: () => {
-                        this.landList.push({
+                        LandService.addLand({
                             //土地id对应的也是下标
                             id: this.fieldId,
                             //土地等级
@@ -283,7 +282,7 @@ export default class FieldComponent extends Core.gameScript {
                             //剩余时间 如果为0 就为成熟 单位秒
                             matureTimeLeft: 0,
                         });
-                        this.updateDate({ landList: this.landList });
+                        this.updateData();
                         console.log(this.landList);
                     },
                 },

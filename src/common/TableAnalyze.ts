@@ -1,7 +1,9 @@
 import { Table } from "./Table";
 import {
     CurrencyBase,
+    FeedBase,
     OrderBase,
+    PetBase,
     PlantBase,
     RewardBase,
     RewardCurrencyBase,
@@ -10,6 +12,36 @@ import {
 import Tools from "./Tools";
 
 const TablePropertyEvent = {
+    pet(d: typeof Table.pet[0]) {
+        return <PetBase>{
+            id: d.id,
+            name: d.name,
+            icon: d.icon || `pet_feed/${d.id}.png`,
+            vitality_max: d.vitality_max,
+            vitality_consume: d.vitality_consume,
+            cost: getRewardCurrencyBase(d.cost),
+            desc: d.desc,
+            sensitive: d.sensitive,
+            ability: d.ability,
+        };
+    },
+
+    /**
+     * 解析饲料表
+     * @param d 数据
+     * @returns
+     */
+    feed(d: typeof Table.feed[0]) {
+        return <FeedBase>{
+            id: d.id,
+            name: d.name,
+            icon: d.icon || `pet_feed/${d.id}_feed.png`,
+            vitality: d.vitality,
+            cost: getRewardCurrencyBase(d.cost),
+            desc: d.desc,
+        };
+    },
+
     /**
      * 解析订单表
      * @param d 数据
@@ -36,7 +68,7 @@ const TablePropertyEvent = {
         return <PlantBase>{
             id: d.id,
             name: d.name,
-            icon: d.icon || `plant_icon/1001_seed.png`,
+            icon: d.icon || `plant_icon/${d.id}_seed.png`,
             gain: Tools.parseString(d.gain).map((e) => getRewardCurrencyBase(e)),
             desc: d.desc,
             seed_price: getRewardCurrencyBase(d.seed_price),

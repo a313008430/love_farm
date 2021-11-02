@@ -47,6 +47,37 @@ interface PlantBase {
 }
 
 /**
+ * 饲料基础数据结构
+ */
+interface FeedBase {
+    id: number;
+    name: string;
+    icon: string;
+    vitality: number;
+    cost: RewardCurrencyBase;
+    desc: string;
+}
+
+/**
+ * 宠物基础数据结构
+ */
+interface PetBase {
+    id: number;
+    name: string;
+    icon: string;
+    /** 体力上限 */
+    vitality_max: number;
+    /** 体力消耗 */
+    vitality_consume: number;
+    cost: RewardCurrencyBase;
+    desc: string;
+    /** 发现小偷概率 */
+    sensitive: number;
+    /** 扣回损失概率 */
+    ability: number;
+}
+
+/**
  * 订单基础表
  */
 interface OrderBase {

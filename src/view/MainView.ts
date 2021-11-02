@@ -4,8 +4,9 @@ import { Table } from "src/common/Table";
 import TableAnalyze from "src/common/TableAnalyze";
 import FieldComponent from "src/components/FieldComponent";
 import Core from "src/core/index";
+import LandService from "src/dataService/LandService";
 import Res from "../common/Res";
-import UserInfo from "../common/UserInfo";
+import UserInfo from "../dataService/UserInfo";
 
 /**
  * 飞金币数量结构
@@ -74,38 +75,21 @@ export default class MainView extends Core.gameScript {
         });
 
         Laya.timer.frameOnce(1, this, () => {
-            Core.eventGlobal.event(EventMaps.update_field, {
-                landList: [
-                    {
-                        //土地id对应的也是下标
-                        id: 0,
-                        //土地等级
-                        lv: 1,
-                        //正在生长的东西的id 种子id, 如果剩余时间为0，表示 已熟，前端自己去查对应可生产的东西，然后改变显示状态
-                        productId: null,
-                        //剩余时间 如果为0 就为成熟 单位秒
-                        matureTimeLeft: 3,
-                    },
-                    {
-                        //土地id对应的也是下标
-                        id: 3,
-                        //土地等级
-                        lv: 9,
-                        //正在生长的东西的id 种子id, 如果剩余时间为0，表示 已熟，前端自己去查对应可生产的东西，然后改变显示状态
-                        productId: null,
-                        //剩余时间 如果为0 就为成熟 单位秒
-                        matureTimeLeft: 0,
-                    },
-                ],
-            });
-
-            for (let x = 0, l = this.landList.length; x < l; x++) {
-                if (!this.landList[x].date) {
-                    this.landList[x].showIcon(true);
-                    break;
-                }
-            }
+            Core.eventGlobal.event(EventMaps.update_field);
+            this.hitLandAdd();
         });
+    }
+
+    /**
+     * 提示显示扩建icon
+     */
+    private hitLandAdd() {
+        for (let x = 0, l = this.landList.length; x < l; x++) {
+            if (!this.landList[x].data) {
+                this.landList[x].showIcon(true);
+                break;
+            }
+        }
     }
 
     onHdEnable(): void {
@@ -166,15 +150,19 @@ export default class MainView extends Core.gameScript {
             case "land":
                 break;
             case "landLevelUp":
-                this.LandLevelUp(true);
+                this.switchLandLevelUp(true);
                 break;
             case "close_up":
-                this.LandLevelUp(false);
+                this.switchLandLevelUp(false);
                 break;
         }
     }
 
-    private LandLevelUp(show: boolean) {
+    /**
+     * 切换土地升级状态
+     * @param show 显示或隐藏
+     */
+    private switchLandLevelUp(show: boolean) {
         let bg = this.landUpLayer.getChildByName("bg") as Laya.Image;
         if (show) {
             bg.alpha = 0;
@@ -183,7 +171,7 @@ export default class MainView extends Core.gameScript {
             this.landUpLayer.active = true;
             this.landUpLayer.visible = true;
             this.landList.forEach((e) => {
-                if (e.date) {
+                if (e.data) {
                     e.showIcon(false);
                 }
                 e.setStateIconSkin(2);
@@ -205,17 +193,17 @@ export default class MainView extends Core.gameScript {
             );
 
             this.landList.forEach((e) => {
-                if (e.date) {
+                if (e.data) {
                     e.showIcon(true);
-                    if (e.date.productId && e.date.matureTimeLeft) {
+                    if (e.data.productId && e.data.matureTimeLeft) {
                         e.showTimeBox(true);
                         e.showShadowIcon(true);
                     }
                 }
                 e.buildIng = false;
-                if (e.date) {
-                    if (e.date.productId) {
-                        e.setStateIconSkin(e.date.matureTimeLeft ? 1 : 3);
+                if (e.data) {
+                    if (e.data.productId) {
+                        e.setStateIconSkin(e.data.matureTimeLeft ? 1 : 3);
                     }
                 } else {
                     e.setStateIconSkin(1);

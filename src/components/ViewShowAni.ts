@@ -40,8 +40,6 @@ export default class ViewShowAni extends GameScript {
             )
         );
 
-        console.log(this.aniType);
-
         switch (this.aniType) {
             case "scaleShow":
                 this.content.scale(1, 1);
@@ -99,11 +97,12 @@ export default class ViewShowAni extends GameScript {
                             {
                                 x: Laya.stage.width / 2,
                                 y: Laya.stage.height / 2,
-                                scaleX: 0,
-                                scaleY: 0,
+                                scaleX: 0.5,
+                                scaleY: 0.5,
+                                alpha: 0,
                             },
-                            300,
-                            Laya.Ease.strongOut,
+                            150,
+                            null,
                             new Laya.Handler(
                                 this,
                                 () => {

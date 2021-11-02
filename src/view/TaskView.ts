@@ -1,5 +1,5 @@
 import Res from "../common/Res";
-import UserInfo from "../common/UserInfo";
+import UserInfo from "../dataService/UserInfo";
 import EventGlobal, { EventOn } from "../core/EventGlobal";
 import GameScript from "../core/GameScript";
 import ObservableProperty from "../core/ObservableProperty";
