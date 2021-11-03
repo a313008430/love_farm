@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":78,
+    "selectedBox":112,
+    "selecteID":351,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -85,13 +85,14 @@
             "props":{"width":1083,"name":"center_box","height":1149,"centerY":0,"centerX":0,"anchorY":0.5,"anchorX":0.5},
             "nodeParent":2,
             "label":"center_box",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":96,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":391,"x":-107.5,"skin":"main_scene/img_landBg.png"},
@@ -105,6 +106,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Box",
                     "searchKey":"Box,house_box",
                     "props":{"y":-57,"x":-106,"name":"house_box"},
@@ -117,6 +119,7 @@
                     "compId":101,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,shop",
                             "props":{"y":252,"x":1003,"skin":"main_scene/img_marketBuilding.png","name":"shop","anchorY":0.5,"anchorX":0.5},
@@ -147,6 +150,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,landLevelUp",
                             "props":{"y":149,"x":657,"skin":"main_scene/img_landUpdate.png","name":"landLevelUp","anchorY":0.5,"anchorX":0.5},
@@ -176,6 +180,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,warehouse",
                             "props":{"y":272,"x":270,"skin":"main_scene/img_storehouseBuilding.png","name":"warehouse","anchorY":0.5,"anchorX":0.5},
@@ -206,6 +211,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":889,"x":30,"skin":"main_scene/img_billboard.png"},
@@ -218,6 +224,7 @@
                     "compId":113,
                     "child":[
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label",
                             "props":{"y":62,"x":55,"wordWrap":true,"width":199,"text":"劳动光荣偷盗可耻","leading":16,"height":104,"fontSize":42,"font":"Microsoft YaHei","color":"#906344","bold":true},
@@ -232,6 +239,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":897,"x":858,"skin":"main_scene/img_dogHouse.png"},
@@ -245,6 +253,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,dog",
                     "props":{"y":1058,"x":718,"skin":"main_scene/img_dog1.png","name":"dog","mouseEnabled":true},
@@ -258,6 +267,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,buy_feed",
                     "props":{"y":1132,"x":941,"width":102,"skin":"main_scene/img_bowlWithFood.png","name":"buy_feed","mouseEnabled":true,"height":72},
@@ -297,18 +307,20 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Box",
                     "searchKey":"Box,land_box",
                     "props":{"y":452,"x":15,"width":1087,"name":"land_box","mouseEnabled":true,"height":610},
                     "nodeParent":96,
                     "label":"land_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":112,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "selectedBox":105,
                             "searchKey":"Image,land",
@@ -372,7 +384,7 @@
                                     "source":"src/components/FieldComponent.ts",
                                     "searchKey":"Script,FieldComponent",
                                     "removeAble":true,
-                                    "props":{"presetID":5,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","fieldId":8},
+                                    "props":{"presetID":5,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","fieldId":9},
                                     "nodeParent":351,
                                     "label":"FieldComponent",
                                     "isDirectory":false,
@@ -448,6 +460,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "selectedBox":105,
                             "searchKey":"Image,land",
@@ -511,7 +524,7 @@
                                     "source":"src/components/FieldComponent.ts",
                                     "searchKey":"Script,FieldComponent",
                                     "removeAble":true,
-                                    "props":{"presetID":5,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","fieldId":7},
+                                    "props":{"presetID":5,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","fieldId":8},
                                     "nodeParent":357,
                                     "label":"FieldComponent",
                                     "isDirectory":false,
@@ -587,6 +600,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "selectedBox":105,
                             "searchKey":"Image,land",
@@ -650,7 +664,7 @@
                                     "source":"src/components/FieldComponent.ts",
                                     "searchKey":"Script,FieldComponent",
                                     "removeAble":true,
-                                    "props":{"presetID":5,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","fieldId":6},
+                                    "props":{"presetID":5,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","fieldId":7},
                                     "nodeParent":362,
                                     "label":"FieldComponent",
                                     "isDirectory":false,
@@ -726,6 +740,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "selectedBox":105,
                             "searchKey":"Image,land",
@@ -789,7 +804,7 @@
                                     "source":"src/components/FieldComponent.ts",
                                     "searchKey":"Script,FieldComponent",
                                     "removeAble":true,
-                                    "props":{"presetID":5,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","fieldId":5},
+                                    "props":{"presetID":5,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","fieldId":6},
                                     "nodeParent":367,
                                     "label":"FieldComponent",
                                     "isDirectory":false,
@@ -865,6 +880,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "selectedBox":105,
                             "searchKey":"Image,land",
@@ -928,7 +944,7 @@
                                     "source":"src/components/FieldComponent.ts",
                                     "searchKey":"Script,FieldComponent",
                                     "removeAble":true,
-                                    "props":{"presetID":5,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","fieldId":4},
+                                    "props":{"presetID":5,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","fieldId":5},
                                     "nodeParent":368,
                                     "label":"FieldComponent",
                                     "isDirectory":false,
@@ -1004,6 +1020,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "selectedBox":105,
                             "searchKey":"Image,land",
@@ -1067,7 +1084,7 @@
                                     "source":"src/components/FieldComponent.ts",
                                     "searchKey":"Script,FieldComponent",
                                     "removeAble":true,
-                                    "props":{"presetID":5,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","fieldId":3},
+                                    "props":{"presetID":5,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","fieldId":4},
                                     "nodeParent":369,
                                     "label":"FieldComponent",
                                     "isDirectory":false,
@@ -1143,6 +1160,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "selectedBox":105,
                             "searchKey":"Image,land",
@@ -1206,7 +1224,7 @@
                                     "source":"src/components/FieldComponent.ts",
                                     "searchKey":"Script,FieldComponent",
                                     "removeAble":true,
-                                    "props":{"presetID":5,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","fieldId":2},
+                                    "props":{"presetID":5,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","fieldId":3},
                                     "nodeParent":413,
                                     "label":"FieldComponent",
                                     "isDirectory":false,
@@ -1282,6 +1300,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "selectedBox":105,
                             "searchKey":"Image,land",
@@ -1345,7 +1364,7 @@
                                     "source":"src/components/FieldComponent.ts",
                                     "searchKey":"Script,FieldComponent",
                                     "removeAble":true,
-                                    "props":{"presetID":5,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","fieldId":1},
+                                    "props":{"presetID":5,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","fieldId":2},
                                     "nodeParent":414,
                                     "label":"FieldComponent",
                                     "isDirectory":false,
@@ -1421,6 +1440,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "selectedBox":105,
                             "searchKey":"Image,land",
@@ -1484,7 +1504,7 @@
                                     "source":"src/components/FieldComponent.ts",
                                     "searchKey":"Script,FieldComponent",
                                     "removeAble":true,
-                                    "props":{"presetID":5,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","fieldId":0},
+                                    "props":{"presetID":5,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","fieldId":1},
                                     "nodeParent":415,
                                     "label":"FieldComponent",
                                     "isDirectory":false,

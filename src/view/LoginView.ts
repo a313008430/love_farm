@@ -1,5 +1,10 @@
+import ConfigGame from "src/common/ConfigGame";
+import HttpControl from "src/common/HttpControl";
+import { ApiHttp } from "src/common/NetMaps";
 import GameScript from "src/core/GameScript";
 import Core from "src/core/index";
+import LocalStorageService from "src/dataService/LocalStorageService";
+import UserInfo from "src/dataService/UserInfo";
 import { EventMaps } from "../common/EventMaps";
 import EventGlobal from "../core/EventGlobal";
 
@@ -18,13 +23,15 @@ export default class LoginView extends GameScript {
 
     onOpened(d) {
         this.data = d;
-        if (Laya.LocalStorage.getItem("login")) {
+
+        if (LocalStorageService.getJSON()?.isLogin) {
+            this.login();
             this.loginBox.visible = false;
             this.loadBox.visible = true;
-            if (this.data?.call) {
-                this.data.call();
-                console.log("call");
-            }
+            // if (this.data?.call) {
+            //     this.data.call();
+            //     console.log("call");
+            // }
         } else {
             this.loginBox.visible = true;
             this.loadBox.visible = false;
@@ -47,13 +54,23 @@ export default class LoginView extends GameScript {
     onClick(e: Laya.Event) {
         switch (e.target.name) {
             case "login_btn":
-                this.loginBox.visible = false;
-                this.loadBox.visible = true;
-                Laya.LocalStorage.setItem("login", "true");
-                Laya.View.setLoadingPage(this.owner as any);
-                if (this.data?.call) this.data.call();
+                this.login();
                 break;
         }
+    }
+
+    private login() {
+        HttpControl.inst.send({
+            api: ApiHttp.login,
+            data: {
+                wxId: "1111111111",
+            },
+            call: (d: NetInit) => {
+                if (this.data?.call) this.data.call(d);
+                this.loginBox.visible = false;
+                this.loadBox.visible = true;
+            },
+        });
     }
 
     private loadProgress(v) {

@@ -1,3 +1,5 @@
+import HttpControl from "src/common/HttpControl";
+import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
 import GameScript from "src/core/GameScript";
 import Core from "src/core/index";
@@ -19,10 +21,19 @@ export default class AddLandView extends GameScript {
                 break;
             case "cost_gold":
             case "ad_btn":
-                if (this.data?.call) {
-                    this.data.call();
-                    Core.view.close(Res.views.AddLandView);
-                }
+                HttpControl.inst.send({
+                    api: ApiHttp.unlockLand,
+                    data: {
+                        landId: this.data.id,
+                        seedsId: null,
+                        type: 1,
+                    },
+                });
+
+                // if (this.data?.call) {
+                //     this.data.call();
+                //     Core.view.close(Res.views.AddLandView);
+                // }
                 break;
         }
     }

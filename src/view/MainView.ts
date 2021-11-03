@@ -108,10 +108,10 @@ export default class MainView extends Core.gameScript {
         this.addLandLayer.visible = false;
     }
 
-    @Core.eventOn(ApiHttp.init)
+    @Core.eventOn(ApiHttp.login)
     private gameInit(d: NetInit) {
         console.log(d);
-        let a = d.data.landList;
+        // let a = d.data.landList;
     }
 
     onClick(e: Laya.Event) {
@@ -195,15 +195,15 @@ export default class MainView extends Core.gameScript {
             this.landList.forEach((e) => {
                 if (e.data) {
                     e.showIcon(true);
-                    if (e.data.productId && e.data.matureTimeLeft) {
+                    if (e.data.landId && e.data.growUpTime) {
                         e.showTimeBox(true);
                         e.showShadowIcon(true);
                     }
                 }
                 e.buildIng = false;
                 if (e.data) {
-                    if (e.data.productId) {
-                        e.setStateIconSkin(e.data.matureTimeLeft ? 1 : 3);
+                    if (e.data.landId) {
+                        e.setStateIconSkin(e.data.growUpTime ? 1 : 3);
                     }
                 } else {
                     e.setStateIconSkin(1);

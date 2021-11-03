@@ -56,7 +56,7 @@ export class ViewManager {
 
         if (data.showLoad) {
             Laya.View.showLoadingPage(null, data.showLoadDelay);
-            if (url !== Res.views.LoadDialog) {
+            if (url !== Res.views.LoginView) {
                 Laya.timer.frameOnce(1, this, () => {
                     Laya.View.hideLoadingPage(data.hideLoadDelay);
                 });
@@ -69,7 +69,7 @@ export class ViewManager {
             data.closeOther,
             data.parm,
             Laya.Handler.create(this, (e: Laya.View) => {
-                if (url != Res.views.LoadDialog) viewMaps.push({ url: url, view: e });
+                if (url != Res.views.LoginView) viewMaps.push({ url: url, view: e });
                 let conList = e.getComponents(Laya.Script);
                 if (conList) {
                     conList.forEach((e) => e.enabled && e.onOpened && e.onOpened(data.parm));

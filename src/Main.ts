@@ -7,6 +7,8 @@ import GameConfig from "./GameConfig";
 import PlantService from "./dataService/PlantService";
 import LandService from "./dataService/LandService";
 import WarehouseService from "./dataService/WarehouseService";
+import HttpControl from "./common/HttpControl";
+import LocalStorageService from "./dataService/LocalStorageService";
 class Main {
     /** 自定义渲染id列表 */
     static customRenderID: number[] = [];
@@ -50,7 +52,8 @@ class Main {
     async onConfigLoaded() {
         // 自定义渲染id
         Config["customRenderID"] = [];
-        this.initGameData();
+        LocalStorageService.init();
+        HttpControl.inst.init();
 
         // Laya.SoundManager.playSound("res/audio/draw.mp3");
         //如果通过设备静音键让音频自动跟随设备静音。需要将useAudioMusic设置为false。
@@ -61,14 +64,9 @@ class Main {
             ViewManager.inst.open(Res.views.LoginView, {
                 showLoad: false,
                 parm: {
-                    call: () => {
-                        // console.log(11);
-                        // // Laya.timer.frameOnce(1, this, () => {
-                        // //后期优化
-                        // Laya.View.hideLoadingPage(999999999999999);
-
+                    call: (d) => {
                         resolve(null);
-                        // // });
+                        this.initGameData(d);
                     },
                 },
                 complete: (e) => {
@@ -103,32 +101,7 @@ class Main {
         );
     }
 
-    initGameData() {
-        PlantService.init();
-        WarehouseService.init();
-        LandService.init([
-            {
-                //土地id对应的也是下标
-                id: 0,
-                //土地等级
-                lv: 1,
-                //正在生长的东西的id 种子id, 如果剩余时间为0，表示 已熟，前端自己去查对应可生产的东西，然后改变显示状态
-                productId: null,
-                //剩余时间 如果为0 就为成熟 单位秒
-                matureTimeLeft: 3,
-            },
-            {
-                //土地id对应的也是下标
-                id: 3,
-                //土地等级
-                lv: 9,
-                //正在生长的东西的id 种子id, 如果剩余时间为0，表示 已熟，前端自己去查对应可生产的东西，然后改变显示状态
-                productId: null,
-                //剩余时间 如果为0 就为成熟 单位秒
-                matureTimeLeft: 0,
-            },
-        ]);
-    }
+    initGameData(d: NetInit) {}
 }
 //激活启动类
 new Main();
