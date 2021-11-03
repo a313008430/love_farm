@@ -8,6 +8,7 @@ import { ViewManager } from "src/core/ViewManager";
 import FeedService from "src/dataService/FeedService";
 import PetService from "src/dataService/PetService";
 import PlantService from "src/dataService/PlantService";
+import UserInfo from "src/dataService/UserInfo";
 
 interface ShopViewData {
     id: number;
@@ -52,6 +53,12 @@ export default class ShopView extends GameScript {
     /** @prop {name:petButBtn, tips:"购买宠物按钮", type:Node}*/
     private petButBtn: Laya.Image = null;
 
+    //钱庄
+    /** @prop {name:diamondFont, tips:"用户钻石", type:Node}*/
+    private diamondFont: Laya.FontClip = null;
+    /** @prop {name:priceList, tips:"钱庄提现列表", type:Node}*/
+    private priceList: Laya.List = null;
+
     /** 顶部按钮文字资源列表 */
     private btnTopResList: string[][] = [
         ["game/img_seedsNormal.png", "game/img_seedsSelected.png"],
@@ -66,15 +73,22 @@ export default class ShopView extends GameScript {
     /** 商品列表背景纹理 */
     private itemSelectBg: string[] = ["game/img_petbagNormal.png", "game/img_petbagSelected.png"];
 
+    /** 当前选择的宠物下标 */
+    private selectPetIndex: number = 0;
     private data: ShopViewData;
-
-    onHdEnable() {}
 
     onHdAwake() {
         this.itemList.renderHandler = new Laya.Handler(this, this.updateItem);
-
         this.itemList.selectHandler = new Laya.Handler(this, this.onSelect);
         this.itemList.vScrollBarSkin = null;
+
+        this.priceList.vScrollBarSkin = null;
+        this.priceList.renderHandler = new Laya.Handler(this, this.updatePriceItem);
+        this.priceList.selectHandler = new Laya.Handler(this, this.onPriceSelect);
+
+        Core.observableProperty.watch(UserInfo, this).key("diamond", (v) => {
+            this.diamondFont.value = v;
+        });
     }
 
     onOpened(e: ShopViewData) {
@@ -112,7 +126,7 @@ export default class ShopView extends GameScript {
      * @param index 下标
      * @returns
      */
-    updateItem(cell: Laya.Image, index) {
+    private updateItem(cell: Laya.Image, index) {
         let d = this.getDataList()[index];
         let priceBox = cell.getChildByName("hbox") as Laya.Box,
             lockIcon = cell.getChildByName("lock_icon") as Laya.Image;
@@ -164,6 +178,10 @@ export default class ShopView extends GameScript {
             (this.seedDesc.parent as Laya.Box).visible = false;
             this.feedDesc.text = d.base.desc.replace("&", (<FeedBase>d.base).vitality + "");
             this.feedDesc.visible = true;
+            let box = this.feedBuyBtn.getChildByName("box");
+            (box.getChildByName("icon") as Laya.Image).skin = (<FeedBase>d.base).cost.obj.icon;
+            (box.getChildByName("value") as Laya.FontClip).value =
+                (<FeedBase>d.base).cost.count + "";
 
             return;
         }
@@ -193,6 +211,11 @@ export default class ShopView extends GameScript {
             (itemBox.getChildByName("icon") as Laya.Image).skin = icon;
             (itemBox.getChildByName("count") as Laya.Label).text = "x" + count;
         }
+
+        let box = this.lockBtnBox.getChildByName("unlock_buy").getChildByName("box");
+
+        (box.getChildByName("icon") as Laya.Image).skin = base.unlock_cost?.obj?.icon;
+        (box.getChildByName("value") as Laya.FontClip).value = base.unlock_cost?.count + "";
     }
 
     onClick(e: Laya.Event) {
@@ -293,12 +316,10 @@ export default class ShopView extends GameScript {
                 break;
             case 3:
                 this.updateCenterBoxState(2, true);
+                this.priceList.array = [, 1, 1, 1];
                 break;
         }
     }
-
-    /** 当前选择的宠物下标 */
-    private selectPetIndex: number = 0;
 
     /**
      * 更新宠物数据
@@ -348,5 +369,22 @@ export default class ShopView extends GameScript {
     private updateCenterBoxState(i: number, show: boolean) {
         (this.bottomBox.getChildAt(i) as Laya.Box).visible = show;
         (this.bottomBox.getChildAt(i) as Laya.Box).active = show;
+    }
+
+    /**
+     * 钱庄选择
+     * @param e 下标
+     */
+    private onPriceSelect(e: number) {}
+
+    /**
+     * 钱庄数据渲染
+     */
+    private updatePriceItem(cell: Laya.Image, i: number) {
+        if (this.priceList.selectedIndex === i) {
+            (cell.getChildByName("bg") as Laya.Image).skin = "game/img_priceselected.png";
+        } else {
+            (cell.getChildByName("bg") as Laya.Image).skin = "game/img_pricenormal.png";
+        }
     }
 }

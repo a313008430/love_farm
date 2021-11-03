@@ -6,6 +6,7 @@ import { ViewManager } from "./core/ViewManager";
 import GameConfig from "./GameConfig";
 import PlantService from "./dataService/PlantService";
 import LandService from "./dataService/LandService";
+import WarehouseService from "./dataService/WarehouseService";
 class Main {
     /** 自定义渲染id列表 */
     static customRenderID: number[] = [];
@@ -57,15 +58,27 @@ class Main {
         // Laya.SoundManager.playMusic(Res.audios.win);
 
         await new Promise((resolve) => {
-            ViewManager.inst.open(Res.views.LoadDialog, {
+            ViewManager.inst.open(Res.views.LoginView, {
                 showLoad: false,
-                complete: (e) => {
-                    Laya.View.setLoadingPage(e);
-                    Laya.timer.frameOnce(1, this, () => {
-                        //后期优化
-                        Laya.View.hideLoadingPage(999999999999999);
+                parm: {
+                    call: () => {
+                        // console.log(11);
+                        // // Laya.timer.frameOnce(1, this, () => {
+                        // //后期优化
+                        // Laya.View.hideLoadingPage(999999999999999);
+
                         resolve(null);
-                    });
+                        // // });
+                    },
+                },
+                complete: (e) => {
+                    // Laya.View.setLoadingPage(e);
+                    // Laya.timer.frameOnce(1, this, () => {
+                    //     //后期优化
+                    //     Laya.View.showLoadingPage(null, 0);
+                    //     // Laya.View.hideLoadingPage(999999999999999);
+                    //     resolve(null);
+                    // });
                 },
             });
         });
@@ -92,6 +105,7 @@ class Main {
 
     initGameData() {
         PlantService.init();
+        WarehouseService.init();
         LandService.init([
             {
                 //土地id对应的也是下标

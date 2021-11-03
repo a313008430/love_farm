@@ -17,7 +17,7 @@ class PlantService {
      */
     init() {
         TableAnalyze.table("plant").list.forEach((d) => {
-            this.list.push({ base: d, lock: true });
+            this.list.push({ base: d, lock: d.unlock_cost ? true : false });
         });
     }
 

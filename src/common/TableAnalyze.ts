@@ -97,7 +97,7 @@ const TablePropertyEvent = {
  * @param str 解析的货币数据结构 id:num
  */
 function getRewardCurrencyBase(str: string) {
-    if (!str) return [];
+    if (!str) return null;
     let list = Tools.parseString(str, ":");
 
     return <RewardCurrencyBase>{

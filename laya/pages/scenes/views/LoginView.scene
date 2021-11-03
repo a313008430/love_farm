@@ -2,11 +2,11 @@
     "x":0,
     "type":"View",
     "selectedBox":2,
-    "selecteID":7,
+    "selecteID":10,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":9,
+    "maxID":12,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -25,23 +25,6 @@
             "isAniNode":true,
             "hasChild":false,
             "compId":3,
-            "child":[
-                ]
-        },
-        {
-            "x":15,
-            "type":"Script",
-            "switchAble":true,
-            "source":"src/view/LoadView.ts",
-            "searchKey":"Script,LoadView",
-            "removeAble":true,
-            "props":{"loadBar":"@node:7"},
-            "nodeParent":2,
-            "label":"LoadView",
-            "isDirectory":false,
-            "isAniNode":true,
-            "hasChild":false,
-            "compId":4,
             "child":[
                 ]
         },
@@ -66,14 +49,13 @@
             "props":{"width":660,"skin":"game/img_loadingScroll1.png","name":"load_box","centerX":0,"bottom":630},
             "nodeParent":2,
             "label":"load_box",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":6,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,load_bar",
                     "props":{"y":8,"x":8,"width":643,"skin":"game/img_loadingScroll2.png","name":"load_bar","height":40},
@@ -87,7 +69,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label",
                     "props":{"y":71,"x":135.556640625,"text":"登录成功，正在加载...","fontSize":40,"font":"Microsoft YaHei","color":"#5b3f2a"},
@@ -97,6 +78,54 @@
                     "isAniNode":true,
                     "hasChild":false,
                     "compId":8,
+                    "child":[
+                        ]
+                }],
+            "$HIDDEN":false
+        },
+        {
+            "x":15,
+            "type":"Script",
+            "switchAble":true,
+            "source":"src/view/LoginView.ts",
+            "searchKey":"Script,LoginView",
+            "removeAble":true,
+            "props":{"loginBox":"@node:10","loadBox":"@node:6","loadBar":"@node:7"},
+            "nodeParent":2,
+            "label":"LoginView",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":9,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image,login_btn",
+            "props":{"y":1165,"x":523,"skin":"game/img_weChantBtn.png","name":"login_btn","anchorY":0.5,"anchorX":0.5},
+            "nodeParent":2,
+            "label":"login_btn",
+            "isOpen":null,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":10,
+            "child":[
+                {
+                    "type":"Script",
+                    "switchAble":true,
+                    "source":"src/components/Button.ts",
+                    "searchKey":"Script,Button",
+                    "removeAble":true,
+                    "props":{"isScale":true},
+                    "nodeParent":10,
+                    "label":"Button",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":11,
                     "child":[
                         ]
                 }]

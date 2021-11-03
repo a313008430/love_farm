@@ -5,6 +5,7 @@ class ObservableControl<call extends Laya.Script> {
 
     /**
      * 监听属性值变化
+     *  [在界面destroy的时候会自己注销监听]
      * @param Obj 需要监听的对象
      */
     watch<T extends {}>(Obj: T, caller: call) {

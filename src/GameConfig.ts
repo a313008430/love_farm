@@ -3,7 +3,7 @@ import Button from "./components/Button"
 import ViewShowAni from "./components/ViewShowAni"
 import AddLandView from "./view/AddLandView"
 import FieldLevelUpView from "./view/FieldLevelUpView"
-import LoadView from "./view/LoadView"
+import LoginView from "./view/LoginView"
 import MailView from "./view/MailView"
 import MainView from "./view/MainView"
 import FieldComponent from "./components/FieldComponent"
@@ -37,7 +37,7 @@ export default class GameConfig{
         reg("components/ViewShowAni.ts",ViewShowAni);
         reg("view/AddLandView.ts",AddLandView);
         reg("view/FieldLevelUpView.ts",FieldLevelUpView);
-        reg("view/LoadView.ts",LoadView);
+        reg("view/LoginView.ts",LoginView);
         reg("view/MailView.ts",MailView);
         reg("view/MainView.ts",MainView);
         reg("components/FieldComponent.ts",FieldComponent);

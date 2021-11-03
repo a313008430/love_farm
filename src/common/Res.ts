@@ -9,8 +9,8 @@
         AddLandView = "scenes/views/AddLandView.scene", 
         /** scenes/views/FieldLevelUpView.scene */
         FieldLevelUpView = "scenes/views/FieldLevelUpView.scene", 
-        /** scenes/views/LoadDialog.scene */
-        LoadDialog = "scenes/views/LoadDialog.scene", 
+        /** scenes/views/LoginView.scene */
+        LoginView = "scenes/views/LoginView.scene", 
         /** scenes/views/MailView.scene */
         MailView = "scenes/views/MailView.scene", 
         /** scenes/views/MainView.scene */
@@ -45,6 +45,8 @@
         fail = "res/audio/fail.mp3", 
         /** audio/draw.mp3 */
         draw = "res/audio/draw.mp3", 
+        /** audio/button_click.mp3 */
+        button_click = "res/audio/button_click.mp3", 
     }
 
 /**
@@ -60,7 +62,7 @@
          "scenes/views/OrderView.scene",
          "scenes/views/MainView.scene",
          "scenes/views/MailView.scene",
-         "scenes/views/LoadDialog.scene",
+         "scenes/views/LoginView.scene",
          "scenes/views/FieldLevelUpView.scene",
          "scenes/views/AddLandView.scene",
          "scenes/prefab/GetReward.prefab",
@@ -91,6 +93,7 @@
             "res/audio/go.mp3",
             "res/audio/fail.mp3",
             "res/audio/draw.mp3",
+            "res/audio/button_click.mp3",
             "res/atlas/plant_icon.png",
             "res/atlas/plant_icon.atlas",
             "res/atlas/pet_feed.png",
