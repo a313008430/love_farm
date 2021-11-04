@@ -1,3 +1,5 @@
+import HttpControl from "src/common/HttpControl";
+import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
 import { FeedBase, PlantBase } from "src/common/TableObject";
 import Tools from "src/common/Tools";
@@ -10,8 +12,11 @@ import PetService from "src/dataService/PetService";
 import PlantService from "src/dataService/PlantService";
 import UserInfo from "src/dataService/UserInfo";
 
-interface ShopViewData {
+export interface ShopViewData {
+    /** 界面tag下标id */
     id: number;
+    /** 数据 */
+    parm?: any;
     call?: Function;
 }
 
@@ -191,7 +196,13 @@ export default class ShopView extends GameScript {
         this.feedDesc.visible = false;
         this.seedDesc.text = base.desc;
         this.matureTime.text = Tools.formatSeconds(base.mature_time);
-        this.itemBuyBtn.visible = !d.lock;
+
+        if (this.data?.call) {
+            this.itemBuyBtn.visible = !d.lock;
+        } else {
+            this.itemBuyBtn.visible = false;
+        }
+
         this.lockBtnBox.visible = d.lock;
         this.lockBtnBox.active = d.lock;
         let gainList = base.gain;
@@ -239,8 +250,19 @@ export default class ShopView extends GameScript {
                 }
                 break;
             case "buy_btn":
-                ViewManager.inst.close(Res.views.ShopView);
-                if (this.data?.call) this.data.call(this.getDataList()[this.itemListSelectIndex]);
+                HttpControl.inst.send({
+                    api: ApiHttp.sow,
+                    data: <NetSendApi["sow"]>{
+                        landId: this.data.parm?.landId,
+                        seedsId: this.getDataList()[this.itemListSelectIndex].base.id,
+                    },
+                    call: () => {
+                        ViewManager.inst.close(Res.views.ShopView);
+                        if (this.data?.call)
+                            this.data.call(this.getDataList()[this.itemListSelectIndex]);
+                    },
+                });
+
                 break;
             case "unlock_buy":
             case "ad_unlock":

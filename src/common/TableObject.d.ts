@@ -31,7 +31,12 @@ interface CurrencyBase {
 interface PlantBase {
     id: number;
     name: string;
+    /** 种子icon */
     icon: string;
+    /** 成长中 */
+    growingIcon: string;
+    /** 成熟icon */
+    matureIcon: string;
     gain: RewardCurrencyBase[];
     desc: string;
     /** 种子价格 */

@@ -9,5 +9,5 @@ export const enum ApiHttp {
     /** 种菜 */
     sow = "/farmController/sow",
     /** 解锁土地 */
-    unlockLand = "farmController/unlockLand",
+    unlockLand = "/farmController/unlockLand",
 }

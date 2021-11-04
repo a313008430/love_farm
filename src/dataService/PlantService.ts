@@ -14,10 +14,11 @@ class PlantService {
     list: PlantDataBase[] = [];
     /**
      * 初始化数据
+     * @param list 种子id列表
      */
-    init() {
+    init(list: number[]) {
         TableAnalyze.table("plant").list.forEach((d) => {
-            this.list.push({ base: d, lock: d.unlock_cost ? true : false });
+            this.list.push({ base: d, lock: !list.includes(d.id) });
         });
     }
 

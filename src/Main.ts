@@ -9,6 +9,7 @@ import LandService from "./dataService/LandService";
 import WarehouseService from "./dataService/WarehouseService";
 import HttpControl from "./common/HttpControl";
 import LocalStorageService from "./dataService/LocalStorageService";
+import ConfigGame from "./common/ConfigGame";
 class Main {
     /** 自定义渲染id列表 */
     static customRenderID: number[] = [];
@@ -53,7 +54,7 @@ class Main {
         // 自定义渲染id
         Config["customRenderID"] = [];
         LocalStorageService.init();
-        HttpControl.inst.init();
+        HttpControl.inst.init(ConfigGame.baseUrl);
 
         // Laya.SoundManager.playSound("res/audio/draw.mp3");
         //如果通过设备静音键让音频自动跟随设备静音。需要将useAudioMusic设置为false。
@@ -85,6 +86,9 @@ class Main {
             Res.scenes,
             Laya.Handler.create(this, () => {
                 console.log("ok");
+                Res.scenes.forEach((e) => {
+                    Laya.loader.clearTextureRes(e);
+                });
                 Laya.timer.frameOnce(1, this, () => {
                     Laya.View.hideLoadingPage(300);
                     ViewManager.inst.open(GameConfig.startScene);

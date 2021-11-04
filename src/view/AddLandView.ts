@@ -26,14 +26,16 @@ export default class AddLandView extends GameScript {
                     data: {
                         landId: this.data.id,
                         seedsId: null,
-                        type: 1,
+                        type: 2,
+                    },
+                    call: (d) => {
+                        if (this.data?.call) {
+                            this.data.call();
+                            Core.view.close(Res.views.AddLandView);
+                        }
                     },
                 });
 
-                // if (this.data?.call) {
-                //     this.data.call();
-                //     Core.view.close(Res.views.AddLandView);
-                // }
                 break;
         }
     }

@@ -9,6 +9,10 @@
         AddLandView = "scenes/views/AddLandView.scene", 
         /** scenes/views/FieldLevelUpView.scene */
         FieldLevelUpView = "scenes/views/FieldLevelUpView.scene", 
+        /** scenes/views/FriendsView.scene */
+        FriendsView = "scenes/views/FriendsView.scene", 
+        /** scenes/views/HintView.scene */
+        HintView = "scenes/views/HintView.scene", 
         /** scenes/views/LoginView.scene */
         LoginView = "scenes/views/LoginView.scene", 
         /** scenes/views/MailView.scene */
@@ -63,6 +67,8 @@
          "scenes/views/MainView.scene",
          "scenes/views/MailView.scene",
          "scenes/views/LoginView.scene",
+         "scenes/views/HintView.scene",
+         "scenes/views/FriendsView.scene",
          "scenes/views/FieldLevelUpView.scene",
          "scenes/views/AddLandView.scene",
          "scenes/prefab/GetReward.prefab",
@@ -78,6 +84,7 @@
             "res/img_shelf.png",
             "res/img_popUpBg.png",
             "res/img_landBg.png",
+            "res/img_inviteBg1.png",
             "res/img_housetop.png",
             "res/img_homepageBg3.png",
             "res/img_homepageBg2.png",

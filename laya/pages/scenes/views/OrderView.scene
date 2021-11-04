@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":38,
-    "selecteID":81,
+    "selectedBox":2,
+    "selecteID":38,
     "searchKey":"View",
     "props":{"y":0,"x":0,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/OrderView.jpg","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":83,
+    "maxID":95,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -146,7 +146,7 @@
                                     "props":{"y":138,"x":819,"skin":"game/img_presentOrder.png","name":"btn","anchorY":0.5,"anchorX":0.5},
                                     "nodeParent":52,
                                     "label":"btn",
-                                    "isOpen":null,
+                                    "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":false,
                                     "hasChild":true,
@@ -172,10 +172,10 @@
                                 {
                                     "x":60,
                                     "type":"HBox",
-                                    "searchKey":"HBox",
-                                    "props":{"y":57,"x":822,"space":20,"anchorY":0.5,"anchorX":0.5,"align":"none"},
+                                    "searchKey":"HBox,reward_box",
+                                    "props":{"y":57,"x":822,"space":20,"name":"reward_box","anchorY":0.5,"anchorX":0.5,"align":"none"},
                                     "nodeParent":52,
-                                    "label":"HBox",
+                                    "label":"reward_box",
                                     "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":false,
@@ -184,10 +184,10 @@
                                     "child":[
                                         {
                                             "type":"Image",
-                                            "searchKey":"Image",
-                                            "props":{"skin":"game/img_bankdiamond.png"},
+                                            "searchKey":"Image,icon",
+                                            "props":{"skin":"game/img_bankdiamond.png","name":"icon"},
                                             "nodeParent":47,
-                                            "label":"Image",
+                                            "label":"icon",
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
@@ -197,10 +197,10 @@
                                         },
                                         {
                                             "type":"Label",
-                                            "searchKey":"Label",
-                                            "props":{"y":6,"x":77,"text":"+100","fontSize":44,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
+                                            "searchKey":"Label,value",
+                                            "props":{"y":6,"x":77,"text":"+100","name":"value","fontSize":44,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
                                             "nodeParent":47,
-                                            "label":"Label",
+                                            "label":"value",
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
@@ -216,33 +216,35 @@
                                     "props":{"skin":"game/img_orderLevelBg.png"},
                                     "nodeParent":52,
                                     "label":"Image",
-                                    "isOpen":false,
-                                    "isDirectory":true,
+                                    "isOpen":true,
+                                    "isDirectory":false,
                                     "isAniNode":false,
-                                    "hasChild":true,
+                                    "hasChild":false,
                                     "compId":59,
                                     "child":[
-                                        {
-                                            "type":"Label",
-                                            "searchKey":"Label",
-                                            "props":{"y":12.5,"x":72,"text":"999级订单","fontSize":26,"font":"Microsoft YaHei","color":"#D13210","bold":true,"anchorX":0.5},
-                                            "nodeParent":59,
-                                            "label":"Label",
-                                            "isDirectory":false,
-                                            "isAniNode":false,
-                                            "hasChild":false,
-                                            "compId":51,
-                                            "child":[
-                                                ]
-                                        }]
+                                        ]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Label",
+                                    "searchKey":"Label,order_lv",
+                                    "props":{"y":12,"x":72,"text":"999级订单","name":"order_lv","fontSize":26,"font":"Microsoft YaHei","color":"#D13210","bold":true,"anchorX":0.5},
+                                    "nodeParent":52,
+                                    "label":"order_lv",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":51,
+                                    "child":[
+                                        ]
                                 },
                                 {
                                     "x":60,
                                     "type":"Box",
-                                    "searchKey":"Box,item",
-                                    "props":{"y":61,"x":72,"width":100,"name":"item","height":100},
+                                    "searchKey":"Box,item_0",
+                                    "props":{"y":61,"x":72,"width":100,"name":"item_0","height":100},
                                     "nodeParent":52,
-                                    "label":"item",
+                                    "label":"item_0",
                                     "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":false,
@@ -251,10 +253,10 @@
                                     "child":[
                                         {
                                             "type":"Image",
-                                            "searchKey":"Image",
-                                            "props":{"y":22,"x":50,"width":52,"skin":"main_scene/img_aubergineMature.png","height":56,"anchorY":0.5,"anchorX":0.5},
+                                            "searchKey":"Image,icon",
+                                            "props":{"y":22,"x":50,"width":52,"name":"icon","height":56,"anchorY":0.5,"anchorX":0.5},
                                             "nodeParent":60,
-                                            "label":"Image",
+                                            "label":"icon",
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
@@ -277,10 +279,10 @@
                                         },
                                         {
                                             "type":"Image",
-                                            "searchKey":"Image",
-                                            "props":{"y":56,"x":5,"width":87,"skin":"main_scene/img_headBar.png","height":12},
+                                            "searchKey":"Image,bar",
+                                            "props":{"y":56,"x":5,"width":87,"skin":"main_scene/img_headBar.png","name":"bar","height":12},
                                             "nodeParent":60,
-                                            "label":"Image",
+                                            "label":"bar",
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
@@ -290,10 +292,10 @@
                                         },
                                         {
                                             "type":"Label",
-                                            "searchKey":"Label",
-                                            "props":{"y":77,"x":51,"text":"9/10","fontSize":34,"color":"#755037","bold":true,"anchorX":0.5},
+                                            "searchKey":"Label,num",
+                                            "props":{"y":77,"x":51,"text":"9/10","name":"num","fontSize":34,"color":"#755037","bold":true,"anchorX":0.5},
                                             "nodeParent":60,
-                                            "label":"Label",
+                                            "label":"num",
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
@@ -305,10 +307,10 @@
                                 {
                                     "x":60,
                                     "type":"Box",
-                                    "searchKey":"Box,item",
-                                    "props":{"y":61,"x":218,"width":100,"name":"item","height":100},
+                                    "searchKey":"Box,item_1",
+                                    "props":{"y":61,"x":218,"width":100,"name":"item_1","height":100},
                                     "nodeParent":52,
-                                    "label":"item",
+                                    "label":"item_1",
                                     "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":false,
@@ -317,14 +319,14 @@
                                     "child":[
                                         {
                                             "type":"Image",
-                                            "searchKey":"Image",
-                                            "props":{"y":22,"x":50,"width":52,"skin":"main_scene/img_aubergineMature.png","height":56,"anchorY":0.5,"anchorX":0.5},
+                                            "searchKey":"Image,icon",
+                                            "props":{"y":22,"x":50,"width":52,"name":"icon","height":56,"anchorY":0.5,"anchorX":0.5},
                                             "nodeParent":65,
-                                            "label":"Image",
+                                            "label":"icon",
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
-                                            "compId":66,
+                                            "compId":83,
                                             "child":[
                                                 ]
                                         },
@@ -337,33 +339,33 @@
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
-                                            "compId":67,
+                                            "compId":84,
                                             "child":[
                                                 ]
                                         },
                                         {
                                             "type":"Image",
-                                            "searchKey":"Image",
-                                            "props":{"y":56,"x":5,"width":87,"skin":"main_scene/img_headBar.png","height":12},
+                                            "searchKey":"Image,bar",
+                                            "props":{"y":56,"x":5,"width":87,"skin":"main_scene/img_headBar.png","name":"bar","height":12},
                                             "nodeParent":65,
-                                            "label":"Image",
+                                            "label":"bar",
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
-                                            "compId":68,
+                                            "compId":85,
                                             "child":[
                                                 ]
                                         },
                                         {
                                             "type":"Label",
-                                            "searchKey":"Label",
-                                            "props":{"y":77,"x":51,"text":"9/10","fontSize":34,"color":"#755037","bold":true,"anchorX":0.5},
+                                            "searchKey":"Label,num",
+                                            "props":{"y":77,"x":51,"text":"9/10","name":"num","fontSize":34,"color":"#755037","bold":true,"anchorX":0.5},
                                             "nodeParent":65,
-                                            "label":"Label",
+                                            "label":"num",
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
-                                            "compId":69,
+                                            "compId":86,
                                             "child":[
                                                 ]
                                         }]
@@ -371,10 +373,10 @@
                                 {
                                     "x":60,
                                     "type":"Box",
-                                    "searchKey":"Box,item",
-                                    "props":{"y":61,"x":365,"width":100,"name":"item","height":100},
+                                    "searchKey":"Box,item_2",
+                                    "props":{"y":61,"x":365,"width":100,"name":"item_2","height":100},
                                     "nodeParent":52,
-                                    "label":"item",
+                                    "label":"item_2",
                                     "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":false,
@@ -383,14 +385,14 @@
                                     "child":[
                                         {
                                             "type":"Image",
-                                            "searchKey":"Image",
-                                            "props":{"y":22,"x":50,"width":52,"skin":"main_scene/img_aubergineMature.png","height":56,"anchorY":0.5,"anchorX":0.5},
+                                            "searchKey":"Image,icon",
+                                            "props":{"y":22,"x":50,"width":52,"name":"icon","height":56,"anchorY":0.5,"anchorX":0.5},
                                             "nodeParent":70,
-                                            "label":"Image",
+                                            "label":"icon",
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
-                                            "compId":71,
+                                            "compId":87,
                                             "child":[
                                                 ]
                                         },
@@ -403,33 +405,33 @@
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
-                                            "compId":72,
+                                            "compId":88,
                                             "child":[
                                                 ]
                                         },
                                         {
                                             "type":"Image",
-                                            "searchKey":"Image",
-                                            "props":{"y":56,"x":5,"width":87,"skin":"main_scene/img_headBar.png","height":12},
+                                            "searchKey":"Image,bar",
+                                            "props":{"y":56,"x":5,"width":87,"skin":"main_scene/img_headBar.png","name":"bar","height":12},
                                             "nodeParent":70,
-                                            "label":"Image",
+                                            "label":"bar",
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
-                                            "compId":73,
+                                            "compId":89,
                                             "child":[
                                                 ]
                                         },
                                         {
                                             "type":"Label",
-                                            "searchKey":"Label",
-                                            "props":{"y":77,"x":51,"text":"9/10","fontSize":34,"color":"#755037","bold":true,"anchorX":0.5},
+                                            "searchKey":"Label,num",
+                                            "props":{"y":77,"x":51,"text":"9/10","name":"num","fontSize":34,"color":"#755037","bold":true,"anchorX":0.5},
                                             "nodeParent":70,
-                                            "label":"Label",
+                                            "label":"num",
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
-                                            "compId":74,
+                                            "compId":90,
                                             "child":[
                                                 ]
                                         }]
@@ -437,10 +439,10 @@
                                 {
                                     "x":60,
                                     "type":"Box",
-                                    "searchKey":"Box,item",
-                                    "props":{"y":61,"x":511,"width":100,"name":"item","height":100},
+                                    "searchKey":"Box,item_3",
+                                    "props":{"y":61,"x":511,"width":100,"name":"item_3","height":100},
                                     "nodeParent":52,
-                                    "label":"item",
+                                    "label":"item_3",
                                     "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":false,
@@ -449,14 +451,14 @@
                                     "child":[
                                         {
                                             "type":"Image",
-                                            "searchKey":"Image",
-                                            "props":{"y":22,"x":50,"width":52,"skin":"main_scene/img_aubergineMature.png","height":56,"anchorY":0.5,"anchorX":0.5},
+                                            "searchKey":"Image,icon",
+                                            "props":{"y":22,"x":50,"width":52,"name":"icon","height":56,"anchorY":0.5,"anchorX":0.5},
                                             "nodeParent":75,
-                                            "label":"Image",
+                                            "label":"icon",
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
-                                            "compId":76,
+                                            "compId":91,
                                             "child":[
                                                 ]
                                         },
@@ -469,33 +471,33 @@
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
-                                            "compId":77,
+                                            "compId":92,
                                             "child":[
                                                 ]
                                         },
                                         {
                                             "type":"Image",
-                                            "searchKey":"Image",
-                                            "props":{"y":56,"x":5,"width":87,"skin":"main_scene/img_headBar.png","height":12},
+                                            "searchKey":"Image,bar",
+                                            "props":{"y":56,"x":5,"width":87,"skin":"main_scene/img_headBar.png","name":"bar","height":12},
                                             "nodeParent":75,
-                                            "label":"Image",
+                                            "label":"bar",
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
-                                            "compId":78,
+                                            "compId":93,
                                             "child":[
                                                 ]
                                         },
                                         {
                                             "type":"Label",
-                                            "searchKey":"Label",
-                                            "props":{"y":77,"x":51,"text":"9/10","fontSize":34,"color":"#755037","bold":true,"anchorX":0.5},
+                                            "searchKey":"Label,num",
+                                            "props":{"y":77,"x":51,"text":"9/10","name":"num","fontSize":34,"color":"#755037","bold":true,"anchorX":0.5},
                                             "nodeParent":75,
-                                            "label":"Label",
+                                            "label":"num",
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
-                                            "compId":79,
+                                            "compId":94,
                                             "child":[
                                                 ]
                                         }]
@@ -586,7 +588,7 @@
             "source":"src/view/OrderView.ts",
             "searchKey":"Script,OrderView",
             "removeAble":true,
-            "props":{},
+            "props":{"orderList":"@node:53","btnResCur":"game/img_presentOrder.png","btnLockRes":"game/img_lockedOrder.png"},
             "nodeParent":2,
             "label":"OrderView",
             "isDirectory":false,

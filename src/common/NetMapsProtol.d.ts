@@ -107,8 +107,6 @@ interface NetSendApi {
         landId: number;
         /** 种植种子Id */
         seedsId: number;
-        /** 解锁类型 1:金币解锁 2：看广告解锁 */
-        type: number;
         /** 用户id */
         userId?: number;
     };
@@ -116,10 +114,6 @@ interface NetSendApi {
     gather: {
         /**土地Id */
         landId: number;
-        /** 种植种子Id */
-        seedsId: number;
-        /** 解锁类型 1:金币解锁 2：看广告解锁 */
-        type: number;
         /** 用户id */
         userId?: number;
     };

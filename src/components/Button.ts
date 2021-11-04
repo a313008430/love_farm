@@ -12,6 +12,8 @@ export default class Button extends Laya.Script {
     private oldScaleY: number;
 
     onEnable(): void {
+        // (this.owner as Laya.Box).set_anchorX(0.5);
+        // (this.owner as Laya.Box).set_anchorY(0.5);
         // console.log(this.isScale);
         (this.owner as Laya.Button).mouseEnabled = true;
         this.oldScaleX = (this.owner as Laya.Button).get_scaleX();

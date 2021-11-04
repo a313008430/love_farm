@@ -23,11 +23,14 @@ export default class HttpControl {
 
     xhr: Laya.HttpRequest;
 
-    baseUrl: string = "//47.108.192.181:8092/farm";
+    baseUrl: string = null;
 
     private sendData: HttpSendData;
 
-    init() {
+    private backResolveEvent: Function;
+
+    init(url: string) {
+        this.baseUrl = url;
         if (this.xhr) return;
         let xhr = new Laya.HttpRequest();
         // this.xhr.http.timeout = 10000; //超时时间
@@ -51,9 +54,10 @@ export default class HttpControl {
         }
 
         console.log(
-            `%c ==> send %c${data.api} `,
+            `%c ==> send %c${data.api} %c${JSON.stringify(data.data)}`,
             `color:#82ccdd;font-weight:700;`,
-            `color:#eb4d4b;font-weight:700;`
+            `color:#eb4d4b;font-weight:700;`,
+            `color:#f8c291;font-weight:700;`
         );
 
         this.xhr.send(
@@ -63,10 +67,15 @@ export default class HttpControl {
             data.responseType,
             data.headers
         );
+
+        return new Promise((resolve) => {
+            this.backResolveEvent = resolve;
+        });
     }
 
     private completeHandler(e) {
         if (e.resultCode) {
+            HttpDataControl.error(e.resultCode, e.result);
             return console.error(e);
         } else {
             console.log(
@@ -75,7 +84,12 @@ export default class HttpControl {
                 `color:#78e08f;font-weight:700;`,
                 e.result
             );
-            HttpDataControl.forward(this.sendData.api, e.result, this.sendData?.call);
+            HttpDataControl.forward(
+                this.sendData.api,
+                e.result,
+                this.sendData?.call,
+                this.backResolveEvent
+            );
         }
     }
     private errorHandler(e) {

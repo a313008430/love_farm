@@ -32,7 +32,7 @@ class ObservableControl<call extends Laya.Script> {
                     Object.defineProperty(Obj, key, {
                         configurable: false,
                         enumerable: false,
-                        set: (v) => {
+                        set: function (v) {
                             this["#" + key] = v;
                             _obj.get(key).forEach((e) => {
                                 e(v);

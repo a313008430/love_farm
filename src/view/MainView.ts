@@ -1,7 +1,9 @@
+import ConfigGame from "src/common/ConfigGame";
 import { EventMaps } from "src/common/EventMaps";
 import { ApiHttp } from "src/common/NetMaps";
 import { Table } from "src/common/Table";
 import TableAnalyze from "src/common/TableAnalyze";
+import { RewardCurrencyBase } from "src/common/TableObject";
 import FieldComponent from "src/components/FieldComponent";
 import Core from "src/core/index";
 import LandService from "src/dataService/LandService";
@@ -20,9 +22,11 @@ export interface GetFloatRewardObj {
         obj: any;
         /** 数量 */
         count: number;
-        /** 终点位置 1 金币 2 钻石 */
-        posType: 1 | 2;
+        /** 终点位置 1 金币 2 钻石 3 仓库 */
+        posType: 1 | 2 | 3;
     }[];
+    /** 动画播放结束回调 */
+    callBack?: { (): void };
 }
 
 //  MainView extends Laya.Script {
@@ -40,6 +44,8 @@ export default class MainView extends Core.gameScript {
     private landBox: Laya.Box = null;
     /** @prop {name:centerBox, tips:"中间区域", type:Node}*/
     private centerBox: Laya.Box = null;
+    /** @prop {name:orderBox, tips:"订单容器", type:Node}*/
+    private orderBox: Laya.Box = null;
 
     /** @prop {name:landUpLayer, tips:"土地升级窗口", type:Node}*/
     private landUpLayer: Laya.Image = null;
@@ -50,6 +56,8 @@ export default class MainView extends Core.gameScript {
     private topGoldIcon: Laya.Image = null;
     /** @prop {name:topDiamondIcon, tips:"顶部钻石icon", type:Node}*/
     private topDiamondIcon: Laya.Image = null;
+    /** @prop {name:warehouseBtn, tips:"仓库按钮", type:Node}*/
+    private warehouseBtn: Laya.Image = null;
 
     //获得奖励，飞物品相关
     /** @prop {name:getRewardPrefab, tips:"获得奖励预设", type:Prefab}*/
@@ -106,6 +114,7 @@ export default class MainView extends Core.gameScript {
             });
 
         this.addLandLayer.visible = false;
+        this.updateOrder();
     }
 
     @Core.eventOn(ApiHttp.login)
@@ -147,6 +156,9 @@ export default class MainView extends Core.gameScript {
             case "order_box":
                 Core.view.open(Res.views.OrderView);
                 break;
+            case "friends":
+                Core.view.open(Res.views.FriendsView);
+                break;
             case "land":
                 break;
             case "landLevelUp":
@@ -155,6 +167,47 @@ export default class MainView extends Core.gameScript {
             case "close_up":
                 this.switchLandLevelUp(false);
                 break;
+        }
+    }
+
+    /**
+     * 更新订单
+     */
+    private updateOrder() {
+        let box = this.orderBox,
+            d = TableAnalyze.table("order").get(UserInfo.orderLevel),
+            reward: RewardCurrencyBase,
+            rewardCount: number = 0;
+
+        for (let x = 0; x < 4; x++) {
+            let item = box.getChildByName("item_" + x) as Laya.Box;
+            if (d.condition[x]) {
+                (item.getChildByName("icon") as Laya.Image).skin = d.condition[x].plant.icon;
+
+                (item.getChildByName("num") as Laya.Label).text = `0/${d.condition[x].count}`;
+                (item.getChildByName("bar") as Laya.Image).width = 87 * (0 / d.condition[x].count);
+
+                item.visible = true;
+
+                d.condition[x].plant.gain.forEach((e) => {
+                    if (e.obj.id === ConfigGame.diamondId) {
+                        if (!reward) {
+                            reward = e;
+                        }
+                        rewardCount += e.count * d.condition[x].count;
+                    }
+                });
+            } else {
+                item.visible = false;
+            }
+        }
+
+        if (reward) {
+            let btnBox = box.getChildByName("btn_box").getChildByName("box");
+            (btnBox.getChildByName("icon") as Laya.Image).skin = reward.obj.icon;
+            (btnBox.getChildByName("value") as Laya.FontClip).value = `${
+                rewardCount + Math.round(rewardCount * d.commission)
+            }`;
         }
     }
 
@@ -217,6 +270,10 @@ export default class MainView extends Core.gameScript {
      */
     @Core.eventOn(EventMaps.play_get_reward)
     private playGetRewardAni(obj: GetFloatRewardObj) {
+        Laya.timer.once(2000, this, () => {
+            if (obj.callBack) obj.callBack();
+        });
+
         obj.list.forEach((d, i) => {
             let node: Laya.Box = Laya.Pool.getItemByCreateFun(
                 "floatRewardBox",
@@ -233,6 +290,7 @@ export default class MainView extends Core.gameScript {
             node.alpha = 0;
             obj.node.addChild(node);
             (node.getChildByName("count") as Laya.FontClip).value = "x" + d.count;
+
             Laya.Tween.to(
                 node,
                 { y: node.y - 40, alpha: 1 },
@@ -274,6 +332,9 @@ export default class MainView extends Core.gameScript {
                                         break;
                                     case 2:
                                         topIcon = this.topDiamondIcon;
+                                        break;
+                                    case 3:
+                                        topIcon = this.warehouseBtn;
                                         break;
                                 }
 

@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":112,
-    "selecteID":351,
+    "selectedBox":2,
+    "selecteID":237,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":838,
+    "maxID":864,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -21,7 +21,7 @@
             "source":"src/view/MainView.ts",
             "searchKey":"Script,MainView",
             "removeAble":true,
-            "props":{"y":0,"x":0,"width":14,"topLayerOnStage":"@node:837","topGoldIcon":"@node:72","topDiamondIcon":"@node:78","landUpLayer":"@node:496","landBox":"@node:112","height":14,"goldNode":"@node:73","getRewardPrefab":"@Prefab:scenes/prefab/GetReward.prefab","floatRewardIcon":"@Prefab:scenes/prefab/FloatRewardIcon.prefab","diamondNode":"@node:79","center_box":"@node:96","centerBox":"@node:96","avatarNode":"@node:350","addLandLayer":"@node:316","addLandBg":"@node:332"},
+            "props":{"y":0,"x":0,"width":14,"warehouseBtn":"@node:99","topLayerOnStage":"@node:837","topGoldIcon":"@node:72","topDiamondIcon":"@node:78","orderBox":"@node:80","landUpLayer":"@node:496","landBox":"@node:112","height":14,"goldNode":"@node:73","getRewardPrefab":"@Prefab:scenes/prefab/GetReward.prefab","floatRewardIcon":"@Prefab:scenes/prefab/FloatRewardIcon.prefab","diamondNode":"@node:79","center_box":"@node:96","centerBox":"@node:96","avatarNode":"@node:350","addLandLayer":"@node:316","addLandBg":"@node:332"},
             "nodeParent":2,
             "label":"MainView",
             "isDirectory":false,
@@ -85,14 +85,13 @@
             "props":{"width":1083,"name":"center_box","height":1149,"centerY":0,"centerX":0,"anchorY":0.5,"anchorX":0.5},
             "nodeParent":2,
             "label":"center_box",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":96,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":391,"x":-107.5,"skin":"main_scene/img_landBg.png"},
@@ -106,7 +105,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Box",
                     "searchKey":"Box,house_box",
                     "props":{"y":-57,"x":-106,"name":"house_box"},
@@ -119,7 +117,6 @@
                     "compId":101,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,shop",
                             "props":{"y":252,"x":1003,"skin":"main_scene/img_marketBuilding.png","name":"shop","anchorY":0.5,"anchorX":0.5},
@@ -150,7 +147,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,landLevelUp",
                             "props":{"y":149,"x":657,"skin":"main_scene/img_landUpdate.png","name":"landLevelUp","anchorY":0.5,"anchorX":0.5},
@@ -180,7 +176,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,warehouse",
                             "props":{"y":272,"x":270,"skin":"main_scene/img_storehouseBuilding.png","name":"warehouse","anchorY":0.5,"anchorX":0.5},
@@ -211,7 +206,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":889,"x":30,"skin":"main_scene/img_billboard.png"},
@@ -224,7 +218,6 @@
                     "compId":113,
                     "child":[
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label",
                             "props":{"y":62,"x":55,"wordWrap":true,"width":199,"text":"劳动光荣偷盗可耻","leading":16,"height":104,"fontSize":42,"font":"Microsoft YaHei","color":"#906344","bold":true},
@@ -239,7 +232,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":897,"x":858,"skin":"main_scene/img_dogHouse.png"},
@@ -253,7 +245,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,dog",
                     "props":{"y":1058,"x":718,"skin":"main_scene/img_dog1.png","name":"dog","mouseEnabled":true},
@@ -267,7 +258,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,buy_feed",
                     "props":{"y":1132,"x":941,"width":102,"skin":"main_scene/img_bowlWithFood.png","name":"buy_feed","mouseEnabled":true,"height":72},
@@ -307,7 +297,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Box",
                     "searchKey":"Box,land_box",
                     "props":{"y":452,"x":15,"width":1087,"name":"land_box","mouseEnabled":true,"height":610},
@@ -320,7 +309,6 @@
                     "compId":112,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "selectedBox":105,
                             "searchKey":"Image,land",
@@ -460,7 +448,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "selectedBox":105,
                             "searchKey":"Image,land",
@@ -600,7 +587,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "selectedBox":105,
                             "searchKey":"Image,land",
@@ -740,7 +726,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "selectedBox":105,
                             "searchKey":"Image,land",
@@ -880,7 +865,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "selectedBox":105,
                             "searchKey":"Image,land",
@@ -1020,7 +1004,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "selectedBox":105,
                             "searchKey":"Image,land",
@@ -1160,7 +1143,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "selectedBox":105,
                             "searchKey":"Image,land",
@@ -1300,7 +1282,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "selectedBox":105,
                             "searchKey":"Image,land",
@@ -1440,7 +1421,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "selectedBox":105,
                             "searchKey":"Image,land",
@@ -1755,188 +1735,19 @@
                     "props":{"y":120,"x":417,"skin":"main_scene/img_taskbg.png","name":"order_box","anchorX":0.5},
                     "nodeParent":67,
                     "label":"order_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":80,
                     "child":[
                         {
-                            "type":"Image",
-                            "selectedBox":2,
-                            "searchKey":"Image",
-                            "props":{"y":113,"x":816,"width":189,"skin":"main_scene/img_getDiamondBtn.png","presetID":1,"preset":"laya/pages/scenes/components/Button.prefab","height":75},
-                            "nodeParent":80,
-                            "maxID":15,
-                            "label":"Image(Button)",
-                            "isOpen":true,
-                            "isDirectory":true,
-                            "isAniNode":true,
-                            "hasChild":true,
-                            "compId":94,
-                            "child":[
-                                {
-                                    "type":"Script",
-                                    "switchAble":true,
-                                    "source":"src/components/Button.ts",
-                                    "searchKey":"Script,Button",
-                                    "removeAble":true,
-                                    "props":{"presetID":2,"preset":"laya/pages/scenes/components/Button.prefab","defaultRes":"main_scene/img_getDiamondBtn.png"},
-                                    "nodeParent":94,
-                                    "label":"Button",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":14,
-                                    "child":[
-                                        ]
-                                }],
-                            "animations":[
-                                {
-                                    "nodes":[
-                                        ],
-                                    "name":"ani1",
-                                    "id":1,
-                                    "frameRate":24,
-                                    "action":0
-                                }]
-                        },
-                        {
-                            "type":"Box",
-                            "searchKey":"Box,item",
-                            "props":{"y":54,"x":172,"width":100,"name":"item","height":100},
-                            "nodeParent":80,
-                            "label":"item",
-                            "isOpen":true,
-                            "isDirectory":true,
-                            "isAniNode":true,
-                            "hasChild":true,
-                            "compId":82,
-                            "child":[
-                                {
-                                    "type":"Image",
-                                    "searchKey":"Image",
-                                    "props":{"y":22,"x":50,"width":52,"skin":"game/img_getAubergine.png","height":56,"anchorY":0.5,"anchorX":0.5},
-                                    "nodeParent":82,
-                                    "label":"Image",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":83,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "type":"Image",
-                                    "searchKey":"Image",
-                                    "props":{"y":54,"x":3,"skin":"main_scene/img_headBarBg.png"},
-                                    "nodeParent":82,
-                                    "label":"Image",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":84,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "type":"Image",
-                                    "searchKey":"Image",
-                                    "props":{"y":56,"x":5,"width":87,"skin":"main_scene/img_headBar.png","height":12},
-                                    "nodeParent":82,
-                                    "label":"Image",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":85,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "type":"Label",
-                                    "searchKey":"Label",
-                                    "props":{"y":77,"x":51,"text":"9/10","fontSize":34,"color":"#755037","bold":true,"anchorX":0.5},
-                                    "nodeParent":82,
-                                    "label":"Label",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":86,
-                                    "child":[
-                                        ]
-                                }]
-                        },
-                        {
-                            "type":"Box",
-                            "searchKey":"Box,item",
-                            "props":{"y":54,"x":479,"width":100,"name":"item","height":100},
-                            "nodeParent":80,
-                            "label":"item",
-                            "isOpen":true,
-                            "isDirectory":true,
-                            "isAniNode":true,
-                            "hasChild":true,
-                            "compId":87,
-                            "child":[
-                                {
-                                    "type":"Image",
-                                    "searchKey":"Image",
-                                    "props":{"y":22,"x":50,"width":52,"skin":"game/img_getAubergine.png","height":56,"anchorY":0.5,"anchorX":0.5},
-                                    "nodeParent":87,
-                                    "label":"Image",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":88,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "type":"Image",
-                                    "searchKey":"Image",
-                                    "props":{"y":54,"x":3,"skin":"main_scene/img_headBarBg.png"},
-                                    "nodeParent":87,
-                                    "label":"Image",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":89,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "type":"Image",
-                                    "searchKey":"Image",
-                                    "props":{"y":56,"x":5,"width":87,"skin":"main_scene/img_headBar.png","height":12},
-                                    "nodeParent":87,
-                                    "label":"Image",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":90,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "type":"Label",
-                                    "searchKey":"Label",
-                                    "props":{"y":77,"x":51,"text":"9/10","fontSize":34,"color":"#755037","bold":true,"anchorX":0.5},
-                                    "nodeParent":87,
-                                    "label":"Label",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":91,
-                                    "child":[
-                                        ]
-                                }]
-                        },
-                        {
+                            "x":45,
                             "type":"Label",
-                            "searchKey":"Label",
-                            "props":{"y":38,"x":815,"text":"完成1级订单","fontSize":30,"color":"#D23210","bold":true,"anchorX":0.5},
+                            "searchKey":"Label,name_title",
+                            "props":{"y":38,"x":815,"text":"完成1级订单","name":"name_title","fontSize":30,"color":"#D23210","bold":true,"anchorX":0.5},
                             "nodeParent":80,
-                            "label":"Label",
+                            "label":"name_title",
                             "isDirectory":false,
                             "isAniNode":true,
                             "hasChild":false,
@@ -1945,12 +1756,79 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Box",
-                            "searchKey":"Box,item",
-                            "props":{"y":54,"x":321,"width":100,"name":"item","height":100},
+                            "searchKey":"Box,item_0",
+                            "props":{"y":54,"x":146,"width":100,"name":"item_0","height":100},
                             "nodeParent":80,
-                            "label":"item",
-                            "isOpen":true,
+                            "label":"item_0",
+                            "isOpen":false,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":82,
+                            "child":[
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image,icon",
+                                    "props":{"y":22,"x":50,"width":52,"name":"icon","height":56,"anchorY":0.5,"anchorX":0.5},
+                                    "nodeParent":82,
+                                    "label":"icon",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":848,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"y":54,"x":3,"skin":"main_scene/img_headBarBg.png"},
+                                    "nodeParent":82,
+                                    "label":"Image",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":849,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image,bar",
+                                    "props":{"y":56,"x":5,"width":87,"skin":"main_scene/img_headBar.png","name":"bar","height":12},
+                                    "nodeParent":82,
+                                    "label":"bar",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":850,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Label",
+                                    "searchKey":"Label,num",
+                                    "props":{"y":77,"x":51,"text":"9/10","name":"num","fontSize":34,"color":"#755037","bold":true,"anchorX":0.5},
+                                    "nodeParent":82,
+                                    "label":"num",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":851,
+                                    "child":[
+                                        ]
+                                }]
+                        },
+                        {
+                            "x":45,
+                            "type":"Box",
+                            "searchKey":"Box,item_1",
+                            "props":{"y":54,"x":294,"width":100,"name":"item_1","height":100},
+                            "nodeParent":80,
+                            "label":"item_1",
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
@@ -1958,14 +1836,14 @@
                             "child":[
                                 {
                                     "type":"Image",
-                                    "searchKey":"Image",
-                                    "props":{"y":22,"x":50,"width":52,"skin":"game/img_getAubergine.png","height":56,"anchorY":0.5,"anchorX":0.5},
+                                    "searchKey":"Image,icon",
+                                    "props":{"y":22,"x":50,"width":52,"name":"icon","height":56,"anchorY":0.5,"anchorX":0.5},
                                     "nodeParent":345,
-                                    "label":"Image",
+                                    "label":"icon",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":346,
+                                    "compId":852,
                                     "child":[
                                         ]
                                 },
@@ -1978,36 +1856,242 @@
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":347,
+                                    "compId":853,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image,bar",
+                                    "props":{"y":56,"x":5,"width":87,"skin":"main_scene/img_headBar.png","name":"bar","height":12},
+                                    "nodeParent":345,
+                                    "label":"bar",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":854,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Label",
+                                    "searchKey":"Label,num",
+                                    "props":{"y":77,"x":51,"text":"9/10","name":"num","fontSize":34,"color":"#755037","bold":true,"anchorX":0.5},
+                                    "nodeParent":345,
+                                    "label":"num",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":855,
+                                    "child":[
+                                        ]
+                                }]
+                        },
+                        {
+                            "x":45,
+                            "type":"Box",
+                            "searchKey":"Box,item_2",
+                            "props":{"y":54,"x":443,"width":100,"name":"item_2","height":100},
+                            "nodeParent":80,
+                            "label":"item_2",
+                            "isOpen":false,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":87,
+                            "child":[
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image,icon",
+                                    "props":{"y":22,"x":50,"width":52,"name":"icon","height":56,"anchorY":0.5,"anchorX":0.5},
+                                    "nodeParent":87,
+                                    "label":"icon",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":856,
                                     "child":[
                                         ]
                                 },
                                 {
                                     "type":"Image",
                                     "searchKey":"Image",
-                                    "props":{"y":56,"x":5,"width":87,"skin":"main_scene/img_headBar.png","height":12},
-                                    "nodeParent":345,
+                                    "props":{"y":54,"x":3,"skin":"main_scene/img_headBarBg.png"},
+                                    "nodeParent":87,
                                     "label":"Image",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":348,
+                                    "compId":857,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image,bar",
+                                    "props":{"y":56,"x":5,"width":87,"skin":"main_scene/img_headBar.png","name":"bar","height":12},
+                                    "nodeParent":87,
+                                    "label":"bar",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":858,
                                     "child":[
                                         ]
                                 },
                                 {
                                     "type":"Label",
-                                    "searchKey":"Label",
-                                    "props":{"y":77,"x":51,"text":"9/10","fontSize":34,"color":"#755037","bold":true,"anchorX":0.5},
-                                    "nodeParent":345,
-                                    "label":"Label",
+                                    "searchKey":"Label,num",
+                                    "props":{"y":77,"x":51,"text":"9/10","name":"num","fontSize":34,"color":"#755037","bold":true,"anchorX":0.5},
+                                    "nodeParent":87,
+                                    "label":"num",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":349,
+                                    "compId":859,
                                     "child":[
                                         ]
                                 }]
+                        },
+                        {
+                            "x":45,
+                            "type":"Box",
+                            "searchKey":"Box,item_3",
+                            "props":{"y":54,"x":591,"width":100,"name":"item_3","height":100},
+                            "nodeParent":80,
+                            "label":"item_3",
+                            "isOpen":false,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":838,
+                            "child":[
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image,icon",
+                                    "props":{"y":22,"x":50,"width":52,"name":"icon","height":56,"anchorY":0.5,"anchorX":0.5},
+                                    "nodeParent":838,
+                                    "label":"icon",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":860,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"y":54,"x":3,"skin":"main_scene/img_headBarBg.png"},
+                                    "nodeParent":838,
+                                    "label":"Image",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":861,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image,bar",
+                                    "props":{"y":56,"x":5,"width":87,"skin":"main_scene/img_headBar.png","name":"bar","height":12},
+                                    "nodeParent":838,
+                                    "label":"bar",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":862,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Label",
+                                    "searchKey":"Label,num",
+                                    "props":{"y":77,"x":51,"text":"9/10","name":"num","fontSize":34,"color":"#755037","bold":true,"anchorX":0.5},
+                                    "nodeParent":838,
+                                    "label":"num",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":863,
+                                    "child":[
+                                        ]
+                                }]
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image,btn_box",
+                            "props":{"y":114,"x":823,"width":210,"skin":"game/img_buybtm.png","name":"btn_box","mouseEnabled":true,"height":68,"anchorY":0.5,"anchorX":0.5},
+                            "nodeParent":80,
+                            "label":"btn_box",
+                            "isOpen":true,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":843,
+                            "child":[
+                                {
+                                    "x":60,
+                                    "type":"Script",
+                                    "switchAble":true,
+                                    "source":"src/components/Button.ts",
+                                    "searchKey":"Script,Button",
+                                    "removeAble":true,
+                                    "props":{"isScale":true},
+                                    "nodeParent":843,
+                                    "label":"Button",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":844,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"HBox",
+                                    "searchKey":"HBox,box",
+                                    "props":{"y":34,"space":10,"name":"box","centerY":0,"centerX":0,"anchorY":0.5,"anchorX":0.5,"align":"middle"},
+                                    "nodeParent":843,
+                                    "label":"box",
+                                    "isOpen":true,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":845,
+                                    "child":[
+                                        {
+                                            "x":75,
+                                            "type":"Image",
+                                            "searchKey":"Image,icon",
+                                            "props":{"width":55,"skin":"game/img_bankdiamond.png","name":"icon","height":55},
+                                            "nodeParent":845,
+                                            "label":"icon",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":846,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "x":75,
+                                            "type":"FontClip",
+                                            "searchKey":"FontClip,value",
+                                            "props":{"value":"9999","skin":"game/fontClip_price.png","sheet":"0123456789","name":"value","align":"center"},
+                                            "nodeParent":845,
+                                            "label":"value",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":847,
+                                            "child":[
+                                                ]
+                                        }]
+                                }],
+                            "$HIDDEN":false
                         }],
                     "$HIDDEN":false
                 }],
@@ -2021,13 +2105,14 @@
             "props":{"x":-13,"width":1162,"name":"bottom_box","height":289,"bottom":0},
             "nodeParent":2,
             "label":"bottom_box",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":243,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":123,"x":15,"skin":"main_scene/img_menuWoodBg.png"},
@@ -2041,6 +2126,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,task",
                     "props":{"y":167,"x":169,"skin":"main_scene/img_daytimeTask.png","name":"task","anchorY":0.5,"anchorX":0.5},
@@ -2070,6 +2156,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,signIn",
                     "props":{"y":167,"x":362,"skin":"main_scene/img_clock.png","name":"signIn","anchorY":0.5,"anchorX":0.5},
@@ -2099,11 +2186,12 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
-                    "searchKey":"Image",
-                    "props":{"y":141,"x":554,"skin":"main_scene/img_friend.png","anchorY":0.5,"anchorX":0.5},
+                    "searchKey":"Image,friends",
+                    "props":{"y":141,"x":554,"skin":"main_scene/img_friend.png","name":"friends","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":243,
-                    "label":"Image",
+                    "label":"friends",
                     "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
@@ -2128,6 +2216,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,mail",
                     "props":{"y":167,"x":747,"skin":"main_scene/img_emailMenu.png","name":"mail","anchorY":0.5,"anchorX":0.5},
@@ -2157,6 +2246,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,setting",
                     "props":{"y":167,"x":939,"skin":"main_scene/img_hangOut.png","name":"setting","anchorY":0.5,"anchorX":0.5},
@@ -2186,6 +2276,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,msg_box",
                     "props":{"y":-44,"x":-10,"width":689,"skin":"main_scene/img_taskBg2.png","name":"msg_box","height":86},

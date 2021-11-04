@@ -69,6 +69,8 @@ const TablePropertyEvent = {
             id: d.id,
             name: d.name,
             icon: d.icon || `plant_icon/${d.id}_seed.png`,
+            matureIcon: d.icon || `plant_icon/${d.id}_mature.png`,
+            growingIcon: d.icon || `plant_icon/${d.id}_growing.png`,
             gain: Tools.parseString(d.gain).map((e) => getRewardCurrencyBase(e)),
             desc: d.desc,
             seed_price: getRewardCurrencyBase(d.seed_price),
