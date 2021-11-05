@@ -86,11 +86,12 @@ class Main {
             Res.scenes,
             Laya.Handler.create(this, () => {
                 console.log("ok");
-                Res.scenes.forEach((e) => {
-                    Laya.loader.clearTextureRes(e);
-                });
+                // Res.scenes.forEach((e) => {
+                //     Laya.loader.clearTextureRes(e);
+                // });
+
                 Laya.timer.frameOnce(1, this, () => {
-                    Laya.View.hideLoadingPage(300);
+                    Laya.View.hideLoadingPage(1000);
                     ViewManager.inst.open(GameConfig.startScene);
                 });
             }),

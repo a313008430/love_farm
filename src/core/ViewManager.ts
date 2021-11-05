@@ -70,6 +70,7 @@ export class ViewManager {
             data.parm,
             Laya.Handler.create(this, (e: Laya.View) => {
                 if (url != Res.views.LoginView) viewMaps.push({ url: url, view: e });
+
                 let conList = e.getComponents(Laya.Script);
                 if (conList) {
                     conList.forEach((e) => e.enabled && e.onOpened && e.onOpened(data.parm));
@@ -126,6 +127,9 @@ export class ViewManager {
                         this.closeViewLog(url);
                     }
                 }
+
+                //todo需要优化，界面的map需要整理成，全屏和弹窗的区别
+                if (url === Res.views.HintView) return;
 
                 if (!all) break;
             }

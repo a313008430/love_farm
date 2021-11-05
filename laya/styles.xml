@@ -29,4 +29,8 @@
    <item name="res/img_storeHouseBg.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=195,211,151,195" picType="0" scale="0"/>
    <item name="res/img_shelf.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,224,0,234" picType="0" scale="0"/>
    <item name="game/img_countBg.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=32,41,34,31" picType="0" scale="0"/>
+   <item name="game/img_searchBg.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,70,0,69" picType="0" scale="0"/>
+   <item name="game/img_boundary.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
+   <item name="game/img_inviteBg2.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=41,36,41,28" picType="0" scale="0"/>
+   <item name="game/img_inviteBg3.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=189,206,180,177" picType="0" scale="0"/>
 </res>

@@ -12,21 +12,27 @@ import Res from "./Res";
  */
 class HttpDataControl {
     /** 数据转发 */
-    forward(api: ApiHttp, data: any, call?: Function, resolveEvent?: Function) {
-        switch (api) {
+    forward(d: {
+        api: ApiHttp;
+        data: any;
+        call?: Function;
+        resolveEvent?: Function;
+        error?: Function;
+    }) {
+        switch (d.api) {
             case ApiHttp.login:
-                this.login(data);
+                this.login(d.data);
                 break;
             default:
                 break;
         }
 
-        if (resolveEvent) resolveEvent(data);
+        if (d.resolveEvent) d.resolveEvent(d.data);
 
-        if (call) {
-            call(data);
+        if (d.call) {
+            d.call(d.data);
         }
-        Core.eventGlobal.event(api, data);
+        Core.eventGlobal.event(d.api, d.data);
     }
 
     error(errorCode: number, data: any) {

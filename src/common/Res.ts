@@ -9,6 +9,10 @@
         AddLandView = "scenes/views/AddLandView.scene", 
         /** scenes/views/FieldLevelUpView.scene */
         FieldLevelUpView = "scenes/views/FieldLevelUpView.scene", 
+        /** scenes/views/FriendsDescView.scene */
+        FriendsDescView = "scenes/views/FriendsDescView.scene", 
+        /** scenes/views/FriendsRewardView.scene */
+        FriendsRewardView = "scenes/views/FriendsRewardView.scene", 
         /** scenes/views/FriendsView.scene */
         FriendsView = "scenes/views/FriendsView.scene", 
         /** scenes/views/HintView.scene */
@@ -37,20 +41,6 @@
 
  export enum audios 
     {
-        /** audio/win.mp3 */
-        win = "res/audio/win.mp3", 
-        /** audio/ready.mp3 */
-        ready = "res/audio/ready.mp3", 
-        /** audio/move.mp3 */
-        move = "res/audio/move.mp3", 
-        /** audio/go.mp3 */
-        go = "res/audio/go.mp3", 
-        /** audio/fail.mp3 */
-        fail = "res/audio/fail.mp3", 
-        /** audio/draw.mp3 */
-        draw = "res/audio/draw.mp3", 
-        /** audio/button_click.mp3 */
-        button_click = "res/audio/button_click.mp3", 
     }
 
 /**
@@ -69,14 +59,14 @@
          "scenes/views/LoginView.scene",
          "scenes/views/HintView.scene",
          "scenes/views/FriendsView.scene",
+         "scenes/views/FriendsRewardView.scene",
+         "scenes/views/FriendsDescView.scene",
          "scenes/views/FieldLevelUpView.scene",
          "scenes/views/AddLandView.scene",
          "scenes/prefab/GetReward.prefab",
          "scenes/prefab/FloatRewardIcon.prefab",
          "scenes/prefab/FieldPrefab.prefab",
          "scenes/components/Button.prefab",
-            "res/Xasdfasd.png",
-            "res/rule_text.png",
             "res/loadingBg.png",
             "res/img_woodtitle.png",
             "res/img_storeHouseBg.png",
@@ -89,25 +79,15 @@
             "res/img_homepageBg3.png",
             "res/img_homepageBg2.png",
             "res/img_homepageBg1.png",
-            "res/img_homepageBg.png",
             "res/img_farmlandLogo.png",
-            "res/bg1.png",
             "res/shader/vs.vs",
             "res/shader/ps.fs",
-            "res/audio/win.mp3",
-            "res/audio/ready.mp3",
-            "res/audio/move.mp3",
-            "res/audio/go.mp3",
-            "res/audio/fail.mp3",
-            "res/audio/draw.mp3",
-            "res/audio/button_click.mp3",
             "res/atlas/plant_icon.png",
             "res/atlas/plant_icon.atlas",
             "res/atlas/pet_feed.png",
             "res/atlas/pet_feed.atlas",
             "res/atlas/main_scene.png",
             "res/atlas/main_scene.atlas",
-            "res/atlas/game1.png",
             "res/atlas/game.png",
             "res/atlas/game.atlas"];
     

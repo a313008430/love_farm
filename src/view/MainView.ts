@@ -68,7 +68,38 @@ export default class MainView extends Core.gameScript {
     /** 土地组件 列表 */
     private landList: FieldComponent[] = [];
 
+    onOpened() {
+        [
+            "res/loadingBg.png",
+            "res/img_woodtitle.png",
+            "res/img_storeHouseBg.png",
+            "res/img_storebg.png",
+            "res/img_shelf.png",
+            "res/img_popUpBg.png",
+            "res/img_landBg.png",
+            "res/img_inviteBg1.png",
+            "res/img_housetop.png",
+            // "res/img_homepageBg3.png",
+            // "res/img_homepageBg2.png",
+            // "res/img_homepageBg1.png",
+            "res/img_farmlandLogo.png",
+            "res/atlas/plant_icon.png",
+            "res/atlas/pet_feed.png",
+            "res/atlas/main_scene.png",
+            "res/atlas/game.png",
+        ].forEach((e) => {
+            if (e.endsWith("png")) Laya.loader.clearTextureRes(e);
+        });
+    }
+
     onHdAwake() {
+        Res.scenes.forEach((e) => {
+            if (e.endsWith("png")) {
+                // Laya.loader.clearTextureRes(e);
+                console.log(e);
+            }
+        });
+
         Laya.stage.addChild(this.topLayerOnStage);
 
         this.landUpLayer.visible = false;
@@ -228,6 +259,7 @@ export default class MainView extends Core.gameScript {
                     e.showIcon(false);
                 }
                 e.setStateIconSkin(2);
+                e.topStateIconAni(true);
                 e.showTimeBox(false);
                 e.showShadowIcon(false);
                 e.buildIng = true;
@@ -258,6 +290,7 @@ export default class MainView extends Core.gameScript {
                     if (e.data.landId) {
                         e.setStateIconSkin(e.data.growUpTime ? 1 : 3);
                     }
+                    e.topStateIconAni(Boolean(e.data.farmseedsId));
                 } else {
                     e.setStateIconSkin(1);
                 }

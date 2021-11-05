@@ -11,6 +11,8 @@ interface HttpSendData {
     responseType?: string;
     headers?: any[] | null;
     call?: Function;
+    /** 错误回调 */
+    error?: { (code: number, data: any): void };
     baseUrl?: string;
 }
 
@@ -75,6 +77,9 @@ export default class HttpControl {
 
     private completeHandler(e) {
         if (e.resultCode) {
+            if (this.sendData?.error) {
+                this.sendData.error(e.resultCode, e.result);
+            }
             HttpDataControl.error(e.resultCode, e.result);
             return console.error(e);
         } else {
@@ -84,12 +89,12 @@ export default class HttpControl {
                 `color:#78e08f;font-weight:700;`,
                 e.result
             );
-            HttpDataControl.forward(
-                this.sendData.api,
-                e.result,
-                this.sendData?.call,
-                this.backResolveEvent
-            );
+            HttpDataControl.forward({
+                api: this.sendData.api,
+                data: e.result,
+                call: this.sendData?.call,
+                resolveEvent: this.backResolveEvent,
+            });
         }
     }
     private errorHandler(e) {

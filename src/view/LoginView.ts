@@ -70,6 +70,11 @@ export default class LoginView extends GameScript {
                 this.loginBox.visible = false;
                 this.loadBox.visible = true;
             },
+            error: (code, data) => {
+                LocalStorageService.clear();
+                this.loginBox.visible = true;
+                this.loadBox.visible = false;
+            },
         });
     }
 
@@ -77,7 +82,7 @@ export default class LoginView extends GameScript {
         this.loadBar.width = v * this.loadBarOldWidth;
     }
 
-    onDisable(): void {
+    onHdDisable(): void {
         EventGlobal.off(EventMaps.load_progress, this, this.loadProgress);
     }
 }

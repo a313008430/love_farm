@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":81,
+    "selectedBox":53,
+    "selecteID":52,
     "searchKey":"View",
     "props":{"y":0,"x":0,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/FriendsView.jpg","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":133,
+    "maxID":142,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -117,28 +117,30 @@
                     "x":30,
                     "type":"List",
                     "searchKey":"List",
-                    "props":{"y":264,"x":43,"width":1003,"spaceY":20,"repeatY":4,"repeatX":1,"height":896},
+                    "props":{"y":1178,"x":43,"width":1003,"spaceY":20,"repeatY":4,"repeatX":1,"height":914,"anchorY":1},
                     "nodeParent":38,
                     "label":"List",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":53,
                     "child":[
                         {
+                            "x":45,
                             "type":"Box",
                             "searchKey":"Box",
                             "props":{"y":-10,"x":0,"width":1003,"renderType":"render","mouseEnabled":true,"height":206},
                             "nodeParent":53,
                             "label":"Box",
-                            "isOpen":false,
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":false,
                             "hasChild":true,
                             "compId":52,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,bg",
                                     "props":{"y":0,"x":0,"skin":"game/img_listBg.png","name":"bg","alpha":1},
@@ -153,6 +155,7 @@
                                     "$HIDDEN":true
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,head",
                                     "props":{"y":35,"x":32,"width":126,"skin":"game/img_calender.png","name":"head","height":126},
@@ -166,6 +169,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":149,"x":55,"skin":"game/img_levelBg.png"},
@@ -179,6 +183,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,heart_box",
                                     "props":{"y":55,"x":504.5,"skin":"game/img_heart.png","name":"heart_box"},
@@ -206,6 +211,7 @@
                                     "$HIDDEN":false
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,go_play_btn",
                                     "props":{"y":103,"x":827,"skin":"game/img_hangout.png","name":"go_play_btn","anchorY":0.5,"anchorX":0.5},
@@ -233,9 +239,10 @@
                                             "child":[
                                                 ]
                                         }],
-                                    "$HIDDEN":false
+                                    "$HIDDEN":true
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,apply_btn",
                                     "props":{"y":103,"x":827,"skin":"game/img_apply.png","name":"apply_btn","anchorY":0.5,"anchorX":0.5},
@@ -263,9 +270,10 @@
                                             "child":[
                                                 ]
                                         }],
-                                    "$HIDDEN":false
+                                    "$HIDDEN":true
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,del_btn",
                                     "props":{"y":103,"x":827,"skin":"game/img_deleteFriendBtn.png","name":"del_btn","anchorY":0.5,"anchorX":0.5},
@@ -293,9 +301,10 @@
                                             "child":[
                                                 ]
                                         }],
-                                    "$HIDDEN":false
+                                    "$HIDDEN":true
                                 },
                                 {
+                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,lv",
                                     "props":{"y":153,"x":104,"text":"LV2","name":"lv","fontSize":20,"font":"Arial","color":"#ffffff","bold":true,"anchorX":0.5},
@@ -309,6 +318,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,name",
                                     "props":{"y":52,"x":182,"text":"艾丽娅","name":"name","fontSize":46,"font":"Microsoft YaHei","color":"#755037","bold":true},
@@ -322,6 +332,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"HBox",
                                     "searchKey":"HBox,reward_box",
                                     "props":{"y":137,"x":178,"space":20,"name":"reward_box","anchorY":0.5,"align":"none"},
@@ -361,6 +372,7 @@
                                         }]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Box",
                                     "searchKey":"Box,new_box",
                                     "props":{"y":62,"x":497,"width":464,"name":"new_box","height":123},
@@ -418,7 +430,7 @@
                                 }],
                             "$HIDDEN":false
                         }],
-                    "$HIDDEN":true
+                    "$HIDDEN":false
                 },
                 {
                     "x":30,
@@ -554,16 +566,17 @@
                     "x":30,
                     "type":"Box",
                     "searchKey":"Box,add_box",
-                    "props":{"y":216,"x":0,"width":1150,"name":"add_box","mouseEnabled":true,"height":255},
+                    "props":{"y":216,"x":0,"width":1074,"name":"add_box","mouseEnabled":true,"height":255},
                     "nodeParent":38,
                     "label":"add_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":124,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,search_btn",
                             "props":{"y":177,"x":907,"skin":"game/img_searchFriend.png","name":"search_btn","anchorY":0.5,"anchorX":0.5},
@@ -581,7 +594,7 @@
                                     "source":"src/components/Button.ts",
                                     "searchKey":"Script,Button",
                                     "removeAble":true,
-                                    "props":{},
+                                    "props":{"isScale":true},
                                     "nodeParent":125,
                                     "label":"Button",
                                     "isDirectory":false,
@@ -593,9 +606,10 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,copy_btn",
-                            "props":{"y":64,"x":625,"width":81,"skin":"game/img_copyBtn.png","pivotY":25,"pivotX":41,"name":"copy_btn","mouseEnabled":true,"height":50},
+                            "props":{"y":63,"x":658,"width":81,"skin":"game/img_copyBtn.png","pivotY":25,"pivotX":41,"name":"copy_btn","mouseEnabled":true,"height":50},
                             "nodeParent":124,
                             "label":"copy_btn",
                             "isOpen":false,
@@ -622,6 +636,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label",
                             "props":{"y":41,"x":53,"text":"我的友情码：abcdefe2","fontSize":48,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
@@ -633,7 +648,78 @@
                             "compId":129,
                             "child":[
                                 ]
-                        }]
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image",
+                            "props":{"y":128,"x":41,"width":718,"skin":"game/img_searchBg.png","height":88},
+                            "nodeParent":124,
+                            "label":"Image",
+                            "isOpen":true,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":133,
+                            "child":[
+                                {
+                                    "x":60,
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"y":11,"x":15,"skin":"game/img_magnifier.png"},
+                                    "nodeParent":133,
+                                    "label":"Image",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":134,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"TextInput",
+                                    "searchKey":"TextInput",
+                                    "props":{"y":15,"x":120,"width":552,"promptColor":"#906344","prompt":"请输入对方友情码","height":65,"fontSize":48,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
+                                    "nodeParent":133,
+                                    "label":"TextInput",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":135,
+                                    "child":[
+                                        ]
+                                }]
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image",
+                            "props":{"y":297,"x":53,"skin":"game/img_recommend.png"},
+                            "nodeParent":124,
+                            "label":"Image",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":136,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"FillTexture",
+                            "searchKey":"FillTexture",
+                            "props":{"y":260,"x":25,"width":1037,"skin":"game/img_boundary.png","repeat":"repeat-x","height":12},
+                            "nodeParent":124,
+                            "label":"FillTexture",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":140,
+                            "child":[
+                                ]
+                        }],
+                    "$HIDDEN":true
                 }],
             "$HIDDEN":true
         },

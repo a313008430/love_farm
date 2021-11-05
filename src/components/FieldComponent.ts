@@ -144,6 +144,28 @@ export default class FieldComponent extends Core.gameScript {
     }
 
     /**
+     * 顶部icon动画
+     */
+    topStateIconAni(play: boolean) {
+        if (!this.topStateIconTween) {
+            this.topStateIconTween = Laya.TimeLine.to(
+                this.topStateIcon,
+                { y: this.topStateIcon.y - 50 },
+                800,
+                null
+            ).to(this.topStateIcon, { y: this.topStateIcon.y }, 800);
+        }
+
+        this.topStateIcon.visible = play;
+
+        if (play) {
+            this.topStateIconTween.play(null, true);
+        } else {
+            this.topStateIconTween.pause();
+        }
+    }
+
+    /**
      * 设置时间容器的显示隐藏状态
      * @param show 显示或隐藏
      */
@@ -173,26 +195,6 @@ export default class FieldComponent extends Core.gameScript {
             });
         } else {
             this.plantIconTween.pause();
-        }
-    }
-
-    /**
-     * 顶部icon动画
-     */
-    private topStateIconAni(play: boolean) {
-        if (!this.topStateIconTween) {
-            this.topStateIconTween = Laya.TimeLine.to(
-                this.topStateIcon,
-                { y: this.topStateIcon.y - 50 },
-                800,
-                null
-            ).to(this.topStateIcon, { y: this.topStateIcon.y }, 800);
-        }
-
-        if (play) {
-            this.topStateIconTween.play(null, true);
-        } else {
-            this.topStateIconTween.pause();
         }
     }
 
