@@ -1,8 +1,10 @@
 import Core from "src/core/index";
 import { Instance } from "src/core/Instance";
+import LocalStorageService from "src/dataService/LocalStorageService";
 import UserInfo from "src/dataService/UserInfo";
 import HttpDataControl from "./HttpDataControl";
 import { ApiHttp } from "./NetMaps";
+import Res from "./Res";
 
 interface HttpSendData {
     api: ApiHttp;
@@ -23,7 +25,7 @@ export default class HttpControl {
     @Instance
     static inst: HttpControl;
 
-    xhr: Laya.HttpRequest;
+    xhr: XMLHttpRequest;
 
     baseUrl: string = null;
 
@@ -34,14 +36,30 @@ export default class HttpControl {
     init(url: string) {
         this.baseUrl = url;
         if (this.xhr) return;
-        let xhr = new Laya.HttpRequest();
+        // let xhr = new Laya.HttpRequest();
+
         // this.xhr.http.timeout = 10000; //超时时间
-        xhr.on(Laya.Event.COMPLETE, this, this.completeHandler);
-        xhr.on(Laya.Event.ERROR, this, this.errorHandler);
-        xhr.on(Laya.Event.PROGRESS, this, this.processHandler);
+        // xhr.on(Laya.Event.COMPLETE, this, this.completeHandler);
+        // xhr.on(Laya.Event.ERROR, this, this.errorHandler);
+        // xhr.on(Laya.Event.PROGRESS, this, this.processHandler);
         // xhr.send("res/data.data", "", "get", "text");
 
-        this.xhr = xhr;
+        let xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange = () => {
+            if (xmlhttp.readyState == 4) {
+                switch (xmlhttp.status) {
+                    case 200:
+                        this.completeHandler(JSON.parse(xmlhttp.responseText));
+                        break;
+                    default:
+                        this.completeHandler(JSON.parse(xmlhttp.responseText));
+                        break;
+                }
+            }
+        };
+
+        this.xhr = xmlhttp;
     }
 
     send(data: HttpSendData) {
@@ -51,8 +69,12 @@ export default class HttpControl {
 
         this.sendData = data;
 
-        if (!data.data?.userId) {
-            data.data.userId = UserInfo.uid;
+        // if (!data.data?.userId) {
+        //     data.data.userId = UserInfo.uid;
+        // }
+
+        if (!data.headers) {
+            data.headers = ["Authorization", `Bearer ${LocalStorageService.getJSON().token}`];
         }
 
         console.log(
@@ -62,13 +84,35 @@ export default class HttpControl {
             `color:#f8c291;font-weight:700;`
         );
 
-        this.xhr.send(
-            data.baseUrl + data.api,
-            data.data,
-            data.method,
-            data.responseType,
-            data.headers
-        );
+        // this.xhr.send(
+        //     data.baseUrl + data.api,
+        //     data.data,
+        //     data.method,
+        //     data.responseType,
+        //     data.headers
+        // );
+
+        let uri = data.baseUrl + data.api;
+        if (!data.api) {
+            Core.view.open(Res.views.HintView, {
+                parm: { text: `http 地址不能为空` },
+            });
+            return;
+        }
+
+        this.xhr.open("POST", uri, true);
+        this.xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        // this.xhr.setRequestHeader("Content-type", "application/json");
+        this.xhr.setRequestHeader("Authorization", `Bearer ${LocalStorageService.getJSON().token}`);
+
+        let sendData: string[] = [];
+        if (data.data) {
+            Object.keys(data.data).forEach((d) => {
+                sendData.push(`${d}=${data.data[d]}`);
+            });
+        }
+
+        this.xhr.send(sendData.join("&"));
 
         return new Promise((resolve) => {
             this.backResolveEvent = resolve;
@@ -76,22 +120,22 @@ export default class HttpControl {
     }
 
     private completeHandler(e) {
-        if (e.resultCode) {
+        if (e.code) {
             if (this.sendData?.error) {
-                this.sendData.error(e.resultCode, e.result);
+                this.sendData.error(e.code, e.data);
             }
-            HttpDataControl.error(e.resultCode, e.result);
+            HttpDataControl.error(e.code, e.data);
             return console.error(e);
         } else {
             console.log(
                 `%c <== back %c${this.sendData.api} `,
                 `color:#b8e994;font-weight:700;`,
                 `color:#78e08f;font-weight:700;`,
-                e.result
+                e.data
             );
             HttpDataControl.forward({
                 api: this.sendData.api,
-                data: e.result,
+                data: e.data,
                 call: this.sendData?.call,
                 resolveEvent: this.backResolveEvent,
             });

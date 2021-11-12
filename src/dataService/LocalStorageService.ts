@@ -6,6 +6,7 @@ import ConfigGame from "src/common/ConfigGame";
 class LocalStorageService {
     private localData = {
         isLogin: false,
+        token: null,
     };
 
     /**

@@ -65,28 +65,41 @@ interface NetBase {
 //     };
 // }
 interface NetInit extends NetBase {
-    userId: number;
-    landList: [
+    userInfo: {
+        account: "string";
+        uid: number;
+        gold: number;
+        diamond: number;
+        nickname: "string";
+    };
+    lands: [
         {
             id: number;
-            userId: number;
-            landId: number;
-            farmseedsId: number;
             level: number;
-            plantTime: string;
-            growUpTime: number;
+            productId: number;
+            matureTimeLeft: number;
         }
     ];
-    gold: number;
-    diamond: number;
-    profile: string;
-    nickName: string;
-    seedsList: [1];
+    seeds: [number];
+    warehouse: [
+        {
+            id: number;
+            amount: number;
+            type: number;
+        }
+    ];
+    pets: [number];
+    wearPet: {
+        id: number;
+        vitality: number;
+        digestCountDown: number;
+    };
+    token: "string";
 }
 
 interface NetSendApi {
     login: {
-        wxId: string;
+        account: string;
     };
 
     /**  解锁土地 */
@@ -95,10 +108,8 @@ interface NetSendApi {
         landId: number;
         /** 种植种子Id */
         seedsId: number;
-        /** 解锁类型 1:金币解锁 2：看广告解锁 */
+        /** 类型 1 默认 2 广告 */
         type: number;
-        /** 用户id */
-        userId?: number;
     };
 
     /**  种菜 */
@@ -106,15 +117,37 @@ interface NetSendApi {
         /**土地Id */
         landId: number;
         /** 种植种子Id */
-        seedsId: number;
-        /** 用户id */
-        userId?: number;
+        plantId: number;
+        /** 类型 1 默认 2 广告 */
+        type: number;
     };
     /**  收菜 */
     gather: {
         /**土地Id */
         landId: number;
-        /** 用户id */
-        userId?: number;
+        /** 类型 1 默认 2 广告 */
+        type: number;
     };
+
+    /**  收菜 */
+    seedsUnlock: {
+        type: 0;
+        plantId: 0;
+    };
+
+    /**  卖菜 */
+    warehouseSell: {
+        type: 0;
+        id: 0;
+        amount: 0;
+    };
+}
+
+/**
+ * 返回带用户金币的
+ */
+interface ReturnUserInfo {
+    gold: 0;
+    diamond: 0;
+    advertiseTimes: 0;
 }

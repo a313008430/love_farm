@@ -1,3 +1,4 @@
+import ConfigGame from "src/common/ConfigGame";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
@@ -20,13 +21,26 @@ export default class AddLandView extends GameScript {
                 Core.view.close(Res.views.AddLandView);
                 break;
             case "cost_gold":
-            case "ad_btn":
                 HttpControl.inst.send({
-                    api: ApiHttp.unlockLand,
+                    api: ApiHttp.landUnlock,
                     data: {
                         landId: this.data.id,
-                        seedsId: null,
-                        type: 2,
+                        type: ConfigGame.ApiTypeDefault,
+                    },
+                    call: (d) => {
+                        if (this.data?.call) {
+                            this.data.call();
+                            Core.view.close(Res.views.AddLandView);
+                        }
+                    },
+                });
+                break;
+            case "ad_btn":
+                HttpControl.inst.send({
+                    api: ApiHttp.landUnlock,
+                    data: {
+                        landId: this.data.id,
+                        type: ConfigGame.ApiTypeAD,
                     },
                     call: (d) => {
                         if (this.data?.call) {

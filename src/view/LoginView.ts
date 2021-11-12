@@ -15,6 +15,8 @@ export default class LoginView extends GameScript {
     private loadBox: Laya.Box = null;
     /** @prop {name:loginBox, tips:"登陆容器", type:Node}*/
     private loginBox: Laya.Box = null;
+    /** @prop {name:userInput, tips:"登陆容器", type:Node}*/
+    private userInput: Laya.TextInput = null;
 
     /** 进度条默认宽度 */
     private loadBarOldWidth: number = 0;
@@ -28,6 +30,7 @@ export default class LoginView extends GameScript {
             this.login();
             this.loginBox.visible = false;
             this.loadBox.visible = true;
+            this.userInput.visible = false;
             // if (this.data?.call) {
             //     this.data.call();
             //     console.log("call");
@@ -35,6 +38,7 @@ export default class LoginView extends GameScript {
         } else {
             this.loginBox.visible = true;
             this.loadBox.visible = false;
+            this.userInput.visible = true;
         }
     }
 
@@ -60,22 +64,38 @@ export default class LoginView extends GameScript {
     }
 
     private login() {
-        HttpControl.inst.send({
-            api: ApiHttp.login,
-            data: {
-                wxId: "1111111111",
-            },
-            call: (d: NetInit) => {
-                if (this.data?.call) this.data.call(d);
-                this.loginBox.visible = false;
-                this.loadBox.visible = true;
-            },
-            error: (code, data) => {
-                LocalStorageService.clear();
-                this.loginBox.visible = true;
-                this.loadBox.visible = false;
-            },
-        });
+        if (LocalStorageService.getJSON().token) {
+            HttpControl.inst.send({
+                api: ApiHttp.loginToken,
+                call: (d: NetInit) => {
+                    if (this.data?.call) this.data.call(d);
+                    this.loginBox.visible = false;
+                    this.loadBox.visible = true;
+                },
+                error: (code, data) => {
+                    LocalStorageService.clear();
+                    this.loginBox.visible = true;
+                    this.loadBox.visible = false;
+                },
+            });
+        } else {
+            HttpControl.inst.send({
+                api: ApiHttp.login,
+                data: {
+                    account: this.userInput.text,
+                },
+                call: (d: NetInit) => {
+                    if (this.data?.call) this.data.call(d);
+                    this.loginBox.visible = false;
+                    this.loadBox.visible = true;
+                },
+                error: (code, data) => {
+                    LocalStorageService.clear();
+                    this.loginBox.visible = true;
+                    this.loadBox.visible = false;
+                },
+            });
+        }
     }
 
     private loadProgress(v) {

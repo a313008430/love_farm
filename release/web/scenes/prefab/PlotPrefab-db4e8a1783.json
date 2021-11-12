@@ -1,0 +1,53 @@
+{
+    "type": "Image",
+    "props": {
+        "y": 0,
+        "x": 0,
+        "skin": "main_scene/img_wasteland.png",
+        "presetID": 1,
+        "isPresetRoot": true,
+        "anchorY": 0.5,
+        "anchorX": 0.5
+    },
+    "compId": 105,
+    "child": [
+        {
+            "type": "Poly",
+            "props": {
+                "y": 65,
+                "x": 130,
+                "renderType": "hit",
+                "presetID": 2,
+                "points": "-131,39,69,-66,269,32,66,136",
+                "lineWidth": 1,
+                "lineColor": "#ff0000",
+                "fillColor": "#00ffff"
+            },
+            "compId": 253
+        },
+        {
+            "type": "Image",
+            "props": { "y": 50, "x": 131, "skin": "main_scene/img_shadow.png", "presetID": 4 },
+            "compId": 255
+        },
+        {
+            "type": "Image",
+            "props": {
+                "y": 111,
+                "x": 179,
+                "skin": "main_scene/img_tomatoMature.png",
+                "presetID": 3,
+                "name": "icon",
+                "anchorY": 1,
+                "anchorX": 0.5
+            },
+            "compId": 254
+        }
+    ],
+    "loadList": [
+        "main_scene/img_wasteland.png",
+        "main_scene/img_shadow.png",
+        "main_scene/img_tomatoMature.png"
+    ],
+    "loadList3D": []
+}

@@ -280,17 +280,17 @@ export default class MainView extends Core.gameScript {
             this.landList.forEach((e) => {
                 if (e.data) {
                     e.showIcon(true);
-                    if (e.data.landId && e.data.growUpTime) {
+                    if (e.data.id && e.data.matureTimeLeft) {
                         e.showTimeBox(true);
                         e.showShadowIcon(true);
                     }
                 }
                 e.buildIng = false;
                 if (e.data) {
-                    if (e.data.landId) {
-                        e.setStateIconSkin(e.data.growUpTime ? 1 : 3);
+                    if (e.data.id) {
+                        e.setStateIconSkin(e.data.matureTimeLeft ? 1 : 3);
                     }
-                    e.topStateIconAni(Boolean(e.data.farmseedsId));
+                    e.topStateIconAni(Boolean(e.data.productId));
                 } else {
                     e.setStateIconSkin(1);
                 }
@@ -321,6 +321,7 @@ export default class MainView extends Core.gameScript {
             let scale = 50 / icon.width;
             icon.scale(scale, scale);
             node.alpha = 0;
+            console.log(obj.node, node);
             obj.node.addChild(node);
             (node.getChildByName("count") as Laya.FontClip).value = "x" + d.count;
 

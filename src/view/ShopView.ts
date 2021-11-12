@@ -1,3 +1,4 @@
+import ConfigGame from "src/common/ConfigGame";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
@@ -251,12 +252,13 @@ export default class ShopView extends GameScript {
                 break;
             case "buy_btn":
                 HttpControl.inst.send({
-                    api: ApiHttp.sow,
+                    api: ApiHttp.landSow,
                     data: <NetSendApi["sow"]>{
                         landId: this.data.parm?.landId,
-                        seedsId: this.getDataList()[this.itemListSelectIndex].base.id,
+                        plantId: this.getDataList()[this.itemListSelectIndex].base.id,
+                        type: ConfigGame.ApiTypeDefault,
                     },
-                    call: () => {
+                    call: (d: ReturnUserInfo) => {
                         ViewManager.inst.close(Res.views.ShopView);
                         if (this.data?.call)
                             this.data.call(this.getDataList()[this.itemListSelectIndex]);
@@ -265,12 +267,37 @@ export default class ShopView extends GameScript {
 
                 break;
             case "unlock_buy":
+                HttpControl.inst.send({
+                    api: ApiHttp.seedsUnlock,
+                    data: <NetSendApi["seedsUnlock"]>{
+                        plantId: this.getDataList()[this.itemListSelectIndex].base.id,
+                        type: ConfigGame.ApiTypeDefault,
+                    },
+                    call: (d: ReturnUserInfo) => {
+                        PlantService.list[this.itemListSelectIndex].lock = false;
+                        this.itemList.changeItem(
+                            this.itemListSelectIndex,
+                            PlantService.list[this.itemListSelectIndex]
+                        );
+                    },
+                });
+
+                break;
             case "ad_unlock":
-                PlantService.list[this.itemListSelectIndex].lock = false;
-                this.itemList.changeItem(
-                    this.itemListSelectIndex,
-                    PlantService.list[this.itemListSelectIndex]
-                );
+                HttpControl.inst.send({
+                    api: ApiHttp.seedsUnlock,
+                    data: <NetSendApi["seedsUnlock"]>{
+                        plantId: this.getDataList()[this.itemListSelectIndex].base.id,
+                        type: ConfigGame.ApiTypeAD,
+                    },
+                    call: (d: ReturnUserInfo) => {
+                        PlantService.list[this.itemListSelectIndex].lock = false;
+                        this.itemList.changeItem(
+                            this.itemListSelectIndex,
+                            PlantService.list[this.itemListSelectIndex]
+                        );
+                    },
+                });
                 break;
 
             case "left":

@@ -41,6 +41,8 @@
 
  export enum audios 
     {
+        /** audio/button_click.mp3 */
+        button_click = "res/audio/button_click.mp3", 
     }
 
 /**
@@ -82,6 +84,7 @@
             "res/img_farmlandLogo.png",
             "res/shader/vs.vs",
             "res/shader/ps.fs",
+            "res/audio/button_click.mp3",
             "res/atlas/plant_icon.png",
             "res/atlas/plant_icon.atlas",
             "res/atlas/pet_feed.png",

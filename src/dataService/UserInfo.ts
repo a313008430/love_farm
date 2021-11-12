@@ -16,6 +16,8 @@ class UserInfo {
     diamond: number = 999;
     /** 金币 */
     gold: number = 999;
+    /** 用户可以看广告的次数 */
+    advertiseTimes: number;
 
     get ttt() {
         return this.orderLevel;

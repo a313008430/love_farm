@@ -2,11 +2,11 @@
     "x":0,
     "type":"View",
     "selectedBox":2,
-    "selecteID":10,
+    "selecteID":12,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":12,
+    "maxID":13,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -90,7 +90,7 @@
             "source":"src/view/LoginView.ts",
             "searchKey":"Script,LoginView",
             "removeAble":true,
-            "props":{"loginBox":"@node:10","loadBox":"@node:6","loadBar":"@node:7"},
+            "props":{"userInput":"@node:12","loginBox":"@node:10","loadBox":"@node:6","loadBar":"@node:7"},
             "nodeParent":2,
             "label":"LoginView",
             "isDirectory":false,
@@ -107,7 +107,7 @@
             "props":{"y":1165,"x":523,"skin":"game/img_weChantBtn.png","name":"login_btn","anchorY":0.5,"anchorX":0.5},
             "nodeParent":2,
             "label":"login_btn",
-            "isOpen":null,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
@@ -129,6 +129,20 @@
                     "child":[
                         ]
                 }]
+        },
+        {
+            "x":15,
+            "type":"TextInput",
+            "searchKey":"TextInput",
+            "props":{"y":1011,"x":311,"width":414,"skin":"comp/textinput.png","prompt":"输入账号","padding":"0,10,0,10","height":77,"fontSize":50,"bgColor":"#d9d9d9"},
+            "nodeParent":2,
+            "label":"TextInput",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":12,
+            "child":[
+                ]
         }],
     "animations":[
         {

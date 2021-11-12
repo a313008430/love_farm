@@ -1,4 +1,4 @@
-export type LandObj = NetInit["landList"][0];
+export type LandObj = NetInit["lands"][0];
 
 class LandService {
     /**
@@ -30,7 +30,7 @@ class LandService {
      * @param d 土地数据
      */
     addLand(d: LandObj) {
-        this.list.set(d.landId, d);
+        this.list.set(d.id, d);
     }
 
     /**
