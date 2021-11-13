@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":336,
+    "selectedBox":80,
+    "selecteID":93,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":864,
+    "maxID":865,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -21,7 +21,7 @@
             "source":"src/view/MainView.ts",
             "searchKey":"Script,MainView",
             "removeAble":true,
-            "props":{"y":0,"x":0,"width":14,"warehouseBtn":"@node:99","topLayerOnStage":"@node:837","topGoldIcon":"@node:72","topDiamondIcon":"@node:78","orderBox":"@node:80","landUpLayer":"@node:496","landBox":"@node:112","height":14,"goldNode":"@node:73","getRewardPrefab":"@Prefab:scenes/prefab/GetReward.prefab","floatRewardIcon":"@Prefab:scenes/prefab/FloatRewardIcon.prefab","diamondNode":"@node:79","center_box":"@node:96","centerBox":"@node:96","avatarNode":"@node:350","addLandLayer":"@node:316","addLandBg":"@node:332"},
+            "props":{"y":0,"x":0,"width":14,"warehouseBtn":"@node:99","topLayerOnStage":"@node:837","topGoldIcon":"@node:72","topDiamondIcon":"@node:78","testBtn":"@node:237","orderBox":"@node:80","landUpLayer":"@node:496","landBox":"@node:112","height":14,"goldNode":"@node:73","getRewardPrefab":"@Prefab:scenes/prefab/GetReward.prefab","floatRewardIcon":"@Prefab:scenes/prefab/FloatRewardIcon.prefab","diamondNode":"@node:79","center_box":"@node:96","centerBox":"@node:96","avatarNode":"@node:350","addLandLayer":"@node:316","addLandBg":"@node:332"},
             "nodeParent":2,
             "label":"MainView",
             "isDirectory":false,
@@ -1583,14 +1583,13 @@
                     "props":{"y":-15,"x":-58,"skin":"main_scene/img_portrait.png","name":"head","mouseEnabled":true},
                     "nodeParent":67,
                     "label":"head",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":68,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,avater",
                             "props":{"y":68,"x":68,"width":83,"name":"avater","height":81,"anchorY":0.5,"anchorX":0.5},
@@ -2024,14 +2023,13 @@
                             "props":{"y":114,"x":823,"width":210,"skin":"game/img_buybtm.png","name":"btn_box","mouseEnabled":false,"height":68,"anchorY":0.5,"anchorX":0.5},
                             "nodeParent":80,
                             "label":"btn_box",
-                            "isOpen":true,
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":843,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"HBox",
                                     "searchKey":"HBox,box",
                                     "props":{"y":34,"space":10,"name":"box","centerY":0,"centerX":0,"anchorY":0.5,"anchorX":0.5,"align":"middle"},
@@ -2044,7 +2042,6 @@
                                     "compId":845,
                                     "child":[
                                         {
-                                            "x":75,
                                             "type":"Image",
                                             "searchKey":"Image,icon",
                                             "props":{"width":55,"skin":"game/img_bankdiamond.png","name":"icon","height":55},
@@ -2058,7 +2055,6 @@
                                                 ]
                                         },
                                         {
-                                            "x":75,
                                             "type":"FontClip",
                                             "searchKey":"FontClip,value",
                                             "props":{"value":"9999","skin":"game/fontClip_price.png","sheet":"0123456789","name":"value","align":"center"},
@@ -2086,14 +2082,13 @@
             "props":{"x":-13,"width":1162,"name":"bottom_box","height":289,"bottom":0},
             "nodeParent":2,
             "label":"bottom_box",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":243,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":123,"x":15,"skin":"main_scene/img_menuWoodBg.png"},
@@ -2107,7 +2102,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,task",
                     "props":{"y":167,"x":169,"skin":"main_scene/img_daytimeTask.png","name":"task","anchorY":0.5,"anchorX":0.5},
@@ -2137,7 +2131,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,signIn",
                     "props":{"y":167,"x":362,"skin":"main_scene/img_clock.png","name":"signIn","anchorY":0.5,"anchorX":0.5},
@@ -2167,7 +2160,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,friends",
                     "props":{"y":141,"x":554,"skin":"main_scene/img_friend.png","name":"friends","anchorY":0.5,"anchorX":0.5},
@@ -2197,7 +2189,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,mail",
                     "props":{"y":167,"x":747,"skin":"main_scene/img_emailMenu.png","name":"mail","anchorY":0.5,"anchorX":0.5},
@@ -2227,7 +2218,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,setting",
                     "props":{"y":167,"x":939,"skin":"main_scene/img_hangOut.png","name":"setting","anchorY":0.5,"anchorX":0.5},
@@ -2257,7 +2247,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,msg_box",
                     "props":{"y":-44,"x":-10,"width":689,"skin":"main_scene/img_taskBg2.png","name":"msg_box","height":86},
@@ -2642,6 +2631,7 @@
             "props":{"zOrder":999,"top":0,"right":0,"name":"topLayer","left":0,"bottom":0},
             "nodeParent":2,
             "label":"topLayer",
+            "isOpen":true,
             "isDirectory":false,
             "isAniNode":true,
             "hasChild":false,

@@ -75,6 +75,7 @@ class HttpDataControl {
         UserInfo.gold = d.userInfo.gold;
         UserInfo.nickname = d.userInfo.nickname;
         UserInfo.avatar = "";
+        UserInfo.orderLevel = d.orderId || 0;
         LocalStorageService.setJSON("isLogin", true);
         if (d.token) LocalStorageService.setJSON("token", d.token);
         LandService.init(d.lands);

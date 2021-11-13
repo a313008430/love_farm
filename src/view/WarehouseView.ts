@@ -24,13 +24,15 @@ export default class WarehouseView extends Core.gameScript {
     /** @prop {name:itemIcon, tips:"选中物品icon", type:Node}*/
     private itemIcon: Laya.Image = null;
     /** @prop {name:itemSellCountLb, tips:"选中物品出售数量", type:Node}*/
-    private itemSellCountLb: Laya.Label = null;
+    private itemSellCountLb: Laya.TextInput = null;
     /** @prop {name:itemSellPriceLb, tips:"选中物品出售价格", type:Node}*/
     private itemSellPriceLb: Laya.Label = null;
     /** @prop {name:itemSellPriceIcon, tips:"选中物品出售价格icon", type:Node}*/
     private itemSellPriceIcon: Laya.Image = null;
     /** @prop {name:sellBtn, tips:"出售的icon", type:Node}*/
-    private sellBtn: Laya.Button = null;
+    private sellBtn: Laya.Image = null;
+    /** @prop {name:sellAdBtn, tips:"出售的icon 广告", type:Node}*/
+    private sellAdBtn: Laya.Image = null;
 
     /** 数据列表 */
     private dataList: WareHouseData[][] = [];
@@ -48,6 +50,21 @@ export default class WarehouseView extends Core.gameScript {
         this.itemList.vScrollBarSkin = null;
 
         this.updateList();
+
+        this.updateDesc(null);
+
+        this.itemSellCountLb.on(Laya.Event.INPUT, this, () => {
+            this.selectItemSellCount = Number(this.itemSellCountLb.text);
+            if (this.selectItemSellCount < 1) {
+                this.selectItemSellCount = 1;
+                this.itemSellCountLb.text = "1";
+            }
+
+            if (this.selectItemSellCount > this.selectItemData.count)
+                this.selectItemSellCount = this.selectItemData.count;
+
+            this.updateSelectSellCount();
+        });
     }
 
     updateList() {
@@ -116,32 +133,16 @@ export default class WarehouseView extends Core.gameScript {
                 this.updateSelectSellCount();
                 break;
             case "sellBtnAd":
-                HttpControl.inst.send({
-                    api: ApiHttp.warehouseSell,
-                    data: <NetSendApi["warehouseSell"]>{
-                        id: this.selectItemData.base.id,
-                        amount: this.selectItemSellCount,
-                        type: ConfigGame.ApiTypeAD,
-                    },
-                    call: (d: ReturnUserInfo) => {
-                        WarehouseService.updateAmount(
-                            this.selectItemData.base.id,
-                            this.selectItemSellCount
-                        );
-                        this.dataList = [];
-                        this.updateList();
-                        this.itemList.refresh();
-                    },
-                });
-
-                break;
             case "sellBtn":
                 HttpControl.inst.send({
                     api: ApiHttp.warehouseSell,
                     data: <NetSendApi["warehouseSell"]>{
                         id: this.selectItemData.base.id,
                         amount: this.selectItemSellCount,
-                        type: ConfigGame.ApiTypeDefault,
+                        type:
+                            e.target.name == "sellBtn"
+                                ? ConfigGame.ApiTypeDefault
+                                : ConfigGame.ApiTypeAD,
                     },
                     call: (d: ReturnUserInfo) => {
                         WarehouseService.updateAmount(
@@ -151,20 +152,28 @@ export default class WarehouseView extends Core.gameScript {
                         this.dataList = [];
                         this.updateList();
                         this.itemList.refresh();
+                        if (!this.dataList.length) {
+                            this.updateDesc(null);
+                        }
+
+                        Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
+                            node: this.sellBtn as any,
+                            list: [
+                                {
+                                    obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
+                                    count:
+                                        this.selectItemSellCount *
+                                        this.unitPrice *
+                                        (e.target.name == "sellBtnAd" ? 2 : 1),
+                                    posType: 1,
+                                },
+                            ],
+                            callBack: () => {},
+                        });
                     },
                 });
                 // console.log(111, TableAnalyze.table("currency").get(ConfigGame.goldId));
-                // Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
-                //     node: this.sellBtn as any,
-                //     list: [
-                //         {
-                //             obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
-                //             count: 100,
-                //             posType: 1,
-                //         },
-                //     ],
-                //     callBack: () => {},
-                // });
+
                 break;
         }
     }
@@ -173,6 +182,13 @@ export default class WarehouseView extends Core.gameScript {
      * 更新出出售信息数据
      */
     private updateDesc(d: WareHouseData) {
+        if (!d) {
+            (this.itemIcon.parent as Laya.Box).visible = false;
+            return;
+        }
+
+        (this.itemIcon.parent as Laya.Box).visible = true;
+
         this.itemIcon.skin = d.base.icon;
         this.itemName.text = d.base.name;
         this.itemDesc.text = d.base.desc;
@@ -185,7 +201,6 @@ export default class WarehouseView extends Core.gameScript {
         }
         this.selectItemSellCount = Math.ceil(d.count / 2);
         this.unitPrice = price.count;
-        console.log(this.unitPrice, 1111, price);
         this.itemSellPriceIcon.skin = price.obj.icon;
         this.updateSelectSellCount();
     }

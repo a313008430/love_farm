@@ -1,5 +1,6 @@
 import ConfigGame from "src/common/ConfigGame";
 import { EventMaps } from "src/common/EventMaps";
+import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import { Table } from "src/common/Table";
 import TableAnalyze from "src/common/TableAnalyze";
@@ -7,6 +8,7 @@ import { RewardCurrencyBase } from "src/common/TableObject";
 import FieldComponent from "src/components/FieldComponent";
 import Core from "src/core/index";
 import LandService from "src/dataService/LandService";
+import WarehouseService from "src/dataService/WarehouseService";
 import Res from "../common/Res";
 import UserInfo from "../dataService/UserInfo";
 
@@ -14,7 +16,7 @@ import UserInfo from "../dataService/UserInfo";
  * 飞金币数量结构
  */
 export interface GetFloatRewardObj {
-    /** 起点参考节点 */
+    /** 起点参考节点 默认会把数量的东西加到这里，所以不要添HBox或是VBox */
     node: Laya.Box;
     /** 数据列表 */
     list: {
@@ -64,6 +66,9 @@ export default class MainView extends Core.gameScript {
     private getRewardPrefab: Laya.Prefab = null;
     /** @prop {name:floatRewardIcon, tips:"奖励飞动画icon", type:Prefab}*/
     private floatRewardIcon: Laya.Prefab = null;
+
+    /** @prop {name:testBtn, tips:"好友测试按钮", type:Node}*/
+    private testBtn: Laya.Image = null;
 
     /** 土地组件 列表 */
     private landList: FieldComponent[] = [];
@@ -194,6 +199,15 @@ export default class MainView extends Core.gameScript {
                 break;
             case "landLevelUp":
                 this.switchLandLevelUp(true);
+
+                // this.playGetRewardAni({
+                //     node: this.testBtn as any,
+                //     list: [
+                //         { obj: TableAnalyze.table("currency").get(1001), count: 100, posType: 1 },
+                //         { obj: TableAnalyze.table("currency").get(1001), count: 100, posType: 1 },
+                //         { obj: TableAnalyze.table("currency").get(1001), count: 100, posType: 1 },
+                //     ],
+                // });
                 break;
             case "close_up":
                 this.switchLandLevelUp(false);
@@ -206,26 +220,37 @@ export default class MainView extends Core.gameScript {
      */
     private updateOrder() {
         let box = this.orderBox,
-            d = TableAnalyze.table("order").get(UserInfo.orderLevel),
+            d = TableAnalyze.table("order").get(UserInfo.orderLevel + 1),
             reward: RewardCurrencyBase,
-            rewardCount: number = 0;
-
+            rewardCount: number = 0,
+            curCount = 0,
+            maxCount = 0,
+            progress = 0;
+        if (!d) return console.log("等级已完");
         for (let x = 0; x < 4; x++) {
             let item = box.getChildByName("item_" + x) as Laya.Box;
-            if (d.condition[x]) {
-                (item.getChildByName("icon") as Laya.Image).skin = d.condition[x].plant.icon;
 
-                (item.getChildByName("num") as Laya.Label).text = `0/${d.condition[x].count}`;
-                (item.getChildByName("bar") as Laya.Image).width = 87 * (0 / d.condition[x].count);
+            if (d.condition[x]) {
+                curCount = WarehouseService.getOne(d.condition[x].plant.id)?.count || 0;
+                maxCount = d.condition[x].count;
+
+                if (curCount >= maxCount) {
+                    progress++;
+                }
+
+                (item.getChildByName("icon") as Laya.Image).skin = d.condition[x].plant.icon;
+                (item.getChildByName("num") as Laya.Label).text = `${curCount}/${maxCount}`;
+                (item.getChildByName("bar") as Laya.Image).width =
+                    87 * (curCount / maxCount > 1 ? 1 : curCount / maxCount);
 
                 item.visible = true;
 
                 d.condition[x].plant.gain.forEach((e) => {
-                    if (e.obj.id === ConfigGame.diamondId) {
+                    if (e.obj.id === ConfigGame.goldId) {
                         if (!reward) {
                             reward = e;
                         }
-                        rewardCount += e.count * d.condition[x].count;
+                        rewardCount += e.count * maxCount;
                     }
                 });
             } else {
@@ -239,6 +264,36 @@ export default class MainView extends Core.gameScript {
             (btnBox.getChildByName("value") as Laya.FontClip).value = `${
                 rewardCount + Math.round(rewardCount * d.commission)
             }`;
+        }
+
+        (box.getChildByName("name_title") as Laya.Label).text = `完成${
+            UserInfo.orderLevel + 1
+        }级订单`;
+
+        if (progress == d.condition.length) {
+            HttpControl.inst.send({
+                api: ApiHttp.orderReward,
+                data: {
+                    orderId: UserInfo.orderLevel + 1,
+                },
+                call: () => {
+                    this.playGetRewardAni({
+                        node: box.getChildByName("btn_box") as any,
+                        list: [
+                            {
+                                obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
+                                count: rewardCount + Math.round(rewardCount * d.commission),
+                                posType: 1,
+                            },
+                        ],
+                        callBack: () => {
+                            this.updateOrder();
+                        },
+                    });
+
+                    UserInfo.orderLevel++;
+                },
+            });
         }
     }
 
@@ -256,12 +311,15 @@ export default class MainView extends Core.gameScript {
             this.landUpLayer.visible = true;
             this.landList.forEach((e) => {
                 if (e.data) {
-                    e.showIcon(false);
+                    if (TableAnalyze.table("landLevel").get(e.data.level + 1)) {
+                        e.showIcon(false);
+                        e.setStateIconSkin(2);
+                        e.topStateIconAni(true);
+                        e.showTimeBox(false);
+                        e.showShadowIcon(false);
+                    }
                 }
-                e.setStateIconSkin(2);
-                e.topStateIconAni(true);
-                e.showTimeBox(false);
-                e.showShadowIcon(false);
+
                 e.buildIng = true;
             });
         } else {
@@ -280,9 +338,16 @@ export default class MainView extends Core.gameScript {
             this.landList.forEach((e) => {
                 if (e.data) {
                     e.showIcon(true);
-                    if (e.data.id && e.data.matureTimeLeft) {
-                        e.showTimeBox(true);
-                        e.showShadowIcon(true);
+                    if (e.data.id) {
+                        if (e.data.matureTimeLeft) {
+                            e.showTimeBox(true);
+                            e.showShadowIcon(true);
+                        }
+                        if (!e.data.productId) {
+                            e.clearField();
+                        }
+                    } else {
+                        e.clearField();
                     }
                 }
                 e.buildIng = false;
@@ -293,6 +358,7 @@ export default class MainView extends Core.gameScript {
                     e.topStateIconAni(Boolean(e.data.productId));
                 } else {
                     e.setStateIconSkin(1);
+                    e.topStateIconAni(false);
                 }
             });
         }
@@ -314,15 +380,21 @@ export default class MainView extends Core.gameScript {
                 this.getRewardPrefab
             );
 
-            node.y = obj.node.get_height() * obj.node.anchorY - i * 60;
-            node.x = obj.node.get_width() * obj.node.anchorX;
+            // node.y = obj.node.get_height() * obj.node.anchorY - i * 60;
+            // node.x = obj.node.get_width() * obj.node.anchorX;
             let icon = node.getChildByName("icon") as Laya.Image;
             icon.skin = d.obj?.icon || "";
             let scale = 50 / icon.width;
             icon.scale(scale, scale);
             node.alpha = 0;
-            console.log(obj.node, node);
-            obj.node.addChild(node);
+            // console.log(obj.node.localToGlobal(new Laya.Point()));
+            // obj.node.addChild(node);
+            let nodeNewPos = this.topLayerOnStage.globalToLocal(
+                obj.node.localToGlobal(new Laya.Point())
+            );
+
+            node.pos(nodeNewPos.x + obj.node.get_width() * obj.node.anchorX, nodeNewPos.y - i * 60);
+            this.topLayerOnStage.addChild(node);
             (node.getChildByName("count") as Laya.FontClip).value = "x" + d.count;
 
             Laya.Tween.to(

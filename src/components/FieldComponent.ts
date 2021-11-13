@@ -91,6 +91,7 @@ export default class FieldComponent extends Core.gameScript {
             this.fieldNode.skin = this.fieldEmptyRes;
             this.showIcon(Boolean(this.data.productId));
             this.lvNode.visible = true;
+            this.updateLevel();
 
             if (this.data.productId) {
                 this.plantIconAni(true);
@@ -105,7 +106,7 @@ export default class FieldComponent extends Core.gameScript {
 
                 this.showShadowIcon(true);
                 this.updateCountDown();
-                this.updateLevel();
+
                 this.topStateIcon.visible = true;
                 this.topStateIconAni(true);
                 this.setStateIconSkin(1);
@@ -239,7 +240,7 @@ export default class FieldComponent extends Core.gameScript {
     /**
      * 清空土地
      */
-    private clearField() {
+    clearField() {
         this.topStateIcon.visible = false;
         this.data.productId = null;
         this.icon.skin = null;
@@ -250,8 +251,26 @@ export default class FieldComponent extends Core.gameScript {
     async onClick() {
         console.log(this.fieldId, this.buildIng);
         if (this.data) {
+            //土地升级事件
             if (this.buildIng) {
-                Core.view.open(Res.views.FieldLevelUpView, { parm: this.fieldId });
+                if (TableAnalyze.table("landLevel").get(this.data.level + 1)) {
+                    Core.view.open(Res.views.FieldLevelUpView, {
+                        parm: {
+                            obj: this.data,
+                            call: () => {
+                                this.data.level++;
+                                this.updateLevel();
+                            },
+                        },
+                    });
+                } else {
+                    console.log("满级");
+                    this.topStateIconAni(false);
+                    Core.view.open(Res.views.HintView, {
+                        parm: { text: `已满级` },
+                    });
+                }
+
                 return;
             }
 
@@ -292,28 +311,28 @@ export default class FieldComponent extends Core.gameScript {
                         ];
 
                     //获得的金币钻石
-                    plantObj.gain.forEach((d) => {
-                        rewardList.push({
-                            obj: TableAnalyze.table("currency").get(d.obj.id),
-                            count: d.count,
-                            posType: ConfigGame.diamondId == d.obj.id ? 2 : 1,
-                        });
-                    });
+                    // plantObj.gain.forEach((d) => {
+                    //     rewardList.push({
+                    //         obj: TableAnalyze.table("currency").get(d.obj.id),
+                    //         count: d.count,
+                    //         posType: ConfigGame.diamondId == d.obj.id ? 2 : 1,
+                    //     });
+                    // });
 
                     Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
                         node: this.owner,
                         list: rewardList,
                         callBack: () => {
-                            plantObj.gain.forEach((d) => {
-                                switch (d.obj.id) {
-                                    case ConfigGame.diamondId:
-                                        UserInfo.diamond += d.count;
-                                        break;
-                                    case ConfigGame.goldId:
-                                        UserInfo.gold += d.count;
-                                        break;
-                                }
-                            });
+                            // plantObj.gain.forEach((d) => {
+                            //     switch (d.obj.id) {
+                            //         case ConfigGame.diamondId:
+                            //             UserInfo.diamond += d.count;
+                            //             break;
+                            //         case ConfigGame.goldId:
+                            //             UserInfo.gold += d.count;
+                            //             break;
+                            //     }
+                            // });
                         },
                     });
 
@@ -345,12 +364,13 @@ export default class FieldComponent extends Core.gameScript {
                 parm: {
                     id: this.fieldId,
                     call: () => {
-                        LandService.addLand({
+                        this.data = {
                             id: this.fieldId,
                             level: 1,
                             matureTimeLeft: 0,
                             productId: null,
-                        });
+                        };
+                        LandService.addLand(this.data);
                         this.updateData();
                     },
                 },

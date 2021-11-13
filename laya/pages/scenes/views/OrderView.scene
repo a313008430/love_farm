@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":38,
+    "selectedBox":52,
+    "selecteID":46,
     "searchKey":"View",
     "props":{"y":0,"x":0,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/OrderView.jpg","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -146,13 +146,14 @@
                                     "props":{"y":138,"x":819,"skin":"game/img_presentOrder.png","name":"btn","anchorY":0.5,"anchorX":0.5},
                                     "nodeParent":52,
                                     "label":"btn",
-                                    "isOpen":false,
+                                    "isOpen":true,
                                     "isDirectory":true,
                                     "isAniNode":false,
                                     "hasChild":true,
                                     "compId":45,
                                     "child":[
                                         {
+                                            "x":75,
                                             "type":"Script",
                                             "switchAble":true,
                                             "source":"src/components/Button.ts",
@@ -167,7 +168,8 @@
                                             "compId":56,
                                             "child":[
                                                 ]
-                                        }]
+                                        }],
+                                    "$HIDDEN":false
                                 },
                                 {
                                     "x":60,
@@ -176,16 +178,17 @@
                                     "props":{"y":57,"x":822,"space":20,"name":"reward_box","anchorY":0.5,"anchorX":0.5,"align":"none"},
                                     "nodeParent":52,
                                     "label":"reward_box",
-                                    "isOpen":false,
+                                    "isOpen":true,
                                     "isDirectory":true,
                                     "isAniNode":false,
                                     "hasChild":true,
                                     "compId":47,
                                     "child":[
                                         {
+                                            "x":75,
                                             "type":"Image",
                                             "searchKey":"Image,icon",
-                                            "props":{"skin":"game/img_bankdiamond.png","name":"icon"},
+                                            "props":{"width":55,"skin":"game/img_bankdiamond.png","name":"icon","height":55},
                                             "nodeParent":47,
                                             "label":"icon",
                                             "isDirectory":false,
@@ -196,6 +199,7 @@
                                                 ]
                                         },
                                         {
+                                            "x":75,
                                             "type":"Label",
                                             "searchKey":"Label,value",
                                             "props":{"y":6,"x":77,"text":"+100","name":"value","fontSize":44,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
@@ -207,7 +211,8 @@
                                             "compId":48,
                                             "child":[
                                                 ]
-                                        }]
+                                        }],
+                                    "$HIDDEN":false
                                 },
                                 {
                                     "x":60,

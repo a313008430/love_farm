@@ -4,6 +4,7 @@ import TableAnalyze from "src/common/TableAnalyze";
 import { OrderBase, RewardCurrencyBase } from "src/common/TableObject";
 import Core from "src/core/index";
 import UserInfo from "src/dataService/UserInfo";
+import WarehouseService from "src/dataService/WarehouseService";
 
 //class OrderView extends Laya.Script
 export default class OrderView extends Core.gameScript {
@@ -20,6 +21,10 @@ export default class OrderView extends Core.gameScript {
 
     onOpened() {
         this.dataList = TableAnalyze.table("order").list;
+        let orderOldLv = UserInfo.orderLevel || 0;
+        this.dataList.sort((a, b) => {
+            return a.id * (b.id <= orderOldLv ? -1 : 1);
+        });
         this.orderList.array = this.dataList;
         this.orderList.renderHandler = new Laya.Handler(this, this.renderList);
         this.orderList.vScrollBarSkin = null;
@@ -29,28 +34,36 @@ export default class OrderView extends Core.gameScript {
         let d = this.dataList[i],
             reward: RewardCurrencyBase,
             rewardCount: number = 0,
+            curCount = 0,
+            maxCount = 0,
+            progress = 0,
             rewardBox = cell.getChildByName("reward_box") as Laya.Box;
         (cell.getChildByName("order_lv") as Laya.Label).text = `${d.id}级订单`;
 
         for (let x = 0; x < 4; x++) {
             let item = cell.getChildByName("item_" + x) as Laya.Box;
             if (d.condition[x]) {
+                curCount = WarehouseService.getOne(d.condition[x].plant.id)?.count || 0;
+                maxCount = d.condition[x].count;
+
+                if (curCount >= maxCount) {
+                    progress++;
+                }
+
                 (item.getChildByName("icon") as Laya.Image).skin = d.condition[x].plant.icon;
-                if (d.id < UserInfo.orderLevel) {
-                    (
-                        item.getChildByName("num") as Laya.Label
-                    ).text = `${d.condition[x].count}/${d.condition[x].count}`;
+                if (d.id < UserInfo.orderLevel + 1) {
+                    (item.getChildByName("num") as Laya.Label).text = `${maxCount}/${maxCount}`;
                     (item.getChildByName("bar") as Laya.Image).width = 87;
                 } else {
-                    (item.getChildByName("num") as Laya.Label).text = `0/${d.condition[x].count}`;
+                    (item.getChildByName("num") as Laya.Label).text = `${curCount}/${maxCount}`;
                     (item.getChildByName("bar") as Laya.Image).width =
-                        87 * (0 / d.condition[x].count);
+                        87 * (curCount / maxCount > 1 ? 1 : curCount / maxCount);
                 }
 
                 item.visible = true;
 
                 d.condition[x].plant.gain.forEach((e) => {
-                    if (e.obj.id === ConfigGame.diamondId) {
+                    if (e.obj.id === ConfigGame.goldId) {
                         if (!reward) {
                             reward = e;
                         }
@@ -63,15 +76,16 @@ export default class OrderView extends Core.gameScript {
         }
 
         let btn = cell.getChildByName("btn") as Laya.Image;
-        if (d.id > UserInfo.orderLevel) {
+        if (d.id > UserInfo.orderLevel + 1) {
             //未激活
             btn.skin = this.btnLockRes;
             btn.active = false;
         } else {
-            if (d.id == UserInfo.orderLevel) {
+            if (d.id == UserInfo.orderLevel + 1) {
                 //当前
                 btn.skin = this.btnResCur;
             } else {
+                console.log("已完成");
                 //已完成
                 btn.gray = true;
                 btn.active = false;

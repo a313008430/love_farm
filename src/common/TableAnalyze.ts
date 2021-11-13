@@ -2,6 +2,7 @@ import { Table } from "./Table";
 import {
     CurrencyBase,
     FeedBase,
+    LandLevelBase,
     OrderBase,
     PetBase,
     PlantBase,
@@ -74,7 +75,7 @@ const TablePropertyEvent = {
             gain: Tools.parseString(d.gain).map((e) => getRewardCurrencyBase(e)),
             desc: d.desc,
             seed_price: getRewardCurrencyBase(d.seed_price),
-            harvest: Number(d.harvest),
+            harvest: Number(Tools.parseString(d.harvest, "~")[1]),
             mature_time: Number(d.mature_time),
             unlock_cost: getRewardCurrencyBase(d.unlock_cost),
             unlock_reward: Tools.parseString(d.unlock_reward).map((e) => getRewardCurrencyBase(e)),
@@ -90,6 +91,18 @@ const TablePropertyEvent = {
             id: d.id,
             icon: d.icon,
             name: d.name,
+        };
+    },
+
+    /**
+     * 解析土地等级表
+     */
+    landLevel(d: typeof Table.landLevel[0]) {
+        return <LandLevelBase>{
+            id: d.id,
+            reward: getRewardCurrencyBase(d.reward),
+            cost: getRewardCurrencyBase(d.cost),
+            gain: d.gain,
         };
     },
 };

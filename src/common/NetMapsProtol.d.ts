@@ -74,6 +74,7 @@ interface NetInit extends NetBase {
     };
     lands: [
         {
+            /** 土地id */
             id: number;
             level: number;
             productId: number;
@@ -95,6 +96,14 @@ interface NetInit extends NetBase {
         digestCountDown: number;
     };
     token: "string";
+    /** 签到天数 */
+    signInDays: 0;
+    /** 已签到id */
+    signInId: 0;
+    /** 剩余看广告次数 */
+    advertiseTimes: 0;
+    /** 已完成订单等级 */
+    orderId: 0;
 }
 
 interface NetSendApi {

@@ -26,6 +26,19 @@ interface CurrencyBase {
 }
 
 /**
+ * 土地升级基础表
+ */
+interface LandLevelBase {
+    id: number;
+    /** 升级奖励 */
+    reward: RewardCurrencyBase;
+    /** 升级消耗 */
+    cost: RewardCurrencyBase;
+    /** 额外收益 */
+    gain: number;
+}
+
+/**
  * 成熟物表
  */
 interface PlantBase {

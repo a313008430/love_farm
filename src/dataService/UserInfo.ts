@@ -4,8 +4,8 @@ import { Instance } from "../core/Instance";
  * 用户信息
  */
 class UserInfo {
-    /** 订单等级 */
-    orderLevel: number = 2;
+    /** 订单等级 已完成 */
+    orderLevel: number = 1;
     /** 用户名称 */
     nickname: string = "name";
     /** 用户id */

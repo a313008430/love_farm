@@ -250,6 +250,7 @@ export default class ShopView extends GameScript {
                     this.updateTopBtnState();
                 }
                 break;
+            //播种
             case "buy_btn":
                 HttpControl.inst.send({
                     api: ApiHttp.landSow,
@@ -266,29 +267,17 @@ export default class ShopView extends GameScript {
                 });
 
                 break;
+            //广告解锁，或是金币解锁
             case "unlock_buy":
-                HttpControl.inst.send({
-                    api: ApiHttp.seedsUnlock,
-                    data: <NetSendApi["seedsUnlock"]>{
-                        plantId: this.getDataList()[this.itemListSelectIndex].base.id,
-                        type: ConfigGame.ApiTypeDefault,
-                    },
-                    call: (d: ReturnUserInfo) => {
-                        PlantService.list[this.itemListSelectIndex].lock = false;
-                        this.itemList.changeItem(
-                            this.itemListSelectIndex,
-                            PlantService.list[this.itemListSelectIndex]
-                        );
-                    },
-                });
-
-                break;
             case "ad_unlock":
                 HttpControl.inst.send({
                     api: ApiHttp.seedsUnlock,
                     data: <NetSendApi["seedsUnlock"]>{
                         plantId: this.getDataList()[this.itemListSelectIndex].base.id,
-                        type: ConfigGame.ApiTypeAD,
+                        type:
+                            e.target.name == "ad_unlock"
+                                ? ConfigGame.ApiTypeAD
+                                : ConfigGame.ApiTypeDefault,
                     },
                     call: (d: ReturnUserInfo) => {
                         PlantService.list[this.itemListSelectIndex].lock = false;

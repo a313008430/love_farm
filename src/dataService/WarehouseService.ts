@@ -49,14 +49,30 @@ class WarehouseService {
     }
 
     /**
+     * 获取一个道具
+     */
+    getOne(id: number) {
+        return this.getItem(id);
+    }
+
+    private getItem(id) {
+        for (let x = 0; x < this.list.length; x++) {
+            if (this.list[x].base.id == id) {
+                return this.list[x];
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * 添加物品
      */
     add(id: number, amount: number) {
-        for (let x = 0; x < this.list.length; x++) {
-            if (this.list[x].base.id == id) {
-                this.list[x].count += amount;
-                return;
-            }
+        let item = this.getItem(id);
+        if (item) {
+            item.count += amount;
+            return;
         }
 
         this.list.push({
