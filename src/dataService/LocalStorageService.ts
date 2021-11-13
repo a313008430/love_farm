@@ -20,13 +20,13 @@ class LocalStorageService {
 
     /** 获取本地数据 */
     getJSON() {
-        return LocalData;
+        return this.localData;
     }
 
     /** 设置本地数据 */
     setJSON<key extends keyof typeof LocalData>(key: key, data: typeof LocalData[key]) {
-        LocalData[key] = data;
-        Laya.LocalStorage.setJSON(ConfigGame.localKey, LocalData);
+        this.localData[key] = data;
+        Laya.LocalStorage.setJSON(ConfigGame.localKey, this.localData);
     }
 
     clear() {

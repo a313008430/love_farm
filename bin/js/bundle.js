@@ -619,11 +619,11 @@
             this.localData = Laya.LocalStorage.getJSON(ConfigGame.localKey) || LocalData;
         }
         getJSON() {
-            return LocalData;
+            return this.localData;
         }
         setJSON(key, data) {
-            LocalData[key] = data;
-            Laya.LocalStorage.setJSON(ConfigGame.localKey, LocalData);
+            this.localData[key] = data;
+            Laya.LocalStorage.setJSON(ConfigGame.localKey, this.localData);
         }
         clear() {
             Laya.LocalStorage.setJSON(ConfigGame.localKey, {});
@@ -1281,6 +1281,7 @@
                         LocalStorageService$1.clear();
                         this.loginBox.visible = true;
                         this.loadBox.visible = false;
+                        this.userInput.visible = true;
                     },
                 });
             }
@@ -1301,6 +1302,7 @@
                         LocalStorageService$1.clear();
                         this.loginBox.visible = true;
                         this.loadBox.visible = false;
+                        this.userInput.visible = true;
                     },
                 });
             }

@@ -76,6 +76,7 @@ export default class LoginView extends GameScript {
                     LocalStorageService.clear();
                     this.loginBox.visible = true;
                     this.loadBox.visible = false;
+                    this.userInput.visible = true;
                 },
             });
         } else {
@@ -93,6 +94,7 @@ export default class LoginView extends GameScript {
                     LocalStorageService.clear();
                     this.loginBox.visible = true;
                     this.loadBox.visible = false;
+                    this.userInput.visible = true;
                 },
             });
         }
