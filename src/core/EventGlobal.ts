@@ -6,12 +6,17 @@ const EventGlobal = new Laya.EventDispatcher();
 /**
  * 储存的需要绑定订阅事件的类的原型列表
  */
-export const EventClass: Map<any, { key: string; fn: Function }> = new Map();
+export const EventClass: Map<any, { key: string; fn: Function }[]> = new Map();
 
 /**事件绑定 => 绑定到装饰器上 【只用在GameScript继承的子类身上】 */
 export function EventOn(name: string) {
     return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
-        EventClass.set(target, { key: name, fn: descriptor.value });
+        console.log(target, name, descriptor.value, 1111111111);
+
+        if (!EventClass.get(target)) {
+            EventClass.set(target, []);
+        }
+        EventClass.get(target).push({ key: name, fn: descriptor.value });
     };
 }
 

@@ -1,5 +1,7 @@
+import { EventMaps } from "src/common/EventMaps";
 import TableAnalyze from "src/common/TableAnalyze";
 import { PlantBase } from "src/common/TableObject";
+import Core from "src/core/index";
 
 /**
  * 仓库数据结构
@@ -32,11 +34,11 @@ class WarehouseService {
         });
     }
     /**
-     * 更新物品数量
+     * 减少物品数量
      * @param id
      * @param amount
      */
-    updateAmount(id: number, amount: number) {
+    reduceAmount(id: number, amount: number) {
         for (let x = 0; x < this.list.length; x++) {
             if (this.list[x].base.id == id) {
                 this.list[x].count -= amount;
@@ -46,6 +48,8 @@ class WarehouseService {
                 break;
             }
         }
+
+        Core.eventGlobal.event(EventMaps.update_Order);
     }
 
     /**
@@ -79,6 +83,8 @@ class WarehouseService {
             base: TableAnalyze.table("plant").get(id),
             count: amount,
         });
+
+        Core.eventGlobal.event(EventMaps.update_Order);
     }
 
     clear() {

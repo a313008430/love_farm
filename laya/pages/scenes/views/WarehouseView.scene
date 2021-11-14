@@ -2,11 +2,11 @@
     "x":0,
     "type":"View",
     "selectedBox":29,
-    "selecteID":46,
+    "selecteID":51,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/WarehouseView.jpg","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":48,
+    "maxID":52,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -84,7 +84,9 @@
                     "hasChild":false,
                     "compId":7,
                     "child":[
-                        ]
+                        ],
+                    "$LOCKED":false,
+                    "$HIDDEN":false
                 },
                 {
                     "x":30,
@@ -463,14 +465,13 @@
                             "props":{"y":432,"x":187,"skin":"game/img_sellDirecteBtn.png","name":"sellBtn","anchorY":0.5,"anchorX":0.5},
                             "nodeParent":29,
                             "label":"sellBtn",
-                            "isOpen":true,
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":41,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Script",
                                     "switchAble":true,
                                     "source":"src/components/Button.ts",
@@ -532,43 +533,100 @@
                         {
                             "x":45,
                             "type":"HBox",
-                            "searchKey":"HBox",
-                            "props":{"y":308,"x":374,"space":20,"anchorX":0.5,"align":"middle"},
+                            "searchKey":"HBox,reward_box",
+                            "props":{"y":305.5,"x":383,"space":20,"name":"reward_box","anchorX":0.5,"align":"middle"},
                             "nodeParent":29,
-                            "label":"HBox",
+                            "label":"reward_box",
                             "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
-                            "compId":37,
+                            "compId":51,
                             "child":[
                                 {
                                     "x":60,
-                                    "type":"Label",
-                                    "searchKey":"Label,price",
-                                    "props":{"y":7,"x":0,"text":"总计：100","name":"price","fontSize":40,"font":"Microsoft YaHei","color":"#906344","bold":true,"anchorY":0.5},
-                                    "nodeParent":37,
-                                    "label":"price",
-                                    "isDirectory":false,
+                                    "type":"HBox",
+                                    "searchKey":"HBox,item",
+                                    "props":{"space":20,"name":"item","align":"middle"},
+                                    "nodeParent":51,
+                                    "label":"item",
+                                    "isOpen":true,
+                                    "isDirectory":true,
                                     "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":38,
+                                    "hasChild":true,
+                                    "compId":37,
                                     "child":[
-                                        ]
+                                        {
+                                            "x":75,
+                                            "type":"Image",
+                                            "searchKey":"Image,icon",
+                                            "props":{"width":55,"skin":"main_scene/img_diamondMin.png","name":"icon","height":55,"anchorY":0.5},
+                                            "nodeParent":37,
+                                            "label":"icon",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":39,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "x":75,
+                                            "type":"Label",
+                                            "searchKey":"Label,price",
+                                            "props":{"y":7,"x":0,"text":"100","name":"price","fontSize":40,"font":"Microsoft YaHei","color":"#906344","bold":true,"anchorY":0.5},
+                                            "nodeParent":37,
+                                            "label":"price",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":38,
+                                            "child":[
+                                                ]
+                                        }]
                                 },
                                 {
                                     "x":60,
-                                    "type":"Image",
-                                    "searchKey":"Image",
-                                    "props":{"y":27,"x":0,"width":55,"skin":"main_scene/img_diamondMin.png","height":55,"anchorY":0.5},
-                                    "nodeParent":37,
-                                    "label":"Image",
-                                    "isDirectory":false,
+                                    "type":"HBox",
+                                    "searchKey":"HBox,item",
+                                    "props":{"space":20,"name":"item","align":"middle"},
+                                    "nodeParent":51,
+                                    "label":"item",
+                                    "isOpen":true,
+                                    "isDirectory":true,
                                     "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":39,
+                                    "hasChild":true,
+                                    "compId":48,
                                     "child":[
-                                        ]
+                                        {
+                                            "x":75,
+                                            "type":"Image",
+                                            "searchKey":"Image,icon",
+                                            "props":{"width":55,"skin":"main_scene/img_diamondMin.png","name":"icon","height":55,"anchorY":0.5},
+                                            "nodeParent":48,
+                                            "label":"icon",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":49,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "x":75,
+                                            "type":"Label",
+                                            "searchKey":"Label,price",
+                                            "props":{"y":7,"x":0,"text":"100","name":"price","fontSize":40,"font":"Microsoft YaHei","color":"#906344","bold":true,"anchorY":0.5},
+                                            "nodeParent":48,
+                                            "label":"price",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":50,
+                                            "child":[
+                                                ]
+                                        }],
+                                    "$HIDDEN":false
                                 }]
                         }]
                 }],
@@ -581,7 +639,7 @@
             "source":"src/view/WarehouseView.ts",
             "searchKey":"Script,WarehouseView",
             "removeAble":true,
-            "props":{"sellBtn":"@node:41","sellAdBtn":"@node:40","itemSellPriceLb":"@node:38","itemSellPriceIcon":"@node:39","itemSellCountLb":"@node:46","itemName":"@node:30","itemList":"@node:26","itemIcon":"@node:27","itemDesc":"@node:31"},
+            "props":{"sellBtn":"@node:41","sellAdBtn":"@node:40","itemSellPriceLb":"@node:38","itemSellPriceIcon":"@node:39","itemSellGold":"@node:37","itemSellDiamond":"@node:48","itemSellCountLb":"@node:46","itemSellBox":"@node:51","itemName":"@node:30","itemList":"@node:26","itemIcon":"@node:27","itemDesc":"@node:31"},
             "nodeParent":2,
             "label":"WarehouseView",
             "isDirectory":false,

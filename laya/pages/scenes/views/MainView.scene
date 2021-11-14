@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":80,
-    "selecteID":93,
+    "selectedBox":2,
+    "selecteID":865,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":865,
+    "maxID":870,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -1570,14 +1570,13 @@
             "props":{"y":49,"x":120,"width":932,"top":49,"skin":"main_scene/img_portraitBg.png","name":"top_box","mouseEnabled":true,"hitTestPrior":false,"height":123},
             "nodeParent":2,
             "label":"top_box",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":67,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,head",
                     "props":{"y":-15,"x":-58,"skin":"main_scene/img_portrait.png","name":"head","mouseEnabled":true},
@@ -1604,7 +1603,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,money_box",
                     "props":{"y":31,"x":108,"width":233,"skin":"main_scene/img_coinbg.png","name":"money_box"},
@@ -1617,7 +1615,6 @@
                     "compId":477,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":-11,"x":-29,"skin":"main_scene/img_money.png"},
@@ -1631,7 +1628,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"FontClip",
                             "searchKey":"FontClip,money",
                             "props":{"y":13,"x":136,"value":"99.99","spaceX":-6,"skin":"main_scene/fontClip_moneyNum.png","sheet":"0123456789.","name":"money","anchorX":0.5,"align":"center"},
@@ -1646,7 +1642,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,glod_box",
                     "props":{"y":26,"x":378,"width":233,"skin":"main_scene/img_coinbg.png","name":"glod_box"},
@@ -1686,7 +1681,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,diamond_box",
                     "props":{"y":26,"x":668,"width":233,"skin":"main_scene/img_coinbg.png","name":"diamond_box"},
@@ -1726,7 +1720,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,order_box",
                     "props":{"y":120,"x":417,"skin":"main_scene/img_taskbg.png","name":"order_box","mouseEnabled":true,"anchorX":0.5},
@@ -1739,7 +1732,6 @@
                     "compId":80,
                     "child":[
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,name_title",
                             "props":{"y":38,"x":815,"text":"完成1级订单","name":"name_title","fontSize":30,"color":"#D23210","bold":true,"anchorX":0.5},
@@ -1753,7 +1745,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,item_0",
                             "props":{"y":54,"x":146,"width":100,"name":"item_0","height":100},
@@ -1819,7 +1810,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,item_1",
                             "props":{"y":54,"x":294,"width":100,"name":"item_1","height":100},
@@ -1885,7 +1875,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,item_2",
                             "props":{"y":54,"x":443,"width":100,"name":"item_2","height":100},
@@ -1951,7 +1940,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,item_3",
                             "props":{"y":54,"x":591,"width":100,"name":"item_3","height":100},
@@ -2017,7 +2005,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,btn_box",
                             "props":{"y":114,"x":823,"width":210,"skin":"game/img_buybtm.png","name":"btn_box","mouseEnabled":false,"height":68,"anchorY":0.5,"anchorX":0.5},

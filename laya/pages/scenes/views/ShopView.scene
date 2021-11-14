@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":128,
-    "selecteID":126,
+    "selectedBox":189,
+    "selecteID":191,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/ShopView.jpg","right":0,"left":0,"height":1920,"btnList":"@arr:,,","bottom":0},
     "nodeParent":-1,
@@ -316,25 +316,27 @@
                             "props":{"y":-853,"x":14,"visible":false,"name":"itemBox"},
                             "nodeParent":40,
                             "label":"itemBox",
-                            "isOpen":false,
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":90,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Box",
                                     "searchKey":"Box,item_box",
                                     "props":{"y":853,"x":100,"width":100,"name":"item_box","height":100},
                                     "nodeParent":90,
                                     "label":"item_box",
-                                    "isOpen":false,
+                                    "isOpen":true,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
                                     "compId":43,
                                     "child":[
                                         {
+                                            "x":75,
                                             "type":"List",
                                             "searchKey":"List,item_list",
                                             "props":{"y":-833,"x":-92,"width":836,"spaceY":30,"spaceX":28,"selectedIndex":0,"selectEnable":true,"repeatY":3,"repeatX":3,"name":"item_list","height":714},
@@ -440,6 +442,7 @@
                                             "$HIDDEN":false
                                         },
                                         {
+                                            "x":75,
                                             "type":"Image",
                                             "searchKey":"Image",
                                             "props":{"y":-172,"x":-105,"width":862,"skin":"game/img_cover.png","height":80},
@@ -453,6 +456,7 @@
                                                 ]
                                         },
                                         {
+                                            "x":75,
                                             "type":"Box",
                                             "searchKey":"Box,plant_desc_box",
                                             "props":{"y":-53,"x":-77,"name":"plant_desc_box"},
@@ -465,6 +469,7 @@
                                             "compId":223,
                                             "child":[
                                                 {
+                                                    "x":90,
                                                     "type":"Label",
                                                     "searchKey":"Label,desc",
                                                     "props":{"x":198,"wordWrap":true,"width":629,"text":"维生素，和膳食纤维","overflow":"hidden","name":"desc","leading":16,"height":41,"fontSize":38,"font":"Microsoft YaHei","color":"#906344"},
@@ -478,6 +483,7 @@
                                                         ]
                                                 },
                                                 {
+                                                    "x":90,
                                                     "type":"Label",
                                                     "searchKey":"Label,title",
                                                     "props":{"wordWrap":true,"width":207,"text":"营养价值：成熟时间：预计收获：","overflow":"hidden","name":"title","leading":28,"height":194,"fontSize":38,"font":"Microsoft YaHei","color":"#906344"},
@@ -491,6 +497,7 @@
                                                         ]
                                                 },
                                                 {
+                                                    "x":90,
                                                     "type":"Label",
                                                     "searchKey":"Label,time",
                                                     "props":{"y":67,"x":199,"wordWrap":true,"width":629,"text":"10分钟30秒","overflow":"hidden","name":"time","leading":16,"height":41,"fontSize":38,"font":"Microsoft YaHei","color":"#906344"},
@@ -505,18 +512,20 @@
                                                         ]
                                                 },
                                                 {
+                                                    "x":90,
                                                     "type":"HBox",
                                                     "searchKey":"HBox,reward_box",
                                                     "props":{"y":128,"x":195,"space":70,"name":"reward_box"},
                                                     "nodeParent":223,
                                                     "label":"reward_box",
-                                                    "isOpen":false,
+                                                    "isOpen":true,
                                                     "isDirectory":true,
                                                     "isAniNode":true,
                                                     "hasChild":true,
                                                     "compId":192,
                                                     "child":[
                                                         {
+                                                            "x":105,
                                                             "type":"HBox",
                                                             "searchKey":"HBox,item_box",
                                                             "props":{"y":0,"x":0,"name":"item_box"},
@@ -529,6 +538,7 @@
                                                             "compId":189,
                                                             "child":[
                                                                 {
+                                                                    "x":120,
                                                                     "type":"Image",
                                                                     "searchKey":"Image,icon",
                                                                     "props":{"width":40,"name":"icon","height":40},
@@ -542,9 +552,10 @@
                                                                         ]
                                                                 },
                                                                 {
+                                                                    "x":120,
                                                                     "type":"Label",
                                                                     "searchKey":"Label,count",
-                                                                    "props":{"y":8,"x":40,"wordWrap":true,"text":"x2","overflow":"hidden","name":"count","leading":16,"fontSize":38,"font":"Microsoft YaHei","color":"#906344"},
+                                                                    "props":{"y":8,"x":40,"wordWrap":false,"text":"x2","overflow":"hidden","name":"count","leading":16,"fontSize":38,"font":"Microsoft YaHei","color":"#906344"},
                                                                     "nodeParent":189,
                                                                     "label":"count",
                                                                     "isDirectory":false,
@@ -556,6 +567,7 @@
                                                                 }]
                                                         },
                                                         {
+                                                            "x":105,
                                                             "type":"HBox",
                                                             "searchKey":"HBox,item_box",
                                                             "props":{"y":0,"x":0,"name":"item_box"},
@@ -568,6 +580,7 @@
                                                             "compId":195,
                                                             "child":[
                                                                 {
+                                                                    "x":120,
                                                                     "type":"Image",
                                                                     "searchKey":"Image,icon",
                                                                     "props":{"width":40,"name":"icon","height":40},
@@ -581,9 +594,10 @@
                                                                         ]
                                                                 },
                                                                 {
+                                                                    "x":120,
                                                                     "type":"Label",
                                                                     "searchKey":"Label,count",
-                                                                    "props":{"y":8,"x":40,"wordWrap":true,"text":"x2","overflow":"hidden","name":"count","leading":16,"fontSize":38,"font":"Microsoft YaHei","color":"#906344"},
+                                                                    "props":{"y":8,"x":40,"wordWrap":false,"text":"x2","overflow":"hidden","name":"count","leading":16,"fontSize":38,"font":"Microsoft YaHei","color":"#906344"},
                                                                     "nodeParent":195,
                                                                     "label":"count",
                                                                     "isDirectory":false,
@@ -595,6 +609,7 @@
                                                                 }]
                                                         },
                                                         {
+                                                            "x":105,
                                                             "type":"HBox",
                                                             "searchKey":"HBox,item_box",
                                                             "props":{"y":0,"x":0,"name":"item_box"},
@@ -607,6 +622,7 @@
                                                             "compId":198,
                                                             "child":[
                                                                 {
+                                                                    "x":120,
                                                                     "type":"Image",
                                                                     "searchKey":"Image,icon",
                                                                     "props":{"width":40,"name":"icon","height":40},
@@ -620,9 +636,10 @@
                                                                         ]
                                                                 },
                                                                 {
+                                                                    "x":120,
                                                                     "type":"Label",
                                                                     "searchKey":"Label,count",
-                                                                    "props":{"y":8,"x":40,"wordWrap":true,"text":"x2","overflow":"hidden","name":"count","leading":16,"fontSize":38,"font":"Microsoft YaHei","color":"#906344"},
+                                                                    "props":{"y":8,"x":40,"wordWrap":false,"text":"x2999","overflow":"hidden","name":"count","leading":16,"fontSize":38,"font":"Microsoft YaHei","color":"#906344"},
                                                                     "nodeParent":198,
                                                                     "label":"count",
                                                                     "isDirectory":false,
@@ -637,6 +654,7 @@
                                             "$HIDDEN":false
                                         },
                                         {
+                                            "x":75,
                                             "type":"Label",
                                             "searchKey":"Label,feed_desc",
                                             "props":{"y":23.5,"x":-77,"wordWrap":true,"width":629,"text":"维生素，和膳食纤维","overflow":"hidden","name":"feed_desc","leading":16,"height":41,"fontSize":38,"font":"Microsoft YaHei","color":"#906344"},
@@ -650,9 +668,10 @@
                                                 ]
                                         }],
                                     "$LOCKED":false,
-                                    "$HIDDEN":true
+                                    "$HIDDEN":false
                                 },
                                 {
+                                    "x":60,
                                     "type":"Box",
                                     "searchKey":"Box,plant_btn_box",
                                     "props":{"y":1023,"x":35,"name":"plant_btn_box"},
@@ -818,9 +837,10 @@
                                                         }]
                                                 }]
                                         }],
-                                    "$HIDDEN":true
+                                    "$HIDDEN":false
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,feed_buy",
                                     "props":{"y":1071,"x":415.5,"skin":"game/img_buybtm.png","name":"feed_buy","mouseEnabled":true,"anchorY":0.5,"anchorX":0.5},
@@ -890,7 +910,7 @@
                                     "$HIDDEN":true
                                 }],
                             "$LOCKED":true,
-                            "$HIDDEN":true
+                            "$HIDDEN":false
                         },
                         {
                             "x":45,
@@ -899,14 +919,13 @@
                             "props":{"y":-853,"x":14,"width":868,"visible":false,"name":"petBox","mouseEnabled":true,"height":1157},
                             "nodeParent":40,
                             "label":"petBox",
-                            "isOpen":true,
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":91,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,pet_btn",
                                     "props":{"y":1071,"x":415,"width":320,"skin":"game/img_buybtm.png","name":"pet_btn","height":92,"anchorY":0.5,"anchorX":0.5},
@@ -919,7 +938,6 @@
                                     "compId":92,
                                     "child":[
                                         {
-                                            "x":75,
                                             "type":"HBox",
                                             "searchKey":"HBox,btn_box",
                                             "props":{"y":46,"x":160,"space":10,"name":"btn_box","anchorY":0.5,"anchorX":0.5,"align":"middle"},
@@ -932,7 +950,6 @@
                                             "compId":128,
                                             "child":[
                                                 {
-                                                    "x":90,
                                                     "type":"Image",
                                                     "searchKey":"Image,icon",
                                                     "props":{"skin":"game/img_coins.png","name":"icon"},
@@ -946,7 +963,6 @@
                                                         ]
                                                 },
                                                 {
-                                                    "x":90,
                                                     "type":"FontClip",
                                                     "searchKey":"FontClip,value",
                                                     "props":{"value":"999","skin":"game/fontClip_price.png","sheet":"0123456789","name":"value"},
@@ -961,7 +977,6 @@
                                                 }]
                                         },
                                         {
-                                            "x":75,
                                             "type":"Script",
                                             "switchAble":true,
                                             "source":"src/components/Button.ts",
@@ -980,7 +995,6 @@
                                     "$HIDDEN":false
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":39,"x":121,"width":610,"skin":"game/img_petbagNormal.png","height":658},
@@ -995,7 +1009,6 @@
                                     "$HIDDEN":false
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,left",
                                     "props":{"y":374,"x":121,"skin":"game/img_baclbtn.png","name":"left","anchorY":0.5,"anchorX":0.5},
@@ -1025,7 +1038,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,right",
                                     "props":{"y":374,"x":744,"width":110,"skin":"game/img_baclbtn.png","scaleX":-1,"name":"right","height":113,"anchorY":0.5,"anchorX":0.5},
@@ -1055,7 +1067,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":627,"x":187,"skin":"game/img_getBack.png"},
@@ -1069,7 +1080,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":573,"x":187,"skin":"game/img_findThief.png"},
@@ -1084,7 +1094,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":517,"x":187,"skin":"game/img_upper Limit.png"},
@@ -1098,7 +1107,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"FontClip",
                                     "searchKey":"FontClip,vitality_max",
                                     "props":{"y":516,"x":360,"value":"0123456789","skin":"game/fontClip_coin.png","sheet":"0123456789","name":"vitality_max"},
@@ -1112,7 +1120,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,pet_icon",
                                     "props":{"y":336,"x":406,"skin":"pet_feed/1001.png","name":"pet_icon","anchorY":0.5,"anchorX":0.5},
@@ -1126,7 +1133,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"HBox",
                                     "searchKey":"HBox,find_box",
                                     "props":{"y":562,"x":360,"space":12,"name":"find_box"},
@@ -1205,7 +1211,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"HBox",
                                     "searchKey":"HBox,back_box",
                                     "props":{"y":619,"x":360,"space":12,"name":"back_box"},
@@ -1284,7 +1289,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,pet_name",
                                     "props":{"y":98,"x":424,"width":457,"text":"金毛寻回犬","name":"pet_name","leading":16,"height":60,"fontSize":46,"font":"SimHei","color":"#955942","bold":true,"anchorY":0.5,"anchorX":0.5,"align":"center"},
@@ -1298,7 +1302,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,pet_desc",
                                     "props":{"y":764,"x":54,"wordWrap":true,"width":761,"text":"播种后约3小时成熟，每次可收获2份农作物。","overflow":"scroll","name":"pet_desc","leading":16,"height":197,"fontSize":44,"font":"SimHei","color":"#906344"},
@@ -1311,7 +1314,7 @@
                                     "child":[
                                         ]
                                 }],
-                            "$HIDDEN":false
+                            "$HIDDEN":true
                         },
                         {
                             "x":45,

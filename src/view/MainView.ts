@@ -218,6 +218,7 @@ export default class MainView extends Core.gameScript {
     /**
      * 更新订单
      */
+    @Core.eventOn(EventMaps.update_Order)
     private updateOrder() {
         let box = this.orderBox,
             d = TableAnalyze.table("order").get(UserInfo.orderLevel + 1),

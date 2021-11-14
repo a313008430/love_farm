@@ -267,7 +267,11 @@
     const EventClass = new Map();
     function EventOn(name) {
         return (target, propertyKey, descriptor) => {
-            EventClass.set(target, { key: name, fn: descriptor.value });
+            console.log(target, name, descriptor.value, 1111111111);
+            if (!EventClass.get(target)) {
+                EventClass.set(target, []);
+            }
+            EventClass.get(target).push({ key: name, fn: descriptor.value });
         };
     }
     const BindNameClass = new Map();
@@ -348,7 +352,9 @@
         constructor() {
             super();
             let bindEvent = EventClass.get(this.constructor.prototype);
-            bindEvent && EventGlobal.on(bindEvent.key, this, bindEvent.fn);
+            bindEvent === null || bindEvent === void 0 ? void 0 : bindEvent.forEach((d) => {
+                EventGlobal.on(d.key, this, d.fn);
+            });
         }
         onAwake() {
             var _a;
@@ -828,7 +834,7 @@
                 });
             });
         }
-        updateAmount(id, amount) {
+        reduceAmount(id, amount) {
             for (let x = 0; x < this.list.length; x++) {
                 if (this.list[x].base.id == id) {
                     this.list[x].count -= amount;
@@ -838,6 +844,7 @@
                     break;
                 }
             }
+            Core.eventGlobal.event("update_Order");
         }
         getOne(id) {
             return this.getItem(id);
@@ -860,6 +867,7 @@
                 base: TableAnalyze.table("plant").get(id),
                 count: amount,
             });
+            Core.eventGlobal.event("update_Order");
         }
         clear() {
             this.list.length = 0;
@@ -1914,6 +1922,12 @@
         __metadata("design:returntype", void 0)
     ], MainView.prototype, "gameInit", null);
     __decorate([
+        Core.eventOn("update_Order"),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], MainView.prototype, "updateOrder", null);
+    __decorate([
         Core.eventOn("play_get_reward"),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object]),
@@ -2397,20 +2411,24 @@
             this.itemDesc = null;
             this.itemIcon = null;
             this.itemSellCountLb = null;
-            this.itemSellPriceLb = null;
-            this.itemSellPriceIcon = null;
+            this.itemSellBox = null;
+            this.itemSellGold = null;
+            this.itemSellDiamond = null;
             this.sellBtn = null;
             this.sellAdBtn = null;
             this.dataList = [];
             this.selectItemIndex = "0,0";
             this.selectItemSellCount = 0;
-            this.unitPrice = 0;
+            this.unitPriceGold = 0;
+            this.unitPriceDiamond = 0;
         }
         onHdAwake() {
             this.itemList.renderHandler = new Laya.Handler(this, this.renderItemList);
             this.itemList.vScrollBarSkin = null;
             this.updateList();
             this.updateDesc(null);
+            this.itemSellGold.removeSelf();
+            this.itemSellDiamond.removeSelf();
             this.itemSellCountLb.on(Laya.Event.INPUT, this, () => {
                 this.selectItemSellCount = Number(this.itemSellCountLb.text);
                 if (this.selectItemSellCount < 1) {
@@ -2496,24 +2514,35 @@
                                 : ConfigGame.ApiTypeAD,
                         },
                         call: (d) => {
-                            WarehouseService$1.updateAmount(this.selectItemData.base.id, this.selectItemSellCount);
+                            WarehouseService$1.reduceAmount(this.selectItemData.base.id, this.selectItemSellCount);
                             this.dataList = [];
                             this.updateList();
                             this.itemList.refresh();
                             if (!this.dataList.length) {
                                 this.updateDesc(null);
                             }
+                            let rewardList = [];
+                            if (this.unitPriceGold) {
+                                rewardList.push({
+                                    obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
+                                    count: this.selectItemSellCount *
+                                        this.unitPriceGold *
+                                        (e.target.name == "sellBtnAd" ? 2 : 1),
+                                    posType: 1,
+                                });
+                            }
+                            if (this.unitPriceDiamond) {
+                                rewardList.push({
+                                    obj: TableAnalyze.table("currency").get(ConfigGame.diamondId),
+                                    count: this.selectItemSellCount *
+                                        this.unitPriceDiamond *
+                                        (e.target.name == "sellBtnAd" ? 2 : 1),
+                                    posType: 2,
+                                });
+                            }
                             Core.eventGlobal.event("play_get_reward", {
                                 node: this.sellBtn,
-                                list: [
-                                    {
-                                        obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
-                                        count: this.selectItemSellCount *
-                                            this.unitPrice *
-                                            (e.target.name == "sellBtnAd" ? 2 : 1),
-                                        posType: 1,
-                                    },
-                                ],
+                                list: rewardList,
                                 callBack: () => { },
                             });
                         },
@@ -2527,24 +2556,40 @@
                 return;
             }
             this.itemIcon.parent.visible = true;
+            this.itemSellDiamond.removeSelf();
+            this.itemSellGold.removeSelf();
             this.itemIcon.skin = d.base.icon;
             this.itemName.text = d.base.name;
             this.itemDesc.text = d.base.desc;
-            let price;
+            let priceGold, priceDiamond;
             for (let x = 0; x < d.base.gain.length; x++) {
+                console.log(d.base.gain[x]);
+                if (!d.base.gain[x].count)
+                    continue;
                 if (d.base.gain[x].obj.id == ConfigGame.goldId) {
-                    price = d.base.gain[x];
-                    break;
+                    priceGold = d.base.gain[x];
+                    this.itemSellGold.getChildByName("icon").skin =
+                        d.base.gain[x].obj.icon;
+                    this.itemSellBox.addChild(this.itemSellGold);
+                }
+                else {
+                    priceDiamond = d.base.gain[x];
+                    this.itemSellDiamond.getChildByName("icon").skin =
+                        d.base.gain[x].obj.icon;
+                    this.itemSellBox.addChild(this.itemSellDiamond);
                 }
             }
             this.selectItemSellCount = Math.ceil(d.count / 2);
-            this.unitPrice = price.count;
-            this.itemSellPriceIcon.skin = price.obj.icon;
+            this.unitPriceGold = (priceGold === null || priceGold === void 0 ? void 0 : priceGold.count) || 0;
+            this.unitPriceDiamond = (priceDiamond === null || priceDiamond === void 0 ? void 0 : priceDiamond.count) || 0;
             this.updateSelectSellCount();
         }
         updateSelectSellCount() {
             this.itemSellCountLb.text = this.selectItemSellCount + "";
-            this.itemSellPriceLb.text = "总计：" + this.selectItemSellCount * this.unitPrice;
+            this.itemSellGold.getChildByName("price").text =
+                this.selectItemSellCount * this.unitPriceGold + "";
+            this.itemSellDiamond.getChildByName("price").text =
+                this.selectItemSellCount * this.unitPriceDiamond + "";
         }
     }
 

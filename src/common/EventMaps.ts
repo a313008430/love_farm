@@ -8,6 +8,9 @@ export const enum EventMaps {
     /** 更新土地 */
     update_field = "update_field",
 
+    /** 更新主页订单数据 */
+    update_Order = "update_Order",
+
     /**
      * 播放获得奖励动画
      *

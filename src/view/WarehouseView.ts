@@ -25,10 +25,12 @@ export default class WarehouseView extends Core.gameScript {
     private itemIcon: Laya.Image = null;
     /** @prop {name:itemSellCountLb, tips:"选中物品出售数量", type:Node}*/
     private itemSellCountLb: Laya.TextInput = null;
-    /** @prop {name:itemSellPriceLb, tips:"选中物品出售价格", type:Node}*/
-    private itemSellPriceLb: Laya.Label = null;
-    /** @prop {name:itemSellPriceIcon, tips:"选中物品出售价格icon", type:Node}*/
-    private itemSellPriceIcon: Laya.Image = null;
+    /** @prop {name:itemSellBox, tips:"出售物品价格容器", type:Node}*/
+    private itemSellBox: Laya.HBox = null;
+    /** @prop {name:itemSellGold, tips:"金币容器", type:Node}*/
+    private itemSellGold: Laya.HBox = null;
+    /** @prop {name:itemSellDiamond, tips:"钻石容器", type:Node}*/
+    private itemSellDiamond: Laya.HBox = null;
     /** @prop {name:sellBtn, tips:"出售的icon", type:Node}*/
     private sellBtn: Laya.Image = null;
     /** @prop {name:sellAdBtn, tips:"出售的icon 广告", type:Node}*/
@@ -42,8 +44,10 @@ export default class WarehouseView extends Core.gameScript {
     private selectItemData: WareHouseData;
     /** 选中出售物品的数量 */
     private selectItemSellCount: number = 0;
-    /** 单价 */
-    private unitPrice: number = 0;
+    /** 单价 金币 */
+    private unitPriceGold: number = 0;
+    /** 单价 钻石 */
+    private unitPriceDiamond: number = 0;
 
     onHdAwake() {
         this.itemList.renderHandler = new Laya.Handler(this, this.renderItemList);
@@ -52,6 +56,9 @@ export default class WarehouseView extends Core.gameScript {
         this.updateList();
 
         this.updateDesc(null);
+
+        this.itemSellGold.removeSelf();
+        this.itemSellDiamond.removeSelf();
 
         this.itemSellCountLb.on(Laya.Event.INPUT, this, () => {
             this.selectItemSellCount = Number(this.itemSellCountLb.text);
@@ -145,7 +152,7 @@ export default class WarehouseView extends Core.gameScript {
                                 : ConfigGame.ApiTypeAD,
                     },
                     call: (d: ReturnUserInfo) => {
-                        WarehouseService.updateAmount(
+                        WarehouseService.reduceAmount(
                             this.selectItemData.base.id,
                             this.selectItemSellCount
                         );
@@ -156,23 +163,36 @@ export default class WarehouseView extends Core.gameScript {
                             this.updateDesc(null);
                         }
 
+                        let rewardList = [];
+
+                        if (this.unitPriceGold) {
+                            rewardList.push({
+                                obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
+                                count:
+                                    this.selectItemSellCount *
+                                    this.unitPriceGold *
+                                    (e.target.name == "sellBtnAd" ? 2 : 1),
+                                posType: 1,
+                            });
+                        }
+                        if (this.unitPriceDiamond) {
+                            rewardList.push({
+                                obj: TableAnalyze.table("currency").get(ConfigGame.diamondId),
+                                count:
+                                    this.selectItemSellCount *
+                                    this.unitPriceDiamond *
+                                    (e.target.name == "sellBtnAd" ? 2 : 1),
+                                posType: 2,
+                            });
+                        }
+
                         Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
                             node: this.sellBtn as any,
-                            list: [
-                                {
-                                    obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
-                                    count:
-                                        this.selectItemSellCount *
-                                        this.unitPrice *
-                                        (e.target.name == "sellBtnAd" ? 2 : 1),
-                                    posType: 1,
-                                },
-                            ],
+                            list: rewardList,
                             callBack: () => {},
                         });
                     },
                 });
-                // console.log(111, TableAnalyze.table("currency").get(ConfigGame.goldId));
 
                 break;
         }
@@ -189,19 +209,32 @@ export default class WarehouseView extends Core.gameScript {
 
         (this.itemIcon.parent as Laya.Box).visible = true;
 
+        this.itemSellDiamond.removeSelf();
+        this.itemSellGold.removeSelf();
+
         this.itemIcon.skin = d.base.icon;
         this.itemName.text = d.base.name;
         this.itemDesc.text = d.base.desc;
-        let price: RewardCurrencyBase;
+        let priceGold: RewardCurrencyBase, priceDiamond: RewardCurrencyBase;
         for (let x = 0; x < d.base.gain.length; x++) {
+            console.log(d.base.gain[x]);
+            if (!d.base.gain[x].count) continue;
             if (d.base.gain[x].obj.id == ConfigGame.goldId) {
-                price = d.base.gain[x];
-                break;
+                priceGold = d.base.gain[x];
+                (this.itemSellGold.getChildByName("icon") as Laya.Image).skin =
+                    d.base.gain[x].obj.icon;
+                this.itemSellBox.addChild(this.itemSellGold);
+            } else {
+                priceDiamond = d.base.gain[x];
+                (this.itemSellDiamond.getChildByName("icon") as Laya.Image).skin =
+                    d.base.gain[x].obj.icon;
+                this.itemSellBox.addChild(this.itemSellDiamond);
             }
         }
+
         this.selectItemSellCount = Math.ceil(d.count / 2);
-        this.unitPrice = price.count;
-        this.itemSellPriceIcon.skin = price.obj.icon;
+        this.unitPriceGold = priceGold?.count || 0;
+        this.unitPriceDiamond = priceDiamond?.count || 0;
         this.updateSelectSellCount();
     }
 
@@ -210,6 +243,9 @@ export default class WarehouseView extends Core.gameScript {
      */
     private updateSelectSellCount() {
         this.itemSellCountLb.text = this.selectItemSellCount + "";
-        this.itemSellPriceLb.text = "总计：" + this.selectItemSellCount * this.unitPrice;
+        (this.itemSellGold.getChildByName("price") as Laya.Label).text =
+            this.selectItemSellCount * this.unitPriceGold + "";
+        (this.itemSellDiamond.getChildByName("price") as Laya.Label).text =
+            this.selectItemSellCount * this.unitPriceDiamond + "";
     }
 }

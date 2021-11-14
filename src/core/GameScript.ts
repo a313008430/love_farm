@@ -9,7 +9,9 @@ export default class GameScript extends Laya.Script {
         super();
         //EventOn装饰器事件绑定
         let bindEvent = EventClass.get(this.constructor.prototype);
-        bindEvent && EventGlobal.on(bindEvent.key, this, bindEvent.fn);
+        bindEvent?.forEach((d) => {
+            EventGlobal.on(d.key, this, d.fn);
+        });
     }
 
     /**
