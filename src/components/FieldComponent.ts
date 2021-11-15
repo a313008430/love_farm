@@ -77,6 +77,9 @@ export default class FieldComponent extends Core.gameScript {
         this.lvNode.visible = false;
     }
 
+    /**
+     * 土地升级
+     */
     @Core.eventOn(EventMaps.update_field)
     updateData() {
         this.landList = LandService.list;
@@ -215,6 +218,7 @@ export default class FieldComponent extends Core.gameScript {
     private updateCountDown() {
         if (this.data.matureTimeLeft > 0) {
             this.countDownLb.text = Tools.formatSeconds(this.data.matureTimeLeft);
+            Laya.timer.clearAll(this);
             Laya.timer.once(1000, this, () => {
                 this.data.matureTimeLeft--;
                 this.countDownLb.text = Tools.formatSeconds(this.data.matureTimeLeft);
@@ -224,7 +228,7 @@ export default class FieldComponent extends Core.gameScript {
             this.data.matureTimeLeft = 0;
             console.log("倒计时结束 ");
             // this.topStateIconAni(false);
-            this.icon.skin = TableAnalyze.table("plant").get(this.data.productId).matureIcon;
+            this.icon.skin = TableAnalyze.table("plant").get(this.data?.productId)?.matureIcon;
             if (!this.buildIng) this.setStateIconSkin(3);
             this.showTimeBox(false);
         }
@@ -235,6 +239,18 @@ export default class FieldComponent extends Core.gameScript {
      */
     private updateLevel() {
         this.lvNode.skin = `main_scene/img_level${this.data.level}.png`;
+    }
+
+    /**
+     * 加速
+     */
+    @Core.eventOn(EventMaps.land_speed_up)
+    private speedUp() {
+        if (this.data?.matureTimeLeft) {
+            this.data.matureTimeLeft -= TableAnalyze.table("config").get("all_speed_up_time")
+                .value as number;
+            this.updateCountDown();
+        }
     }
 
     /**

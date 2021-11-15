@@ -33,4 +33,7 @@
    <item name="game/img_boundary.png" type="Image" compress="0" pack="0" quality="80" props="" picType="0" scale="0"/>
    <item name="game/img_inviteBg2.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=41,36,41,28" picType="0" scale="0"/>
    <item name="game/img_inviteBg3.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=189,206,180,177" picType="0" scale="0"/>
+   <item name="res/loadingBg.png" type="Sprite" compress="0" pack="0" quality="80" props="sizeGrid=914,0,984,0" picType="0" scale="0"/>
+   <item name="main_scene/img_dogProgress.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,11,0,10" picType="0" scale="0"/>
+   <item name="main_scene/img_progressBarBg.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,20,0,19" picType="0" scale="0"/>
 </res>

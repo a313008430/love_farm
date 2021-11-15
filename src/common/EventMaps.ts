@@ -11,6 +11,9 @@ export const enum EventMaps {
     /** 更新主页订单数据 */
     update_Order = "update_Order",
 
+    /** 土地加速 */
+    land_speed_up = "land_speed_up",
+
     /**
      * 播放获得奖励动画
      *

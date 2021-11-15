@@ -2,7 +2,7 @@
     "x":0,
     "type":"View",
     "selectedBox":4,
-    "selecteID":13,
+    "selecteID":24,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -77,7 +77,7 @@
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image,close",
-                    "props":{"y":644,"x":457,"skin":"game/img_transform.png","name":"close","anchorY":0.5,"anchorX":0.5},
+                    "props":{"y":644,"x":457,"skin":"main_scene/img_OKBtn.png","name":"close","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":4,
                     "label":"close",
                     "isOpen":false,
@@ -103,14 +103,14 @@
                             "child":[
                                 ]
                         }],
-                    "$LOCKED":true,
+                    "$LOCKED":false,
                     "$HIDDEN":false
                 },
                 {
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image",
-                    "props":{"y":-41,"x":297,"skin":"game/img_landUpdate.png"},
+                    "props":{"y":-37,"x":379,"skin":"main_scene/img_prompting.png"},
                     "nodeParent":4,
                     "label":"Image",
                     "isDirectory":false,

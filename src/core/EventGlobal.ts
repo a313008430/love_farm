@@ -11,8 +11,6 @@ export const EventClass: Map<any, { key: string; fn: Function }[]> = new Map();
 /**事件绑定 => 绑定到装饰器上 【只用在GameScript继承的子类身上】 */
 export function EventOn(name: string) {
     return (target: any, propertyKey: string, descriptor: PropertyDescriptor) => {
-        console.log(target, name, descriptor.value, 1111111111);
-
         if (!EventClass.get(target)) {
             EventClass.set(target, []);
         }

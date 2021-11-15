@@ -12,4 +12,4 @@ loadLib("libs/min/laya-4fc7637454.core.min.js")
 loadLib("libs/min/laya-a72326a604.ani.min.js")
 loadLib("libs/min/laya-b4568be5f8.ui.min.js")
 //-----libs-end-------
-loadLib("js/bundle-e016fc6de3.js");
+loadLib("js/bundle-f9444e7d76.js");

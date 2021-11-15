@@ -1,5 +1,6 @@
 import { Table } from "./Table";
 import {
+    ConfigBase,
     CurrencyBase,
     FeedBase,
     LandLevelBase,
@@ -69,9 +70,9 @@ const TablePropertyEvent = {
         return <PlantBase>{
             id: d.id,
             name: d.name,
-            icon: d.icon || `plant_icon/${d.id}_seed.png`,
-            matureIcon: `plant_icon/${d.id}_mature.png`,
-            growingIcon: `plant_icon/${d.id}_growing.png`,
+            icon: d.icon,
+            matureIcon: `plant_icon/${d.icon.match(/\d+/g)[0]}_mature.png`,
+            growingIcon: `plant_icon/${d.icon.match(/\d+/g)[0]}_growing.png`,
             gain: Tools.parseString(d.gain).map((e) => getRewardCurrencyBase(e)),
             desc: d.desc,
             seed_price: getRewardCurrencyBase(d.seed_price),
@@ -105,6 +106,27 @@ const TablePropertyEvent = {
             gain: d.gain,
         };
     },
+
+    /**
+     * 解析config
+     */
+    config(d: typeof Table.config[0]) {
+        switch (d.id) {
+            case "all_speed_up_times":
+                return { id: "all_speed_up_times", value: d.value };
+
+            case "all_speed_up_time":
+                return { id: "all_speed_up_time", value: d.value };
+
+            case "unlock_land_cost":
+                return {
+                    id: "unlock_land_cost",
+                    value: Tools.parseString(d.value as string).map((d) =>
+                        getRewardCurrencyBase(d)
+                    ),
+                };
+        }
+    },
 };
 
 /**
@@ -134,7 +156,7 @@ class TableControl {
         key: T
     ): {
         list: ReturnType<typeTable[T]>[];
-        get: { (id: number): ReturnType<typeTable[T]> };
+        get: { (id: number | string): ReturnType<typeTable[T]> };
     } {
         //读取组成
         if (this.tableCache.has(key)) {

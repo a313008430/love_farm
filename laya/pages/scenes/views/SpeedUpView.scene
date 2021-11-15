@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":5,
+    "selectedBox":5,
+    "selecteID":13,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/AddSpeedView.jpg","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":18,
+    "maxID":19,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -149,16 +149,32 @@
                 {
                     "x":30,
                     "type":"Image",
-                    "searchKey":"Image",
-                    "props":{"y":470,"x":138.5,"skin":"game/img_speedUpBtn.png"},
+                    "searchKey":"Image,speed_up",
+                    "props":{"y":516,"x":298,"skin":"game/img_speedUpBtn.png","name":"speed_up","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":5,
-                    "label":"Image",
-                    "isDirectory":false,
+                    "label":"speed_up",
+                    "isOpen":null,
+                    "isDirectory":true,
                     "isAniNode":true,
-                    "hasChild":false,
+                    "hasChild":true,
                     "compId":13,
                     "child":[
-                        ]
+                        {
+                            "type":"Script",
+                            "switchAble":true,
+                            "source":"src/components/Button.ts",
+                            "searchKey":"Script,Button",
+                            "removeAble":true,
+                            "props":{"isScale":true},
+                            "nodeParent":13,
+                            "label":"Button",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":18,
+                            "child":[
+                                ]
+                        }]
                 },
                 {
                     "x":30,
@@ -227,7 +243,7 @@
             "source":"src/view/SpeedUpView.ts",
             "searchKey":"Script,SpeedUpView",
             "removeAble":true,
-            "props":{},
+            "props":{"timesLb":"@node:16","timeLb":"@node:14","speedUpBtn":"@node:13"},
             "nodeParent":2,
             "label":"SpeedUpView",
             "isDirectory":false,

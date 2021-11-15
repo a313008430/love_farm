@@ -76,6 +76,7 @@ class WarehouseService {
         let item = this.getItem(id);
         if (item) {
             item.count += amount;
+            Core.eventGlobal.event(EventMaps.update_Order);
             return;
         }
 

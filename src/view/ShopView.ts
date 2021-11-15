@@ -1,4 +1,5 @@
 import ConfigGame from "src/common/ConfigGame";
+import { EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
@@ -8,10 +9,11 @@ import FloatViewShowAni from "src/components/FloatViewShowAni";
 import GameScript from "src/core/GameScript";
 import Core from "src/core/index";
 import { ViewManager } from "src/core/ViewManager";
-import FeedService from "src/dataService/FeedService";
+import FeedService, { FeedDataBase } from "src/dataService/FeedService";
 import PetService from "src/dataService/PetService";
 import PlantService from "src/dataService/PlantService";
 import UserInfo from "src/dataService/UserInfo";
+import { GetFloatRewardObj } from "./MainView";
 
 export interface ShopViewData {
     /** 界面tag下标id */
@@ -56,8 +58,12 @@ export default class ShopView extends GameScript {
     private petName: Laya.Label = null;
     /** @prop {name:vitalityMax, tips:"体力上限", type:Node}*/
     private vitalityMax: Laya.FontClip = null;
-    /** @prop {name:petButBtn, tips:"购买宠物按钮", type:Node}*/
-    private petButBtn: Laya.Image = null;
+    /** @prop {name:petBuyBtn, tips:"购买宠物按钮", type:Node}*/
+    private petBuyBtn: Laya.Image = null;
+    /** @prop {name:goWatch, tips:"宠物看家", type:Node}*/
+    private goWatch: Laya.Image = null;
+    /** @prop {name:goRest, tips:"宠物休息", type:Node}*/
+    private goRest: Laya.Image = null;
 
     //钱庄
     /** @prop {name:diamondFont, tips:"用户钻石", type:Node}*/
@@ -122,7 +128,7 @@ export default class ShopView extends GameScript {
         }
         if (this.topBtnSelectIndex == 2) {
             if (!FeedService.list.length) FeedService.init();
-            return FeedService.list;
+            return FeedService.list.sort((a, b) => a.base.vitality - b.base.vitality);
         }
     }
 
@@ -178,7 +184,6 @@ export default class ShopView extends GameScript {
      */
     private updateSelectDesc() {
         let d = this.getDataList()[this.itemListSelectIndex];
-        console.log(d);
         if (this.topBtnSelectIndex === 2) {
             //饲料
             (this.seedDesc.parent as Laya.Box).visible = false;
@@ -303,7 +308,90 @@ export default class ShopView extends GameScript {
                 }
                 this.updatePet();
                 break;
+            case "pet_btn":
+                this.petBuy();
+                break;
+            case "go_watch":
+                this.petGoWatch(PetService.list[this.selectPetIndex].base.id);
+                break;
+            case "go_rest":
+                //默认佩戴第一个宠物
+                this.petGoWatch(1001);
+                break;
+            case "feed_buy":
+                //饲料购买
+                this.feedBuy();
+                break;
         }
+    }
+
+    private feedBuy() {
+        let feed = this.getDataList()[this.itemListSelectIndex] as FeedDataBase;
+        if (!feed) return;
+        HttpControl.inst.send({
+            api: ApiHttp.feedBuy,
+            data: <NetSendApi["feedBuy"]>{
+                feedId: feed.base.id,
+                type: ConfigGame.ApiTypeDefault,
+            },
+            call: (d: ReturnUserInfo) => {
+                UserInfo.petVitality += feed.base.vitality;
+
+                Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
+                    node: this.feedBuyBtn as any,
+                    list: [
+                        {
+                            obj: feed.base,
+                            count: 1,
+                            posType: 2,
+                        },
+                    ],
+                    notFly: true,
+                });
+            },
+        });
+    }
+
+    /**
+     * 宠物去看家
+     */
+    private petGoWatch(petId: number) {
+        HttpControl.inst.send({
+            api: ApiHttp.petWear,
+            data: <NetSendApi["petBuy"]>{
+                petId: petId,
+                type: ConfigGame.ApiTypeDefault,
+            },
+            call: (d: ReturnUserInfo) => {
+                UserInfo.warePetId = petId;
+
+                this.updatePet();
+            },
+        });
+    }
+
+    /**
+     * 购买宠物
+     */
+    private petBuy() {
+        let { base } = PetService.list[this.selectPetIndex];
+        HttpControl.inst.send({
+            api: ApiHttp.petBuy,
+            data: <NetSendApi["petBuy"]>{
+                petId: base.id,
+                type: ConfigGame.ApiTypeDefault,
+            },
+            call: (d: ReturnUserInfo) => {
+                PetService.list[this.selectPetIndex].lock = false;
+                this.updatePet();
+
+                if (!UserInfo.warePetId) UserInfo.warePetId = base.id;
+                if (!UserInfo.petVitality) {
+                    UserInfo.petVitality = base.vitality_max;
+                    UserInfo.digestCountDown = ConfigGame.petDigestIntervalTime;
+                }
+            },
+        });
     }
 
     /**
@@ -363,13 +451,13 @@ export default class ShopView extends GameScript {
      * 更新宠物数据
      */
     private updatePet() {
-        if (!PetService.list.length) PetService.init();
+        if (!PetService.list.length) PetService.init([]);
         let pet = PetService.list[this.selectPetIndex];
         this.petIcon.skin = pet.base.icon;
         this.petName.text = pet.base.name;
         this.petDesc.text = pet.base.desc;
         this.vitalityMax.value = pet.base.vitality_max + "";
-        let btn_box = this.petButBtn.getChildByName("btn_box") as Laya.Box;
+        let btn_box = this.petBuyBtn.getChildByName("btn_box") as Laya.Box;
         (btn_box.getChildByName("icon") as Laya.Image).skin = pet.base.cost.obj.icon;
         (btn_box.getChildByName("value") as Laya.FontClip).value = pet.base.cost.count + "";
 
@@ -386,6 +474,26 @@ export default class ShopView extends GameScript {
             starIcon.visible = x * 20 < pet.base.ability;
             starIcon.skin =
                 x * 20 + 10 < pet.base.ability ? "game/img_star.png" : "game/img_halfstar.png";
+        }
+        if (pet.lock) {
+            this.petBuyBtn.visible = true;
+            this.goRest.visible = false;
+            this.goWatch.visible = false;
+        } else {
+            if (UserInfo.warePetId == pet.base.id) {
+                if (PetService.getUnlockLen() === 1 || UserInfo.warePetId === 1001) {
+                    this.goRest.disabled = true;
+                } else {
+                    this.goRest.disabled = false;
+                }
+                this.goRest.visible = true;
+                this.goWatch.visible = false;
+            } else {
+                this.goWatch.visible = true;
+                this.goRest.visible = false;
+            }
+
+            this.petBuyBtn.visible = false;
         }
     }
 

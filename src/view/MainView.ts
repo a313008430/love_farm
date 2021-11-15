@@ -27,6 +27,7 @@ export interface GetFloatRewardObj {
         /** 终点位置 1 金币 2 钻石 3 仓库 */
         posType: 1 | 2 | 3;
     }[];
+    notFly?: boolean;
     /** 动画播放结束回调 */
     callBack?: { (): void };
 }
@@ -70,6 +71,10 @@ export default class MainView extends Core.gameScript {
     /** @prop {name:testBtn, tips:"好友测试按钮", type:Node}*/
     private testBtn: Laya.Image = null;
 
+    //宠物
+    /** @prop {name:petBox, tips:"宠物容器", type:Node}*/
+    private petBox: Laya.Box = null;
+
     /** 土地组件 列表 */
     private landList: FieldComponent[] = [];
 
@@ -98,12 +103,12 @@ export default class MainView extends Core.gameScript {
     }
 
     onHdAwake() {
-        Res.scenes.forEach((e) => {
-            if (e.endsWith("png")) {
-                // Laya.loader.clearTextureRes(e);
-                console.log(e);
-            }
-        });
+        // Res.scenes.forEach((e) => {
+        //     if (e.endsWith("png")) {
+        //         // Laya.loader.clearTextureRes(e);
+        //         // console.log(e);
+        //     }
+        // });
 
         Laya.stage.addChild(this.topLayerOnStage);
 
@@ -147,15 +152,58 @@ export default class MainView extends Core.gameScript {
             })
             .key("avatar", (e) => {
                 this.avatarNode.skin = e;
+            })
+            .key("warePetId", (e) => {
+                if (e) {
+                    this.petBox.visible = true;
+                    (this.petBox.getChildByName("dog") as Laya.Image).skin =
+                        TableAnalyze.table("pet").get(e).icon;
+                } else {
+                    this.petBox.visible = false;
+                }
+            })
+            .key("petVitality", (e) => {
+                if (!UserInfo.warePetId) return;
+                //更新宠物体力
+                if (this.petBox.visible) {
+                    let bar = this.petBox
+                        .getChildByName("box")
+                        .getChildByName("vitality_bar") as Laya.Image;
+
+                    bar.width =
+                        130 * (e / TableAnalyze.table("pet").get(UserInfo.warePetId).vitality_max);
+                }
+            })
+            .key("digestCountDown", (e) => {
+                Laya.timer.clear(this, this.digestCountDown);
+                //宠物需要消耗食物倒计时
+                if (this.petBox.visible) {
+                    Laya.timer.once(e * 1000, this, this.digestCountDown);
+                }
             });
 
         this.addLandLayer.visible = false;
         this.updateOrder();
     }
 
+    /**
+     * 宠物笑消化定时器
+     */
+    private digestCountDown() {
+        if (!UserInfo.warePetId) return;
+        const pet = TableAnalyze.table("pet").get(UserInfo.warePetId);
+        if (UserInfo.petVitality - pet.vitality_consume <= 0) {
+            UserInfo.petVitality = 0;
+        } else {
+            UserInfo.petVitality -= pet.vitality_consume;
+        }
+        UserInfo.digestCountDown = ConfigGame.petDigestIntervalTime;
+    }
+
     @Core.eventOn(ApiHttp.login)
     private gameInit(d: NetInit) {
         console.log(d);
+
         // let a = d.data.landList;
     }
 
@@ -413,6 +461,10 @@ export default class MainView extends Core.gameScript {
                                 e.localToGlobal(Laya.Point.create())
                             );
                             e.removeSelf();
+
+                            if (obj.notFly) {
+                                return;
+                            }
 
                             for (let x = 0; x < 5; x++) {
                                 let floatIcon: Laya.Image = Laya.Pool.getItemByCreateFun(

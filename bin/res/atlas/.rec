@@ -48,6 +48,7 @@ P 5DE7CD9B img_fooderSelected.png
 P E8015426 img_foodnNormal.png
 P 55067809 img_foodnSelected.png
 P C9230AC6 img_friendTitle.png
+P EBEE5DC7 img_garding.png
 P 58E18A5F img_get.png
 P DAB5894D img_getAubergine.png
 P 962F21CF img_getBack.png
@@ -101,6 +102,7 @@ P F81DA08D img_quit.png
 P 98446E8C img_recommend.png
 P EF767E19 img_record.png
 P 92602026 img_residue.png
+P 56B29CFE img_rest.png
 P 5CD3A541 img_reward.png
 P 6B0631F3 img_rewardFriend.png
 P D9993D07 img_rocket.png
@@ -153,6 +155,7 @@ P 89520209 fontClip_moneyNum.png
 P 1AB6A3AA img_billboard.png
 P 50C0DADF img_bowlWithFood.png
 P 5B007014 img_bowlwithoutFood.png
+P BE280272 img_cancelBtn.png
 P 3F896FEB img_clock.png
 P 463B39B2 img_coin.png
 P 6E0C1181 img_coinbg.png
@@ -164,6 +167,7 @@ P 2096BB74 img_dig1.png
 P 0BE5DC22 img_dig2.png
 P 2756A5F1 img_dog1.png
 P 404C5CB1 img_dogHouse.png
+P 6120E761 img_dogProgress.png
 P 0F11E8F3 img_dust.png
 P 08207F96 img_emailMenu.png
 P 3F1A899D img_extend.png
@@ -196,9 +200,12 @@ P BB0F437A img_level9.png
 P C6151FF4 img_marketBuilding.png
 P 08961E16 img_menuWoodBg.png
 P 5800AD73 img_money.png
+P 0395F97A img_OKBtn.png
 P BE456624 img_popUpBg.png
 P B9FCA59D img_portrait.png
 P CE4E6646 img_portraitBg.png
+P 3F063A34 img_progressBarBg.png
+P 0B3BA3D3 img_prompting.png
 P 456E2185 img_shadow.png
 P D37C9D3D img_speedUp.png
 P D14159E5 img_storehouseBuilding.png
@@ -209,19 +216,24 @@ P CAD7CF84 img_videoBtn.png
 P 6D4DA4C0 img_wasteland.png
 P F04B5075 img_yuan.png
 D pet_feed
-P 00CF77FE 1001.png
+P 03DA82B5 1001_dog.png
 P D320CB70 1001_feed.png
-P 00CF77FE 1002.png
+P 320D6367 1002_dog.png
 P 4149C226 1002_feed.png
-P 00CF77FE 1003.png
+P 7BAAF332 1003_dog.png
 P 43E0F9B7 1003_feed.png
-P 00CF77FE 1004.png
+P F1451732 1004_dog.png
 P 795CFEFD 1004_feed.png
-P 00CF77FE 1005.png
+P EF48B296 1005_dog.png
 P 9DB8D49D 1005_feed.png
+P 157FE371 1006_dog.png
 P 3F121271 1006_feed.png
+P 7B233905 1007_dog.png
 P 4CEA225F 1007_feed.png
+P 2A990863 1008_dog.png
 P 3181B71D 1008_feed.png
+P CD418577 1009_dog.png
+P 48DB885A 1010_dog.png
 D plant_icon
 P F03F26ED 1001_growing.png
 P 3A4C2EEC 1001_mature.png

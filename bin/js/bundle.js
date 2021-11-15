@@ -252,6 +252,7 @@
         "res/atlas/plant_icon.atlas",
         "res/atlas/pet_feed.png",
         "res/atlas/pet_feed.atlas",
+        "res/atlas/main_scene1.png",
         "res/atlas/main_scene.png",
         "res/atlas/main_scene.atlas",
         "res/atlas/game.png",
@@ -267,7 +268,6 @@
     const EventClass = new Map();
     function EventOn(name) {
         return (target, propertyKey, descriptor) => {
-            console.log(target, name, descriptor.value, 1111111111);
             if (!EventClass.get(target)) {
                 EventClass.set(target, []);
             }
@@ -597,6 +597,7 @@
     var ConfigGame = {
         diamondId: 1001,
         goldId: 1002,
+        petDigestIntervalTime: 60,
         localKey: "love_HD_farm",
         baseUrl: "http://game.ahd168.com:3000",
         ApiTypeDefault: 1,
@@ -710,9 +711,9 @@
             return {
                 id: d.id,
                 name: d.name,
-                icon: d.icon || `plant_icon/${d.id}_seed.png`,
-                matureIcon: `plant_icon/${d.id}_mature.png`,
-                growingIcon: `plant_icon/${d.id}_growing.png`,
+                icon: d.icon,
+                matureIcon: `plant_icon/${d.icon.match(/\d+/g)[0]}_mature.png`,
+                growingIcon: `plant_icon/${d.icon.match(/\d+/g)[0]}_growing.png`,
                 gain: Tools.parseString(d.gain).map((e) => getRewardCurrencyBase(e)),
                 desc: d.desc,
                 seed_price: getRewardCurrencyBase(d.seed_price),
@@ -736,6 +737,19 @@
                 cost: getRewardCurrencyBase(d.cost),
                 gain: d.gain,
             };
+        },
+        config(d) {
+            switch (d.id) {
+                case "all_speed_up_times":
+                    return { id: "all_speed_up_times", value: d.value };
+                case "all_speed_up_time":
+                    return { id: "all_speed_up_time", value: d.value };
+                case "unlock_land_cost":
+                    return {
+                        id: "unlock_land_cost",
+                        value: Tools.parseString(d.value).map((d) => getRewardCurrencyBase(d)),
+                    };
+            }
         },
     };
     function getRewardCurrencyBase(str) {
@@ -778,6 +792,32 @@
     }
     const TableAnalyze = new TableControl();
 
+    class PetService {
+        constructor() {
+            this.list = [];
+        }
+        init(pets) {
+            TableAnalyze.table("pet").list.forEach((d) => {
+                this.list.push({
+                    base: d,
+                    lock: !pets.includes(d.id),
+                });
+            });
+        }
+        getUnlockLen() {
+            let len = 0;
+            this.list.forEach((d) => {
+                if (!d.lock)
+                    len++;
+            });
+            return len;
+        }
+        clear() {
+            this.list.length = 0;
+        }
+    }
+    var PetService$1 = new PetService();
+
     class PlantService {
         constructor() {
             this.list = [];
@@ -809,6 +849,7 @@
             this.avatar = "";
             this.diamond = 999;
             this.gold = 999;
+            this.advertiseTimes = 0;
         }
         get ttt() {
             return this.orderLevel;
@@ -861,6 +902,7 @@
             let item = this.getItem(id);
             if (item) {
                 item.count += amount;
+                Core.eventGlobal.event("update_Order");
                 return;
             }
             this.list.push({
@@ -919,6 +961,7 @@
             });
         }
         login(d) {
+            var _a, _b, _c;
             PlantService$1.init(d.seeds);
             WarehouseService$1.init(d.warehouse);
             UserInfo$1.uid = d.userInfo.uid;
@@ -927,6 +970,11 @@
             UserInfo$1.nickname = d.userInfo.nickname;
             UserInfo$1.avatar = "";
             UserInfo$1.orderLevel = d.orderId || 0;
+            UserInfo$1.warePetId = (_a = d.wearPet) === null || _a === void 0 ? void 0 : _a.id;
+            UserInfo$1.petVitality = ((_b = d.wearPet) === null || _b === void 0 ? void 0 : _b.vitality) || 0;
+            UserInfo$1.digestCountDown = ((_c = d.wearPet) === null || _c === void 0 ? void 0 : _c.digestCountDown) || 0;
+            UserInfo$1.advertiseTimes = d.advertiseTimes || 0;
+            PetService$1.init(d.pets);
             LocalStorageService$1.setJSON("isLogin", true);
             if (d.token)
                 LocalStorageService$1.setJSON("token", d.token);
@@ -935,7 +983,7 @@
         updateUserInfo(d) {
             UserInfo$1.gold = d.gold;
             UserInfo$1.diamond = d.diamond;
-            UserInfo$1.advertiseTimes = d.advertiseTimes;
+            UserInfo$1.advertiseTimes = d.advertiseTimes || 0;
         }
     }
     var HttpDataControl$1 = new HttpDataControl();
@@ -1453,8 +1501,10 @@
             }
         }
         updateCountDown() {
+            var _a, _b;
             if (this.data.matureTimeLeft > 0) {
                 this.countDownLb.text = Tools.formatSeconds(this.data.matureTimeLeft);
+                Laya.timer.clearAll(this);
                 Laya.timer.once(1000, this, () => {
                     this.data.matureTimeLeft--;
                     this.countDownLb.text = Tools.formatSeconds(this.data.matureTimeLeft);
@@ -1464,7 +1514,7 @@
             else {
                 this.data.matureTimeLeft = 0;
                 console.log("倒计时结束 ");
-                this.icon.skin = TableAnalyze.table("plant").get(this.data.productId).matureIcon;
+                this.icon.skin = (_b = TableAnalyze.table("plant").get((_a = this.data) === null || _a === void 0 ? void 0 : _a.productId)) === null || _b === void 0 ? void 0 : _b.matureIcon;
                 if (!this.buildIng)
                     this.setStateIconSkin(3);
                 this.showTimeBox(false);
@@ -1472,6 +1522,14 @@
         }
         updateLevel() {
             this.lvNode.skin = `main_scene/img_level${this.data.level}.png`;
+        }
+        speedUp() {
+            var _a;
+            if ((_a = this.data) === null || _a === void 0 ? void 0 : _a.matureTimeLeft) {
+                this.data.matureTimeLeft -= TableAnalyze.table("config").get("all_speed_up_time")
+                    .value;
+                this.updateCountDown();
+            }
         }
         clearField() {
             this.topStateIcon.visible = false;
@@ -1607,6 +1665,12 @@
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], FieldComponent.prototype, "updateData", null);
+    __decorate([
+        Core.eventOn("land_speed_up"),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], FieldComponent.prototype, "speedUp", null);
 
     class MainView extends Core.gameScript {
         constructor() {
@@ -1626,6 +1690,7 @@
             this.getRewardPrefab = null;
             this.floatRewardIcon = null;
             this.testBtn = null;
+            this.petBox = null;
             this.landList = [];
         }
         onOpened() {
@@ -1650,11 +1715,6 @@
             });
         }
         onHdAwake() {
-            Res.scenes.forEach((e) => {
-                if (e.endsWith("png")) {
-                    console.log(e);
-                }
-            });
             Laya.stage.addChild(this.topLayerOnStage);
             this.landUpLayer.visible = false;
             this.landUpLayer.active = false;
@@ -1688,9 +1748,48 @@
             })
                 .key("avatar", (e) => {
                 this.avatarNode.skin = e;
+            })
+                .key("warePetId", (e) => {
+                if (e) {
+                    this.petBox.visible = true;
+                    this.petBox.getChildByName("dog").skin =
+                        TableAnalyze.table("pet").get(e).icon;
+                }
+                else {
+                    this.petBox.visible = false;
+                }
+            })
+                .key("petVitality", (e) => {
+                if (!UserInfo$1.warePetId)
+                    return;
+                if (this.petBox.visible) {
+                    let bar = this.petBox
+                        .getChildByName("box")
+                        .getChildByName("vitality_bar");
+                    bar.width =
+                        130 * (e / TableAnalyze.table("pet").get(UserInfo$1.warePetId).vitality_max);
+                }
+            })
+                .key("digestCountDown", (e) => {
+                Laya.timer.clear(this, this.digestCountDown);
+                if (this.petBox.visible) {
+                    Laya.timer.once(e * 1000, this, this.digestCountDown);
+                }
             });
             this.addLandLayer.visible = false;
             this.updateOrder();
+        }
+        digestCountDown() {
+            if (!UserInfo$1.warePetId)
+                return;
+            const pet = TableAnalyze.table("pet").get(UserInfo$1.warePetId);
+            if (UserInfo$1.petVitality - pet.vitality_consume <= 0) {
+                UserInfo$1.petVitality = 0;
+            }
+            else {
+                UserInfo$1.petVitality -= pet.vitality_consume;
+            }
+            UserInfo$1.digestCountDown = ConfigGame.petDigestIntervalTime;
         }
         gameInit(d) {
             console.log(d);
@@ -1882,6 +1981,9 @@
                         Laya.Pool.recover("floatRewardBox", e);
                         let localPosIcon = this.topLayerOnStage.globalToLocal(e.localToGlobal(Laya.Point.create()));
                         e.removeSelf();
+                        if (obj.notFly) {
+                            return;
+                        }
                         for (let x = 0; x < 5; x++) {
                             let floatIcon = Laya.Pool.getItemByCreateFun("floatRewardIcon", this.floatRewardIcon.create, this.floatRewardIcon);
                             floatIcon.skin = d.obj.icon;
@@ -2044,24 +2146,6 @@
     }
     var FeedService$1 = new FeedService();
 
-    class PetService {
-        constructor() {
-            this.list = [];
-        }
-        init() {
-            TableAnalyze.table("pet").list.forEach((d) => {
-                this.list.push({
-                    base: d,
-                    lock: true,
-                });
-            });
-        }
-        clear() {
-            this.list.length = 0;
-        }
-    }
-    var PetService$1 = new PetService();
-
     class ShopView extends GameScript {
         constructor() {
             super(...arguments);
@@ -2079,7 +2163,9 @@
             this.petDesc = null;
             this.petName = null;
             this.vitalityMax = null;
-            this.petButBtn = null;
+            this.petBuyBtn = null;
+            this.goWatch = null;
+            this.goRest = null;
             this.diamondFont = null;
             this.priceList = null;
             this.btnTopResList = [
@@ -2120,7 +2206,7 @@
             if (this.topBtnSelectIndex == 2) {
                 if (!FeedService$1.list.length)
                     FeedService$1.init();
-                return FeedService$1.list;
+                return FeedService$1.list.sort((a, b) => a.base.vitality - b.base.vitality);
             }
         }
         updateItem(cell, index) {
@@ -2164,7 +2250,6 @@
         updateSelectDesc() {
             var _a, _b, _c, _d;
             let d = this.getDataList()[this.itemListSelectIndex];
-            console.log(d);
             if (this.topBtnSelectIndex === 2) {
                 this.seedDesc.parent.visible = false;
                 this.feedDesc.text = d.base.desc.replace("&", d.base.vitality + "");
@@ -2269,7 +2354,78 @@
                     }
                     this.updatePet();
                     break;
+                case "pet_btn":
+                    this.petBuy();
+                    break;
+                case "go_watch":
+                    this.petGoWatch(PetService$1.list[this.selectPetIndex].base.id);
+                    break;
+                case "go_rest":
+                    this.petGoWatch(1001);
+                    break;
+                case "feed_buy":
+                    this.feedBuy();
+                    break;
             }
+        }
+        feedBuy() {
+            let feed = this.getDataList()[this.itemListSelectIndex];
+            if (!feed)
+                return;
+            HttpControl.inst.send({
+                api: "/feed/buy",
+                data: {
+                    feedId: feed.base.id,
+                    type: ConfigGame.ApiTypeDefault,
+                },
+                call: (d) => {
+                    UserInfo$1.petVitality += feed.base.vitality;
+                    Core.eventGlobal.event("play_get_reward", {
+                        node: this.feedBuyBtn,
+                        list: [
+                            {
+                                obj: feed.base,
+                                count: 1,
+                                posType: 2,
+                            },
+                        ],
+                        notFly: true,
+                    });
+                },
+            });
+        }
+        petGoWatch(petId) {
+            HttpControl.inst.send({
+                api: "/pet/wear",
+                data: {
+                    petId: petId,
+                    type: ConfigGame.ApiTypeDefault,
+                },
+                call: (d) => {
+                    UserInfo$1.warePetId = petId;
+                    this.updatePet();
+                },
+            });
+        }
+        petBuy() {
+            let { base } = PetService$1.list[this.selectPetIndex];
+            HttpControl.inst.send({
+                api: "/pet/buy",
+                data: {
+                    petId: base.id,
+                    type: ConfigGame.ApiTypeDefault,
+                },
+                call: (d) => {
+                    PetService$1.list[this.selectPetIndex].lock = false;
+                    this.updatePet();
+                    if (!UserInfo$1.warePetId)
+                        UserInfo$1.warePetId = base.id;
+                    if (!UserInfo$1.petVitality) {
+                        UserInfo$1.petVitality = base.vitality_max;
+                        UserInfo$1.digestCountDown = ConfigGame.petDigestIntervalTime;
+                    }
+                },
+            });
         }
         updateTopBtnState() {
             for (let x = 0; x < this.btnBoxTop.numChildren; x++) {
@@ -2317,13 +2473,13 @@
         }
         updatePet() {
             if (!PetService$1.list.length)
-                PetService$1.init();
+                PetService$1.init([]);
             let pet = PetService$1.list[this.selectPetIndex];
             this.petIcon.skin = pet.base.icon;
             this.petName.text = pet.base.name;
             this.petDesc.text = pet.base.desc;
             this.vitalityMax.value = pet.base.vitality_max + "";
-            let btn_box = this.petButBtn.getChildByName("btn_box");
+            let btn_box = this.petBuyBtn.getChildByName("btn_box");
             btn_box.getChildByName("icon").skin = pet.base.cost.obj.icon;
             btn_box.getChildByName("value").value = pet.base.cost.count + "";
             let petBox = this.bottomBox.getChildAt(1), findBox = petBox.getChildByName("find_box"), back_box = petBox.getChildByName("back_box"), starIcon;
@@ -2336,6 +2492,28 @@
                 starIcon.visible = x * 20 < pet.base.ability;
                 starIcon.skin =
                     x * 20 + 10 < pet.base.ability ? "game/img_star.png" : "game/img_halfstar.png";
+            }
+            if (pet.lock) {
+                this.petBuyBtn.visible = true;
+                this.goRest.visible = false;
+                this.goWatch.visible = false;
+            }
+            else {
+                if (UserInfo$1.warePetId == pet.base.id) {
+                    if (PetService$1.getUnlockLen() === 1 || UserInfo$1.warePetId === 1001) {
+                        this.goRest.disabled = true;
+                    }
+                    else {
+                        this.goRest.disabled = false;
+                    }
+                    this.goRest.visible = true;
+                    this.goWatch.visible = false;
+                }
+                else {
+                    this.goWatch.visible = true;
+                    this.goRest.visible = false;
+                }
+                this.petBuyBtn.visible = false;
             }
         }
         resetPetOrFeedList() {
@@ -2370,10 +2548,29 @@
     }
 
     class SpeedUpView extends Core.gameScript {
+        onOpened() {
+            let time = TableAnalyze.table("config").get("all_speed_up_time").value;
+            this.timeLb.text = `${Math.ceil(time / 60)}分钟`;
+            this.timesLb.text = `今日剩余${UserInfo$1.advertiseTimes}次`;
+            if (UserInfo$1.advertiseTimes <= 0) {
+                this.speedUpBtn.disabled = true;
+            }
+        }
         onClick(e) {
             switch (e.target.name) {
                 case "close":
                     Core.view.close(Res.views.SpeedUpView);
+                    break;
+                case "speed_up":
+                    HttpControl.inst.send({
+                        api: "/land/speedUp",
+                        data: { type: ConfigGame.ApiTypeAD },
+                        call: (d) => {
+                            UserInfo$1.advertiseTimes = d.advertiseTimes;
+                            Core.view.close(Res.views.SpeedUpView);
+                            Core.eventGlobal.event("land_speed_up");
+                        },
+                    });
                     break;
             }
         }

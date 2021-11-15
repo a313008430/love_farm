@@ -1,6 +1,7 @@
 import Core from "src/core/index";
 import LandService from "src/dataService/LandService";
 import LocalStorageService from "src/dataService/LocalStorageService";
+import PetService from "src/dataService/PetService";
 import PlantService from "src/dataService/PlantService";
 import UserInfo from "src/dataService/UserInfo";
 import WarehouseService from "src/dataService/WarehouseService";
@@ -76,6 +77,11 @@ class HttpDataControl {
         UserInfo.nickname = d.userInfo.nickname;
         UserInfo.avatar = "";
         UserInfo.orderLevel = d.orderId || 0;
+        UserInfo.warePetId = d.wearPet?.id;
+        UserInfo.petVitality = d.wearPet?.vitality || 0;
+        UserInfo.digestCountDown = d.wearPet?.digestCountDown || 0;
+        UserInfo.advertiseTimes = d.advertiseTimes || 0;
+        PetService.init(d.pets);
         LocalStorageService.setJSON("isLogin", true);
         if (d.token) LocalStorageService.setJSON("token", d.token);
         LandService.init(d.lands);
@@ -88,7 +94,7 @@ class HttpDataControl {
     private updateUserInfo(d: ReturnUserInfo) {
         UserInfo.gold = d.gold;
         UserInfo.diamond = d.diamond;
-        UserInfo.advertiseTimes = d.advertiseTimes;
+        UserInfo.advertiseTimes = d.advertiseTimes || 0;
     }
 }
 

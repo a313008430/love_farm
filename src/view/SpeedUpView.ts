@@ -1,12 +1,45 @@
+import ConfigGame from "src/common/ConfigGame";
+import { EventMaps } from "src/common/EventMaps";
+import HttpControl from "src/common/HttpControl";
+import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
+import TableAnalyze from "src/common/TableAnalyze";
 import Core from "src/core/index";
+import UserInfo from "src/dataService/UserInfo";
 
 //default class SpeedUpView extends Laya.Script {
 export default class SpeedUpView extends Core.gameScript {
+    /** @prop {name:timeLb, tips:"加速时间", type:Node}*/
+    private timeLb: Laya.Label;
+    /** @prop {name:timesLb, tips:"全体加速剩余次数文本", type:Node}*/
+    private timesLb: Laya.Label;
+    /** @prop {name:speedUpBtn, tips:"全体加速按钮", type:Node}*/
+    private speedUpBtn: Laya.Label;
+
+    onOpened() {
+        let time = TableAnalyze.table("config").get("all_speed_up_time").value as number;
+        this.timeLb.text = `${Math.ceil(time / 60)}分钟`;
+        this.timesLb.text = `今日剩余${UserInfo.advertiseTimes}次`;
+        if (UserInfo.advertiseTimes <= 0) {
+            this.speedUpBtn.disabled = true;
+        }
+    }
+
     onClick(e: Laya.Event) {
         switch (e.target.name) {
             case "close":
                 Core.view.close(Res.views.SpeedUpView);
+                break;
+            case "speed_up":
+                HttpControl.inst.send({
+                    api: ApiHttp.landSpeedUp,
+                    data: { type: ConfigGame.ApiTypeAD },
+                    call: (d: { advertiseTimes: number }) => {
+                        UserInfo.advertiseTimes = d.advertiseTimes;
+                        Core.view.close(Res.views.SpeedUpView);
+                        Core.eventGlobal.event(EventMaps.land_speed_up);
+                    },
+                });
                 break;
         }
     }

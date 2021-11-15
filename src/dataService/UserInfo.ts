@@ -17,7 +17,13 @@ class UserInfo {
     /** 金币 */
     gold: number = 999;
     /** 用户可以看广告的次数 */
-    advertiseTimes: number;
+    advertiseTimes: number = 0;
+    /** 玩家佩戴的宠物 */
+    warePetId: number;
+    /** 剩余体力 */
+    petVitality: number;
+    /** 消化食物倒计时 */
+    digestCountDown: number;
 
     get ttt() {
         return this.orderLevel;

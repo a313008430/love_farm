@@ -39,6 +39,18 @@ interface LandLevelBase {
 }
 
 /**
+ * 配置表
+ */
+interface ConfigBase {
+    /** 全体加速次数 */
+    allSpeedUpTimes: number;
+    /** 全体加速时间 */
+    allSpeedUpTime: number;
+    /** 升级消耗 */
+    unlockLandCost: RewardCurrencyBase[];
+}
+
+/**
  * 成熟物表
  */
 interface PlantBase {

@@ -17,13 +17,24 @@ class PetService {
     /**
      * 初始化数据
      */
-    init() {
+    init(pets: number[]) {
         TableAnalyze.table("pet").list.forEach((d) => {
             this.list.push({
                 base: d,
-                lock: true,
+                lock: !pets.includes(d.id),
             });
         });
+    }
+
+    /**
+     * 获取宠物解锁数量
+     */
+    getUnlockLen() {
+        let len = 0;
+        this.list.forEach((d) => {
+            if (!d.lock) len++;
+        });
+        return len;
     }
 
     clear() {

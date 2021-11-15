@@ -150,6 +150,23 @@ interface NetSendApi {
         id: 0;
         amount: 0;
     };
+
+    /**  宠物购买 */
+    petBuy: {
+        type: 0;
+        petId: 0;
+    };
+
+    /**  饲料购买购买 */
+    feedBuy: {
+        type: 0;
+        feedId: 0;
+    };
+
+    /**  宠物穿戴 */
+    petWear: {
+        petId: 0;
+    };
 }
 
 /**
