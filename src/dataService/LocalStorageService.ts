@@ -3,6 +3,8 @@ import ConfigGame from "src/common/ConfigGame";
 const LocalData = {
     isLogin: false,
     token: null,
+    sound: true,
+    music: true,
 };
 
 /**
@@ -31,6 +33,7 @@ class LocalStorageService {
 
     clear() {
         Laya.LocalStorage.setJSON(ConfigGame.localKey, {});
+        this.localData = { isLogin: false, token: null, sound: true, music: true };
     }
 }
 

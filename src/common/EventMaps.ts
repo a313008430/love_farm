@@ -14,6 +14,11 @@ export const enum EventMaps {
     /** 土地加速 */
     land_speed_up = "land_speed_up",
 
+    /** 进入游戏 */
+    login_game = "login_game",
+    /** 退出游戏 */
+    login_out = "login_out",
+
     /**
      * 播放获得奖励动画
      *

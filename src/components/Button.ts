@@ -1,3 +1,6 @@
+import Res from "src/common/Res";
+import Core from "src/core/index";
+
 export default class Button extends Laya.Script {
     /** @prop {name:defaultRes, tips:"资源",type:strings,accept:res}*/
     private defaultRes;
@@ -18,6 +21,10 @@ export default class Button extends Laya.Script {
         (this.owner as Laya.Button).mouseEnabled = true;
         this.oldScaleX = (this.owner as Laya.Button).get_scaleX();
         this.oldScaleY = (this.owner as Laya.Button).get_scaleY();
+    }
+
+    onClick() {
+        Core.audio.playSound(Res.audios.button_click);
     }
 
     onMouseDown() {

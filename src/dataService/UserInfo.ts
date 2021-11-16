@@ -24,6 +24,12 @@ class UserInfo {
     petVitality: number;
     /** 消化食物倒计时 */
     digestCountDown: number;
+    /** 连续签到天数 */
+    signInDays: number = 0;
+    /** 上一次领取的签到奖励id */
+    signInId: number = 0;
+    /** 用户已经加速次数 */
+    speedUpTimes: number = 0;
 
     get ttt() {
         return this.orderLevel;

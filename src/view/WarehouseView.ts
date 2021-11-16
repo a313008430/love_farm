@@ -217,7 +217,7 @@ export default class WarehouseView extends Core.gameScript {
         this.itemDesc.text = d.base.desc;
         let priceGold: RewardCurrencyBase, priceDiamond: RewardCurrencyBase;
         for (let x = 0; x < d.base.gain.length; x++) {
-            console.log(d.base.gain[x]);
+            // console.log(d.base.gain[x]);
             if (!d.base.gain[x].count) continue;
             if (d.base.gain[x].obj.id == ConfigGame.goldId) {
                 priceGold = d.base.gain[x];

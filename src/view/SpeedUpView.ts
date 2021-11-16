@@ -34,8 +34,14 @@ export default class SpeedUpView extends Core.gameScript {
                 HttpControl.inst.send({
                     api: ApiHttp.landSpeedUp,
                     data: { type: ConfigGame.ApiTypeAD },
-                    call: (d: { advertiseTimes: number }) => {
+                    call: (d: { advertiseTimes: number; speedUpTimes: number }) => {
+                        UserInfo.speedUpTimes = d.speedUpTimes;
                         UserInfo.advertiseTimes = d.advertiseTimes;
+
+                        if (UserInfo.speedUpTimes == ConfigGame.ADSpeedUpTimes) {
+                            UserInfo.signInDays++;
+                        }
+
                         Core.view.close(Res.views.SpeedUpView);
                         Core.eventGlobal.event(EventMaps.land_speed_up);
                     },

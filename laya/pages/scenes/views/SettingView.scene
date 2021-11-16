@@ -1,10 +1,10 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":27,
-    "selecteID":28,
+    "selectedBox":26,
+    "selecteID":25,
     "searchKey":"View",
-    "props":{"width":1080,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/SettingView.jpg","height":1920},
+    "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/SettingView.jpg","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
     "maxID":57,
     "label":"View",
@@ -202,7 +202,7 @@
                                 {
                                     "type":"Image",
                                     "searchKey":"Image,avater",
-                                    "props":{"y":68,"x":68,"width":83,"name":"avater","height":81,"anchorY":0.5,"anchorX":0.5},
+                                    "props":{"y":68,"x":68,"width":83,"skin":"main_scene/img_defaultPortrait.png","name":"avater","height":81,"anchorY":0.5,"anchorX":0.5},
                                     "nodeParent":16,
                                     "label":"avater",
                                     "isDirectory":false,
@@ -259,16 +259,17 @@
                             "x":45,
                             "type":"Box",
                             "searchKey":"Box,music",
-                            "props":{"y":257,"x":20,"name":"music"},
+                            "props":{"y":257,"x":20,"name":"music","mouseEnabled":true},
                             "nodeParent":31,
                             "label":"music",
-                            "isOpen":null,
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":26,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":9,"skin":"game/img_music.png"},
@@ -282,18 +283,20 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,box",
                                     "props":{"y":9,"x":142,"skin":"game/img_switchOn.png","name":"box"},
                                     "nodeParent":26,
                                     "label":"box",
-                                    "isOpen":false,
+                                    "isOpen":true,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
                                     "compId":25,
                                     "child":[
                                         {
+                                            "x":75,
                                             "type":"Image",
                                             "searchKey":"Image,icon",
                                             "props":{"y":-9,"x":-14,"skin":"game/img_musicOnBtn.png","name":"icon"},
@@ -312,17 +315,16 @@
                             "x":45,
                             "type":"Box",
                             "searchKey":"Box,sound",
-                            "props":{"y":257,"x":430,"name":"sound"},
+                            "props":{"y":257,"x":430,"name":"sound","mouseEnabled":true},
                             "nodeParent":31,
                             "label":"sound",
-                            "isOpen":true,
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":27,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":9,"skin":"game/img_sound.png"},
@@ -336,7 +338,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,box",
                                     "props":{"y":9,"x":142,"skin":"game/img_switchOn.png","name":"box"},
@@ -349,7 +350,6 @@
                                     "compId":29,
                                     "child":[
                                         {
-                                            "x":75,
                                             "type":"Image",
                                             "searchKey":"Image,icon",
                                             "props":{"y":-9,"x":-14,"skin":"game/img_soundOnBtn.png","name":"icon"},
@@ -615,7 +615,7 @@
             "source":"src/view/SettingView.ts",
             "searchKey":"Script,SettingView",
             "removeAble":true,
-            "props":{},
+            "props":{"soundNode":"@node:27","musicNode":"@node:26"},
             "nodeParent":2,
             "label":"SettingView",
             "isDirectory":false,

@@ -2,11 +2,11 @@
     "x":0,
     "type":"View",
     "selectedBox":4,
-    "selecteID":24,
+    "selecteID":13,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":25,
+    "maxID":27,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -76,10 +76,10 @@
                 {
                     "x":30,
                     "type":"Image",
-                    "searchKey":"Image,close",
-                    "props":{"y":644,"x":457,"skin":"main_scene/img_OKBtn.png","name":"close","anchorY":0.5,"anchorX":0.5},
+                    "searchKey":"Image,confirm",
+                    "props":{"y":643.5,"x":252,"width":320,"skin":"main_scene/img_OKBtn.png","name":"confirm","height":92,"anchorY":0.5,"anchorX":0.5},
                     "nodeParent":4,
-                    "label":"close",
+                    "label":"confirm",
                     "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
@@ -119,6 +119,36 @@
                     "compId":9,
                     "child":[
                         ]
+                },
+                {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image,cancel",
+                    "props":{"y":597,"x":509,"skin":"main_scene/img_cancelBtn.png","name":"cancel"},
+                    "nodeParent":4,
+                    "label":"cancel",
+                    "isOpen":null,
+                    "isDirectory":true,
+                    "isAniNode":true,
+                    "hasChild":true,
+                    "compId":25,
+                    "child":[
+                        {
+                            "type":"Script",
+                            "switchAble":true,
+                            "source":"src/components/Button.ts",
+                            "searchKey":"Script,Button",
+                            "removeAble":true,
+                            "props":{"isScale":true},
+                            "nodeParent":25,
+                            "label":"Button",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":26,
+                            "child":[
+                                ]
+                        }]
                 }],
             "$HIDDEN":false
         },
@@ -129,7 +159,7 @@
             "source":"src/view/HintView.ts",
             "searchKey":"Script,HintView",
             "removeAble":true,
-            "props":{"text":"@node:24"},
+            "props":{"text":"@node:24","confirmBtn":"@node:13","cancelBtn":"@node:25"},
             "nodeParent":2,
             "label":"HintView",
             "isDirectory":false,

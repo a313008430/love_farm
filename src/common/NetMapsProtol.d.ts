@@ -104,6 +104,8 @@ interface NetInit extends NetBase {
     advertiseTimes: 0;
     /** 已完成订单等级 */
     orderId: 0;
+    /** 用户加速次数 */
+    speedUpTimes: number;
 }
 
 interface NetSendApi {

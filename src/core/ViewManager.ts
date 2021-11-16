@@ -1,6 +1,9 @@
+import { EventMaps } from "src/common/EventMaps";
 import FloatViewShowAni from "src/components/FloatViewShowAni";
+import { HintViewData } from "src/view/HintView";
 import Res, { views } from "../common/Res";
 import ViewShowAni from "../components/ViewShowAni";
+import EventGlobal from "./EventGlobal";
 import { Instance } from "./Instance";
 
 /**
@@ -34,6 +37,19 @@ const viewMaps: { url: string; view: Laya.View }[] = [];
 export class ViewManager {
     @Instance
     static inst: ViewManager;
+
+    loginOut() {
+        viewMaps.forEach((v) => {
+            v.view.getComponents(Laya.Script).forEach((e) => {
+                //回头要优化一下其它界面的关闭，这里是不是有同样的问题
+                Laya.timer.clearAll(e);
+                e.destroy();
+            });
+            this.closeViewLog(v.view.url, true);
+            v.view.destroy(true);
+        });
+        viewMaps.length = 0;
+    }
 
     /**
      * 打开一个界面
@@ -136,6 +152,7 @@ export class ViewManager {
         }
 
         //保证如果场景完全没有界面被打开的时候，必打开主场景
+        if (!viewMaps.length) return;
         let closeLen = 0;
         for (let x = viewMaps.length - 1; x > -1; x--) {
             if (!viewMaps[x].view.parent) {
@@ -157,6 +174,10 @@ export class ViewManager {
             `color:#ff7979;font-weight:700;background-color:#dff9fb`,
             `color:#eb4d4b;font-weight:700;background-color:#dff9fb`
         );
+    }
+
+    openHint(data: HintViewData) {
+        this.open(Res.views.HintView, { parm: data });
     }
 
     /**

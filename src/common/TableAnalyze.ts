@@ -9,6 +9,7 @@ import {
     PlantBase,
     RewardBase,
     RewardCurrencyBase,
+    SignInBase,
     TaskBase,
 } from "./TableObject";
 import Tools from "./Tools";
@@ -126,6 +127,32 @@ const TablePropertyEvent = {
                     ),
                 };
         }
+    },
+
+    /**
+     * 解锁签到表
+     * @param d
+     */
+    signIn(d: typeof Table.signIn[0]) {
+        return <SignInBase>{
+            id: d.id,
+            days: d.days,
+            reward: getRewardCurrencyBase(d.reward),
+        };
+    },
+
+    /**
+     * 解析任务表
+     */
+    task(d: typeof Table.task[0]) {
+        return <SignInBase>{
+            id: d.id,
+            times: d.times,
+            reward: getRewardCurrencyBase(d.reward),
+            desc: d.desc,
+            title: d.title,
+            icon: d.icon || `game/img_barm.png`,
+        };
     },
 };
 

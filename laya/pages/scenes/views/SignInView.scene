@@ -2,11 +2,11 @@
     "x":0,
     "type":"View",
     "selectedBox":38,
-    "selecteID":39,
+    "selecteID":82,
     "searchKey":"View",
     "props":{"y":0,"x":0,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/SigninView.png","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":82,
+    "maxID":86,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -142,11 +142,11 @@
                                 {
                                     "x":60,
                                     "type":"Image",
-                                    "searchKey":"Image",
-                                    "props":{"y":138,"x":819,"skin":"game/img_get.png","anchorY":0.5,"anchorX":0.5},
+                                    "searchKey":"Image,get_btn",
+                                    "props":{"y":138,"x":819,"skin":"game/img_get.png","name":"get_btn","anchorY":0.5,"anchorX":0.5},
                                     "nodeParent":69,
-                                    "label":"Image",
-                                    "isOpen":null,
+                                    "label":"get_btn",
+                                    "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":false,
                                     "hasChild":true,
@@ -171,23 +171,53 @@
                                 },
                                 {
                                     "x":60,
-                                    "type":"HBox",
-                                    "searchKey":"HBox",
-                                    "props":{"y":57,"x":822,"space":20,"anchorY":0.5,"anchorX":0.5,"align":"none"},
+                                    "type":"Image",
+                                    "searchKey":"Image,bar_bg",
+                                    "props":{"y":138,"x":38,"width":508,"skin":"game/img_progressBarBg.png","name":"bar_bg"},
                                     "nodeParent":69,
-                                    "label":"HBox",
-                                    "isOpen":false,
+                                    "label":"bar_bg",
+                                    "isOpen":true,
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":77,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Image",
+                                    "searchKey":"Image,bar",
+                                    "props":{"y":140,"x":41,"width":502,"skin":"game/img_progressBa.png","name":"bar","height":26},
+                                    "nodeParent":69,
+                                    "label":"bar",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":78,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"HBox",
+                                    "searchKey":"HBox,reward_box",
+                                    "props":{"y":57,"x":822,"space":20,"name":"reward_box","anchorY":0.5,"anchorX":0.5,"align":"none"},
+                                    "nodeParent":69,
+                                    "label":"reward_box",
+                                    "isOpen":true,
                                     "isDirectory":true,
                                     "isAniNode":false,
                                     "hasChild":true,
                                     "compId":72,
                                     "child":[
                                         {
+                                            "x":75,
                                             "type":"Image",
-                                            "searchKey":"Image",
-                                            "props":{"skin":"game/img_bankdiamond.png"},
+                                            "searchKey":"Image,icon",
+                                            "props":{"width":55,"skin":"game/img_bankdiamond.png","name":"icon","height":55},
                                             "nodeParent":72,
-                                            "label":"Image",
+                                            "label":"icon",
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
@@ -196,15 +226,16 @@
                                                 ]
                                         },
                                         {
+                                            "x":75,
                                             "type":"Label",
-                                            "searchKey":"Label",
-                                            "props":{"y":6,"x":77,"text":"+100","fontSize":44,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
+                                            "searchKey":"Label,amount",
+                                            "props":{"y":10,"x":75,"text":"+100","name":"amount","fontSize":44,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
                                             "nodeParent":72,
-                                            "label":"Label",
+                                            "label":"amount",
                                             "isDirectory":false,
                                             "isAniNode":false,
                                             "hasChild":false,
-                                            "compId":74,
+                                            "compId":85,
                                             "child":[
                                                 ]
                                         }]
@@ -212,44 +243,16 @@
                                 {
                                     "x":60,
                                     "type":"Label",
-                                    "searchKey":"Label",
-                                    "props":{"y":51,"x":38,"text":"签到7天","fontSize":50,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
+                                    "searchKey":"Label,sign_days",
+                                    "props":{"y":51,"x":38,"text":"签到7天","name":"sign_days","fontSize":50,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
                                     "nodeParent":69,
-                                    "label":"Label",
+                                    "label":"sign_days",
                                     "isDirectory":false,
                                     "isAniNode":false,
                                     "hasChild":false,
                                     "compId":75,
                                     "child":[
                                         ]
-                                },
-                                {
-                                    "x":60,
-                                    "type":"Image",
-                                    "searchKey":"Image,bar_bg",
-                                    "props":{"y":138,"x":38,"width":508,"skin":"game/img_progressBarBg.png","name":"bar_bg"},
-                                    "nodeParent":69,
-                                    "label":"bar_bg",
-                                    "isOpen":true,
-                                    "isDirectory":true,
-                                    "isAniNode":false,
-                                    "hasChild":true,
-                                    "compId":77,
-                                    "child":[
-                                        {
-                                            "x":75,
-                                            "type":"Image",
-                                            "searchKey":"Image,bar",
-                                            "props":{"y":2,"x":3,"width":387,"skin":"game/img_progressBa.png","name":"bar","height":26},
-                                            "nodeParent":77,
-                                            "label":"bar",
-                                            "isDirectory":false,
-                                            "isAniNode":false,
-                                            "hasChild":false,
-                                            "compId":78,
-                                            "child":[
-                                                ]
-                                        }]
                                 }]
                         }]
                 },
@@ -260,13 +263,14 @@
                     "props":{"y":126,"x":42,"name":"top"},
                     "nodeParent":38,
                     "label":"top",
-                    "isOpen":null,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":68,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":3.5,"x":859,"skin":"game/img_signRules.png"},
@@ -280,50 +284,10 @@
                                 ]
                         },
                         {
-                            "type":"Label",
-                            "searchKey":"Label,title",
-                            "props":{"y":14.5,"x":286,"text":"已经连续签到    天","name":"title","fontSize":48,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
-                            "nodeParent":68,
-                            "label":"title",
-                            "isOpen":true,
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":63,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "type":"Label",
-                            "searchKey":"Label,days",
-                            "props":{"y":-0.5,"x":576,"text":"4","name":"days","fontSize":80,"font":"Microsoft YaHei","color":"#E93636","bold":true},
-                            "nodeParent":68,
-                            "label":"days",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":64,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "type":"Label",
-                            "searchKey":"Label,title",
-                            "props":{"y":106.5,"x":12,"text":"今日签到进度（使用4/6次全体回事）","name":"title","fontSize":40,"font":"Microsoft YaHei","color":"#5A3F2A","bold":false},
-                            "nodeParent":68,
-                            "label":"title",
-                            "isOpen":true,
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":65,
-                            "child":[
-                                ]
-                        },
-                        {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
-                            "props":{"y":170.5,"width":985,"skin":"game/img_progressBabg2.png","height":73},
+                            "props":{"y":170,"x":0,"width":985,"skin":"game/img_progressBabg2.png","height":73},
                             "nodeParent":68,
                             "label":"Image",
                             "isOpen":false,
@@ -335,13 +299,83 @@
                                 {
                                     "type":"Image",
                                     "searchKey":"Image,bar",
-                                    "props":{"y":0,"x":3,"width":796,"skin":"game/img_progressBa2.png","name":"bar","height":68},
+                                    "props":{"y":1,"x":5,"width":977,"skin":"game/img_progressBa2.png","name":"bar","height":68},
                                     "nodeParent":66,
                                     "label":"bar",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
                                     "compId":67,
+                                    "child":[
+                                        ]
+                                }]
+                        },
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "searchKey":"Label,title_desc",
+                            "props":{"y":106.5,"x":12,"text":"今日签到进度（使用4/6次全体回事）","name":"title_desc","fontSize":40,"font":"Microsoft YaHei","color":"#5A3F2A","bold":false},
+                            "nodeParent":68,
+                            "label":"title_desc",
+                            "isOpen":true,
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":65,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"HBox",
+                            "searchKey":"HBox",
+                            "props":{"y":-0.5,"x":286,"space":6},
+                            "nodeParent":68,
+                            "label":"HBox",
+                            "isOpen":false,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":82,
+                            "child":[
+                                {
+                                    "type":"Label",
+                                    "searchKey":"Label,title",
+                                    "props":{"y":14.5,"text":"已经连续签到","name":"title","fontSize":48,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
+                                    "nodeParent":82,
+                                    "label":"title",
+                                    "isOpen":true,
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":63,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Label",
+                                    "searchKey":"Label,days",
+                                    "props":{"y":0.5,"text":"4","name":"days","fontSize":80,"font":"Microsoft YaHei","color":"#E93636","bold":true},
+                                    "nodeParent":82,
+                                    "label":"days",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":64,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Label",
+                                    "searchKey":"Label,title",
+                                    "props":{"y":14,"x":0,"text":"天","name":"title","fontSize":48,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
+                                    "nodeParent":82,
+                                    "label":"title",
+                                    "isOpen":true,
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":83,
                                     "child":[
                                         ]
                                 }]
@@ -356,7 +390,7 @@
             "source":"src/view/SignInView.ts",
             "searchKey":"Script,SignInView",
             "removeAble":true,
-            "props":{},
+            "props":{"signInProgressLb":"@node:64","signInProgressBar":"@node:67","signInList":"@node:53","progressDesc":"@node:65"},
             "nodeParent":2,
             "label":"SignInView",
             "isDirectory":false,

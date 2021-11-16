@@ -1,3 +1,4 @@
+import AudioControl from "./AudioControl";
 import EventGlobal, { EventOn, FindByName } from "./EventGlobal";
 import GameScript from "./GameScript";
 import { Instance } from "./Instance";
@@ -19,6 +20,8 @@ const Core = {
     findByName: FindByName,
     /** 全局事件 */
     eventGlobal: EventGlobal,
+    /**音频 */
+    audio: new AudioControl(),
 };
 
 export default Core;

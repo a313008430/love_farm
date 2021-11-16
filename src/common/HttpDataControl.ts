@@ -59,8 +59,9 @@ class HttpDataControl {
     }
 
     error(errorCode: number, data: any) {
-        Core.view.open(Res.views.HintView, {
-            parm: { text: `errorCode ${errorCode} ${JSON.stringify(data)}` },
+        Core.view.openHint({
+            text: `errorCode ${errorCode} ${JSON.stringify(data)}`,
+            call: () => {},
         });
     }
 
@@ -81,10 +82,38 @@ class HttpDataControl {
         UserInfo.petVitality = d.wearPet?.vitality || 0;
         UserInfo.digestCountDown = d.wearPet?.digestCountDown || 0;
         UserInfo.advertiseTimes = d.advertiseTimes || 0;
+        UserInfo.signInDays = d.signInDays || 0;
+        UserInfo.signInId = d.signInId;
+        UserInfo.speedUpTimes = d.speedUpTimes;
         PetService.init(d.pets);
         LocalStorageService.setJSON("isLogin", true);
         if (d.token) LocalStorageService.setJSON("token", d.token);
         LandService.init(d.lands);
+
+        Core.audio.soundMuted = LocalStorageService.getJSON().sound;
+        Core.audio.musicMuted = LocalStorageService.getJSON().music;
+    }
+
+    loginOut() {
+        PlantService.clear();
+        WarehouseService.clear();
+        PetService.clear();
+        LandService.clear();
+        LocalStorageService.setJSON("isLogin", false);
+        LocalStorageService.setJSON("token", null);
+        UserInfo.uid = null;
+        UserInfo.diamond = 0;
+        UserInfo.gold = 0;
+        UserInfo.nickname = "";
+        UserInfo.avatar = "";
+        UserInfo.orderLevel = 0;
+        UserInfo.warePetId = null;
+        UserInfo.petVitality = 0;
+        UserInfo.digestCountDown = 0;
+        UserInfo.advertiseTimes = 0;
+        UserInfo.signInDays = 0;
+        UserInfo.signInId = null;
+        UserInfo.speedUpTimes = 0;
     }
 
     /**

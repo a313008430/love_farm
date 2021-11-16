@@ -39,6 +39,29 @@ interface LandLevelBase {
 }
 
 /**
+ * 签到基础表
+ */
+interface SignInBase {
+    id: number;
+    /** 需要签到的天数 */
+    days: number;
+    reward: RewardCurrencyBase;
+}
+
+/**
+ * 任务基础表
+ */
+interface SignInBase {
+    id: number;
+    /** 订单完成需要次数 */
+    times: number;
+    reward: RewardCurrencyBase;
+    title: string;
+    desc: string;
+    icon: string;
+}
+
+/**
  * 配置表
  */
 interface ConfigBase {

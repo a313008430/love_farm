@@ -393,4 +393,11 @@ export default class FieldComponent extends Core.gameScript {
             });
         }
     }
+
+    onHdDestroy() {
+        Laya.timer.clearAll(this);
+        Laya.Tween.clearAll(this);
+        this.topStateIconTween?.destroy();
+        this.plantIconTween?.destroy();
+    }
 }

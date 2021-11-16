@@ -12,12 +12,14 @@ export default {
     localKey: "love_HD_farm",
     /** 协议地址 */
     // baseUrl: "//47.108.192.181:8092/farm",
-    // baseUrl: "//127.0.0.1:3000",
-    baseUrl: "http://game.ahd168.com:3000",
+    baseUrl: "//127.0.0.1:3000",
+    // baseUrl: "http://game.ahd168.com:3000",
     // todo 这里的Ip可以访问可能是有问题的
     // baseUrl: "//47.108.192.181:3000",
     /** api请求类型 默认 */
     ApiTypeDefault: 1,
     /** api请求类型 看广告 */
     ApiTypeAD: 2,
+    /** 广告条件 加速使用了6次 */
+    ADSpeedUpTimes: 6,
 };

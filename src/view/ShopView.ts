@@ -89,6 +89,8 @@ export default class ShopView extends GameScript {
     private selectPetIndex: number = 0;
     private data: ShopViewData;
 
+    private isFirst: boolean = true;
+
     onHdAwake() {
         this.itemList.renderHandler = new Laya.Handler(this, this.updateItem);
         this.itemList.selectHandler = new Laya.Handler(this, this.onSelect);
@@ -174,6 +176,10 @@ export default class ShopView extends GameScript {
         if (index == this.itemListSelectIndex) {
             cell.skin = this.itemSelectBg[1];
             this.updateSelectDesc();
+            if (!this.isFirst) {
+                Core.audio.playSound(Res.audios.button_click);
+            }
+            this.isFirst = false;
         } else {
             cell.skin = this.itemSelectBg[0];
         }
@@ -243,11 +249,10 @@ export default class ShopView extends GameScript {
                 break;
 
             case "seed":
-
             case "pet":
             case "feed":
-
             case "bank":
+                Core.audio.playSound(Res.audios.button_click);
                 let topBtnIndex = this.btnBoxTop.getChildIndex(e.target);
                 if (this.topBtnSelectIndex != topBtnIndex) {
                     this.topBtnSelectIndex = Number(topBtnIndex);
@@ -423,6 +428,7 @@ export default class ShopView extends GameScript {
         let itemBuyBox = this.itemBuyBtn.parent as Laya.Box;
         switch (this.topBtnSelectIndex) {
             case 0: //种子
+                this.isFirst = true;
                 this.updateCenterBoxState(0, true);
                 this.resetPetOrFeedList();
                 this.feedBuyBtn.visible = false;
@@ -434,6 +440,7 @@ export default class ShopView extends GameScript {
                 this.updatePet();
                 break;
             case 2: //饲料
+                this.isFirst = true;
                 this.updateCenterBoxState(0, true);
                 this.resetPetOrFeedList();
                 this.feedBuyBtn.visible = true;
