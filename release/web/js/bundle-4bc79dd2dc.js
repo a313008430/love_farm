@@ -466,6 +466,17 @@
 
     const viewMaps = [];
     class ViewManager {
+        loginOut() {
+            viewMaps.forEach((v) => {
+                v.view.getComponents(Laya.Script).forEach((e) => {
+                    Laya.timer.clearAll(e);
+                    e.destroy();
+                });
+                this.closeViewLog(v.view.url, true);
+                v.view.destroy(true);
+            });
+            viewMaps.length = 0;
+        }
         open(url, data = {
             closeOther: false,
             showLoad: false,
@@ -533,6 +544,8 @@
                             break;
                     }
                 }
+                if (!viewMaps.length)
+                    return;
                 let closeLen = 0;
                 for (let x = viewMaps.length - 1; x > -1; x--) {
                     if (!viewMaps[x].view.parent) {
@@ -549,6 +562,9 @@
         closeViewLog(url, destroy = false) {
             console.log(`%c <== ${destroy ? "destroy" : "disable"} %c${url.match(/\w+(?=\.)/)[0]} `, `color:#ff7979;font-weight:700;background-color:#dff9fb`, `color:#eb4d4b;font-weight:700;background-color:#dff9fb`);
         }
+        openHint(data) {
+            this.open(Res.views.HintView, { parm: data });
+        }
         clearViewMaps() {
             viewMaps.length = 0;
         }
@@ -557,6 +573,35 @@
         Instance,
         __metadata("design:type", ViewManager)
     ], ViewManager, "inst", void 0);
+
+    class AudioControl {
+        playSound(url, loops, complete, soundClass, startTime) {
+            Laya.SoundManager.playSound(url, loops, complete, soundClass, startTime);
+        }
+        set soundMuted(state) {
+            Laya.SoundManager.soundMuted = state;
+        }
+        get soundMuted() {
+            return Laya.SoundManager.soundMuted;
+        }
+        set musicMuted(state) {
+            Laya.SoundManager.musicMuted = state;
+        }
+        get musicMuted() {
+            return Laya.SoundManager.musicMuted;
+        }
+    }
+
+    const Core = {
+        observableProperty: ObservableProperty,
+        view: ViewManager.inst,
+        gameScript: GameScript,
+        instance: Instance,
+        eventOn: EventOn,
+        findByName: FindByName,
+        eventGlobal: EventGlobal,
+        audio: new AudioControl(),
+    };
 
     class Button extends Laya.Script {
         constructor() {
@@ -568,6 +613,9 @@
             this.owner.mouseEnabled = true;
             this.oldScaleX = this.owner.get_scaleX();
             this.oldScaleY = this.owner.get_scaleY();
+        }
+        onClick() {
+            Core.audio.playSound(Res.audios.button_click);
         }
         onMouseDown() {
             this.setSkin(this.downRes);
@@ -602,21 +650,14 @@
         baseUrl: "http://game.ahd168.com:3000",
         ApiTypeDefault: 1,
         ApiTypeAD: 2,
-    };
-
-    const Core = {
-        observableProperty: ObservableProperty,
-        view: ViewManager.inst,
-        gameScript: GameScript,
-        instance: Instance,
-        eventOn: EventOn,
-        findByName: FindByName,
-        eventGlobal: EventGlobal,
+        ADSpeedUpTimes: 6,
     };
 
     const LocalData = {
         isLogin: false,
         token: null,
+        sound: true,
+        music: true,
     };
     class LocalStorageService {
         constructor() {
@@ -634,6 +675,7 @@
         }
         clear() {
             Laya.LocalStorage.setJSON(ConfigGame.localKey, {});
+            this.localData = { isLogin: false, token: null, sound: true, music: true };
         }
     }
     var LocalStorageService$1 = new LocalStorageService();
@@ -751,6 +793,23 @@
                     };
             }
         },
+        signIn(d) {
+            return {
+                id: d.id,
+                days: d.days,
+                reward: getRewardCurrencyBase(d.reward),
+            };
+        },
+        task(d) {
+            return {
+                id: d.id,
+                times: d.times,
+                reward: getRewardCurrencyBase(d.reward),
+                desc: d.desc,
+                title: d.title,
+                icon: d.icon || `game/img_barm.png`,
+            };
+        },
     };
     function getRewardCurrencyBase(str) {
         if (!str)
@@ -850,6 +909,9 @@
             this.diamond = 999;
             this.gold = 999;
             this.advertiseTimes = 0;
+            this.signInDays = 0;
+            this.signInId = 0;
+            this.speedUpTimes = 0;
         }
         get ttt() {
             return this.orderLevel;
@@ -956,8 +1018,9 @@
             Core.eventGlobal.event(d.api, d.data);
         }
         error(errorCode, data) {
-            Core.view.open(Res.views.HintView, {
-                parm: { text: `errorCode ${errorCode} ${JSON.stringify(data)}` },
+            Core.view.openHint({
+                text: `errorCode ${errorCode} ${JSON.stringify(data)}`,
+                call: () => { },
             });
         }
         login(d) {
@@ -974,11 +1037,37 @@
             UserInfo$1.petVitality = ((_b = d.wearPet) === null || _b === void 0 ? void 0 : _b.vitality) || 0;
             UserInfo$1.digestCountDown = ((_c = d.wearPet) === null || _c === void 0 ? void 0 : _c.digestCountDown) || 0;
             UserInfo$1.advertiseTimes = d.advertiseTimes || 0;
+            UserInfo$1.signInDays = d.signInDays || 0;
+            UserInfo$1.signInId = d.signInId;
+            UserInfo$1.speedUpTimes = d.speedUpTimes;
             PetService$1.init(d.pets);
             LocalStorageService$1.setJSON("isLogin", true);
             if (d.token)
                 LocalStorageService$1.setJSON("token", d.token);
             LandService$1.init(d.lands);
+            Core.audio.soundMuted = LocalStorageService$1.getJSON().sound;
+            Core.audio.musicMuted = LocalStorageService$1.getJSON().music;
+        }
+        loginOut() {
+            PlantService$1.clear();
+            WarehouseService$1.clear();
+            PetService$1.clear();
+            LandService$1.clear();
+            LocalStorageService$1.setJSON("isLogin", false);
+            LocalStorageService$1.setJSON("token", null);
+            UserInfo$1.uid = null;
+            UserInfo$1.diamond = 0;
+            UserInfo$1.gold = 0;
+            UserInfo$1.nickname = "";
+            UserInfo$1.avatar = "";
+            UserInfo$1.orderLevel = 0;
+            UserInfo$1.warePetId = null;
+            UserInfo$1.petVitality = 0;
+            UserInfo$1.digestCountDown = 0;
+            UserInfo$1.advertiseTimes = 0;
+            UserInfo$1.signInDays = 0;
+            UserInfo$1.signInId = null;
+            UserInfo$1.speedUpTimes = 0;
         }
         updateUserInfo(d) {
             UserInfo$1.gold = d.gold;
@@ -1269,12 +1358,36 @@
             var _a;
             this.data = d;
             this.text.text = ((_a = this.data) === null || _a === void 0 ? void 0 : _a.text) || "";
+            if (this.data.call) {
+                this.confirmBtn.visible = true;
+            }
+            else {
+                this.confirmBtn.visible = false;
+            }
+            if (this.data.cancelCall) {
+                this.cancelBtn.visible = true;
+            }
+            else {
+                this.cancelBtn.visible = false;
+            }
+            if (this.data.call && this.data.cancelCall) {
+                this.confirmBtn.x = 252;
+            }
+            else {
+                this.confirmBtn.x = 458;
+            }
         }
         onClick(e) {
-            var _a;
+            var _a, _b;
             switch (e.target.name) {
-                case "close":
-                    if ((_a = this.data) === null || _a === void 0 ? void 0 : _a.call) {
+                case "cancel":
+                    if ((_a = this.data) === null || _a === void 0 ? void 0 : _a.cancelCall) {
+                        this.data.cancelCall();
+                    }
+                    Core.view.close(Res.views.HintView);
+                    break;
+                case "confirm":
+                    if ((_b = this.data) === null || _b === void 0 ? void 0 : _b.call) {
                         this.data.call();
                     }
                     Core.view.close(Res.views.HintView);
@@ -1634,6 +1747,13 @@
                 }
             });
         }
+        onHdDestroy() {
+            var _a, _b;
+            Laya.timer.clearAll(this);
+            Laya.Tween.clearAll(this);
+            (_a = this.topStateIconTween) === null || _a === void 0 ? void 0 : _a.destroy();
+            (_b = this.plantIconTween) === null || _b === void 0 ? void 0 : _b.destroy();
+        }
     }
     __decorate([
         Core.findByName,
@@ -1747,7 +1867,8 @@
                 this.goldNode.value = e;
             })
                 .key("avatar", (e) => {
-                this.avatarNode.skin = e;
+                if (e)
+                    this.avatarNode.skin = e;
             })
                 .key("warePetId", (e) => {
                 if (e) {
@@ -1766,8 +1887,10 @@
                     let bar = this.petBox
                         .getChildByName("box")
                         .getChildByName("vitality_bar");
-                    bar.width =
-                        130 * (e / TableAnalyze.table("pet").get(UserInfo$1.warePetId).vitality_max);
+                    let scale = e / TableAnalyze.table("pet").get(UserInfo$1.warePetId).vitality_max;
+                    if (scale > 1)
+                        scale = 1;
+                    bar.width = 130 * scale;
                 }
             })
                 .key("digestCountDown", (e) => {
@@ -1813,21 +1936,26 @@
                     Core.view.open(Res.views.ShopView);
                     break;
                 case "head":
+                    Core.audio.playSound(Res.audios.button_click);
                     Core.view.open(Res.views.SettingView);
                     break;
                 case "warehouse":
                     Core.view.open(Res.views.WarehouseView);
                     break;
                 case "buy_feed":
+                    Core.audio.playSound(Res.audios.button_click);
                     Core.view.open(Res.views.ShopView, { parm: { id: 2 } });
                     break;
                 case "dog":
+                    Core.audio.playSound(Res.audios.button_click);
                     Core.view.open(Res.views.ShopView, { parm: { id: 2 } });
                     break;
                 case "order_box":
+                    Core.audio.playSound(Res.audios.button_click);
                     Core.view.open(Res.views.OrderView);
                     break;
                 case "friends":
+                    Core.audio.playSound(Res.audios.button_click);
                     Core.view.open(Res.views.FriendsView);
                     break;
                 case "land":
@@ -1836,6 +1964,7 @@
                     this.switchLandLevelUp(true);
                     break;
                 case "close_up":
+                    Core.audio.playSound(Res.audios.button_click);
                     this.switchLandLevelUp(false);
                     break;
             }
@@ -2119,12 +2248,67 @@
     }
 
     class SettingView extends Core.gameScript {
+        constructor() {
+            super(...arguments);
+            this.musicNode = null;
+            this.soundNode = null;
+        }
+        onOpened() {
+            this.musicChange();
+            this.soundChange();
+        }
         onClick(e) {
+            console.log(e.target.name);
             switch (e.target.name) {
                 case "close":
                     Core.view.close(Res.views.SettingView);
                     break;
+                case "music":
+                    Core.audio.musicMuted = !Core.audio.musicMuted;
+                    LocalStorageService$1.setJSON("music", Core.audio.musicMuted);
+                    this.musicChange();
+                    break;
+                case "sound":
+                    Core.audio.soundMuted = !Core.audio.soundMuted;
+                    LocalStorageService$1.setJSON("sound", Core.audio.soundMuted);
+                    this.soundChange();
+                    break;
+                case "sign_out":
+                    Core.view.openHint({
+                        text: "确认要退出登录？",
+                        call: () => {
+                            LocalStorageService$1.setJSON("isLogin", false);
+                            LocalStorageService$1.setJSON("token", null);
+                            Core.view.loginOut();
+                            HttpDataControl$1.loginOut();
+                            Core.view.open(Res.views.LoginView, {
+                                parm: {
+                                    call: () => {
+                                        Core.eventGlobal.event("login_game");
+                                    },
+                                },
+                            });
+                        },
+                        cancelCall: () => { },
+                    });
+                    break;
             }
+        }
+        musicChange() {
+            const box = this.musicNode.getChildByName("box");
+            const icon = box.getChildByName("icon");
+            let music = LocalStorageService$1.getJSON().music;
+            icon.x = !music ? -14 : 91;
+            icon.skin = !music ? `game/img_musicOnBtn.png` : "game/img_musicOffBtn.png";
+            box.skin = !music ? `game/img_switchOn.png` : "game/img_swithOff.png";
+        }
+        soundChange() {
+            const box = this.soundNode.getChildByName("box");
+            const icon = box.getChildByName("icon");
+            let sound = LocalStorageService$1.getJSON().sound;
+            icon.x = !sound ? -14 : 91;
+            icon.skin = !sound ? `game/img_musicOnBtn.png` : "game/img_musicOffBtn.png";
+            box.skin = !sound ? `game/img_switchOn.png` : "game/img_swithOff.png";
         }
     }
 
@@ -2178,6 +2362,7 @@
             this.itemListSelectIndex = 0;
             this.itemSelectBg = ["game/img_petbagNormal.png", "game/img_petbagSelected.png"];
             this.selectPetIndex = 0;
+            this.isFirst = true;
         }
         onHdAwake() {
             this.itemList.renderHandler = new Laya.Handler(this, this.updateItem);
@@ -2242,6 +2427,10 @@
             if (index == this.itemListSelectIndex) {
                 cell.skin = this.itemSelectBg[1];
                 this.updateSelectDesc();
+                if (!this.isFirst) {
+                    Core.audio.playSound(Res.audios.button_click);
+                }
+                this.isFirst = false;
             }
             else {
                 cell.skin = this.itemSelectBg[0];
@@ -2302,6 +2491,7 @@
                 case "pet":
                 case "feed":
                 case "bank":
+                    Core.audio.playSound(Res.audios.button_click);
                     let topBtnIndex = this.btnBoxTop.getChildIndex(e.target);
                     if (this.topBtnSelectIndex != topBtnIndex) {
                         this.topBtnSelectIndex = Number(topBtnIndex);
@@ -2448,6 +2638,7 @@
             let itemBuyBox = this.itemBuyBtn.parent;
             switch (this.topBtnSelectIndex) {
                 case 0:
+                    this.isFirst = true;
                     this.updateCenterBoxState(0, true);
                     this.resetPetOrFeedList();
                     this.feedBuyBtn.visible = false;
@@ -2459,6 +2650,7 @@
                     this.updatePet();
                     break;
                 case 2:
+                    this.isFirst = true;
                     this.updateCenterBoxState(0, true);
                     this.resetPetOrFeedList();
                     this.feedBuyBtn.visible = true;
@@ -2538,10 +2730,88 @@
     }
 
     class SignInView extends GameScript {
+        onOpened() {
+            this.signInList.array = TableAnalyze.table("signIn").list;
+            this.signInList.vScrollBarSkin = null;
+            this.signInList.renderHandler = new Laya.Handler(this, this.updateItem);
+            this.updateProgress();
+        }
+        updateProgress() {
+            let scale = UserInfo$1.speedUpTimes / ConfigGame.ADSpeedUpTimes;
+            if (scale > 1)
+                scale = 1;
+            this.signInProgressBar.width = 977 * scale;
+            this.signInProgressLb.text = UserInfo$1.signInDays + "";
+            this.progressDesc.text = `今日签到进度（使用${UserInfo$1.speedUpTimes}/${ConfigGame.ADSpeedUpTimes}次加速）`;
+        }
+        updateItem(cell, i) {
+            const bar = cell.getChildByName("bar"), obj = TableAnalyze.table("signIn").list[i];
+            let scale = UserInfo$1.signInDays / obj.days;
+            if (scale > 1)
+                scale = 1;
+            bar.width = 502 * scale;
+            const rewardBox = cell.getChildByName("reward_box");
+            rewardBox.getChildByName("icon").skin = obj.reward.obj.icon;
+            rewardBox.getChildByName("amount").text = `x${obj.reward.count}`;
+            cell.getChildByName("sign_days").text = `签到${obj.days}天`;
+            let skin = "", btn = cell.getChildByName("get_btn");
+            btn.dataSource = obj.id;
+            if (obj.id > UserInfo$1.signInId) {
+                btn.active = true;
+                btn.visible = false;
+                rewardBox.y = 103;
+                skin = `game/img_done.png`;
+                if (UserInfo$1.signInDays >= obj.days) {
+                    if (!UserInfo$1.signInId) {
+                        if (obj.id == TableAnalyze.table("signIn").list[0].id) {
+                            skin = `game/img_get.png`;
+                            btn.visible = true;
+                            rewardBox.y = 57;
+                        }
+                    }
+                    else {
+                        if (obj.id - UserInfo$1.signInId == 1) {
+                            skin = `game/img_get.png`;
+                            btn.visible = true;
+                            rewardBox.y = 57;
+                        }
+                    }
+                }
+            }
+            else {
+                skin = `game/img_received.png`;
+                btn.active = false;
+                btn.visible = true;
+                rewardBox.y = 57;
+            }
+            btn.skin = skin;
+        }
         onClick(e) {
             switch (e.target.name) {
                 case "close":
                     ViewManager.inst.close(Res.views.SignInView);
+                    break;
+                case "get_btn":
+                    const signInId = e.target["dataSource"];
+                    HttpControl.inst.send({
+                        api: "/signIn/reward",
+                        data: { type: ConfigGame.ApiTypeAD, signInId: signInId },
+                        call: (d) => {
+                            UserInfo$1.signInId = signInId;
+                            this.signInList.refresh();
+                            let reward = TableAnalyze.table("signIn").get(signInId).reward;
+                            Core.eventGlobal.event("play_get_reward", {
+                                node: e.target,
+                                list: [
+                                    {
+                                        obj: reward.obj,
+                                        count: reward.count,
+                                        posType: reward.obj.id == ConfigGame.goldId ? 1 : 2,
+                                    },
+                                ],
+                            });
+                        },
+                    });
                     break;
             }
         }
@@ -2566,7 +2836,11 @@
                         api: "/land/speedUp",
                         data: { type: ConfigGame.ApiTypeAD },
                         call: (d) => {
+                            UserInfo$1.speedUpTimes = d.speedUpTimes;
                             UserInfo$1.advertiseTimes = d.advertiseTimes;
+                            if (UserInfo$1.speedUpTimes == ConfigGame.ADSpeedUpTimes) {
+                                UserInfo$1.signInDays++;
+                            }
                             Core.view.close(Res.views.SpeedUpView);
                             Core.eventGlobal.event("land_speed_up");
                         },
@@ -2579,26 +2853,65 @@
     class TaskView extends GameScript {
         constructor() {
             super(...arguments);
-            this.image = null;
-            this.game = "121212";
+            this.taskList = null;
         }
-        myEvent(e) {
-            console.log("aa", e, this.image);
+        onOpened() {
+            this.taskList.array = TableAnalyze.table("task").list;
+            this.taskList.renderHandler = new Laya.Handler(this, this.itemRender);
+            this.taskList.vScrollBarSkin = null;
+        }
+        itemRender(cell, i) {
+            let obj = TableAnalyze.table("task").list[i];
+            cell.getChildByName("icon").skin = obj.icon;
+            cell.getChildByName("title").text = obj.title;
+            cell.getChildByName("desc").text = obj.desc;
+            const rewardBox = cell.getChildByName("reward");
+            rewardBox.getChildByName("icon").skin = obj.reward.obj.icon;
+            rewardBox.getChildByName("amount").text = "x" + obj.reward.count;
+            const btn = cell.getChildByName("go_run");
+            btn.dataSource = obj.id;
         }
         onClick(e) {
             switch (e.target.name) {
                 case "close":
                     ViewManager.inst.close(Res.views.TaskView);
                     break;
+                case "go_run":
+                    this.jump(e.target["dataSource"]);
+                    break;
+            }
+        }
+        jump(id) {
+            switch (id) {
+                case 1001:
+                    break;
+                case 1002:
+                    break;
+                case 1003:
+                    break;
+                case 1004:
+                    break;
+                case 1005:
+                    break;
+                case 1006:
+                    break;
+                case 1007:
+                    break;
+                case 1008:
+                    Core.view.close(Res.views.TaskView);
+                    Core.view.open(Res.views.WarehouseView);
+                    break;
+                case 1009:
+                    break;
+                case 1010:
+                    break;
+                case 1011:
+                    break;
+                case 1012:
+                    break;
             }
         }
     }
-    __decorate([
-        EventOn("aa"),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object]),
-        __metadata("design:returntype", void 0)
-    ], TaskView.prototype, "myEvent", null);
 
     class WarehouseView extends Core.gameScript {
         constructor() {
@@ -2760,7 +3073,6 @@
             this.itemDesc.text = d.base.desc;
             let priceGold, priceDiamond;
             for (let x = 0; x < d.base.gain.length; x++) {
-                console.log(d.base.gain[x]);
                 if (!d.base.gain[x].count)
                     continue;
                 if (d.base.gain[x].obj.id == ConfigGame.goldId) {
@@ -2824,7 +3136,7 @@
     GameConfig.startScene = "scenes/views/MainView.scene";
     GameConfig.sceneRoot = "";
     GameConfig.debug = false;
-    GameConfig.stat = false;
+    GameConfig.stat = true;
     GameConfig.physicsDebug = false;
     GameConfig.exportSceneToJson = true;
     GameConfig.init();
@@ -2849,7 +3161,7 @@
             if (GameConfig.stat)
                 Laya.Stat.show();
             Laya.alertGlobalError(true);
-            Laya.ResourceVersion.enable("version-28da18ef59.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
+            Laya.ResourceVersion.enable("version-2cefc5bb06.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
         }
         onVersionLoaded() {
             Laya.AtlasInfoManager.enable("fileconfig.json", Laya.Handler.create(this, this.onConfigLoaded));
@@ -2859,6 +3171,8 @@
                 Config["customRenderID"] = [];
                 LocalStorageService$1.init();
                 HttpControl.inst.init(ConfigGame.baseUrl);
+                Core.eventGlobal.on("login_game", this, this.loginGame);
+                Laya.SoundManager.useAudioMusic = false;
                 yield new Promise((resolve) => {
                     ViewManager.inst.open(Res.views.LoginView, {
                         showLoad: false,
@@ -2872,16 +3186,19 @@
                         },
                     });
                 });
-                Laya.loader.load(Res.scenes, Laya.Handler.create(this, () => {
-                    console.log("ok");
-                    Laya.timer.frameOnce(1, this, () => {
-                        Laya.View.hideLoadingPage(1000);
-                        ViewManager.inst.open(GameConfig.startScene);
-                    });
-                }), Laya.Handler.create(this, (e) => {
-                    EventGlobal.event("load_progress", e);
-                }, null, false));
+                this.loginGame();
             });
+        }
+        loginGame() {
+            Laya.loader.load(Res.scenes, Laya.Handler.create(this, () => {
+                console.log("ok");
+                Laya.timer.frameOnce(1, this, () => {
+                    Laya.View.hideLoadingPage(1000);
+                    ViewManager.inst.open(GameConfig.startScene);
+                });
+            }), Laya.Handler.create(this, (e) => {
+                EventGlobal.event("load_progress", e);
+            }, null, false));
         }
         initGameData(d) { }
     }
