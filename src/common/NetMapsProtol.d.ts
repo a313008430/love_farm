@@ -106,6 +106,14 @@ interface NetInit extends NetBase {
     orderId: 0;
     /** 用户加速次数 */
     speedUpTimes: number;
+    /** 任务列表 */
+    tasks: [
+        {
+            id: 0;
+            times: 0;
+            receive: 0;
+        }
+    ];
 }
 
 interface NetSendApi {

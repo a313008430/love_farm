@@ -147,7 +147,7 @@ interface OrderBase {
  */
 interface TaskBase {
     id: number;
-    reward: RewardBase[];
+    reward: RewardCurrencyBase;
     times: number;
     title: string;
     desc: string;

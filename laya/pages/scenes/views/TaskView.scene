@@ -157,7 +157,7 @@
                                     "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,go_run",
-                                    "props":{"y":138,"x":819,"skin":"game/img_done.png","name":"go_run","anchorY":0.5,"anchorX":0.5},
+                                    "props":{"y":138,"x":819,"skin":"game/img_done.png","name":"go_run","gray":false,"anchorY":0.5,"anchorX":0.5},
                                     "nodeParent":52,
                                     "label":"go_run",
                                     "isOpen":false,

@@ -24,14 +24,20 @@ export default class SettingView extends Core.gameScript {
                 break;
 
             case "music":
+                Core.audio.playSound(Res.audios.button_click);
                 Core.audio.musicMuted = !Core.audio.musicMuted;
                 LocalStorageService.setJSON("music", Core.audio.musicMuted);
+
                 this.musicChange();
+
                 break;
             case "sound":
+                Core.audio.playSound(Res.audios.button_click);
                 Core.audio.soundMuted = !Core.audio.soundMuted;
                 LocalStorageService.setJSON("sound", Core.audio.soundMuted);
+
                 this.soundChange();
+
                 break;
 
             case "sign_out":
@@ -60,7 +66,8 @@ export default class SettingView extends Core.gameScript {
         const box = this.musicNode.getChildByName("box") as Laya.Image;
         const icon = box.getChildByName("icon") as Laya.Image;
 
-        let music = LocalStorageService.getJSON().music;
+        let music = Core.audio.musicMuted;
+        console.log(music);
 
         icon.x = !music ? -14 : 91;
         icon.skin = !music ? `game/img_musicOnBtn.png` : "game/img_musicOffBtn.png";
@@ -70,7 +77,7 @@ export default class SettingView extends Core.gameScript {
     private soundChange() {
         const box = this.soundNode.getChildByName("box") as Laya.Image;
         const icon = box.getChildByName("icon") as Laya.Image;
-        let sound = LocalStorageService.getJSON().sound;
+        let sound = Core.audio.soundMuted;
         icon.x = !sound ? -14 : 91;
         icon.skin = !sound ? `game/img_musicOnBtn.png` : "game/img_musicOffBtn.png";
         box.skin = !sound ? `game/img_switchOn.png` : "game/img_swithOff.png";

@@ -32,4 +32,6 @@ export const enum ApiHttp {
     petWear = "/pet/wear",
     /** 饲料购买 */
     feedBuy = "/feed/buy",
+    /** 任务奖励领取 */
+    taskReward = "/task/reward",
 }

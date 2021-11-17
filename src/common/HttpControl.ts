@@ -1,7 +1,9 @@
 import Core from "src/core/index";
 import { Instance } from "src/core/Instance";
 import LocalStorageService from "src/dataService/LocalStorageService";
+import TaskService from "src/dataService/TaskService";
 import UserInfo from "src/dataService/UserInfo";
+import ConfigGame from "./ConfigGame";
 import HttpDataControl from "./HttpDataControl";
 import { ApiHttp } from "./NetMaps";
 import Res from "./Res";
@@ -110,6 +112,10 @@ export default class HttpControl {
             Object.keys(data.data).forEach((d) => {
                 sendData.push(`${d}=${data.data[d]}`);
             });
+            if (data.data?.type == ConfigGame.ApiTypeAD) {
+                TaskService.taskAddTimes(1001);
+                TaskService.taskAddTimes(1012);
+            }
         }
 
         this.xhr.send(sendData.join("&"));

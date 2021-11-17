@@ -145,7 +145,7 @@ const TablePropertyEvent = {
      * 解析任务表
      */
     task(d: typeof Table.task[0]) {
-        return <SignInBase>{
+        return <TaskBase>{
             id: d.id,
             times: d.times,
             reward: getRewardCurrencyBase(d.reward),

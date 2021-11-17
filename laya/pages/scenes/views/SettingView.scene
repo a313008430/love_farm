@@ -6,7 +6,7 @@
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/SettingView.jpg","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":57,
+    "maxID":58,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,

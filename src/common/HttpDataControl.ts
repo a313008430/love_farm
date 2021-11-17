@@ -3,6 +3,7 @@ import LandService from "src/dataService/LandService";
 import LocalStorageService from "src/dataService/LocalStorageService";
 import PetService from "src/dataService/PetService";
 import PlantService from "src/dataService/PlantService";
+import TaskService from "src/dataService/TaskService";
 import UserInfo from "src/dataService/UserInfo";
 import WarehouseService from "src/dataService/WarehouseService";
 import { ApiHttp } from "./NetMaps";
@@ -25,25 +26,38 @@ class HttpDataControl {
             case ApiHttp.loginToken:
                 this.login(d.data);
                 break;
+            case ApiHttp.landSpeedUp:
+                this.taskUpdate(1002);
+                break;
             case ApiHttp.landGather:
-                this.updateUserInfo(d.data);
-                break;
-            case ApiHttp.landSow:
-                this.updateUserInfo(d.data);
-                break;
-            case ApiHttp.landUnlock:
-                this.updateUserInfo(d.data);
-                break;
-            case ApiHttp.seedsUnlock:
-                this.updateUserInfo(d.data);
-                break;
-            case ApiHttp.warehouseSell:
-                this.updateUserInfo(d.data);
-                break;
-            case ApiHttp.petBuy:
+                this.taskUpdate(1003);
                 this.updateUserInfo(d.data);
                 break;
             case ApiHttp.feedBuy:
+                this.taskUpdate(1005);
+                this.taskUpdate(1006);
+                this.updateUserInfo(d.data);
+                break;
+            case ApiHttp.landSow:
+                this.taskUpdate(1007);
+                this.updateUserInfo(d.data);
+                break;
+            case ApiHttp.warehouseSell:
+                this.taskUpdate(1008);
+                this.updateUserInfo(d.data);
+                break;
+
+            case ApiHttp.seedsUnlock:
+
+            case ApiHttp.landSow:
+
+            case ApiHttp.landUnlock:
+
+            case ApiHttp.petBuy:
+
+            case ApiHttp.taskReward:
+
+            case ApiHttp.orderReward:
                 this.updateUserInfo(d.data);
                 break;
             default:
@@ -86,6 +100,7 @@ class HttpDataControl {
         UserInfo.signInId = d.signInId;
         UserInfo.speedUpTimes = d.speedUpTimes;
         PetService.init(d.pets);
+        TaskService.init(d.tasks);
         LocalStorageService.setJSON("isLogin", true);
         if (d.token) LocalStorageService.setJSON("token", d.token);
         LandService.init(d.lands);
@@ -99,6 +114,7 @@ class HttpDataControl {
         WarehouseService.clear();
         PetService.clear();
         LandService.clear();
+        TaskService.clear();
         LocalStorageService.setJSON("isLogin", false);
         LocalStorageService.setJSON("token", null);
         UserInfo.uid = null;
@@ -124,6 +140,14 @@ class HttpDataControl {
         UserInfo.gold = d.gold;
         UserInfo.diamond = d.diamond;
         UserInfo.advertiseTimes = d.advertiseTimes || 0;
+    }
+
+    /**
+     * 更新任务进度
+     * @param id 任务id
+     */
+    private taskUpdate(id: number) {
+        TaskService.taskAddTimes(id);
     }
 }
 

@@ -216,49 +216,38 @@ export default class MainView extends Core.gameScript {
                 this.addLandLayer.visible = false;
                 break;
             case "task":
-                // Core.audio.playSound(Res.audios.button_click);
                 Core.view.open(Res.views.TaskView);
                 break;
             case "signIn":
-                // Core.audio.playSound(Res.audios.button_click);
                 Core.view.open(Res.views.SignInView);
                 break;
             case "mail":
-                // Core.audio.playSound(Res.audios.button_click);
                 Core.view.open(Res.views.MailView);
                 break;
             case "shop":
-                // Core.audio.playSound(Res.audios.button_click);
                 Core.view.open(Res.views.ShopView);
                 break;
             case "head":
-                Core.audio.playSound(Res.audios.button_click);
                 Core.view.open(Res.views.SettingView);
                 break;
             case "warehouse":
-                // Core.audio.playSound(Res.audios.button_click);
                 Core.view.open(Res.views.WarehouseView);
                 break;
             case "buy_feed":
-                Core.audio.playSound(Res.audios.button_click);
                 Core.view.open(Res.views.ShopView, { parm: { id: 2 } });
                 break;
             case "dog":
-                Core.audio.playSound(Res.audios.button_click);
                 Core.view.open(Res.views.ShopView, { parm: { id: 2 } });
                 break;
             case "order_box":
-                Core.audio.playSound(Res.audios.button_click);
                 Core.view.open(Res.views.OrderView);
                 break;
             case "friends":
-                Core.audio.playSound(Res.audios.button_click);
                 Core.view.open(Res.views.FriendsView);
                 break;
             case "land":
                 break;
             case "landLevelUp":
-                // Core.audio.playSound(Res.audios.button_click);
                 this.switchLandLevelUp(true);
 
                 // this.playGetRewardAni({
@@ -271,7 +260,6 @@ export default class MainView extends Core.gameScript {
                 // });
                 break;
             case "close_up":
-                Core.audio.playSound(Res.audios.button_click);
                 this.switchLandLevelUp(false);
                 break;
         }
@@ -340,6 +328,10 @@ export default class MainView extends Core.gameScript {
                     orderId: UserInfo.orderLevel + 1,
                 },
                 call: () => {
+                    d.condition.forEach((e) => {
+                        WarehouseService.reduceAmount(e.plant.id, e.count);
+                    });
+
                     this.playGetRewardAni({
                         node: box.getChildByName("btn_box") as any,
                         list: [

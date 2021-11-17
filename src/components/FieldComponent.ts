@@ -266,6 +266,7 @@ export default class FieldComponent extends Core.gameScript {
 
     async onClick() {
         console.log(this.fieldId, this.buildIng);
+        Core.audio.playSound(Res.audios.button_click);
         if (this.data) {
             //土地升级事件
             if (this.buildIng) {
@@ -399,5 +400,7 @@ export default class FieldComponent extends Core.gameScript {
         Laya.Tween.clearAll(this);
         this.topStateIconTween?.destroy();
         this.plantIconTween?.destroy();
+        this.topStateIconTween = null;
+        this.plantIconTween = null;
     }
 }

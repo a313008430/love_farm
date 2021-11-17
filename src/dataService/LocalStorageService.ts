@@ -3,8 +3,11 @@ import ConfigGame from "src/common/ConfigGame";
 const LocalData = {
     isLogin: false,
     token: null,
-    sound: true,
-    music: true,
+
+    /** true 为关闭 false 为打开 */
+    sound: false,
+    /** true 为关闭 false 为打开 */
+    music: false,
 };
 
 /**
