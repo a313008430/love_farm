@@ -283,8 +283,9 @@ export default class FieldComponent extends Core.gameScript {
                 } else {
                     console.log("满级");
                     this.topStateIconAni(false);
-                    Core.view.open(Res.views.HintView, {
-                        parm: { text: `已满级` },
+                    Core.view.openHint({
+                        text: `已满级`,
+                        call: () => {},
                     });
                 }
 

@@ -1,7 +1,7 @@
 {
   "fileconfig.json": "fileconfig-44193d1ccc.json",
-  "index.js": "index-4d0fd60b57.js",
-  "js/bundle.js": "js/bundle-4bc79dd2dc.js",
+  "index.js": "index-ca75c783eb.js",
+  "js/bundle.js": "js/bundle-ba2edf47e7.js",
   "js/ps-N3BPHYGU.fs": "js/ps-N3BPHYGU-319562bd17.fs",
   "libs/min/laya.ani.min.js": "libs/min/laya-a72326a604.ani.min.js",
   "libs/min/laya.core.min.js": "libs/min/laya-4fc7637454.core.min.js",
@@ -47,14 +47,14 @@
   "scenes/views/HintView.json": "scenes/views/HintView-3117c62c9e.json",
   "scenes/views/LoginView.json": "scenes/views/LoginView-f253357470.json",
   "scenes/views/MailView.json": "scenes/views/MailView-9a4860209e.json",
-  "scenes/views/MainView.json": "scenes/views/MainView-3a22a661d4.json",
+  "scenes/views/MainView.json": "scenes/views/MainView-4e210cc427.json",
   "scenes/views/OrderView.json": "scenes/views/OrderView-d76d4889ff.json",
   "scenes/views/SettingView.json": "scenes/views/SettingView-42e00a1403.json",
   "scenes/views/ShopView.json": "scenes/views/ShopView-cb1a3394f9.json",
   "scenes/views/SignInView.json": "scenes/views/SignInView-bc010fce14.json",
   "scenes/views/SpeedUpView.json": "scenes/views/SpeedUpView-c73e1411e9.json",
-  "scenes/views/TaskView.json": "scenes/views/TaskView-8ced24661e.json",
+  "scenes/views/TaskView.json": "scenes/views/TaskView-848c330910.json",
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-d8dc1594ce.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-2cefc5bb06.json"
+  "version.json": "version-a7885259c1.json"
 }

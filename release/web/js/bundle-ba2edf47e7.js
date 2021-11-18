@@ -647,7 +647,7 @@
         goldId: 1002,
         petDigestIntervalTime: 60,
         localKey: "love_HD_farm",
-        baseUrl: "http://game.ahd168.com:3000",
+        baseUrl: "//127.0.0.1:3000",
         ApiTypeDefault: 1,
         ApiTypeAD: 2,
         ADSpeedUpTimes: 6,
@@ -656,8 +656,8 @@
     const LocalData = {
         isLogin: false,
         token: null,
-        sound: true,
-        music: true,
+        sound: false,
+        music: false,
     };
     class LocalStorageService {
         constructor() {
@@ -679,27 +679,6 @@
         }
     }
     var LocalStorageService$1 = new LocalStorageService();
-
-    class LandService {
-        constructor() {
-            this.list = new Map();
-        }
-        init(list) {
-            list.forEach((d) => {
-                this.addLand(d);
-            });
-        }
-        getLand(id) {
-            return this.list.get(id);
-        }
-        addLand(d) {
-            this.list.set(d.id, d);
-        }
-        clear() {
-            this.list.clear();
-        }
-    }
-    var LandService$1 = new LandService();
 
     const Table = { "task": [{ "id": 1001, "reward": "1001:50", "times": 1, "title": "签到领钻石", "desc": "看视频签到", "icon": null }, { "id": 1002, "reward": "1001:100", "times": 10, "title": "菜地施肥10次", "desc": "菜地加速10次", "icon": null }, { "id": 1003, "reward": "1001:50", "times": 10, "title": "菜地收获10次", "desc": "菜地收获10次", "icon": null }, { "id": 1004, "reward": "1001:50", "times": 5, "title": "访友5次", "desc": "偷菜5次", "icon": null }, { "id": 1005, "reward": "1001:20", "times": 3, "title": "喂养狗狗3次", "desc": "喂养狗狗3次", "icon": null }, { "id": 1006, "reward": "1001:20", "times": 5, "title": "购买饲料5次", "desc": "购买饲料5次", "icon": null }, { "id": 1007, "reward": "1001:20", "times": 10, "title": "购买种子10次", "desc": "购买种子10次", "icon": null }, { "id": 1008, "reward": "1001:30", "times": 3, "title": "出售作物3次", "desc": "出售作物3次", "icon": null }, { "id": 1009, "reward": "1001:100", "times": 5, "title": "添加好友", "desc": "添加好友5个", "icon": null }, { "id": 1010, "reward": "1001:50", "times": 1, "title": "分享得好礼", "desc": "分享一次", "icon": null }, { "id": 1011, "reward": "1001:30", "times": 3, "title": "指定种植", "desc": "种植指定种子", "icon": null }, { "id": 1012, "reward": "1001:50", "times": 10, "title": "看视频", "desc": "看视频10次", "icon": null }], "signIn": [{ "id": 1001, "days": 7, "reward": "1001:20000" }, { "id": 1002, "days": 10, "reward": "1001:30000" }, { "id": 1003, "days": 15, "reward": "1001:50000" }, { "id": 1004, "days": 20, "reward": "1001:80000" }, { "id": 1005, "days": 30, "reward": "1001:120000" }, { "id": 1006, "days": 50, "reward": "1001:180000" }, { "id": 1007, "days": 80, "reward": "1001:300000" }, { "id": 1008, "days": 100, "reward": "1001:350000" }, { "id": 1009, "days": 150, "reward": "1001:500000" }], "plant": [{ "id": 1001, "name": "水稻", "icon": "plant_icon/1002_seed.png", "seed_price": "1002:50", "gain": "1001:0,1002:50", "harvest": "1~2", "mature_time": "180", "unlock_cost": null, "unlock_reward": null, "desc": "种下一粒种子，收获整个世界" }, { "id": 1002, "name": "大豆", "icon": "plant_icon/1004_seed.png", "seed_price": "1002:50", "gain": "1001:0,1002:50", "harvest": "1~2", "mature_time": "180", "unlock_cost": null, "unlock_reward": null, "desc": "种下一粒种子，收获整个世界" }, { "id": 1003, "name": "大蒜", "icon": "plant_icon/1012_seed.png", "seed_price": "1002:50", "gain": "1001:0,1002:50", "harvest": "1~2", "mature_time": "240", "unlock_cost": null, "unlock_reward": null, "desc": "种下一粒种子，收获整个世界" }, { "id": 1004, "name": "包心菜", "icon": "plant_icon/1006_seed.png", "seed_price": "1002:75", "gain": "1001:0,1002:75", "harvest": "1~2", "mature_time": "300", "unlock_cost": "1002:1000", "unlock_reward": "1001:1,1002:1000", "desc": "种下一粒种子，收获整个世界" }, { "id": 1005, "name": "土豆", "icon": "plant_icon/1007_seed.png", "seed_price": "1002:75", "gain": "1001:0,1002:75", "harvest": "2~3", "mature_time": "300", "unlock_cost": "1002:1000", "unlock_reward": "1001:1,1002:1000", "desc": "种下一粒种子，收获整个世界" }, { "id": 1006, "name": "萝卜", "icon": "plant_icon/1005_seed.png", "seed_price": "1002:75", "gain": "1001:0,1002:75", "harvest": "2~3", "mature_time": "480", "unlock_cost": "1002:1000", "unlock_reward": "1001:1,1002:1000", "desc": "种下一粒种子，收获整个世界" }, { "id": 1007, "name": "小麦", "icon": "plant_icon/1001_seed.png", "seed_price": "1002:120", "gain": "1001:0,1002:120", "harvest": "2~3", "mature_time": "480", "unlock_cost": "1002:1500", "unlock_reward": "1001:1,1002:1000", "desc": "种下一粒种子，收获整个世界" }, { "id": 1008, "name": "辣椒", "icon": "plant_icon/1010_seed.png", "seed_price": "1002:120", "gain": "1001:0,1002:120", "harvest": "2~3", "mature_time": "600", "unlock_cost": "1002:2000", "unlock_reward": "1001:1,1002:1000", "desc": "种下一粒种子，收获整个世界" }, { "id": 1009, "name": "黄瓜", "icon": "plant_icon/1011_seed.png", "seed_price": "1002:200", "gain": "1001:0,1002:200", "harvest": "3~4", "mature_time": "720", "unlock_cost": "1002:3000", "unlock_reward": "1001:1,1002:1000", "desc": "种下一粒种子，收获整个世界" }, { "id": 1010, "name": "茄子", "icon": "plant_icon/1013_seed.png", "seed_price": "1002:200", "gain": "1001:0,1002:200", "harvest": "3~4", "mature_time": "720", "unlock_cost": "1002:3500", "unlock_reward": "1001:1,1002:1000", "desc": "种下一粒种子，收获整个世界" }, { "id": 1011, "name": "胡萝卜", "icon": "plant_icon/1008_seed.png", "seed_price": "1002:350", "gain": "1001:1,1002:350", "harvest": "3~4", "mature_time": "900", "unlock_cost": "1002:4500", "unlock_reward": "1001:1,1002:1000", "desc": "种下一粒种子，收获整个世界" }, { "id": 1012, "name": "南瓜", "icon": "plant_icon/1014_seed.png", "seed_price": "1002:350", "gain": "1001:1,1002:350", "harvest": "3~4", "mature_time": "900", "unlock_cost": "1002:5000", "unlock_reward": "1001:1,1002:1000", "desc": "种下一粒种子，收获整个世界" }, { "id": 1013, "name": "玉米", "icon": "plant_icon/1003_seed.png", "seed_price": "1002:500", "gain": "1001:2,1002:500", "harvest": "3~5", "mature_time": "1200", "unlock_cost": "1002:5500", "unlock_reward": "1001:1,1002:1000", "desc": "种下一粒种子，收获整个世界" }, { "id": 1014, "name": "甘蔗", "icon": "plant_icon/1015_seed.png", "seed_price": "1002:500", "gain": "1001:2,1002:500", "harvest": "3~5", "mature_time": "1200", "unlock_cost": "1002:6000", "unlock_reward": "1001:1,1002:1000", "desc": "种下一粒种子，收获整个世界" }, { "id": 1015, "name": "番茄", "icon": "plant_icon/1009_seed.png", "seed_price": "1002:500", "gain": "1001:2,1002:500", "harvest": "3~5", "mature_time": "1200", "unlock_cost": "1002:6500", "unlock_reward": "1001:1,1002:1000", "desc": "种下一粒种子，收获整个世界" }], "pet": [{ "id": 1001, "name": "边牧", "icon": "pet_feed/1001_dog.png", "vitality_max": 100, "vitality_consume": 10, "cost": "1002:3000", "desc": "爱它就买它~它就是有点懒~", "sensitive": 34, "ability": 42 }, { "id": 1002, "name": "金毛", "icon": "pet_feed/1007_dog.png", "vitality_max": 100, "vitality_consume": 15, "cost": "1002:4000", "desc": "颜值、智商双双在线", "sensitive": 40, "ability": 48 }, { "id": 1003, "name": "秋田犬", "icon": "pet_feed/1009_dog.png", "vitality_max": 100, "vitality_consume": 16, "cost": "1002:4500", "desc": "最忠诚的伙伴", "sensitive": 45, "ability": 55 }, { "id": 1004, "name": "哈士奇", "icon": "pet_feed/1002_dog.png", "vitality_max": 100, "vitality_consume": 16, "cost": "1002:5000", "desc": "绝不拆家！", "sensitive": 48, "ability": 60 }, { "id": 1005, "name": "德国牧羊犬", "icon": "pet_feed/1005_dog.png", "vitality_max": 100, "vitality_consume": 17, "cost": "1002:7000", "desc": "活好吃的少", "sensitive": 50, "ability": 75 }, { "id": 1006, "name": "杜宾犬", "icon": "pet_feed/1004_dog.png", "vitality_max": 100, "vitality_consume": 18, "cost": "1002:7500", "desc": "武力天赋已点满~拿捏！", "sensitive": 60, "ability": 80 }, { "id": 1007, "name": "阿拉斯加犬", "icon": "pet_feed/1008_dog.png", "vitality_max": 100, "vitality_consume": 18, "cost": "1002:8000", "desc": "就两个字，听话！", "sensitive": 69, "ability": 85 }, { "id": 1008, "name": "苏格兰牧羊犬", "icon": "pet_feed/1003_dog.png", "vitality_max": 100, "vitality_consume": 18, "cost": "1002:8000", "desc": "看家、看菜、看孩子", "sensitive": 76, "ability": 88 }, { "id": 1009, "name": "斑点狗", "icon": "pet_feed/1006_dog.png", "vitality_max": 100, "vitality_consume": 19, "cost": "1002:10000", "desc": "你值得拥有！", "sensitive": 85, "ability": 93 }, { "id": 1010, "name": "藏獒", "icon": "pet_feed/1010_dog.png", "vitality_max": 100, "vitality_consume": 30, "cost": "1002:15000", "desc": "长得就很凶，抓小偷更凶", "sensitive": 90, "ability": 99 }], "order": [{ "id": 1, "commission": "0.5", "condition": "1001:2" }, { "id": 2, "commission": "0.1", "condition": "1001:1,1002:1,1003:1" }, { "id": 3, "commission": "0.03", "condition": "1012:18,1004:4,1003:5,1005:6" }, { "id": 4, "commission": "0.24", "condition": "1012:10,1003:3,1007:7,1015:9" }, { "id": 5, "commission": "0.61", "condition": "1014:6,1012:9,1010:19,1006:4" }, { "id": 6, "commission": "0.07", "condition": "1010:14,1004:2,1012:3,1001:8" }, { "id": 7, "commission": "0.43", "condition": "1012:18,1001:11,1007:7,1008:19" }, { "id": 8, "commission": "0.56", "condition": "1008:13,1007:3,1005:2,1015:20" }, { "id": 9, "commission": "0.39", "condition": "1002:2,1015:10,1011:8,1003:18" }, { "id": 10, "commission": "0.22", "condition": "1006:12,1012:5,1011:14,1003:6" }, { "id": 11, "commission": "0.76", "condition": "1009:11,1004:20,1012:9,1002:10" }, { "id": 12, "commission": "0.43", "condition": "1007:16,1003:11,1012:16,1005:6" }, { "id": 13, "commission": "0.17", "condition": "1010:5,1005:13,1001:8,1012:18" }, { "id": 14, "commission": "0.7", "condition": "1015:18,1008:18,1006:16,1001:14" }, { "id": 15, "commission": "0.48", "condition": "1002:10,1005:1,1011:2,1001:10" }, { "id": 16, "commission": 0.29, "condition": "1008:11,1014:4,1006:8,1005:17" }, { "id": 17, "commission": 0.37, "condition": "1006:14,1007:16,1012:19,1001:14" }, { "id": 18, "commission": 0.48, "condition": "1008:4,1011:2,1009:15,1002:5" }, { "id": 19, "commission": 0.75, "condition": "1013:1,1003:20,1014:11,1001:17" }, { "id": 20, "commission": 0.67, "condition": "1003:10,1011:17,1002:14,1005:2" }, { "id": 21, "commission": 0.64, "condition": "1010:10,1003:4,1005:6,1007:5" }, { "id": 22, "commission": "0.4", "condition": "1015:9,1007:12,1011:5,1004:17" }, { "id": 23, "commission": 0.2, "condition": "1003:19,1014:2,1015:16,1001:14" }, { "id": 24, "commission": 0.77, "condition": "1014:3,1001:17,1008:18,1004:5" }, { "id": 25, "commission": 0.64, "condition": "1002:13,1011:1,1010:15,1007:20" }, { "id": 26, "commission": 0.03, "condition": "1002:11,1011:12,1012:2,1003:19" }, { "id": 27, "commission": 0.49, "condition": "1007:16,1014:16,1006:10,1011:7" }, { "id": 28, "commission": 0.53, "condition": "1014:7,1007:12,1011:17,1003:17" }, { "id": 29, "commission": 0.77, "condition": "1012:10,1005:16,1010:14,1015:8" }, { "id": 30, "commission": 0.14, "condition": "1011:7,1014:9,1006:14,1004:3" }, { "id": 31, "commission": 0.53, "condition": "1007:18,1010:14,1013:9,1006:11" }, { "id": 32, "commission": 0.46, "condition": "1013:19,1005:2,1012:12,1008:20" }, { "id": 33, "commission": 0.2, "condition": "1012:6,1013:11,1002:13,1009:16" }, { "id": 34, "commission": 0.02, "condition": "1009:9,1010:12,1011:14,1012:2" }, { "id": 35, "commission": 0.13, "condition": "1001:18,1004:19,1013:6,1003:10" }, { "id": 36, "commission": 0.21, "condition": "1003:11,1008:17,1014:7,1007:17" }, { "id": 37, "commission": 0.44, "condition": "1012:4,1010:20,1002:4,1011:11" }, { "id": 38, "commission": 0.22, "condition": "1014:13,1004:19,1002:11,1015:18" }, { "id": 39, "commission": 0.36, "condition": "1007:8,1012:13,1004:16,1002:16" }, { "id": 40, "commission": 0.28, "condition": "1004:10,1005:10,1008:18,1011:16" }, { "id": 41, "commission": 0.18, "condition": "1010:8,1009:8,1008:7,1011:6" }, { "id": 42, "commission": 0.43, "condition": "1009:1,1005:8,1007:2,1002:13" }, { "id": 43, "commission": 0.14, "condition": "1006:1,1004:4,1014:11,1008:5" }, { "id": 44, "commission": 0.62, "condition": "1009:15,1003:18,1002:4,1007:9" }, { "id": 45, "commission": 0.11, "condition": "1012:15,1010:3,1007:3,1011:3" }, { "id": 46, "commission": 0.39, "condition": "1003:12,1007:3,1010:16,1002:14" }, { "id": 47, "commission": 0.49, "condition": "1010:14,1015:20,1003:15,1014:6" }, { "id": 48, "commission": 0.06, "condition": "1013:17,1007:14,1008:17,1001:10" }, { "id": 49, "commission": 0.48, "condition": "1002:6,1004:11,1009:12,1006:20" }, { "id": 50, "commission": 0.05, "condition": "1006:17,1012:9,1008:2,1015:11" }, { "id": 51, "commission": 0.04, "condition": "1011:8,1004:19,1002:5,1003:11" }, { "id": 52, "commission": 0.43, "condition": "1015:15,1013:10,1001:15,1004:6" }, { "id": 53, "commission": 0.08, "condition": "1014:14,1012:12,1010:1,1015:18" }, { "id": 54, "commission": 0.45, "condition": "1005:2,1002:13,1009:6,1015:17" }, { "id": 55, "commission": 0.7, "condition": "1001:3,1014:9,1005:7,1010:15" }, { "id": 56, "commission": 0.05, "condition": "1006:17,1005:19,1009:17,1003:18" }, { "id": 57, "commission": 0.67, "condition": "1007:1,1008:17,1002:16,1009:15" }, { "id": 58, "commission": 0.32, "condition": "1006:10,1008:5,1005:4,1007:9" }, { "id": 59, "commission": 0.79, "condition": "1012:5,1009:1,1013:6,1008:5" }, { "id": 60, "commission": 0.69, "condition": "1015:6,1012:7,1010:1,1001:3" }, { "id": 61, "commission": 0.39, "condition": "1015:12,1006:5,1011:15,1002:7" }, { "id": 62, "commission": 0.44, "condition": "1015:1,1007:15,1011:8,1006:6" }, { "id": 63, "commission": 0.01, "condition": "1010:18,1005:16,1009:13,1003:7" }, { "id": 64, "commission": 0.27, "condition": "1007:17,1006:10,1005:9,1004:5" }, { "id": 65, "commission": 0.39, "condition": "1008:15,1003:10,1014:20,1005:15" }, { "id": 66, "commission": 0.73, "condition": "1004:15,1008:5,1002:14,1012:14" }, { "id": 67, "commission": 0.13, "condition": "1001:16,1012:20,1011:20,1003:1" }, { "id": 68, "commission": 0.69, "condition": "1013:4,1008:3,1006:6,1007:17" }, { "id": 69, "commission": 0.37, "condition": "1015:3,1004:9,1013:7,1009:1" }, { "id": 70, "commission": 0.71, "condition": "1010:3,1004:1,1011:7,1012:11" }, { "id": 71, "commission": 0.29, "condition": "1008:11,1002:6,1003:8,1015:13" }, { "id": 72, "commission": 0.31, "condition": "1005:2,1002:18,1012:19,1010:14" }, { "id": 73, "commission": 0.39, "condition": "1012:4,1006:2,1003:7,1004:2" }, { "id": 74, "commission": 0.26, "condition": "1003:20,1012:18,1002:3,1001:20" }, { "id": 75, "commission": 0.18, "condition": "1006:1,1014:3,1008:12,1002:5" }, { "id": 76, "commission": 0.51, "condition": "1007:1,1012:2,1004:11,1014:2" }, { "id": 77, "commission": 0.21, "condition": "1008:15,1009:6,1012:4,1007:7" }, { "id": 78, "commission": 0.73, "condition": "1015:16,1012:16,1006:20,1008:12" }, { "id": 79, "commission": 0.65, "condition": "1006:6,1004:8,1007:12,1011:7" }, { "id": 80, "commission": 0.39, "condition": "1009:15,1003:16,1004:19,1007:4" }, { "id": 81, "commission": 0.14, "condition": "1012:10,1015:8,1002:4,1003:8" }, { "id": 82, "commission": 0.2, "condition": "1005:12,1011:19,1009:18,1002:14" }, { "id": 83, "commission": 0.53, "condition": "1010:9,1003:8,1007:12,1015:20" }, { "id": 84, "commission": 0.62, "condition": "1005:9,1014:6,1002:18,1007:8" }, { "id": 85, "commission": 0.37, "condition": "1011:10,1001:7,1012:12,1004:12" }, { "id": 86, "commission": 0.59, "condition": "1009:5,1011:20,1006:4,1015:11" }, { "id": 87, "commission": 0.11, "condition": "1006:6,1005:9,1013:10,1014:9" }, { "id": 88, "commission": 0.08, "condition": "1008:7,1011:4,1015:12,1014:11" }, { "id": 89, "commission": 0.02, "condition": "1002:17,1003:2,1005:11,1010:14" }, { "id": 90, "commission": 0.32, "condition": "1002:19,1013:8,1007:5,1001:13" }, { "id": 91, "commission": 0.19, "condition": "1008:15,1013:10,1014:10,1007:16" }, { "id": 92, "commission": 0.13, "condition": "1004:8,1011:13,1008:15,1007:9" }, { "id": 93, "commission": 0.34, "condition": "1013:12,1001:9,1006:8,1008:11" }, { "id": 94, "commission": 0.22, "condition": "1002:6,1001:17,1013:16,1005:11" }, { "id": 95, "commission": 0.15, "condition": "1005:6,1001:14,1015:4,1008:16" }, { "id": 96, "commission": 0.06, "condition": "1003:4,1001:8,1007:8,1005:18" }, { "id": 97, "commission": 0.74, "condition": "1013:12,1009:13,1006:2,1011:2" }], "lang": [], "landLevel": [{ "id": 1, "reward": "1002:0", "cost": "1002:0", "gain": null }, { "id": 2, "reward": "1002:1500", "cost": "1002:10000", "gain": 0.1 }, { "id": 3, "reward": "1002:2000", "cost": "1002:30000", "gain": 0.25 }, { "id": 4, "reward": "1002:2500", "cost": "1002:50000", "gain": 0.4 }, { "id": 5, "reward": "1002:3000", "cost": "1002:100000", "gain": 0.55 }], "feed": [{ "id": 1001, "name": "饼干", "icon": "pet_feed/1001_feed.png", "vitality": 1, "cost": "1002:3", "desc": "可增加宠物&点体力" }, { "id": 1002, "name": "坚果", "icon": "pet_feed/1002_feed.png", "vitality": 2, "cost": "1002:5", "desc": "可增加宠物&点体力" }, { "id": 1003, "name": "火腿", "icon": "pet_feed/1003_feed.png", "vitality": 5, "cost": "1002:10", "desc": "可增加宠物&点体力" }, { "id": 1004, "name": "牛肉", "icon": "pet_feed/1004_feed.png", "vitality": 50, "cost": "1002:80", "desc": "可增加宠物&点体力" }, { "id": 1005, "name": "猪肉", "icon": "pet_feed/1005_feed.png", "vitality": 20, "cost": "1002:35", "desc": "可增加宠物&点体力" }, { "id": 1006, "name": "鸡肉", "icon": "pet_feed/1006_feed.png", "vitality": 10, "cost": "1002:18", "desc": "可增加宠物&点体力" }], "currency": [{ "id": 1001, "name": "钻石", "icon": "main_scene/img_diamond.png" }, { "id": 1002, "name": "金币", "icon": "main_scene/img_coin.png" }], "config": [{ "id": "all_speed_up_times", "value": 30 }, { "id": "all_speed_up_time", "value": 600 }, { "id": "unlock_land_cost", "value": "1002:0,1002:0,1002:40000,1002:50000,1002:20000,1002:20000,1002:20000,1002:20000,1002:20000" }] };
 
@@ -851,6 +830,60 @@
     }
     const TableAnalyze = new TableControl();
 
+    class TaskService {
+        constructor() {
+            this.list = [];
+        }
+        init(d) {
+            d.forEach((e) => this.list.push({
+                id: e.id,
+                times: e.times,
+                receive: e.receive,
+                base: TableAnalyze.table("task").get(e.id),
+            }));
+        }
+        getTask(id) {
+            for (let x = 0; x < this.list.length; x++) {
+                if (this.list[x].id == id) {
+                    return this.list[x];
+                }
+            }
+            return null;
+        }
+        taskAddTimes(id) {
+            let task = this.getTask(id);
+            if (!task) {
+                return;
+            }
+            task.times++;
+        }
+        clear() {
+            this.list.length = 0;
+        }
+    }
+    var TaskService$1 = new TaskService();
+
+    class LandService {
+        constructor() {
+            this.list = new Map();
+        }
+        init(list) {
+            list.forEach((d) => {
+                this.addLand(d);
+            });
+        }
+        getLand(id) {
+            return this.list.get(id);
+        }
+        addLand(d) {
+            this.list.set(d.id, d);
+        }
+        clear() {
+            this.list.clear();
+        }
+    }
+    var LandService$1 = new LandService();
+
     class PetService {
         constructor() {
             this.list = [];
@@ -986,25 +1019,32 @@
                 case "/login/token":
                     this.login(d.data);
                     break;
+                case "/land/speedUp":
+                    this.taskUpdate(1002);
+                    break;
                 case "/land/gather":
-                    this.updateUserInfo(d.data);
-                    break;
-                case "/land/sow":
-                    this.updateUserInfo(d.data);
-                    break;
-                case "/land/unlock":
-                    this.updateUserInfo(d.data);
-                    break;
-                case "/seeds/unlock":
-                    this.updateUserInfo(d.data);
-                    break;
-                case "/warehouse/sell":
-                    this.updateUserInfo(d.data);
-                    break;
-                case "/pet/buy":
+                    this.taskUpdate(1003);
                     this.updateUserInfo(d.data);
                     break;
                 case "/feed/buy":
+                    this.taskUpdate(1005);
+                    this.taskUpdate(1006);
+                    this.updateUserInfo(d.data);
+                    break;
+                case "/land/sow":
+                    this.taskUpdate(1007);
+                    this.updateUserInfo(d.data);
+                    break;
+                case "/warehouse/sell":
+                    this.taskUpdate(1008);
+                    this.updateUserInfo(d.data);
+                    break;
+                case "/seeds/unlock":
+                case "/land/sow":
+                case "/land/unlock":
+                case "/pet/buy":
+                case "/task/reward":
+                case "/order/reward":
                     this.updateUserInfo(d.data);
                     break;
                 default:
@@ -1041,6 +1081,7 @@
             UserInfo$1.signInId = d.signInId;
             UserInfo$1.speedUpTimes = d.speedUpTimes;
             PetService$1.init(d.pets);
+            TaskService$1.init(d.tasks);
             LocalStorageService$1.setJSON("isLogin", true);
             if (d.token)
                 LocalStorageService$1.setJSON("token", d.token);
@@ -1053,6 +1094,7 @@
             WarehouseService$1.clear();
             PetService$1.clear();
             LandService$1.clear();
+            TaskService$1.clear();
             LocalStorageService$1.setJSON("isLogin", false);
             LocalStorageService$1.setJSON("token", null);
             UserInfo$1.uid = null;
@@ -1073,6 +1115,9 @@
             UserInfo$1.gold = d.gold;
             UserInfo$1.diamond = d.diamond;
             UserInfo$1.advertiseTimes = d.advertiseTimes || 0;
+        }
+        taskUpdate(id) {
+            TaskService$1.taskAddTimes(id);
         }
     }
     var HttpDataControl$1 = new HttpDataControl();
@@ -1101,6 +1146,7 @@
             this.xhr = xmlhttp;
         }
         send(data) {
+            var _a;
             if (!data.method)
                 data.method = "post";
             if (!data.responseType)
@@ -1127,6 +1173,10 @@
                 Object.keys(data.data).forEach((d) => {
                     sendData.push(`${d}=${data.data[d]}`);
                 });
+                if (((_a = data.data) === null || _a === void 0 ? void 0 : _a.type) == ConfigGame.ApiTypeAD) {
+                    TaskService$1.taskAddTimes(1001);
+                    TaskService$1.taskAddTimes(1012);
+                }
             }
             this.xhr.send(sendData.join("&"));
             return new Promise((resolve) => {
@@ -1654,6 +1704,7 @@
         onClick() {
             return __awaiter(this, void 0, void 0, function* () {
                 console.log(this.fieldId, this.buildIng);
+                Core.audio.playSound(Res.audios.button_click);
                 if (this.data) {
                     if (this.buildIng) {
                         if (TableAnalyze.table("landLevel").get(this.data.level + 1)) {
@@ -1670,8 +1721,9 @@
                         else {
                             console.log("满级");
                             this.topStateIconAni(false);
-                            Core.view.open(Res.views.HintView, {
-                                parm: { text: `已满级` },
+                            Core.view.openHint({
+                                text: `已满级`,
+                                call: () => { },
                             });
                         }
                         return;
@@ -1753,6 +1805,8 @@
             Laya.Tween.clearAll(this);
             (_a = this.topStateIconTween) === null || _a === void 0 ? void 0 : _a.destroy();
             (_b = this.plantIconTween) === null || _b === void 0 ? void 0 : _b.destroy();
+            this.topStateIconTween = null;
+            this.plantIconTween = null;
         }
     }
     __decorate([
@@ -1936,26 +1990,21 @@
                     Core.view.open(Res.views.ShopView);
                     break;
                 case "head":
-                    Core.audio.playSound(Res.audios.button_click);
                     Core.view.open(Res.views.SettingView);
                     break;
                 case "warehouse":
                     Core.view.open(Res.views.WarehouseView);
                     break;
                 case "buy_feed":
-                    Core.audio.playSound(Res.audios.button_click);
                     Core.view.open(Res.views.ShopView, { parm: { id: 2 } });
                     break;
                 case "dog":
-                    Core.audio.playSound(Res.audios.button_click);
                     Core.view.open(Res.views.ShopView, { parm: { id: 2 } });
                     break;
                 case "order_box":
-                    Core.audio.playSound(Res.audios.button_click);
                     Core.view.open(Res.views.OrderView);
                     break;
                 case "friends":
-                    Core.audio.playSound(Res.audios.button_click);
                     Core.view.open(Res.views.FriendsView);
                     break;
                 case "land":
@@ -1964,7 +2013,6 @@
                     this.switchLandLevelUp(true);
                     break;
                 case "close_up":
-                    Core.audio.playSound(Res.audios.button_click);
                     this.switchLandLevelUp(false);
                     break;
             }
@@ -2013,6 +2061,9 @@
                         orderId: UserInfo$1.orderLevel + 1,
                     },
                     call: () => {
+                        d.condition.forEach((e) => {
+                            WarehouseService$1.reduceAmount(e.plant.id, e.count);
+                        });
                         this.playGetRewardAni({
                             node: box.getChildByName("btn_box"),
                             list: [
@@ -2264,11 +2315,13 @@
                     Core.view.close(Res.views.SettingView);
                     break;
                 case "music":
+                    Core.audio.playSound(Res.audios.button_click);
                     Core.audio.musicMuted = !Core.audio.musicMuted;
                     LocalStorageService$1.setJSON("music", Core.audio.musicMuted);
                     this.musicChange();
                     break;
                 case "sound":
+                    Core.audio.playSound(Res.audios.button_click);
                     Core.audio.soundMuted = !Core.audio.soundMuted;
                     LocalStorageService$1.setJSON("sound", Core.audio.soundMuted);
                     this.soundChange();
@@ -2297,7 +2350,8 @@
         musicChange() {
             const box = this.musicNode.getChildByName("box");
             const icon = box.getChildByName("icon");
-            let music = LocalStorageService$1.getJSON().music;
+            let music = Core.audio.musicMuted;
+            console.log(music);
             icon.x = !music ? -14 : 91;
             icon.skin = !music ? `game/img_musicOnBtn.png` : "game/img_musicOffBtn.png";
             box.skin = !music ? `game/img_switchOn.png` : "game/img_swithOff.png";
@@ -2305,7 +2359,7 @@
         soundChange() {
             const box = this.soundNode.getChildByName("box");
             const icon = box.getChildByName("icon");
-            let sound = LocalStorageService$1.getJSON().sound;
+            let sound = Core.audio.soundMuted;
             icon.x = !sound ? -14 : 91;
             icon.skin = !sound ? `game/img_musicOnBtn.png` : "game/img_musicOffBtn.png";
             box.skin = !sound ? `game/img_switchOn.png` : "game/img_swithOff.png";
@@ -2856,20 +2910,52 @@
             this.taskList = null;
         }
         onOpened() {
-            this.taskList.array = TableAnalyze.table("task").list;
+            this.updateTaskList();
             this.taskList.renderHandler = new Laya.Handler(this, this.itemRender);
             this.taskList.vScrollBarSkin = null;
         }
+        updateTaskList() {
+            let list = TaskService$1.list;
+            list.sort((a, b) => {
+                let tA = TaskService$1.getTask(a.id), tB = TaskService$1.getTask(b.id);
+                return (a.id +
+                    ((tA === null || tA === void 0 ? void 0 : tA.receive) ? 1000 : 1) +
+                    ((tA === null || tA === void 0 ? void 0 : tA.times) >= a.times ? 100 : 1000) -
+                    (b.id + ((tB === null || tB === void 0 ? void 0 : tB.receive) ? 1000 : 1) + ((tB === null || tB === void 0 ? void 0 : tB.times) >= b.times ? 100 : 1000)));
+            });
+            this.taskList.array = list;
+        }
         itemRender(cell, i) {
-            let obj = TableAnalyze.table("task").list[i];
+            let obj = TaskService$1.list[i].base;
+            const task = TaskService$1.getTask(obj.id);
             cell.getChildByName("icon").skin = obj.icon;
             cell.getChildByName("title").text = obj.title;
-            cell.getChildByName("desc").text = obj.desc;
+            cell.getChildByName("desc").text = `${obj.desc}(${((task === null || task === void 0 ? void 0 : task.times) > obj.times ? obj.times : task === null || task === void 0 ? void 0 : task.times) || 0}/${obj.times})`;
             const rewardBox = cell.getChildByName("reward");
             rewardBox.getChildByName("icon").skin = obj.reward.obj.icon;
             rewardBox.getChildByName("amount").text = "x" + obj.reward.count;
             const btn = cell.getChildByName("go_run");
-            btn.dataSource = obj.id;
+            const btnObj = {
+                id: obj.id,
+                ok: false,
+            };
+            if (task === null || task === void 0 ? void 0 : task.receive) {
+                btn.skin = "game/img_tomarow.png";
+                btn.active = false;
+                btn.disabled = true;
+            }
+            else {
+                btn.active = true;
+                btn.disabled = false;
+                if ((task === null || task === void 0 ? void 0 : task.times) >= obj.times) {
+                    btn.skin = "game/img_get.png";
+                    btnObj.ok = true;
+                }
+                else {
+                    btn.skin = "game/img_done.png";
+                }
+            }
+            btn.dataSource = btnObj;
         }
         onClick(e) {
             switch (e.target.name) {
@@ -2877,7 +2963,35 @@
                     ViewManager.inst.close(Res.views.TaskView);
                     break;
                 case "go_run":
-                    this.jump(e.target["dataSource"]);
+                    let btnObj = e.target["dataSource"];
+                    if (btnObj.ok) {
+                        HttpControl.inst.send({
+                            api: "/task/reward",
+                            data: { type: ConfigGame.ApiTypeAD, taskId: btnObj.id },
+                            call: (d) => {
+                                const task = TaskService$1.getTask(btnObj.id);
+                                task.receive = 1;
+                                btnObj.ok = false;
+                                Laya.timer.frameOnce(1, this, () => {
+                                    this.updateTaskList();
+                                    this.taskList.refresh();
+                                });
+                                Core.eventGlobal.event("play_get_reward", {
+                                    node: e.target,
+                                    list: [
+                                        {
+                                            obj: task.base.reward.obj,
+                                            count: task.base.reward.count,
+                                            posType: 2,
+                                        },
+                                    ],
+                                });
+                            },
+                        });
+                    }
+                    else {
+                        this.jump(btnObj.id);
+                    }
                     break;
             }
         }
@@ -3161,7 +3275,7 @@
             if (GameConfig.stat)
                 Laya.Stat.show();
             Laya.alertGlobalError(true);
-            Laya.ResourceVersion.enable("version-2cefc5bb06.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
+            Laya.ResourceVersion.enable("version-a7885259c1.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
         }
         onVersionLoaded() {
             Laya.AtlasInfoManager.enable("fileconfig.json", Laya.Handler.create(this, this.onConfigLoaded));
