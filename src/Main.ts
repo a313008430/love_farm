@@ -98,6 +98,8 @@ class Main {
                 //     Laya.loader.clearTextureRes(e);
                 // });
 
+                Core.audio.playMusic(Res.audios.BGM, 0);
+
                 Laya.timer.frameOnce(1, this, () => {
                     Laya.View.hideLoadingPage(1000);
                     ViewManager.inst.open(GameConfig.startScene);

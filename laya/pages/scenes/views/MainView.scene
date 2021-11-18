@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":67,
-    "selecteID":68,
+    "selectedBox":243,
+    "selecteID":241,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -21,7 +21,7 @@
             "source":"src/view/MainView.ts",
             "searchKey":"Script,MainView",
             "removeAble":true,
-            "props":{"y":0,"x":0,"width":14,"warehouseBtn":"@node:99","topLayerOnStage":"@node:837","topGoldIcon":"@node:72","topDiamondIcon":"@node:78","testBtn":"@node:237","petBox":"@node:870","orderBox":"@node:80","landUpLayer":"@node:496","landBox":"@node:112","height":14,"goldNode":"@node:73","getRewardPrefab":"@Prefab:scenes/prefab/GetReward.prefab","floatRewardIcon":"@Prefab:scenes/prefab/FloatRewardIcon.prefab","diamondNode":"@node:79","center_box":"@node:96","centerBox":"@node:96","avatarNode":"@node:350","addLandLayer":"@node:316","addLandBg":"@node:332"},
+            "props":{"y":0,"x":0,"width":14,"warehouseBtn":"@node:99","topLayerOnStage":"@node:837","topGoldIcon":"@node:72","topDiamondIcon":"@node:78","testBtn":"@node:237","taskBox":"@node:244","petBox":"@node:870","orderBox":"@node:80","landUpLayer":"@node:496","landBox":"@node:112","height":14,"goldNode":"@node:73","getRewardPrefab":"@Prefab:scenes/prefab/GetReward.prefab","floatRewardIcon":"@Prefab:scenes/prefab/FloatRewardIcon.prefab","diamondNode":"@node:79","center_box":"@node:96","centerBox":"@node:96","avatarNode":"@node:350","addLandLayer":"@node:316","addLandBg":"@node:332"},
             "nodeParent":2,
             "label":"MainView",
             "isDirectory":false,
@@ -2122,13 +2122,14 @@
             "props":{"x":-13,"width":1162,"name":"bottom_box","height":289,"bottom":0},
             "nodeParent":2,
             "label":"bottom_box",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":243,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":123,"x":15,"skin":"main_scene/img_menuWoodBg.png"},
@@ -2142,6 +2143,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,task",
                     "props":{"y":167,"x":169,"skin":"main_scene/img_daytimeTask.png","name":"task","anchorY":0.5,"anchorX":0.5},
@@ -2171,6 +2173,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,signIn",
                     "props":{"y":167,"x":362,"skin":"main_scene/img_clock.png","name":"signIn","anchorY":0.5,"anchorX":0.5},
@@ -2200,6 +2203,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,friends",
                     "props":{"y":141,"x":554,"skin":"main_scene/img_friend.png","name":"friends","anchorY":0.5,"anchorX":0.5},
@@ -2229,6 +2233,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,mail",
                     "props":{"y":167,"x":747,"skin":"main_scene/img_emailMenu.png","name":"mail","anchorY":0.5,"anchorX":0.5},
@@ -2258,11 +2263,12 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
-                    "searchKey":"Image,setting",
-                    "props":{"y":167,"x":939,"skin":"main_scene/img_hangOut.png","name":"setting","anchorY":0.5,"anchorX":0.5},
+                    "searchKey":"Image,any_door",
+                    "props":{"y":167,"x":939,"skin":"main_scene/img_hangOut.png","name":"any_door","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":243,
-                    "label":"setting",
+                    "label":"any_door",
                     "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
@@ -2287,18 +2293,20 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,msg_box",
                     "props":{"y":-44,"x":-10,"width":689,"skin":"main_scene/img_taskBg2.png","name":"msg_box","height":86},
                     "nodeParent":243,
                     "label":"msg_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":244,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,icon",
                             "props":{"y":34,"skin":"main_scene/img_coinBtn.png","right":-24,"name":"icon","anchorY":0.5,"anchorX":0.5},
@@ -2311,11 +2319,12 @@
                             "compId":274,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"FontClip",
-                                    "searchKey":"FontClip",
-                                    "props":{"y":73,"x":37,"value":"x100","spaceX":-8,"skin":"main_scene/fontClip_coinBtnNumber.png","sheet":"0123456789x","anchorY":0.5,"anchorX":0.5,"align":"center"},
+                                    "searchKey":"FontClip,amountFont",
+                                    "props":{"y":73,"x":37,"value":"x100","spaceX":-8,"skin":"main_scene/fontClip_coinBtnNumber.png","sheet":"0123456789x","name":"amountFont","anchorY":0.5,"anchorX":0.5,"align":"center"},
                                     "nodeParent":274,
-                                    "label":"FontClip",
+                                    "label":"amountFont",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
@@ -2325,6 +2334,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,lb",
                             "props":{"y":24,"x":33,"text":"任务：辣椒(3/10) 胡萝卜(10/10)","name":"lb","fontSize":38,"font":"Microsoft YaHei","color":"#906344","bold":true},

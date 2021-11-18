@@ -8,6 +8,9 @@ export default class AudioControl {
     ) {
         Laya.SoundManager.playSound(url, loops, complete, soundClass, startTime);
     }
+    playMusic(url: string, loops?: number, complete?: Handler, startTime?: number) {
+        Laya.SoundManager.playMusic(url, loops, complete, startTime);
+    }
 
     /** 所有音效（不包括背景音乐）是否静音。 */
     set soundMuted(state) {

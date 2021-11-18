@@ -7,7 +7,8 @@ import TableAnalyze from "src/common/TableAnalyze";
 import { RewardCurrencyBase } from "src/common/TableObject";
 import FieldComponent from "src/components/FieldComponent";
 import Core from "src/core/index";
-import LandService from "src/dataService/LandService";
+import LandService, { LandObj } from "src/dataService/LandService";
+import TaskService from "src/dataService/TaskService";
 import WarehouseService from "src/dataService/WarehouseService";
 import Res from "../common/Res";
 import UserInfo from "../dataService/UserInfo";
@@ -75,8 +76,17 @@ export default class MainView extends Core.gameScript {
     /** @prop {name:petBox, tips:"宠物容器", type:Node}*/
     private petBox: Laya.Box = null;
 
+    //任务
+    /** @prop {name:taskBox, tips:"任务容器", type:Node}*/
+    private taskBox: Laya.Image = null;
+
     /** 土地组件 列表 */
     private landList: FieldComponent[] = [];
+
+    /**是否在外面 */
+    private isOuter: boolean = false;
+    /** 离开家的时间 */
+    private outerTime: number;
 
     onOpened() {
         [
@@ -103,13 +113,6 @@ export default class MainView extends Core.gameScript {
     }
 
     onHdAwake() {
-        // Res.scenes.forEach((e) => {
-        //     if (e.endsWith("png")) {
-        //         // Laya.loader.clearTextureRes(e);
-        //         // console.log(e);
-        //     }
-        // });
-
         Laya.stage.addChild(this.topLayerOnStage);
 
         this.landUpLayer.visible = false;
@@ -186,6 +189,7 @@ export default class MainView extends Core.gameScript {
 
         this.addLandLayer.visible = false;
         this.updateOrder();
+        this.updateTask();
     }
 
     /**
@@ -248,7 +252,7 @@ export default class MainView extends Core.gameScript {
             case "land":
                 break;
             case "landLevelUp":
-                this.switchLandLevelUp(true);
+                if (!this.isOuter) this.switchLandLevelUp(true);
 
                 // this.playGetRewardAni({
                 //     node: this.testBtn as any,
@@ -261,6 +265,10 @@ export default class MainView extends Core.gameScript {
                 break;
             case "close_up":
                 this.switchLandLevelUp(false);
+                break;
+
+            case "any_door":
+                this.goFriend();
                 break;
         }
     }
@@ -533,5 +541,72 @@ export default class MainView extends Core.gameScript {
                 true
             );
         });
+    }
+
+    @Core.eventOn(EventMaps.update_task)
+    private updateTask() {
+        const box: Laya.Image = this.taskBox,
+            icon = box.getChildByName("icon") as Laya.Image,
+            amountFont = icon.getChildByName("amountFont") as Laya.FontClip,
+            desc = box.getChildByName("lb") as Laya.Label,
+            list = TaskService.getList(),
+            task = list[0];
+        if (task.receive == 1) {
+            box.visible = false;
+            return;
+        }
+        box.visible = true;
+        desc.text = `任务:${task.base.desc}(${
+            task.times > task.base.times ? task.base.times : task.times
+        }/${task.base.times})`;
+        amountFont.value = "x" + task.base.reward.count;
+        icon.skin = task.base.reward.obj.icon;
+        box.width = desc.width + 100;
+    }
+
+    /**
+     * 去朋友家
+     */
+    private goFriend() {
+        let lands = this.landList,
+            userLands = LandService.list;
+        let test: Map<number, LandObj> = new Map();
+        test.set(1, { productId: 1002, id: 1, matureTimeLeft: 0, level: 2 });
+        test.set(5, { productId: 1005, id: 1, matureTimeLeft: 999, level: 4 });
+
+        if (this.isOuter) {
+            //回来
+            this.isOuter = false;
+            userLands.forEach((d) => {
+                d.matureTimeLeft -= (Date.now() - this.outerTime) / 1000;
+            });
+        } else {
+            //离开
+            this.isOuter = true;
+            this.outerTime = Date.now();
+        }
+
+        for (let x = 0; x < lands.length; x++) {
+            const land = lands[x];
+            if (this.isOuter) {
+                land.isOuter = true;
+                land.updateData({ list: test });
+            } else {
+                land.isOuter = false;
+                land.updateData({ list: userLands });
+            }
+        }
+
+        if (this.isOuter) {
+            //隐藏宠物
+            this.petBox.visible = false;
+            //隐藏任务
+            this.taskBox.visible = false;
+        } else {
+            //隐藏宠物
+            this.petBox.visible = true;
+            //隐藏任务
+            this.taskBox.visible = true;
+        }
     }
 }

@@ -1,5 +1,7 @@
+import { EventMaps } from "src/common/EventMaps";
 import TableAnalyze from "src/common/TableAnalyze";
 import { TaskBase } from "src/common/TableObject";
+import Core from "src/core/index";
 
 export interface TaskDataObj {
     /** 任务id */
@@ -43,6 +45,24 @@ class TaskService {
     }
 
     /**
+     * 获取任务列表
+     * @returns
+     */
+    getList() {
+        return this.list.sort((a, b) => {
+            let tA = this.getTask(a.id),
+                tB = this.getTask(b.id);
+
+            return (
+                a.id +
+                (tA?.receive ? 1000 : 1) +
+                (tA?.times >= a.times ? 100 : 1000) -
+                (b.id + (tB?.receive ? 1000 : 1) + (tB?.times >= b.times ? 100 : 1000))
+            );
+        });
+    }
+
+    /**
      * 任务添加次数
      */
     taskAddTimes(id: number) {
@@ -55,6 +75,7 @@ class TaskService {
             return;
         }
         task.times++;
+        Core.eventGlobal.event(EventMaps.update_task);
     }
 
     clear() {

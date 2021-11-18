@@ -40,6 +40,7 @@
     EventMaps2["land_speed_up"] = "land_speed_up";
     EventMaps2["login_game"] = "login_game";
     EventMaps2["login_out"] = "login_out";
+    EventMaps2["update_task"] = "update_task";
     EventMaps2["play_get_reward"] = "play_get_reward";
   })(EventMaps || (EventMaps = {}));
 
@@ -65,7 +66,13 @@
   })(views || (views = {}));
   var audios;
   (function(audios2) {
+    audios2["zhongzhi"] = "res/audio/zhongzhi.mp3";
+    audios2["tudishengji"] = "res/audio/tudishengji.mp3";
+    audios2["shoucai"] = "res/audio/shoucai.mp3";
+    audios2["goujiaosheng"] = "res/audio/goujiaosheng.mp3";
+    audios2["dakaicangku"] = "res/audio/dakaicangku.mp3";
     audios2["button_click"] = "res/audio/button_click.mp3";
+    audios2["BGM"] = "res/audio/BGM.mp3";
   })(audios || (audios = {}));
   var scenes = [
     "scenes/views/WarehouseView.scene",
@@ -103,7 +110,13 @@
     "res/img_farmlandLogo.png",
     "res/shader/vs.vs",
     "res/shader/ps.fs",
+    "res/audio/zhongzhi.mp3",
+    "res/audio/tudishengji.mp3",
+    "res/audio/shoucai.mp3",
+    "res/audio/goujiaosheng.mp3",
+    "res/audio/dakaicangku.mp3",
     "res/audio/button_click.mp3",
+    "res/audio/BGM.mp3",
     "res/atlas/plant_icon.png",
     "res/atlas/plant_icon.atlas",
     "res/atlas/pet_feed.png",
@@ -447,6 +460,9 @@
     playSound(url, loops, complete, soundClass, startTime) {
       Laya.SoundManager.playSound(url, loops, complete, soundClass, startTime);
     }
+    playMusic(url, loops, complete, startTime) {
+      Laya.SoundManager.playMusic(url, loops, complete, startTime);
+    }
     set soundMuted(state) {
       Laya.SoundManager.soundMuted = state;
     }
@@ -730,12 +746,19 @@
       }
       return null;
     }
+    getList() {
+      return this.list.sort((a, b) => {
+        let tA = this.getTask(a.id), tB = this.getTask(b.id);
+        return a.id + ((tA == null ? void 0 : tA.receive) ? 1e3 : 1) + ((tA == null ? void 0 : tA.times) >= a.times ? 100 : 1e3) - (b.id + ((tB == null ? void 0 : tB.receive) ? 1e3 : 1) + ((tB == null ? void 0 : tB.times) >= b.times ? 100 : 1e3));
+      });
+    }
     taskAddTimes(id) {
       let task = this.getTask(id);
       if (!task) {
         return;
       }
       task.times++;
+      core_default.eventGlobal.event(EventMaps.update_task);
     }
     clear() {
       this.list.length = 0;
@@ -1471,6 +1494,7 @@
       this.unlockIcon = "";
       this.fieldId = null;
       this.buildIng = false;
+      this.isOuter = false;
     }
     onHdAwake() {
       this.fieldNode = this.owner;
@@ -1485,18 +1509,26 @@
       this.topStateIcon.visible = false;
       this.lvNode.visible = false;
     }
-    updateData() {
-      this.landList = LandService_default.list;
+    updateData(data) {
+      if (data == null ? void 0 : data.list) {
+        this.landList = data.list;
+      } else {
+        this.landList = LandService_default.list;
+      }
       this.data = this.landList.get(this.fieldId);
       this.renderData();
     }
     renderData() {
+      var _a, _b;
       if (this.data) {
-        this.showIcon(true);
+        this.showShadowIcon(false);
+        this.topStateIconAni(false);
+        this.topStateIcon.visible = false;
         this.fieldNode.skin = this.fieldEmptyRes;
         this.showIcon(Boolean(this.data.productId));
         this.lvNode.visible = true;
         this.updateLevel();
+        this.timeBox.visible = false;
         if (this.data.productId) {
           this.plantIconAni(true);
         }
@@ -1508,7 +1540,12 @@
           this.updateCountDown();
           this.topStateIcon.visible = true;
           this.topStateIconAni(true);
-          this.setStateIconSkin(1);
+          if (this.isOuter) {
+            this.topStateIcon.visible = false;
+          } else {
+            this.setStateIconSkin(1);
+            this.plantIconAni(true);
+          }
         } else {
           if (this.data.productId) {
             this.topStateIcon.visible = true;
@@ -1518,8 +1555,20 @@
           }
         }
       } else {
+        this.lvNode.visible = false;
+        this.fieldNode.skin = `main_scene/img_wasteland.png`;
         this.icon.skin = this.unlockIcon;
         this.showIcon(false);
+        this.topStateIconAni(false);
+        this.topStateIcon.visible = false;
+        this.showTimeBox(false);
+        this.showShadowIcon(false);
+        Laya.timer.clearAll(this);
+        Laya.Tween.clearAll(this);
+        (_a = this.topStateIconTween) == null ? void 0 : _a.destroy();
+        this.topStateIconTween = null;
+        (_b = this.plantIconTween) == null ? void 0 : _b.destroy();
+        this.plantIconTween = null;
       }
     }
     showIcon(show) {
@@ -1539,6 +1588,7 @@
       }
     }
     topStateIconAni(play) {
+      this.topStateIcon.y = -107;
       if (!this.topStateIconTween) {
         this.topStateIconTween = Laya.TimeLine.to(this.topStateIcon, { y: this.topStateIcon.y - 50 }, 800, null).to(this.topStateIcon, { y: this.topStateIcon.y }, 800);
       }
@@ -1557,6 +1607,7 @@
       this.shadow.active = show;
     }
     plantIconAni(play) {
+      this.icon.skewX = 0;
       if (!this.plantIconTween) {
         this.plantIconTween = Laya.TimeLine.to(this.icon, { skewX: 6 }, 900).to(this.icon, { skewX: -6 }, 1800).to(this.icon, { skewX: 0 }, 900);
       }
@@ -1608,6 +1659,10 @@
       return __async(this, null, function* () {
         console.log(this.fieldId, this.buildIng);
         core_default.audio.playSound(Res_default.audios.button_click);
+        if (this.isOuter) {
+          console.log("\u5916\u51FA");
+          return;
+        }
         if (this.data) {
           if (this.buildIng) {
             if (TableAnalyze_default.table("landLevel").get(this.data.level + 1)) {
@@ -1617,6 +1672,7 @@
                   call: () => {
                     this.data.level++;
                     this.updateLevel();
+                    core_default.audio.playSound(Res_default.audios.tudishengji);
                   }
                 }
               });
@@ -1648,6 +1704,7 @@
                 call: (d) => {
                   plantAmount = d.amount;
                   WarehouseService_default.add(this.data.productId, d.amount);
+                  core_default.audio.playSound(Res_default.audios.shoucai);
                 }
               });
               let plantObj = TableAnalyze_default.table("plant").get(this.data.productId), rewardList = [
@@ -1677,6 +1734,7 @@
                 this.landList.get(this.fieldId).matureTimeLeft = d.base.mature_time;
                 this.data = this.landList.get(this.fieldId);
                 this.renderData();
+                core_default.audio.playSound(Res_default.audios.zhongzhi);
               }
             }
           });
@@ -1755,7 +1813,9 @@
       this.floatRewardIcon = null;
       this.testBtn = null;
       this.petBox = null;
+      this.taskBox = null;
       this.landList = [];
+      this.isOuter = false;
     }
     onOpened() {
       [
@@ -1834,6 +1894,7 @@
       });
       this.addLandLayer.visible = false;
       this.updateOrder();
+      this.updateTask();
     }
     digestCountDown() {
       if (!UserInfo_default.warePetId)
@@ -1888,10 +1949,14 @@
         case "land":
           break;
         case "landLevelUp":
-          this.switchLandLevelUp(true);
+          if (!this.isOuter)
+            this.switchLandLevelUp(true);
           break;
         case "close_up":
           this.switchLandLevelUp(false);
+          break;
+        case "any_door":
+          this.goFriend();
           break;
       }
     }
@@ -2067,6 +2132,50 @@
         }, [node]), 50 * i, null, true);
       });
     }
+    updateTask() {
+      const box = this.taskBox, icon = box.getChildByName("icon"), amountFont = icon.getChildByName("amountFont"), desc = box.getChildByName("lb"), list = TaskService_default.getList(), task = list[0];
+      if (task.receive == 1) {
+        box.visible = false;
+        return;
+      }
+      box.visible = true;
+      desc.text = `\u4EFB\u52A1:${task.base.desc}(${task.times > task.base.times ? task.base.times : task.times}/${task.base.times})`;
+      amountFont.value = "x" + task.base.reward.count;
+      icon.skin = task.base.reward.obj.icon;
+      box.width = desc.width + 100;
+    }
+    goFriend() {
+      let lands = this.landList, userLands = LandService_default.list;
+      let test = new Map();
+      test.set(1, { productId: 1002, id: 1, matureTimeLeft: 0, level: 2 });
+      test.set(5, { productId: 1005, id: 1, matureTimeLeft: 999, level: 4 });
+      if (this.isOuter) {
+        this.isOuter = false;
+        userLands.forEach((d) => {
+          d.matureTimeLeft -= (Date.now() - this.outerTime) / 1e3;
+        });
+      } else {
+        this.isOuter = true;
+        this.outerTime = Date.now();
+      }
+      for (let x = 0; x < lands.length; x++) {
+        const land = lands[x];
+        if (this.isOuter) {
+          land.isOuter = true;
+          land.updateData({ list: test });
+        } else {
+          land.isOuter = false;
+          land.updateData({ list: userLands });
+        }
+      }
+      if (this.isOuter) {
+        this.petBox.visible = false;
+        this.taskBox.visible = false;
+      } else {
+        this.petBox.visible = true;
+        this.taskBox.visible = true;
+      }
+    }
   };
   __decorateClass([
     core_default.eventOn(ApiHttp.login)
@@ -2077,6 +2186,9 @@
   __decorateClass([
     core_default.eventOn(EventMaps.play_get_reward)
   ], MainView.prototype, "playGetRewardAni", 1);
+  __decorateClass([
+    core_default.eventOn(EventMaps.update_task)
+  ], MainView.prototype, "updateTask", 1);
 
   // src/view/OrderView.ts
   var OrderView = class extends core_default.gameScript {
@@ -2764,12 +2876,7 @@
       this.taskList.vScrollBarSkin = null;
     }
     updateTaskList() {
-      let list = TaskService_default.list;
-      list.sort((a, b) => {
-        let tA = TaskService_default.getTask(a.id), tB = TaskService_default.getTask(b.id);
-        return a.id + ((tA == null ? void 0 : tA.receive) ? 1e3 : 1) + ((tA == null ? void 0 : tA.times) >= a.times ? 100 : 1e3) - (b.id + ((tB == null ? void 0 : tB.receive) ? 1e3 : 1) + ((tB == null ? void 0 : tB.times) >= b.times ? 100 : 1e3));
-      });
-      this.taskList.array = list;
+      this.taskList.array = TaskService_default.getList();
     }
     itemRender(cell, i) {
       let obj = TaskService_default.list[i].base;
@@ -2819,6 +2926,7 @@
                 Laya.timer.frameOnce(1, this, () => {
                   this.updateTaskList();
                   this.taskList.refresh();
+                  core_default.eventGlobal.event(EventMaps.update_task);
                 });
                 core_default.eventGlobal.event(EventMaps.play_get_reward, {
                   node: e.target,
@@ -2889,6 +2997,9 @@
       this.selectItemSellCount = 0;
       this.unitPriceGold = 0;
       this.unitPriceDiamond = 0;
+    }
+    onOpened() {
+      core_default.audio.playSound(Res_default.audios.dakaicangku);
     }
     onHdAwake() {
       this.itemList.renderHandler = new Laya.Handler(this, this.renderItemList);
@@ -3141,6 +3252,7 @@
     loginGame() {
       Laya.loader.load(Res_default.scenes, Laya.Handler.create(this, () => {
         console.log("ok");
+        core_default.audio.playMusic(Res_default.audios.BGM, 0);
         Laya.timer.frameOnce(1, this, () => {
           Laya.View.hideLoadingPage(1e3);
           ViewManager.inst.open(GameConfig.startScene);

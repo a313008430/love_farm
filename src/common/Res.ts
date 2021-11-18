@@ -41,8 +41,20 @@
 
  export enum audios 
     {
+        /** audio/zhongzhi.mp3 */
+        zhongzhi = "res/audio/zhongzhi.mp3", 
+        /** audio/tudishengji.mp3 */
+        tudishengji = "res/audio/tudishengji.mp3", 
+        /** audio/shoucai.mp3 */
+        shoucai = "res/audio/shoucai.mp3", 
+        /** audio/goujiaosheng.mp3 */
+        goujiaosheng = "res/audio/goujiaosheng.mp3", 
+        /** audio/dakaicangku.mp3 */
+        dakaicangku = "res/audio/dakaicangku.mp3", 
         /** audio/button_click.mp3 */
         button_click = "res/audio/button_click.mp3", 
+        /** audio/BGM.mp3 */
+        BGM = "res/audio/BGM.mp3", 
     }
 
 /**
@@ -84,7 +96,13 @@
             "res/img_farmlandLogo.png",
             "res/shader/vs.vs",
             "res/shader/ps.fs",
+            "res/audio/zhongzhi.mp3",
+            "res/audio/tudishengji.mp3",
+            "res/audio/shoucai.mp3",
+            "res/audio/goujiaosheng.mp3",
+            "res/audio/dakaicangku.mp3",
             "res/audio/button_click.mp3",
+            "res/audio/BGM.mp3",
             "res/atlas/plant_icon.png",
             "res/atlas/plant_icon.atlas",
             "res/atlas/pet_feed.png",

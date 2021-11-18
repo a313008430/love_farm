@@ -32,19 +32,7 @@ export default class TaskView extends GameScript {
     }
 
     updateTaskList() {
-        let list = TaskService.list;
-        list.sort((a, b) => {
-            let tA = TaskService.getTask(a.id),
-                tB = TaskService.getTask(b.id);
-
-            return (
-                a.id +
-                (tA?.receive ? 1000 : 1) +
-                (tA?.times >= a.times ? 100 : 1000) -
-                (b.id + (tB?.receive ? 1000 : 1) + (tB?.times >= b.times ? 100 : 1000))
-            );
-        });
-        this.taskList.array = list;
+        this.taskList.array = TaskService.getList();
     }
 
     private itemRender(cell: Laya.Box, i: number) {
@@ -97,6 +85,7 @@ export default class TaskView extends GameScript {
                 let btnObj: ButtonObj = e.target["dataSource"];
 
                 if (btnObj.ok) {
+                    //获取奖励
                     HttpControl.inst.send({
                         api: ApiHttp.taskReward,
                         data: { type: ConfigGame.ApiTypeAD, taskId: btnObj.id },
@@ -108,6 +97,7 @@ export default class TaskView extends GameScript {
                             Laya.timer.frameOnce(1, this, () => {
                                 this.updateTaskList();
                                 this.taskList.refresh();
+                                Core.eventGlobal.event(EventMaps.update_task);
                             });
                             Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
                                 node: e.target,

@@ -1,7 +1,7 @@
 {
   "fileconfig.json": "fileconfig-44193d1ccc.json",
-  "index.js": "index-2d80775144.js",
-  "js/bundle.js": "js/bundle-9081ab1b64.js",
+  "index.js": "index-a73257f7a0.js",
+  "js/bundle.js": "js/bundle-29dce47461.js",
   "js/ps-N3BPHYGU.fs": "js/ps-N3BPHYGU-319562bd17.fs",
   "libs/min/laya.ani.min.js": "libs/min/laya-a72326a604.ani.min.js",
   "libs/min/laya.core.min.js": "libs/min/laya-4fc7637454.core.min.js",
@@ -18,7 +18,13 @@
   "res/atlas/pet_feed.png": "res/atlas/pet_feed-493a1a324f.png",
   "res/atlas/plant_icon.atlas": "res/atlas/plant_icon-8509ad5c7e.atlas",
   "res/atlas/plant_icon.png": "res/atlas/plant_icon-09882ac0f7.png",
+  "res/audio/BGM.mp3": "res/audio/BGM-d34796cb9f.mp3",
   "res/audio/button_click.mp3": "res/audio/button_click-be2c8bdc2c.mp3",
+  "res/audio/dakaicangku.mp3": "res/audio/dakaicangku-c8bb5b1643.mp3",
+  "res/audio/goujiaosheng.mp3": "res/audio/goujiaosheng-d02a5ebc08.mp3",
+  "res/audio/shoucai.mp3": "res/audio/shoucai-441f496b70.mp3",
+  "res/audio/tudishengji.mp3": "res/audio/tudishengji-441f496b70.mp3",
+  "res/audio/zhongzhi.mp3": "res/audio/zhongzhi-441f496b70.mp3",
   "res/img_farmlandLogo.png": "res/img_farmlandLogo-0f976331c9.png",
   "res/img_homepageBg1.png": "res/img_homepageBg1-f22da6771f.png",
   "res/img_homepageBg2.png": "res/img_homepageBg2-201c1c06d8.png",
@@ -47,7 +53,7 @@
   "scenes/views/HintView.json": "scenes/views/HintView-3117c62c9e.json",
   "scenes/views/LoginView.json": "scenes/views/LoginView-f253357470.json",
   "scenes/views/MailView.json": "scenes/views/MailView-9a4860209e.json",
-  "scenes/views/MainView.json": "scenes/views/MainView-4e210cc427.json",
+  "scenes/views/MainView.json": "scenes/views/MainView-68046516bf.json",
   "scenes/views/OrderView.json": "scenes/views/OrderView-d76d4889ff.json",
   "scenes/views/SettingView.json": "scenes/views/SettingView-42e00a1403.json",
   "scenes/views/ShopView.json": "scenes/views/ShopView-cb1a3394f9.json",
@@ -56,5 +62,5 @@
   "scenes/views/TaskView.json": "scenes/views/TaskView-848c330910.json",
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-d8dc1594ce.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-19b23f6d31.json"
+  "version.json": "version-72c975db06.json"
 }

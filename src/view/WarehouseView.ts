@@ -49,6 +49,10 @@ export default class WarehouseView extends Core.gameScript {
     /** 单价 钻石 */
     private unitPriceDiamond: number = 0;
 
+    onOpened() {
+        Core.audio.playSound(Res.audios.dakaicangku);
+    }
+
     onHdAwake() {
         this.itemList.renderHandler = new Laya.Handler(this, this.renderItemList);
         this.itemList.vScrollBarSkin = null;

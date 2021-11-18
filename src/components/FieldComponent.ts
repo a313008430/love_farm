@@ -57,6 +57,8 @@ export default class FieldComponent extends Core.gameScript {
 
     /** 建筑中 */
     buildIng: boolean = false;
+    /** 是否在外面 */
+    isOuter: boolean = false;
     /** 土地数据 */
     data: LandObj;
 
@@ -81,8 +83,13 @@ export default class FieldComponent extends Core.gameScript {
      * 土地升级
      */
     @Core.eventOn(EventMaps.update_field)
-    updateData() {
-        this.landList = LandService.list;
+    updateData(data?: { list: Map<number, LandObj> }) {
+        if (data?.list) {
+            this.landList = data.list;
+        } else {
+            this.landList = LandService.list;
+        }
+
         this.data = this.landList.get(this.fieldId);
 
         this.renderData();
@@ -90,11 +97,15 @@ export default class FieldComponent extends Core.gameScript {
 
     private renderData() {
         if (this.data) {
-            this.showIcon(true);
+            this.showShadowIcon(false);
+            this.topStateIconAni(false);
+            this.topStateIcon.visible = false;
+
             this.fieldNode.skin = this.fieldEmptyRes;
             this.showIcon(Boolean(this.data.productId));
             this.lvNode.visible = true;
             this.updateLevel();
+            this.timeBox.visible = false;
 
             if (this.data.productId) {
                 this.plantIconAni(true);
@@ -112,7 +123,12 @@ export default class FieldComponent extends Core.gameScript {
 
                 this.topStateIcon.visible = true;
                 this.topStateIconAni(true);
-                this.setStateIconSkin(1);
+                if (this.isOuter) {
+                    this.topStateIcon.visible = false;
+                } else {
+                    this.setStateIconSkin(1);
+                    this.plantIconAni(true);
+                }
             } else {
                 if (this.data.productId) {
                     this.topStateIcon.visible = true;
@@ -122,8 +138,21 @@ export default class FieldComponent extends Core.gameScript {
                 }
             }
         } else {
+            this.lvNode.visible = false;
+            this.fieldNode.skin = `main_scene/img_wasteland.png`;
             this.icon.skin = this.unlockIcon;
             this.showIcon(false);
+            this.topStateIconAni(false);
+            this.topStateIcon.visible = false;
+            this.showTimeBox(false);
+            this.showShadowIcon(false);
+
+            Laya.timer.clearAll(this);
+            Laya.Tween.clearAll(this);
+            this.topStateIconTween?.destroy();
+            this.topStateIconTween = null;
+            this.plantIconTween?.destroy();
+            this.plantIconTween = null;
         }
     }
 
@@ -157,6 +186,7 @@ export default class FieldComponent extends Core.gameScript {
      * 顶部icon动画
      */
     topStateIconAni(play: boolean) {
+        this.topStateIcon.y = -107;
         if (!this.topStateIconTween) {
             this.topStateIconTween = Laya.TimeLine.to(
                 this.topStateIcon,
@@ -197,6 +227,7 @@ export default class FieldComponent extends Core.gameScript {
      * @param play
      */
     private plantIconAni(play: boolean) {
+        this.icon.skewX = 0;
         if (!this.plantIconTween) {
             this.plantIconTween = Laya.TimeLine.to(this.icon, { skewX: 6 }, 900)
                 .to(this.icon, { skewX: -6 }, 1800)
@@ -267,6 +298,12 @@ export default class FieldComponent extends Core.gameScript {
     async onClick() {
         console.log(this.fieldId, this.buildIng);
         Core.audio.playSound(Res.audios.button_click);
+
+        if (this.isOuter) {
+            console.log("外出");
+            return;
+        }
+
         if (this.data) {
             //土地升级事件
             if (this.buildIng) {
@@ -277,6 +314,7 @@ export default class FieldComponent extends Core.gameScript {
                             call: () => {
                                 this.data.level++;
                                 this.updateLevel();
+                                Core.audio.playSound(Res.audios.tudishengji);
                             },
                         },
                     });
@@ -315,6 +353,7 @@ export default class FieldComponent extends Core.gameScript {
                         }) => {
                             plantAmount = d.amount;
                             WarehouseService.add(this.data.productId, d.amount);
+                            Core.audio.playSound(Res.audios.shoucai);
                         },
                     });
 
@@ -372,6 +411,7 @@ export default class FieldComponent extends Core.gameScript {
 
                         this.data = this.landList.get(this.fieldId);
                         this.renderData();
+                        Core.audio.playSound(Res.audios.zhongzhi);
                     },
                 },
             });
