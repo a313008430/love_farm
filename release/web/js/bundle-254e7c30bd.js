@@ -1044,6 +1044,7 @@
                 case "/land/unlock":
                 case "/pet/buy":
                 case "/task/reward":
+                case "/land/upgrade":
                 case "/order/reward":
                     this.updateUserInfo(d.data);
                     break;
@@ -3275,7 +3276,7 @@
             if (GameConfig.stat)
                 Laya.Stat.show();
             Laya.alertGlobalError(true);
-            Laya.ResourceVersion.enable("version-29be3e4be2.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
+            Laya.ResourceVersion.enable("version-2b1a4ecf33.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
         }
         onVersionLoaded() {
             Laya.AtlasInfoManager.enable("fileconfig.json", Laya.Handler.create(this, this.onConfigLoaded));

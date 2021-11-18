@@ -1044,6 +1044,7 @@
                 case "/land/unlock":
                 case "/pet/buy":
                 case "/task/reward":
+                case "/land/upgrade":
                 case "/order/reward":
                     this.updateUserInfo(d.data);
                     break;

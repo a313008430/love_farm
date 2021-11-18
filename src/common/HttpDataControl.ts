@@ -56,6 +56,7 @@ class HttpDataControl {
             case ApiHttp.petBuy:
 
             case ApiHttp.taskReward:
+            case ApiHttp.landUpgrade:
 
             case ApiHttp.orderReward:
                 this.updateUserInfo(d.data);
