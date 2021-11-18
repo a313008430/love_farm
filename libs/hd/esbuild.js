@@ -5,40 +5,55 @@ const { performance } = require("perf_hooks");
 /**
  * 编译ts=>bundle.js
  */
-
 // let rebuild;
 function EsBuildTs() {
     // if (rebuild) {
     //     return rebuild.rebuild();
     // }
-    esbuild
-        .build({
+
+    if (process.argv.includes("debug")) {
+        esbuild
+            .build({
+                entryPoints: ["src/Main.ts"],
+                outfile: "bin/js/bundle.js",
+                bundle: true,
+                sourcemap: "inline",
+                incremental: true,
+                define: { DEBUG: process.argv.includes("debug") },
+                // watch: true,
+                watch: {
+                    onRebuild(e, s) {
+                        if (e) {
+                            return console.error(e);
+                        }
+                        console.log("rebuild~~~ " + new Date().toTimeString().slice(0, 8));
+                    },
+                },
+                loader: { ".fs": "text", ".vs": "text", ".glsl": "text" },
+            })
+            .then((result) => {
+                // rebuild = result;
+                // result.rebuild
+                // console.log(result);
+                // Call "stop" on the result when you're done
+                // result.stop();
+            });
+    } else {
+        console.log("start build ts");
+        return esbuild.build({
             entryPoints: ["src/Main.ts"],
             outfile: "bin/js/bundle.js",
             bundle: true,
-            sourcemap: "inline",
+            // sourcemap: "inline",
             incremental: true,
-            // watch: true,
-            watch: {
-                onRebuild(e, s) {
-                    if (e) {
-                        return console.error(e);
-                    }
-                    console.log("rebuild~~~ " + new Date().toTimeString().slice(0, 8));
-                },
-            },
+            define: { DEBUG: process.argv.includes("debug") },
             loader: { ".fs": "text", ".vs": "text", ".glsl": "text" },
-        })
-        .then((result) => {
-            // rebuild = result;
-            // result.rebuild
-            // console.log(result);
-            // Call "stop" on the result when you're done
-            // result.stop();
         });
+    }
 }
-
-console.info("\x1b[33m", "ts watching.....");
+if (process.argv.includes("debug")) {
+    console.info("\x1b[33m", "ts watching.....");
+}
 
 /**
  * 监听src目录变化

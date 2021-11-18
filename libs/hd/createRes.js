@@ -21,13 +21,16 @@ let resWatch = chokidar.watch(["laya/pages/**/*.scene", "bin/res/**/*"], {
         pollInterval: 3000,
     },
 });
-resWatch.once("ready", (eventName) => {
-    resWatch.on("all", (eventName) => {
-        CreateResTS();
-    });
 
-    console.info("\x1b[33m", "res,laya/pages watching.....");
-});
+if (process.argv.includes("debug")) {
+    resWatch.once("ready", (eventName) => {
+        resWatch.on("all", (eventName) => {
+            CreateResTS();
+        });
+
+        console.info("\x1b[33m", "res,laya/pages watching.....");
+    });
+}
 
 let resMaps = [];
 let audios = [];
@@ -90,6 +93,10 @@ export default Res;
             return;
         }
         console.info("\x1b[33m", "更新生成 Res.ts");
+        if (!process.argv.includes("debug")) {
+            console.log("结束构建");
+            process.kill(process.pid);
+        }
     });
 }
 
