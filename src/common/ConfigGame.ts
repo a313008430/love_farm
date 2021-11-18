@@ -11,7 +11,7 @@ export default {
     /** 游戏本地储存key */
     localKey: "love_HD_farm",
     /** 协议地址 */
-    // baseUrl: "//47.108.192.181:8092/farm",
+    // baseUrl: "//47.108.192.181:8092/ farm",
     baseUrl: DEBUG ? "//127.0.0.1:3000" : "http://game.ahd168.com:3000",
     // baseUrl: "http://game.ahd168.com:3000",
     // todo 这里的Ip可以访问可能是有问题的
