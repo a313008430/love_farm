@@ -647,7 +647,7 @@
         goldId: 1002,
         petDigestIntervalTime: 60,
         localKey: "love_HD_farm",
-        baseUrl: "//127.0.0.1:3000",
+        baseUrl: "http://game.ahd168.com:3000",
         ApiTypeDefault: 1,
         ApiTypeAD: 2,
         ADSpeedUpTimes: 6,

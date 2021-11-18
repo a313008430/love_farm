@@ -647,7 +647,7 @@
         goldId: 1002,
         petDigestIntervalTime: 60,
         localKey: "love_HD_farm",
-        baseUrl: "//127.0.0.1:3000",
+        baseUrl: "http://game.ahd168.com:3000",
         ApiTypeDefault: 1,
         ApiTypeAD: 2,
         ADSpeedUpTimes: 6,
@@ -3275,7 +3275,7 @@
             if (GameConfig.stat)
                 Laya.Stat.show();
             Laya.alertGlobalError(true);
-            Laya.ResourceVersion.enable("version-a7885259c1.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
+            Laya.ResourceVersion.enable("version-29be3e4be2.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
         }
         onVersionLoaded() {
             Laya.AtlasInfoManager.enable("fileconfig.json", Laya.Handler.create(this, this.onConfigLoaded));
