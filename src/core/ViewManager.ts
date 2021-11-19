@@ -1,9 +1,9 @@
 import { EventMaps } from "src/common/EventMaps";
 import FloatViewShowAni from "src/components/FloatViewShowAni";
 import { HintViewData } from "src/view/HintView";
+import OverView from "src/view/OverView";
 import Res, { views } from "../common/Res";
 import ViewShowAni from "../components/ViewShowAni";
-import EventGlobal from "./EventGlobal";
 import { Instance } from "./Instance";
 
 /**
@@ -185,5 +185,27 @@ export class ViewManager {
      */
     clearViewMaps() {
         viewMaps.length = 0;
+    }
+
+    private overViewCom: OverView;
+
+    /**
+     * 打开关闭过度界面
+     */
+    setOverView(open: boolean, call?: Function) {
+        if (open) {
+            this.open(Res.views.OverView, {
+                parm: {
+                    call: (v: OverView) => {
+                        this.overViewCom = v;
+                        v.close(call);
+                    },
+                },
+            });
+        } else {
+            if (this.overViewCom) {
+                this.overViewCom.open(call);
+            }
+        }
     }
 }

@@ -34,4 +34,8 @@ export const enum ApiHttp {
     feedBuy = "/feed/buy",
     /** 任务奖励领取 */
     taskReward = "/task/reward",
+    /** 邻居 */
+    neighbor = "/neighbor",
+    /** 偷菜 */
+    landSteal = "/land/steal",
 }

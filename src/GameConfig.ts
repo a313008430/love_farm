@@ -12,6 +12,7 @@ import MailView from "./view/MailView"
 import MainView from "./view/MainView"
 import FieldComponent from "./components/FieldComponent"
 import OrderView from "./view/OrderView"
+import OverView from "./view/OverView"
 import SettingView from "./view/SettingView"
 import ShopView from "./view/ShopView"
 import SignInView from "./view/SignInView"
@@ -31,7 +32,7 @@ export default class GameConfig{
     static startScene:any="scenes/views/MainView.scene";
     static sceneRoot:string="";
     static debug:boolean=false;
-    static stat:boolean=true;
+    static stat:boolean=false;
     static physicsDebug:boolean=false;
     static exportSceneToJson:boolean=true;
     constructor(){}
@@ -50,6 +51,7 @@ export default class GameConfig{
         reg("view/MainView.ts",MainView);
         reg("components/FieldComponent.ts",FieldComponent);
         reg("view/OrderView.ts",OrderView);
+        reg("view/OverView.ts",OverView);
         reg("view/SettingView.ts",SettingView);
         reg("view/ShopView.ts",ShopView);
         reg("view/SignInView.ts",SignInView);

@@ -57,6 +57,7 @@
     views3["MailView"] = "scenes/views/MailView.scene";
     views3["MainView"] = "scenes/views/MainView.scene";
     views3["OrderView"] = "scenes/views/OrderView.scene";
+    views3["OverView"] = "scenes/views/OverView.scene";
     views3["SettingView"] = "scenes/views/SettingView.scene";
     views3["ShopView"] = "scenes/views/ShopView.scene";
     views3["SignInView"] = "scenes/views/SignInView.scene";
@@ -81,6 +82,7 @@
     "scenes/views/SignInView.scene",
     "scenes/views/ShopView.scene",
     "scenes/views/SettingView.scene",
+    "scenes/views/OverView.scene",
     "scenes/views/OrderView.scene",
     "scenes/views/MainView.scene",
     "scenes/views/MailView.scene",
@@ -100,6 +102,7 @@
     "res/img_storeHouseBg.png",
     "res/img_storebg.png",
     "res/img_shelf.png",
+    "res/img_popUpBgMain.png",
     "res/img_popUpBg.png",
     "res/img_landBg.png",
     "res/img_inviteBg1.png",
@@ -121,7 +124,6 @@
     "res/atlas/plant_icon.atlas",
     "res/atlas/pet_feed.png",
     "res/atlas/pet_feed.atlas",
-    "res/atlas/main_scene1.png",
     "res/atlas/main_scene.png",
     "res/atlas/main_scene.atlas",
     "res/atlas/game.png",
@@ -449,6 +451,22 @@
     }
     clearViewMaps() {
       viewMaps.length = 0;
+    }
+    setOverView(open, call) {
+      if (open) {
+        this.open(Res_default.views.OverView, {
+          parm: {
+            call: (v) => {
+              this.overViewCom = v;
+              v.close(call);
+            }
+          }
+        });
+      } else {
+        if (this.overViewCom) {
+          this.overViewCom.open(call);
+        }
+      }
     }
   };
   __decorateClass([
@@ -852,6 +870,8 @@
       this.signInDays = 0;
       this.signInId = 0;
       this.speedUpTimes = 0;
+      this.vitality = 0;
+      this.proportion = 1e-4;
     }
     get ttt() {
       return this.orderLevel;
@@ -939,6 +959,8 @@
     ApiHttp2["petWear"] = "/pet/wear";
     ApiHttp2["feedBuy"] = "/feed/buy";
     ApiHttp2["taskReward"] = "/task/reward";
+    ApiHttp2["neighbor"] = "/neighbor";
+    ApiHttp2["landSteal"] = "/land/steal";
   })(ApiHttp || (ApiHttp = {}));
 
   // src/common/HttpDataControl.ts
@@ -1495,6 +1517,7 @@
       this.fieldId = null;
       this.buildIng = false;
       this.isOuter = false;
+      this.canSteal = false;
     }
     onHdAwake() {
       this.fieldNode = this.owner;
@@ -1532,7 +1555,7 @@
         if (this.data.productId) {
           this.plantIconAni(true);
         }
-        if (this.data.productId && this.data.matureTimeLeft) {
+        if (this.data.productId && this.data.matureTimeLeft > 0) {
           this.timeBox.visible = true;
           this.timeBox.active = true;
           this.icon.skin = TableAnalyze_default.table("plant").get(this.data.productId).growingIcon;
@@ -1552,6 +1575,7 @@
             this.showShadowIcon(true);
             this.topStateIconAni(true);
             this.updateCountDown();
+            this.setStateIconSkin(3);
           }
         }
       } else {
@@ -1591,10 +1615,11 @@
       this.topStateIcon.y = -107;
       if (!this.topStateIconTween) {
         this.topStateIconTween = Laya.TimeLine.to(this.topStateIcon, { y: this.topStateIcon.y - 50 }, 800, null).to(this.topStateIcon, { y: this.topStateIcon.y }, 800);
+        this.topStateIconTween.play(null, true);
       }
       this.topStateIcon.visible = play;
       if (play) {
-        this.topStateIconTween.play(null, true);
+        this.topStateIconTween.resume();
       } else {
         this.topStateIconTween.pause();
       }
@@ -1607,13 +1632,13 @@
       this.shadow.active = show;
     }
     plantIconAni(play) {
-      this.icon.skewX = 0;
       if (!this.plantIconTween) {
         this.plantIconTween = Laya.TimeLine.to(this.icon, { skewX: 6 }, 900).to(this.icon, { skewX: -6 }, 1800).to(this.icon, { skewX: 0 }, 900);
+        this.plantIconTween.play(null, true);
       }
       if (play) {
         Laya.timer.once(Math.random() * 1e3, this, () => {
-          this.plantIconTween.play(null, true);
+          this.plantIconTween.resume();
         });
       } else {
         this.plantIconTween.pause();
@@ -1661,6 +1686,9 @@
         core_default.audio.playSound(Res_default.audios.button_click);
         if (this.isOuter) {
           console.log("\u5916\u51FA");
+          if (this.data) {
+            this.stealFood();
+          }
           return;
         }
         if (this.data) {
@@ -1694,7 +1722,7 @@
               return;
             } else {
               console.log("\u6536\u83B7");
-              let plantAmount = 0;
+              let plantAmount = 0, rewardDiamond = 0;
               yield HttpControl.inst.send({
                 api: ApiHttp.landGather,
                 data: {
@@ -1705,6 +1733,7 @@
                   plantAmount = d.amount;
                   WarehouseService_default.add(this.data.productId, d.amount);
                   core_default.audio.playSound(Res_default.audios.shoucai);
+                  rewardDiamond = d.rewardDiamond;
                 }
               });
               let plantObj = TableAnalyze_default.table("plant").get(this.data.productId), rewardList = [
@@ -1714,6 +1743,13 @@
                   posType: 3
                 }
               ];
+              if (rewardDiamond) {
+                rewardList.push({
+                  obj: TableAnalyze_default.table("currency").get(ConfigGame_default.diamondId),
+                  count: rewardDiamond,
+                  posType: 2
+                });
+              }
               core_default.eventGlobal.event(EventMaps.play_get_reward, {
                 node: this.owner,
                 list: rewardList,
@@ -1754,6 +1790,40 @@
                 this.updateData();
               }
             }
+          });
+        }
+      });
+    }
+    stealFood() {
+      if (!this.canSteal) {
+        console.log("\u5DF2\u7ECF\u4E0D\u53EF\u5077");
+        core_default.view.openHint({ text: "\u7ED9\u6211\u7559\u70B9\u5427", call: () => {
+        } });
+        return;
+      }
+      core_default.audio.playSound(Res_default.audios.goujiaosheng);
+      HttpControl.inst.send({
+        api: ApiHttp.landSteal,
+        data: {
+          landId: this.data.id,
+          type: ConfigGame_default.ApiTypeDefault,
+          uid: this.stealUid
+        },
+        call: (d) => {
+          this.canSteal = false;
+          this.topStateIconAni(false);
+          WarehouseService_default.add(this.data.productId, d.amount);
+          core_default.audio.playSound(Res_default.audios.shoucai);
+          let plantObj = TableAnalyze_default.table("plant").get(d.plantId), rewardList = [
+            {
+              obj: plantObj,
+              count: d.amount,
+              posType: 3
+            }
+          ];
+          core_default.eventGlobal.event(EventMaps.play_get_reward, {
+            node: this.owner,
+            list: rewardList
           });
         }
       });
@@ -1809,9 +1879,12 @@
       this.topGoldIcon = null;
       this.topDiamondIcon = null;
       this.warehouseBtn = null;
+      this.moneyLb = null;
       this.getRewardPrefab = null;
       this.floatRewardIcon = null;
-      this.testBtn = null;
+      this.goHomeBtn = null;
+      this.anyDoor = null;
+      this.vitalityBox = null;
       this.petBox = null;
       this.taskBox = null;
       this.landList = [];
@@ -1842,6 +1915,8 @@
       Laya.stage.addChild(this.topLayerOnStage);
       this.landUpLayer.visible = false;
       this.landUpLayer.active = false;
+      this.vitalityBox.visible = false;
+      this.goHomeBtn.visible = false;
       for (let x = 0; x < this.landBox.numChildren; x++) {
         this.landList.push(this.landBox.getChildAt(x).getComponent(FieldComponent));
       }
@@ -1864,6 +1939,7 @@
     onHdEnable() {
       core_default.observableProperty.watch(UserInfo_default, this).key("diamond", (e) => {
         this.diamondNode.value = e;
+        this.moneyLb.value = (e * UserInfo_default.proportion).toString().match(/^\d+(?:\.\d{0,2})?/) + "";
       }).key("gold", (e) => {
         this.goldNode.value = e;
       }).key("avatar", (e) => {
@@ -1891,6 +1967,8 @@
         if (this.petBox.visible) {
           Laya.timer.once(e * 1e3, this, this.digestCountDown);
         }
+      }).key("vitality", (e) => {
+        this.vitalityBox.getChildByName("bar").width = 268 * e;
       });
       this.addLandLayer.visible = false;
       this.updateOrder();
@@ -1956,7 +2034,15 @@
           this.switchLandLevelUp(false);
           break;
         case "any_door":
-          this.goFriend();
+          this.goToNeighbor();
+          break;
+        case "go_home":
+          core_default.view.setOverView(true, () => {
+            Laya.timer.once(300, this, () => {
+              core_default.view.setOverView(false);
+              this.goFriend(null);
+            });
+          });
           break;
       }
     }
@@ -2144,27 +2230,61 @@
       icon.skin = task.base.reward.obj.icon;
       box.width = desc.width + 100;
     }
-    goFriend() {
+    goToNeighbor() {
+      core_default.view.setOverView(true, () => {
+        HttpControl.inst.send({
+          api: ApiHttp.neighbor,
+          data: {
+            type: ConfigGame_default.ApiTypeDefault
+          },
+          call: (d) => {
+            this.goFriend(d);
+            Laya.timer.once(300, this, () => {
+              core_default.view.setOverView(false);
+            });
+          }
+        });
+      });
+    }
+    goFriend(d) {
       let lands = this.landList, userLands = LandService_default.list;
-      let test = new Map();
-      test.set(1, { productId: 1002, id: 1, matureTimeLeft: 0, level: 2 });
-      test.set(5, { productId: 1005, id: 1, matureTimeLeft: 999, level: 4 });
+      let otherLands = new Map();
       if (this.isOuter) {
         this.isOuter = false;
-        userLands.forEach((d) => {
-          d.matureTimeLeft -= (Date.now() - this.outerTime) / 1e3;
+        userLands.forEach((d2) => {
+          d2.matureTimeLeft -= (Date.now() - this.outerTime) / 1e3;
+          if (d2.matureTimeLeft < 0)
+            d2.matureTimeLeft = 0;
         });
+        this.vitalityBox.visible = false;
+        this.anyDoor.visible = true;
+        this.goHomeBtn.visible = false;
       } else {
+        d.lands.forEach((e) => {
+          otherLands.set(e.id, e);
+        });
         this.isOuter = true;
         this.outerTime = Date.now();
+        this.vitalityBox.visible = true;
+        this.goHomeBtn.visible = true;
+        this.anyDoor.visible = false;
       }
       for (let x = 0; x < lands.length; x++) {
         const land = lands[x];
         if (this.isOuter) {
           land.isOuter = true;
-          land.updateData({ list: test });
+          land.updateData({ list: otherLands });
+          land.stealUid = d.uid;
+          if (d.protectedTime) {
+            land.canSteal = false;
+            land.topStateIconAni(false);
+          } else {
+            land.canSteal = true;
+          }
         } else {
+          land.canSteal = false;
           land.isOuter = false;
+          land.stealUid = null;
           land.updateData({ list: userLands });
         }
       }
@@ -2265,6 +2385,36 @@
           core_default.view.close(Res_default.views.OrderView);
           break;
       }
+    }
+  };
+
+  // src/view/OverView.ts
+  var OverView = class extends core_default.gameScript {
+    onHdEnable() {
+    }
+    onOpened(data) {
+      if (data == null ? void 0 : data.call) {
+        data.call(this);
+      }
+    }
+    close(call) {
+      this.leftBox.x = -987;
+      this.rightBox.x = 1025;
+      this.leftBox.alpha = 0;
+      this.rightBox.alpha = 0;
+      Laya.Tween.to(this.leftBox, { x: 0, alpha: 1 }, 500);
+      Laya.Tween.to(this.rightBox, { x: 0, alpha: 1 }, 500, null, Laya.Handler.create(this, () => {
+        if (call)
+          call();
+      }));
+    }
+    open(call) {
+      Laya.Tween.to(this.leftBox, { x: -987, alpha: 0 }, 500);
+      Laya.Tween.to(this.rightBox, { x: 1025, alpha: 0 }, 500, null, Laya.Handler.create(this, () => {
+        if (call)
+          call();
+        core_default.view.close(Res_default.views.OverView);
+      }));
     }
   };
 
@@ -3178,6 +3328,7 @@
       reg("view/MainView.ts", MainView);
       reg("components/FieldComponent.ts", FieldComponent);
       reg("view/OrderView.ts", OrderView);
+      reg("view/OverView.ts", OverView);
       reg("view/SettingView.ts", SettingView);
       reg("view/ShopView.ts", ShopView);
       reg("view/SignInView.ts", SignInView);
@@ -3195,7 +3346,7 @@
   GameConfig.startScene = "scenes/views/MainView.scene";
   GameConfig.sceneRoot = "";
   GameConfig.debug = false;
-  GameConfig.stat = true;
+  GameConfig.stat = false;
   GameConfig.physicsDebug = false;
   GameConfig.exportSceneToJson = true;
   GameConfig.init();

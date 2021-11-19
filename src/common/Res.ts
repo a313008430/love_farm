@@ -25,6 +25,8 @@
         MainView = "scenes/views/MainView.scene", 
         /** scenes/views/OrderView.scene */
         OrderView = "scenes/views/OrderView.scene", 
+        /** scenes/views/OverView.scene */
+        OverView = "scenes/views/OverView.scene", 
         /** scenes/views/SettingView.scene */
         SettingView = "scenes/views/SettingView.scene", 
         /** scenes/views/ShopView.scene */
@@ -67,6 +69,7 @@
          "scenes/views/SignInView.scene",
          "scenes/views/ShopView.scene",
          "scenes/views/SettingView.scene",
+         "scenes/views/OverView.scene",
          "scenes/views/OrderView.scene",
          "scenes/views/MainView.scene",
          "scenes/views/MailView.scene",
@@ -86,6 +89,7 @@
             "res/img_storeHouseBg.png",
             "res/img_storebg.png",
             "res/img_shelf.png",
+            "res/img_popUpBgMain.png",
             "res/img_popUpBg.png",
             "res/img_landBg.png",
             "res/img_inviteBg1.png",
@@ -107,7 +111,6 @@
             "res/atlas/plant_icon.atlas",
             "res/atlas/pet_feed.png",
             "res/atlas/pet_feed.atlas",
-            "res/atlas/main_scene1.png",
             "res/atlas/main_scene.png",
             "res/atlas/main_scene.atlas",
             "res/atlas/game.png",

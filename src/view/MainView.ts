@@ -62,6 +62,8 @@ export default class MainView extends Core.gameScript {
     private topDiamondIcon: Laya.Image = null;
     /** @prop {name:warehouseBtn, tips:"仓库按钮", type:Node}*/
     private warehouseBtn: Laya.Image = null;
+    /** @prop {name:moneyLb, tips:"红包文档", type:Node}*/
+    private moneyLb: Laya.FontClip = null;
 
     //获得奖励，飞物品相关
     /** @prop {name:getRewardPrefab, tips:"获得奖励预设", type:Prefab}*/
@@ -69,8 +71,12 @@ export default class MainView extends Core.gameScript {
     /** @prop {name:floatRewardIcon, tips:"奖励飞动画icon", type:Prefab}*/
     private floatRewardIcon: Laya.Prefab = null;
 
-    /** @prop {name:testBtn, tips:"好友测试按钮", type:Node}*/
-    private testBtn: Laya.Image = null;
+    /** @prop {name:goHomeBtn, tips:"返回家按钮", type:Node}*/
+    private goHomeBtn: Laya.Image = null;
+    /** @prop {name:anyDoor, tips:"去转转", type:Node}*/
+    private anyDoor: Laya.Image = null;
+    /** @prop {name:vitalityBox, tips:"体力容器", type:Node}*/
+    private vitalityBox: Laya.Image = null;
 
     //宠物
     /** @prop {name:petBox, tips:"宠物容器", type:Node}*/
@@ -117,6 +123,8 @@ export default class MainView extends Core.gameScript {
 
         this.landUpLayer.visible = false;
         this.landUpLayer.active = false;
+        this.vitalityBox.visible = false;
+        this.goHomeBtn.visible = false;
 
         for (let x = 0; x < this.landBox.numChildren; x++) {
             this.landList.push(this.landBox.getChildAt(x).getComponent(FieldComponent));
@@ -149,6 +157,10 @@ export default class MainView extends Core.gameScript {
             .watch(UserInfo, this)
             .key("diamond", (e) => {
                 this.diamondNode.value = e;
+                // this.moneyLb.value = (e * UserInfo.proportion).toFixed(2) + "";
+                //不四舍五入
+                this.moneyLb.value =
+                    (e * UserInfo.proportion).toString().match(/^\d+(?:\.\d{0,2})?/) + "";
             })
             .key("gold", (e) => {
                 this.goldNode.value = e;
@@ -185,6 +197,9 @@ export default class MainView extends Core.gameScript {
                 if (this.petBox.visible) {
                     Laya.timer.once(e * 1000, this, this.digestCountDown);
                 }
+            })
+            .key("vitality", (e) => {
+                (this.vitalityBox.getChildByName("bar") as Laya.Image).width = 268 * e;
             });
 
         this.addLandLayer.visible = false;
@@ -268,7 +283,16 @@ export default class MainView extends Core.gameScript {
                 break;
 
             case "any_door":
-                this.goFriend();
+                this.goToNeighbor();
+                break;
+            case "go_home":
+                Core.view.setOverView(true, () => {
+                    Laya.timer.once(300, this, () => {
+                        Core.view.setOverView(false);
+                        this.goFriend(null);
+                    });
+                });
+
                 break;
         }
     }
@@ -565,34 +589,73 @@ export default class MainView extends Core.gameScript {
     }
 
     /**
+     * 去邻居家
+     */
+    private goToNeighbor() {
+        Core.view.setOverView(true, () => {
+            HttpControl.inst.send({
+                api: ApiHttp.neighbor,
+                data: <NetSendApi["gather"]>{
+                    type: ConfigGame.ApiTypeDefault,
+                },
+                call: (d: ReturnNeighbor) => {
+                    this.goFriend(d);
+                    Laya.timer.once(300, this, () => {
+                        Core.view.setOverView(false);
+                    });
+                },
+            });
+        });
+    }
+
+    /**
      * 去朋友家
      */
-    private goFriend() {
+    private goFriend(d?: ReturnNeighbor) {
         let lands = this.landList,
             userLands = LandService.list;
-        let test: Map<number, LandObj> = new Map();
-        test.set(1, { productId: 1002, id: 1, matureTimeLeft: 0, level: 2 });
-        test.set(5, { productId: 1005, id: 1, matureTimeLeft: 999, level: 4 });
+        let otherLands: Map<number, LandObj> = new Map();
 
         if (this.isOuter) {
             //回来
             this.isOuter = false;
             userLands.forEach((d) => {
                 d.matureTimeLeft -= (Date.now() - this.outerTime) / 1000;
+                if (d.matureTimeLeft < 0) d.matureTimeLeft = 0;
             });
+            this.vitalityBox.visible = false;
+            this.anyDoor.visible = true;
+            this.goHomeBtn.visible = false;
         } else {
+            d.lands.forEach((e) => {
+                otherLands.set(e.id, e);
+            });
+
             //离开
             this.isOuter = true;
             this.outerTime = Date.now();
+            this.vitalityBox.visible = true;
+            this.goHomeBtn.visible = true;
+            this.anyDoor.visible = false;
         }
 
         for (let x = 0; x < lands.length; x++) {
             const land = lands[x];
             if (this.isOuter) {
                 land.isOuter = true;
-                land.updateData({ list: test });
+                land.updateData({ list: otherLands });
+
+                land.stealUid = d.uid;
+                if (d.protectedTime) {
+                    land.canSteal = false;
+                    land.topStateIconAni(false);
+                } else {
+                    land.canSteal = true;
+                }
             } else {
+                land.canSteal = false;
                 land.isOuter = false;
+                land.stealUid = null;
                 land.updateData({ list: userLands });
             }
         }
@@ -603,9 +666,9 @@ export default class MainView extends Core.gameScript {
             //隐藏任务
             this.taskBox.visible = false;
         } else {
-            //隐藏宠物
+            //显示 宠物
             this.petBox.visible = true;
-            //隐藏任务
+            //显示任务
             this.taskBox.visible = true;
         }
     }

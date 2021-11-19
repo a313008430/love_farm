@@ -59,6 +59,10 @@ export default class FieldComponent extends Core.gameScript {
     buildIng: boolean = false;
     /** 是否在外面 */
     isOuter: boolean = false;
+    /** 是否可偷 */
+    canSteal: boolean = false;
+    /** 被偷人的uid */
+    stealUid: number;
     /** 土地数据 */
     data: LandObj;
 
@@ -80,7 +84,7 @@ export default class FieldComponent extends Core.gameScript {
     }
 
     /**
-     * 土地升级
+     * 更新土地数据
      */
     @Core.eventOn(EventMaps.update_field)
     updateData(data?: { list: Map<number, LandObj> }) {
@@ -111,7 +115,7 @@ export default class FieldComponent extends Core.gameScript {
                 this.plantIconAni(true);
             }
 
-            if (this.data.productId && this.data.matureTimeLeft) {
+            if (this.data.productId && this.data.matureTimeLeft > 0) {
                 //成长中
                 this.timeBox.visible = true;
                 this.timeBox.active = true;
@@ -135,6 +139,7 @@ export default class FieldComponent extends Core.gameScript {
                     this.showShadowIcon(true);
                     this.topStateIconAni(true);
                     this.updateCountDown();
+                    this.setStateIconSkin(3);
                 }
             }
         } else {
@@ -194,12 +199,13 @@ export default class FieldComponent extends Core.gameScript {
                 800,
                 null
             ).to(this.topStateIcon, { y: this.topStateIcon.y }, 800);
+            this.topStateIconTween.play(null, true);
         }
 
         this.topStateIcon.visible = play;
 
         if (play) {
-            this.topStateIconTween.play(null, true);
+            this.topStateIconTween.resume();
         } else {
             this.topStateIconTween.pause();
         }
@@ -227,19 +233,23 @@ export default class FieldComponent extends Core.gameScript {
      * @param play
      */
     private plantIconAni(play: boolean) {
-        this.icon.skewX = 0;
         if (!this.plantIconTween) {
             this.plantIconTween = Laya.TimeLine.to(this.icon, { skewX: 6 }, 900)
                 .to(this.icon, { skewX: -6 }, 1800)
                 .to(this.icon, { skewX: 0 }, 900);
+            this.plantIconTween.play(null, true);
         }
 
         if (play) {
+            // this.icon.skewX = 0;
+
             Laya.timer.once(Math.random() * 1000, this, () => {
-                this.plantIconTween.play(null, true);
+                // this.plantIconTween.play(null, true);
+                this.plantIconTween.resume();
             });
         } else {
             this.plantIconTween.pause();
+            // this.plantIconTween.reset();
         }
     }
 
@@ -301,6 +311,11 @@ export default class FieldComponent extends Core.gameScript {
 
         if (this.isOuter) {
             console.log("外出");
+
+            if (this.data) {
+                this.stealFood();
+            }
+
             return;
         }
 
@@ -338,7 +353,8 @@ export default class FieldComponent extends Core.gameScript {
                 } else {
                     console.log("收获");
 
-                    let plantAmount = 0;
+                    let plantAmount = 0,
+                        rewardDiamond = 0;
                     await HttpControl.inst.send({
                         api: ApiHttp.landGather,
                         data: <NetSendApi["gather"]>{
@@ -350,10 +366,12 @@ export default class FieldComponent extends Core.gameScript {
                             diamond: number;
                             advertiseTimes: number;
                             amount: number;
+                            rewardDiamond: 0;
                         }) => {
                             plantAmount = d.amount;
                             WarehouseService.add(this.data.productId, d.amount);
                             Core.audio.playSound(Res.audios.shoucai);
+                            rewardDiamond = d.rewardDiamond;
                         },
                     });
 
@@ -367,14 +385,14 @@ export default class FieldComponent extends Core.gameScript {
                             },
                         ];
 
-                    //获得的金币钻石
-                    // plantObj.gain.forEach((d) => {
-                    //     rewardList.push({
-                    //         obj: TableAnalyze.table("currency").get(d.obj.id),
-                    //         count: d.count,
-                    //         posType: ConfigGame.diamondId == d.obj.id ? 2 : 1,
-                    //     });
-                    // });
+                    //获得的钻石
+                    if (rewardDiamond) {
+                        rewardList.push({
+                            obj: TableAnalyze.table("currency").get(ConfigGame.diamondId),
+                            count: rewardDiamond,
+                            posType: 2,
+                        });
+                    }
 
                     Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
                         node: this.owner,
@@ -434,6 +452,49 @@ export default class FieldComponent extends Core.gameScript {
                 },
             });
         }
+    }
+
+    /**
+     * 偷菜
+     */
+    private stealFood() {
+        if (!this.canSteal) {
+            console.log("已经不可偷");
+            Core.view.openHint({ text: "给我留点吧", call: () => {} });
+            return;
+        }
+        Core.audio.playSound(Res.audios.goujiaosheng);
+        //偷菜
+        HttpControl.inst.send({
+            api: ApiHttp.landSteal,
+            data: <NetSendApi["landSteal"]>{
+                landId: this.data.id,
+                type: ConfigGame.ApiTypeDefault,
+                uid: this.stealUid,
+            },
+            call: (d: { plantId: 0; amount: 0 }) => {
+                this.canSteal = false;
+                this.topStateIconAni(false);
+
+                WarehouseService.add(this.data.productId, d.amount);
+                Core.audio.playSound(Res.audios.shoucai);
+
+                //收获的植物
+                let plantObj = TableAnalyze.table("plant").get(d.plantId),
+                    rewardList: any[] = [
+                        {
+                            obj: plantObj,
+                            count: d.amount,
+                            posType: 3,
+                        },
+                    ];
+
+                Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
+                    node: this.owner,
+                    list: rewardList,
+                });
+            },
+        });
     }
 
     onHdDestroy() {

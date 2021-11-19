@@ -30,6 +30,10 @@ class UserInfo {
     signInId: number = 0;
     /** 用户已经加速次数 */
     speedUpTimes: number = 0;
+    /** 用户体力 */
+    vitality: number = 0;
+    /** 兑换比例 */
+    proportion: number = 0.0001;
 
     get ttt() {
         return this.orderLevel;

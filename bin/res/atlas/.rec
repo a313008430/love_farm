@@ -7,6 +7,7 @@ P 53E132BB img-menunormal.png
 P 4F009A62 img-menuselected.png
 P C092F711 img_aboutUs.png
 P AFF642EC img_addBtn.png
+P 2D90DA0A img_addEnergytnm.png
 P FFBBE833 img_agree.png
 P 1F276BE4 img_apply.png
 P 420657E6 img_baclbtn.png
@@ -25,6 +26,10 @@ P 4D7E17DB img_cancel.png
 P D9834561 img_checkBox1.png
 P 53DAA588 img_checkBox2.png
 P 4CEA225F img_chocolate.png
+P BCBEBC71 img_cloud1.png
+P 26F36A6D img_cloud2.png
+P 602ACD3C img_cloud3.png
+P 87C3C17B img_cloud4.png
 P E7727416 img_coins.png
 P A81F614E img_copyBtn.png
 P B4A84AF0 img_countBg.png
@@ -39,6 +44,9 @@ P 1BB30A62 img_deleteFriendBtn.png
 P 00CF77FE img_dog1.png
 P 7C348D6C img_done.png
 P F4F18AF6 img_email.png
+P 3DA2426B img_energy.png
+P C93451DE img_energyBar.png
+P 1712EB3F img_energyBarBg.png
 P 7F9D7C2B img_expand.png
 P 6B822555 img_extractActive.png
 P 810169B0 img_extractPassive.png
@@ -52,6 +60,7 @@ P EBEE5DC7 img_garding.png
 P 58E18A5F img_get.png
 P DAB5894D img_getAubergine.png
 P 962F21CF img_getBack.png
+P 4371C652 img_goHome.png
 P D96B4BCD img_halfstar.png
 P 409C203A img_hangout.png
 P 4A01DACD img_heart.png
@@ -181,7 +190,6 @@ P 50377991 img_harvest.png
 P ED009B59 img_headBar.png
 P C2556BC7 img_headBarBg.png
 P F05285F2 img_land.png
-P C9775DAA img_landBg.png
 P 99059ADC img_landUpdate.png
 P DCFCCD55 img_landUpdate1.png
 P 14CD7227 img_landUpdate2.png
@@ -203,7 +211,6 @@ P C6151FF4 img_marketBuilding.png
 P 08961E16 img_menuWoodBg.png
 P 5800AD73 img_money.png
 P 0395F97A img_OKBtn.png
-P BE456624 img_popUpBg.png
 P B9FCA59D img_portrait.png
 P CE4E6646 img_portraitBg.png
 P 3F063A34 img_progressBarBg.png

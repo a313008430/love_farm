@@ -177,6 +177,13 @@ interface NetSendApi {
     petWear: {
         petId: 0;
     };
+
+    /**  偷菜 */
+    landSteal: {
+        type: 0;
+        uid: 0;
+        landId: 0;
+    };
 }
 
 /**
@@ -186,4 +193,21 @@ interface ReturnUserInfo {
     gold: 0;
     diamond: 0;
     advertiseTimes: 0;
+}
+
+/**
+ * 邻居数据返回
+ */
+interface ReturnNeighbor {
+    lands: [
+        {
+            id: 0;
+            level: 0;
+            productId: 0;
+            matureTimeLeft: 0;
+        }
+    ];
+    protectedTime: 0;
+    nickname: "string";
+    uid: number;
 }
