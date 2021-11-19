@@ -84,6 +84,7 @@ export default class LoginView extends GameScript {
                 api: ApiHttp.login,
                 data: {
                     account: this.userInput.text,
+                    // wxId: this.userInput.text,
                 },
                 call: (d: NetInit) => {
                     if (this.data?.call) this.data.call(d);

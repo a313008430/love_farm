@@ -17,6 +17,6 @@ export default class FriendsRewardView extends Core.gameScript {
     }
 
     onHdDestroy() {
-        Laya.loader.clearTextureRes("res/img_inviteBg1.png");
+        // Laya.loader.clearTextureRes("res/img_inviteBg1.png");
     }
 }

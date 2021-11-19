@@ -56,8 +56,8 @@ class TaskService {
             return (
                 a.id +
                 (tA?.receive ? 1000 : 1) +
-                (tA?.times >= a.times ? 100 : 1000) -
-                (b.id + (tB?.receive ? 1000 : 1) + (tB?.times >= b.times ? 100 : 1000))
+                (tA?.times >= a.base.times ? 100 : 1000) -
+                (b.id + (tB?.receive ? 1000 : 1) + (tB?.times >= b.base.times ? 100 : 1000))
             );
         });
     }
