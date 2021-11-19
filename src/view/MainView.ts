@@ -667,7 +667,7 @@ export default class MainView extends Core.gameScript {
             this.taskBox.visible = false;
         } else {
             //显示 宠物
-            this.petBox.visible = true;
+            if (UserInfo.warePetId) this.petBox.visible = true;
             //显示任务
             this.taskBox.visible = true;
         }
