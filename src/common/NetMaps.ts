@@ -38,4 +38,10 @@ export const enum ApiHttp {
     neighbor = "/neighbor",
     /** 偷菜 */
     landSteal = "/land/steal",
+    /** 单独查看广告 */
+    ad = "/ad",
+    /** 用户体力购买 */
+    vitalityBuy = "/vitality/buy",
+    /** 回自己家 */
+    goHome = "/goHome",
 }

@@ -472,7 +472,8 @@ export default class FieldComponent extends Core.gameScript {
                 type: ConfigGame.ApiTypeDefault,
                 uid: this.stealUid,
             },
-            call: (d: { plantId: 0; amount: 0 }) => {
+            call: (d: { plantId: 0; amount: 0; vitality }) => {
+                UserInfo.vitality = d.vitality;
                 this.canSteal = false;
                 this.topStateIconAni(false);
 

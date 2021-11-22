@@ -199,7 +199,9 @@ export default class MainView extends Core.gameScript {
                 }
             })
             .key("vitality", (e) => {
-                (this.vitalityBox.getChildByName("bar") as Laya.Image).width = 268 * e;
+                let vitality = e / ConfigGame.userVitalityLimit;
+                if (vitality > 1) vitality = 1;
+                (this.vitalityBox.getChildByName("bar") as Laya.Image).width = 268 * vitality;
             });
 
         this.addLandLayer.visible = false;
@@ -286,12 +288,7 @@ export default class MainView extends Core.gameScript {
                 this.goToNeighbor();
                 break;
             case "go_home":
-                Core.view.setOverView(true, () => {
-                    Laya.timer.once(300, this, () => {
-                        Core.view.setOverView(false);
-                        this.goFriend(null);
-                    });
-                });
+                this.goHome();
 
                 break;
         }
@@ -586,6 +583,24 @@ export default class MainView extends Core.gameScript {
         amountFont.value = "x" + task.base.reward.count;
         icon.skin = task.base.reward.obj.icon;
         box.width = desc.width + 100;
+    }
+
+    /**
+     * 回家
+     */
+    private goHome() {
+        Core.view.setOverView(true, () => {
+            HttpControl.inst.send({
+                api: ApiHttp.goHome,
+                data: {},
+                call: () => {
+                    Laya.timer.once(300, this, () => {
+                        Core.view.setOverView(false);
+                        this.goFriend(null);
+                    });
+                },
+            });
+        });
     }
 
     /**

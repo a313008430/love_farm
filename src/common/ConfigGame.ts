@@ -10,6 +10,8 @@ export default {
     petDigestIntervalTime: 60,
     /** 游戏本地储存key */
     localKey: "love_HD_farm",
+    /** 用户体力上限 */
+    userVitalityLimit: 10,
     /** 协议地址 */
     // baseUrl: "//47.108.192.181:8092/ farm",
     baseUrl: DEBUG ? "//127.0.0.1:3000" : "http://game.ahd168.com:3000",

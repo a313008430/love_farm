@@ -71,6 +71,8 @@ interface NetInit extends NetBase {
         gold: number;
         diamond: number;
         nickname: "string";
+        /** 用户偷菜体力 */
+        vitality: 0;
     };
     lands: [
         {

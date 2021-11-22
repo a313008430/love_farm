@@ -75,7 +75,8 @@ class HttpDataControl {
 
     error(errorCode: number, data: any) {
         Core.view.openHint({
-            text: `errorCode ${errorCode} ${JSON.stringify(data)}`,
+            // text: `errorCode ${errorCode} ${JSON.stringify(data)}`,
+            text: `${data?.message}`,
             call: () => {},
         });
     }
@@ -100,6 +101,7 @@ class HttpDataControl {
         UserInfo.signInDays = d.signInDays || 0;
         UserInfo.signInId = d.signInId;
         UserInfo.speedUpTimes = d.speedUpTimes;
+        UserInfo.vitality = d.userInfo.vitality;
         PetService.init(d.pets);
         TaskService.init(d.tasks);
         LocalStorageService.setJSON("isLogin", true);
@@ -131,6 +133,7 @@ class HttpDataControl {
         UserInfo.signInDays = 0;
         UserInfo.signInId = null;
         UserInfo.speedUpTimes = 0;
+        UserInfo.vitality = 0;
     }
 
     /**
