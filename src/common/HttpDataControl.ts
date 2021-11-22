@@ -54,6 +54,7 @@ class HttpDataControl {
             case ApiHttp.landUnlock:
 
             case ApiHttp.petBuy:
+            case ApiHttp.vitalityBuy:
 
             case ApiHttp.taskReward:
             case ApiHttp.landUpgrade:

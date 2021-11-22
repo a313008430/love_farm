@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":479,
+    "selectedBox":877,
+    "selecteID":879,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -21,7 +21,7 @@
             "source":"src/view/MainView.ts",
             "searchKey":"Script,MainView",
             "removeAble":true,
-            "props":{"y":0,"x":0,"width":14,"warehouseBtn":"@node:99","vitalityBox":"@node:877","topLayerOnStage":"@node:837","topGoldIcon":"@node:72","topDiamondIcon":"@node:78","testBtn":"@node:237","taskBox":"@node:244","petBox":"@node:870","orderBox":"@node:80","moneyLb":"@node:479","landUpLayer":"@node:496","landBox":"@node:112","height":14,"goldNode":"@node:73","goHomeBtn":"@node:875","getRewardPrefab":"@Prefab:scenes/prefab/GetReward.prefab","floatRewardIcon":"@Prefab:scenes/prefab/FloatRewardIcon.prefab","diamondNode":"@node:79","center_box":"@node:96","centerBox":"@node:96","avatarNode":"@node:350","anyDoor":"@node:241","addLandLayer":"@node:316","addLandBg":"@node:332"},
+            "props":{"y":0,"x":0,"width":14,"warehouseBtn":"@node:99","vitalityBuyBtn":"@node:879","vitalityBox":"@node:877","topLayerOnStage":"@node:837","topGoldIcon":"@node:72","topDiamondIcon":"@node:78","testBtn":"@node:237","taskBox":"@node:244","petBox":"@node:870","orderBox":"@node:80","moneyLb":"@node:479","landUpLayer":"@node:496","landBox":"@node:112","height":14,"goldNode":"@node:73","goHomeBtn":"@node:875","getRewardPrefab":"@Prefab:scenes/prefab/GetReward.prefab","floatRewardIcon":"@Prefab:scenes/prefab/FloatRewardIcon.prefab","diamondNode":"@node:79","center_box":"@node:96","centerBox":"@node:96","avatarNode":"@node:350","anyDoor":"@node:241","addLandLayer":"@node:316","addLandBg":"@node:332"},
             "nodeParent":2,
             "label":"MainView",
             "isDirectory":false,
@@ -1584,14 +1584,13 @@
             "props":{"y":49,"x":120,"width":932,"top":49,"skin":"main_scene/img_portraitBg.png","name":"top_box","mouseEnabled":true,"hitTestPrior":false,"height":123},
             "nodeParent":2,
             "label":"top_box",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":67,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,head",
                     "props":{"y":-15,"x":-58,"skin":"main_scene/img_portrait.png","name":"head","mouseEnabled":true},
@@ -1604,7 +1603,6 @@
                     "compId":68,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,avater",
                             "props":{"y":68,"x":68,"width":83,"skin":"main_scene/img_defaultPortrait.png","name":"avater","height":81,"anchorY":0.5,"anchorX":0.5},
@@ -1618,7 +1616,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -1636,7 +1633,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,money_box",
                     "props":{"y":31,"x":108,"width":233,"skin":"main_scene/img_coinbg.png","name":"money_box"},
@@ -1649,7 +1645,6 @@
                     "compId":477,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":-11,"x":-29,"skin":"main_scene/img_money.png"},
@@ -1663,7 +1658,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"FontClip",
                             "searchKey":"FontClip,money",
                             "props":{"y":13,"x":136,"value":"99.99","spaceX":-6,"skin":"main_scene/fontClip_moneyNum.png","sheet":"0123456789.","name":"money","anchorX":0.5,"align":"center"},
@@ -1678,7 +1672,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,glod_box",
                     "props":{"y":26,"x":378,"width":233,"skin":"main_scene/img_coinbg.png","name":"glod_box"},
@@ -1718,7 +1711,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,diamond_box",
                     "props":{"y":26,"x":668,"width":233,"skin":"main_scene/img_coinbg.png","name":"diamond_box"},
@@ -1758,7 +1750,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,order_box",
                     "props":{"y":120,"x":417,"skin":"main_scene/img_taskbg.png","name":"order_box","mouseEnabled":true,"anchorX":0.5},
@@ -2124,13 +2115,14 @@
             "props":{"x":-13,"width":1162,"name":"bottom_box","height":289,"bottom":0},
             "nodeParent":2,
             "label":"bottom_box",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":243,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":123,"x":15,"skin":"main_scene/img_menuWoodBg.png"},
@@ -2144,6 +2136,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,task",
                     "props":{"y":167,"x":169,"skin":"main_scene/img_daytimeTask.png","name":"task","anchorY":0.5,"anchorX":0.5},
@@ -2173,6 +2166,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,signIn",
                     "props":{"y":167,"x":362,"skin":"main_scene/img_clock.png","name":"signIn","anchorY":0.5,"anchorX":0.5},
@@ -2202,6 +2196,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,friends",
                     "props":{"y":141,"x":554,"skin":"main_scene/img_friend.png","name":"friends","anchorY":0.5,"anchorX":0.5},
@@ -2231,6 +2226,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,mail",
                     "props":{"y":167,"x":747,"skin":"main_scene/img_emailMenu.png","name":"mail","anchorY":0.5,"anchorX":0.5},
@@ -2260,6 +2256,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,any_door",
                     "props":{"y":167,"x":939,"skin":"main_scene/img_hangOut.png","name":"any_door","anchorY":0.5,"anchorX":0.5},
@@ -2289,6 +2286,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,msg_box",
                     "props":{"y":-44,"x":-10,"width":689,"skin":"main_scene/img_taskBg2.png","name":"msg_box","height":86},
@@ -2342,6 +2340,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,go_home",
                     "props":{"y":171,"x":936,"skin":"game/img_goHome.png","name":"go_home","anchorY":0.5,"anchorX":0.5},
@@ -2371,6 +2370,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,vitality_box",
                     "props":{"y":-36,"x":134,"skin":"game/img_energyBarBg.png","name":"vitality_box"},
@@ -2383,6 +2383,7 @@
                     "compId":877,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,bar",
                             "props":{"y":5,"x":6,"width":268,"skin":"game/img_energyBar.png","name":"bar","height":46},
@@ -2396,6 +2397,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,add_vitality",
                             "props":{"y":29,"x":347,"skin":"game/img_addEnergytnm.png","name":"add_vitality","anchorY":0.5,"anchorX":0.5},
@@ -2425,6 +2427,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":5.5,"x":-113,"skin":"game/img_energy.png"},

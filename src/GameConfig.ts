@@ -2,6 +2,7 @@
 import Button from "./components/Button"
 import ViewShowAni from "./components/ViewShowAni"
 import AddLandView from "./view/AddLandView"
+import BuyVitalityView from "./view/BuyVitalityView"
 import FieldLevelUpView from "./view/FieldLevelUpView"
 import FriendsDescView from "./view/FriendsDescView"
 import FriendsRewardView from "./view/FriendsRewardView"
@@ -41,6 +42,7 @@ export default class GameConfig{
         reg("components/Button.ts",Button);
         reg("components/ViewShowAni.ts",ViewShowAni);
         reg("view/AddLandView.ts",AddLandView);
+        reg("view/BuyVitalityView.ts",BuyVitalityView);
         reg("view/FieldLevelUpView.ts",FieldLevelUpView);
         reg("view/FriendsDescView.ts",FriendsDescView);
         reg("view/FriendsRewardView.ts",FriendsRewardView);

@@ -77,6 +77,8 @@ export default class MainView extends Core.gameScript {
     private anyDoor: Laya.Image = null;
     /** @prop {name:vitalityBox, tips:"体力容器", type:Node}*/
     private vitalityBox: Laya.Image = null;
+    /** @prop {name:vitalityBuyBtn, tips:"体力购买按钮", type:Node}*/
+    private vitalityBuyBtn: Laya.Image = null;
 
     //宠物
     /** @prop {name:petBox, tips:"宠物容器", type:Node}*/
@@ -200,7 +202,12 @@ export default class MainView extends Core.gameScript {
             })
             .key("vitality", (e) => {
                 let vitality = e / ConfigGame.userVitalityLimit;
-                if (vitality > 1) vitality = 1;
+                if (vitality >= 1) {
+                    vitality = 1;
+                    this.vitalityBuyBtn.disabled = true;
+                } else {
+                    this.vitalityBuyBtn.disabled = false;
+                }
                 (this.vitalityBox.getChildByName("bar") as Laya.Image).width = 268 * vitality;
             });
 
@@ -289,9 +296,18 @@ export default class MainView extends Core.gameScript {
                 break;
             case "go_home":
                 this.goHome();
-
+                break;
+            case "add_vitality":
+                this.buyVitality();
                 break;
         }
+    }
+
+    /**
+     * 购买体力
+     */
+    private buyVitality() {
+        Core.view.open(Res.views.BuyVitalityView);
     }
 
     /**
@@ -572,7 +588,7 @@ export default class MainView extends Core.gameScript {
             desc = box.getChildByName("lb") as Laya.Label,
             list = TaskService.getList(),
             task = list[0];
-        if (task.receive == 1) {
+        if (task.receive == 1 || this.isOuter) {
             box.visible = false;
             return;
         }

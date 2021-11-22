@@ -126,6 +126,34 @@ const TablePropertyEvent = {
                         getRewardCurrencyBase(d)
                     ),
                 };
+
+            case "goldDefault":
+                return {
+                    id: "goldDefault",
+                    value: getRewardCurrencyBase(d.value as string).count,
+                };
+            case "diamondDefault":
+                return {
+                    id: "diamondDefault",
+                    value: getRewardCurrencyBase(d.value as string).count,
+                };
+            case "ADTimesLimit":
+                return { id: "ADTimesLimit", value: d.value };
+            case "ADSpeedUptimes":
+                return { id: "ADSpeedUptimes", value: d.value };
+            case "vitalityBuyCostGold":
+                return {
+                    id: "vitalityBuyCostGold",
+                    value: getRewardCurrencyBase(d.value as string).count,
+                };
+            case "vitalityLimit":
+                return { id: "vitalityLimit", value: d.value };
+            case "landAmountMax":
+                return { id: "landAmountMax", value: d.value };
+            case "petDefaultVitality":
+                return { id: "petDefaultVitality", value: d.value };
+            case "petDigestIntervalTime":
+                return { id: "petDigestIntervalTime", value: d.value };
         }
     },
 

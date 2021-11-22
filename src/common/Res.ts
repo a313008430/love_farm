@@ -7,6 +7,8 @@
     {
         /** scenes/views/AddLandView.scene */
         AddLandView = "scenes/views/AddLandView.scene", 
+        /** scenes/views/BuyVitalityView.scene */
+        BuyVitalityView = "scenes/views/BuyVitalityView.scene", 
         /** scenes/views/FieldLevelUpView.scene */
         FieldLevelUpView = "scenes/views/FieldLevelUpView.scene", 
         /** scenes/views/FriendsDescView.scene */
@@ -79,6 +81,7 @@
          "scenes/views/FriendsRewardView.scene",
          "scenes/views/FriendsDescView.scene",
          "scenes/views/FieldLevelUpView.scene",
+         "scenes/views/BuyVitalityView.scene",
          "scenes/views/AddLandView.scene",
          "scenes/prefab/GetReward.prefab",
          "scenes/prefab/FloatRewardIcon.prefab",
