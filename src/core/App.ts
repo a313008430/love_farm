@@ -29,37 +29,48 @@ export default class AppCore {
      * @param data 传入数据
      */
     static runAppFunction(name: string, data?: string): void {
-        let webAppFunction;
-        if (Laya.Browser.onIOS) {
-            webAppFunction = this.detectionHasFunction(this.typeIos, name);
-            if (webAppFunction) {
-                // if (name == this.closeWebView) {
-                //     //关闭webview特殊处理
-                //     window["webkit"]["messageHandlers"][this.leaveChannel]["postMessage"](
-                //         JSON.stringify({ status: 1 })
-                //     ); //特殊处理需要先退出频道
-                // }
-                if (data) {
-                    // webAppFunction['postMessage'](data);
-                    console.log("run :" + name);
-                    window["webkit"]["messageHandlers"][name]["postMessage"](data);
-                } else {
-                    window["webkit"]["messageHandlers"][name]["postMessage"](
-                        JSON.stringify({ status: 1 })
-                    );
-                }
-            }
-        } else {
-            webAppFunction = this.detectionHasFunction(this.typeAndroid, name);
-            if (webAppFunction) {
-                console.log(name);
-                if (data) {
-                    window["webRequest"][name](data);
-                } else {
-                    window["webRequest"][name]();
-                }
-            }
-        }
+        window["$App"]["webRequest"](
+            JSON.stringify({
+                //协议名称
+                uri: "ad",
+                //数据内容
+                data: {},
+                //web前端带入的时间戳，用来标记是否回调，app，返回时再把这个时间戳带回来
+                timestamp: Date.now(),
+            })
+        );
+
+        // let webAppFunction;
+        // if (Laya.Browser.onIOS) {
+        //     webAppFunction = this.detectionHasFunction(this.typeIos, name);
+        //     if (webAppFunction) {
+        //         // if (name == this.closeWebView) {
+        //         //     //关闭webview特殊处理
+        //         //     window["webkit"]["messageHandlers"][this.leaveChannel]["postMessage"](
+        //         //         JSON.stringify({ status: 1 })
+        //         //     ); //特殊处理需要先退出频道
+        //         // }
+        //         if (data) {
+        //             // webAppFunction['postMessage'](data);
+        //             console.log("run :" + name);
+        //             window["webkit"]["messageHandlers"][name]["postMessage"](data);
+        //         } else {
+        //             window["webkit"]["messageHandlers"][name]["postMessage"](
+        //                 JSON.stringify({ status: 1 })
+        //             );
+        //         }
+        //     }
+        // } else {
+        //     webAppFunction = this.detectionHasFunction(this.typeAndroid, name);
+        //     if (webAppFunction) {
+        //         console.log(name);
+        //         if (data) {
+        //             window["webRequest"][name](data);
+        //         } else {
+        //             window["webRequest"][name]();
+        //         }
+        //     }
+        // }
     }
 
     /**
@@ -87,6 +98,8 @@ export default class AppCore {
      */
     static listenAppFunction(): void {
         //监听手机关闭事件响应
-        window["appResponse"] = (d: AppDespatchData) => {};
+        window["appResponse"] = (d: AppDespatchData) => {
+            alert(JSON.stringify(d));
+        };
     }
 }

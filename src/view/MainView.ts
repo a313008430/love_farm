@@ -6,6 +6,7 @@ import { Table } from "src/common/Table";
 import TableAnalyze from "src/common/TableAnalyze";
 import { RewardCurrencyBase } from "src/common/TableObject";
 import FieldComponent from "src/components/FieldComponent";
+import AppCore from "src/core/App";
 import Core from "src/core/index";
 import LandService, { LandObj } from "src/dataService/LandService";
 import TaskService from "src/dataService/TaskService";
@@ -204,11 +205,18 @@ export default class MainView extends Core.gameScript {
                 let vitality = e / ConfigGame.userVitalityLimit;
                 if (vitality >= 1) {
                     vitality = 1;
-                    this.vitalityBuyBtn.disabled = true;
+                    this.vitalityBuyBtn.gray = true;
+                    Laya.timer.frameOnce(1, this, () => {
+                        this.vitalityBuyBtn.mouseEnabled = false;
+                    });
                 } else {
-                    this.vitalityBuyBtn.disabled = false;
+                    this.vitalityBuyBtn.gray = false;
+                    Laya.timer.frameOnce(1, this, () => {
+                        this.vitalityBuyBtn.mouseEnabled = true;
+                    });
                 }
-                (this.vitalityBox.getChildByName("bar") as Laya.Image).width = 268 * vitality;
+                if (this.vitalityBox.getChildByName("bar"))
+                    (this.vitalityBox.getChildByName("bar") as Laya.Image).width = 268 * vitality;
             });
 
         this.addLandLayer.visible = false;
@@ -271,6 +279,7 @@ export default class MainView extends Core.gameScript {
                 Core.view.open(Res.views.OrderView);
                 break;
             case "friends":
+                AppCore.runAppFunction("");
                 Core.view.open(Res.views.FriendsView);
                 break;
             case "land":

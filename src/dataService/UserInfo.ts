@@ -8,8 +8,10 @@ class UserInfo {
     orderLevel: number = 1;
     /** 用户名称 */
     nickname: string = "name";
-    /** 用户id */
-    uid: number = 0;
+    // /** 用户id */
+    // uid: number = 0;
+    /** 用户唯一标识 */
+    key: string = null;
     /** 用名头像 */
     avatar: string = "";
     /** 钻石 */

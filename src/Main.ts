@@ -11,6 +11,7 @@ import HttpControl from "./common/HttpControl";
 import LocalStorageService from "./dataService/LocalStorageService";
 import ConfigGame from "./common/ConfigGame";
 import Core from "./core/index";
+import AppCore from "./core/App";
 class Main {
     /** 自定义渲染id列表 */
     static customRenderID: number[] = [];
@@ -58,6 +59,7 @@ class Main {
         HttpControl.inst.init(ConfigGame.baseUrl);
         Core.eventGlobal.on(EventMaps.login_game, this, this.loginGame);
         Laya.SoundManager.useAudioMusic = false;
+        AppCore.listenAppFunction();
         // ViewManager.inst.init();
 
         // Laya.SoundManager.playSound("res/audio/draw.mp3");

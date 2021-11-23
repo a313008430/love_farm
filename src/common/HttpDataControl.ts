@@ -89,7 +89,7 @@ class HttpDataControl {
     private login(d: NetInit) {
         PlantService.init(d.seeds);
         WarehouseService.init(d.warehouse);
-        UserInfo.uid = d.userInfo.uid;
+        UserInfo.key = d.userInfo.key;
         UserInfo.diamond = d.userInfo.diamond;
         UserInfo.gold = d.userInfo.gold;
         UserInfo.nickname = d.userInfo.nickname;
@@ -121,7 +121,7 @@ class HttpDataControl {
         TaskService.clear();
         LocalStorageService.setJSON("isLogin", false);
         LocalStorageService.setJSON("token", null);
-        UserInfo.uid = null;
+        UserInfo.key = null;
         UserInfo.diamond = 0;
         UserInfo.gold = 0;
         UserInfo.nickname = "";

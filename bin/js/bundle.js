@@ -558,7 +558,7 @@
     petDigestIntervalTime: 60,
     localKey: "love_HD_farm",
     userVitalityLimit: 10,
-    baseUrl: false ? "//127.0.0.1:3000" : "http://game.ahd168.com:3000",
+    baseUrl: false ? "//192.168.101.50:3000" : "http://game.ahd168.com:3000",
     ApiTypeDefault: 1,
     ApiTypeAD: 2,
     ADSpeedUpTimes: 6
@@ -892,7 +892,7 @@
     constructor() {
       this.orderLevel = 1;
       this.nickname = "name";
-      this.uid = 0;
+      this.key = null;
       this.avatar = "";
       this.diamond = 999;
       this.gold = 999;
@@ -1055,7 +1055,7 @@
       var _a, _b, _c;
       PlantService_default.init(d.seeds);
       WarehouseService_default.init(d.warehouse);
-      UserInfo_default.uid = d.userInfo.uid;
+      UserInfo_default.key = d.userInfo.key;
       UserInfo_default.diamond = d.userInfo.diamond;
       UserInfo_default.gold = d.userInfo.gold;
       UserInfo_default.nickname = d.userInfo.nickname;
@@ -1086,7 +1086,7 @@
       TaskService_default.clear();
       LocalStorageService_default.setJSON("isLogin", false);
       LocalStorageService_default.setJSON("token", null);
-      UserInfo_default.uid = null;
+      UserInfo_default.key = null;
       UserInfo_default.diamond = 0;
       UserInfo_default.gold = 0;
       UserInfo_default.nickname = "";
@@ -1966,6 +1966,39 @@
     core_default.eventOn(EventMaps.land_speed_up)
   ], FieldComponent.prototype, "speedUp", 1);
 
+  // src/core/App.ts
+  var AppCore = class {
+    static runAppFunction(name, data) {
+      window["$App"]["webRequest"](JSON.stringify({
+        uri: "ad",
+        data: {},
+        timestamp: Date.now()
+      }));
+    }
+    static detectionHasFunction(type, name) {
+      switch (type) {
+        case this.typeIos:
+          if (window["webkit"] && window["webkit"]["messageHandlers"] && window["webkit"]["messageHandlers"][name])
+            return true;
+        case this.typeAndroid:
+          if (window["webRequest"] && window["webRequest"][name])
+            return true;
+      }
+      return false;
+    }
+    static listenAppFunction() {
+      window["appResponse"] = (d) => {
+        alert(JSON.stringify(d));
+      };
+    }
+  };
+  AppCore.typeIos = 1;
+  AppCore.typeAndroid = 2;
+  AppCore.ad = "ad";
+  AppCore.closeWebView = "closeWebView";
+  AppCore.hornSwitchController = "hornSwitchController";
+  AppCore.appCloseWebViewCall = "appCloseWebViewCall";
+
   // src/view/MainView.ts
   var MainView = class extends core_default.gameScript {
     constructor() {
@@ -2075,11 +2108,18 @@
         let vitality = e / ConfigGame_default.userVitalityLimit;
         if (vitality >= 1) {
           vitality = 1;
-          this.vitalityBuyBtn.disabled = true;
+          this.vitalityBuyBtn.gray = true;
+          Laya.timer.frameOnce(1, this, () => {
+            this.vitalityBuyBtn.mouseEnabled = false;
+          });
         } else {
-          this.vitalityBuyBtn.disabled = false;
+          this.vitalityBuyBtn.gray = false;
+          Laya.timer.frameOnce(1, this, () => {
+            this.vitalityBuyBtn.mouseEnabled = true;
+          });
         }
-        this.vitalityBox.getChildByName("bar").width = 268 * vitality;
+        if (this.vitalityBox.getChildByName("bar"))
+          this.vitalityBox.getChildByName("bar").width = 268 * vitality;
       });
       this.addLandLayer.visible = false;
       this.updateOrder();
@@ -2133,6 +2173,7 @@
           core_default.view.open(Res_default.views.OrderView);
           break;
         case "friends":
+          AppCore.runAppFunction("");
           core_default.view.open(Res_default.views.FriendsView);
           break;
         case "land":
@@ -2580,14 +2621,16 @@
             call: () => {
               LocalStorageService_default.setJSON("isLogin", false);
               LocalStorageService_default.setJSON("token", null);
-              core_default.view.loginOut();
               HttpDataControl_default.loginOut();
-              core_default.view.open(Res_default.views.LoginView, {
-                parm: {
-                  call: () => {
-                    core_default.eventGlobal.event(EventMaps.login_game);
+              Laya.timer.frameOnce(1, this, () => {
+                core_default.view.loginOut();
+                core_default.view.open(Res_default.views.LoginView, {
+                  parm: {
+                    call: () => {
+                      core_default.eventGlobal.event(EventMaps.login_game);
+                    }
                   }
-                }
+                });
               });
             },
             cancelCall: () => {
@@ -3512,6 +3555,7 @@
         HttpControl.inst.init(ConfigGame_default.baseUrl);
         core_default.eventGlobal.on(EventMaps.login_game, this, this.loginGame);
         Laya.SoundManager.useAudioMusic = false;
+        AppCore.listenAppFunction();
         yield new Promise((resolve) => {
           ViewManager.inst.open(Res_default.views.LoginView, {
             showLoad: false,

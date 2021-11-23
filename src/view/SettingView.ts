@@ -46,14 +46,16 @@ export default class SettingView extends Core.gameScript {
                     call: () => {
                         LocalStorageService.setJSON("isLogin", false);
                         LocalStorageService.setJSON("token", null);
-                        Core.view.loginOut();
                         HttpDataControl.loginOut();
-                        Core.view.open(Res.views.LoginView, {
-                            parm: {
-                                call: () => {
-                                    Core.eventGlobal.event(EventMaps.login_game);
+                        Laya.timer.frameOnce(1, this, () => {
+                            Core.view.loginOut();
+                            Core.view.open(Res.views.LoginView, {
+                                parm: {
+                                    call: () => {
+                                        Core.eventGlobal.event(EventMaps.login_game);
+                                    },
                                 },
-                            },
+                            });
                         });
                     },
                     cancelCall: () => {},

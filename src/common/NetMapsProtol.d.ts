@@ -67,7 +67,8 @@ interface NetBase {
 interface NetInit extends NetBase {
     userInfo: {
         account: "string";
-        uid: number;
+        // uid: number;
+        key: string;
         gold: number;
         diamond: number;
         nickname: "string";
