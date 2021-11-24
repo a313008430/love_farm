@@ -2,11 +2,11 @@
     "x":0,
     "type":"View",
     "selectedBox":2,
-    "selecteID":5,
+    "selecteID":10,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":13,
+    "maxID":18,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -90,7 +90,7 @@
             "source":"src/view/LoginView.ts",
             "searchKey":"Script,LoginView",
             "removeAble":true,
-            "props":{"userInput":"@node:12","loginBox":"@node:10","loadBox":"@node:6","loadBar":"@node:7"},
+            "props":{"userInput":"@node:12","test_btn":"@node:15","loginBox":"@node:10","loadBox":"@node:6","loadBar":"@node:7"},
             "nodeParent":2,
             "label":"LoginView",
             "isDirectory":false,
@@ -143,6 +143,49 @@
             "compId":12,
             "child":[
                 ]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image,test_btn",
+            "props":{"y":915,"x":523,"skin":"main_scene/img_getDiamondBtn.png","name":"test_btn","anchorY":0.5,"anchorX":0.5},
+            "nodeParent":2,
+            "label":"test_btn",
+            "isOpen":false,
+            "isDirectory":true,
+            "isAniNode":true,
+            "hasChild":true,
+            "compId":15,
+            "child":[
+                {
+                    "type":"Script",
+                    "switchAble":true,
+                    "source":"src/components/Button.ts",
+                    "searchKey":"Script,Button",
+                    "removeAble":true,
+                    "props":{"isScale":true},
+                    "nodeParent":15,
+                    "label":"Button",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":16,
+                    "child":[
+                        ]
+                },
+                {
+                    "type":"Label",
+                    "searchKey":"Label",
+                    "props":{"y":14,"x":14.5,"text":"测试登录","fontSize":40},
+                    "nodeParent":15,
+                    "label":"Label",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":17,
+                    "child":[
+                        ]
+                }]
         }],
     "animations":[
         {

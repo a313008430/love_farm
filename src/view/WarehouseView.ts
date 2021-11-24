@@ -190,6 +190,10 @@ export default class WarehouseView extends Core.gameScript {
                             });
                         }
 
+                        if (e.target.name == "sellBtnAd") {
+                            Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
+                        }
+
                         Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
                             node: this.sellBtn as any,
                             list: rewardList,

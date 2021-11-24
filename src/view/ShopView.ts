@@ -3,7 +3,8 @@ import { EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
-import { FeedBase, PlantBase } from "src/common/TableObject";
+import TableAnalyze from "src/common/TableAnalyze";
+import { FeedBase, PlantBase, RewardCurrencyBase } from "src/common/TableObject";
 import Tools from "src/common/Tools";
 import FloatViewShowAni from "src/components/FloatViewShowAni";
 import GameScript from "src/core/GameScript";
@@ -295,6 +296,10 @@ export default class ShopView extends GameScript {
                             this.itemListSelectIndex,
                             PlantService.list[this.itemListSelectIndex]
                         );
+
+                        if (e.target.name == "ad_unlock") {
+                            Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
+                        }
                     },
                 });
                 break;

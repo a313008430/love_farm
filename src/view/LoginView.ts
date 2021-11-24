@@ -1,11 +1,12 @@
 import ConfigGame from "src/common/ConfigGame";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
+import AppCore from "src/core/App";
 import GameScript from "src/core/GameScript";
 import Core from "src/core/index";
 import LocalStorageService from "src/dataService/LocalStorageService";
 import UserInfo from "src/dataService/UserInfo";
-import { EventMaps } from "../common/EventMaps";
+import { AppEventMap, EventMaps } from "../common/EventMaps";
 import EventGlobal from "../core/EventGlobal";
 
 export default class LoginView extends GameScript {
@@ -17,6 +18,8 @@ export default class LoginView extends GameScript {
     private loginBox: Laya.Box = null;
     /** @prop {name:userInput, tips:"登陆容器", type:Node}*/
     private userInput: Laya.TextInput = null;
+    /** @prop {name:test_btn, tips:"测试登录按钮", type:Node}*/
+    private test_btn: Laya.Image = null;
 
     /** 进度条默认宽度 */
     private loadBarOldWidth: number = 0;
@@ -27,10 +30,11 @@ export default class LoginView extends GameScript {
         this.data = d;
 
         if (LocalStorageService.getJSON()?.isLogin) {
-            this.login();
+            this.login(false);
             this.loginBox.visible = false;
             this.loadBox.visible = true;
             this.userInput.visible = false;
+            this.test_btn.visible = false;
             // if (this.data?.call) {
             //     this.data.call();
             //     console.log("call");
@@ -39,6 +43,7 @@ export default class LoginView extends GameScript {
             this.loginBox.visible = true;
             this.loadBox.visible = false;
             this.userInput.visible = true;
+            this.test_btn.visible = true;
         }
     }
 
@@ -58,12 +63,15 @@ export default class LoginView extends GameScript {
     onClick(e: Laya.Event) {
         switch (e.target.name) {
             case "login_btn":
-                this.login();
+                this.login(true);
+                break;
+            case "test_btn":
+                this.login(false);
                 break;
         }
     }
 
-    private login() {
+    private async login(isWx: boolean) {
         if (LocalStorageService.getJSON().token) {
             HttpControl.inst.send({
                 api: ApiHttp.loginToken,
@@ -71,29 +79,47 @@ export default class LoginView extends GameScript {
                     if (this.data?.call) this.data.call(d);
                     this.loginBox.visible = false;
                     this.loadBox.visible = true;
+                    this.test_btn.visible = false;
                 },
                 error: (code, data) => {
                     LocalStorageService.clear();
                     this.loginBox.visible = true;
+                    this.test_btn.visible = true;
                     this.loadBox.visible = false;
                     this.userInput.visible = true;
                 },
             });
         } else {
+            console.log(isWx);
+            if (isWx) {
+                const data = await AppCore.runAppFunction({
+                    uri: AppEventMap.wxLogin,
+                    data: {},
+                    timestamp: Date.now(),
+                });
+                console.log(data);
+                if (!data) {
+                    Core.view.openHint({ text: "未获取到微信id", call: () => {} });
+                    return;
+                }
+            }
+
             HttpControl.inst.send({
                 api: ApiHttp.login,
                 data: {
-                    account: this.userInput.text,
-                    // wxId: this.userInput.text,
+                    account: isWx ? null : this.userInput.text,
+                    // wxId: 223,
                 },
                 call: (d: NetInit) => {
                     if (this.data?.call) this.data.call(d);
                     this.loginBox.visible = false;
+                    this.test_btn.visible = false;
                     this.loadBox.visible = true;
                 },
                 error: (code, data) => {
                     LocalStorageService.clear();
                     this.loginBox.visible = true;
+                    this.test_btn.visible = true;
                     this.loadBox.visible = false;
                     this.userInput.visible = true;
                 },

@@ -1,4 +1,5 @@
 import ConfigGame from "src/common/ConfigGame";
+import { EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
@@ -41,6 +42,10 @@ export default class FieldLevelUpView extends GameScript {
                                 : ConfigGame.ApiTypeAD,
                     },
                     call: (d: ReturnUserInfo) => {
+                        if (e.target.name == "upgradeAdBtn") {
+                            Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
+                        }
+
                         if (this.data.call) {
                             this.data.call();
                         }

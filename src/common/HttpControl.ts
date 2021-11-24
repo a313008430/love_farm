@@ -1,9 +1,11 @@
+import AppCore from "src/core/App";
 import Core from "src/core/index";
 import { Instance } from "src/core/Instance";
 import LocalStorageService from "src/dataService/LocalStorageService";
 import TaskService from "src/dataService/TaskService";
 import UserInfo from "src/dataService/UserInfo";
 import ConfigGame from "./ConfigGame";
+import { AppEventMap } from "./EventMaps";
 import HttpDataControl from "./HttpDataControl";
 import { ApiHttp } from "./NetMaps";
 import Res from "./Res";
@@ -55,7 +57,18 @@ export default class HttpControl {
                         this.completeHandler(JSON.parse(xmlhttp.responseText));
                         break;
                     default:
-                        this.completeHandler(JSON.parse(xmlhttp.responseText));
+                        if (xmlhttp.responseText)
+                            this.completeHandler({
+                                code: xmlhttp.status,
+                                data: JSON.parse(xmlhttp.responseText),
+                            });
+                        if (!xmlhttp.status) {
+                            this.completeHandler({
+                                code: 404,
+                                data: { message: "服务器未响应，请重试" },
+                                uri: "",
+                            });
+                        }
                         break;
                 }
             }
@@ -64,7 +77,7 @@ export default class HttpControl {
         this.xhr = xmlhttp;
     }
 
-    send(data: HttpSendData) {
+    async send(data: HttpSendData) {
         if (!data.method) data.method = "post";
         if (!data.responseType) data.responseType = "json";
         if (!data.baseUrl) data.baseUrl = this.baseUrl;
@@ -113,6 +126,11 @@ export default class HttpControl {
                 sendData.push(`${d}=${data.data[d]}`);
             });
             if (data.data?.type == ConfigGame.ApiTypeAD) {
+                await AppCore.runAppFunction({
+                    uri: AppEventMap.ad,
+                    data: null,
+                    timestamp: Date.now(),
+                });
                 TaskService.taskAddTimes(1001);
                 TaskService.taskAddTimes(1012);
             }

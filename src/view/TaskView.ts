@@ -112,16 +112,25 @@ export default class TaskView extends GameScript {
                         },
                     });
                 } else {
-                    this.jump(btnObj.id);
+                    this.jump(btnObj.id, e.target);
                 }
 
                 break;
         }
     }
 
-    private jump(id) {
+    private jump(id, target) {
         switch (id) {
             case 1001:
+                HttpControl.inst.send({
+                    api: ApiHttp.ad,
+                    data: {},
+                    call: (d: { gold: 0; diamond: 0; advertiseTimes: 0 }) => {
+                        Core.eventGlobal.event(EventMaps.play_ad_get_reward, target);
+                        this.taskList.refresh();
+                    },
+                });
+
                 break;
             case 1002:
                 break;

@@ -214,3 +214,26 @@ interface ReturnNeighbor {
     nickname: "string";
     uid: number;
 }
+
+/**
+ * 好友数据
+ */
+interface FriendData {
+    uid: 0;
+    orderLevel: 0;
+    /** 亲密度 */
+    intimacy: 0;
+    gainDiamond: 0;
+    avatar: "string";
+    /** 是否申请中 0 为已经是好友 1为申请中 */
+    applyIng: number;
+    /** 用户昵称 */
+    nickname: "string";
+}
+
+/**
+ * 好友 列表数据返回
+ */
+interface FriendListData {
+    list: FriendData[];
+}

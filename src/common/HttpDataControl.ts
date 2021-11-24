@@ -28,6 +28,11 @@ class HttpDataControl {
                 break;
             case ApiHttp.landSpeedUp:
                 this.taskUpdate(1002);
+                this.updateUserInfo(d.data);
+                break;
+            case ApiHttp.ad:
+                this.taskUpdate(1001);
+                this.updateUserInfo(d.data);
                 break;
             case ApiHttp.landGather:
                 this.taskUpdate(1003);

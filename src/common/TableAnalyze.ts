@@ -154,6 +154,8 @@ const TablePropertyEvent = {
                 return { id: "petDefaultVitality", value: d.value };
             case "petDigestIntervalTime":
                 return { id: "petDigestIntervalTime", value: d.value };
+            case "Videorewards":
+                return { id: "Videorewards", value: getRewardCurrencyBase(d.value as string) };
         }
     },
 

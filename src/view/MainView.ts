@@ -279,8 +279,8 @@ export default class MainView extends Core.gameScript {
                 Core.view.open(Res.views.OrderView);
                 break;
             case "friends":
-                AppCore.runAppFunction("");
-                Core.view.open(Res.views.FriendsView);
+                this.openFriend();
+
                 break;
             case "land":
                 break;
@@ -299,7 +299,6 @@ export default class MainView extends Core.gameScript {
             case "close_up":
                 this.switchLandLevelUp(false);
                 break;
-
             case "any_door":
                 this.goToNeighbor();
                 break;
@@ -310,6 +309,15 @@ export default class MainView extends Core.gameScript {
                 this.buyVitality();
                 break;
         }
+    }
+
+    private openFriend() {
+        HttpControl.inst.send({
+            api: ApiHttp.friendList,
+            call: (d: FriendListData) => {
+                Core.view.open(Res.views.FriendsView, { parm: d });
+            },
+        });
     }
 
     /**
@@ -589,6 +597,29 @@ export default class MainView extends Core.gameScript {
         });
     }
 
+    /**
+     * 播放看广告以后的奖励
+     */
+    @Core.eventOn(EventMaps.play_ad_get_reward)
+    private playAdReward(target) {
+        const reward = TableAnalyze.table("config").get("Videorewards").value as RewardCurrencyBase;
+
+        Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
+            node: target,
+            list: [
+                {
+                    obj: reward.obj,
+                    count: reward.count,
+                    posType: reward.obj.id == ConfigGame.goldId ? 1 : 2,
+                },
+            ],
+        });
+    }
+
+    /**
+     * 更新任务
+     * @returns
+     */
     @Core.eventOn(EventMaps.update_task)
     private updateTask() {
         const box: Laya.Image = this.taskBox,

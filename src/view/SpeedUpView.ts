@@ -44,6 +44,8 @@ export default class SpeedUpView extends Core.gameScript {
 
                         Core.view.close(Res.views.SpeedUpView);
                         Core.eventGlobal.event(EventMaps.land_speed_up);
+
+                        Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
                     },
                 });
                 break;

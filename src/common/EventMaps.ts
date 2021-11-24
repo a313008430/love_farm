@@ -42,4 +42,20 @@ export const enum EventMaps {
     }
      */
     play_get_reward = "play_get_reward",
+    /** 看广告播放奖励获获得动画  传入节点 */
+    play_ad_get_reward = "play_ad_get_reward",
+}
+
+/**
+ * 与app交互事件
+ */
+export const enum AppEventMap {
+    /** 看广告 */
+    ad = "ad",
+    /** 微信登录 */
+    wxLogin = "wxLogin",
+    /** 微信分享 */
+    wxShare = "wxShare",
+    /** 友盟事件统计 数据格式 {type:对应要统计的点} */
+    eventCount = "eventCount",
 }

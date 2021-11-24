@@ -1,4 +1,5 @@
 import ConfigGame from "src/common/ConfigGame";
+import { EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
@@ -75,6 +76,8 @@ export default class AddLandView extends GameScript {
                             this.data.call();
                             Core.view.close(Res.views.AddLandView);
                         }
+
+                        Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
                     },
                 });
 
