@@ -98,7 +98,7 @@ class HttpDataControl {
         UserInfo.diamond = d.userInfo.diamond;
         UserInfo.gold = d.userInfo.gold;
         UserInfo.nickname = d.userInfo.nickname;
-        UserInfo.avatar = "";
+        UserInfo.avatar = d.userInfo.avatar;
         UserInfo.orderLevel = d.orderId || 0;
         UserInfo.warePetId = d.wearPet?.id;
         UserInfo.petVitality = d.wearPet?.vitality || 0;

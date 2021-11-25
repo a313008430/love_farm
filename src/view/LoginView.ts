@@ -28,7 +28,6 @@ export default class LoginView extends GameScript {
 
     onOpened(d) {
         this.data = d;
-
         if (LocalStorageService.getJSON()?.isLogin) {
             this.login(false);
             this.loginBox.visible = false;
@@ -42,8 +41,9 @@ export default class LoginView extends GameScript {
         } else {
             this.loginBox.visible = true;
             this.loadBox.visible = false;
-            this.userInput.visible = true;
-            this.test_btn.visible = true;
+            this.userInput.visible = false;
+            // this.test_btn.visible = true;
+            this.test_btn.visible = false;
         }
     }
 
@@ -91,6 +91,9 @@ export default class LoginView extends GameScript {
             });
         } else {
             console.log(isWx);
+            let wxOpenId = null,
+                nickname = "",
+                avatar = "";
             if (isWx) {
                 const data = await AppCore.runAppFunction({
                     uri: AppEventMap.wxLogin,
@@ -102,13 +105,19 @@ export default class LoginView extends GameScript {
                     Core.view.openHint({ text: "未获取到微信id", call: () => {} });
                     return;
                 }
+
+                wxOpenId = data.data["openid"];
+                avatar = data.data["iconurl"];
+                nickname = data.data["name"];
             }
 
             HttpControl.inst.send({
                 api: ApiHttp.login,
-                data: {
-                    account: isWx ? null : this.userInput.text,
-                    // wxId: 223,
+                data: <NetSendApi["login"]>{
+                    // account: isWx ? null : this.userInput.text,
+                    wxId: wxOpenId,
+                    avatar: avatar,
+                    nickname: nickname,
                 },
                 call: (d: NetInit) => {
                     if (this.data?.call) this.data.call(d);

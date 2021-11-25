@@ -313,7 +313,7 @@ export default class FieldComponent extends Core.gameScript {
             console.log("外出");
 
             if (this.data) {
-                this.stealFood();
+                this.stealFood(this.data);
             }
 
             return;
@@ -457,7 +457,11 @@ export default class FieldComponent extends Core.gameScript {
     /**
      * 偷菜
      */
-    private stealFood() {
+    private stealFood(data: LandObj) {
+        if (!data.productId || data.matureTimeLeft) {
+            return;
+        }
+
         if (!this.canSteal) {
             console.log("已经不可偷");
             Core.view.openHint({ text: "给我留点吧", call: () => {} });

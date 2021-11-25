@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":26,
-    "selecteID":25,
+    "selectedBox":2,
+    "selecteID":17,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/SettingView.jpg","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -193,13 +193,14 @@
                             "props":{"skin":"main_scene/img_portrait.png","name":"head"},
                             "nodeParent":31,
                             "label":"head",
-                            "isOpen":false,
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":16,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,avater",
                                     "props":{"y":68,"x":68,"width":83,"skin":"main_scene/img_defaultPortrait.png","name":"avater","height":81,"anchorY":0.5,"anchorX":0.5},
@@ -217,7 +218,7 @@
                             "x":45,
                             "type":"Label",
                             "searchKey":"Label,nickname",
-                            "props":{"y":34,"x":157,"text":"江洋大道","strokeColor":"#9D682F","stroke":2,"name":"nickname","fontSize":50,"font":"Microsoft YaHei","color":"#ffffff"},
+                            "props":{"y":52,"x":157,"text":"江洋大道","strokeColor":"#9D682F","stroke":2,"name":"nickname","fontSize":50,"font":"Microsoft YaHei","color":"#ffffff"},
                             "nodeParent":31,
                             "label":"nickname",
                             "isDirectory":false,
@@ -231,7 +232,7 @@
                             "x":45,
                             "type":"Label",
                             "searchKey":"Label,id",
-                            "props":{"y":88,"x":162,"text":"ID:1234","strokeColor":"#9D682F","stroke":2,"name":"id","fontSize":36,"font":"Microsoft YaHei","color":"#ffffff"},
+                            "props":{"y":88,"x":162,"visible":false,"text":"ID:1234","strokeColor":"#9D682F","stroke":2,"name":"id","fontSize":36,"font":"Microsoft YaHei","color":"#ffffff"},
                             "nodeParent":31,
                             "label":"id",
                             "isDirectory":false,
@@ -239,7 +240,8 @@
                             "hasChild":false,
                             "compId":19,
                             "child":[
-                                ]
+                                ],
+                            "$HIDDEN":false
                         },
                         {
                             "x":45,
@@ -615,7 +617,7 @@
             "source":"src/view/SettingView.ts",
             "searchKey":"Script,SettingView",
             "removeAble":true,
-            "props":{"soundNode":"@node:27","musicNode":"@node:26"},
+            "props":{"soundNode":"@node:27","nickname":"@node:18","musicNode":"@node:26","avatarNode":"@node:17"},
             "nodeParent":2,
             "label":"SettingView",
             "isDirectory":false,

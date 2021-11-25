@@ -44,6 +44,8 @@ export const enum EventMaps {
     play_get_reward = "play_get_reward",
     /** 看广告播放奖励获获得动画  传入节点 */
     play_ad_get_reward = "play_ad_get_reward",
+    /** 去好友家 */
+    go_friend_home = "go_friend_home",
 }
 
 /**

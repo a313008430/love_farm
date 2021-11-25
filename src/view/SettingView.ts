@@ -3,6 +3,7 @@ import HttpDataControl from "src/common/HttpDataControl";
 import Res from "src/common/Res";
 import Core from "src/core/index";
 import LocalStorageService from "src/dataService/LocalStorageService";
+import UserInfo from "src/dataService/UserInfo";
 
 //class SettingView extends Laya.Script
 export default class SettingView extends Core.gameScript {
@@ -10,10 +11,23 @@ export default class SettingView extends Core.gameScript {
     private musicNode: Laya.Box = null;
     /** @prop {name:soundNode, tips:"音效按钮", type:Node}*/
     private soundNode: Laya.Box = null;
+    /** @prop {name:avatarNode, tips:"玩家头像", type:Node}*/
+    private avatarNode: Laya.Image = null;
+    /** @prop {name:nickname, tips:"玩家名称", type:Node}*/
+    private nickname: Laya.Label = null;
 
     onOpened() {
         this.musicChange();
         this.soundChange();
+
+        Core.observableProperty
+            .watch(UserInfo, this)
+            .key("avatar", (e) => {
+                if (e) this.avatarNode.skin = e;
+            })
+            .key("nickname", (e) => {
+                this.nickname.text = e;
+            });
     }
 
     onClick(e: Laya.Event) {

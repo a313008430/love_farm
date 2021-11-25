@@ -311,6 +311,9 @@ export default class MainView extends Core.gameScript {
         }
     }
 
+    /**
+     * 打开好友 列表
+     */
     private openFriend() {
         HttpControl.inst.send({
             api: ApiHttp.friendList,
@@ -650,6 +653,8 @@ export default class MainView extends Core.gameScript {
                 api: ApiHttp.goHome,
                 data: {},
                 call: () => {
+                    //回来
+                    this.isOuter = false;
                     Laya.timer.once(300, this, () => {
                         Core.view.setOverView(false);
                         this.goFriend(null);
@@ -670,13 +675,22 @@ export default class MainView extends Core.gameScript {
                     type: ConfigGame.ApiTypeDefault,
                 },
                 call: (d: ReturnNeighbor) => {
+                    //离开
+                    this.isOuter = true;
                     this.goFriend(d);
+
                     Laya.timer.once(300, this, () => {
                         Core.view.setOverView(false);
                     });
                 },
             });
         });
+    }
+
+    @Core.eventOn(EventMaps.go_friend_home)
+    private goFriendListen(d: ReturnNeighbor) {
+        this.isOuter = true;
+        this.goFriend(d);
     }
 
     /**
@@ -688,8 +702,15 @@ export default class MainView extends Core.gameScript {
         let otherLands: Map<number, LandObj> = new Map();
 
         if (this.isOuter) {
-            //回来
-            this.isOuter = false;
+            d.lands.forEach((e) => {
+                otherLands.set(e.id, e);
+            });
+
+            this.outerTime = Date.now();
+            this.vitalityBox.visible = true;
+            this.goHomeBtn.visible = true;
+            this.anyDoor.visible = false;
+        } else {
             userLands.forEach((d) => {
                 d.matureTimeLeft -= (Date.now() - this.outerTime) / 1000;
                 if (d.matureTimeLeft < 0) d.matureTimeLeft = 0;
@@ -697,17 +718,6 @@ export default class MainView extends Core.gameScript {
             this.vitalityBox.visible = false;
             this.anyDoor.visible = true;
             this.goHomeBtn.visible = false;
-        } else {
-            d.lands.forEach((e) => {
-                otherLands.set(e.id, e);
-            });
-
-            //离开
-            this.isOuter = true;
-            this.outerTime = Date.now();
-            this.vitalityBox.visible = true;
-            this.goHomeBtn.visible = true;
-            this.anyDoor.visible = false;
         }
 
         for (let x = 0; x < lands.length; x++) {

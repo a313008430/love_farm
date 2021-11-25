@@ -58,10 +58,7 @@ export default class HttpControl {
                         break;
                     default:
                         if (xmlhttp.responseText)
-                            this.completeHandler({
-                                code: xmlhttp.status,
-                                data: JSON.parse(xmlhttp.responseText),
-                            });
+                            this.completeHandler(JSON.parse(xmlhttp.responseText));
                         if (!xmlhttp.status) {
                             this.completeHandler({
                                 code: 404,

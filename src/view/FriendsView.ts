@@ -1,3 +1,4 @@
+import { EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
@@ -179,6 +180,7 @@ export default class FriendsView extends Core.gameScript {
                 },
                 call: (d) => {
                     Core.view.close(Res.views.FriendsView);
+                    Core.eventGlobal.event(EventMaps.go_friend_home, d);
                     Laya.timer.once(300, this, () => {
                         Core.view.setOverView(false);
                     });

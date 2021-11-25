@@ -74,6 +74,7 @@ interface NetInit extends NetBase {
         nickname: "string";
         /** 用户偷菜体力 */
         vitality: 0;
+        avatar: string;
     };
     lands: [
         {
@@ -121,7 +122,10 @@ interface NetInit extends NetBase {
 
 interface NetSendApi {
     login: {
-        account: string;
+        account: "string";
+        wxId: "string";
+        nickname: "string";
+        avatar: "string";
     };
 
     /**  解锁土地 */

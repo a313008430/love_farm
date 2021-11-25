@@ -23,8 +23,9 @@ export default class AddLandView extends GameScript {
 
     onOpened(d) {
         this.data = d;
+
         this.landData = TableAnalyze.table("config").get("unlock_land_cost").value[
-            LandService.list.size - 1
+            LandService.list.size
         ] as RewardCurrencyBase;
         this.costIcon.skin = this.landData.obj.icon;
         this.costFont.value = this.landData.count + "";

@@ -57,6 +57,7 @@ export default class AppCore {
             // }
         } else {
             console.log(JSON.stringify(data));
+            // alert(window["$App"] && window["$App"]["webRequest"]);
             if (window["$App"] && window["$App"]["webRequest"]) {
                 return new Promise((resolve) => {
                     window["$App"]["webRequest"](JSON.stringify(data));
@@ -87,7 +88,8 @@ export default class AppCore {
 
         window["appResponse"] = (d: AppDespatchReturnData) => {
             alert(JSON.stringify(d));
-            if (EventMap.has(d?.timestamp) && d.code) {
+            // alert(d?.timestamp);
+            if (EventMap.has(d?.timestamp) && !d.code) {
                 EventMap.get(d.timestamp)(d);
             }
             console.log(d);
