@@ -5,7 +5,7 @@ import LocalStorageService from "src/dataService/LocalStorageService";
 import TaskService from "src/dataService/TaskService";
 import UserInfo from "src/dataService/UserInfo";
 import ConfigGame from "./ConfigGame";
-import { AppEventMap } from "./EventMaps";
+import { AppEventMap, EventMaps } from "./EventMaps";
 import HttpDataControl from "./HttpDataControl";
 import { ApiHttp } from "./NetMaps";
 import Res from "./Res";
@@ -57,8 +57,18 @@ export default class HttpControl {
                         this.completeHandler(JSON.parse(xmlhttp.responseText));
                         break;
                     default:
-                        if (xmlhttp.responseText)
-                            this.completeHandler(JSON.parse(xmlhttp.responseText));
+                        if (xmlhttp.responseText) {
+                            let d = JSON.parse(xmlhttp.responseText);
+                            if (d.statusCode) {
+                                Core.view.openHint({
+                                    text: `${xmlhttp.responseText} 请重试`,
+                                    call: () => {},
+                                });
+                            } else {
+                                this.completeHandler(d);
+                            }
+                        }
+
                         if (!xmlhttp.status) {
                             this.completeHandler({
                                 code: 404,

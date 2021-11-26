@@ -8,7 +8,7 @@ export default class AudioControl {
     ) {
         Laya.SoundManager.playSound(url, loops, complete, soundClass, startTime);
     }
-    playMusic(url: string, loops?: number, complete?: Handler, startTime?: number) {
+    playMusic(url: string, loops = 0, complete?: Handler, startTime?: number) {
         Laya.SoundManager.playMusic(url, loops, complete, startTime);
     }
 

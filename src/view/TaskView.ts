@@ -10,8 +10,9 @@ import TaskService from "src/dataService/TaskService";
 import ConfigGame from "src/common/ConfigGame";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
-import { EventMaps } from "src/common/EventMaps";
+import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import { GetFloatRewardObj } from "./MainView";
+import AppCore from "src/core/App";
 
 interface ButtonObj {
     /** 任务id */
@@ -119,9 +120,14 @@ export default class TaskView extends GameScript {
         }
     }
 
-    private jump(id, target) {
+    private async jump(id, target) {
         switch (id) {
             case 1001:
+                await AppCore.runAppFunction({
+                    uri: AppEventMap.ad,
+                    data: null,
+                    timestamp: Date.now(),
+                });
                 HttpControl.inst.send({
                     api: ApiHttp.ad,
                     data: {},

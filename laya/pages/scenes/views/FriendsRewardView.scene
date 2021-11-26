@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":39,
+    "selectedBox":6,
+    "selecteID":31,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/FriendsRewardView.jpg","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,

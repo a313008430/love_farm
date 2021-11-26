@@ -37,4 +37,6 @@
    <item name="main_scene/img_dogProgress.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,11,0,10" picType="0" scale="0"/>
    <item name="main_scene/img_progressBarBg.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,20,0,19" picType="0" scale="0"/>
    <item name="game/img_energyBar.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,26,0,26" picType="0" scale="0"/>
+   <item name="load/img_loadingScroll2.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,20,0,21" picType="0" scale="0"/>
+   <item name="load/img_loadingScroll1.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,35,0,35" picType="0" scale="0"/>
 </res>

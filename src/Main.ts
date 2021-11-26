@@ -1,4 +1,4 @@
-import { EventMaps } from "./common/EventMaps";
+import { AppEventMap, EventMaps } from "./common/EventMaps";
 import Res from "./common/Res";
 import UserInfo from "./dataService/UserInfo";
 import EventGlobal from "./core/EventGlobal";
@@ -35,6 +35,7 @@ class Main {
         if (GameConfig.physicsDebug && Laya["PhysicsDebugDraw"]) Laya["PhysicsDebugDraw"].enable();
         if (GameConfig.stat) Laya.Stat.show();
         Laya.alertGlobalError(true);
+        Laya.stage.bgColor = "#ffffff";
 
         //激活资源版本控制，version.json由IDE发布功能自动生成，如果没有也不影响后续流程
         Laya.ResourceVersion.enable(
@@ -60,12 +61,8 @@ class Main {
         Core.eventGlobal.on(EventMaps.login_game, this, this.loginGame);
         Laya.SoundManager.useAudioMusic = false;
         AppCore.listenAppFunction();
-        // ViewManager.inst.init();
 
-        // Laya.SoundManager.playSound("res/audio/draw.mp3");
-        //如果通过设备静音键让音频自动跟随设备静音。需要将useAudioMusic设置为false。
-        // SoundManager.useAudioMusic=false；
-        // Laya.SoundManager.playMusic(Res.audios.win);
+        // ViewManager.inst.init();
 
         await new Promise((resolve) => {
             ViewManager.inst.open(Res.views.LoginView, {
@@ -77,6 +74,7 @@ class Main {
                     },
                 },
                 complete: (e) => {
+                    AppCore.runAppFunction({ uri: AppEventMap.closeImage, data: {} });
                     // Laya.View.setLoadingPage(e);
                     // Laya.timer.frameOnce(1, this, () => {
                     //     //后期优化

@@ -116,6 +116,8 @@
             "res/atlas/pet_feed.atlas",
             "res/atlas/main_scene.png",
             "res/atlas/main_scene.atlas",
+            "res/atlas/load.png",
+            "res/atlas/load.atlas",
             "res/atlas/game.png",
             "res/atlas/game.atlas"];
     

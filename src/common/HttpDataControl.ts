@@ -92,6 +92,10 @@ class HttpDataControl {
      * @param d 数据
      */
     private login(d: NetInit) {
+        if (!d) {
+            Core.view.openHint({ text: "登录错误,请重试", call: () => {} });
+            return;
+        }
         PlantService.init(d.seeds);
         WarehouseService.init(d.warehouse);
         UserInfo.key = d.userInfo.key;

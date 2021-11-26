@@ -54,8 +54,12 @@ export const enum EventMaps {
 export const enum AppEventMap {
     /** 看广告 */
     ad = "ad",
+    /** 关闭安卓启动遮罩 */
+    closeImage = "closeImage",
     /** 微信登录 */
     wxLogin = "wxLogin",
+    /** 微信登录成功 */
+    wxLoginSuccess = "wxLoginSuccess",
     /** 微信分享 */
     wxShare = "wxShare",
     /** 友盟事件统计 数据格式 {type:对应要统计的点} */

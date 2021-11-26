@@ -16,10 +16,6 @@ export default class LoginView extends GameScript {
     private loadBox: Laya.Box = null;
     /** @prop {name:loginBox, tips:"登陆容器", type:Node}*/
     private loginBox: Laya.Box = null;
-    /** @prop {name:userInput, tips:"登陆容器", type:Node}*/
-    private userInput: Laya.TextInput = null;
-    /** @prop {name:test_btn, tips:"测试登录按钮", type:Node}*/
-    private test_btn: Laya.Image = null;
 
     /** 进度条默认宽度 */
     private loadBarOldWidth: number = 0;
@@ -28,22 +24,14 @@ export default class LoginView extends GameScript {
 
     onOpened(d) {
         this.data = d;
+
         if (LocalStorageService.getJSON()?.isLogin) {
             this.login(false);
             this.loginBox.visible = false;
             this.loadBox.visible = true;
-            this.userInput.visible = false;
-            this.test_btn.visible = false;
-            // if (this.data?.call) {
-            //     this.data.call();
-            //     console.log("call");
-            // }
         } else {
             this.loginBox.visible = true;
             this.loadBox.visible = false;
-            this.userInput.visible = false;
-            // this.test_btn.visible = true;
-            this.test_btn.visible = false;
         }
     }
 
@@ -79,36 +67,40 @@ export default class LoginView extends GameScript {
                     if (this.data?.call) this.data.call(d);
                     this.loginBox.visible = false;
                     this.loadBox.visible = true;
-                    this.test_btn.visible = false;
                 },
                 error: (code, data) => {
                     LocalStorageService.clear();
                     this.loginBox.visible = true;
-                    this.test_btn.visible = true;
+
                     this.loadBox.visible = false;
-                    this.userInput.visible = true;
                 },
             });
         } else {
-            console.log(isWx);
-            let wxOpenId = null,
+            // console.log(isWx);
+            let testK = location.search.match(/\?id=(.+)/),
+                testKe = null;
+            if (testK && testK.length > 1) {
+                testKe = testK[1];
+            }
+            let wxOpenId = testKe,
                 nickname = "",
                 avatar = "";
-            if (isWx) {
+            if (isWx && !wxOpenId) {
                 const data = await AppCore.runAppFunction({
                     uri: AppEventMap.wxLogin,
                     data: {},
                     timestamp: Date.now(),
                 });
                 console.log(data);
-                if (!data) {
-                    Core.view.openHint({ text: "未获取到微信id", call: () => {} });
-                    return;
+                if (data) {
+                    wxOpenId = data.data["openid"];
+                    avatar = data.data["iconurl"];
+                    nickname = data.data["name"];
                 }
-
-                wxOpenId = data.data["openid"];
-                avatar = data.data["iconurl"];
-                nickname = data.data["name"];
+            }
+            if (!wxOpenId) {
+                Core.view.openHint({ text: "未获取到微信id", call: () => {} });
+                return;
             }
 
             HttpControl.inst.send({
@@ -122,15 +114,17 @@ export default class LoginView extends GameScript {
                 call: (d: NetInit) => {
                     if (this.data?.call) this.data.call(d);
                     this.loginBox.visible = false;
-                    this.test_btn.visible = false;
                     this.loadBox.visible = true;
+                    AppCore.runAppFunction({
+                        uri: AppEventMap.wxLoginSuccess,
+                        data: {},
+                    });
                 },
                 error: (code, data) => {
                     LocalStorageService.clear();
                     this.loginBox.visible = true;
-                    this.test_btn.visible = true;
+
                     this.loadBox.visible = false;
-                    this.userInput.visible = true;
                 },
             });
         }

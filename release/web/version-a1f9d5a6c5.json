@@ -1,7 +1,7 @@
 {
-  "fileconfig.json": "fileconfig-089e331ad4.json",
-  "index.js": "index-a51cee5782.js",
-  "js/bundle.js": "js/bundle-a88a6f1d9f.js",
+  "fileconfig.json": "fileconfig-f35335be87.json",
+  "index.js": "index-7b1321ae09.js",
+  "js/bundle.js": "js/bundle-b36e839bf8.js",
   "js/ps-N3BPHYGU.fs": "js/ps-N3BPHYGU-319562bd17.fs",
   "libs/min/laya.ani.min.js": "libs/min/laya-a72326a604.ani.min.js",
   "libs/min/laya.core.min.js": "libs/min/laya-4fc7637454.core.min.js",
@@ -9,8 +9,10 @@
   "main_scene/img_homepageBg1.png": "main_scene/img_homepageBg1-f22da6771f.png",
   "main_scene/img_homepageBg2.png": "main_scene/img_homepageBg2-201c1c06d8.png",
   "main_scene/img_homepageBg3.png": "main_scene/img_homepageBg3-1456acb18f.png",
-  "res/atlas/game.atlas": "res/atlas/game-4ec9924a93.atlas",
-  "res/atlas/game.png": "res/atlas/game-3bbc918e0d.png",
+  "res/atlas/game.atlas": "res/atlas/game-e415705148.atlas",
+  "res/atlas/game.png": "res/atlas/game-68bb33e65d.png",
+  "res/atlas/load.atlas": "res/atlas/load-2b3c28398c.atlas",
+  "res/atlas/load.png": "res/atlas/load-7296f611bc.png",
   "res/atlas/main_scene.atlas": "res/atlas/main_scene-76fa9b9831.atlas",
   "res/atlas/main_scene.png": "res/atlas/main_scene-19c4f91c24.png",
   "res/atlas/pet_feed.atlas": "res/atlas/pet_feed-3cf0af990e.atlas",
@@ -52,7 +54,7 @@
   "scenes/views/FriendsRewardView.json": "scenes/views/FriendsRewardView-2fe4d76b98.json",
   "scenes/views/FriendsView.json": "scenes/views/FriendsView-a0ca8a0db6.json",
   "scenes/views/HintView.json": "scenes/views/HintView-4c7c0b0b39.json",
-  "scenes/views/LoginView.json": "scenes/views/LoginView-b7cfec9e1b.json",
+  "scenes/views/LoginView.json": "scenes/views/LoginView-18360b4241.json",
   "scenes/views/MailView.json": "scenes/views/MailView-9a4860209e.json",
   "scenes/views/MainView.json": "scenes/views/MainView-511311a53b.json",
   "scenes/views/OrderView.json": "scenes/views/OrderView-d76d4889ff.json",
@@ -64,5 +66,5 @@
   "scenes/views/TaskView.json": "scenes/views/TaskView-848c330910.json",
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-d8dc1594ce.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-8e4f243c9c.json"
+  "version.json": "version-a1f9d5a6c5.json"
 }

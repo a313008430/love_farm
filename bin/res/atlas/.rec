@@ -78,8 +78,6 @@ P BB61EB80 img_landUpdate.png
 P A3D2B722 img_levelBg.png
 P FCDFE28B img_listBg.png
 P F3E57576 img_listDiamond.png
-P FF133540 img_loadingScroll1.png
-P 56432ECB img_loadingScroll2.png
 P D81B5AF6 img_locked.png
 P C2192455 img_lockedOrder.png
 P 9398C06B img_magnifier.png
@@ -157,11 +155,15 @@ P 45ED3715 img_unlock.png
 P A51C8779 img_unlockFree.png
 P 0A80DE81 img_upper Limit.png
 P 1CBEC939 img_useBtn.png
-P 47A3CB01 img_weChantBtn.png
 P 831A8D9C img_window.png
 P CF47A5E2 img_withdraw.png
 P F65359D6 img_withdrawbtn.png
 P EBCE0E3F img_x.png
+D load
+P 0916A055 img_getDiamondBtn.png
+P FF133540 img_loadingScroll1.png
+P 56432ECB img_loadingScroll2.png
+P 47A3CB01 img_weChantBtn.png
 D main_scene
 P BB5AA66B fontClip_coinBtnNumber.png
 P AD983344 fontClip_getDiamondNumber.png
