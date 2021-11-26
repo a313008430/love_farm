@@ -141,7 +141,7 @@ export default class FriendsView extends Core.gameScript {
                 Core.view.open(Res.views.FriendsDescView);
                 break;
             case "reward_btn":
-                Core.view.open(Res.views.FriendsRewardView);
+                this.openReward();
                 break;
             case "copy_btn":
                 this.copy();
@@ -164,6 +164,19 @@ export default class FriendsView extends Core.gameScript {
             default:
                 break;
         }
+    }
+
+    /**
+     *
+     */
+    private openReward() {
+        HttpControl.inst.send({
+            api: ApiHttp.friendInviteList,
+            data: {},
+            call: (d: InviteList) => {
+                Core.view.open(Res.views.FriendsRewardView, { parm: d.list });
+            },
+        });
     }
 
     /**

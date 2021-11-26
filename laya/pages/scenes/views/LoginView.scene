@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":15,
+    "selectedBox":5,
+    "selecteID":18,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#ffffff","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":18,
+    "maxID":19,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -35,12 +35,26 @@
             "props":{"skin":"res/img_farmlandLogo.png","centerY":-400,"centerX":0},
             "nodeParent":2,
             "label":"Image",
-            "isDirectory":false,
+            "isOpen":true,
+            "isDirectory":true,
             "isAniNode":true,
-            "hasChild":false,
+            "hasChild":true,
             "compId":5,
             "child":[
-                ]
+                {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image",
+                    "props":{"y":414,"x":717,"skin":"res/img_hongbaoban.png"},
+                    "nodeParent":5,
+                    "label":"Image",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":18,
+                    "child":[
+                        ]
+                }]
         },
         {
             "x":15,

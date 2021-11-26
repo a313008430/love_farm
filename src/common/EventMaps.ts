@@ -64,4 +64,8 @@ export const enum AppEventMap {
     wxShare = "wxShare",
     /** 友盟事件统计 数据格式 {type:对应要统计的点} */
     eventCount = "eventCount",
+    /** 隐私政策 */
+    privacyAgreement = "privacyAgreement",
+    /** 服务协议 */
+    serviceAgreement = "serviceAgreement ",
 }

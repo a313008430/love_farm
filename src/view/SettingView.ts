@@ -75,6 +75,14 @@ export default class SettingView extends Core.gameScript {
                     cancelCall: () => {},
                 });
                 break;
+            case "user_agreement":
+                //用户协议
+                break;
+            case "privacy":
+                //隐私政策
+                break;
+            case "about":
+                break;
         }
     }
 

@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":38,
-    "selecteID":82,
+    "selectedBox":2,
+    "selecteID":86,
     "searchKey":"View",
     "props":{"y":0,"x":0,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/SigninView.png","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":86,
+    "maxID":87,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -112,6 +112,20 @@
                             "child":[
                                 ]
                         }]
+                },
+                {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image,finish",
+                    "props":{"y":0,"x":149,"skin":"game/img_accomplish.png","name":"finish"},
+                    "nodeParent":38,
+                    "label":"finish",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":86,
+                    "child":[
+                        ]
                 },
                 {
                     "x":30,
@@ -390,7 +404,7 @@
             "source":"src/view/SignInView.ts",
             "searchKey":"Script,SignInView",
             "removeAble":true,
-            "props":{"signInProgressLb":"@node:64","signInProgressBar":"@node:67","signInList":"@node:53","progressDesc":"@node:65"},
+            "props":{"signInProgressLb":"@node:64","signInProgressBar":"@node:67","signInList":"@node:53","progressDesc":"@node:65","finishIcon":"@node:86"},
             "nodeParent":2,
             "label":"SignInView",
             "isDirectory":false,

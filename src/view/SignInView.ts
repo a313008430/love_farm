@@ -21,6 +21,8 @@ export default class SignInView extends GameScript {
     private signInProgressBar: Laya.Label;
     /** @prop {name:progressDesc, tips:"签到进度文字提示", type:Node} */
     private progressDesc: Laya.Label;
+    /** @prop {name:finishIcon, tips:"签到进度文字提示", type:Node} */
+    private finishIcon: Laya.Image;
     onOpened() {
         this.signInList.array = TableAnalyze.table("signIn").list;
         this.signInList.vScrollBarSkin = null;
@@ -34,6 +36,7 @@ export default class SignInView extends GameScript {
         this.signInProgressBar.width = 977 * scale;
         this.signInProgressLb.text = UserInfo.signInDays + "";
         this.progressDesc.text = `今日签到进度（使用${UserInfo.speedUpTimes}/${ConfigGame.ADSpeedUpTimes}次加速）`;
+        this.finishIcon.visible = UserInfo.speedUpTimes >= ConfigGame.ADSpeedUpTimes;
     }
 
     private updateItem(cell: Laya.Box, i: number) {

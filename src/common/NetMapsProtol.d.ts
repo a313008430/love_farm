@@ -75,6 +75,8 @@ interface NetInit extends NetBase {
         /** 用户偷菜体力 */
         vitality: 0;
         avatar: string;
+        /** 邀请者 */
+        invitePeople: null;
     };
     lands: [
         {
@@ -240,4 +242,15 @@ interface FriendData {
  */
 interface FriendListData {
     list: FriendData[];
+}
+
+interface InviteData {
+    /** 好友id */
+    friendId: 0;
+    /** 是否领取奖励 */
+    receivedReward: 0;
+}
+
+interface InviteList {
+    list: InviteData[];
 }

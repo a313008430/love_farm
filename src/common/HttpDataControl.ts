@@ -112,6 +112,7 @@ class HttpDataControl {
         UserInfo.signInId = d.signInId;
         UserInfo.speedUpTimes = d.speedUpTimes;
         UserInfo.vitality = d.userInfo.vitality;
+        UserInfo.invitePeople = d.userInfo.invitePeople;
         PetService.init(d.pets);
         TaskService.init(d.tasks);
         LocalStorageService.setJSON("isLogin", true);
@@ -144,6 +145,7 @@ class HttpDataControl {
         UserInfo.signInId = null;
         UserInfo.speedUpTimes = 0;
         UserInfo.vitality = 0;
+        UserInfo.invitePeople = null;
     }
 
     /**

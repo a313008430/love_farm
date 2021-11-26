@@ -36,6 +36,8 @@ class UserInfo {
     vitality: number = 0;
     /** 兑换比例 */
     proportion: number = 0.0001;
+    /** 邀请者 */
+    invitePeople: string;
 
     get ttt() {
         return this.orderLevel;

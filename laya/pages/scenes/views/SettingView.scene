@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":17,
+    "selectedBox":6,
+    "selecteID":45,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/SettingView.jpg","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -413,7 +413,7 @@
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image,user_agreement",
-                    "props":{"y":709,"x":130,"skin":"game/img_protcol.png","name":"user_agreement","mouseEnabled":true},
+                    "props":{"y":737,"x":130,"skin":"game/img_protcol.png","name":"user_agreement","mouseEnabled":true},
                     "nodeParent":6,
                     "label":"user_agreement",
                     "isOpen":false,
@@ -453,7 +453,7 @@
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image,privacy",
-                    "props":{"y":817,"x":130,"skin":"game/img_privacy.png","name":"privacy","mouseEnabled":true},
+                    "props":{"y":871,"x":130,"skin":"game/img_privacy.png","name":"privacy","mouseEnabled":true},
                     "nodeParent":6,
                     "label":"privacy",
                     "isOpen":false,
@@ -493,7 +493,7 @@
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image,about",
-                    "props":{"y":924,"x":130,"skin":"game/img_aboutUs.png","name":"about","mouseEnabled":true},
+                    "props":{"y":1006,"x":130,"skin":"game/img_aboutUs.png","name":"about","mouseEnabled":true},
                     "nodeParent":6,
                     "label":"about",
                     "isOpen":false,
@@ -525,46 +525,6 @@
                             "isAniNode":true,
                             "hasChild":false,
                             "compId":50,
-                            "child":[
-                                ]
-                        }]
-                },
-                {
-                    "x":30,
-                    "type":"Image",
-                    "searchKey":"Image,logout",
-                    "props":{"y":1032,"x":130,"skin":"game/img_cancel.png","name":"logout","mouseEnabled":true},
-                    "nodeParent":6,
-                    "label":"logout",
-                    "isOpen":false,
-                    "isDirectory":true,
-                    "isAniNode":true,
-                    "hasChild":true,
-                    "compId":51,
-                    "child":[
-                        {
-                            "type":"Image",
-                            "searchKey":"Image",
-                            "props":{"y":5.5,"x":672,"skin":"game/img_more.png"},
-                            "nodeParent":51,
-                            "label":"Image",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":52,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "type":"Rect",
-                            "searchKey":"Rect",
-                            "props":{"y":0,"x":0,"width":725,"renderType":"hit","lineWidth":1,"height":57,"fillColor":"#ff0000"},
-                            "nodeParent":51,
-                            "label":"Rect",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":53,
                             "child":[
                                 ]
                         }]
