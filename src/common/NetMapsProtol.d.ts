@@ -254,3 +254,16 @@ interface InviteData {
 interface InviteList {
     list: InviteData[];
 }
+
+/**
+ * 用户邮件
+ */
+interface MailReturnData {
+    id: 0;
+    message: "string";
+    type: 0;
+    items: "string";
+    itemsLost: "string";
+    read: 0;
+    createTime: 0;
+}

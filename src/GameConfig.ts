@@ -9,6 +9,7 @@ import FriendsRewardView from "./view/FriendsRewardView"
 import FriendsView from "./view/FriendsView"
 import HintView from "./view/HintView"
 import LoginView from "./view/LoginView"
+import MailDescView from "./view/MailDescView"
 import MailView from "./view/MailView"
 import MainView from "./view/MainView"
 import FieldComponent from "./components/FieldComponent"
@@ -49,6 +50,7 @@ export default class GameConfig{
         reg("view/FriendsView.ts",FriendsView);
         reg("view/HintView.ts",HintView);
         reg("view/LoginView.ts",LoginView);
+        reg("view/MailDescView.ts",MailDescView);
         reg("view/MailView.ts",MailView);
         reg("view/MainView.ts",MainView);
         reg("components/FieldComponent.ts",FieldComponent);

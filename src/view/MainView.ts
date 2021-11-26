@@ -258,7 +258,7 @@ export default class MainView extends Core.gameScript {
                 Core.view.open(Res.views.SignInView);
                 break;
             case "mail":
-                Core.view.open(Res.views.MailView);
+                this.openMail();
                 break;
             case "shop":
                 Core.view.open(Res.views.ShopView);
@@ -309,6 +309,18 @@ export default class MainView extends Core.gameScript {
                 this.buyVitality();
                 break;
         }
+    }
+
+    /**
+     * 打开邮件
+     */
+    private openMail() {
+        HttpControl.inst.send({
+            api: ApiHttp.mailList,
+            call: (d: MailReturnData[]) => {
+                Core.view.open(Res.views.MailView, { parm: d });
+            },
+        });
     }
 
     /**

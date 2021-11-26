@@ -21,6 +21,8 @@
         HintView = "scenes/views/HintView.scene", 
         /** scenes/views/LoginView.scene */
         LoginView = "scenes/views/LoginView.scene", 
+        /** scenes/views/MailDescView.scene */
+        MailDescView = "scenes/views/MailDescView.scene", 
         /** scenes/views/MailView.scene */
         MailView = "scenes/views/MailView.scene", 
         /** scenes/views/MainView.scene */
@@ -75,6 +77,7 @@
          "scenes/views/OrderView.scene",
          "scenes/views/MainView.scene",
          "scenes/views/MailView.scene",
+         "scenes/views/MailDescView.scene",
          "scenes/views/LoginView.scene",
          "scenes/views/HintView.scene",
          "scenes/views/FriendsView.scene",
@@ -83,6 +86,7 @@
          "scenes/views/FieldLevelUpView.scene",
          "scenes/views/BuyVitalityView.scene",
          "scenes/views/AddLandView.scene",
+         "scenes/prefab/MailItem.prefab",
          "scenes/prefab/GetReward.prefab",
          "scenes/prefab/FloatRewardIcon.prefab",
          "scenes/prefab/FieldPrefab.prefab",

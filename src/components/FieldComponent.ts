@@ -476,7 +476,13 @@ export default class FieldComponent extends Core.gameScript {
                 type: ConfigGame.ApiTypeDefault,
                 uid: this.stealUid,
             },
-            call: (d: { plantId: 0; amount: 0; vitality }) => {
+            call: (d: {
+                plantId: 0;
+                amount: 0;
+                vitality: 0;
+                /** 额外奖励 */
+                rewardDiamond: 0;
+            }) => {
                 UserInfo.vitality = d.vitality;
                 this.canSteal = false;
                 this.topStateIconAni(false);
@@ -485,19 +491,32 @@ export default class FieldComponent extends Core.gameScript {
                 Core.audio.playSound(Res.audios.shoucai);
 
                 //收获的植物
-                let plantObj = TableAnalyze.table("plant").get(d.plantId),
-                    rewardList: any[] = [
-                        {
-                            obj: plantObj,
-                            count: d.amount,
-                            posType: 3,
-                        },
-                    ];
+                const rewardList: any[] = [];
+                if (d.plantId) {
+                    rewardList.push({
+                        obj: TableAnalyze.table("plant").get(d.plantId),
+                        count: d.amount,
+                        posType: 3,
+                    });
+                } else {
+                    Core.view.openHint({ text: "额，被狗咬了~~~没偷着~", call: () => {} });
+                }
 
-                Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
-                    node: this.owner,
-                    list: rewardList,
-                });
+                //额外的钻石奖励
+                if (d.rewardDiamond) {
+                    rewardList.push({
+                        obj: TableAnalyze.table("currency").get(ConfigGame.diamondId),
+                        count: d.rewardDiamond,
+                        posType: 2,
+                    });
+                }
+
+                if (rewardList.length) {
+                    Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
+                        node: this.owner,
+                        list: rewardList,
+                    });
+                }
             },
         });
     }

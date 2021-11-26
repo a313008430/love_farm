@@ -62,4 +62,10 @@ export const enum ApiHttp {
     friendInviteReceive = "/friend/invite/receive",
     /** 访问好友家里 */
     friendVisit = "/friend/visit",
+    /** 邮件列表 */
+    mailList = "/mail/list",
+    /** 邮件阅读 */
+    mailRead = "/mail/read",
+    /** 邮件阅读 */
+    mailDelete = "/mail/delete",
 }

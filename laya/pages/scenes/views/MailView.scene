@@ -2,7 +2,7 @@
     "x":0,
     "type":"View",
     "selectedBox":38,
-    "selecteID":39,
+    "selecteID":53,
     "searchKey":"View",
     "props":{"y":0,"x":0,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MailView.png","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -117,21 +117,22 @@
                     "x":30,
                     "type":"List",
                     "searchKey":"List",
-                    "props":{"y":119,"x":43,"width":1003,"spaceY":20,"repeatY":4,"repeatX":1,"height":899},
+                    "props":{"y":119,"x":43,"width":1003,"spaceY":20,"selectedIndex":-1,"selectEnable":true,"repeatY":5,"repeatX":1,"mouseEnabled":true,"height":1054},
                     "nodeParent":38,
                     "label":"List",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":53,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
-                            "searchKey":"Image",
-                            "props":{"x":-0.5,"skin":"game/img_listBg.png","renderType":"render","mouseEnabled":true},
+                            "searchKey":"Image,mail_item",
+                            "props":{"x":-0.5,"skin":"game/img_listBg.png","renderType":"render","name":"mail_item","mouseEnabled":true},
                             "nodeParent":53,
-                            "label":"Image",
+                            "label":"mail_item",
                             "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":false,
@@ -141,7 +142,7 @@
                                 {
                                     "type":"Image",
                                     "searchKey":"Image,icon",
-                                    "props":{"y":66,"x":786,"skin":"game/img_getAubergine.png","name":"icon"},
+                                    "props":{"y":66,"x":786,"visible":false,"skin":"game/img_getAubergine.png","name":"icon"},
                                     "nodeParent":52,
                                     "label":"icon",
                                     "isDirectory":false,
@@ -149,7 +150,8 @@
                                     "hasChild":false,
                                     "compId":56,
                                     "child":[
-                                        ]
+                                        ],
+                                    "$HIDDEN":true
                                 },
                                 {
                                     "type":"Label",
@@ -180,7 +182,7 @@
                                 {
                                     "type":"Label",
                                     "searchKey":"Label,desc",
-                                    "props":{"y":126,"x":42,"text":"xxx潜入菜地偷菜，被狗狗发现并追加了作物","name":"desc","fontSize":36,"font":"Microsoft YaHei","color":"#916443"},
+                                    "props":{"y":126,"x":42,"wordWrap":false,"width":910,"text":"xxx潜入菜地偷菜，被狗狗发现并追加了作物","overflow":"hidden","name":"desc","height":36,"fontSize":36,"font":"Microsoft YaHei","color":"#916443"},
                                     "nodeParent":52,
                                     "label":"desc",
                                     "isDirectory":false,
@@ -193,7 +195,7 @@
                                 {
                                     "type":"Label",
                                     "searchKey":"Label,num",
-                                    "props":{"y":86,"x":890,"text":"x1","name":"num","fontSize":44,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
+                                    "props":{"y":86,"x":890,"visible":false,"text":"x1","name":"num","fontSize":44,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
                                     "nodeParent":52,
                                     "label":"num",
                                     "isDirectory":false,
@@ -201,54 +203,9 @@
                                     "hasChild":false,
                                     "compId":57,
                                     "child":[
-                                        ]
+                                        ],
+                                    "$HIDDEN":true
                                 }]
-                        }]
-                },
-                {
-                    "x":30,
-                    "type":"Image",
-                    "searchKey":"Image",
-                    "props":{"y":1094,"x":541,"skin":"game/img_buybtm.png","anchorY":0.5,"anchorX":0.5},
-                    "nodeParent":38,
-                    "label":"Image",
-                    "isOpen":true,
-                    "isDirectory":true,
-                    "isAniNode":true,
-                    "hasChild":true,
-                    "compId":58,
-                    "child":[
-                        {
-                            "x":45,
-                            "type":"Image",
-                            "searchKey":"Image",
-                            "props":{"y":17,"x":48,"skin":"game/img_oneKeyGet.png"},
-                            "nodeParent":58,
-                            "label":"Image",
-                            "isOpen":true,
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":59,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "x":45,
-                            "type":"Script",
-                            "switchAble":true,
-                            "source":"src/components/Button.ts",
-                            "searchKey":"Script,Button",
-                            "removeAble":true,
-                            "props":{"y":0,"x":0,"isScale":true},
-                            "nodeParent":58,
-                            "label":"Button",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":60,
-                            "child":[
-                                ]
                         }]
                 }],
             "$HIDDEN":false
@@ -260,7 +217,7 @@
             "source":"src/view/MailView.ts",
             "searchKey":"Script,MailView",
             "removeAble":true,
-            "props":{},
+            "props":{"list":"@node:53"},
             "nodeParent":2,
             "label":"MailView",
             "isDirectory":false,
@@ -277,7 +234,7 @@
             "source":"src/components/ViewShowAni.ts",
             "searchKey":"Script,ViewShowAni",
             "removeAble":true,
-            "props":{"content":"@node:38","bg":"@node:37"},
+            "props":{"content":"@node:38","bg":"@node:37","aniType":"bottomToShow"},
             "nodeParent":2,
             "label":"ViewShowAni",
             "isDirectory":false,
