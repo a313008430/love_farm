@@ -1,4 +1,6 @@
 import ConfigGame from "src/common/ConfigGame";
+import HttpControl from "src/common/HttpControl";
+import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
 import TableAnalyze from "src/common/TableAnalyze";
 import Tools from "src/common/Tools";
@@ -19,8 +21,13 @@ export default class MailDescView extends Core.gameScript {
     /** @prop {name:item, tips:"物品节点", type:Prefab}*/
     private item: Laya.Prefab;
 
+    private mailId: number = null;
+    private call: Function;
+
     onOpened(d: { data: MailReturnData; call: Function }) {
         const data = d.data;
+        this.call = d.call;
+        this.mailId = d.data.id;
         this.centerPanel.vScrollBarSkin = null;
         this.title.text = `${data.message}潜入了你的菜地`;
         console.log(d);
@@ -116,6 +123,21 @@ export default class MailDescView extends Core.gameScript {
         switch (e.target.name) {
             case "close":
                 Core.view.close(Res.views.MailDescView);
+                break;
+
+            case "delete":
+                HttpControl.inst.send({
+                    api: ApiHttp.mailDelete,
+                    data: { id: this.mailId },
+                    call: () => {
+                        if (this.call) {
+                            this.call(this.mailId);
+                        }
+                        Laya.timer.frameOnce(1, this, () => {
+                            Core.view.close(Res.views.MailDescView);
+                        });
+                    },
+                });
                 break;
         }
     }

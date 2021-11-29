@@ -85,6 +85,8 @@ interface NetInit extends NetBase {
             level: number;
             productId: number;
             matureTimeLeft: number;
+            /** 是否可以偷 0为不可偷 */
+            canSteal?: number;
         }
     ];
     seeds: [number];

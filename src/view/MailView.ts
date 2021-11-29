@@ -1,3 +1,5 @@
+import HttpControl from "src/common/HttpControl";
+import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
 import GameScript from "src/core/GameScript";
 import Core from "src/core/index";
@@ -13,7 +15,6 @@ export default class MailView extends GameScript {
     onHdAwake() {
         this.list.vScrollBarSkin = null;
         this.list.renderHandler = new Laya.Handler(this, this.renderItem);
-        this.list.selectHandler = new Laya.Handler(this, this.renderItemSelect);
     }
 
     onOpened(list: MailReturnData[] = []) {
@@ -27,15 +28,6 @@ export default class MailView extends GameScript {
         });
     }
 
-    private renderItemSelect(i) {
-        Core.view.open(Res.views.MailDescView, {
-            parm: {
-                data: this.listData[i],
-                call: () => {},
-            },
-        });
-    }
-
     private renderItem(cell: Laya.Image, index: number) {
         const data = this.listData[index];
         (cell.getChildByName("title") as Laya.Label).text = "系统邮件";
@@ -45,10 +37,40 @@ export default class MailView extends GameScript {
         (cell.getChildByName("time") as Laya.Label).text = `${new Date(
             data.createTime
         ).toLocaleString("zh-CN", { hour12: false })}`;
+
+        (cell.getChildByName("read_icon") as Laya.Image).visible = !data.read;
+
         cell.dataSource = data;
     }
 
     onClick(e: Laya.Event) {
+        if (e.target.name.indexOf("item") > -1) {
+            HttpControl.inst.send({
+                api: ApiHttp.mailRead,
+                data: {
+                    id: e.target["dataSource"].id,
+                },
+                call: () => {
+                    e.target["dataSource"].read = 1;
+                    this.list.refresh();
+                    Core.view.open(Res.views.MailDescView, {
+                        parm: {
+                            data: e.target["dataSource"],
+                            call: (mailId: number) => {
+                                for (let x = 0; x < this.listData.length; x++) {
+                                    if (this.listData[x].id == mailId) {
+                                        this.listData.splice(x, 1);
+                                        break;
+                                    }
+                                }
+                                this.list.refresh();
+                            },
+                        },
+                    });
+                },
+            });
+        }
+
         switch (e.target.name) {
             case "close":
                 ViewManager.inst.close(Res.views.MailView);

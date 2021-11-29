@@ -736,9 +736,9 @@ export default class MainView extends Core.gameScript {
             const land = lands[x];
             if (this.isOuter) {
                 land.isOuter = true;
+                land.stealUid = d.uid;
                 land.updateData({ list: otherLands });
 
-                land.stealUid = d.uid;
                 if (d.protectedTime) {
                     land.canSteal = false;
                     land.topStateIconAni(false);
@@ -751,6 +751,8 @@ export default class MainView extends Core.gameScript {
                 land.stealUid = null;
                 land.updateData({ list: userLands });
             }
+
+            land.plantIconAni(Boolean(land.data?.productId));
         }
 
         if (this.isOuter) {

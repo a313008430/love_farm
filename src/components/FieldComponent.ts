@@ -156,8 +156,6 @@ export default class FieldComponent extends Core.gameScript {
             Laya.Tween.clearAll(this);
             this.topStateIconTween?.destroy();
             this.topStateIconTween = null;
-            this.plantIconTween?.destroy();
-            this.plantIconTween = null;
         }
     }
 
@@ -202,6 +200,9 @@ export default class FieldComponent extends Core.gameScript {
             this.topStateIconTween.play(null, true);
         }
 
+        if (this.stealUid && !this.data?.canSteal) {
+            play = false;
+        }
         this.topStateIcon.visible = play;
 
         if (play) {
@@ -232,7 +233,7 @@ export default class FieldComponent extends Core.gameScript {
      * 植物动画播放
      * @param play
      */
-    private plantIconAni(play: boolean) {
+    plantIconAni(play: boolean) {
         if (!this.plantIconTween) {
             this.plantIconTween = Laya.TimeLine.to(this.icon, { skewX: 6 }, 900)
                 .to(this.icon, { skewX: -6 }, 1800)
@@ -462,7 +463,7 @@ export default class FieldComponent extends Core.gameScript {
             return;
         }
 
-        if (!this.canSteal) {
+        if (!this.canSteal || (this.stealUid && !this.data?.canSteal)) {
             console.log("已经不可偷");
             Core.view.openHint({ text: "给我留点吧", call: () => {} });
             return;

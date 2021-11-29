@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":38,
-    "selecteID":53,
+    "selectedBox":52,
+    "selecteID":64,
     "searchKey":"View",
     "props":{"y":0,"x":0,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MailView.png","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":64,
+    "maxID":65,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -133,13 +133,14 @@
                             "props":{"x":-0.5,"skin":"game/img_listBg.png","renderType":"render","name":"mail_item","mouseEnabled":true},
                             "nodeParent":53,
                             "label":"mail_item",
-                            "isOpen":false,
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":false,
                             "hasChild":true,
                             "compId":52,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,icon",
                                     "props":{"y":66,"x":786,"visible":false,"skin":"game/img_getAubergine.png","name":"icon"},
@@ -154,6 +155,21 @@
                                     "$HIDDEN":true
                                 },
                                 {
+                                    "x":60,
+                                    "type":"Image",
+                                    "searchKey":"Image,read_icon",
+                                    "props":{"y":31,"x":229,"skin":"game/img_readTag.png","name":"read_icon"},
+                                    "nodeParent":52,
+                                    "label":"read_icon",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":64,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,title",
                                     "props":{"y":48,"x":37,"text":"系统邮件","name":"title","fontSize":48,"font":"Microsoft YaHei","color":"#5A3F2A"},
@@ -167,6 +183,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,time",
                                     "props":{"y":59,"x":275,"text":"2021.10.13 15:28:29","name":"time","fontSize":40,"font":"Microsoft YaHei","color":"#5A3F2A"},
@@ -180,6 +197,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,desc",
                                     "props":{"y":126,"x":42,"wordWrap":false,"width":910,"text":"xxx潜入菜地偷菜，被狗狗发现并追加了作物","overflow":"hidden","name":"desc","height":36,"fontSize":36,"font":"Microsoft YaHei","color":"#916443"},
@@ -193,6 +211,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,num",
                                     "props":{"y":86,"x":890,"visible":false,"text":"x1","name":"num","fontSize":44,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
