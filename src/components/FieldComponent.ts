@@ -11,7 +11,7 @@ import LandService, { LandObj } from "src/dataService/LandService";
 import { PlantDataBase } from "src/dataService/PlantService";
 import UserInfo from "src/dataService/UserInfo";
 import WarehouseService from "src/dataService/WarehouseService";
-import { GetFloatRewardObj } from "src/view/MainView";
+import MainView, { GetFloatRewardObj } from "src/view/MainView";
 import { ShopViewData } from "src/view/ShopView";
 
 //  FieldComponent extends Laya.Script {
@@ -41,10 +41,10 @@ export default class FieldComponent extends Core.gameScript {
     /** 顶部icon装饰 */
     @Core.findByName
     private topStateIcon: Laya.Image = null;
-    /** 成熟可收icon */
-    private matureNode: Laya.Image = null;
-    /** 可播种空地icon */
-    private emptyFieldNode: Laya.Image = null;
+    /** 顶部icon装饰 */
+    @Core.findByName
+    private upAni: Laya.Animation = null;
+
     /** @prop {name:unlockIcon, tips:"拓展土地icon地址", type:String,accept:res}*/
     private unlockIcon: string = "";
     /** @prop {name:fieldId, tips:"土地id", type:Number,}*/
@@ -66,6 +66,8 @@ export default class FieldComponent extends Core.gameScript {
     /** 土地数据 */
     data: LandObj;
 
+    mainViewCom: MainView;
+
     private landList: Map<number, LandObj>;
 
     onHdAwake() {
@@ -81,6 +83,10 @@ export default class FieldComponent extends Core.gameScript {
         this.timeBox.active = false;
         this.topStateIcon.visible = false;
         this.lvNode.visible = false;
+        this.upAni.visible = false;
+        this.upAni.on(Laya.Event.COMPLETE, this, () => {
+            this.upAni.visible = false;
+        });
     }
 
     /**
@@ -100,9 +106,11 @@ export default class FieldComponent extends Core.gameScript {
     }
 
     private renderData() {
+        this.topStateIconAni(false);
         if (this.data) {
+            this.icon.y = 164;
             this.showShadowIcon(false);
-            this.topStateIconAni(false);
+
             this.topStateIcon.visible = false;
 
             this.fieldNode.skin = this.fieldEmptyRes;
@@ -125,19 +133,19 @@ export default class FieldComponent extends Core.gameScript {
                 this.showShadowIcon(true);
                 this.updateCountDown();
 
-                this.topStateIcon.visible = true;
-                this.topStateIconAni(true);
+                // this.topStateIcon.visible = true;
+                // this.topStateIconAni(true);
                 if (this.isOuter) {
                     this.topStateIcon.visible = false;
                 } else {
-                    this.setStateIconSkin(1);
+                    // this.setStateIconSkin(1);
                     this.plantIconAni(true);
                 }
             } else {
                 if (this.data.productId) {
                     this.topStateIcon.visible = true;
                     this.showShadowIcon(true);
-                    this.topStateIconAni(true);
+                    // this.topStateIconAni(true);
                     this.updateCountDown();
                     this.setStateIconSkin(3);
                 }
@@ -146,6 +154,7 @@ export default class FieldComponent extends Core.gameScript {
             this.lvNode.visible = false;
             this.fieldNode.skin = `main_scene/img_wasteland.png`;
             this.icon.skin = this.unlockIcon;
+            this.icon.y = 113;
             this.showIcon(false);
             this.topStateIconAni(false);
             this.topStateIcon.visible = false;
@@ -204,7 +213,6 @@ export default class FieldComponent extends Core.gameScript {
             play = false;
         }
         this.topStateIcon.visible = play;
-
         if (play) {
             this.topStateIconTween.resume();
         } else {
@@ -235,9 +243,9 @@ export default class FieldComponent extends Core.gameScript {
      */
     plantIconAni(play: boolean) {
         if (!this.plantIconTween) {
-            this.plantIconTween = Laya.TimeLine.to(this.icon, { skewX: 6 }, 900)
-                .to(this.icon, { skewX: -6 }, 1800)
-                .to(this.icon, { skewX: 0 }, 900);
+            this.plantIconTween = Laya.TimeLine.to(this.icon, { skewX: 3 }, 1000)
+                .to(this.icon, { skewX: -3 }, 2000)
+                .to(this.icon, { skewX: 0 }, 1000);
             this.plantIconTween.play(null, true);
         }
 
@@ -331,6 +339,8 @@ export default class FieldComponent extends Core.gameScript {
                                 this.data.level++;
                                 this.updateLevel();
                                 Core.audio.playSound(Res.audios.tudishengji);
+                                this.upAni.visible = true;
+                                this.upAni.play(0, false);
                             },
                         },
                     });
@@ -349,7 +359,14 @@ export default class FieldComponent extends Core.gameScript {
             if (this.data.productId) {
                 if (this.data.matureTimeLeft) {
                     console.log("加速");
-                    Core.view.open(Res.views.SpeedUpView);
+                    Core.view.open(Res.views.SpeedUpView, {
+                        parm: {
+                            call: () => {
+                                this.mainViewCom.updateAllSpeed();
+                            },
+                        },
+                    });
+                    this.mainViewCom.updateAllSpeed(this.data.id);
                     return;
                 } else {
                     console.log("收获");
@@ -413,6 +430,9 @@ export default class FieldComponent extends Core.gameScript {
                     });
 
                     this.clearField();
+                    Laya.timer.frameOnce(1, this, () => {
+                        this.mainViewCom.updateAllSpeed();
+                    });
                     return;
                 }
             }
@@ -431,6 +451,7 @@ export default class FieldComponent extends Core.gameScript {
                         this.data = this.landList.get(this.fieldId);
                         this.renderData();
                         Core.audio.playSound(Res.audios.zhongzhi);
+                        this.mainViewCom.updateAllSpeed(this.data.id);
                     },
                 },
             });
@@ -449,6 +470,7 @@ export default class FieldComponent extends Core.gameScript {
                         };
                         LandService.addLand(this.data);
                         this.updateData();
+                        this.mainViewCom.updateHitLandAdd();
                     },
                 },
             });

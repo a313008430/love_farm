@@ -1,6 +1,7 @@
-import { EventMaps } from "src/common/EventMaps";
+import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import HttpDataControl from "src/common/HttpDataControl";
 import Res from "src/common/Res";
+import AppCore from "src/core/App";
 import Core from "src/core/index";
 import LocalStorageService from "src/dataService/LocalStorageService";
 import UserInfo from "src/dataService/UserInfo";
@@ -15,10 +16,14 @@ export default class SettingView extends Core.gameScript {
     private avatarNode: Laya.Image = null;
     /** @prop {name:nickname, tips:"玩家名称", type:Node}*/
     private nickname: Laya.Label = null;
+    /** @prop {name:userKey, tips:"用户友情码", type:Node}*/
+    private userKey: Laya.Label;
 
     onOpened() {
         this.musicChange();
         this.soundChange();
+
+        this.userKey.text = `邀请码：${UserInfo.key}`;
 
         Core.observableProperty
             .watch(UserInfo, this)
@@ -77,13 +82,29 @@ export default class SettingView extends Core.gameScript {
                 break;
             case "user_agreement":
                 //用户协议
+                AppCore.runAppFunction({ uri: AppEventMap.serviceAgreement, data: {} });
                 break;
             case "privacy":
                 //隐私政策
+                AppCore.runAppFunction({ uri: AppEventMap.privacyAgreement, data: {} });
                 break;
             case "about":
+                Core.view.open(Res.views.AboutView);
+                break;
+            case "copy_btn":
+                this.copy();
                 break;
         }
+    }
+
+    private copy() {
+        let a: HTMLInputElement = document.createElement("input");
+        document.body.appendChild(a);
+        a.value = UserInfo.key;
+        a.select();
+        document.execCommand("copy");
+        a.remove();
+        Core.view.openHint({ text: "复制成功", call: () => {} });
     }
 
     private musicChange() {

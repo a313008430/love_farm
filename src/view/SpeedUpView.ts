@@ -16,7 +16,10 @@ export default class SpeedUpView extends Core.gameScript {
     /** @prop {name:speedUpBtn, tips:"全体加速按钮", type:Node}*/
     private speedUpBtn: Laya.Label;
 
-    onOpened() {
+    private call: Function;
+
+    onOpened(data: { call: Function }) {
+        this.call = data.call;
         let time = TableAnalyze.table("config").get("all_speed_up_time").value as number;
         this.timeLb.text = `${Math.ceil(time / 60)}分钟`;
         this.timesLb.text = `今日剩余${UserInfo.advertiseTimes}次`;
@@ -46,6 +49,8 @@ export default class SpeedUpView extends Core.gameScript {
                         Core.eventGlobal.event(EventMaps.land_speed_up);
 
                         Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
+
+                        if (this.call) this.call();
                     },
                 });
                 break;

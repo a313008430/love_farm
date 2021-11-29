@@ -2,10 +2,11 @@
     "x":0,
     "type":"Image",
     "selectedBox":105,
+    "selecteID":269,
     "searchKey":"Image",
     "props":{"y":-2,"x":-2,"width":403,"skin":"main_scene/img_wasteland.png","sceneColor":null,"presetID":1,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","pivotY":100,"pivotX":200,"mouseEnabled":true,"isPresetRoot":true,"height":203,"anchorY":0.5,"anchorX":0.5},
     "nodeParent":-1,
-    "maxID":269,
+    "maxID":279,
     "label":"Image(FieldPrefab)",
     "isOpen":true,
     "isDirectory":true,
@@ -132,6 +133,20 @@
                     "child":[
                         ]
                 }]
+        },
+        {
+            "x":15,
+            "type":"Animation",
+            "searchKey":"Animation,upAni",
+            "props":{"y":-72,"x":193,"width":357,"source":"scenes/ani/landUp.ani","presetID":10,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","name":"upAni","height":100,"autoPlay":false},
+            "nodeParent":105,
+            "label":"upAni",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":269,
+            "child":[
+                ]
         }],
     "appendDic":{
 

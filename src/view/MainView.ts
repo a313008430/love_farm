@@ -131,6 +131,7 @@ export default class MainView extends Core.gameScript {
 
         for (let x = 0; x < this.landBox.numChildren; x++) {
             this.landList.push(this.landBox.getChildAt(x).getComponent(FieldComponent));
+            this.landList[x].mainViewCom = this;
         }
 
         this.landList.sort((a, b) => {
@@ -139,18 +140,59 @@ export default class MainView extends Core.gameScript {
 
         Laya.timer.frameOnce(1, this, () => {
             Core.eventGlobal.event(EventMaps.update_field);
-            this.hitLandAdd();
+            this.updateHitLandAdd();
+            this.updateAllSpeed();
         });
     }
 
     /**
      * 提示显示扩建icon
      */
-    private hitLandAdd() {
+    updateHitLandAdd() {
         for (let x = 0, l = this.landList.length; x < l; x++) {
             if (!this.landList[x].data) {
                 this.landList[x].showIcon(true);
                 break;
+            }
+        }
+    }
+
+    /**
+     * 更新全体加速icon
+     */
+    updateAllSpeed(landId?: number) {
+        for (let x = 0, l = this.landList.length; x < l; x++) {
+            this.landList[x].topStateIconAni(false);
+        }
+
+        for (let x = 0, l = this.landList.length; x < l; x++) {
+            const data = this.landList[x].data;
+            if (data) {
+                if (data.id == landId) {
+                    this.landList[x].showIcon(true);
+                    this.landList[x].setStateIconSkin(1);
+                    this.landList[x].topStateIconAni(true);
+                    break;
+                } else if (!landId) {
+                    if (data.productId && data.matureTimeLeft) {
+                        this.landList[x].showIcon(true);
+                        this.landList[x].setStateIconSkin(1);
+                        this.landList[x].topStateIconAni(true);
+                        break;
+                    }
+                }
+            }
+        }
+
+        for (let x = 0, l = this.landList.length; x < l; x++) {
+            const data = this.landList[x].data;
+            if (data) {
+                if (data.productId && !data.matureTimeLeft) {
+                    this.landList[x].showIcon(true);
+                    this.landList[x].setStateIconSkin(3);
+                    this.landList[x].topStateIconAni(true);
+                    break;
+                }
             }
         }
     }
@@ -271,6 +313,9 @@ export default class MainView extends Core.gameScript {
                 break;
             case "buy_feed":
                 Core.view.open(Res.views.ShopView, { parm: { id: 2 } });
+                break;
+            case "dog_house":
+                Core.view.open(Res.views.ShopView, { parm: { id: 1 } });
                 break;
             case "dog":
                 Core.view.open(Res.views.ShopView, { parm: { id: 2 } });
@@ -516,7 +561,7 @@ export default class MainView extends Core.gameScript {
             // node.x = obj.node.get_width() * obj.node.anchorX;
             let icon = node.getChildByName("icon") as Laya.Image;
             icon.skin = d.obj?.icon || "";
-            let scale = 50 / icon.width;
+            let scale = 80 / icon.width;
             icon.scale(scale, scale);
             node.alpha = 0;
             // console.log(obj.node.localToGlobal(new Laya.Point()));

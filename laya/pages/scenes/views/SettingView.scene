@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":6,
-    "selecteID":45,
+    "selectedBox":17,
+    "selecteID":64,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/SettingView.jpg","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":58,
+    "maxID":65,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -159,10 +159,10 @@
                         {
                             "x":45,
                             "type":"Image",
-                            "searchKey":"Image",
-                            "props":{"y":176,"x":669,"skin":"game/img_copyBtn.png","anchorY":0.5,"anchorX":0.5},
+                            "searchKey":"Image,copy_btn",
+                            "props":{"y":176,"x":669,"skin":"game/img_copyBtn.png","name":"copy_btn","anchorY":0.5,"anchorX":0.5},
                             "nodeParent":31,
-                            "label":"Image",
+                            "label":"copy_btn",
                             "isOpen":null,
                             "isDirectory":true,
                             "isAniNode":true,
@@ -206,12 +206,39 @@
                                     "props":{"y":68,"x":68,"width":83,"skin":"main_scene/img_defaultPortrait.png","name":"avater","height":81,"anchorY":0.5,"anchorX":0.5},
                                     "nodeParent":16,
                                     "label":"avater",
-                                    "isDirectory":false,
+                                    "isOpen":true,
+                                    "isDirectory":true,
                                     "isAniNode":true,
-                                    "hasChild":false,
+                                    "hasChild":true,
                                     "compId":17,
                                     "child":[
-                                        ]
+                                        {
+                                            "x":75,
+                                            "type":"Image",
+                                            "searchKey":"Image,mask",
+                                            "props":{"y":3,"x":3,"renderType":"mask","name":"mask"},
+                                            "nodeParent":17,
+                                            "label":"mask",
+                                            "isOpen":false,
+                                            "isDirectory":true,
+                                            "isAniNode":true,
+                                            "hasChild":true,
+                                            "compId":64,
+                                            "child":[
+                                                {
+                                                    "type":"Circle",
+                                                    "searchKey":"Circle",
+                                                    "props":{"y":38,"x":38,"renderType":"hit","radius":42,"lineWidth":1,"fillColor":"#ff0000"},
+                                                    "nodeParent":64,
+                                                    "label":"Circle",
+                                                    "isDirectory":false,
+                                                    "isAniNode":true,
+                                                    "hasChild":false,
+                                                    "compId":63,
+                                                    "child":[
+                                                        ]
+                                                }]
+                                        }]
                                 }]
                         },
                         {
@@ -407,6 +434,22 @@
                             "compId":38,
                             "child":[
                                 ]
+                        },
+                        {
+                            "type":"Script",
+                            "switchAble":true,
+                            "source":"src/components/Button.ts",
+                            "searchKey":"Script,Button",
+                            "removeAble":true,
+                            "props":{},
+                            "nodeParent":32,
+                            "label":"Button",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":61,
+                            "child":[
+                                ]
                         }]
                 },
                 {
@@ -445,6 +488,22 @@
                             "isAniNode":true,
                             "hasChild":false,
                             "compId":44,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "type":"Script",
+                            "switchAble":true,
+                            "source":"src/components/Button.ts",
+                            "searchKey":"Script,Button",
+                            "removeAble":true,
+                            "props":{},
+                            "nodeParent":42,
+                            "label":"Button",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":58,
                             "child":[
                                 ]
                         }]
@@ -487,6 +546,22 @@
                             "compId":47,
                             "child":[
                                 ]
+                        },
+                        {
+                            "type":"Script",
+                            "switchAble":true,
+                            "source":"src/components/Button.ts",
+                            "searchKey":"Script,Button",
+                            "removeAble":true,
+                            "props":{},
+                            "nodeParent":45,
+                            "label":"Button",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":59,
+                            "child":[
+                                ]
                         }]
                 },
                 {
@@ -525,6 +600,22 @@
                             "isAniNode":true,
                             "hasChild":false,
                             "compId":50,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "type":"Script",
+                            "switchAble":true,
+                            "source":"src/components/Button.ts",
+                            "searchKey":"Script,Button",
+                            "removeAble":true,
+                            "props":{},
+                            "nodeParent":48,
+                            "label":"Button",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":60,
                             "child":[
                                 ]
                         }]
@@ -567,6 +658,22 @@
                             "compId":56,
                             "child":[
                                 ]
+                        },
+                        {
+                            "type":"Script",
+                            "switchAble":true,
+                            "source":"src/components/Button.ts",
+                            "searchKey":"Script,Button",
+                            "removeAble":true,
+                            "props":{},
+                            "nodeParent":54,
+                            "label":"Button",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":62,
+                            "child":[
+                                ]
                         }]
                 }]
         },
@@ -577,7 +684,7 @@
             "source":"src/view/SettingView.ts",
             "searchKey":"Script,SettingView",
             "removeAble":true,
-            "props":{"soundNode":"@node:27","nickname":"@node:18","musicNode":"@node:26","avatarNode":"@node:17"},
+            "props":{"userKey":"@node:20","soundNode":"@node:27","nickname":"@node:18","musicNode":"@node:26","avatarNode":"@node:17"},
             "nodeParent":2,
             "label":"SettingView",
             "isDirectory":false,

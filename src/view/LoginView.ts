@@ -16,6 +16,10 @@ export default class LoginView extends GameScript {
     private loadBox: Laya.Box = null;
     /** @prop {name:loginBox, tips:"登陆容器", type:Node}*/
     private loginBox: Laya.Box = null;
+    /** @prop {name:privacyBox, tips:"隐私协议容器", type:Node}*/
+    private privacyBox: Laya.Box = null;
+    /** @prop {name:privacyCheckIcon, tips:"隐私icon", type:Node}*/
+    private privacyCheckIcon: Laya.Box = null;
 
     /** 进度条默认宽度 */
     private loadBarOldWidth: number = 0;
@@ -53,8 +57,14 @@ export default class LoginView extends GameScript {
             case "login_btn":
                 this.login(true);
                 break;
-            case "test_btn":
-                this.login(false);
+            case "check_box":
+                this.privacyCheckIcon.visible = !this.privacyCheckIcon.visible;
+                break;
+            case "privacy_lb":
+                AppCore.runAppFunction({
+                    uri: AppEventMap.privacyAgreement,
+                    data: {},
+                });
                 break;
         }
     }
@@ -75,8 +85,15 @@ export default class LoginView extends GameScript {
                     this.loadBox.visible = false;
                 },
             });
+            this.privacyBox.visible = false;
         } else {
             // console.log(isWx);
+            this.privacyBox.visible = true;
+            if (!this.privacyCheckIcon.visible) {
+                Core.view.openHint({ text: "请阅读《用户隐私协议》", call: () => {} });
+                return;
+            }
+
             let testK = location.search.match(/\?id=(.+)/),
                 testKe = null;
             if (testK && testK.length > 1) {
@@ -102,6 +119,7 @@ export default class LoginView extends GameScript {
                 Core.view.openHint({ text: "未获取到微信id", call: () => {} });
                 return;
             }
+            this.privacyBox.visible = false;
 
             HttpControl.inst.send({
                 api: ApiHttp.login,

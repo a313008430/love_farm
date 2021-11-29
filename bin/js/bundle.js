@@ -60,6 +60,7 @@
   // src/common/Res.ts
   var views;
   (function(views3) {
+    views3["AboutView"] = "scenes/views/AboutView.scene";
     views3["AddLandView"] = "scenes/views/AddLandView.scene";
     views3["BuyVitalityView"] = "scenes/views/BuyVitalityView.scene";
     views3["FieldLevelUpView"] = "scenes/views/FieldLevelUpView.scene";
@@ -110,11 +111,13 @@
     "scenes/views/FieldLevelUpView.scene",
     "scenes/views/BuyVitalityView.scene",
     "scenes/views/AddLandView.scene",
+    "scenes/views/AboutView.scene",
     "scenes/prefab/MailItem.prefab",
     "scenes/prefab/GetReward.prefab",
     "scenes/prefab/FloatRewardIcon.prefab",
     "scenes/prefab/FieldPrefab.prefab",
     "scenes/components/Button.prefab",
+    "scenes/ani/landUp.ani",
     "res/loadingBg.png",
     "res/img_woodtitle.png",
     "res/img_storeHouseBg.png",
@@ -494,6 +497,51 @@
     Instance
   ], ViewManager, "inst", 2);
 
+  // src/common/ConfigGame.ts
+  var ConfigGame_default = {
+    diamondId: 1001,
+    goldId: 1002,
+    petDigestIntervalTime: 60,
+    localKey: "love_HD_farm",
+    userVitalityLimit: 10,
+    baseUrl: false ? "//192.168.101.50:3000" : "http://game.ahd168.com:3000",
+    ApiTypeDefault: 1,
+    ApiTypeAD: 2,
+    ADSpeedUpTimes: 6,
+    version: "0.1.0"
+  };
+
+  // src/core/App.ts
+  var EventMap = new Map();
+  var AppCore = class {
+    static runAppFunction(data) {
+      let webAppFunction;
+      if (Laya.Browser.onIOS) {
+      } else {
+        console.log(JSON.stringify(data));
+        if (window["$App"] && window["$App"]["webRequest"]) {
+          return new Promise((resolve) => {
+            window["$App"]["webRequest"](JSON.stringify(data));
+            console.log(`send => ${data}`);
+            if (data.timestamp) {
+              EventMap.set(data.timestamp, resolve);
+            }
+          });
+        }
+      }
+    }
+    static listenAppFunction() {
+      window["appResponse"] = (d) => {
+        if (EventMap.has(d == null ? void 0 : d.timestamp) && !d.code) {
+          EventMap.get(d.timestamp)(d);
+        }
+        console.log(d);
+      };
+    }
+  };
+  AppCore.typeIos = 1;
+  AppCore.typeAndroid = 2;
+
   // src/core/AudioControl.ts
   var AudioControl = class {
     playSound(url, loops, complete, soundClass, startTime) {
@@ -528,6 +576,30 @@
     audio: new AudioControl()
   };
   var core_default = Core;
+
+  // src/view/AboutView.ts
+  var AboutView = class extends core_default.gameScript {
+    constructor() {
+      super(...arguments);
+      this.version = null;
+    }
+    onOpened() {
+      this.version.text = `\u7248\u672C\u53F7\uFF1AV${ConfigGame_default.version}`;
+    }
+    onClick(e) {
+      switch (e.target.name) {
+        case "close":
+          core_default.view.close(Res_default.views.AboutView);
+          break;
+        case "user_agreement":
+          AppCore.runAppFunction({ uri: AppEventMap.serviceAgreement, data: {} });
+          break;
+        case "privacy":
+          AppCore.runAppFunction({ uri: AppEventMap.privacyAgreement, data: {} });
+          break;
+      }
+    }
+  };
 
   // src/components/Button.ts
   var Button = class extends Laya.Script {
@@ -569,50 +641,6 @@
     onDisable() {
     }
   };
-
-  // src/common/ConfigGame.ts
-  var ConfigGame_default = {
-    diamondId: 1001,
-    goldId: 1002,
-    petDigestIntervalTime: 60,
-    localKey: "love_HD_farm",
-    userVitalityLimit: 10,
-    baseUrl: false ? "//192.168.101.50:3000" : "http://game.ahd168.com:3000",
-    ApiTypeDefault: 1,
-    ApiTypeAD: 2,
-    ADSpeedUpTimes: 6
-  };
-
-  // src/core/App.ts
-  var EventMap = new Map();
-  var AppCore = class {
-    static runAppFunction(data) {
-      let webAppFunction;
-      if (Laya.Browser.onIOS) {
-      } else {
-        console.log(JSON.stringify(data));
-        if (window["$App"] && window["$App"]["webRequest"]) {
-          return new Promise((resolve) => {
-            window["$App"]["webRequest"](JSON.stringify(data));
-            console.log(`send => ${data}`);
-            if (data.timestamp) {
-              EventMap.set(data.timestamp, resolve);
-            }
-          });
-        }
-      }
-    }
-    static listenAppFunction() {
-      window["appResponse"] = (d) => {
-        if (EventMap.has(d == null ? void 0 : d.timestamp) && !d.code) {
-          EventMap.get(d.timestamp)(d);
-        }
-        console.log(d);
-      };
-    }
-  };
-  AppCore.typeIos = 1;
-  AppCore.typeAndroid = 2;
 
   // src/dataService/LocalStorageService.ts
   var LocalData = {
@@ -1825,6 +1853,8 @@
       this.loadBar = null;
       this.loadBox = null;
       this.loginBox = null;
+      this.privacyBox = null;
+      this.privacyCheckIcon = null;
       this.loadBarOldWidth = 0;
     }
     onOpened(d) {
@@ -1852,8 +1882,14 @@
         case "login_btn":
           this.login(true);
           break;
-        case "test_btn":
-          this.login(false);
+        case "check_box":
+          this.privacyCheckIcon.visible = !this.privacyCheckIcon.visible;
+          break;
+        case "privacy_lb":
+          AppCore.runAppFunction({
+            uri: AppEventMap.privacyAgreement,
+            data: {}
+          });
           break;
       }
     }
@@ -1875,7 +1911,14 @@
               this.loadBox.visible = false;
             }
           });
+          this.privacyBox.visible = false;
         } else {
+          this.privacyBox.visible = true;
+          if (!this.privacyCheckIcon.visible) {
+            core_default.view.openHint({ text: "\u8BF7\u9605\u8BFB\u300A\u7528\u6237\u9690\u79C1\u534F\u8BAE\u300B", call: () => {
+            } });
+            return;
+          }
           let testK = location.search.match(/\?id=(.+)/), testKe = null;
           if (testK && testK.length > 1) {
             testKe = testK[1];
@@ -1899,6 +1942,7 @@
             } });
             return;
           }
+          this.privacyBox.visible = false;
           HttpControl.inst.send({
             api: ApiHttp.login,
             data: {
@@ -2123,8 +2167,7 @@
       this.timeBox = null;
       this.countDownLb = null;
       this.topStateIcon = null;
-      this.matureNode = null;
-      this.emptyFieldNode = null;
+      this.upAni = null;
       this.unlockIcon = "";
       this.fieldId = null;
       this.buildIng = false;
@@ -2143,6 +2186,10 @@
       this.timeBox.active = false;
       this.topStateIcon.visible = false;
       this.lvNode.visible = false;
+      this.upAni.visible = false;
+      this.upAni.on(Laya.Event.COMPLETE, this, () => {
+        this.upAni.visible = false;
+      });
     }
     updateData(data) {
       if (data == null ? void 0 : data.list) {
@@ -2155,9 +2202,10 @@
     }
     renderData() {
       var _a;
+      this.topStateIconAni(false);
       if (this.data) {
+        this.icon.y = 164;
         this.showShadowIcon(false);
-        this.topStateIconAni(false);
         this.topStateIcon.visible = false;
         this.fieldNode.skin = this.fieldEmptyRes;
         this.showIcon(Boolean(this.data.productId));
@@ -2173,19 +2221,15 @@
           this.icon.skin = TableAnalyze_default.table("plant").get(this.data.productId).growingIcon;
           this.showShadowIcon(true);
           this.updateCountDown();
-          this.topStateIcon.visible = true;
-          this.topStateIconAni(true);
           if (this.isOuter) {
             this.topStateIcon.visible = false;
           } else {
-            this.setStateIconSkin(1);
             this.plantIconAni(true);
           }
         } else {
           if (this.data.productId) {
             this.topStateIcon.visible = true;
             this.showShadowIcon(true);
-            this.topStateIconAni(true);
             this.updateCountDown();
             this.setStateIconSkin(3);
           }
@@ -2194,6 +2238,7 @@
         this.lvNode.visible = false;
         this.fieldNode.skin = `main_scene/img_wasteland.png`;
         this.icon.skin = this.unlockIcon;
+        this.icon.y = 113;
         this.showIcon(false);
         this.topStateIconAni(false);
         this.topStateIcon.visible = false;
@@ -2247,7 +2292,7 @@
     }
     plantIconAni(play) {
       if (!this.plantIconTween) {
-        this.plantIconTween = Laya.TimeLine.to(this.icon, { skewX: 6 }, 900).to(this.icon, { skewX: -6 }, 1800).to(this.icon, { skewX: 0 }, 900);
+        this.plantIconTween = Laya.TimeLine.to(this.icon, { skewX: 3 }, 1e3).to(this.icon, { skewX: -3 }, 2e3).to(this.icon, { skewX: 0 }, 1e3);
         this.plantIconTween.play(null, true);
       }
       if (play) {
@@ -2315,6 +2360,8 @@
                     this.data.level++;
                     this.updateLevel();
                     core_default.audio.playSound(Res_default.audios.tudishengji);
+                    this.upAni.visible = true;
+                    this.upAni.play(0, false);
                   }
                 }
               });
@@ -2332,7 +2379,14 @@
           if (this.data.productId) {
             if (this.data.matureTimeLeft) {
               console.log("\u52A0\u901F");
-              core_default.view.open(Res_default.views.SpeedUpView);
+              core_default.view.open(Res_default.views.SpeedUpView, {
+                parm: {
+                  call: () => {
+                    this.mainViewCom.updateAllSpeed();
+                  }
+                }
+              });
+              this.mainViewCom.updateAllSpeed(this.data.id);
               return;
             } else {
               console.log("\u6536\u83B7");
@@ -2371,6 +2425,9 @@
                 }
               });
               this.clearField();
+              Laya.timer.frameOnce(1, this, () => {
+                this.mainViewCom.updateAllSpeed();
+              });
               return;
             }
           }
@@ -2385,6 +2442,7 @@
                 this.data = this.landList.get(this.fieldId);
                 this.renderData();
                 core_default.audio.playSound(Res_default.audios.zhongzhi);
+                this.mainViewCom.updateAllSpeed(this.data.id);
               }
             }
           });
@@ -2402,6 +2460,7 @@
                 };
                 LandService_default.addLand(this.data);
                 this.updateData();
+                this.mainViewCom.updateHitLandAdd();
               }
             }
           });
@@ -2489,6 +2548,9 @@
     core_default.findByName
   ], FieldComponent.prototype, "topStateIcon", 2);
   __decorateClass([
+    core_default.findByName
+  ], FieldComponent.prototype, "upAni", 2);
+  __decorateClass([
     core_default.eventOn(EventMaps.update_field)
   ], FieldComponent.prototype, "updateData", 1);
   __decorateClass([
@@ -2552,20 +2614,56 @@
       this.goHomeBtn.visible = false;
       for (let x = 0; x < this.landBox.numChildren; x++) {
         this.landList.push(this.landBox.getChildAt(x).getComponent(FieldComponent));
+        this.landList[x].mainViewCom = this;
       }
       this.landList.sort((a, b) => {
         return a.fieldId - b.fieldId;
       });
       Laya.timer.frameOnce(1, this, () => {
         core_default.eventGlobal.event(EventMaps.update_field);
-        this.hitLandAdd();
+        this.updateHitLandAdd();
+        this.updateAllSpeed();
       });
     }
-    hitLandAdd() {
+    updateHitLandAdd() {
       for (let x = 0, l = this.landList.length; x < l; x++) {
         if (!this.landList[x].data) {
           this.landList[x].showIcon(true);
           break;
+        }
+      }
+    }
+    updateAllSpeed(landId) {
+      for (let x = 0, l = this.landList.length; x < l; x++) {
+        this.landList[x].topStateIconAni(false);
+      }
+      for (let x = 0, l = this.landList.length; x < l; x++) {
+        const data = this.landList[x].data;
+        if (data) {
+          if (data.id == landId) {
+            this.landList[x].showIcon(true);
+            this.landList[x].setStateIconSkin(1);
+            this.landList[x].topStateIconAni(true);
+            break;
+          } else if (!landId) {
+            if (data.productId && data.matureTimeLeft) {
+              this.landList[x].showIcon(true);
+              this.landList[x].setStateIconSkin(1);
+              this.landList[x].topStateIconAni(true);
+              break;
+            }
+          }
+        }
+      }
+      for (let x = 0, l = this.landList.length; x < l; x++) {
+        const data = this.landList[x].data;
+        if (data) {
+          if (data.productId && !data.matureTimeLeft) {
+            this.landList[x].showIcon(true);
+            this.landList[x].setStateIconSkin(3);
+            this.landList[x].topStateIconAni(true);
+            break;
+          }
         }
       }
     }
@@ -2661,6 +2759,9 @@
           break;
         case "buy_feed":
           core_default.view.open(Res_default.views.ShopView, { parm: { id: 2 } });
+          break;
+        case "dog_house":
+          core_default.view.open(Res_default.views.ShopView, { parm: { id: 1 } });
           break;
         case "dog":
           core_default.view.open(Res_default.views.ShopView, { parm: { id: 2 } });
@@ -2837,7 +2938,7 @@
         let node = Laya.Pool.getItemByCreateFun("floatRewardBox", this.getRewardPrefab.create, this.getRewardPrefab);
         let icon = node.getChildByName("icon");
         icon.skin = ((_a = d.obj) == null ? void 0 : _a.icon) || "";
-        let scale = 50 / icon.width;
+        let scale = 80 / icon.width;
         icon.scale(scale, scale);
         node.alpha = 0;
         let nodeNewPos = this.topLayerOnStage.globalToLocal(obj.node.localToGlobal(new Laya.Point()));
@@ -3134,6 +3235,7 @@
     onOpened() {
       this.musicChange();
       this.soundChange();
+      this.userKey.text = `\u9080\u8BF7\u7801\uFF1A${UserInfo_default.key}`;
       core_default.observableProperty.watch(UserInfo_default, this).key("avatar", (e) => {
         if (e)
           this.avatarNode.skin = e;
@@ -3182,12 +3284,28 @@
           });
           break;
         case "user_agreement":
+          AppCore.runAppFunction({ uri: AppEventMap.serviceAgreement, data: {} });
           break;
         case "privacy":
+          AppCore.runAppFunction({ uri: AppEventMap.privacyAgreement, data: {} });
           break;
         case "about":
+          core_default.view.open(Res_default.views.AboutView);
+          break;
+        case "copy_btn":
+          this.copy();
           break;
       }
+    }
+    copy() {
+      let a = document.createElement("input");
+      document.body.appendChild(a);
+      a.value = UserInfo_default.key;
+      a.select();
+      document.execCommand("copy");
+      a.remove();
+      core_default.view.openHint({ text: "\u590D\u5236\u6210\u529F", call: () => {
+      } });
     }
     musicChange() {
       const box = this.musicNode.getChildByName("box");
@@ -3706,7 +3824,8 @@
 
   // src/view/SpeedUpView.ts
   var SpeedUpView = class extends core_default.gameScript {
-    onOpened() {
+    onOpened(data) {
+      this.call = data.call;
       let time = TableAnalyze_default.table("config").get("all_speed_up_time").value;
       this.timeLb.text = `${Math.ceil(time / 60)}\u5206\u949F`;
       this.timesLb.text = `\u4ECA\u65E5\u5269\u4F59${UserInfo_default.advertiseTimes}\u6B21`;
@@ -3732,6 +3851,8 @@
               core_default.view.close(Res_default.views.SpeedUpView);
               core_default.eventGlobal.event(EventMaps.land_speed_up);
               core_default.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
+              if (this.call)
+                this.call();
             }
           });
           break;
@@ -4058,6 +4179,7 @@
     }
     static init() {
       var reg = Laya.ClassUtils.regClass;
+      reg("view/AboutView.ts", AboutView);
       reg("components/Button.ts", Button);
       reg("components/ViewShowAni.ts", ViewShowAni);
       reg("view/AddLandView.ts", AddLandView);
@@ -4118,6 +4240,7 @@
         Laya.Stat.show();
       Laya.alertGlobalError(true);
       Laya.stage.bgColor = "#ffffff";
+      false;
       Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
     }
     onVersionLoaded() {

@@ -5,6 +5,8 @@
  */
  export enum views 
     {
+        /** scenes/views/AboutView.scene */
+        AboutView = "scenes/views/AboutView.scene", 
         /** scenes/views/AddLandView.scene */
         AddLandView = "scenes/views/AddLandView.scene", 
         /** scenes/views/BuyVitalityView.scene */
@@ -86,11 +88,13 @@
          "scenes/views/FieldLevelUpView.scene",
          "scenes/views/BuyVitalityView.scene",
          "scenes/views/AddLandView.scene",
+         "scenes/views/AboutView.scene",
          "scenes/prefab/MailItem.prefab",
          "scenes/prefab/GetReward.prefab",
          "scenes/prefab/FloatRewardIcon.prefab",
          "scenes/prefab/FieldPrefab.prefab",
          "scenes/components/Button.prefab",
+         "scenes/ani/landUp.ani",
             "res/loadingBg.png",
             "res/img_woodtitle.png",
             "res/img_storeHouseBg.png",
