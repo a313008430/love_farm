@@ -89,6 +89,9 @@ export default class MainView extends Core.gameScript {
     /** @prop {name:taskBox, tips:"任务容器", type:Node}*/
     private taskBox: Laya.Image = null;
 
+    /** @prop {name:figureAni, tips:"人物动画", type:Node}*/
+    private figureAni: Laya.Box = null;
+
     /** 土地组件 列表 */
     private landList: FieldComponent[] = [];
 
@@ -143,6 +146,9 @@ export default class MainView extends Core.gameScript {
             this.updateHitLandAdd();
             this.updateAllSpeed();
         });
+
+        let a = Laya.Tween.to(this.figureAni, { x: -167, y: 435 }, 10000);
+        a.repeat = 0;
     }
 
     /**
@@ -799,6 +805,8 @@ export default class MainView extends Core.gameScript {
 
             land.plantIconAni(Boolean(land.data?.productId));
         }
+
+        this.updateAllSpeed();
 
         if (this.isOuter) {
             //隐藏宠物

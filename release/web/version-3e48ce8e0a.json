@@ -1,7 +1,7 @@
 {
-  "fileconfig.json": "fileconfig-b2b95e1dd1.json",
-  "index.js": "index-79d5bec849.js",
-  "js/bundle.js": "js/bundle-2eee87bfb6.js",
+  "fileconfig.json": "fileconfig-0874cacc6f.json",
+  "index.js": "index-3a9634d3c6.js",
+  "js/bundle.js": "js/bundle-323c2a941b.js",
   "js/ps-N3BPHYGU.fs": "js/ps-N3BPHYGU-319562bd17.fs",
   "libs/min/laya.ani.min.js": "libs/min/laya-a72326a604.ani.min.js",
   "libs/min/laya.core.min.js": "libs/min/laya-4fc7637454.core.min.js",
@@ -26,6 +26,8 @@
   "res/audio/shoucai.mp3": "res/audio/shoucai-441f496b70.mp3",
   "res/audio/tudishengji.mp3": "res/audio/tudishengji-441f496b70.mp3",
   "res/audio/zhongzhi.mp3": "res/audio/zhongzhi-441f496b70.mp3",
+  "res/figure.atlas": "res/figure-c7471095d8.atlas",
+  "res/figure.png": "res/figure-ba7ec68e8a.png",
   "res/img_farmlandLogo.png": "res/img_farmlandLogo-0f976331c9.png",
   "res/img_homepageBg1.png": "res/img_homepageBg1-f22da6771f.png",
   "res/img_homepageBg2.png": "res/img_homepageBg2-201c1c06d8.png",
@@ -45,7 +47,7 @@
   "res/shader/vs.vs": "res/shader/vs-615eb362ad.vs",
   "scenes/ani/landUp.ani": "scenes/ani/landUp-71552803d2.ani",
   "scenes/components/Button.json": "scenes/components/Button-90372b8b83.json",
-  "scenes/prefab/FieldPrefab.json": "scenes/prefab/FieldPrefab-183af83a70.json",
+  "scenes/prefab/FieldPrefab.json": "scenes/prefab/FieldPrefab-dc64cbcd21.json",
   "scenes/prefab/FloatRewardIcon.json": "scenes/prefab/FloatRewardIcon-c2e3f581a5.json",
   "scenes/prefab/GetReward.json": "scenes/prefab/GetReward-3048e756f2.json",
   "scenes/prefab/MailItem.json": "scenes/prefab/MailItem-ae896ba217.json",
@@ -61,7 +63,7 @@
   "scenes/views/LoginView.json": "scenes/views/LoginView-700eb0bc33.json",
   "scenes/views/MailDescView.json": "scenes/views/MailDescView-89d343848c.json",
   "scenes/views/MailView.json": "scenes/views/MailView-e4af7139dd.json",
-  "scenes/views/MainView.json": "scenes/views/MainView-197904bab9.json",
+  "scenes/views/MainView.json": "scenes/views/MainView-b06e54713e.json",
   "scenes/views/OrderView.json": "scenes/views/OrderView-d76d4889ff.json",
   "scenes/views/OverView.json": "scenes/views/OverView-2d102f4866.json",
   "scenes/views/SettingView.json": "scenes/views/SettingView-983439ed8d.json",
@@ -71,5 +73,5 @@
   "scenes/views/TaskView.json": "scenes/views/TaskView-848c330910.json",
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-d8dc1594ce.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-095c3ee0b2.json"
+  "version.json": "version-3e48ce8e0a.json"
 }

@@ -133,6 +133,8 @@
     "res/img_homepageBg2.png",
     "res/img_homepageBg1.png",
     "res/img_farmlandLogo.png",
+    "res/figure.png",
+    "res/figure.atlas",
     "res/shader/vs.vs",
     "res/shader/ps.fs",
     "res/audio/zhongzhi.mp3",
@@ -2582,6 +2584,7 @@
       this.vitalityBuyBtn = null;
       this.petBox = null;
       this.taskBox = null;
+      this.figureAni = null;
       this.landList = [];
       this.isOuter = false;
     }
@@ -2616,14 +2619,16 @@
         this.landList.push(this.landBox.getChildAt(x).getComponent(FieldComponent));
         this.landList[x].mainViewCom = this;
       }
-      this.landList.sort((a, b) => {
-        return a.fieldId - b.fieldId;
+      this.landList.sort((a2, b) => {
+        return a2.fieldId - b.fieldId;
       });
       Laya.timer.frameOnce(1, this, () => {
         core_default.eventGlobal.event(EventMaps.update_field);
         this.updateHitLandAdd();
         this.updateAllSpeed();
       });
+      let a = Laya.Tween.to(this.figureAni, { x: -167, y: 435 }, 1e4);
+      a.repeat = 0;
     }
     updateHitLandAdd() {
       for (let x = 0, l = this.landList.length; x < l; x++) {
@@ -3086,6 +3091,7 @@
         }
         land.plantIconAni(Boolean((_a = land.data) == null ? void 0 : _a.productId));
       }
+      this.updateAllSpeed();
       if (this.isOuter) {
         this.petBox.visible = false;
         this.taskBox.visible = false;

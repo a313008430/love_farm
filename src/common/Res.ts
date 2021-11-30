@@ -110,6 +110,8 @@
             "res/img_homepageBg2.png",
             "res/img_homepageBg1.png",
             "res/img_farmlandLogo.png",
+            "res/figure.png",
+            "res/figure.atlas",
             "res/shader/vs.vs",
             "res/shader/ps.fs",
             "res/audio/zhongzhi.mp3",
