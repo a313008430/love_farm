@@ -27,6 +27,10 @@ class WarehouseService {
         ]
     ) {
         data.forEach((d) => {
+            if (!TableAnalyze.table("plant").get(d.id)) {
+                return console.error("错误的id " + d.id);
+            }
+
             this.list.push({
                 base: TableAnalyze.table("plant").get(d.id),
                 count: d.amount,
@@ -77,6 +81,11 @@ class WarehouseService {
         if (item) {
             item.count += amount;
             Core.eventGlobal.event(EventMaps.update_Order);
+            return;
+        }
+
+        if (!TableAnalyze.table("plant").get(id)) {
+            console.warn("错误的id " + id);
             return;
         }
 

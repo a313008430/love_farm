@@ -1004,6 +1004,9 @@
     }
     init(data) {
       data.forEach((d) => {
+        if (!TableAnalyze_default.table("plant").get(d.id)) {
+          return console.error("\u9519\u8BEF\u7684id " + d.id);
+        }
         this.list.push({
           base: TableAnalyze_default.table("plant").get(d.id),
           count: d.amount
@@ -1038,6 +1041,10 @@
       if (item) {
         item.count += amount;
         core_default.eventGlobal.event(EventMaps.update_Order);
+        return;
+      }
+      if (!TableAnalyze_default.table("plant").get(id)) {
+        console.warn("\u9519\u8BEF\u7684id " + id);
         return;
       }
       this.list.push({
