@@ -67,5 +67,5 @@ export const enum AppEventMap {
     /** 隐私政策 */
     privacyAgreement = "privacyAgreement",
     /** 服务协议 */
-    serviceAgreement = "serviceAgreement ",
+    serviceAgreement = "serviceAgreement",
 }

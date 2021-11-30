@@ -276,10 +276,13 @@ export default class FieldComponent extends Core.gameScript {
             });
         } else {
             this.data.matureTimeLeft = 0;
-            console.log("倒计时结束 ");
+            console.log("成熟 ");
             // this.topStateIconAni(false);
             this.icon.skin = TableAnalyze.table("plant").get(this.data?.productId)?.matureIcon;
-            if (!this.buildIng) this.setStateIconSkin(3);
+            if (!this.buildIng) {
+                this.setStateIconSkin(3);
+                this.mainViewCom.updateAllStateIcon();
+            }
             this.showTimeBox(false);
         }
     }
@@ -362,11 +365,11 @@ export default class FieldComponent extends Core.gameScript {
                     Core.view.open(Res.views.SpeedUpView, {
                         parm: {
                             call: () => {
-                                this.mainViewCom.updateAllSpeed();
+                                this.mainViewCom.updateAllStateIcon();
                             },
                         },
                     });
-                    this.mainViewCom.updateAllSpeed(this.data.id);
+                    this.mainViewCom.updateAllStateIcon(this.data.id);
                     return;
                 } else {
                     console.log("收获");
@@ -431,7 +434,7 @@ export default class FieldComponent extends Core.gameScript {
 
                     this.clearField();
                     Laya.timer.frameOnce(1, this, () => {
-                        this.mainViewCom.updateAllSpeed();
+                        this.mainViewCom.updateAllStateIcon();
                     });
                     return;
                 }
@@ -451,7 +454,7 @@ export default class FieldComponent extends Core.gameScript {
                         this.data = this.landList.get(this.fieldId);
                         this.renderData();
                         Core.audio.playSound(Res.audios.zhongzhi);
-                        this.mainViewCom.updateAllSpeed(this.data.id);
+                        this.mainViewCom.updateAllStateIcon(this.data.id);
                     },
                 },
             });

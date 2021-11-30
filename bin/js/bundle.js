@@ -54,7 +54,7 @@
     AppEventMap2["wxShare"] = "wxShare";
     AppEventMap2["eventCount"] = "eventCount";
     AppEventMap2["privacyAgreement"] = "privacyAgreement";
-    AppEventMap2["serviceAgreement"] = "serviceAgreement ";
+    AppEventMap2["serviceAgreement"] = "serviceAgreement";
   })(AppEventMap || (AppEventMap = {}));
 
   // src/common/Res.ts
@@ -510,7 +510,7 @@
     ApiTypeDefault: 1,
     ApiTypeAD: 2,
     ADSpeedUpTimes: 6,
-    version: "0.1.0"
+    version: "0.1.1"
   };
 
   // src/core/App.ts
@@ -2317,10 +2317,12 @@
         });
       } else {
         this.data.matureTimeLeft = 0;
-        console.log("\u5012\u8BA1\u65F6\u7ED3\u675F ");
+        console.log("\u6210\u719F ");
         this.icon.skin = (_b = TableAnalyze_default.table("plant").get((_a = this.data) == null ? void 0 : _a.productId)) == null ? void 0 : _b.matureIcon;
-        if (!this.buildIng)
+        if (!this.buildIng) {
           this.setStateIconSkin(3);
+          this.mainViewCom.updateAllStateIcon();
+        }
         this.showTimeBox(false);
       }
     }
@@ -2384,11 +2386,11 @@
               core_default.view.open(Res_default.views.SpeedUpView, {
                 parm: {
                   call: () => {
-                    this.mainViewCom.updateAllSpeed();
+                    this.mainViewCom.updateAllStateIcon();
                   }
                 }
               });
-              this.mainViewCom.updateAllSpeed(this.data.id);
+              this.mainViewCom.updateAllStateIcon(this.data.id);
               return;
             } else {
               console.log("\u6536\u83B7");
@@ -2428,7 +2430,7 @@
               });
               this.clearField();
               Laya.timer.frameOnce(1, this, () => {
-                this.mainViewCom.updateAllSpeed();
+                this.mainViewCom.updateAllStateIcon();
               });
               return;
             }
@@ -2444,7 +2446,7 @@
                 this.data = this.landList.get(this.fieldId);
                 this.renderData();
                 core_default.audio.playSound(Res_default.audios.zhongzhi);
-                this.mainViewCom.updateAllSpeed(this.data.id);
+                this.mainViewCom.updateAllStateIcon(this.data.id);
               }
             }
           });
@@ -2625,7 +2627,7 @@
       Laya.timer.frameOnce(1, this, () => {
         core_default.eventGlobal.event(EventMaps.update_field);
         this.updateHitLandAdd();
-        this.updateAllSpeed();
+        this.updateAllStateIcon();
       });
       let a = Laya.Tween.to(this.figureAni, { x: -167, y: 435 }, 1e4);
       a.repeat = 0;
@@ -2638,7 +2640,7 @@
         }
       }
     }
-    updateAllSpeed(landId) {
+    updateAllStateIcon(landId) {
       for (let x = 0, l = this.landList.length; x < l; x++) {
         this.landList[x].topStateIconAni(false);
       }
@@ -3091,7 +3093,7 @@
         }
         land.plantIconAni(Boolean((_a = land.data) == null ? void 0 : _a.productId));
       }
-      this.updateAllSpeed();
+      this.updateAllStateIcon();
       if (this.isOuter) {
         this.petBox.visible = false;
         this.taskBox.visible = false;

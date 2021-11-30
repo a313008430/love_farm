@@ -144,7 +144,7 @@ export default class MainView extends Core.gameScript {
         Laya.timer.frameOnce(1, this, () => {
             Core.eventGlobal.event(EventMaps.update_field);
             this.updateHitLandAdd();
-            this.updateAllSpeed();
+            this.updateAllStateIcon();
         });
 
         let a = Laya.Tween.to(this.figureAni, { x: -167, y: 435 }, 10000);
@@ -166,7 +166,7 @@ export default class MainView extends Core.gameScript {
     /**
      * 更新全体加速icon
      */
-    updateAllSpeed(landId?: number) {
+    updateAllStateIcon(landId?: number) {
         for (let x = 0, l = this.landList.length; x < l; x++) {
             this.landList[x].topStateIconAni(false);
         }
@@ -806,7 +806,7 @@ export default class MainView extends Core.gameScript {
             land.plantIconAni(Boolean(land.data?.productId));
         }
 
-        this.updateAllSpeed();
+        this.updateAllStateIcon();
 
         if (this.isOuter) {
             //隐藏宠物

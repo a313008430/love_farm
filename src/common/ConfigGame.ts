@@ -24,5 +24,5 @@ export default {
     ApiTypeAD: 2,
     /** 广告条件 加速使用了6次 */
     ADSpeedUpTimes: 6,
-    version: "0.1.0",
+    version: "0.1.1",
 };
