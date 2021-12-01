@@ -156,6 +156,21 @@ const TablePropertyEvent = {
                 return { id: "petDigestIntervalTime", value: d.value };
             case "Videorewards":
                 return { id: "Videorewards", value: getRewardCurrencyBase(d.value as string) };
+            case "withdrawal": //提现比例
+                return { id: "withdrawal", value: Tools.parseString(d.value as string, ":") };
+            case "Invitation_rewards": //邀请好友奖励
+                return {
+                    id: "Invitation_rewards",
+                    value: getRewardCurrencyBase(d.value as string),
+                };
+            case "withdrawal_times": //提现次数
+                return {
+                    id: "withdrawal_times",
+                    value: Tools.parseString(d.value as string).map((v: any) => {
+                        v = Tools.parseString(v, ":");
+                        return { price: Number(v[0]), times: Number(v[1]) };
+                    }),
+                };
         }
     },
 

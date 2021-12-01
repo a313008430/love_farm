@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":43,
-    "selecteID":86,
+    "selectedBox":129,
+    "selecteID":172,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/ShopView.jpg","right":0,"left":0,"height":1920,"btnList":"@arr:,,","bottom":0},
     "nodeParent":-1,
@@ -21,7 +21,7 @@
             "source":"src/view/ShopView.ts",
             "searchKey":"Script,ShopView",
             "removeAble":true,
-            "props":{"vitalityMax":"@node:226","seedDesc":"@node:46","priceList":"@node:172","petName":"@node:112","petIcon":"@node:107","petDesc":"@node:114","petBuyBtn":"@node:92","petButBtn":"@node:92","matureTime":"@node:188","matureGainBox":"@node:192","lockBtnBox":"@node:210","itemList":"@node:86","itemBuyBtn":"@node:41","intType":"@node:8","img":"@node:21","goWatch":"@node:233","goRest":"@node:235","feedDesc":"@node:224","feedBuyBtn":"@node:218","diamondFont":"@node:157","btnList":["@node:30","@node:32","@node:34","@node:36"],"btnBoxTop":"@node:38","bottomBox":"@node:40","alphaBg":"@node:21"},
+            "props":{"vitalityMax":"@node:226","seedDesc":"@node:46","proportion":"@node:159","priceList":"@node:172","petName":"@node:112","petIcon":"@node:107","petDesc":"@node:114","petBuyBtn":"@node:92","petButBtn":"@node:92","matureTime":"@node:188","matureGainBox":"@node:192","lockBtnBox":"@node:210","itemList":"@node:86","itemBuyBtn":"@node:41","intType":"@node:8","img":"@node:21","goWatch":"@node:233","goRest":"@node:235","feedDesc":"@node:224","feedBuyBtn":"@node:218","diamondFont":"@node:157","btnList":["@node:30","@node:32","@node:34","@node:36"],"btnBoxTop":"@node:38","bottomBox":"@node:40","alphaBg":"@node:21"},
             "nodeParent":2,
             "label":"ShopView",
             "isDirectory":false,
@@ -316,14 +316,13 @@
                             "props":{"y":-853,"x":14,"visible":false,"name":"itemBox"},
                             "nodeParent":40,
                             "label":"itemBox",
-                            "isOpen":true,
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":90,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Box",
                                     "searchKey":"Box,item_box",
                                     "props":{"y":853,"x":100,"width":100,"name":"item_box","height":100},
@@ -336,7 +335,6 @@
                                     "compId":43,
                                     "child":[
                                         {
-                                            "x":75,
                                             "type":"List",
                                             "searchKey":"List,item_list",
                                             "props":{"y":-833,"x":-92,"width":836,"spaceY":30,"spaceX":28,"selectedIndex":0,"selectEnable":true,"repeatY":3,"repeatX":3,"name":"item_list","height":714,"gray":false},
@@ -442,7 +440,6 @@
                                             "$HIDDEN":false
                                         },
                                         {
-                                            "x":75,
                                             "type":"Image",
                                             "searchKey":"Image",
                                             "props":{"y":-172,"x":-105,"width":862,"skin":"game/img_cover.png","height":80},
@@ -456,7 +453,6 @@
                                                 ]
                                         },
                                         {
-                                            "x":75,
                                             "type":"Box",
                                             "searchKey":"Box,plant_desc_box",
                                             "props":{"y":-53,"x":-77,"name":"plant_desc_box"},
@@ -641,7 +637,6 @@
                                             "$HIDDEN":false
                                         },
                                         {
-                                            "x":75,
                                             "type":"Label",
                                             "searchKey":"Label,feed_desc",
                                             "props":{"y":23.5,"x":-77,"wordWrap":true,"width":629,"text":"维生素，和膳食纤维","overflow":"hidden","name":"feed_desc","leading":16,"height":41,"fontSize":38,"font":"Microsoft YaHei","color":"#906344"},
@@ -658,7 +653,6 @@
                                     "$HIDDEN":false
                                 },
                                 {
-                                    "x":60,
                                     "type":"Box",
                                     "searchKey":"Box,plant_btn_box",
                                     "props":{"y":1023,"x":35,"name":"plant_btn_box"},
@@ -827,7 +821,6 @@
                                     "$HIDDEN":false
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,feed_buy",
                                     "props":{"y":1071,"x":415.5,"skin":"game/img_buybtm.png","name":"feed_buy","mouseEnabled":true,"anchorY":0.5,"anchorX":0.5},
@@ -1370,13 +1363,14 @@
                             "props":{"y":-853,"x":14,"width":868,"visible":false,"name":"bankBox","height":1157},
                             "nodeParent":40,
                             "label":"bankBox",
-                            "isOpen":false,
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":129,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":12,"x":8,"width":840,"skin":"game/img_listBg.png","height":200},
@@ -1391,12 +1385,13 @@
                                     "$HIDDEN":false
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,btn",
                                     "props":{"y":1069,"x":415,"width":320,"skin":"game/img_withdrawbtn.png","name":"btn","height":92,"anchorY":0.5,"anchorX":0.5},
                                     "nodeParent":129,
                                     "label":"btn",
-                                    "isOpen":true,
+                                    "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
@@ -1434,6 +1429,7 @@
                                     "$HIDDEN":false
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":131,"x":62,"skin":"game/img_bankdiamond.png"},
@@ -1447,6 +1443,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"FontClip",
                                     "searchKey":"FontClip,diamond",
                                     "props":{"y":139,"x":130,"value":"12345","spaceX":-5,"skin":"game/fontClip_bank.png","sheet":"0123456789","name":"diamond"},
@@ -1460,6 +1457,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":44,"x":663,"skin":"game/img_record.png"},
@@ -1473,6 +1471,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,name",
                                     "props":{"y":52,"x":58,"width":254,"text":"我的资产","name":"name","height":60,"fontSize":54,"font":"SimHei","color":"#5A3F2A","bold":true,"align":"left"},
@@ -1487,6 +1486,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,desc",
                                     "props":{"y":764,"x":54,"wordWrap":true,"width":761,"visible":false,"text":"播种后约3小时成熟，每次可收获2份农作物。","overflow":"scroll","name":"desc","leading":16,"height":197,"fontSize":44,"font":"SimHei","color":"#906344"},
@@ -1500,6 +1500,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,proportion",
                                     "props":{"y":142,"x":806,"text":"兑换比例 100:1","name":"proportion","fontSize":36,"font":"SimHei","color":"#906344","bold":true,"anchorX":1,"align":"left"},
@@ -1513,9 +1514,10 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"List",
                                     "searchKey":"List,price_list",
-                                    "props":{"y":257,"x":4,"width":850,"spaceY":10,"spaceX":18,"selectedIndex":0,"selectEnable":true,"repeatY":2,"repeatX":3,"name":"price_list","height":397},
+                                    "props":{"y":257,"x":4,"width":850,"spaceY":10,"spaceX":18,"selectedIndex":0,"selectEnable":true,"repeatY":2,"repeatX":3,"name":"price_list","height":414,"elasticEnabled":false},
                                     "nodeParent":129,
                                     "label":"price_list",
                                     "isOpen":true,
@@ -1525,6 +1527,7 @@
                                     "compId":172,
                                     "child":[
                                         {
+                                            "x":75,
                                             "type":"Box",
                                             "searchKey":"Box",
                                             "props":{"x":0,"width":273,"renderType":"render","height":181},
@@ -1537,6 +1540,7 @@
                                             "compId":231,
                                             "child":[
                                                 {
+                                                    "x":90,
                                                     "type":"Image",
                                                     "searchKey":"Image,bg",
                                                     "props":{"y":12,"x":0,"skin":"game/img_pricenormal.png","name":"bg"},
@@ -1552,18 +1556,20 @@
                                                     "$HIDDEN":false
                                                 },
                                                 {
+                                                    "x":90,
                                                     "type":"Image",
                                                     "searchKey":"Image,times_box",
                                                     "props":{"y":2,"x":117,"skin":"game/img_residue.png","name":"times_box"},
                                                     "nodeParent":231,
                                                     "label":"times_box",
-                                                    "isOpen":false,
+                                                    "isOpen":true,
                                                     "isDirectory":true,
                                                     "isAniNode":false,
                                                     "hasChild":true,
                                                     "compId":177,
                                                     "child":[
                                                         {
+                                                            "x":105,
                                                             "type":"Label",
                                                             "searchKey":"Label,times",
                                                             "props":{"y":7,"x":75,"text":"剩余1次","name":"times","fontSize":28,"font":"Microsoft YaHei","color":"#ffffff","bold":true,"anchorX":0.5,"align":"left"},
@@ -1579,6 +1585,7 @@
                                                         }]
                                                 },
                                                 {
+                                                    "x":90,
                                                     "type":"Label",
                                                     "searchKey":"Label,value",
                                                     "props":{"y":63,"x":129,"text":"0.3元","name":"value","fontSize":60,"font":"Microsoft YaHei","color":"#D1330E","bold":true,"anchorX":0.5,"align":"left"},

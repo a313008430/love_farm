@@ -71,6 +71,10 @@ export default class ShopView extends GameScript {
     private diamondFont: Laya.FontClip = null;
     /** @prop {name:priceList, tips:"钱庄提现列表", type:Node}*/
     private priceList: Laya.List = null;
+    /** @prop {name:proportion, tips:"兑换比例", type:Node}*/
+    private proportion: Laya.Label = null;
+    /** 可提现数据列表 */
+    private priceDataList: { price: number; times: number }[] = [];
 
     /** 顶部按钮文字资源列表 */
     private btnTopResList: string[][] = [
@@ -97,7 +101,7 @@ export default class ShopView extends GameScript {
         this.itemList.selectHandler = new Laya.Handler(this, this.onSelect);
         this.itemList.vScrollBarSkin = null;
 
-        this.priceList.vScrollBarSkin = null;
+        // this.priceList.vScrollBarSkin = null;
         this.priceList.renderHandler = new Laya.Handler(this, this.updatePriceItem);
         this.priceList.selectHandler = new Laya.Handler(this, this.onPriceSelect);
 
@@ -110,6 +114,9 @@ export default class ShopView extends GameScript {
         this.data = e;
         this.topBtnSelectIndex = e?.id || 0;
         this.updateTopBtnState();
+        this.priceDataList = TableAnalyze.table("config").get("withdrawal_times").value as any;
+        let withdrawal = TableAnalyze.table("config").get("withdrawal").value as string[];
+        this.proportion.text = `兑换比例 ${withdrawal[1]}:${withdrawal[2]}`;
     }
 
     /**
@@ -481,7 +488,8 @@ export default class ShopView extends GameScript {
                 break;
             case 3:
                 this.updateCenterBoxState(2, true);
-                this.priceList.array = [, 1, 1, 1];
+
+                this.priceList.array = this.priceDataList;
                 break;
         }
     }
@@ -566,6 +574,17 @@ export default class ShopView extends GameScript {
      * 钱庄数据渲染
      */
     private updatePriceItem(cell: Laya.Image, i: number) {
+        let data = this.priceDataList[i];
+        (cell.getChildByName("value") as Laya.Label).text = data.price + "元";
+        if (data.times) {
+            (cell.getChildByName("times_box") as Laya.Box).visible = true;
+            (
+                cell.getChildByName("times_box").getChildByName("times") as Laya.Label
+            ).text = `剩余${data.times}次`;
+        } else {
+            (cell.getChildByName("times_box") as Laya.Box).visible = false;
+        }
+
         if (this.priceList.selectedIndex === i) {
             (cell.getChildByName("bg") as Laya.Image).skin = "game/img_priceselected.png";
         } else {
