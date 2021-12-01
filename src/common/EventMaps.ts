@@ -20,6 +20,8 @@ export const enum EventMaps {
     login_out = "login_out",
     /** 更新任务 */
     update_task = "update_task",
+    /** 更新新手任务手 */
+    update_guid_hand = "update_guid_hand",
 
     /**
      * 播放获得奖励动画

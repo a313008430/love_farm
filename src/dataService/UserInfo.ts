@@ -38,7 +38,7 @@ class UserInfo {
     proportion: number = 0.0001;
     /** 邀请者 */
     invitePeople: string;
-    /** 第一次登录 */
+    /** 第一次登录 11 表示 才表示新手引导完全结束  */
     isFirstTime: number;
 
     get ttt() {

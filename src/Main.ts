@@ -37,7 +37,7 @@ class Main {
         Laya.alertGlobalError(true);
         Laya.stage.bgColor = "#ffffff";
 
-        DEBUG && Laya.Stat.show();
+        DEBUG && GameConfig.stat && Laya.Stat.show();
 
         //激活资源版本控制，version.json由IDE发布功能自动生成，如果没有也不影响后续流程
         Laya.ResourceVersion.enable(
@@ -76,7 +76,9 @@ class Main {
                     },
                 },
                 complete: (e) => {
-                    AppCore.runAppFunction({ uri: AppEventMap.closeImage, data: {} });
+                    Laya.timer.frameOnce(1, this, () => {
+                        AppCore.runAppFunction({ uri: AppEventMap.closeImage, data: {} });
+                    });
                     // Laya.View.setLoadingPage(e);
                     // Laya.timer.frameOnce(1, this, () => {
                     //     //后期优化

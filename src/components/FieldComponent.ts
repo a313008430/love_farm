@@ -368,6 +368,17 @@ export default class FieldComponent extends Core.gameScript {
                         parm: {
                             call: () => {
                                 this.mainViewCom.updateAllStateIcon();
+                                if (!UserInfo.isFirstTime) {
+                                    Core.eventGlobal.event(EventMaps.update_guid_hand, [
+                                        true,
+                                        (this.mainViewCom.owner as Laya.Box).globalToLocal(
+                                            (this.owner as Laya.Box).localToGlobal(
+                                                new Laya.Point(300, 160)
+                                            )
+                                        ),
+                                        this.mainViewCom.owner,
+                                    ]);
+                                }
                             },
                         },
                     });
@@ -448,6 +459,10 @@ export default class FieldComponent extends Core.gameScript {
                                 Laya.timer.frameOnce(1, this, () => {
                                     this.mainViewCom.updateAllStateIcon();
                                 });
+
+                                if (!UserInfo.isFirstTime) {
+                                    UserInfo.isFirstTime = 1;
+                                }
                             }
                         );
                 }
@@ -458,8 +473,6 @@ export default class FieldComponent extends Core.gameScript {
                         id: 0,
                         parm: { landId: this.fieldId },
                         call: (d: PlantDataBase) => {
-                            console.log(d);
-
                             this.landList.get(this.fieldId).productId = d.base.id;
                             this.landList.get(this.fieldId).matureTimeLeft = d.base.mature_time;
 
@@ -467,6 +480,18 @@ export default class FieldComponent extends Core.gameScript {
                             this.renderData();
                             Core.audio.playSound(Res.audios.zhongzhi);
                             this.mainViewCom.updateAllStateIcon(this.data.id);
+
+                            if (!UserInfo.isFirstTime) {
+                                Core.eventGlobal.event(EventMaps.update_guid_hand, [
+                                    true,
+                                    (this.mainViewCom.owner as Laya.Box).globalToLocal(
+                                        (this.owner as Laya.Box).localToGlobal(
+                                            new Laya.Point(300, 160)
+                                        )
+                                    ),
+                                    this.mainViewCom.owner,
+                                ]);
+                            }
                         },
                     },
                 });

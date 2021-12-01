@@ -96,7 +96,15 @@ export default class LoginView extends GameScript {
             // console.log(isWx);
             this.privacyBox.visible = true;
             if (!this.privacyCheckIcon.visible) {
-                Core.view.openHint({ text: "请阅读《用户隐私协议》", call: () => {} });
+                Core.view.openHint({
+                    text: "请阅读《用户隐私协议》",
+                    call: () => {
+                        LocalStorageService.clear();
+                        this.loginBox.visible = true;
+
+                        this.loadBox.visible = false;
+                    },
+                });
                 return;
             }
 
@@ -114,7 +122,7 @@ export default class LoginView extends GameScript {
                     data: {},
                     timestamp: Date.now(),
                 });
-                console.log(data);
+
                 if (data) {
                     wxOpenId = data.data["openid"];
                     avatar = data.data["iconurl"];

@@ -107,7 +107,6 @@ export default class ShopView extends GameScript {
     }
 
     onOpened(e: ShopViewData) {
-        console.log(e);
         this.data = e;
         this.topBtnSelectIndex = e?.id || 0;
         this.updateTopBtnState();
@@ -173,6 +172,20 @@ export default class ShopView extends GameScript {
 
         (cell.getChildByName("icon") as Laya.Image).skin = d.base.icon;
         (cell.getChildByName("name") as Laya.Label).text = d.base.name;
+
+        if (!UserInfo.isFirstTime && index == this.itemListSelectIndex) {
+            this.itemList.disabled = true;
+            this.itemList.gray = false;
+            Laya.timer.frameOnce(1, this, () => {
+                Core.eventGlobal.event(EventMaps.update_guid_hand, [
+                    true,
+                    (this.owner as Laya.Box).globalToLocal(
+                        cell.localToGlobal(new Laya.Point(100, 0))
+                    ),
+                    // this.owner,
+                ]);
+            });
+        }
 
         if (index == this.itemListSelectIndex) {
             cell.skin = this.itemSelectBg[1];
@@ -246,13 +259,14 @@ export default class ShopView extends GameScript {
         console.log(e.target.name);
         switch (e.target.name) {
             case "close":
-                ViewManager.inst.close(Res.views.ShopView);
+                if (UserInfo.isFirstTime) ViewManager.inst.close(Res.views.ShopView);
                 break;
 
             case "seed":
             case "pet":
             case "feed":
             case "bank":
+                if (!UserInfo.isFirstTime) break;
                 Core.audio.playSound(Res.audios.button_click);
                 let topBtnIndex = this.btnBoxTop.getChildIndex(e.target);
                 if (this.topBtnSelectIndex != topBtnIndex) {
@@ -263,6 +277,13 @@ export default class ShopView extends GameScript {
                 break;
             //播种
             case "buy_btn":
+                if (!UserInfo.isFirstTime) {
+                    Core.eventGlobal.event(EventMaps.update_guid_hand, [
+                        false,
+                        Laya.Point.create(),
+                        // this.owner,
+                    ]);
+                }
                 HttpControl.inst
                     .send({
                         api: ApiHttp.landSow,
@@ -436,6 +457,7 @@ export default class ShopView extends GameScript {
             this.updateCenterBoxState(x, false);
         }
         let itemBuyBox = this.itemBuyBtn.parent as Laya.Box;
+
         switch (this.topBtnSelectIndex) {
             case 0: //种子
                 this.isFirst = true;

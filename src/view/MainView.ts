@@ -89,6 +89,10 @@ export default class MainView extends Core.gameScript {
     /** @prop {name:taskBox, tips:"任务容器", type:Node}*/
     private taskBox: Laya.Image = null;
 
+    //新手引导
+    /** @prop {name:guideHand, tips:"新手引导手指", type:Node}*/
+    private guideHand: Laya.Sprite = null;
+
     /** @prop {name:figureAni, tips:"人物动画", type:Node}*/
     private figureAni: Laya.Box = null;
 
@@ -159,16 +163,28 @@ export default class MainView extends Core.gameScript {
      * 提示显示扩建icon
      */
     updateHitLandAdd() {
+        let guidLand: FieldComponent;
         for (let x = 0, l = this.landList.length; x < l; x++) {
             if (!this.landList[x].data) {
                 this.landList[x].showIcon(true);
                 break;
+            } else {
+                if (!UserInfo.isFirstTime && !guidLand) {
+                    guidLand = this.landList[x];
+                    this.updateGuidHandAttribute(
+                        true,
+                        this.topLayerOnStage.globalToLocal(
+                            (guidLand.owner as Laya.Box).localToGlobal(new Laya.Point(300, 160))
+                        ),
+                        this.owner
+                    );
+                }
             }
         }
     }
 
     /**
-     * 更新全体加速icon
+     * 更新全体加速icon 和 收菜icon 暂时把两个方法写在一起了
      */
     updateAllStateIcon(landId?: number) {
         for (let x = 0, l = this.landList.length; x < l; x++) {
@@ -269,6 +285,14 @@ export default class MainView extends Core.gameScript {
                 }
                 if (this.vitalityBox.getChildByName("bar"))
                     (this.vitalityBox.getChildByName("bar") as Laya.Image).width = 268 * vitality;
+            })
+            .key("isFirstTime", (e) => {
+                if (e) {
+                    this.guidAni?.destroy();
+                    this.guideHand?.destroy();
+                } else {
+                    this.guidHandAni();
+                }
             });
 
         this.addLandLayer.visible = false;
@@ -287,13 +311,6 @@ export default class MainView extends Core.gameScript {
             UserInfo.petVitality -= pet.vitality_consume;
         }
         UserInfo.digestCountDown = ConfigGame.petDigestIntervalTime;
-    }
-
-    @Core.eventOn(ApiHttp.login)
-    private gameInit(d: NetInit) {
-        console.log(d);
-
-        // let a = d.data.landList;
     }
 
     onClick(e: Laya.Event) {
@@ -828,4 +845,41 @@ export default class MainView extends Core.gameScript {
             this.taskBox.visible = true;
         }
     }
+
+    //#region 新手引导相关
+    private guidAni: Laya.TimeLine;
+    /**
+     * 新手引导手指动画
+     */
+    private guidHandAni() {
+        this.guidAni = Laya.TimeLine.to(this.guideHand, { rotation: -15 }, 400, null).to(
+            this.guideHand,
+            { rotation: 0 },
+            400
+        );
+        this.guidAni.play(null, true);
+    }
+
+    /**
+     * 更新引导手指属性
+     * @param show
+     * @param pos
+     */
+    @Core.eventOn(EventMaps.update_guid_hand)
+    private updateGuidHandAttribute(show: boolean, pos?: Laya.Point, parent?: Laya.Node) {
+        if (show) {
+            this.guideHand.visible = true;
+            this.guideHand.pos(pos.x, pos.y);
+            if (parent) {
+                parent.addChild(this.guideHand);
+            } else {
+                this.topLayerOnStage.addChild(this.guideHand);
+            }
+        } else {
+            this.guideHand.visible = false;
+            this.topLayerOnStage.addChild(this.guideHand);
+        }
+    }
+
+    //#endregion
 }

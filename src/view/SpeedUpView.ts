@@ -28,16 +28,30 @@ export default class SpeedUpView extends Core.gameScript {
         if (UserInfo.advertiseTimes <= 0) {
             this.speedUpBtn.disabled = true;
         }
+
+        if (!UserInfo.isFirstTime) {
+            Laya.timer.frameOnce(10, this, () => {
+                Core.eventGlobal.event(EventMaps.update_guid_hand, [
+                    true,
+                    (this.owner as Laya.Box).globalToLocal(
+                        this.speedUpBtn.localToGlobal(new Laya.Point(250, 120))
+                    ),
+                ]);
+            });
+        }
     }
 
     onClick(e: Laya.Event) {
         switch (e.target.name) {
             case "close":
-                Core.view.close(Res.views.SpeedUpView);
+                if (UserInfo.isFirstTime) Core.view.close(Res.views.SpeedUpView);
                 break;
             case "speed_up":
                 if (!this.canClick) return;
                 this.canClick = false;
+                if (!UserInfo.isFirstTime) {
+                    Core.eventGlobal.event(EventMaps.update_guid_hand, [false]);
+                }
                 HttpControl.inst
                     .send({
                         api: ApiHttp.landSpeedUp,
