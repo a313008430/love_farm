@@ -170,13 +170,14 @@ export default class FriendsView extends Core.gameScript {
      *
      */
     private openReward() {
-        HttpControl.inst.send({
-            api: ApiHttp.friendInviteList,
-            data: {},
-            call: (d: InviteList) => {
+        HttpControl.inst
+            .send({
+                api: ApiHttp.friendInviteList,
+                data: {},
+            })
+            .then((d: InviteList) => {
                 Core.view.open(Res.views.FriendsRewardView, { parm: d.list });
-            },
-        });
+            });
     }
 
     /**
@@ -186,19 +187,20 @@ export default class FriendsView extends Core.gameScript {
         Core.view.setOverView(true, () => {
             let data = target.dataSource as FriendData;
 
-            HttpControl.inst.send({
-                api: ApiHttp.friendVisit,
-                data: {
-                    friendId: data.uid,
-                },
-                call: (d) => {
+            HttpControl.inst
+                .send({
+                    api: ApiHttp.friendVisit,
+                    data: {
+                        friendId: data.uid,
+                    },
+                })
+                .then((d) => {
                     Core.view.close(Res.views.FriendsView);
                     Core.eventGlobal.event(EventMaps.go_friend_home, d);
                     Laya.timer.once(300, this, () => {
                         Core.view.setOverView(false);
                     });
-                },
-            });
+                });
         });
     }
 
@@ -211,12 +213,14 @@ export default class FriendsView extends Core.gameScript {
             text: "确认要删除好友吗？",
             call: () => {
                 let data = target.dataSource as FriendData;
-                HttpControl.inst.send({
-                    api: ApiHttp.friendDelete,
-                    data: {
-                        friendId: data.uid,
-                    },
-                    call: (d) => {
+                HttpControl.inst
+                    .send({
+                        api: ApiHttp.friendDelete,
+                        data: {
+                            friendId: data.uid,
+                        },
+                    })
+                    .then((e) => {
                         for (let x = 0; x < this.friends.length; x++) {
                             if (this.friends[x].uid == data.uid) {
                                 this.friends.splice(x, 1);
@@ -224,8 +228,7 @@ export default class FriendsView extends Core.gameScript {
                             }
                         }
                         this.itemList.refresh();
-                    },
-                });
+                    });
             },
             cancelCall: () => {},
         });
@@ -236,16 +239,17 @@ export default class FriendsView extends Core.gameScript {
      */
     private allowFriend(target: Laya.Image) {
         let data = target.dataSource as FriendData;
-        HttpControl.inst.send({
-            api: ApiHttp.friendAllow,
-            data: {
-                friendId: data.uid,
-            },
-            call: (d) => {
+        HttpControl.inst
+            .send({
+                api: ApiHttp.friendAllow,
+                data: {
+                    friendId: data.uid,
+                },
+            })
+            .then(() => {
                 data.applyIng = 0;
                 this.itemList.refresh();
-            },
-        });
+            });
     }
 
     /**
@@ -254,18 +258,19 @@ export default class FriendsView extends Core.gameScript {
      */
     private applyEvent(target: Laya.Image) {
         let data = target.dataSource as FriendData;
-        HttpControl.inst.send({
-            api: ApiHttp.friendApply,
-            data: {
-                friendId: data.uid,
-            },
-            call: (d) => {
+        HttpControl.inst
+            .send({
+                api: ApiHttp.friendApply,
+                data: {
+                    friendId: data.uid,
+                },
+            })
+            .then(() => {
                 this.friendsList = [];
                 this.itemList.array = this.friendsList;
                 this.itemList.refresh();
                 Core.view.openHint({ text: "已发送激情", call: () => {} });
-            },
-        });
+            });
     }
 
     /**
@@ -282,17 +287,18 @@ export default class FriendsView extends Core.gameScript {
             return;
         }
 
-        HttpControl.inst.send({
-            api: ApiHttp.friendSearch,
-            data: {
-                key: this.keyInputNode.text,
-            },
-            call: (d) => {
+        HttpControl.inst
+            .send({
+                api: ApiHttp.friendSearch,
+                data: {
+                    key: this.keyInputNode.text,
+                },
+            })
+            .then((d: FriendData) => {
                 this.friendsList = [d];
                 this.itemList.array = this.friendsList;
                 this.itemList.refresh();
-            },
-        });
+            });
     }
 
     private copy() {

@@ -24,6 +24,8 @@ export default class LoginView extends GameScript {
     /** 进度条默认宽度 */
     private loadBarOldWidth: number = 0;
 
+    private canClick: boolean = true;
+
     private data: { call: Function };
 
     onOpened(d) {
@@ -70,21 +72,25 @@ export default class LoginView extends GameScript {
     }
 
     private async login(isWx: boolean) {
+        if (!this.canClick) return;
+        this.canClick = false;
         if (LocalStorageService.getJSON().token) {
-            HttpControl.inst.send({
-                api: ApiHttp.loginToken,
-                call: (d: NetInit) => {
+            HttpControl.inst
+                .send({
+                    api: ApiHttp.loginToken,
+                    error: (code, data) => {
+                        LocalStorageService.clear();
+                        this.loginBox.visible = true;
+
+                        this.loadBox.visible = false;
+                    },
+                })
+                .then((d: NetInit) => {
                     if (this.data?.call) this.data.call(d);
                     this.loginBox.visible = false;
                     this.loadBox.visible = true;
-                },
-                error: (code, data) => {
-                    LocalStorageService.clear();
-                    this.loginBox.visible = true;
-
-                    this.loadBox.visible = false;
-                },
-            });
+                    this.canClick = true;
+                });
             this.privacyBox.visible = false;
         } else {
             // console.log(isWx);
@@ -121,30 +127,43 @@ export default class LoginView extends GameScript {
             }
             this.privacyBox.visible = false;
 
-            HttpControl.inst.send({
-                api: ApiHttp.login,
-                data: <NetSendApi["login"]>{
-                    // account: isWx ? null : this.userInput.text,
-                    wxId: wxOpenId,
-                    avatar: avatar,
-                    nickname: nickname,
-                },
-                call: (d: NetInit) => {
+            HttpControl.inst
+                .send({
+                    api: ApiHttp.login,
+                    data: <NetSendApi["login"]>{
+                        // account: isWx ? null : this.userInput.text,
+                        wxId: wxOpenId,
+                        avatar: avatar,
+                        nickname: nickname,
+                    },
+                    error: (code, data) => {
+                        LocalStorageService.clear();
+                        this.loginBox.visible = true;
+
+                        this.loadBox.visible = false;
+                        this.canClick = true;
+                    },
+                })
+                .then((d: NetInit) => {
                     if (this.data?.call) this.data.call(d);
                     this.loginBox.visible = false;
                     this.loadBox.visible = true;
+                    this.canClick = true;
+                    // AppCore.runAppFunction({
+                    //     uri: AppEventMap.wxLoginSuccess,
+                    //     data: {},
+                    // });
+                    if (!UserInfo.isFirstTime) {
+                        AppCore.runAppFunction({
+                            uri: AppEventMap.registerSuccess,
+                            data: {},
+                        });
+                    }
                     AppCore.runAppFunction({
-                        uri: AppEventMap.wxLoginSuccess,
+                        uri: AppEventMap.loginSuccess,
                         data: {},
                     });
-                },
-                error: (code, data) => {
-                    LocalStorageService.clear();
-                    this.loginBox.visible = true;
-
-                    this.loadBox.visible = false;
-                },
-            });
+                });
         }
     }
 

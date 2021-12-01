@@ -17,8 +17,8 @@ class HttpDataControl {
     forward(d: {
         api: ApiHttp;
         data: any;
-        call?: Function;
         resolveEvent?: Function;
+        // TODO 这个可能有异步重复问题，后期排查一下
         error?: Function;
     }) {
         switch (d.api) {
@@ -27,29 +27,29 @@ class HttpDataControl {
                 this.login(d.data);
                 break;
             case ApiHttp.landSpeedUp:
-                this.taskUpdate(1002);
                 this.updateUserInfo(d.data);
+                this.taskUpdate(1002);
                 break;
             case ApiHttp.ad:
-                this.taskUpdate(1001);
                 this.updateUserInfo(d.data);
+                this.taskUpdate(1001);
                 break;
             case ApiHttp.landGather:
-                this.taskUpdate(1003);
                 this.updateUserInfo(d.data);
+                this.taskUpdate(1003);
                 break;
             case ApiHttp.feedBuy:
+                this.updateUserInfo(d.data);
                 this.taskUpdate(1005);
                 this.taskUpdate(1006);
-                this.updateUserInfo(d.data);
                 break;
             case ApiHttp.landSow:
-                this.taskUpdate(1007);
                 this.updateUserInfo(d.data);
+                this.taskUpdate(1007);
                 break;
             case ApiHttp.warehouseSell:
-                this.taskUpdate(1008);
                 this.updateUserInfo(d.data);
+                this.taskUpdate(1008);
                 break;
 
             case ApiHttp.seedsUnlock:
@@ -73,9 +73,6 @@ class HttpDataControl {
 
         if (d.resolveEvent) d.resolveEvent(d.data);
 
-        if (d.call) {
-            d.call(d.data);
-        }
         Core.eventGlobal.event(d.api, d.data);
     }
 
@@ -113,6 +110,7 @@ class HttpDataControl {
         UserInfo.speedUpTimes = d.speedUpTimes;
         UserInfo.vitality = d.userInfo.vitality;
         UserInfo.invitePeople = d.userInfo.invitePeople;
+        UserInfo.isFirstTime = d.userInfo.isFirstTime;
         PetService.init(d.pets);
         TaskService.init(d.tasks);
         LocalStorageService.setJSON("isLogin", true);
@@ -146,6 +144,7 @@ class HttpDataControl {
         UserInfo.speedUpTimes = 0;
         UserInfo.vitality = 0;
         UserInfo.invitePeople = null;
+        UserInfo.isFirstTime = 0;
     }
 
     /**

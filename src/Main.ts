@@ -71,8 +71,8 @@ class Main {
                 showLoad: false,
                 parm: {
                     call: (d) => {
-                        resolve(null);
                         this.initGameData(d);
+                        resolve(null);
                     },
                 },
                 complete: (e) => {

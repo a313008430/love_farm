@@ -18,6 +18,8 @@ export default class SpeedUpView extends Core.gameScript {
 
     private call: Function;
 
+    private canClick: boolean = true;
+
     onOpened(data: { call: Function }) {
         this.call = data.call;
         let time = TableAnalyze.table("config").get("all_speed_up_time").value as number;
@@ -34,10 +36,14 @@ export default class SpeedUpView extends Core.gameScript {
                 Core.view.close(Res.views.SpeedUpView);
                 break;
             case "speed_up":
-                HttpControl.inst.send({
-                    api: ApiHttp.landSpeedUp,
-                    data: { type: ConfigGame.ApiTypeAD },
-                    call: (d: { advertiseTimes: number; speedUpTimes: number }) => {
+                if (!this.canClick) return;
+                this.canClick = false;
+                HttpControl.inst
+                    .send({
+                        api: ApiHttp.landSpeedUp,
+                        data: { type: ConfigGame.ApiTypeAD },
+                    })
+                    .then((d: { advertiseTimes: number; speedUpTimes: number }) => {
                         UserInfo.speedUpTimes = d.speedUpTimes;
                         UserInfo.advertiseTimes = d.advertiseTimes;
 
@@ -51,8 +57,7 @@ export default class SpeedUpView extends Core.gameScript {
                         Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
 
                         if (this.call) this.call();
-                    },
-                });
+                    });
                 break;
         }
     }

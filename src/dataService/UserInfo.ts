@@ -38,6 +38,8 @@ class UserInfo {
     proportion: number = 0.0001;
     /** 邀请者 */
     invitePeople: string;
+    /** 第一次登录 */
+    isFirstTime: number;
 
     get ttt() {
         return this.orderLevel;

@@ -68,4 +68,8 @@ export const enum AppEventMap {
     privacyAgreement = "privacyAgreement",
     /** 服务协议 */
     serviceAgreement = "serviceAgreement",
+    /** 注册成功 */
+    registerSuccess = "registerSuccess",
+    /** 登录成功 */
+    loginSuccess = "LoginSuccess",
 }

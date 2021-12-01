@@ -45,12 +45,14 @@ export default class MailView extends GameScript {
 
     onClick(e: Laya.Event) {
         if (e.target.name.indexOf("item") > -1) {
-            HttpControl.inst.send({
-                api: ApiHttp.mailRead,
-                data: {
-                    id: e.target["dataSource"].id,
-                },
-                call: () => {
+            HttpControl.inst
+                .send({
+                    api: ApiHttp.mailRead,
+                    data: {
+                        id: e.target["dataSource"].id,
+                    },
+                })
+                .then(() => {
                     e.target["dataSource"].read = 1;
                     this.list.refresh();
                     Core.view.open(Res.views.MailDescView, {
@@ -67,8 +69,7 @@ export default class MailView extends GameScript {
                             },
                         },
                     });
-                },
-            });
+                });
         }
 
         switch (e.target.name) {

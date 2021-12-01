@@ -54,18 +54,19 @@ export default class FriendsRewardView extends Core.gameScript {
             Core.view.openHint({ text: "邀请码不能为空！", call: () => {} });
             return;
         }
-        HttpControl.inst.send({
-            api: ApiHttp.friendInvitePeople,
-            data: {
-                key: this.inviteInput.text,
-            },
-            call: () => {
+        HttpControl.inst
+            .send({
+                api: ApiHttp.friendInvitePeople,
+                data: {
+                    key: this.inviteInput.text,
+                },
+            })
+            .then(() => {
                 UserInfo.invitePeople = this.inviteInput.text;
                 Core.view.openHint({ text: "绑定成功", call: () => {} });
                 this.inviteBox.visible = false;
                 this.inviteBox.active = false;
-            },
-        });
+            });
     }
 
     onHdDestroy() {

@@ -96,10 +96,12 @@ export default class SignInView extends GameScript {
 
                 const signInId = e.target["dataSource"];
 
-                HttpControl.inst.send({
-                    api: ApiHttp.signInReward,
-                    data: { type: ConfigGame.ApiTypeAD, signInId: signInId },
-                    call: (d: { advertiseTimes: number; speedUpTimes: number }) => {
+                HttpControl.inst
+                    .send({
+                        api: ApiHttp.signInReward,
+                        data: { type: ConfigGame.ApiTypeAD, signInId: signInId },
+                    })
+                    .then(() => {
                         UserInfo.signInId = signInId;
                         this.signInList.refresh();
                         let reward = TableAnalyze.table("signIn").get(signInId).reward;
@@ -113,8 +115,7 @@ export default class SignInView extends GameScript {
                                 },
                             ],
                         });
-                    },
-                });
+                    });
 
                 break;
         }

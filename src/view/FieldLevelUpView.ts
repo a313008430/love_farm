@@ -32,16 +32,18 @@ export default class FieldLevelUpView extends GameScript {
                 break;
             case "upgradeBtn":
             case "upgradeAdBtn":
-                HttpControl.inst.send({
-                    api: ApiHttp.landUpgrade,
-                    data: <NetSendApi["gather"]>{
-                        landId: this.data.obj.id,
-                        type:
-                            e.target.name == "upgradeBtn"
-                                ? ConfigGame.ApiTypeDefault
-                                : ConfigGame.ApiTypeAD,
-                    },
-                    call: (d: ReturnUserInfo) => {
+                HttpControl.inst
+                    .send({
+                        api: ApiHttp.landUpgrade,
+                        data: <NetSendApi["gather"]>{
+                            landId: this.data.obj.id,
+                            type:
+                                e.target.name == "upgradeBtn"
+                                    ? ConfigGame.ApiTypeDefault
+                                    : ConfigGame.ApiTypeAD,
+                        },
+                    })
+                    .then(() => {
                         if (e.target.name == "upgradeAdBtn") {
                             Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
                         }
@@ -50,8 +52,7 @@ export default class FieldLevelUpView extends GameScript {
                             this.data.call();
                         }
                         Core.view.close(Res.views.FieldLevelUpView);
-                    },
-                });
+                    });
 
                 break;
         }

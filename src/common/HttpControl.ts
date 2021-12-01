@@ -20,6 +20,8 @@ interface HttpSendData {
     /** 错误回调 */
     error?: { (code: number, data: any): void };
     baseUrl?: string;
+    /** 发起请求前 */
+    before?: Function;
 }
 
 /**
@@ -29,22 +31,15 @@ export default class HttpControl {
     @Instance
     static inst: HttpControl;
 
-    xhr: XMLHttpRequest;
-
     baseUrl: string = null;
 
     private sendData: HttpSendData;
 
+    /** 事件列表 */
+    private eventMap: Map<string, XMLHttpRequest> = new Map();
+
     init(url: string) {
         this.baseUrl = url;
-        // if (this.xhr) return;
-        // let xhr = new Laya.HttpRequest();
-
-        // this.xhr.http.timeout = 10000; //超时时间
-        // xhr.on(Laya.Event.COMPLETE, this, this.completeHandler);
-        // xhr.on(Laya.Event.ERROR, this, this.errorHandler);
-        // xhr.on(Laya.Event.PROGRESS, this, this.processHandler);
-        // xhr.send("res/data.data", "", "get", "text");
     }
 
     private createXhr(resolve: Function) {
@@ -55,6 +50,7 @@ export default class HttpControl {
                 switch (xmlhttp.status) {
                     case 200:
                         this.completeHandler(JSON.parse(xmlhttp.responseText), resolve);
+                        this.clearOneInEventMap(xmlhttp);
                         break;
                     default:
                         if (xmlhttp.responseText) {
@@ -67,6 +63,7 @@ export default class HttpControl {
                             } else {
                                 this.completeHandler(d, resolve);
                             }
+                            this.clearOneInEventMap(xmlhttp);
                         }
 
                         if (!xmlhttp.status) {
@@ -78,28 +75,63 @@ export default class HttpControl {
                                 },
                                 resolve
                             );
+                            this.clearOneInEventMap(xmlhttp);
                         }
                         break;
                 }
             }
         };
 
-        this.xhr = xmlhttp;
+        return xmlhttp;
+    }
+
+    private clearOneInEventMap(xml: XMLHttpRequest) {
+        Laya.timer.frameOnce(1, this, () => {
+            this.eventMap.forEach((e, v) => {
+                if (e == xml) {
+                    this.eventMap.delete(v);
+                }
+            });
+        });
     }
 
     async send(data: HttpSendData) {
-        return new Promise(async (resolve) => {
-            if (!data.method) data.method = "post";
-            if (!data.responseType) data.responseType = "json";
-            if (!data.baseUrl) data.baseUrl = this.baseUrl;
+        if (!data.method) data.method = "post";
+        if (!data.responseType) data.responseType = "json";
+        if (!data.baseUrl) data.baseUrl = this.baseUrl;
 
-            this.createXhr(resolve);
+        let uri = data.baseUrl + data.api;
+
+        let sendData: string[] = [];
+        if (data.data) {
+            Object.keys(data.data).forEach((d) => {
+                sendData.push(`${d}=${data.data[d]}`);
+            });
+        }
+        const sendDataString = sendData.join("&");
+        console.log(this.eventMap.get(uri + sendDataString));
+        if (this.eventMap.get(uri + sendDataString)) {
+            return;
+        }
+
+        if (data.data?.type == ConfigGame.ApiTypeAD) {
+            await AppCore.runAppFunction({
+                uri: AppEventMap.ad,
+                data: null,
+                timestamp: Date.now(),
+            });
+            TaskService.taskAddTimes(1001);
+            TaskService.taskAddTimes(1012);
+        }
+
+        return new Promise(async (resolve) => {
+            const xhr = this.createXhr(resolve);
 
             this.sendData = data;
 
-            // if (!data.data?.userId) {
-            //     data.data.userId = UserInfo.uid;
-            // }
+            if (data?.before) {
+                data.before();
+            }
 
             if (!data.headers) {
                 data.headers = ["Authorization", `Bearer ${LocalStorageService.getJSON().token}`];
@@ -112,7 +144,6 @@ export default class HttpControl {
                 `color:#f8c291;font-weight:700;`
             );
 
-            let uri = data.baseUrl + data.api;
             if (!data.api) {
                 Core.view.open(Res.views.HintView, {
                     parm: { text: `http 地址不能为空` },
@@ -120,31 +151,14 @@ export default class HttpControl {
                 return;
             }
 
-            this.xhr.open("POST", uri, true);
-            this.xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-            // this.xhr.setRequestHeader("Content-type", "application/json");
-            this.xhr.setRequestHeader(
-                "Authorization",
-                `Bearer ${LocalStorageService.getJSON().token}`
-            );
+            xhr.open("POST", uri, true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            // xhr.setRequestHeader("Content-type", "application/json");
+            xhr.setRequestHeader("Authorization", `Bearer ${LocalStorageService.getJSON().token}`);
 
-            let sendData: string[] = [];
-            if (data.data) {
-                Object.keys(data.data).forEach((d) => {
-                    sendData.push(`${d}=${data.data[d]}`);
-                });
-                if (data.data?.type == ConfigGame.ApiTypeAD) {
-                    await AppCore.runAppFunction({
-                        uri: AppEventMap.ad,
-                        data: null,
-                        timestamp: Date.now(),
-                    });
-                    TaskService.taskAddTimes(1001);
-                    TaskService.taskAddTimes(1012);
-                }
-            }
+            xhr.send(sendDataString);
 
-            this.xhr.send(sendData.join("&"));
+            this.eventMap.set(uri + sendDataString, xhr);
         });
     }
 
@@ -165,7 +179,6 @@ export default class HttpControl {
             HttpDataControl.forward({
                 api: this.sendData.api,
                 data: e.data,
-                call: this.sendData?.call,
                 resolveEvent: resolve,
             });
         }

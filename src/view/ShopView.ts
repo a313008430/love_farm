@@ -263,34 +263,37 @@ export default class ShopView extends GameScript {
                 break;
             //播种
             case "buy_btn":
-                HttpControl.inst.send({
-                    api: ApiHttp.landSow,
-                    data: <NetSendApi["sow"]>{
-                        landId: this.data.parm?.landId,
-                        plantId: this.getDataList()[this.itemListSelectIndex].base.id,
-                        type: ConfigGame.ApiTypeDefault,
-                    },
-                    call: (d: ReturnUserInfo) => {
+                HttpControl.inst
+                    .send({
+                        api: ApiHttp.landSow,
+                        data: <NetSendApi["sow"]>{
+                            landId: this.data.parm?.landId,
+                            plantId: this.getDataList()[this.itemListSelectIndex].base.id,
+                            type: ConfigGame.ApiTypeDefault,
+                        },
+                    })
+                    .then(() => {
                         ViewManager.inst.close(Res.views.ShopView);
                         if (this.data?.call)
                             this.data.call(this.getDataList()[this.itemListSelectIndex]);
-                    },
-                });
+                    });
 
                 break;
             //广告解锁，或是金币解锁
             case "unlock_buy":
             case "ad_unlock":
-                HttpControl.inst.send({
-                    api: ApiHttp.seedsUnlock,
-                    data: <NetSendApi["seedsUnlock"]>{
-                        plantId: this.getDataList()[this.itemListSelectIndex].base.id,
-                        type:
-                            e.target.name == "ad_unlock"
-                                ? ConfigGame.ApiTypeAD
-                                : ConfigGame.ApiTypeDefault,
-                    },
-                    call: (d: ReturnUserInfo) => {
+                HttpControl.inst
+                    .send({
+                        api: ApiHttp.seedsUnlock,
+                        data: <NetSendApi["seedsUnlock"]>{
+                            plantId: this.getDataList()[this.itemListSelectIndex].base.id,
+                            type:
+                                e.target.name == "ad_unlock"
+                                    ? ConfigGame.ApiTypeAD
+                                    : ConfigGame.ApiTypeDefault,
+                        },
+                    })
+                    .then(() => {
                         PlantService.list[this.itemListSelectIndex].lock = false;
                         this.itemList.changeItem(
                             this.itemListSelectIndex,
@@ -300,8 +303,7 @@ export default class ShopView extends GameScript {
                         if (e.target.name == "ad_unlock") {
                             Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
                         }
-                    },
-                });
+                    });
                 break;
 
             case "left":
@@ -338,13 +340,15 @@ export default class ShopView extends GameScript {
     private feedBuy() {
         let feed = this.getDataList()[this.itemListSelectIndex] as FeedDataBase;
         if (!feed) return;
-        HttpControl.inst.send({
-            api: ApiHttp.feedBuy,
-            data: <NetSendApi["feedBuy"]>{
-                feedId: feed.base.id,
-                type: ConfigGame.ApiTypeDefault,
-            },
-            call: (d: ReturnUserInfo) => {
+        HttpControl.inst
+            .send({
+                api: ApiHttp.feedBuy,
+                data: <NetSendApi["feedBuy"]>{
+                    feedId: feed.base.id,
+                    type: ConfigGame.ApiTypeDefault,
+                },
+            })
+            .then(() => {
                 UserInfo.petVitality += feed.base.vitality;
 
                 Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
@@ -358,26 +362,26 @@ export default class ShopView extends GameScript {
                     ],
                     notFly: true,
                 });
-            },
-        });
+            });
     }
 
     /**
      * 宠物去看家
      */
     private petGoWatch(petId: number) {
-        HttpControl.inst.send({
-            api: ApiHttp.petWear,
-            data: <NetSendApi["petBuy"]>{
-                petId: petId,
-                type: ConfigGame.ApiTypeDefault,
-            },
-            call: (d: ReturnUserInfo) => {
+        HttpControl.inst
+            .send({
+                api: ApiHttp.petWear,
+                data: <NetSendApi["petBuy"]>{
+                    petId: petId,
+                    type: ConfigGame.ApiTypeDefault,
+                },
+            })
+            .then(() => {
                 UserInfo.warePetId = petId;
 
                 this.updatePet();
-            },
-        });
+            });
     }
 
     /**
@@ -385,13 +389,15 @@ export default class ShopView extends GameScript {
      */
     private petBuy() {
         let { base } = PetService.list[this.selectPetIndex];
-        HttpControl.inst.send({
-            api: ApiHttp.petBuy,
-            data: <NetSendApi["petBuy"]>{
-                petId: base.id,
-                type: ConfigGame.ApiTypeDefault,
-            },
-            call: (d: ReturnUserInfo) => {
+        HttpControl.inst
+            .send({
+                api: ApiHttp.petBuy,
+                data: <NetSendApi["petBuy"]>{
+                    petId: base.id,
+                    type: ConfigGame.ApiTypeDefault,
+                },
+            })
+            .then(() => {
                 PetService.list[this.selectPetIndex].lock = false;
                 this.updatePet();
 
@@ -400,8 +406,7 @@ export default class ShopView extends GameScript {
                     UserInfo.petVitality = base.vitality_max;
                     UserInfo.digestCountDown = ConfigGame.petDigestIntervalTime;
                 }
-            },
-        });
+            });
     }
 
     /**

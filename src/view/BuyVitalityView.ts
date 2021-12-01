@@ -42,22 +42,23 @@ export default class BuyVitalityView extends GameScript {
                     return;
                 }
 
-                HttpControl.inst.send({
-                    api: ApiHttp.vitalityBuy,
-                    data: {
-                        type:
-                            e.target.name == "buyBtn"
-                                ? ConfigGame.ApiTypeDefault
-                                : ConfigGame.ApiTypeAD,
-                    },
-                    call: (d: { gold: 0; diamond: 0; advertiseTimes: 0; vitality: 0 }) => {
+                HttpControl.inst
+                    .send({
+                        api: ApiHttp.vitalityBuy,
+                        data: {
+                            type:
+                                e.target.name == "buyBtn"
+                                    ? ConfigGame.ApiTypeDefault
+                                    : ConfigGame.ApiTypeAD,
+                        },
+                    })
+                    .then((d: { gold: 0; diamond: 0; advertiseTimes: 0; vitality: 0 }) => {
                         UserInfo.vitality = d.vitality;
                         if (this.data?.call) {
                             this.data.call();
                         }
                         Core.view.close(Res.views.BuyVitalityView);
-                    },
-                });
+                    });
 
                 break;
         }

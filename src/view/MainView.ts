@@ -122,6 +122,10 @@ export default class MainView extends Core.gameScript {
         ].forEach((e) => {
             if (e.endsWith("png")) Laya.loader.clearTextureRes(e);
         });
+
+        Laya.timer.frameOnce(1, this, () => {
+            this.updateTask();
+        });
     }
 
     onHdAwake() {
@@ -269,7 +273,6 @@ export default class MainView extends Core.gameScript {
 
         this.addLandLayer.visible = false;
         this.updateOrder();
-        this.updateTask();
     }
 
     /**
@@ -366,24 +369,26 @@ export default class MainView extends Core.gameScript {
      * 打开邮件
      */
     private openMail() {
-        HttpControl.inst.send({
-            api: ApiHttp.mailList,
-            call: (d: MailReturnData[]) => {
+        HttpControl.inst
+            .send({
+                api: ApiHttp.mailList,
+            })
+            .then((d: MailReturnData[]) => {
                 Core.view.open(Res.views.MailView, { parm: d });
-            },
-        });
+            });
     }
 
     /**
      * 打开好友 列表
      */
     private openFriend() {
-        HttpControl.inst.send({
-            api: ApiHttp.friendList,
-            call: (d: FriendListData) => {
+        HttpControl.inst
+            .send({
+                api: ApiHttp.friendList,
+            })
+            .then((d: FriendListData) => {
                 Core.view.open(Res.views.FriendsView, { parm: d });
-            },
-        });
+            });
     }
 
     /**
@@ -450,12 +455,14 @@ export default class MainView extends Core.gameScript {
         }级订单`;
 
         if (progress == d.condition.length) {
-            HttpControl.inst.send({
-                api: ApiHttp.orderReward,
-                data: {
-                    orderId: UserInfo.orderLevel + 1,
-                },
-                call: () => {
+            HttpControl.inst
+                .send({
+                    api: ApiHttp.orderReward,
+                    data: {
+                        orderId: UserInfo.orderLevel + 1,
+                    },
+                })
+                .then(() => {
                     d.condition.forEach((e) => {
                         WarehouseService.reduceAmount(e.plant.id, e.count);
                     });
@@ -475,8 +482,7 @@ export default class MainView extends Core.gameScript {
                     });
 
                     UserInfo.orderLevel++;
-                },
-            });
+                });
         }
     }
 
@@ -712,18 +718,19 @@ export default class MainView extends Core.gameScript {
      */
     private goHome() {
         Core.view.setOverView(true, () => {
-            HttpControl.inst.send({
-                api: ApiHttp.goHome,
-                data: {},
-                call: () => {
+            HttpControl.inst
+                .send({
+                    api: ApiHttp.goHome,
+                    data: {},
+                })
+                .then(() => {
                     //回来
                     this.isOuter = false;
                     Laya.timer.once(300, this, () => {
                         Core.view.setOverView(false);
                         this.goFriend(null);
                     });
-                },
-            });
+                });
         });
     }
 
@@ -732,12 +739,14 @@ export default class MainView extends Core.gameScript {
      */
     private goToNeighbor() {
         Core.view.setOverView(true, () => {
-            HttpControl.inst.send({
-                api: ApiHttp.neighbor,
-                data: <NetSendApi["gather"]>{
-                    type: ConfigGame.ApiTypeDefault,
-                },
-                call: (d: ReturnNeighbor) => {
+            HttpControl.inst
+                .send({
+                    api: ApiHttp.neighbor,
+                    data: <NetSendApi["gather"]>{
+                        type: ConfigGame.ApiTypeDefault,
+                    },
+                })
+                .then((d: ReturnNeighbor) => {
                     //离开
                     this.isOuter = true;
                     this.goFriend(d);
@@ -745,8 +754,7 @@ export default class MainView extends Core.gameScript {
                     Laya.timer.once(300, this, () => {
                         Core.view.setOverView(false);
                     });
-                },
-            });
+                });
         });
     }
 

@@ -51,36 +51,38 @@ export default class AddLandView extends GameScript {
                     Core.view.openHint({ text: "钻石不足", call: () => {} });
                     return;
                 }
-                HttpControl.inst.send({
-                    api: ApiHttp.landUnlock,
-                    data: {
-                        landId: this.data.id,
-                        type: ConfigGame.ApiTypeDefault,
-                    },
-                    call: (d) => {
+                HttpControl.inst
+                    .send({
+                        api: ApiHttp.landUnlock,
+                        data: {
+                            landId: this.data.id,
+                            type: ConfigGame.ApiTypeDefault,
+                        },
+                    })
+                    .then(() => {
                         if (this.data?.call) {
                             this.data.call();
                             Core.view.close(Res.views.AddLandView);
                         }
-                    },
-                });
+                    });
                 break;
             case "ad_btn":
-                HttpControl.inst.send({
-                    api: ApiHttp.landUnlock,
-                    data: {
-                        landId: this.data.id,
-                        type: ConfigGame.ApiTypeAD,
-                    },
-                    call: (d) => {
+                HttpControl.inst
+                    .send({
+                        api: ApiHttp.landUnlock,
+                        data: {
+                            landId: this.data.id,
+                            type: ConfigGame.ApiTypeAD,
+                        },
+                    })
+                    .then(() => {
                         if (this.data?.call) {
                             this.data.call();
                             Core.view.close(Res.views.AddLandView);
                         }
 
                         Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
-                    },
-                });
+                    });
 
                 break;
         }

@@ -145,17 +145,19 @@ export default class WarehouseView extends Core.gameScript {
                 break;
             case "sellBtnAd":
             case "sellBtn":
-                HttpControl.inst.send({
-                    api: ApiHttp.warehouseSell,
-                    data: <NetSendApi["warehouseSell"]>{
-                        id: this.selectItemData.base.id,
-                        amount: this.selectItemSellCount,
-                        type:
-                            e.target.name == "sellBtn"
-                                ? ConfigGame.ApiTypeDefault
-                                : ConfigGame.ApiTypeAD,
-                    },
-                    call: (d: ReturnUserInfo) => {
+                HttpControl.inst
+                    .send({
+                        api: ApiHttp.warehouseSell,
+                        data: <NetSendApi["warehouseSell"]>{
+                            id: this.selectItemData.base.id,
+                            amount: this.selectItemSellCount,
+                            type:
+                                e.target.name == "sellBtn"
+                                    ? ConfigGame.ApiTypeDefault
+                                    : ConfigGame.ApiTypeAD,
+                        },
+                    })
+                    .then(() => {
                         WarehouseService.reduceAmount(
                             this.selectItemData.base.id,
                             this.selectItemSellCount
@@ -199,8 +201,7 @@ export default class WarehouseView extends Core.gameScript {
                             list: rewardList,
                             callBack: () => {},
                         });
-                    },
-                });
+                    });
 
                 break;
         }
@@ -240,7 +241,7 @@ export default class WarehouseView extends Core.gameScript {
             }
         }
 
-        this.selectItemSellCount = Math.ceil(d.count / 2);
+        this.selectItemSellCount = d.count;
         this.unitPriceGold = priceGold?.count || 0;
         this.unitPriceDiamond = priceDiamond?.count || 0;
         this.updateSelectSellCount();

@@ -126,18 +126,19 @@ export default class MailDescView extends Core.gameScript {
                 break;
 
             case "delete":
-                HttpControl.inst.send({
-                    api: ApiHttp.mailDelete,
-                    data: { id: this.mailId },
-                    call: () => {
+                HttpControl.inst
+                    .send({
+                        api: ApiHttp.mailDelete,
+                        data: { id: this.mailId },
+                    })
+                    .then(() => {
                         if (this.call) {
                             this.call(this.mailId);
                         }
                         Laya.timer.frameOnce(1, this, () => {
                             Core.view.close(Res.views.MailDescView);
                         });
-                    },
-                });
+                    });
                 break;
         }
     }

@@ -87,10 +87,12 @@ export default class TaskView extends GameScript {
 
                 if (btnObj.ok) {
                     //获取奖励
-                    HttpControl.inst.send({
-                        api: ApiHttp.taskReward,
-                        data: { type: ConfigGame.ApiTypeAD, taskId: btnObj.id },
-                        call: (d: { gold: 0; diamond: 0; advertiseTimes: 0 }) => {
+                    HttpControl.inst
+                        .send({
+                            api: ApiHttp.taskReward,
+                            data: { type: ConfigGame.ApiTypeAD, taskId: btnObj.id },
+                        })
+                        .then(() => {
                             const task = TaskService.getTask(btnObj.id);
                             task.receive = 1;
                             btnObj.ok = false;
@@ -110,8 +112,7 @@ export default class TaskView extends GameScript {
                                     },
                                 ],
                             });
-                        },
-                    });
+                        });
                 } else {
                     this.jump(btnObj.id, e.target);
                 }
@@ -128,14 +129,15 @@ export default class TaskView extends GameScript {
                     data: null,
                     timestamp: Date.now(),
                 });
-                HttpControl.inst.send({
-                    api: ApiHttp.ad,
-                    data: {},
-                    call: (d: { gold: 0; diamond: 0; advertiseTimes: 0 }) => {
+                HttpControl.inst
+                    .send({
+                        api: ApiHttp.ad,
+                        data: {},
+                    })
+                    .then(() => {
                         Core.eventGlobal.event(EventMaps.play_ad_get_reward, target);
                         this.taskList.refresh();
-                    },
-                });
+                    });
 
                 break;
             case 1002:

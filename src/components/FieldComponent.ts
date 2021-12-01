@@ -68,6 +68,8 @@ export default class FieldComponent extends Core.gameScript {
 
     mainViewCom: MainView;
 
+    private canClick: boolean = true;
+
     private landList: Map<number, LandObj>;
 
     onHdAwake() {
@@ -318,8 +320,8 @@ export default class FieldComponent extends Core.gameScript {
     }
 
     async onClick() {
-        console.log(this.fieldId, this.buildIng);
         Core.audio.playSound(Res.audios.button_click);
+        if (!this.canClick) return;
 
         if (this.isOuter) {
             console.log("外出");
@@ -374,92 +376,102 @@ export default class FieldComponent extends Core.gameScript {
                 } else {
                     console.log("收获");
 
+                    this.canClick = false;
+
                     let plantAmount = 0,
-                        rewardDiamond = 0;
-                    await HttpControl.inst.send({
-                        api: ApiHttp.landGather,
-                        data: <NetSendApi["gather"]>{
-                            landId: this.data.id,
-                            type: ConfigGame.ApiTypeDefault,
-                        },
-                        call: (d: {
-                            gold: number;
-                            diamond: number;
-                            advertiseTimes: number;
-                            amount: number;
-                            rewardDiamond: 0;
-                        }) => {
-                            plantAmount = d.amount;
-                            WarehouseService.add(this.data.productId, d.amount);
-                            Core.audio.playSound(Res.audios.shoucai);
-                            rewardDiamond = d.rewardDiamond;
-                        },
-                    });
+                        rewardDiamond = 0,
+                        productId = this.data.productId;
 
-                    //收获的植物
-                    let plantObj = TableAnalyze.table("plant").get(this.data.productId),
-                        rewardList: any[] = [
-                            {
-                                obj: plantObj,
-                                count: plantAmount,
-                                posType: 3,
+                    HttpControl.inst
+                        .send({
+                            api: ApiHttp.landGather,
+                            data: <NetSendApi["gather"]>{
+                                landId: this.data.id,
+                                type: ConfigGame.ApiTypeDefault,
                             },
-                        ];
+                        })
+                        .then(
+                            (d: {
+                                gold: number;
+                                diamond: number;
+                                advertiseTimes: number;
+                                amount: number;
+                                rewardDiamond: number;
+                            }) => {
+                                plantAmount = d.amount;
+                                WarehouseService.add(productId, d.amount);
+                                Core.audio.playSound(Res.audios.shoucai);
+                                rewardDiamond = d.rewardDiamond;
+                                this.clearField();
+                                this.canClick = true;
 
-                    //获得的钻石
-                    if (rewardDiamond) {
-                        rewardList.push({
-                            obj: TableAnalyze.table("currency").get(ConfigGame.diamondId),
-                            count: rewardDiamond,
-                            posType: 2,
-                        });
-                    }
+                                //收获的植物
+                                let plantObj = TableAnalyze.table("plant").get(productId),
+                                    rewardList: any[] = [
+                                        {
+                                            obj: plantObj,
+                                            count: plantAmount,
+                                            posType: 3,
+                                        },
+                                    ];
 
-                    Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
-                        node: this.owner,
-                        list: rewardList,
-                        callBack: () => {
-                            // plantObj.gain.forEach((d) => {
-                            //     switch (d.obj.id) {
-                            //         case ConfigGame.diamondId:
-                            //             UserInfo.diamond += d.count;
-                            //             break;
-                            //         case ConfigGame.goldId:
-                            //             UserInfo.gold += d.count;
-                            //             break;
-                            //     }
-                            // });
-                        },
-                    });
+                                //获得的钻石
+                                if (rewardDiamond) {
+                                    rewardList.push({
+                                        obj: TableAnalyze.table("currency").get(
+                                            ConfigGame.diamondId
+                                        ),
+                                        count: rewardDiamond,
+                                        posType: 2,
+                                    });
+                                }
 
-                    this.clearField();
-                    Laya.timer.frameOnce(1, this, () => {
-                        this.mainViewCom.updateAllStateIcon();
-                    });
-                    return;
+                                Core.eventGlobal.event(EventMaps.play_get_reward, <
+                                    GetFloatRewardObj
+                                >{
+                                    node: this.owner,
+                                    list: rewardList,
+                                    callBack: () => {
+                                        // plantObj.gain.forEach((d) => {
+                                        //     switch (d.obj.id) {
+                                        //         case ConfigGame.diamondId:
+                                        //             UserInfo.diamond += d.count;
+                                        //             break;
+                                        //         case ConfigGame.goldId:
+                                        //             UserInfo.gold += d.count;
+                                        //             break;
+                                        //     }
+                                        // });
+                                    },
+                                });
+
+                                Laya.timer.frameOnce(1, this, () => {
+                                    this.mainViewCom.updateAllStateIcon();
+                                });
+                            }
+                        );
                 }
-            }
+            } else {
+                //种菜
+                Core.view.open(Res.views.ShopView, {
+                    parm: <ShopViewData>{
+                        id: 0,
+                        parm: { landId: this.fieldId },
+                        call: (d: PlantDataBase) => {
+                            console.log(d);
 
-            //种菜
-            Core.view.open(Res.views.ShopView, {
-                parm: <ShopViewData>{
-                    id: 0,
-                    parm: { landId: this.fieldId },
-                    call: (d: PlantDataBase) => {
-                        console.log(d);
+                            this.landList.get(this.fieldId).productId = d.base.id;
+                            this.landList.get(this.fieldId).matureTimeLeft = d.base.mature_time;
 
-                        this.landList.get(this.fieldId).productId = d.base.id;
-                        this.landList.get(this.fieldId).matureTimeLeft = d.base.mature_time;
-
-                        this.data = this.landList.get(this.fieldId);
-                        this.renderData();
-                        Core.audio.playSound(Res.audios.zhongzhi);
-                        this.mainViewCom.updateAllStateIcon(this.data.id);
+                            this.data = this.landList.get(this.fieldId);
+                            this.renderData();
+                            Core.audio.playSound(Res.audios.zhongzhi);
+                            this.mainViewCom.updateAllStateIcon(this.data.id);
+                        },
                     },
-                },
-            });
+                });
+            }
         } else {
-            console.log(this.data);
             //解锁土地
             Core.view.open(Res.views.AddLandView, {
                 parm: {
@@ -483,7 +495,7 @@ export default class FieldComponent extends Core.gameScript {
     /**
      * 偷菜
      */
-    private stealFood(data: LandObj) {
+    private async stealFood(data: LandObj) {
         if (!data.productId || data.matureTimeLeft) {
             return;
         }
@@ -494,57 +506,58 @@ export default class FieldComponent extends Core.gameScript {
             return;
         }
         Core.audio.playSound(Res.audios.goujiaosheng);
+        this.canClick = false;
         //偷菜
-        HttpControl.inst.send({
+        let d: {
+            plantId: number;
+            amount: number;
+            vitality: number;
+            /** 额外奖励 */
+            rewardDiamond: number;
+        } = (await HttpControl.inst.send({
             api: ApiHttp.landSteal,
             data: <NetSendApi["landSteal"]>{
                 landId: this.data.id,
                 type: ConfigGame.ApiTypeDefault,
                 uid: this.stealUid,
             },
-            call: (d: {
-                plantId: 0;
-                amount: 0;
-                vitality: 0;
-                /** 额外奖励 */
-                rewardDiamond: 0;
-            }) => {
-                UserInfo.vitality = d.vitality;
-                this.canSteal = false;
-                this.topStateIconAni(false);
+        })) as any;
 
-                WarehouseService.add(this.data.productId, d.amount);
-                Core.audio.playSound(Res.audios.shoucai);
+        this.canClick = true;
+        UserInfo.vitality = d.vitality;
+        this.canSteal = false;
+        this.topStateIconAni(false);
 
-                //收获的植物
-                const rewardList: any[] = [];
-                if (d.plantId) {
-                    rewardList.push({
-                        obj: TableAnalyze.table("plant").get(d.plantId),
-                        count: d.amount,
-                        posType: 3,
-                    });
-                } else {
-                    Core.view.openHint({ text: "额，被狗咬了~~~没偷着~", call: () => {} });
-                }
+        WarehouseService.add(this.data.productId, d.amount);
+        Core.audio.playSound(Res.audios.shoucai);
 
-                //额外的钻石奖励
-                if (d.rewardDiamond) {
-                    rewardList.push({
-                        obj: TableAnalyze.table("currency").get(ConfigGame.diamondId),
-                        count: d.rewardDiamond,
-                        posType: 2,
-                    });
-                }
+        //收获的植物
+        const rewardList: any[] = [];
+        if (d.plantId) {
+            rewardList.push({
+                obj: TableAnalyze.table("plant").get(d.plantId),
+                count: d.amount,
+                posType: 3,
+            });
+        } else {
+            Core.view.openHint({ text: "额，被狗咬了~~~没偷着~", call: () => {} });
+        }
 
-                if (rewardList.length) {
-                    Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
-                        node: this.owner,
-                        list: rewardList,
-                    });
-                }
-            },
-        });
+        //额外的钻石奖励
+        if (d.rewardDiamond) {
+            rewardList.push({
+                obj: TableAnalyze.table("currency").get(ConfigGame.diamondId),
+                count: d.rewardDiamond,
+                posType: 2,
+            });
+        }
+
+        if (rewardList.length) {
+            Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
+                node: this.owner,
+                list: rewardList,
+            });
+        }
     }
 
     onHdDestroy() {

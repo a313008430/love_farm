@@ -77,6 +77,7 @@ interface NetInit extends NetBase {
         avatar: string;
         /** 邀请者 */
         invitePeople: null;
+        isFirstTime: number;
     };
     lands: [
         {
