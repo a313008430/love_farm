@@ -131,7 +131,7 @@ export default class HttpControl {
         if (data.data?.type == ConfigGame.ApiTypeAD) {
             await AppCore.runAppFunction({
                 uri: AppEventMap.ad,
-                data: null,
+                data: {},
                 timestamp: Date.now(),
             });
             ad = true;

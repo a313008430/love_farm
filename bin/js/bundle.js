@@ -1331,7 +1331,7 @@
         if (((_a = data.data) == null ? void 0 : _a.type) == ConfigGame_default.ApiTypeAD) {
           yield AppCore.runAppFunction({
             uri: AppEventMap.ad,
-            data: null,
+            data: {},
             timestamp: Date.now()
           });
           ad = true;
