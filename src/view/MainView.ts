@@ -291,7 +291,7 @@ export default class MainView extends Core.gameScript {
                     this.guidAni?.destroy();
                     this.guideHand?.destroy();
                 } else {
-                    this.guidHandAni();
+                    if (e === 0) this.guidHandAni();
                 }
             });
 

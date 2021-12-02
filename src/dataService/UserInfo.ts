@@ -40,6 +40,8 @@ class UserInfo {
     invitePeople: string;
     /** 第一次登录 11 表示 才表示新手引导完全结束  */
     isFirstTime: number;
+    /** 用户提现数据 */
+    withdraw: WithdrawData[];
 
     get ttt() {
         return this.orderLevel;

@@ -90,6 +90,10 @@ export default class LoginView extends GameScript {
                     this.loginBox.visible = false;
                     this.loadBox.visible = true;
                     this.canClick = true;
+                    AppCore.runAppFunction({
+                        uri: AppEventMap.loginSuccess,
+                        data: {},
+                    });
                 });
             this.privacyBox.visible = false;
         } else {
@@ -134,7 +138,6 @@ export default class LoginView extends GameScript {
                 return;
             }
             this.privacyBox.visible = false;
-
             HttpControl.inst
                 .send({
                     api: ApiHttp.login,

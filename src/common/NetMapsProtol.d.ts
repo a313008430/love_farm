@@ -123,6 +123,8 @@ interface NetInit extends NetBase {
             receive: 0;
         }
     ];
+    /** 提现数据 */
+    withdraw: { id: number; times: number }[];
 }
 
 interface NetSendApi {
@@ -269,4 +271,12 @@ interface MailReturnData {
     itemsLost: "string";
     read: 0;
     createTime: 0;
+}
+
+/**
+ * 提现数据结构
+ */
+interface WithdrawData {
+    id: number;
+    times: number;
 }

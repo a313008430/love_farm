@@ -75,6 +75,8 @@ export default class ShopView extends GameScript {
     private proportion: Laya.Label = null;
     /** 可提现数据列表 */
     private priceDataList: { price: number; times: number }[] = [];
+    /** 钱庄选择的值 的下标 */
+    private priceSelectIndex: number = null;
 
     /** 顶部按钮文字资源列表 */
     private btnTopResList: string[][] = [
@@ -263,7 +265,7 @@ export default class ShopView extends GameScript {
     }
 
     onClick(e: Laya.Event) {
-        console.log(e.target.name);
+        // console.log(e.target.name);
         switch (e.target.name) {
             case "close":
                 if (UserInfo.isFirstTime) ViewManager.inst.close(Res.views.ShopView);
@@ -361,6 +363,10 @@ export default class ShopView extends GameScript {
             case "feed_buy":
                 //饲料购买
                 this.feedBuy();
+                break;
+            case "withdraw_btn":
+                //提现
+                this.withdraw();
                 break;
         }
     }
@@ -568,19 +574,68 @@ export default class ShopView extends GameScript {
      * 钱庄选择
      * @param e 下标
      */
-    private onPriceSelect(e: number) {}
+    private onPriceSelect(e: number) {
+        this.priceSelectIndex = e;
+    }
+
+    private canClick: boolean = true;
+    /**
+     * 牛批
+     */
+    private withdraw() {
+        if (this.priceSelectIndex == null) {
+            Core.view.openHint({ text: "选择要提现的金额", call: () => {} });
+            return;
+        }
+        if (!this.canClick) {
+            return;
+        }
+        this.canClick = false;
+        HttpControl.inst
+            .send({
+                api: ApiHttp.withdraw,
+                data: { id: this.priceSelectIndex },
+            })
+            .then((d: any) => {
+                this.canClick = true;
+                Core.view.openHint({ text: "提现成功", call: () => {} });
+                UserInfo.withdraw = d.list;
+                UserInfo.diamond = d.diamond;
+                this.priceList.refresh();
+
+                console.log(d);
+            })
+            .catch(() => {
+                this.canClick = true;
+            });
+    }
 
     /**
      * 钱庄数据渲染
      */
     private updatePriceItem(cell: Laya.Image, i: number) {
         let data = this.priceDataList[i];
+
+        let userData: NetInit["withdraw"][0] = { id: 0, times: 0 };
+        const userDataList = UserInfo.withdraw;
+        for (let x = 0; x < userDataList.length; x++) {
+            if (userDataList[x].id == i) {
+                userData = userDataList[x];
+                break;
+            }
+        }
+        console.log(userData);
+
         (cell.getChildByName("value") as Laya.Label).text = data.price + "元";
         if (data.times) {
+            let times = data.times - userData.times;
             (cell.getChildByName("times_box") as Laya.Box).visible = true;
-            (
-                cell.getChildByName("times_box").getChildByName("times") as Laya.Label
-            ).text = `剩余${data.times}次`;
+            (cell.getChildByName("times_box").getChildByName("times") as Laya.Label).text = `剩余${
+                times < 0 ? 0 : times
+            }次`;
+            if (times <= 0) {
+                cell.disabled = true;
+            }
         } else {
             (cell.getChildByName("times_box") as Laya.Box).visible = false;
         }

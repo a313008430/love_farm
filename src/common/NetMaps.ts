@@ -66,6 +66,8 @@ export const enum ApiHttp {
     mailList = "/mail/list",
     /** 邮件阅读 */
     mailRead = "/mail/read",
-    /** 邮件阅读 */
+    /** 邮件删除 */
     mailDelete = "/mail/delete",
+    /** 提现 */
+    withdraw = "/withdraw",
 }

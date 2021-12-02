@@ -42,7 +42,7 @@ export default class HttpControl {
         this.baseUrl = url;
     }
 
-    private createXhr(resolve: Function) {
+    private createXhr(resolve: Function, reject: Function) {
         let xmlhttp = new XMLHttpRequest();
 
         xmlhttp.onreadystatechange = () => {
@@ -64,6 +64,7 @@ export default class HttpControl {
                                 this.completeHandler(d, resolve);
                             }
                             this.clearOneInEventMap(xmlhttp);
+                            reject();
                         }
 
                         if (!xmlhttp.status) {
@@ -76,6 +77,7 @@ export default class HttpControl {
                                 resolve
                             );
                             this.clearOneInEventMap(xmlhttp);
+                            reject();
                         }
                         break;
                 }
@@ -124,8 +126,8 @@ export default class HttpControl {
             TaskService.taskAddTimes(1012);
         }
 
-        return new Promise(async (resolve) => {
-            const xhr = this.createXhr(resolve);
+        return new Promise(async (resolve, reject) => {
+            const xhr = this.createXhr(resolve, reject);
 
             this.sendData = data;
 

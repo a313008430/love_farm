@@ -39,14 +39,24 @@ export default class MailDescView extends Core.gameScript {
 
         Tools.parseString(data.itemsLost).map((_d: any) => {
             _d = Tools.parseString(_d, ":");
+            console.log(_d);
             if (_d[0] == 1) {
                 lostDiamond += Number(_d[2]);
                 return;
             }
-            if (!itemsLost.length) {
+
+            let has = false;
+            itemsLost.forEach((d) => {
+                if (d.id == _d[1]) {
+                    has = true;
+                }
+            });
+
+            if (!has) {
                 itemsLost.push({ id: _d[1], amount: Number(_d[2]) });
                 return;
             }
+
             for (let x = 0; x < itemsLost.length; x++) {
                 if (itemsLost[x].id == _d[1]) {
                     itemsLost[x].amount += Number(_d[2]);
@@ -57,10 +67,19 @@ export default class MailDescView extends Core.gameScript {
 
         Tools.parseString(data.items).map((_d: any) => {
             _d = Tools.parseString(_d, ":");
-            if (!itemsBack.length) {
+
+            let has = false;
+            itemsBack.forEach((d) => {
+                if (d.id == _d[1]) {
+                    has = true;
+                }
+            });
+
+            if (!has) {
                 itemsBack.push({ id: _d[1], amount: Number(_d[2]) });
                 return;
             }
+
             for (let x = 0; x < itemsBack.length; x++) {
                 if (itemsBack[x].id == _d[1]) {
                     itemsBack[x].amount += Number(_d[2]);
