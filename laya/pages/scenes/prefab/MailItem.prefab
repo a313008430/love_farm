@@ -20,7 +20,7 @@
             "selectedBox":34,
             "selecteID":35,
             "searchKey":"Image,icon",
-            "props":{"y":34,"x":0,"skin":"game/img_getAubergine.png","presetID":2,"preset":"laya/pages/scenes/prefab/MailItem.prefab","name":"icon","anchorY":0.5},
+            "props":{"y":34,"x":36,"skin":"game/img_getAubergine.png","presetID":2,"preset":"laya/pages/scenes/prefab/MailItem.prefab","name":"icon","anchorY":0.5,"anchorX":0.5},
             "nodeParent":45,
             "maxID":36,
             "label":"icon",

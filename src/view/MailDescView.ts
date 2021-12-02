@@ -104,7 +104,10 @@ export default class MailDescView extends Core.gameScript {
             itemNode.y = 105 + yAdd * 95;
             _x++;
             let plant = TableAnalyze.table("plant").get(itemsLost[x].id);
-            (itemNode.getChildByName("icon") as Laya.Image).skin = plant.icon;
+            const icon = itemNode.getChildByName("icon") as Laya.Image;
+            icon.skin = plant.icon;
+            icon.scale(0.7, 0.7);
+            icon.anchorX = 0.5;
             (itemNode.getChildByName("lb") as Laya.Label).text = `x${itemsLost[x].amount}`;
             plant.gain.forEach((d) => {
                 if (d.obj.id == ConfigGame.diamondId) return;

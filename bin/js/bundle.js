@@ -1555,15 +1555,27 @@
 
   // src/view/FriendsRewardView.ts
   var FriendsRewardView = class extends core_default.gameScript {
+    constructor() {
+      super(...arguments);
+      this.inviteList = [];
+      this.rewardValue = 0;
+      this.proportion = 0;
+      this.canClick = true;
+    }
     onHdAwake() {
       this.priceList.vScrollBarSkin = null;
-      this.priceList.array = new Array(10);
+      this.priceList.array = new Array(3);
+      this.priceList.renderHandler = new Laya.Handler(this, this.renderItem);
     }
-    onOpened(list) {
+    onOpened(list = []) {
+      this.inviteList = list;
       if (UserInfo_default.invitePeople) {
         this.inviteBox.visible = false;
         this.inviteBox.active = false;
       }
+      this.rewardValue = TableAnalyze_default.table("config").get("Invitation_rewards").value.count;
+      const withdrawal = TableAnalyze_default.table("config").get("withdrawal").value;
+      this.proportion = Number(withdrawal[1]);
     }
     onClick(e) {
       switch (e.target.name) {
@@ -1580,7 +1592,45 @@
         case "submit":
           this.submit();
           break;
+        case "btn":
+          const i = e.target.dataSource;
+          this.withdraw(i);
+          break;
       }
+    }
+    withdraw(i) {
+      if (!this.canClick)
+        return;
+      this.canClick = false;
+      HttpControl.inst.send({
+        api: ApiHttp.friendInviteReceive,
+        data: { index: i }
+      }).then(() => {
+        this.canClick = true;
+        core_default.view.openHint({ text: "\u63D0\u73B0\u6210\u529F", call: () => {
+        } });
+        this.inviteList[i].receivedReward = 1;
+        this.priceList.refresh();
+      }).catch(() => {
+        this.canClick = true;
+      });
+    }
+    renderItem(cell, i) {
+      cell.getChildByName("top").text = `\u7B2C${i + 1}\u4F4D`;
+      const btn = cell.getChildByName("btn");
+      cell.getChildByName("price_box").getChildByName("price").text = `${this.rewardValue / this.proportion}`;
+      btn.skin = "game/img_extractActive.png";
+      if (this.inviteList.length > i) {
+        if (this.inviteList[i].receivedReward) {
+          btn.disabled = true;
+          btn.skin = "game/img_cashDone.png";
+        } else {
+          btn.disabled = false;
+        }
+      } else {
+        btn.disabled = true;
+      }
+      btn.dataSource = i;
     }
     submit() {
       if (!this.inviteInput.text || !this.inviteInput.text.length) {
@@ -1588,6 +1638,9 @@
         } });
         return;
       }
+      if (!this.canClick)
+        return;
+      this.canClick = false;
       HttpControl.inst.send({
         api: ApiHttp.friendInvitePeople,
         data: {
@@ -1599,6 +1652,9 @@
         } });
         this.inviteBox.visible = false;
         this.inviteBox.active = false;
+        this.canClick = true;
+      }).catch(() => {
+        this.canClick = true;
       });
     }
     onHdDestroy() {
@@ -1609,6 +1665,7 @@
   var FriendsView = class extends core_default.gameScript {
     constructor() {
       super(...arguments);
+      this.empty_lb = null;
       this.viewState = 1;
       this.friends = [];
       this.friendsList = [];
@@ -1620,9 +1677,13 @@
       this.addBox.visible = false;
       this.addBox.active = false;
       this.itemList.array = this.friendsList;
+      this.isEmpty();
       this.itemList.renderHandler = new Laya.Handler(this, this.itemRender);
       this.itemList.vScrollBarSkin = null;
       this.userKey.text = `\u6211\u7684\u53CB\u60C5\u7801\uFF1A${UserInfo_default.key}`;
+    }
+    isEmpty() {
+      this.empty_lb.visible = !this.itemList.array.length;
     }
     updateListData() {
       this.friendsList.sort((a, b) => {
@@ -1687,6 +1748,7 @@
             this.addFriend.skin = `game/img_addBtn.png`;
             this.addBox.visible = false;
             this.addBox.active = false;
+            this.isEmpty();
           } else {
             this.viewState = 2;
             this.addBox.visible = true;
@@ -1694,6 +1756,7 @@
             this.itemList.array = [];
             this.itemList.height = 590;
             this.addFriend.skin = `game/img_friendBtn.png`;
+            this.empty_lb.visible = false;
           }
           this.itemList.refresh();
           break;
@@ -1706,6 +1769,7 @@
           this.itemList.array = this.friends;
           this.itemList.height = 914;
           this.itemList.refresh();
+          this.isEmpty();
           this.addFriend.skin = `game/img_friendBtn.png`;
           break;
         case "desc_btn":
@@ -1779,6 +1843,7 @@
               }
             }
             this.itemList.refresh();
+            this.isEmpty();
           });
         },
         cancelCall: () => {
@@ -1959,6 +2024,8 @@
               uri: AppEventMap.loginSuccess,
               data: {}
             });
+          }).catch(() => {
+            this.canClick = true;
           });
           this.privacyBox.visible = false;
         } else {
@@ -1969,6 +2036,7 @@
               call: () => {
                 LocalStorageService_default.clear();
                 this.loginBox.visible = true;
+                this.canClick = true;
                 this.loadBox.visible = false;
               }
             });
@@ -2027,6 +2095,8 @@
               uri: AppEventMap.loginSuccess,
               data: {}
             });
+          }).catch(() => {
+            this.canClick = true;
           });
         }
       });
@@ -2112,7 +2182,10 @@
         itemNode.y = 105 + yAdd * 95;
         _x++;
         let plant = TableAnalyze_default.table("plant").get(itemsLost[x].id);
-        itemNode.getChildByName("icon").skin = plant.icon;
+        const icon = itemNode.getChildByName("icon");
+        icon.skin = plant.icon;
+        icon.scale(0.7, 0.7);
+        icon.anchorX = 0.5;
         itemNode.getChildByName("lb").text = `x${itemsLost[x].amount}`;
         plant.gain.forEach((d2) => {
           if (d2.obj.id == ConfigGame_default.diamondId)
@@ -2170,6 +2243,7 @@
     constructor() {
       super(...arguments);
       this.list = null;
+      this.empty_lb = null;
       this.listData = [];
     }
     onHdAwake() {
@@ -2182,8 +2256,9 @@
     }
     updateListData() {
       this.list.array = this.listData.sort((a, b) => {
-        return (a.read ? 1e5 : 0 + b.createTime) - (b.read ? 1e5 : 0 + a.createTime);
+        return b.createTime - (b.read ? 1e6 : 0) - (a.createTime - (a.read ? 1e6 : 0));
       });
+      this.empty_lb.visible = !this.list.array.length;
     }
     renderItem(cell, index) {
       const data = this.listData[index];
@@ -2878,6 +2953,9 @@
         case "dog":
           core_default.view.open(Res_default.views.ShopView, { parm: { id: 2 } });
           break;
+        case "money_box":
+          core_default.view.open(Res_default.views.ShopView, { parm: { id: 3 } });
+          break;
         case "order_box":
           core_default.view.open(Res_default.views.OrderView);
           break;
@@ -3523,10 +3601,20 @@
     onOpened(e) {
       this.data = e;
       this.topBtnSelectIndex = (e == null ? void 0 : e.id) || 0;
-      this.updateTopBtnState();
       this.priceDataList = TableAnalyze_default.table("config").get("withdrawal_times").value;
+      this.updateTopBtnState();
       let withdrawal = TableAnalyze_default.table("config").get("withdrawal").value;
       this.proportion.text = `\u5151\u6362\u6BD4\u4F8B ${withdrawal[1]}:${withdrawal[2]}`;
+      if (!UserInfo_default.isFirstTime) {
+        this.itemList.disabled = true;
+        this.itemList.gray = false;
+        Laya.timer.frameOnce(10, this, () => {
+          core_default.eventGlobal.event(EventMaps.update_guid_hand, [
+            true,
+            this.owner.globalToLocal(this.itemBuyBtn.localToGlobal(new Laya.Point(300, 100)))
+          ]);
+        });
+      }
     }
     onSelect(e) {
       this.itemListSelectIndex = e;
@@ -3569,16 +3657,6 @@
       }
       cell.getChildByName("icon").skin = d.base.icon;
       cell.getChildByName("name").text = d.base.name;
-      if (!UserInfo_default.isFirstTime && index == this.itemListSelectIndex) {
-        this.itemList.disabled = true;
-        this.itemList.gray = false;
-        Laya.timer.frameOnce(1, this, () => {
-          core_default.eventGlobal.event(EventMaps.update_guid_hand, [
-            true,
-            this.owner.globalToLocal(cell.localToGlobal(new Laya.Point(100, 0)))
-          ]);
-        });
-      }
       if (index == this.itemListSelectIndex) {
         cell.skin = this.itemSelectBg[1];
         this.updateSelectDesc();
@@ -3893,7 +3971,6 @@
         UserInfo_default.withdraw = d.list;
         UserInfo_default.diamond = d.diamond;
         this.priceList.refresh();
-        console.log(d);
       }).catch(() => {
         this.canClick = true;
       });
@@ -4212,6 +4289,7 @@
       this.itemSellDiamond = null;
       this.sellBtn = null;
       this.sellAdBtn = null;
+      this.empty_lb = null;
       this.dataList = [];
       this.selectItemIndex = "0,0";
       this.selectItemSellCount = 0;
@@ -4252,6 +4330,7 @@
         }
       });
       this.itemList.array = this.dataList;
+      this.empty_lb.visible = !this.dataList.length;
     }
     renderItemList(cell, i) {
       let data = this.dataList[i];

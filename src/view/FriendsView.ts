@@ -18,6 +18,9 @@ export default class FriendsView extends Core.gameScript {
     /** @prop {name:addFriend, tips:"添加好友按钮", type:Node}*/
     private addFriend: Laya.Image;
 
+    /** @prop {name:empty_lb, tips:"空的提示", type:Node}*/
+    private empty_lb: Laya.Image = null;
+
     /** 1是好友列表 2 加好友  3删除好友 */
     private viewState: 1 | 2 | 3 = 1;
 
@@ -31,9 +34,14 @@ export default class FriendsView extends Core.gameScript {
         this.addBox.visible = false;
         this.addBox.active = false;
         this.itemList.array = this.friendsList;
+        this.isEmpty();
         this.itemList.renderHandler = new Laya.Handler(this, this.itemRender);
         this.itemList.vScrollBarSkin = null;
         this.userKey.text = `我的友情码：${UserInfo.key}`;
+    }
+
+    private isEmpty() {
+        this.empty_lb.visible = !this.itemList.array.length;
     }
 
     private updateListData() {
@@ -113,6 +121,7 @@ export default class FriendsView extends Core.gameScript {
                     this.addFriend.skin = `game/img_addBtn.png`;
                     this.addBox.visible = false;
                     this.addBox.active = false;
+                    this.isEmpty();
                 } else {
                     this.viewState = 2;
                     this.addBox.visible = true;
@@ -120,6 +129,7 @@ export default class FriendsView extends Core.gameScript {
                     this.itemList.array = [];
                     this.itemList.height = 590; //914
                     this.addFriend.skin = `game/img_friendBtn.png`;
+                    this.empty_lb.visible = false;
                 }
 
                 this.itemList.refresh();
@@ -135,6 +145,7 @@ export default class FriendsView extends Core.gameScript {
                 this.itemList.array = this.friends;
                 this.itemList.height = 914;
                 this.itemList.refresh();
+                this.isEmpty();
                 this.addFriend.skin = `game/img_friendBtn.png`;
                 break;
             case "desc_btn":
@@ -228,6 +239,7 @@ export default class FriendsView extends Core.gameScript {
                             }
                         }
                         this.itemList.refresh();
+                        this.isEmpty();
                     });
             },
             cancelCall: () => {},

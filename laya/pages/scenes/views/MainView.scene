@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":837,
-    "selecteID":905,
+    "selectedBox":67,
+    "selecteID":477,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -1743,13 +1743,14 @@
             "props":{"y":49,"x":120,"width":932,"top":49,"skin":"main_scene/img_portraitBg.png","name":"top_box","mouseEnabled":true,"hitTestPrior":false,"height":123},
             "nodeParent":2,
             "label":"top_box",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":67,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,head",
                     "props":{"y":-15,"x":-58,"skin":"main_scene/img_portrait.png","name":"head","mouseEnabled":true},
@@ -1806,12 +1807,13 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,money_box",
-                    "props":{"y":31,"x":108,"width":233,"skin":"main_scene/img_coinbg.png","name":"money_box"},
+                    "props":{"y":31,"x":108,"width":233,"skin":"main_scene/img_coinbg.png","name":"money_box","mouseEnabled":true},
                     "nodeParent":67,
                     "label":"money_box",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
@@ -1845,6 +1847,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,glod_box",
                     "props":{"y":26,"x":378,"width":233,"skin":"main_scene/img_coinbg.png","name":"glod_box"},
@@ -1884,6 +1887,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,diamond_box",
                     "props":{"y":26,"x":668,"width":233,"skin":"main_scene/img_coinbg.png","name":"diamond_box"},
@@ -1923,6 +1927,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,order_box",
                     "props":{"y":120,"x":417,"skin":"main_scene/img_taskbg.png","name":"order_box","mouseEnabled":true,"anchorX":0.5},

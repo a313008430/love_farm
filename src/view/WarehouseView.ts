@@ -35,6 +35,8 @@ export default class WarehouseView extends Core.gameScript {
     private sellBtn: Laya.Image = null;
     /** @prop {name:sellAdBtn, tips:"出售的icon 广告", type:Node}*/
     private sellAdBtn: Laya.Image = null;
+    /** @prop {name:empty_lb, tips:"空的提示", type:Node}*/
+    private empty_lb: Laya.Image = null;
 
     /** 数据列表 */
     private dataList: WareHouseData[][] = [];
@@ -92,6 +94,7 @@ export default class WarehouseView extends Core.gameScript {
         });
 
         this.itemList.array = this.dataList;
+        this.empty_lb.visible = !this.dataList.length;
     }
 
     private renderItemList(cell: Laya.Box, i: number) {

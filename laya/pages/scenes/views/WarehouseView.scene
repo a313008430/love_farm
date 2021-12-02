@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":29,
-    "selecteID":51,
+    "selectedBox":2,
+    "selecteID":52,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/WarehouseView.jpg","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":52,
+    "maxID":53,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -334,14 +334,13 @@
                     "props":{"y":326,"x":-331,"width":772,"name":"msg_box","mouseEnabled":true,"height":495},
                     "nodeParent":4,
                     "label":"msg_box",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":29,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,icon",
                             "props":{"y":60,"x":108,"skin":"game/img_biscuit.png","name":"icon","anchorY":0.5,"anchorX":0.5},
@@ -355,7 +354,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,reduce",
                             "props":{"y":225,"x":216,"skin":"game/img_minusBtn.png","name":"reduce","mouseEnabled":true,"anchorY":0.5,"anchorX":0.5},
@@ -385,7 +383,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,add",
                             "props":{"y":225,"x":545,"skin":"game/img_plusBtn.png","name":"add","mouseEnabled":true,"anchorY":0.5,"anchorX":0.5},
@@ -415,7 +412,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":190,"x":267,"width":233,"skin":"game/img_countBg.png","height":85},
@@ -429,7 +425,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,sellBtnAd",
                             "props":{"y":432,"x":575,"skin":"game/img_sellDoubleBtn.png","name":"sellBtnAd","anchorY":0.5,"anchorX":0.5},
@@ -459,7 +454,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,sellBtn",
                             "props":{"y":432,"x":187,"skin":"game/img_sellDirecteBtn.png","name":"sellBtn","anchorY":0.5,"anchorX":0.5},
@@ -489,7 +483,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"TextInput",
                             "searchKey":"TextInput,num",
                             "props":{"y":231.5,"x":385,"width":185,"valign":"middle","type":"number","text":"1","name":"num","height":54,"fontSize":40,"font":"Microsoft YaHei","color":"#ffffff","bold":true,"anchorY":0.5,"anchorX":0.5,"align":"center"},
@@ -503,7 +496,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,name",
                             "props":{"y":12,"x":219,"text":"茄子","name":"name","fontSize":48,"font":"Microsoft YaHei","color":"#5C3F2B"},
@@ -517,7 +509,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,desc",
                             "props":{"y":80,"x":219,"text":"富含维生素C和膳食纤维","name":"desc","fontSize":40,"font":"Microsoft YaHei","color":"#5C3F2B"},
@@ -531,7 +522,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"HBox",
                             "searchKey":"HBox,reward_box",
                             "props":{"y":305.5,"x":383,"space":20,"name":"reward_box","anchorX":0.5,"align":"middle"},
@@ -544,7 +534,6 @@
                             "compId":51,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"HBox",
                                     "searchKey":"HBox,item",
                                     "props":{"space":20,"name":"item","align":"middle"},
@@ -557,7 +546,6 @@
                                     "compId":37,
                                     "child":[
                                         {
-                                            "x":75,
                                             "type":"Image",
                                             "searchKey":"Image,icon",
                                             "props":{"width":55,"skin":"main_scene/img_diamondMin.png","name":"icon","height":55,"anchorY":0.5},
@@ -571,7 +559,6 @@
                                                 ]
                                         },
                                         {
-                                            "x":75,
                                             "type":"Label",
                                             "searchKey":"Label,price",
                                             "props":{"y":7,"x":0,"text":"100","name":"price","fontSize":40,"font":"Microsoft YaHei","color":"#906344","bold":true,"anchorY":0.5},
@@ -586,7 +573,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"HBox",
                                     "searchKey":"HBox,item",
                                     "props":{"space":20,"name":"item","align":"middle"},
@@ -599,7 +585,6 @@
                                     "compId":48,
                                     "child":[
                                         {
-                                            "x":75,
                                             "type":"Image",
                                             "searchKey":"Image,icon",
                                             "props":{"width":55,"skin":"main_scene/img_diamondMin.png","name":"icon","height":55,"anchorY":0.5},
@@ -613,7 +598,6 @@
                                                 ]
                                         },
                                         {
-                                            "x":75,
                                             "type":"Label",
                                             "searchKey":"Label,price",
                                             "props":{"y":7,"x":0,"text":"100","name":"price","fontSize":40,"font":"Microsoft YaHei","color":"#906344","bold":true,"anchorY":0.5},
@@ -629,6 +613,20 @@
                                     "$HIDDEN":false
                                 }]
                         }]
+                },
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label,empty_lb",
+                    "props":{"y":-351,"x":55,"text":"空空如也！","name":"empty_lb","fontSize":50,"font":"Microsoft YaHei","color":"#5A3F2A","anchorX":0.5},
+                    "nodeParent":4,
+                    "label":"empty_lb",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":52,
+                    "child":[
+                        ]
                 }],
             "$HIDDEN":false
         },
@@ -639,7 +637,7 @@
             "source":"src/view/WarehouseView.ts",
             "searchKey":"Script,WarehouseView",
             "removeAble":true,
-            "props":{"sellBtn":"@node:41","sellAdBtn":"@node:40","itemSellPriceLb":"@node:38","itemSellPriceIcon":"@node:39","itemSellGold":"@node:37","itemSellDiamond":"@node:48","itemSellCountLb":"@node:46","itemSellBox":"@node:51","itemName":"@node:30","itemList":"@node:26","itemIcon":"@node:27","itemDesc":"@node:31"},
+            "props":{"sellBtn":"@node:41","sellAdBtn":"@node:40","itemSellPriceLb":"@node:38","itemSellPriceIcon":"@node:39","itemSellGold":"@node:37","itemSellDiamond":"@node:48","itemSellCountLb":"@node:46","itemSellBox":"@node:51","itemName":"@node:30","itemList":"@node:26","itemIcon":"@node:27","itemDesc":"@node:31","empty_lb":"@node:52"},
             "nodeParent":2,
             "label":"WarehouseView",
             "isDirectory":false,

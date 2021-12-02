@@ -10,6 +10,9 @@ export default class MailView extends GameScript {
     /** @prop {name:list, tips:"列表", type:Node}*/
     private list: Laya.List = null;
 
+    /** @prop {name:empty_lb, tips:"空的提示", type:Node}*/
+    private empty_lb: Laya.Image = null;
+
     private listData: MailReturnData[] = [];
 
     onHdAwake() {
@@ -24,8 +27,11 @@ export default class MailView extends GameScript {
 
     private updateListData() {
         this.list.array = this.listData.sort((a, b) => {
-            return (a.read ? 100000 : 0 + b.createTime) - (b.read ? 100000 : 0 + a.createTime);
+            // return (a.read ? 0 : 100000 + b.createTime) - (b.read ? 0 : 100000 + a.createTime);
+            return b.createTime - (b.read ? 1000000 : 0) - (a.createTime - (a.read ? 1000000 : 0));
         });
+
+        this.empty_lb.visible = !this.list.array.length;
     }
 
     private renderItem(cell: Laya.Image, index: number) {

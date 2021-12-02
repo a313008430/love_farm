@@ -3,6 +3,7 @@ import { EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
+import { Table } from "src/common/Table";
 import TableAnalyze from "src/common/TableAnalyze";
 import { FeedBase, PlantBase, RewardCurrencyBase } from "src/common/TableObject";
 import Tools from "src/common/Tools";
@@ -115,10 +116,25 @@ export default class ShopView extends GameScript {
     onOpened(e: ShopViewData) {
         this.data = e;
         this.topBtnSelectIndex = e?.id || 0;
-        this.updateTopBtnState();
+
         this.priceDataList = TableAnalyze.table("config").get("withdrawal_times").value as any;
+        this.updateTopBtnState();
         let withdrawal = TableAnalyze.table("config").get("withdrawal").value as string[];
         this.proportion.text = `兑换比例 ${withdrawal[1]}:${withdrawal[2]}`;
+
+        if (!UserInfo.isFirstTime) {
+            this.itemList.disabled = true;
+            this.itemList.gray = false;
+            Laya.timer.frameOnce(10, this, () => {
+                Core.eventGlobal.event(EventMaps.update_guid_hand, [
+                    true,
+                    (this.owner as Laya.Box).globalToLocal(
+                        this.itemBuyBtn.localToGlobal(new Laya.Point(300, 100))
+                    ),
+                    // this.owner,
+                ]);
+            });
+        }
     }
 
     /**
@@ -181,20 +197,6 @@ export default class ShopView extends GameScript {
 
         (cell.getChildByName("icon") as Laya.Image).skin = d.base.icon;
         (cell.getChildByName("name") as Laya.Label).text = d.base.name;
-
-        if (!UserInfo.isFirstTime && index == this.itemListSelectIndex) {
-            this.itemList.disabled = true;
-            this.itemList.gray = false;
-            Laya.timer.frameOnce(1, this, () => {
-                Core.eventGlobal.event(EventMaps.update_guid_hand, [
-                    true,
-                    (this.owner as Laya.Box).globalToLocal(
-                        cell.localToGlobal(new Laya.Point(100, 0))
-                    ),
-                    // this.owner,
-                ]);
-            });
-        }
 
         if (index == this.itemListSelectIndex) {
             cell.skin = this.itemSelectBg[1];
@@ -602,8 +604,6 @@ export default class ShopView extends GameScript {
                 UserInfo.withdraw = d.list;
                 UserInfo.diamond = d.diamond;
                 this.priceList.refresh();
-
-                console.log(d);
             })
             .catch(() => {
                 this.canClick = true;

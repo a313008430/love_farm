@@ -94,6 +94,9 @@ export default class LoginView extends GameScript {
                         uri: AppEventMap.loginSuccess,
                         data: {},
                     });
+                })
+                .catch(() => {
+                    this.canClick = true;
                 });
             this.privacyBox.visible = false;
         } else {
@@ -105,7 +108,7 @@ export default class LoginView extends GameScript {
                     call: () => {
                         LocalStorageService.clear();
                         this.loginBox.visible = true;
-
+                        this.canClick = true;
                         this.loadBox.visible = false;
                     },
                 });
@@ -174,6 +177,9 @@ export default class LoginView extends GameScript {
                         uri: AppEventMap.loginSuccess,
                         data: {},
                     });
+                })
+                .catch(() => {
+                    this.canClick = true;
                 });
         }
     }

@@ -253,7 +253,7 @@ interface InviteData {
     /** 好友id */
     friendId: 0;
     /** 是否领取奖励 */
-    receivedReward: 0;
+    receivedReward: number;
 }
 
 interface InviteList {

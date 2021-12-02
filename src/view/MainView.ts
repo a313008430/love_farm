@@ -346,6 +346,9 @@ export default class MainView extends Core.gameScript {
             case "dog":
                 Core.view.open(Res.views.ShopView, { parm: { id: 2 } });
                 break;
+            case "money_box":
+                Core.view.open(Res.views.ShopView, { parm: { id: 3 } });
+                break;
             case "order_box":
                 Core.view.open(Res.views.OrderView);
                 break;
