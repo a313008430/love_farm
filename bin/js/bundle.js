@@ -1673,6 +1673,7 @@
       this.viewState = 1;
       this.friends = [];
       this.friendsList = [];
+      this.canClick = true;
     }
     onOpened(d) {
       this.friends = d.list;
@@ -1739,6 +1740,8 @@
       }
     }
     onClick(e) {
+      if (!this.canClick)
+        return;
       console.log(e.target.name);
       switch (e.target.name) {
         case "close":
@@ -1805,14 +1808,19 @@
       }
     }
     openReward() {
+      this.canClick = false;
       HttpControl.inst.send({
         api: ApiHttp.friendInviteList,
         data: {}
       }).then((d) => {
         core_default.view.open(Res_default.views.FriendsRewardView, { parm: d.list });
+        this.canClick = true;
+      }).catch(() => {
+        this.canClick = true;
       });
     }
     visitFriend(target) {
+      this.canClick = false;
       core_default.view.setOverView(true, () => {
         let data = target.dataSource;
         HttpControl.inst.send({
@@ -1823,9 +1831,12 @@
         }).then((d) => {
           core_default.view.close(Res_default.views.FriendsView);
           core_default.eventGlobal.event(EventMaps.go_friend_home, d);
-          Laya.timer.once(300, this, () => {
+          setTimeout(() => {
             core_default.view.setOverView(false);
-          });
+            this.canClick = true;
+          }, 300);
+        }).catch(() => {
+          this.canClick = true;
         });
       });
     }
@@ -1855,6 +1866,7 @@
       });
     }
     allowFriend(target) {
+      this.canClick = false;
       let data = target.dataSource;
       HttpControl.inst.send({
         api: ApiHttp.friendAllow,
@@ -1864,10 +1876,14 @@
       }).then(() => {
         data.applyIng = 0;
         this.itemList.refresh();
+        this.canClick = true;
+      }).catch(() => {
+        this.canClick = true;
       });
     }
     applyEvent(target) {
       let data = target.dataSource;
+      this.canClick = false;
       HttpControl.inst.send({
         api: ApiHttp.friendApply,
         data: {
@@ -1879,6 +1895,9 @@
         this.itemList.refresh();
         core_default.view.openHint({ text: "\u5DF2\u53D1\u9001\u6FC0\u60C5", call: () => {
         } });
+        this.canClick = true;
+      }).catch(() => {
+        this.canClick = true;
       });
     }
     search() {
@@ -1892,6 +1911,7 @@
         } });
         return;
       }
+      this.canClick = false;
       HttpControl.inst.send({
         api: ApiHttp.friendSearch,
         data: {
@@ -1901,6 +1921,9 @@
         this.friendsList = [d];
         this.itemList.array = this.friendsList;
         this.itemList.refresh();
+        this.canClick = true;
+      }).catch(() => {
+        this.canClick = true;
       });
     }
     copy() {
@@ -2741,6 +2764,7 @@
       this.landBox = null;
       this.centerBox = null;
       this.orderBox = null;
+      this.bottomBox = null;
       this.landUpLayer = null;
       this.topLayerOnStage = null;
       this.topGoldIcon = null;
@@ -2759,6 +2783,7 @@
       this.figureAni = null;
       this.landList = [];
       this.isOuter = false;
+      this.outCountDownNumber = 60;
     }
     onOpened() {
       [
@@ -2786,6 +2811,7 @@
     }
     onHdAwake() {
       Laya.stage.addChild(this.topLayerOnStage);
+      this.orderBox.getChildByName("friend_name").visible = false;
       this.landUpLayer.visible = false;
       this.landUpLayer.active = false;
       this.vitalityBox.visible = false;
@@ -3005,7 +3031,7 @@
     }
     updateOrder() {
       var _a;
-      let box = this.orderBox, d = TableAnalyze_default.table("order").get(UserInfo_default.orderLevel + 1), reward, rewardCount = 0, curCount = 0, maxCount = 0, progress = 0;
+      let box = this.orderBox.getChildByName("center_box"), d = TableAnalyze_default.table("order").get(UserInfo_default.orderLevel + 1), reward, rewardCount = 0, curCount = 0, maxCount = 0, progress = 0;
       if (!d)
         return console.log("\u7B49\u7EA7\u5DF2\u5B8C");
       for (let x = 0; x < 4; x++) {
@@ -3283,6 +3309,41 @@
         if (UserInfo_default.warePetId)
           this.petBox.visible = true;
         this.taskBox.visible = true;
+      }
+      this.updateFriendView(d == null ? void 0 : d.nickname);
+    }
+    updateFriendView(nickname = "") {
+      const topBox = this.orderBox.parent, moneyBox = topBox.getChildByName("money_box"), countDown = topBox.getChildByName("count_down"), orderBox = this.orderBox.getChildByName("center_box"), friendName = this.orderBox.getChildByName("friend_name"), bottomList = [
+        this.bottomBox.getChildByName("task"),
+        this.bottomBox.getChildByName("signIn"),
+        this.bottomBox.getChildByName("friends"),
+        this.bottomBox.getChildByName("mail")
+      ];
+      if (this.isOuter) {
+        friendName.text = `${nickname}\u7684\u519C\u573A`;
+        orderBox.visible = false;
+        friendName.visible = true;
+        moneyBox.visible = false;
+        countDown.visible = true;
+        countDown.text = Tools.formatSeconds(this.outCountDownNumber);
+        Laya.timer.loop(1e3, this, this.outCountDownEvent, [countDown]);
+      } else {
+        this.outCountDownNumber = 60;
+        Laya.timer.clear(this, this.outCountDownEvent);
+        orderBox.visible = true;
+        friendName.visible = false;
+        moneyBox.visible = true;
+        countDown.visible = false;
+      }
+      bottomList.forEach((e) => {
+        e.disabled = this.isOuter;
+      });
+    }
+    outCountDownEvent(lb) {
+      this.outCountDownNumber--;
+      lb.text = Tools.formatSeconds(this.outCountDownNumber);
+      if (this.outCountDownNumber <= 0) {
+        this.goHome();
       }
     }
     guidHandAni() {

@@ -5,6 +5,7 @@ import { ApiHttp } from "src/common/NetMaps";
 import { Table } from "src/common/Table";
 import TableAnalyze from "src/common/TableAnalyze";
 import { RewardCurrencyBase } from "src/common/TableObject";
+import Tools from "src/common/Tools";
 import FieldComponent from "src/components/FieldComponent";
 import AppCore from "src/core/App";
 import Core from "src/core/index";
@@ -51,6 +52,8 @@ export default class MainView extends Core.gameScript {
     private centerBox: Laya.Box = null;
     /** @prop {name:orderBox, tips:"订单容器", type:Node}*/
     private orderBox: Laya.Box = null;
+    /** @prop {name:bottomBox, tips:"底部按钮容器", type:Node}*/
+    private bottomBox: Laya.Box = null;
 
     /** @prop {name:landUpLayer, tips:"土地升级窗口", type:Node}*/
     private landUpLayer: Laya.Image = null;
@@ -134,6 +137,7 @@ export default class MainView extends Core.gameScript {
 
     onHdAwake() {
         Laya.stage.addChild(this.topLayerOnStage);
+        (this.orderBox.getChildByName("friend_name") as Laya.Label).visible = false;
 
         this.landUpLayer.visible = false;
         this.landUpLayer.active = false;
@@ -423,7 +427,7 @@ export default class MainView extends Core.gameScript {
      */
     @Core.eventOn(EventMaps.update_Order)
     private updateOrder() {
-        let box = this.orderBox,
+        let box = this.orderBox.getChildByName("center_box"),
             d = TableAnalyze.table("order").get(UserInfo.orderLevel + 1),
             reward: RewardCurrencyBase,
             rewardCount: number = 0,
@@ -846,6 +850,55 @@ export default class MainView extends Core.gameScript {
             if (UserInfo.warePetId) this.petBox.visible = true;
             //显示任务
             this.taskBox.visible = true;
+        }
+
+        this.updateFriendView(d?.nickname);
+    }
+
+    private outCountDownNumber = 60;
+    /**
+     * 更新去好友家还是自己家的界面状态
+     */
+    private updateFriendView(nickname: string = "") {
+        const topBox = this.orderBox.parent as Laya.Box,
+            moneyBox = topBox.getChildByName("money_box") as Laya.Box,
+            countDown = topBox.getChildByName("count_down") as Laya.Label,
+            orderBox = this.orderBox.getChildByName("center_box") as Laya.Box,
+            friendName = this.orderBox.getChildByName("friend_name") as Laya.Label,
+            bottomList: Laya.Image[] = [
+                this.bottomBox.getChildByName("task") as Laya.Image,
+                this.bottomBox.getChildByName("signIn") as Laya.Image,
+                this.bottomBox.getChildByName("friends") as Laya.Image,
+                this.bottomBox.getChildByName("mail") as Laya.Image,
+            ];
+        if (this.isOuter) {
+            friendName.text = `${nickname}的农场`;
+            orderBox.visible = false;
+            friendName.visible = true;
+            moneyBox.visible = false;
+            countDown.visible = true;
+
+            countDown.text = Tools.formatSeconds(this.outCountDownNumber);
+            Laya.timer.loop(1000, this, this.outCountDownEvent, [countDown]);
+        } else {
+            this.outCountDownNumber = 60;
+            Laya.timer.clear(this, this.outCountDownEvent);
+            orderBox.visible = true;
+            friendName.visible = false;
+            moneyBox.visible = true;
+            countDown.visible = false;
+        }
+        bottomList.forEach((e) => {
+            e.disabled = this.isOuter;
+        });
+        //倒计时
+    }
+
+    private outCountDownEvent(lb: Laya.Label) {
+        this.outCountDownNumber--;
+        lb.text = Tools.formatSeconds(this.outCountDownNumber);
+        if (this.outCountDownNumber <= 0) {
+            this.goHome();
         }
     }
 

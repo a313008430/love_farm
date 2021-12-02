@@ -27,6 +27,8 @@ export default class FriendsView extends Core.gameScript {
     private friends: FriendData[] = [];
     private friendsList: FriendData[] = [];
 
+    private canClick: boolean = true;
+
     onOpened(d: FriendListData) {
         this.friends = d.list;
         this.friendsList = this.friends;
@@ -108,6 +110,7 @@ export default class FriendsView extends Core.gameScript {
     }
 
     onClick(e: Laya.Event) {
+        if (!this.canClick) return;
         console.log(e.target.name);
         switch (e.target.name) {
             case "close":
@@ -181,6 +184,7 @@ export default class FriendsView extends Core.gameScript {
      *
      */
     private openReward() {
+        this.canClick = false;
         HttpControl.inst
             .send({
                 api: ApiHttp.friendInviteList,
@@ -188,6 +192,10 @@ export default class FriendsView extends Core.gameScript {
             })
             .then((d: InviteList) => {
                 Core.view.open(Res.views.FriendsRewardView, { parm: d.list });
+                this.canClick = true;
+            })
+            .catch(() => {
+                this.canClick = true;
             });
     }
 
@@ -195,6 +203,7 @@ export default class FriendsView extends Core.gameScript {
      * 访问好友家
      */
     private visitFriend(target: Laya.Image) {
+        this.canClick = false;
         Core.view.setOverView(true, () => {
             let data = target.dataSource as FriendData;
 
@@ -208,9 +217,13 @@ export default class FriendsView extends Core.gameScript {
                 .then((d) => {
                     Core.view.close(Res.views.FriendsView);
                     Core.eventGlobal.event(EventMaps.go_friend_home, d);
-                    Laya.timer.once(300, this, () => {
+                    setTimeout(() => {
                         Core.view.setOverView(false);
-                    });
+                        this.canClick = true;
+                    }, 300);
+                })
+                .catch(() => {
+                    this.canClick = true;
                 });
         });
     }
@@ -250,6 +263,7 @@ export default class FriendsView extends Core.gameScript {
      * 通过好友申请
      */
     private allowFriend(target: Laya.Image) {
+        this.canClick = false;
         let data = target.dataSource as FriendData;
         HttpControl.inst
             .send({
@@ -261,6 +275,10 @@ export default class FriendsView extends Core.gameScript {
             .then(() => {
                 data.applyIng = 0;
                 this.itemList.refresh();
+                this.canClick = true;
+            })
+            .catch(() => {
+                this.canClick = true;
             });
     }
 
@@ -270,6 +288,7 @@ export default class FriendsView extends Core.gameScript {
      */
     private applyEvent(target: Laya.Image) {
         let data = target.dataSource as FriendData;
+        this.canClick = false;
         HttpControl.inst
             .send({
                 api: ApiHttp.friendApply,
@@ -282,6 +301,10 @@ export default class FriendsView extends Core.gameScript {
                 this.itemList.array = this.friendsList;
                 this.itemList.refresh();
                 Core.view.openHint({ text: "已发送激情", call: () => {} });
+                this.canClick = true;
+            })
+            .catch(() => {
+                this.canClick = true;
             });
     }
 
@@ -299,6 +322,7 @@ export default class FriendsView extends Core.gameScript {
             return;
         }
 
+        this.canClick = false;
         HttpControl.inst
             .send({
                 api: ApiHttp.friendSearch,
@@ -310,6 +334,10 @@ export default class FriendsView extends Core.gameScript {
                 this.friendsList = [d];
                 this.itemList.array = this.friendsList;
                 this.itemList.refresh();
+                this.canClick = true;
+            })
+            .catch(() => {
+                this.canClick = true;
             });
     }
 
