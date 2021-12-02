@@ -42,13 +42,24 @@ export default class HttpControl {
         this.baseUrl = url;
     }
 
-    private createXhr(resolve: Function, reject: Function) {
+    /**
+     *
+     * @param resolve
+     * @param reject
+     * @param ad 是否是广告的数据协议
+     * @returns
+     */
+    private createXhr(resolve: Function, reject: Function, ad: boolean) {
         let xmlhttp = new XMLHttpRequest();
 
         xmlhttp.onreadystatechange = () => {
             if (xmlhttp.readyState == 4) {
                 switch (xmlhttp.status) {
                     case 200:
+                        if (ad) {
+                            TaskService.taskAddTimes(1001);
+                            TaskService.taskAddTimes(1012);
+                        }
                         this.completeHandler(JSON.parse(xmlhttp.responseText), resolve);
                         this.clearOneInEventMap(xmlhttp);
                         break;
@@ -116,18 +127,18 @@ export default class HttpControl {
             return;
         }
 
+        let ad = false;
         if (data.data?.type == ConfigGame.ApiTypeAD) {
             await AppCore.runAppFunction({
                 uri: AppEventMap.ad,
                 data: null,
                 timestamp: Date.now(),
             });
-            TaskService.taskAddTimes(1001);
-            TaskService.taskAddTimes(1012);
+            ad = true;
         }
 
         return new Promise(async (resolve, reject) => {
-            const xhr = this.createXhr(resolve, reject);
+            const xhr = this.createXhr(resolve, reject, ad);
 
             this.sendData = data;
 

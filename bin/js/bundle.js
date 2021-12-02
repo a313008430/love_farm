@@ -1254,12 +1254,16 @@
     init(url) {
       this.baseUrl = url;
     }
-    createXhr(resolve, reject) {
+    createXhr(resolve, reject, ad) {
       let xmlhttp = new XMLHttpRequest();
       xmlhttp.onreadystatechange = () => {
         if (xmlhttp.readyState == 4) {
           switch (xmlhttp.status) {
             case 200:
+              if (ad) {
+                TaskService_default.taskAddTimes(1001);
+                TaskService_default.taskAddTimes(1012);
+              }
               this.completeHandler(JSON.parse(xmlhttp.responseText), resolve);
               this.clearOneInEventMap(xmlhttp);
               break;
@@ -1323,17 +1327,17 @@
         if (this.eventMap.get(uri + sendDataString)) {
           return;
         }
+        let ad = false;
         if (((_a = data.data) == null ? void 0 : _a.type) == ConfigGame_default.ApiTypeAD) {
           yield AppCore.runAppFunction({
             uri: AppEventMap.ad,
             data: null,
             timestamp: Date.now()
           });
-          TaskService_default.taskAddTimes(1001);
-          TaskService_default.taskAddTimes(1012);
+          ad = true;
         }
         return new Promise((resolve, reject) => __async(this, null, function* () {
-          const xhr = this.createXhr(resolve, reject);
+          const xhr = this.createXhr(resolve, reject, ad);
           this.sendData = data;
           if (data == null ? void 0 : data.before) {
             data.before();
