@@ -2616,6 +2616,8 @@
                 if (!UserInfo_default.isFirstTime) {
                   UserInfo_default.isFirstTime = 1;
                 }
+              }).catch(() => {
+                this.canClick = true;
               });
             }
           } else {
@@ -2675,44 +2677,47 @@
         }
         core_default.audio.playSound(Res_default.audios.goujiaosheng);
         this.canClick = false;
-        let d = yield HttpControl.inst.send({
+        HttpControl.inst.send({
           api: ApiHttp.landSteal,
           data: {
             landId: this.data.id,
             type: ConfigGame_default.ApiTypeDefault,
             uid: this.stealUid
           }
+        }).then((d) => {
+          this.canClick = true;
+          UserInfo_default.vitality = d.vitality;
+          this.canSteal = false;
+          this.topStateIconAni(false);
+          WarehouseService_default.add(this.data.productId, d.amount);
+          core_default.audio.playSound(Res_default.audios.shoucai);
+          const rewardList = [];
+          if (d.plantId) {
+            rewardList.push({
+              obj: TableAnalyze_default.table("plant").get(d.plantId),
+              count: d.amount,
+              posType: 3
+            });
+          } else {
+            core_default.view.openHint({ text: "\u989D\uFF0C\u88AB\u72D7\u54AC\u4E86~~~\u6CA1\u5077\u7740~", call: () => {
+            } });
+          }
+          if (d.rewardDiamond) {
+            rewardList.push({
+              obj: TableAnalyze_default.table("currency").get(ConfigGame_default.diamondId),
+              count: d.rewardDiamond,
+              posType: 2
+            });
+          }
+          if (rewardList.length) {
+            core_default.eventGlobal.event(EventMaps.play_get_reward, {
+              node: this.owner,
+              list: rewardList
+            });
+          }
+        }).catch(() => {
+          this.canClick = true;
         });
-        this.canClick = true;
-        UserInfo_default.vitality = d.vitality;
-        this.canSteal = false;
-        this.topStateIconAni(false);
-        WarehouseService_default.add(this.data.productId, d.amount);
-        core_default.audio.playSound(Res_default.audios.shoucai);
-        const rewardList = [];
-        if (d.plantId) {
-          rewardList.push({
-            obj: TableAnalyze_default.table("plant").get(d.plantId),
-            count: d.amount,
-            posType: 3
-          });
-        } else {
-          core_default.view.openHint({ text: "\u989D\uFF0C\u88AB\u72D7\u54AC\u4E86~~~\u6CA1\u5077\u7740~", call: () => {
-          } });
-        }
-        if (d.rewardDiamond) {
-          rewardList.push({
-            obj: TableAnalyze_default.table("currency").get(ConfigGame_default.diamondId),
-            count: d.rewardDiamond,
-            posType: 2
-          });
-        }
-        if (rewardList.length) {
-          core_default.eventGlobal.event(EventMaps.play_get_reward, {
-            node: this.owner,
-            list: rewardList
-          });
-        }
       });
     }
     onHdDestroy() {
@@ -2874,7 +2879,6 @@
             this.landList[x].showIcon(true);
             this.landList[x].setStateIconSkin(3);
             this.landList[x].topStateIconAni(true);
-            break;
           }
         }
       }
@@ -4300,7 +4304,7 @@
           case 1001:
             yield AppCore.runAppFunction({
               uri: AppEventMap.ad,
-              data: null,
+              data: {},
               timestamp: Date.now()
             });
             HttpControl.inst.send({
@@ -4309,6 +4313,8 @@
             }).then(() => {
               core_default.eventGlobal.event(EventMaps.play_ad_get_reward, target);
               this.taskList.refresh();
+              TaskService_default.taskAddTimes(1001);
+              TaskService_default.taskAddTimes(1012);
             });
             break;
           case 1002:

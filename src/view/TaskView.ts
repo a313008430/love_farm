@@ -126,7 +126,7 @@ export default class TaskView extends GameScript {
             case 1001:
                 await AppCore.runAppFunction({
                     uri: AppEventMap.ad,
-                    data: null,
+                    data: {},
                     timestamp: Date.now(),
                 });
                 HttpControl.inst
@@ -137,6 +137,8 @@ export default class TaskView extends GameScript {
                     .then(() => {
                         Core.eventGlobal.event(EventMaps.play_ad_get_reward, target);
                         this.taskList.refresh();
+                        TaskService.taskAddTimes(1001);
+                        TaskService.taskAddTimes(1012);
                     });
 
                 break;

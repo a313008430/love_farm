@@ -106,6 +106,8 @@ export default class MainView extends Core.gameScript {
     private isOuter: boolean = false;
     /** 离开家的时间 */
     private outerTime: number;
+    /**去好友 家倒计时 */
+    private outCountDownNumber = 60;
 
     onOpened() {
         [
@@ -221,7 +223,7 @@ export default class MainView extends Core.gameScript {
                     this.landList[x].showIcon(true);
                     this.landList[x].setStateIconSkin(3);
                     this.landList[x].topStateIconAni(true);
-                    break;
+                    // break;
                 }
             }
         }
@@ -855,7 +857,6 @@ export default class MainView extends Core.gameScript {
         this.updateFriendView(d?.nickname);
     }
 
-    private outCountDownNumber = 60;
     /**
      * 更新去好友家还是自己家的界面状态
      */

@@ -1,7 +1,7 @@
 {
   "fileconfig.json": "fileconfig-263ca41800.json",
-  "index.js": "index-444ae502de.js",
-  "js/bundle.js": "js/bundle-9a6a9ad4ac.js",
+  "index.js": "index-deafacd10c.js",
+  "js/bundle.js": "js/bundle-e0266f647d.js",
   "js/ps-N3BPHYGU.fs": "js/ps-N3BPHYGU-319562bd17.fs",
   "libs/min/laya.ani.min.js": "libs/min/laya-a72326a604.ani.min.js",
   "libs/min/laya.core.min.js": "libs/min/laya-4fc7637454.core.min.js",
@@ -19,7 +19,7 @@
   "res/atlas/pet_feed.png": "res/atlas/pet_feed-493a1a324f.png",
   "res/atlas/plant_icon.atlas": "res/atlas/plant_icon-765eb2b7d8.atlas",
   "res/atlas/plant_icon.png": "res/atlas/plant_icon-9f2cfa60f2.png",
-  "res/audio/BGM.mp3": "res/audio/BGM-d34796cb9f.mp3",
+  "res/audio/BGM.mp3": "res/audio/BGM-2c57b583bc.mp3",
   "res/audio/button_click.mp3": "res/audio/button_click-be2c8bdc2c.mp3",
   "res/audio/dakaicangku.mp3": "res/audio/dakaicangku-c8bb5b1643.mp3",
   "res/audio/goujiaosheng.mp3": "res/audio/goujiaosheng-d02a5ebc08.mp3",
@@ -47,7 +47,7 @@
   "res/shader/vs.vs": "res/shader/vs-615eb362ad.vs",
   "scenes/ani/landUp.ani": "scenes/ani/landUp-71552803d2.ani",
   "scenes/components/Button.json": "scenes/components/Button-90372b8b83.json",
-  "scenes/prefab/FieldPrefab.json": "scenes/prefab/FieldPrefab-dc64cbcd21.json",
+  "scenes/prefab/FieldPrefab.json": "scenes/prefab/FieldPrefab-4936c67278.json",
   "scenes/prefab/FloatRewardIcon.json": "scenes/prefab/FloatRewardIcon-c2e3f581a5.json",
   "scenes/prefab/GetReward.json": "scenes/prefab/GetReward-3048e756f2.json",
   "scenes/prefab/MailItem.json": "scenes/prefab/MailItem-6ce9a0f9b7.json",
@@ -63,7 +63,7 @@
   "scenes/views/LoginView.json": "scenes/views/LoginView-700eb0bc33.json",
   "scenes/views/MailDescView.json": "scenes/views/MailDescView-89d343848c.json",
   "scenes/views/MailView.json": "scenes/views/MailView-8beb5f2aac.json",
-  "scenes/views/MainView.json": "scenes/views/MainView-9166cdc187.json",
+  "scenes/views/MainView.json": "scenes/views/MainView-bd33518da2.json",
   "scenes/views/OrderView.json": "scenes/views/OrderView-d76d4889ff.json",
   "scenes/views/OverView.json": "scenes/views/OverView-2d102f4866.json",
   "scenes/views/SettingView.json": "scenes/views/SettingView-8d1669896b.json",
@@ -73,5 +73,5 @@
   "scenes/views/TaskView.json": "scenes/views/TaskView-848c330910.json",
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-ad12d45048.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-4c690894bd.json"
+  "version.json": "version-db66282fde.json"
 }
