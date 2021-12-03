@@ -71,6 +71,8 @@ export default class FieldComponent extends Core.gameScript {
     private canClick: boolean = true;
 
     private landList: Map<number, LandObj>;
+    /** 成熟的时间 */
+    private matureTime: number = 0;
 
     onHdAwake() {
         this.fieldNode = <Laya.Image>this.owner;
@@ -89,6 +91,7 @@ export default class FieldComponent extends Core.gameScript {
         this.upAni.on(Laya.Event.COMPLETE, this, () => {
             this.upAni.visible = false;
         });
+        this.matureTime = Date.now();
     }
 
     /**
@@ -126,6 +129,7 @@ export default class FieldComponent extends Core.gameScript {
             }
 
             if (this.data.productId && this.data.matureTimeLeft > 0) {
+                this.matureTime = this.data.matureTimeLeft * 1000 + Date.now();
                 //成长中
                 this.timeBox.visible = true;
                 this.timeBox.active = true;
@@ -145,6 +149,7 @@ export default class FieldComponent extends Core.gameScript {
                 }
             } else {
                 if (this.data.productId) {
+                    this.matureTime = Date.now();
                     this.topStateIcon.visible = true;
                     this.showShadowIcon(true);
                     // this.topStateIconAni(true);
@@ -272,12 +277,14 @@ export default class FieldComponent extends Core.gameScript {
             this.countDownLb.text = Tools.formatSeconds(this.data.matureTimeLeft);
             Laya.timer.clearAll(this);
             Laya.timer.once(1000, this, () => {
-                this.data.matureTimeLeft--;
+                this.data.matureTimeLeft = Math.ceil((this.matureTime - Date.now()) / 1000);
+                if (this.data.matureTimeLeft < 0) this.data.matureTimeLeft = 0;
                 this.countDownLb.text = Tools.formatSeconds(this.data.matureTimeLeft);
                 return this.updateCountDown();
             });
         } else {
             this.data.matureTimeLeft = 0;
+            this.matureTime = Date.now();
             console.log("成熟 ");
             // this.topStateIconAni(false);
             this.icon.skin = TableAnalyze.table("plant").get(this.data?.productId)?.matureIcon;
@@ -304,6 +311,7 @@ export default class FieldComponent extends Core.gameScript {
         if (this.data?.matureTimeLeft) {
             this.data.matureTimeLeft -= TableAnalyze.table("config").get("all_speed_up_time")
                 .value as number;
+            this.matureTime = this.data.matureTimeLeft * 1000 + Date.now();
             this.updateCountDown();
         }
     }
@@ -324,8 +332,6 @@ export default class FieldComponent extends Core.gameScript {
         if (!this.canClick) return;
 
         if (this.isOuter) {
-            console.log("外出");
-
             if (this.data) {
                 this.stealFood(this.data);
             }
@@ -357,7 +363,6 @@ export default class FieldComponent extends Core.gameScript {
                         call: () => {},
                     });
                 }
-
                 return;
             }
 
@@ -478,6 +483,7 @@ export default class FieldComponent extends Core.gameScript {
                         call: (d: PlantDataBase) => {
                             this.landList.get(this.fieldId).productId = d.base.id;
                             this.landList.get(this.fieldId).matureTimeLeft = d.base.mature_time;
+                            this.matureTime = d.base.mature_time * 1000 + Date.now();
 
                             this.data = this.landList.get(this.fieldId);
                             this.renderData();
@@ -511,6 +517,7 @@ export default class FieldComponent extends Core.gameScript {
                             matureTimeLeft: 0,
                             productId: null,
                         };
+                        this.matureTime = Date.now();
                         LandService.addLand(this.data);
                         this.updateData();
                         this.mainViewCom.updateHitLandAdd();

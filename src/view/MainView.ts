@@ -127,7 +127,6 @@ export default class MainView extends Core.gameScript {
             "res/atlas/plant_icon.png",
             "res/atlas/pet_feed.png",
             "res/atlas/main_scene.png",
-            "res/atlas/game.png",
         ].forEach((e) => {
             if (e.endsWith("png")) Laya.loader.clearTextureRes(e);
         });
