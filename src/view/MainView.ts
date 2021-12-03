@@ -899,6 +899,7 @@ export default class MainView extends Core.gameScript {
         this.outCountDownNumber--;
         lb.text = Tools.formatSeconds(this.outCountDownNumber);
         if (this.outCountDownNumber <= 0) {
+            Laya.timer.clear(this, this.outCountDownEvent);
             this.goHome();
         }
     }
