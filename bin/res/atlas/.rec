@@ -29,10 +29,6 @@ P A4EBAA76 img_cancel.png
 P 9F1B54B6 img_cancelBtn.png
 P 3A6BE7D2 img_cashDone.png
 P 4EE9F82E img_chocolate.png
-P E13B83E5 img_cloud1.png
-P ACD83026 img_cloud2.png
-P E33B1A01 img_cloud3.png
-P 70AFDB90 img_cloud4.png
 P A36A6E40 img_coins.png
 P 863C759B img_copyBtn.png
 P B4A84AF0 img_countBg.png
@@ -173,6 +169,10 @@ P 6ABCA748 img_x.png
 D load
 P D9834561 img_checkBox1.png
 P A3BD2BFE img_checkBox2.png
+P BCBEBC71 img_cloud1.png
+P 26F36A6D img_cloud2.png
+P 602ACD3C img_cloud3.png
+P 87C3C17B img_cloud4.png
 P 0916A055 img_getDiamondBtn.png
 P FF133540 img_loadingScroll1.png
 P 56432ECB img_loadingScroll2.png

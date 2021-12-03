@@ -51,6 +51,8 @@ export default class WarehouseView extends Core.gameScript {
     /** 单价 钻石 */
     private unitPriceDiamond: number = 0;
 
+    private canClick: boolean = true;
+
     onOpened() {
         Core.audio.playSound(Res.audios.dakaicangku);
     }
@@ -82,16 +84,30 @@ export default class WarehouseView extends Core.gameScript {
 
     updateList() {
         let i = 0,
-            y = 0;
+            y = 0,
+            hasSelect = false;
         WarehouseService.list.forEach((d) => {
             if (!this.dataList[y]) this.dataList[y] = [];
             this.dataList[y].push(d);
+            console.log(
+                d.base.id,
+                this.selectItemData?.base.id,
+                d.base.id == this.selectItemData?.base.id
+            );
+            if (d.base.id == this.selectItemData?.base.id) {
+                hasSelect = true;
+            }
             i++;
             if (i > 2) {
                 i = 0;
                 y++;
             }
         });
+
+        if (!hasSelect && this.dataList.length) {
+            this.selectItemIndex = "0,0";
+            this.itemList.selectedIndex = 0;
+        }
 
         this.itemList.array = this.dataList;
         this.empty_lb.visible = !this.dataList.length;
@@ -148,63 +164,74 @@ export default class WarehouseView extends Core.gameScript {
                 break;
             case "sellBtnAd":
             case "sellBtn":
-                HttpControl.inst
-                    .send({
-                        api: ApiHttp.warehouseSell,
-                        data: <NetSendApi["warehouseSell"]>{
-                            id: this.selectItemData.base.id,
-                            amount: this.selectItemSellCount,
-                            type:
-                                e.target.name == "sellBtn"
-                                    ? ConfigGame.ApiTypeDefault
-                                    : ConfigGame.ApiTypeAD,
-                        },
-                    })
-                    .then(() => {
-                        WarehouseService.reduceAmount(
-                            this.selectItemData.base.id,
-                            this.selectItemSellCount
-                        );
-                        this.dataList = [];
-                        this.updateList();
-                        this.itemList.refresh();
-                        if (!this.dataList.length) {
-                            this.updateDesc(null);
-                        }
+                if (!this.canClick) {
+                    return;
+                } else {
+                    this.canClick = false;
+                    let btnName = e.target.name,
+                        target = e.target;
+                    HttpControl.inst
+                        .send({
+                            api: ApiHttp.warehouseSell,
+                            data: <NetSendApi["warehouseSell"]>{
+                                id: this.selectItemData.base.id,
+                                amount: this.selectItemSellCount,
+                                type:
+                                    btnName == "sellBtn"
+                                        ? ConfigGame.ApiTypeDefault
+                                        : ConfigGame.ApiTypeAD,
+                            },
+                        })
+                        .then(() => {
+                            this.canClick = true;
+                            WarehouseService.reduceAmount(
+                                this.selectItemData.base.id,
+                                this.selectItemSellCount
+                            );
+                            this.dataList = [];
+                            this.updateList();
+                            this.itemList.refresh();
+                            if (!this.dataList.length) {
+                                this.updateDesc(null);
+                            }
 
-                        let rewardList = [];
+                            let rewardList = [];
 
-                        if (this.unitPriceGold) {
-                            rewardList.push({
-                                obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
-                                count:
-                                    this.selectItemSellCount *
-                                    this.unitPriceGold *
-                                    (e.target.name == "sellBtnAd" ? 2 : 1),
-                                posType: 1,
+                            if (this.unitPriceGold) {
+                                rewardList.push({
+                                    obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
+                                    count:
+                                        this.selectItemSellCount *
+                                        this.unitPriceGold *
+                                        (btnName == "sellBtnAd" ? 2 : 1),
+                                    posType: 1,
+                                });
+                            }
+                            if (this.unitPriceDiamond) {
+                                rewardList.push({
+                                    obj: TableAnalyze.table("currency").get(ConfigGame.diamondId),
+                                    count:
+                                        this.selectItemSellCount *
+                                        this.unitPriceDiamond *
+                                        (btnName == "sellBtnAd" ? 2 : 1),
+                                    posType: 2,
+                                });
+                            }
+
+                            if (btnName == "sellBtnAd") {
+                                Core.eventGlobal.event(EventMaps.play_ad_get_reward, target);
+                            }
+
+                            Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
+                                node: this.sellBtn as any,
+                                list: rewardList,
+                                callBack: () => {},
                             });
-                        }
-                        if (this.unitPriceDiamond) {
-                            rewardList.push({
-                                obj: TableAnalyze.table("currency").get(ConfigGame.diamondId),
-                                count:
-                                    this.selectItemSellCount *
-                                    this.unitPriceDiamond *
-                                    (e.target.name == "sellBtnAd" ? 2 : 1),
-                                posType: 2,
-                            });
-                        }
-
-                        if (e.target.name == "sellBtnAd") {
-                            Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
-                        }
-
-                        Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
-                            node: this.sellBtn as any,
-                            list: rewardList,
-                            callBack: () => {},
+                        })
+                        .catch(() => {
+                            this.canClick = true;
                         });
-                    });
+                }
 
                 break;
         }

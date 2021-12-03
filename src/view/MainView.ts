@@ -351,7 +351,8 @@ export default class MainView extends Core.gameScript {
             case "dog":
                 Core.view.open(Res.views.ShopView, { parm: { id: 2 } });
                 break;
-            case "money_box":
+            case "diamond_box":
+            case "money_red_box":
                 Core.view.open(Res.views.ShopView, { parm: { id: 3 } });
                 break;
             case "order_box":
@@ -423,12 +424,14 @@ export default class MainView extends Core.gameScript {
         Core.view.open(Res.views.BuyVitalityView);
     }
 
+    /** 订单队列 */
+    private orderQueueIng: boolean = false;
     /**
      * 更新订单
      */
     @Core.eventOn(EventMaps.update_Order)
     private updateOrder() {
-        let box = this.orderBox.getChildByName("center_box"),
+        let box = this.orderBox.getChildByName("order_box"),
             d = TableAnalyze.table("order").get(UserInfo.orderLevel + 1),
             reward: RewardCurrencyBase,
             rewardCount: number = 0,
@@ -480,34 +483,39 @@ export default class MainView extends Core.gameScript {
         }级订单`;
 
         if (progress == d.condition.length) {
-            HttpControl.inst
-                .send({
-                    api: ApiHttp.orderReward,
-                    data: {
-                        orderId: UserInfo.orderLevel + 1,
-                    },
-                })
-                .then(() => {
-                    d.condition.forEach((e) => {
-                        WarehouseService.reduceAmount(e.plant.id, e.count);
-                    });
-
-                    this.playGetRewardAni({
-                        node: box.getChildByName("btn_box") as any,
-                        list: [
-                            {
-                                obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
-                                count: rewardCount + Math.round(rewardCount * d.commission),
-                                posType: 1,
-                            },
-                        ],
-                        callBack: () => {
-                            this.updateOrder();
+            if (!this.orderQueueIng) {
+                this.orderQueueIng = true;
+                HttpControl.inst
+                    .send({
+                        api: ApiHttp.orderReward,
+                        data: {
+                            orderId: UserInfo.orderLevel + 1,
                         },
-                    });
+                    })
+                    .then(() => {
+                        d.condition.forEach((e) => {
+                            WarehouseService.reduceAmount(e.plant.id, e.count);
+                        });
+                        this.orderQueueIng = false;
+                        this.updateOrder();
+                        this.playGetRewardAni({
+                            node: box.getChildByName("btn_box") as any,
+                            list: [
+                                {
+                                    obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
+                                    count: rewardCount + Math.round(rewardCount * d.commission),
+                                    posType: 1,
+                                },
+                            ],
+                            callBack: () => {},
+                        });
 
-                    UserInfo.orderLevel++;
-                });
+                        UserInfo.orderLevel++;
+                    })
+                    .catch(() => {
+                        this.orderQueueIng = false;
+                    });
+            }
         }
     }
 
@@ -754,6 +762,7 @@ export default class MainView extends Core.gameScript {
                     Laya.timer.once(300, this, () => {
                         Core.view.setOverView(false);
                         this.goFriend(null);
+                        this.updateHitLandAdd();
                     });
                 });
         });
@@ -863,7 +872,7 @@ export default class MainView extends Core.gameScript {
         const topBox = this.orderBox.parent as Laya.Box,
             moneyBox = topBox.getChildByName("money_box") as Laya.Box,
             countDown = topBox.getChildByName("count_down") as Laya.Label,
-            orderBox = this.orderBox.getChildByName("center_box") as Laya.Box,
+            orderBox = this.orderBox.getChildByName("order_box") as Laya.Box,
             friendName = this.orderBox.getChildByName("friend_name") as Laya.Label,
             bottomList: Laya.Image[] = [
                 this.bottomBox.getChildByName("task") as Laya.Image,

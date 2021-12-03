@@ -8,7 +8,7 @@ export const enum ApiHttp {
     loginToken = "/login/token",
     /** 领取订单奖励 */
     orderReward = "/order/reward",
-    /** 领取订单奖励 */
+    /** 领取签到奖励 */
     signInReward = "/signIn/reward",
     /** 土地解锁 */
     landUnlock = "/land/unlock",

@@ -122,7 +122,7 @@ export default class HttpControl {
             });
         }
         const sendDataString = sendData.join("&");
-        console.log(this.eventMap.get(uri + sendDataString));
+
         if (this.eventMap.get(uri + sendDataString)) {
             return;
         }
