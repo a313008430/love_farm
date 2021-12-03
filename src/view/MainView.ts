@@ -108,6 +108,7 @@ export default class MainView extends Core.gameScript {
     private outerTime: number;
     /**去好友 家倒计时 */
     private outCountDownNumber = 60;
+    private canClick: boolean = true;
 
     onOpened() {
         [
@@ -395,12 +396,20 @@ export default class MainView extends Core.gameScript {
      * 打开邮件
      */
     private openMail() {
+        if (!this.canClick) {
+            return;
+        }
+        this.canClick = false;
         HttpControl.inst
             .send({
                 api: ApiHttp.mailList,
             })
             .then((d: MailReturnData[]) => {
                 Core.view.open(Res.views.MailView, { parm: d });
+                this.canClick = true;
+            })
+            .catch(() => {
+                this.canClick = true;
             });
     }
 
@@ -408,12 +417,20 @@ export default class MainView extends Core.gameScript {
      * 打开好友 列表
      */
     private openFriend() {
+        if (!this.canClick) {
+            return;
+        }
+        this.canClick = false;
         HttpControl.inst
             .send({
                 api: ApiHttp.friendList,
             })
             .then((d: FriendListData) => {
+                this.canClick = true;
                 Core.view.open(Res.views.FriendsView, { parm: d });
+            })
+            .catch(() => {
+                this.canClick = true;
             });
     }
 
@@ -431,59 +448,61 @@ export default class MainView extends Core.gameScript {
      */
     @Core.eventOn(EventMaps.update_Order)
     private updateOrder() {
-        let box = this.orderBox.getChildByName("order_box"),
-            d = TableAnalyze.table("order").get(UserInfo.orderLevel + 1),
-            reward: RewardCurrencyBase,
-            rewardCount: number = 0,
-            curCount = 0,
-            maxCount = 0,
-            progress = 0;
-        if (!d) return console.log("等级已完");
-        for (let x = 0; x < 4; x++) {
-            let item = box.getChildByName("item_" + x) as Laya.Box;
+        return;
+        if (!this.orderQueueIng) {
+            let box = this.orderBox.getChildByName("order_box"),
+                d = TableAnalyze.table("order").get(UserInfo.orderLevel + 1),
+                reward: RewardCurrencyBase,
+                rewardCount: number = 0,
+                curCount = 0,
+                maxCount = 0,
+                progress = 0;
+            if (!d) return console.log("等级已完");
+            for (let x = 0; x < 4; x++) {
+                let item = box.getChildByName("item_" + x) as Laya.Box;
 
-            if (d.condition[x]) {
-                curCount = WarehouseService.getOne(d.condition[x].plant.id)?.count || 0;
-                maxCount = d.condition[x].count;
+                if (d.condition[x]) {
+                    curCount = WarehouseService.getOne(d.condition[x].plant.id)?.count || 0;
+                    maxCount = d.condition[x].count;
 
-                if (curCount >= maxCount) {
-                    progress++;
-                }
-
-                (item.getChildByName("icon") as Laya.Image).skin = d.condition[x].plant.icon;
-                (item.getChildByName("num") as Laya.Label).text = `${curCount}/${maxCount}`;
-                (item.getChildByName("bar") as Laya.Image).width =
-                    87 * (curCount / maxCount > 1 ? 1 : curCount / maxCount);
-
-                item.visible = true;
-
-                d.condition[x].plant.gain.forEach((e) => {
-                    if (e.obj.id === ConfigGame.goldId) {
-                        if (!reward) {
-                            reward = e;
-                        }
-                        rewardCount += e.count * maxCount;
+                    if (curCount >= maxCount) {
+                        progress++;
                     }
-                });
-            } else {
-                item.visible = false;
+
+                    (item.getChildByName("icon") as Laya.Image).skin = d.condition[x].plant.icon;
+                    (item.getChildByName("num") as Laya.Label).text = `${curCount}/${maxCount}`;
+                    (item.getChildByName("bar") as Laya.Image).width =
+                        87 * (curCount / maxCount > 1 ? 1 : curCount / maxCount);
+
+                    item.visible = true;
+
+                    d.condition[x].plant.gain.forEach((e) => {
+                        if (e.obj.id === ConfigGame.goldId) {
+                            if (!reward) {
+                                reward = e;
+                            }
+                            rewardCount += e.count * maxCount;
+                        }
+                    });
+                } else {
+                    item.visible = false;
+                }
             }
-        }
 
-        if (reward) {
-            let btnBox = box.getChildByName("btn_box").getChildByName("box");
-            (btnBox.getChildByName("icon") as Laya.Image).skin = reward.obj.icon;
-            (btnBox.getChildByName("value") as Laya.FontClip).value = `${
-                rewardCount + Math.round(rewardCount * d.commission)
-            }`;
-        }
+            if (reward) {
+                let btnBox = box.getChildByName("btn_box").getChildByName("box");
+                (btnBox.getChildByName("icon") as Laya.Image).skin = reward.obj.icon;
+                (btnBox.getChildByName("value") as Laya.FontClip).value = `${
+                    rewardCount + Math.round(rewardCount * d.commission)
+                }`;
+            }
 
-        (box.getChildByName("name_title") as Laya.Label).text = `完成${
-            UserInfo.orderLevel + 1
-        }级订单`;
+            (box.getChildByName("name_title") as Laya.Label).text = `完成${
+                UserInfo.orderLevel + 1
+            }级订单`;
 
-        if (progress == d.condition.length) {
-            if (!this.orderQueueIng) {
+            if (progress == d.condition.length) {
+                const condition = d.condition;
                 this.orderQueueIng = true;
                 HttpControl.inst
                     .send({
@@ -493,11 +512,13 @@ export default class MainView extends Core.gameScript {
                         },
                     })
                     .then(() => {
-                        d.condition.forEach((e) => {
+                        condition.forEach((e) => {
                             WarehouseService.reduceAmount(e.plant.id, e.count);
                         });
                         this.orderQueueIng = false;
+                        UserInfo.orderLevel++;
                         this.updateOrder();
+
                         this.playGetRewardAni({
                             node: box.getChildByName("btn_box") as any,
                             list: [
@@ -509,8 +530,6 @@ export default class MainView extends Core.gameScript {
                             ],
                             callBack: () => {},
                         });
-
-                        UserInfo.orderLevel++;
                     })
                     .catch(() => {
                         this.orderQueueIng = false;

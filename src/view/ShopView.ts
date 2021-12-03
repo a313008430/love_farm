@@ -295,6 +295,10 @@ export default class ShopView extends GameScript {
                         // this.owner,
                     ]);
                 }
+                if (!this.canClick) {
+                    return;
+                }
+                this.canClick = false;
                 HttpControl.inst
                     .send({
                         api: ApiHttp.landSow,
@@ -308,12 +312,19 @@ export default class ShopView extends GameScript {
                         ViewManager.inst.close(Res.views.ShopView);
                         if (this.data?.call)
                             this.data.call(this.getDataList()[this.itemListSelectIndex]);
+                    })
+                    .then(() => {
+                        this.canClick = true;
                     });
 
                 break;
             //广告解锁，或是金币解锁
             case "unlock_buy":
             case "ad_unlock":
+                if (!this.canClick) {
+                    return;
+                }
+                this.canClick = false;
                 HttpControl.inst
                     .send({
                         api: ApiHttp.seedsUnlock,
@@ -331,10 +342,14 @@ export default class ShopView extends GameScript {
                             this.itemListSelectIndex,
                             PlantService.list[this.itemListSelectIndex]
                         );
+                        this.canClick = true;
 
                         if (e.target.name == "ad_unlock") {
                             Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
                         }
+                    })
+                    .catch(() => {
+                        this.canClick = true;
                     });
                 break;
 
@@ -376,6 +391,10 @@ export default class ShopView extends GameScript {
     private feedBuy() {
         let feed = this.getDataList()[this.itemListSelectIndex] as FeedDataBase;
         if (!feed) return;
+        if (!this.canClick) {
+            return;
+        }
+        this.canClick = false;
         HttpControl.inst
             .send({
                 api: ApiHttp.feedBuy,
@@ -385,6 +404,7 @@ export default class ShopView extends GameScript {
                 },
             })
             .then(() => {
+                this.canClick = true;
                 UserInfo.petVitality += feed.base.vitality;
 
                 Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
@@ -398,6 +418,9 @@ export default class ShopView extends GameScript {
                     ],
                     notFly: true,
                 });
+            })
+            .catch(() => {
+                this.canClick = true;
             });
     }
 
@@ -405,6 +428,10 @@ export default class ShopView extends GameScript {
      * 宠物去看家
      */
     private petGoWatch(petId: number) {
+        if (!this.canClick) {
+            return;
+        }
+        this.canClick = false;
         HttpControl.inst
             .send({
                 api: ApiHttp.petWear,
@@ -415,8 +442,11 @@ export default class ShopView extends GameScript {
             })
             .then(() => {
                 UserInfo.warePetId = petId;
-
+                this.canClick = true;
                 this.updatePet();
+            })
+            .catch(() => {
+                this.canClick = true;
             });
     }
 
@@ -425,6 +455,10 @@ export default class ShopView extends GameScript {
      */
     private petBuy() {
         let { base } = PetService.list[this.selectPetIndex];
+        if (!this.canClick) {
+            return;
+        }
+        this.canClick = false;
         HttpControl.inst
             .send({
                 api: ApiHttp.petBuy,
@@ -434,6 +468,7 @@ export default class ShopView extends GameScript {
                 },
             })
             .then(() => {
+                this.canClick = true;
                 PetService.list[this.selectPetIndex].lock = false;
                 this.updatePet();
 
@@ -442,6 +477,9 @@ export default class ShopView extends GameScript {
                     UserInfo.petVitality = base.vitality_max;
                     UserInfo.digestCountDown = ConfigGame.petDigestIntervalTime;
                 }
+            })
+            .catch(() => {
+                this.canClick = true;
             });
     }
 
@@ -582,7 +620,7 @@ export default class ShopView extends GameScript {
 
     private canClick: boolean = true;
     /**
-     * 牛批
+     * 提现
      */
     private withdraw() {
         if (this.priceSelectIndex == null) {
