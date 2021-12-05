@@ -329,6 +329,7 @@ export default class FieldComponent extends Core.gameScript {
 
     async onClick() {
         Core.audio.playSound(Res.audios.button_click);
+
         if (!this.canClick) return;
 
         if (this.isOuter) {

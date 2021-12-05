@@ -129,10 +129,10 @@ interface NetInit extends NetBase {
 
 interface NetSendApi {
     login: {
-        account: "string";
-        wxId: "string";
-        nickname: "string";
-        avatar: "string";
+        account: string;
+        wxId: string;
+        nickname: string;
+        avatar: string;
     };
 
     /**  解锁土地 */

@@ -14,7 +14,8 @@ export default {
     userVitalityLimit: 10,
     /** 协议地址 */
     // baseUrl: "//47.108.192.181:8092/ farm",
-    baseUrl: DEBUG ? "//192.168.101.50:3000" : "http://game.ahd168.com:3000",
+    baseUrl: DEBUG ? "//192.168.50.87:3000" : "http://game.ahd168.com:3000",
+    // baseUrl: DEBUG ? "//192.168.101.50:3000" : "http://game.ahd168.com:3000",
     // baseUrl: "http://game.ahd168.com:3000",
     // todo 这里的Ip可以访问可能是有问题的
     // baseUrl: "//47.108.192.181:3000",

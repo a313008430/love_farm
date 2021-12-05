@@ -448,7 +448,7 @@ export default class MainView extends Core.gameScript {
      */
     @Core.eventOn(EventMaps.update_Order)
     private updateOrder() {
-        return;
+        // return;
         if (!this.orderQueueIng) {
             let box = this.orderBox.getChildByName("order_box"),
                 d = TableAnalyze.table("order").get(UserInfo.orderLevel + 1),
@@ -517,7 +517,6 @@ export default class MainView extends Core.gameScript {
                         });
                         this.orderQueueIng = false;
                         UserInfo.orderLevel++;
-                        this.updateOrder();
 
                         this.playGetRewardAni({
                             node: box.getChildByName("btn_box") as any,
@@ -528,7 +527,9 @@ export default class MainView extends Core.gameScript {
                                     posType: 1,
                                 },
                             ],
-                            callBack: () => {},
+                            callBack: () => {
+                                this.updateOrder();
+                            },
                         });
                     })
                     .catch(() => {

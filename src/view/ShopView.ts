@@ -313,7 +313,7 @@ export default class ShopView extends GameScript {
                         if (this.data?.call)
                             this.data.call(this.getDataList()[this.itemListSelectIndex]);
                     })
-                    .then(() => {
+                    .catch(() => {
                         this.canClick = true;
                     });
 
