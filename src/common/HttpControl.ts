@@ -56,13 +56,18 @@ export default class HttpControl {
             if (xmlhttp.readyState == 4) {
                 switch (xmlhttp.status) {
                     case 200:
-                        if (ad) {
-                            TaskService.taskAddTimes(1001);
-                            TaskService.taskAddTimes(1012);
+                        const data = JSON.parse(xmlhttp.responseText);
+                        if (!data.code) {
+                            if (ad) {
+                                TaskService.taskAddTimes(1001);
+                                TaskService.taskAddTimes(1012);
+                            }
                         }
-                        this.completeHandler(JSON.parse(xmlhttp.responseText), resolve);
+
+                        this.completeHandler(data, resolve);
                         this.clearOneInEventMap(xmlhttp);
                         break;
+
                     default:
                         if (xmlhttp.responseText) {
                             let d = JSON.parse(xmlhttp.responseText);
@@ -98,6 +103,10 @@ export default class HttpControl {
         return xmlhttp;
     }
 
+    /**
+     * 删除队列事件
+     * @param xml
+     */
     private clearOneInEventMap(xml: XMLHttpRequest) {
         Laya.timer.frameOnce(1, this, () => {
             this.eventMap.forEach((e, v) => {
