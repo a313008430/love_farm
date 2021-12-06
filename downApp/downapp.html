@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开心农场红包版</title>
+</head>
+<style>
+    * {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    /* 弹框 */
+
+    #mask {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(127, 127, 127, 0.7);
+        padding: 130px 25px 0px 25px;
+        box-sizing: border-box;
+    }
+
+    #mask img {
+        width: 100%;
+    }
+
+    #mask>.sure2 {
+        margin-top: 30px;
+    }
+
+    #mask>.line {
+        width: 100px;
+        position: fixed;
+        top: 10px;
+        right: 20px;
+    }
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+    }
+
+    .app {
+        background-image: url('./img//bg.jpg');
+        background-size: cover;
+        color: #906344;
+        font-weight: bold;
+        padding-bottom: 40px;
+        box-sizing: border-box;
+    }
+
+    .header {
+        height: 180px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 30px;
+    }
+
+    .header img {
+        height: 75px;
+    }
+
+    .header_font {
+        font-size: 17px;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    .header_son {
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .main {
+        margin-top: 550px;
+        padding: 0 15px;
+    }
+
+    .jieshao span {
+        font-size: 15px;
+        line-height: 30px;
+    }
+
+    .jies_con {
+        text-indent: 30px;
+        line-height: 23px;
+        font-size: 14px;
+    }
+
+    .gongnen {
+        margin-top: 20px;
+    }
+
+    .jieshao_con {
+        text-indent: 30px;
+        line-height: 30px;
+        font-size: 14px;
+    }
+
+    .footer {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+    }
+
+    .footer img {
+        height: 39px;
+    }
+</style>
+
+<body>
+    <div class="app">
+        <div class="header">
+            <img src="./img//logo.png" alt="">
+            <div class="header_font">开心农场红包版</div>
+            <div class="header_son">
+                <span>版本号:<span id="userbanben">V1.01</span> </span>
+                <span>更新:<span id="usertime">2021-11-25</span> </span>
+            </div>
+        </div>
+        <div class="main">
+            <div class="jieshao">
+                <span>产品介绍:</span>
+                <div class="jies_con">
+                    身处喧嚣嘈杂的城市生活这么久，你是否需要一块净土，只有你和三五好友？《开心农场红包版》一款经典的模拟经营类小游戏。老游戏新玩法，成为新一代的农场主。扩张升级你的土地，让农作物更好的生长；收养萌宠为你看家。出售你的作物，获得更多财富。而你还可以去好友家里转转，为好友收菜。全新的好友系统，让你和你的小伙伴们一起快乐的成长。来感受只属于你自己的田园牧歌吧。
+
+                </div>
+            </div>
+            <div class="gongnen">
+                <div class="jieshao">
+                    <span>产品功能:</span>
+                    <div class="jieshao_con">
+                        <p>种植系统：土地扩展、升级可收获更多</p>
+                        <p>好友系统：为好友收菜</p>
+                        <p>红包提现：种菜、收菜都可获得红包</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer" id="download">
+            <img src="./img//download.png" alt="">
+        </div>
+    </div>
+
+    <!-- 弹框 -->
+    <div id="mask">
+        <div class="line"><img src="./img/line.png" alt=""></div>
+        <div><img src="./img/sure1.png" alt=""></div>
+        <div class="sure2"><img src="./img/sure2.png" alt=""></div>
+    </div>
+</body>
+
+<script>
+    //获取dom节点
+    let userbanben = document.querySelector('#userbanben')
+    let usertime = document.querySelector('#usertime')
+    let mask = document.querySelector('#mask')
+    let download = document.querySelector('#download')
+    //原生js  post
+    let xhrPost = new XMLHttpRequest();
+    xhrPost.open('post', 'http://47.108.192.181:3000/config/version');
+    xhrPost.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhrPost.send();
+    xhrPost.onreadystatechange = function () {
+        if (xhrPost.readyState == 4 && xhrPost.status == 201) {
+            let res = JSON.parse(xhrPost.responseText)
+            userbanben.textContent = res.data.version
+            timestampToTime(res.data.updateTime);
+            usertime.textContent = strDate.split(' ')[0]
+        }
+    }
+    // 时间戳转换
+    function timestampToTime(timestamp) {
+        var date = new Date();//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        var Y = date.getFullYear() + '-';
+        var M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+        var D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+        var h = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+        var m = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+        var s = (date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds());
+        strDate = Y + M + D + h + m + s;
+        return strDate;
+    }
+    var explorer = window.navigator.userAgent.toLowerCase();
+    //点击事件的跳转
+    download.addEventListener('click', function () {
+        if (explorer.indexOf("micromessenger") >= 0) {
+            mask.style.display = 'block'
+        }
+        else {
+            window.location.href = 'https://ffarm.oss-cn-hangzhou.aliyuncs.com/release.apk';
+        }
+    });
+</script>
+
+</html>
