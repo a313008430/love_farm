@@ -2,7 +2,7 @@
     "x":0,
     "type":"View",
     "selectedBox":20,
-    "selecteID":21,
+    "selecteID":25,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#ffffff","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -207,25 +207,12 @@
                             "nodeParent":20,
                             "label":"icon",
                             "isOpen":true,
-                            "isDirectory":true,
+                            "isDirectory":false,
                             "isAniNode":true,
-                            "hasChild":true,
+                            "hasChild":false,
                             "compId":21,
                             "child":[
-                                {
-                                    "x":60,
-                                    "type":"Circle",
-                                    "searchKey":"Circle",
-                                    "props":{"y":23,"x":26.5,"renderType":"hit","radius":50,"lineWidth":1,"fillColor":"#ff0000"},
-                                    "nodeParent":21,
-                                    "label":"Circle",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":25,
-                                    "child":[
-                                        ]
-                                }]
+                                ]
                         },
                         {
                             "x":45,
@@ -241,6 +228,20 @@
                             "isAniNode":true,
                             "hasChild":false,
                             "compId":22,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Circle",
+                            "searchKey":"Circle",
+                            "props":{"y":23,"x":26,"renderType":"hit","radius":50,"lineWidth":1,"fillColor":"#ff0000"},
+                            "nodeParent":20,
+                            "label":"Circle",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":25,
                             "child":[
                                 ]
                         }]

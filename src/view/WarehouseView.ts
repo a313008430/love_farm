@@ -89,11 +89,6 @@ export default class WarehouseView extends Core.gameScript {
         WarehouseService.list.forEach((d) => {
             if (!this.dataList[y]) this.dataList[y] = [];
             this.dataList[y].push(d);
-            console.log(
-                d.base.id,
-                this.selectItemData?.base.id,
-                d.base.id == this.selectItemData?.base.id
-            );
             if (d.base.id == this.selectItemData?.base.id) {
                 hasSelect = true;
             }

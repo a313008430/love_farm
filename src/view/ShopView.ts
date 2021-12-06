@@ -110,6 +110,11 @@ export default class ShopView extends GameScript {
 
         Core.observableProperty.watch(UserInfo, this).key("diamond", (v) => {
             this.diamondFont.value = v;
+
+            let withdrawal = TableAnalyze.table("config").get("withdrawal").value as string[];
+            this.proportion.text = ` = ¥${((Number(withdrawal[2]) / Number(withdrawal[1])) * v)
+                .toString()
+                .match(/^\d+(?:\.\d{0,2})?/)}元`;
         });
     }
 
@@ -119,8 +124,6 @@ export default class ShopView extends GameScript {
 
         this.priceDataList = TableAnalyze.table("config").get("withdrawal_times").value as any;
         this.updateTopBtnState();
-        let withdrawal = TableAnalyze.table("config").get("withdrawal").value as string[];
-        this.proportion.text = `兑换比例 ${withdrawal[1]}:${withdrawal[2]}`;
 
         if (!UserInfo.isFirstTime) {
             this.itemList.disabled = true;
@@ -662,7 +665,6 @@ export default class ShopView extends GameScript {
                 break;
             }
         }
-        console.log(userData);
 
         (cell.getChildByName("value") as Laya.Label).text = data.price + "元";
         if (data.times) {

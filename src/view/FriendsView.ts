@@ -99,6 +99,7 @@ export default class FriendsView extends Core.gameScript {
                 newBox.visible = true;
                 newBox.active = true;
                 (newBox.getChildByName("past_btn") as Laya.Image).dataSource = data;
+                (newBox.getChildByName("ignore") as Laya.Image).dataSource = data;
                 heartBox.visible = false;
                 goPlayBtn.visible = false;
             } else {
@@ -145,7 +146,11 @@ export default class FriendsView extends Core.gameScript {
                 this.addBox.visible = false;
                 this.addBox.active = false;
                 this.viewState = 3;
-                this.itemList.array = this.friends;
+                let newF: FriendData[] = [];
+                this.friends.forEach((d) => {
+                    if (!d.applyIng) newF.push(d);
+                });
+                this.itemList.array = newF;
                 this.itemList.height = 914;
                 this.itemList.refresh();
                 this.isEmpty();
@@ -172,12 +177,45 @@ export default class FriendsView extends Core.gameScript {
             case "del_btn":
                 this.deleteFriend(e.target as any);
                 break;
+            case "ignore":
+                this.ignore(e.target as any);
+                break;
             case "go_play_btn":
                 this.visitFriend(e.target as any);
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * 忽略好友
+     * @param target
+     */
+    private ignore(target: Laya.Image) {
+        let data = target.dataSource as FriendData;
+        this.canClick = false;
+        HttpControl.inst
+            .send({
+                api: ApiHttp.friendDelete,
+                data: {
+                    friendId: data.uid,
+                },
+            })
+            .then((e) => {
+                for (let x = 0; x < this.friends.length; x++) {
+                    if (this.friends[x].uid == data.uid) {
+                        this.friends.splice(x, 1);
+                        break;
+                    }
+                }
+                this.canClick = true;
+                this.itemList.refresh();
+                this.isEmpty();
+            })
+            .catch(() => {
+                this.canClick = true;
+            });
     }
 
     /**
@@ -216,7 +254,7 @@ export default class FriendsView extends Core.gameScript {
                 })
                 .then((d) => {
                     Core.view.close(Res.views.FriendsView);
-                    Core.eventGlobal.event(EventMaps.go_friend_home, d);
+                    Core.eventGlobal.event(EventMaps.go_friend_home, [d, data]);
                     setTimeout(() => {
                         Core.view.setOverView(false);
                         this.canClick = true;

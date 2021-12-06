@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":133,
-    "selecteID":135,
+    "selectedBox":124,
+    "selecteID":145,
     "searchKey":"View",
     "props":{"y":0,"x":0,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/FriendsView.jpg","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":144,
+    "maxID":149,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -33,7 +33,7 @@
             "x":15,
             "type":"Image",
             "searchKey":"Image,box",
-            "props":{"x":538,"width":1082,"skin":"res/img_popUpBg.png","name":"box","mouseEnabled":true,"height":1182,"bottom":0,"anchorY":1,"anchorX":0.5},
+            "props":{"x":538,"width":1082,"skin":"res/img_popUpBg.png","name":"box","mouseEnabled":true,"height":1513,"bottom":0,"anchorY":1,"anchorX":0.5},
             "nodeParent":2,
             "label":"box",
             "isOpen":true,
@@ -120,19 +120,20 @@
                     "props":{"y":1178,"x":43,"width":1003,"spaceY":20,"repeatY":4,"repeatX":1,"height":914,"anchorY":1},
                     "nodeParent":38,
                     "label":"List",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":53,
                     "child":[
                         {
+                            "x":45,
                             "type":"Box",
                             "searchKey":"Box",
                             "props":{"y":-10,"x":0,"width":1003,"renderType":"render","mouseEnabled":true,"height":206},
                             "nodeParent":53,
                             "label":"Box",
-                            "isOpen":true,
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":false,
                             "hasChild":true,
@@ -375,7 +376,7 @@
                                         {
                                             "type":"Image",
                                             "searchKey":"Image,past_btn",
-                                            "props":{"y":41,"x":330.5,"skin":"game/img_agree.png","name":"past_btn","anchorY":0.5,"anchorX":0.5},
+                                            "props":{"y":72,"x":330.5,"width":237,"skin":"game/img_agree.png","name":"past_btn","height":82,"anchorY":0.5,"anchorX":0.5},
                                             "nodeParent":115,
                                             "label":"past_btn",
                                             "isOpen":false,
@@ -402,6 +403,35 @@
                                                 }]
                                         },
                                         {
+                                            "type":"Image",
+                                            "searchKey":"Image,ignore",
+                                            "props":{"y":-10,"x":330,"width":88,"skin":"game/img_ignore.png","rotation":0,"name":"ignore","height":44,"anchorY":0.5,"anchorX":0.5},
+                                            "nodeParent":115,
+                                            "label":"ignore",
+                                            "isOpen":null,
+                                            "isDirectory":true,
+                                            "isAniNode":false,
+                                            "hasChild":true,
+                                            "compId":146,
+                                            "child":[
+                                                {
+                                                    "type":"Script",
+                                                    "switchAble":true,
+                                                    "source":"src/components/Button.ts",
+                                                    "searchKey":"Script,Button",
+                                                    "removeAble":true,
+                                                    "props":{"isScale":true},
+                                                    "nodeParent":146,
+                                                    "label":"Button",
+                                                    "isDirectory":false,
+                                                    "isAniNode":false,
+                                                    "hasChild":false,
+                                                    "compId":148,
+                                                    "child":[
+                                                        ]
+                                                }]
+                                        },
+                                        {
                                             "type":"Label",
                                             "searchKey":"Label,new_friend",
                                             "props":{"y":21,"x":-0.5,"text":"新朋友","name":"new_friend","fontSize":38,"font":"Microsoft YaHei","color":"#755037","bold":true},
@@ -414,11 +444,11 @@
                                             "child":[
                                                 ]
                                         }],
-                                    "$HIDDEN":true
+                                    "$HIDDEN":false
                                 }],
                             "$HIDDEN":false
                         }],
-                    "$HIDDEN":true
+                    "$HIDDEN":false
                 },
                 {
                     "x":30,
@@ -597,82 +627,23 @@
                         {
                             "x":45,
                             "type":"Image",
-                            "searchKey":"Image,copy_btn",
-                            "props":{"y":63,"x":726,"width":81,"skin":"game/img_copyBtn.png","rotation":0,"pivotY":25,"pivotX":41,"name":"copy_btn","mouseEnabled":true,"height":50},
-                            "nodeParent":124,
-                            "label":"copy_btn",
-                            "isOpen":true,
-                            "isDirectory":true,
-                            "isAniNode":true,
-                            "hasChild":true,
-                            "compId":127,
-                            "child":[
-                                {
-                                    "x":60,
-                                    "type":"Script",
-                                    "switchAble":true,
-                                    "source":"src/components/Button.ts",
-                                    "searchKey":"Script,Button",
-                                    "removeAble":true,
-                                    "props":{"isScale":true},
-                                    "nodeParent":127,
-                                    "label":"Button",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":128,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "x":60,
-                                    "type":"Circle",
-                                    "searchKey":"Circle",
-                                    "props":{"y":25,"x":40.5,"renderType":"hit","radius":70,"lineWidth":1,"fillColor":"#ff0000"},
-                                    "nodeParent":127,
-                                    "label":"Circle",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":142,
-                                    "child":[
-                                        ]
-                                }]
-                        },
-                        {
-                            "x":45,
-                            "type":"Label",
-                            "searchKey":"Label,key",
-                            "props":{"y":41,"x":53,"text":"我的友情码：8inoXf7AWu","name":"key","fontSize":48,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
-                            "nodeParent":124,
-                            "label":"key",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":129,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "x":45,
-                            "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":128,"x":41,"width":718,"skin":"game/img_searchBg.png","height":88},
                             "nodeParent":124,
                             "label":"Image",
-                            "isOpen":true,
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":133,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":11,"x":15,"skin":"game/img_magnifier.png"},
                                     "nodeParent":133,
                                     "label":"Image",
+                                    "isOpen":true,
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
@@ -681,10 +652,9 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"TextInput",
                                     "searchKey":"TextInput",
-                                    "props":{"y":15,"x":120,"width":552,"type":"text","promptColor":"#906344","prompt":"请输入对方友情码","maxChars":15,"height":65,"fontSize":48,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
+                                    "props":{"y":15,"x":120,"width":552,"type":"text","promptColor":"#906344","prompt":"请输入对方友情码","multiline":true,"maxChars":15,"height":65,"fontSize":48,"font":"Microsoft YaHei","editable":true,"color":"#5A3F2A","bold":true},
                                     "nodeParent":133,
                                     "label":"TextInput",
                                     "isDirectory":false,
@@ -723,6 +693,75 @@
                             "compId":140,
                             "child":[
                                 ]
+                        },
+                        {
+                            "x":45,
+                            "type":"HBox",
+                            "searchKey":"HBox",
+                            "props":{"y":38,"x":53,"space":50},
+                            "nodeParent":124,
+                            "label":"HBox",
+                            "isOpen":null,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":145,
+                            "child":[
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image,copy_btn",
+                                    "props":{"y":25,"x":673,"width":81,"skin":"game/img_copyBtn.png","rotation":0,"pivotY":25,"pivotX":41,"name":"copy_btn","mouseEnabled":true,"height":50},
+                                    "nodeParent":145,
+                                    "label":"copy_btn",
+                                    "isOpen":false,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":127,
+                                    "child":[
+                                        {
+                                            "type":"Script",
+                                            "switchAble":true,
+                                            "source":"src/components/Button.ts",
+                                            "searchKey":"Script,Button",
+                                            "removeAble":true,
+                                            "props":{"isScale":true},
+                                            "nodeParent":127,
+                                            "label":"Button",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":128,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"Circle",
+                                            "searchKey":"Circle",
+                                            "props":{"y":25,"x":40.5,"renderType":"hit","radius":70,"lineWidth":1,"fillColor":"#ff0000"},
+                                            "nodeParent":127,
+                                            "label":"Circle",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":142,
+                                            "child":[
+                                                ]
+                                        }]
+                                },
+                                {
+                                    "type":"Label",
+                                    "searchKey":"Label,key",
+                                    "props":{"y":3,"text":"我的友情码：8inoXf7AWu","name":"key","fontSize":48,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
+                                    "nodeParent":145,
+                                    "label":"key",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":129,
+                                    "child":[
+                                        ]
+                                }]
                         }],
                     "$HIDDEN":false
                 },

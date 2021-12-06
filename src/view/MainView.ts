@@ -813,15 +813,15 @@ export default class MainView extends Core.gameScript {
     }
 
     @Core.eventOn(EventMaps.go_friend_home)
-    private goFriendListen(d: ReturnNeighbor) {
+    private goFriendListen(d: ReturnNeighbor, friendData: FriendData) {
         this.isOuter = true;
-        this.goFriend(d);
+        this.goFriend(d, friendData);
     }
 
     /**
      * 去朋友家
      */
-    private goFriend(d?: ReturnNeighbor) {
+    private goFriend(d?: ReturnNeighbor, friendData?: FriendData) {
         let lands = this.landList,
             userLands = LandService.list;
         let otherLands: Map<number, LandObj> = new Map();
@@ -882,13 +882,13 @@ export default class MainView extends Core.gameScript {
             this.taskBox.visible = true;
         }
 
-        this.updateFriendView(d?.nickname);
+        this.updateFriendView(d?.nickname, friendData);
     }
 
     /**
      * 更新去好友家还是自己家的界面状态
      */
-    private updateFriendView(nickname: string = "") {
+    private updateFriendView(nickname: string = "", friendData: FriendData) {
         const topBox = this.orderBox.parent as Laya.Box,
             moneyBox = topBox.getChildByName("money_box") as Laya.Box,
             countDown = topBox.getChildByName("count_down") as Laya.Label,
@@ -909,6 +909,7 @@ export default class MainView extends Core.gameScript {
 
             countDown.text = Tools.formatSeconds(this.outCountDownNumber);
             Laya.timer.loop(1000, this, this.outCountDownEvent, [countDown]);
+            if (friendData?.avatar) this.avatarNode.skin = friendData?.avatar;
         } else {
             this.outCountDownNumber = 60;
             Laya.timer.clear(this, this.outCountDownEvent);
@@ -916,6 +917,7 @@ export default class MainView extends Core.gameScript {
             friendName.visible = false;
             moneyBox.visible = true;
             countDown.visible = false;
+            this.avatarNode.skin = UserInfo.avatar;
         }
         bottomList.forEach((e) => {
             e.disabled = this.isOuter;

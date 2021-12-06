@@ -224,6 +224,7 @@ interface ReturnNeighbor {
     protectedTime: 0;
     nickname: "string";
     uid: number;
+    avatar: string;
 }
 
 /**

@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":129,
-    "selecteID":172,
+    "selectedBox":237,
+    "selecteID":159,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/ShopView.jpg","right":0,"left":0,"height":1920,"btnList":"@arr:,,","bottom":0},
     "nodeParent":-1,
-    "maxID":237,
+    "maxID":238,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -1444,20 +1444,6 @@
                                 },
                                 {
                                     "x":60,
-                                    "type":"FontClip",
-                                    "searchKey":"FontClip,diamond",
-                                    "props":{"y":139,"x":130,"value":"12345","spaceX":-5,"skin":"game/fontClip_bank.png","sheet":"0123456789","name":"diamond"},
-                                    "nodeParent":129,
-                                    "label":"diamond",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":157,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":44,"x":663,"skin":"game/img_record.png"},
@@ -1496,20 +1482,6 @@
                                     "isAniNode":true,
                                     "hasChild":false,
                                     "compId":150,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "x":60,
-                                    "type":"Label",
-                                    "searchKey":"Label,proportion",
-                                    "props":{"y":142,"x":806,"text":"兑换比例 100:1","name":"proportion","fontSize":36,"font":"SimHei","color":"#906344","bold":true,"anchorX":1,"align":"left"},
-                                    "nodeParent":129,
-                                    "label":"proportion",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":159,
                                     "child":[
                                         ]
                                 },
@@ -1599,6 +1571,48 @@
                                                     "child":[
                                                         ]
                                                 }]
+                                        }]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"HBox",
+                                    "searchKey":"HBox",
+                                    "props":{"y":139,"x":130},
+                                    "nodeParent":129,
+                                    "label":"HBox",
+                                    "isOpen":true,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":237,
+                                    "child":[
+                                        {
+                                            "x":75,
+                                            "type":"FontClip",
+                                            "searchKey":"FontClip,diamond",
+                                            "props":{"value":"12345","spaceX":-5,"skin":"game/fontClip_bank.png","sheet":"0123456789","name":"diamond"},
+                                            "nodeParent":237,
+                                            "label":"diamond",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":157,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "x":75,
+                                            "type":"Label",
+                                            "searchKey":"Label,proportion",
+                                            "props":{"x":0,"text":"=¥0元","name":"proportion","fontSize":36,"font":"SimHei","color":"#D1330E","bold":true,"align":"left"},
+                                            "nodeParent":237,
+                                            "label":"proportion",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":159,
+                                            "child":[
+                                                ]
                                         }]
                                 }],
                             "$HIDDEN":false
