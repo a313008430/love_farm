@@ -61,6 +61,23 @@ export default class LoginView extends GameScript {
                 break;
             case "check_box":
                 this.privacyCheckIcon.visible = !this.privacyCheckIcon.visible;
+
+                // AppCore.runAppFunction({
+                //     uri: AppEventMap.clearCache,
+                //     data: {},
+                // });
+
+                // setTimeout(() => {
+                //     AppCore.runAppFunction({
+                //         uri: AppEventMap.showBackground,
+                //         data: {},
+                //     });
+                // }, 500);
+                // setTimeout(() => {
+                //     location.reload();
+                // }, 1000);
+                // // alert(1);
+
                 break;
             case "privacy_lb":
                 AppCore.runAppFunction({
