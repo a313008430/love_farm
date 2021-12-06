@@ -49,7 +49,7 @@
     }
 
     .app {
-        background-image: url('./img//bg.jpg');
+        background-image: url('./img/bg.jpg');
         background-size: cover;
         color: #906344;
         font-weight: bold;
@@ -76,14 +76,27 @@
         margin: 10px 0;
     }
 
-    .header_son {
-        font-size: 14px;
-        font-weight: bold;
+    .main_center {
+        height: 550px;
+        display: flex;
+        justify-content: space-around;
+    }
+    .main_center img{
+        height: 100%;
+    }
+    .main_center div{
+        border-radius: 20px;
+        overflow: hidden;
     }
 
     .main {
-        margin-top: 550px;
         padding: 0 15px;
+    }
+
+    .main_content {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
     }
 
     .jieshao span {
@@ -116,6 +129,18 @@
     .footer img {
         height: 39px;
     }
+
+    @media screen and (min-width:768px) {
+        .app {
+            height: 100%;
+        }
+    }
+
+    @media screen and (max-width:768px) {
+        .main_center div{
+            display: none;
+        }
+    }
 </style>
 
 <body>
@@ -128,15 +153,19 @@
                 <span>更新:<span id="usertime">2021-11-25</span> </span>
             </div>
         </div>
+        <div class="main_center">
+            <div><img src="./img/1.jpg" alt=""></div>
+            <div><img src="./img/2.jpg" alt=""></div>
+            <div><img src="./img/3.jpg" alt=""></div>
+        </div>
         <div class="main">
-            <div class="jieshao">
-                <span>产品介绍:</span>
-                <div class="jies_con">
-                    身处喧嚣嘈杂的城市生活这么久，你是否需要一块净土，只有你和三五好友？《开心农场红包版》一款经典的模拟经营类小游戏。老游戏新玩法，成为新一代的农场主。扩张升级你的土地，让农作物更好的生长；收养萌宠为你看家。出售你的作物，获得更多财富。而你还可以去好友家里转转，为好友收菜。全新的好友系统，让你和你的小伙伴们一起快乐的成长。来感受只属于你自己的田园牧歌吧。
-
+            <div class="main_content">
+                <div class="jieshao">
+                    <span>产品介绍:</span>
+                    <div class="jies_con">
+                        身处喧嚣嘈杂的城市生活这么久，你是否需要一块净土，只有你和三五好友？《开心农场红包版》一款经典的模拟经营类小游戏。老游戏新玩法，成为新一代的农场主。扩张升级你的土地，让农作物更好的生长；收养萌宠为你看家。出售你的作物，获得更多财富。而你还可以去好友家里转转，为好友收菜。全新的好友系统，让你和你的小伙伴们一起快乐的成长。来感受只属于你自己的田园牧歌吧。
+                    </div>
                 </div>
-            </div>
-            <div class="gongnen">
                 <div class="jieshao">
                     <span>产品功能:</span>
                     <div class="jieshao_con">
@@ -145,6 +174,7 @@
                         <p>红包提现：种菜、收菜都可获得红包</p>
                     </div>
                 </div>
+
             </div>
         </div>
         <div class="footer" id="download">

@@ -74,4 +74,8 @@ export const enum AppEventMap {
     registerSuccess = "registerSuccess",
     /** 登录成功 */
     loginSuccess = "LoginSuccess",
+    /** 清除缓存 */
+    clearCache = "clearCache",
+    /** 打开遮罩背景 */
+    showBackground = "showBackground",
 }

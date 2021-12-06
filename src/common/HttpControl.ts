@@ -77,6 +77,7 @@ export default class HttpControl {
                                     call: () => {},
                                 });
                             } else {
+                                d.code = 999;
                                 this.completeHandler(d, resolve);
                             }
                             this.clearOneInEventMap(xmlhttp);
@@ -198,11 +199,13 @@ export default class HttpControl {
                 `color:#78e08f;font-weight:700;`,
                 e.data
             );
-            HttpDataControl.forward({
-                api: this.sendData.api,
-                data: e.data,
-                resolveEvent: resolve,
-            });
+            if (e.code === 0) {
+                HttpDataControl.forward({
+                    api: this.sendData.api,
+                    data: e.data,
+                    resolveEvent: resolve,
+                });
+            }
         }
     }
     private errorHandler(e) {
