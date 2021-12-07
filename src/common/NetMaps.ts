@@ -70,4 +70,6 @@ export const enum ApiHttp {
     mailDelete = "/mail/delete",
     /** 提现 */
     withdraw = "/withdraw",
+    /** 客户端版本 */
+    configClient = "/config/client",
 }

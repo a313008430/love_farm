@@ -1,4 +1,4 @@
-import ConfigGame from "src/common/ConfigGame";
+import ConfigGame, { BuildType } from "src/common/ConfigGame";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import AppCore from "src/core/App";
@@ -28,8 +28,12 @@ export default class LoginView extends GameScript {
 
     private data: { call: Function };
 
-    onOpened(d) {
+    async onOpened(d) {
         this.data = d;
+        this.loginBox.visible = false;
+        this.loadBox.visible = false;
+        this.privacyBox.visible = false;
+        await this.version();
 
         if (LocalStorageService.getJSON()?.isLogin) {
             this.login(false);
@@ -38,6 +42,7 @@ export default class LoginView extends GameScript {
         } else {
             this.loginBox.visible = true;
             this.loadBox.visible = false;
+            this.privacyBox.visible = true;
         }
     }
 
@@ -54,6 +59,82 @@ export default class LoginView extends GameScript {
         this.loadBar.width = 0;
     }
 
+    private getBuildType() {
+        let buildType = null;
+        switch (BUILD_TYPE) {
+            case BuildType.debug:
+                buildType = 3;
+                break;
+            case BuildType.test:
+                buildType = 2;
+                break;
+            case BuildType.online:
+                buildType = 1;
+                break;
+        }
+        if (!buildType) {
+            return Core.view.openHint({
+                text: "环境type配置出错",
+                call: () => {
+                    AppCore.runAppFunction({
+                        uri: AppEventMap.clearCache,
+                        data: {},
+                    });
+                    location.reload();
+                },
+            });
+        }
+        return buildType;
+    }
+
+    private async version() {
+        return new Promise((resolve) => {
+            HttpControl.inst
+                .send({
+                    api: ApiHttp.configClient,
+                    data: { type: this.getBuildType() },
+                })
+                .then((d: ConfigClient) => {
+                    const version = Number(
+                        LocalStorageService.getJSON().version?.replace(/\./g, "")
+                    );
+
+                    if (!version) {
+                        resolve(null);
+                        LocalStorageService.setJSON("version", d.version);
+                        ConfigGame.version = d.version;
+
+                        return;
+                    }
+
+                    if (Number(d.version.replace(/\./g, "")) > version) {
+                        AppCore.runAppFunction({
+                            uri: AppEventMap.clearCache,
+                            data: {},
+                        });
+                        Core.view.openHint({
+                            text: "检测到新的版本，请更新！",
+                            call: () => {
+                                LocalStorageService.setJSON("version", d.version);
+                                AppCore.runAppFunction({
+                                    uri: AppEventMap.showBackground,
+                                    data: {},
+                                });
+                                location.reload();
+                            },
+                        });
+                    } else {
+                        ConfigGame.version = d.version;
+                        resolve(null);
+                    }
+                })
+                .catch(() => {
+                    alert("版本检测出错");
+                    resolve(null);
+                });
+        });
+    }
+
     onClick(e: Laya.Event) {
         switch (e.target.name) {
             case "login_btn":
@@ -61,23 +142,6 @@ export default class LoginView extends GameScript {
                 break;
             case "check_box":
                 this.privacyCheckIcon.visible = !this.privacyCheckIcon.visible;
-
-                // AppCore.runAppFunction({
-                //     uri: AppEventMap.clearCache,
-                //     data: {},
-                // });
-
-                // setTimeout(() => {
-                //     AppCore.runAppFunction({
-                //         uri: AppEventMap.showBackground,
-                //         data: {},
-                //     });
-                // }, 500);
-                // setTimeout(() => {
-                //     location.reload();
-                // }, 1000);
-                // // alert(1);
-
                 break;
             case "privacy_lb":
                 AppCore.runAppFunction({

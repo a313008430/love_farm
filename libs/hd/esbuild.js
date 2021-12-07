@@ -2,6 +2,8 @@ const esbuild = require("esbuild");
 const chokidar = require("chokidar");
 const { performance } = require("perf_hooks");
 
+const buildType = process.argv[2];
+
 /**
  * 编译ts=>bundle.js
  */
@@ -10,7 +12,6 @@ function EsBuildTs() {
     // if (rebuild) {
     //     return rebuild.rebuild();
     // }
-
     if (process.argv.includes("debug")) {
         esbuild
             .build({
@@ -19,7 +20,7 @@ function EsBuildTs() {
                 bundle: true,
                 sourcemap: "inline",
                 incremental: true,
-                define: { DEBUG: process.argv.includes("debug") },
+                define: { BUILD_TYPE: JSON.stringify(buildType) },
                 // watch: true,
                 watch: {
                     onRebuild(e, s) {
@@ -46,7 +47,7 @@ function EsBuildTs() {
             bundle: true,
             // sourcemap: "inline",
             incremental: true,
-            define: { DEBUG: process.argv.includes("debug") },
+            define: { BUILD_TYPE: JSON.stringify(buildType) },
             loader: { ".fs": "text", ".vs": "text", ".glsl": "text" },
         });
     }

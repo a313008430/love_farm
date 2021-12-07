@@ -281,3 +281,9 @@ interface WithdrawData {
     id: number;
     times: number;
 }
+/**
+ * 提现数据结构
+ */
+interface ConfigClient {
+    version: string;
+}

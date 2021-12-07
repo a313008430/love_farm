@@ -2,6 +2,8 @@ const chokidar = require("chokidar");
 const fs = require("fs");
 const path = require("path");
 
+const buildType = process.argv[2];
+
 /////======================================
 
 //资源文件列表

@@ -8,6 +8,8 @@ const LocalData = {
     sound: false,
     /** true 为关闭 false 为打开 */
     music: false,
+    /** version */
+    version: "0.0.0",
 };
 
 /**
@@ -35,8 +37,14 @@ class LocalStorageService {
     }
 
     clear() {
-        Laya.LocalStorage.setJSON(ConfigGame.localKey, {});
-        this.localData = { isLogin: false, token: null, sound: true, music: true };
+        Laya.LocalStorage.setJSON(ConfigGame.localKey, { version: this.localData.version });
+        this.localData = {
+            isLogin: false,
+            token: null,
+            sound: true,
+            music: true,
+            version: this.localData.version,
+        };
     }
 }
 

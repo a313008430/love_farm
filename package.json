@@ -13,8 +13,12 @@
         "tslib": "^2.3.1"
     },
     "scripts": {
-        "build": "node libs/hd/index.js",
-        "start": "node libs/hd/index.js debug"
+        "build": "node libs/hd/index.js online",
+        "build:online": "node libs/hd/index.js online",
+        "build:test": "node libs/hd/index.js test",
+        "start": "node libs/hd/index.js debug",
+        "start:test": "node libs/hd/index.js test",
+        "start:online": "node libs/hd/index.js online"
     },
     "repository": {
         "type": "git",

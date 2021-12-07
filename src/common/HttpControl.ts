@@ -56,6 +56,7 @@ export default class HttpControl {
             if (xmlhttp.readyState == 4) {
                 switch (xmlhttp.status) {
                     case 200:
+                    case 201:
                         const data = JSON.parse(xmlhttp.responseText);
                         if (!data.code) {
                             if (ad) {
@@ -64,7 +65,7 @@ export default class HttpControl {
                             }
                         }
 
-                        this.completeHandler(data, resolve);
+                        this.completeHandler(data, resolve, reject);
                         this.clearOneInEventMap(xmlhttp);
                         break;
 
@@ -77,11 +78,12 @@ export default class HttpControl {
                                     call: () => {},
                                 });
                             } else {
+                                // console.log(d);
                                 d.code = 999;
-                                this.completeHandler(d, resolve);
+                                this.completeHandler(d, resolve, reject);
                             }
                             this.clearOneInEventMap(xmlhttp);
-                            reject();
+                            // reject();
                         }
 
                         if (!xmlhttp.status) {
@@ -91,10 +93,11 @@ export default class HttpControl {
                                     data: { message: "服务器未响应，请重试" },
                                     uri: "",
                                 },
-                                resolve
+                                resolve,
+                                reject
                             );
                             this.clearOneInEventMap(xmlhttp);
-                            reject();
+                            // reject();
                         }
                         break;
                 }
@@ -185,8 +188,9 @@ export default class HttpControl {
         });
     }
 
-    private completeHandler(e, resolve: Function) {
+    private completeHandler(e, resolve: Function, reject: Function) {
         if (e.code) {
+            reject();
             if (this.sendData?.error) {
                 this.sendData.error(e.code, e.data);
             }

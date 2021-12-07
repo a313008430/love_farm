@@ -9,7 +9,7 @@ import LandService from "./dataService/LandService";
 import WarehouseService from "./dataService/WarehouseService";
 import HttpControl from "./common/HttpControl";
 import LocalStorageService from "./dataService/LocalStorageService";
-import ConfigGame from "./common/ConfigGame";
+import ConfigGame, { BuildType } from "./common/ConfigGame";
 import Core from "./core/index";
 import AppCore from "./core/App";
 class Main {
@@ -37,7 +37,7 @@ class Main {
         Laya.alertGlobalError(true);
         Laya.stage.bgColor = "#ffffff";
 
-        DEBUG && GameConfig.stat && Laya.Stat.show();
+        BUILD_TYPE == BuildType.debug && GameConfig.stat && Laya.Stat.show();
 
         //激活资源版本控制，version.json由IDE发布功能自动生成，如果没有也不影响后续流程
         Laya.ResourceVersion.enable(
