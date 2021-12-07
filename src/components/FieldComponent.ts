@@ -1,4 +1,5 @@
 import ConfigGame from "src/common/ConfigGame";
+import ErrorCode from "src/common/ErrorCode";
 import { EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
@@ -598,8 +599,11 @@ export default class FieldComponent extends Core.gameScript {
                     }
                 }
             )
-            .catch(() => {
+            .catch((code: number) => {
                 this.canClick = true;
+                if (code === ErrorCode._2001) {
+                    this.clearField();
+                }
             });
     }
 

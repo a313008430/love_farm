@@ -66,7 +66,7 @@ export default class FriendsView extends Core.gameScript {
         applyBtn.visible = false;
         delBtn.visible = false;
 
-        if (data.avatar) (cell.getChildByName("head") as Laya.Image).skin = data.avatar;
+        if (data?.avatar) (cell.getChildByName("head") as Laya.Image).skin = data.avatar;
         (cell.getChildByName("name") as Laya.Label).text = data.nickname;
         (cell.getChildByName("lv") as Laya.Label).text = (data.orderLevel || 0) + "";
         (heartBox.getChildByName("val") as Laya.Label).text = (data.intimacy || 0) + "";
@@ -118,43 +118,11 @@ export default class FriendsView extends Core.gameScript {
                 Core.view.close(Res.views.FriendsView);
                 break;
             case "add_friend":
-                if (this.viewState == 3 || this.viewState == 2) {
-                    this.viewState = 1;
-                    this.itemList.array = this.friends;
-                    this.itemList.height = 914;
-                    this.addFriend.skin = `game/img_addBtn.png`;
-                    this.addBox.visible = false;
-                    this.addBox.active = false;
-                    this.isEmpty();
-                } else {
-                    this.viewState = 2;
-                    this.addBox.visible = true;
-                    this.addBox.active = true;
-                    this.itemList.array = [];
-                    this.itemList.height = 590; //914
-                    this.addFriend.skin = `game/img_friendBtn.png`;
-                    this.empty_lb.visible = false;
-                }
+                this.addFriendEvent();
 
-                this.itemList.refresh();
-
-                // `game/img_hangout.png`
-                // img_friendBtn
                 break;
             case "del_friend":
-                if (this.viewState == 3) break;
-                this.addBox.visible = false;
-                this.addBox.active = false;
-                this.viewState = 3;
-                let newF: FriendData[] = [];
-                this.friends.forEach((d) => {
-                    if (!d.applyIng) newF.push(d);
-                });
-                this.itemList.array = newF;
-                this.itemList.height = 914;
-                this.itemList.refresh();
-                this.isEmpty();
-                this.addFriend.skin = `game/img_friendBtn.png`;
+                this.deleteFriendEvent();
                 break;
             case "desc_btn":
                 Core.view.open(Res.views.FriendsDescView);
@@ -186,6 +154,44 @@ export default class FriendsView extends Core.gameScript {
             default:
                 break;
         }
+    }
+
+    private deleteFriendEvent() {
+        if (this.viewState == 3) return;
+        this.addBox.visible = false;
+        this.addBox.active = false;
+        this.viewState = 3;
+        let newF: FriendData[] = [];
+        this.friends.forEach((d) => {
+            if (!d.applyIng) newF.push(d);
+        });
+        this.itemList.array = newF;
+        this.itemList.height = 914;
+        this.itemList.refresh();
+        this.isEmpty();
+        this.addFriend.skin = `game/img_friendBtn.png`;
+    }
+
+    private addFriendEvent() {
+        if (this.viewState == 3 || this.viewState == 2) {
+            this.viewState = 1;
+            this.itemList.array = this.friends;
+            this.itemList.height = 914;
+            this.addFriend.skin = `game/img_addBtn.png`;
+            this.addBox.visible = false;
+            this.addBox.active = false;
+            this.isEmpty();
+        } else {
+            this.viewState = 2;
+            this.addBox.visible = true;
+            this.addBox.active = true;
+            this.itemList.array = [];
+            this.itemList.height = 590; //914
+            this.addFriend.skin = `game/img_friendBtn.png`;
+            this.empty_lb.visible = false;
+        }
+
+        this.itemList.refresh();
     }
 
     /**
@@ -229,7 +235,25 @@ export default class FriendsView extends Core.gameScript {
                 data: {},
             })
             .then((d: InviteList) => {
-                Core.view.open(Res.views.FriendsRewardView, { parm: d.list });
+                Core.view.open(Res.views.FriendsRewardView, {
+                    parm: {
+                        list: d.list,
+                        call: () => {
+                            HttpControl.inst
+                                .send({
+                                    api: ApiHttp.friendList,
+                                })
+                                .then((d: FriendListData) => {
+                                    this.friends = d.list;
+                                    this.friendsList = this.friends;
+                                    this.updateListData();
+                                    this.itemList.array = this.friendsList;
+                                    this.isEmpty();
+                                    this.itemList.refresh();
+                                });
+                        },
+                    },
+                });
                 this.canClick = true;
             })
             .catch(() => {
@@ -289,6 +313,8 @@ export default class FriendsView extends Core.gameScript {
                                 break;
                             }
                         }
+
+                        this.itemList.array = this.friendsList;
                         this.itemList.refresh();
                         this.isEmpty();
                     });

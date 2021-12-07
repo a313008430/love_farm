@@ -190,7 +190,7 @@ export default class HttpControl {
 
     private completeHandler(e, resolve: Function, reject: Function) {
         if (e.code) {
-            reject();
+            reject(e.code);
             if (this.sendData?.error) {
                 this.sendData.error(e.code, e.data);
             }

@@ -1391,7 +1391,7 @@
     completeHandler(e, resolve, reject) {
       var _a;
       if (e.code) {
-        reject();
+        reject(e.code);
         if ((_a = this.sendData) == null ? void 0 : _a.error) {
           this.sendData.error(e.code, e.data);
         }
@@ -1602,8 +1602,9 @@
       this.priceList.array = new Array(3);
       this.priceList.renderHandler = new Laya.Handler(this, this.renderItem);
     }
-    onOpened(list = []) {
-      this.inviteList = list;
+    onOpened(data) {
+      this.inviteList = data.list || [];
+      this.call = data.call;
       if (UserInfo_default.invitePeople) {
         this.inviteBox.visible = false;
         this.inviteBox.active = false;
@@ -1688,6 +1689,8 @@
         this.inviteBox.visible = false;
         this.inviteBox.active = false;
         this.canClick = true;
+        if (this.call)
+          this.call();
       }).catch(() => {
         this.canClick = true;
       });
@@ -1733,7 +1736,7 @@
       goPlayBtn.visible = false;
       applyBtn.visible = false;
       delBtn.visible = false;
-      if (data.avatar)
+      if (data == null ? void 0 : data.avatar)
         cell.getChildByName("head").skin = data.avatar;
       cell.getChildByName("name").text = data.nickname;
       cell.getChildByName("lv").text = (data.orderLevel || 0) + "";
@@ -1780,41 +1783,10 @@
           core_default.view.close(Res_default.views.FriendsView);
           break;
         case "add_friend":
-          if (this.viewState == 3 || this.viewState == 2) {
-            this.viewState = 1;
-            this.itemList.array = this.friends;
-            this.itemList.height = 914;
-            this.addFriend.skin = `game/img_addBtn.png`;
-            this.addBox.visible = false;
-            this.addBox.active = false;
-            this.isEmpty();
-          } else {
-            this.viewState = 2;
-            this.addBox.visible = true;
-            this.addBox.active = true;
-            this.itemList.array = [];
-            this.itemList.height = 590;
-            this.addFriend.skin = `game/img_friendBtn.png`;
-            this.empty_lb.visible = false;
-          }
-          this.itemList.refresh();
+          this.addFriendEvent();
           break;
         case "del_friend":
-          if (this.viewState == 3)
-            break;
-          this.addBox.visible = false;
-          this.addBox.active = false;
-          this.viewState = 3;
-          let newF = [];
-          this.friends.forEach((d) => {
-            if (!d.applyIng)
-              newF.push(d);
-          });
-          this.itemList.array = newF;
-          this.itemList.height = 914;
-          this.itemList.refresh();
-          this.isEmpty();
-          this.addFriend.skin = `game/img_friendBtn.png`;
+          this.deleteFriendEvent();
           break;
         case "desc_btn":
           core_default.view.open(Res_default.views.FriendsDescView);
@@ -1847,6 +1819,43 @@
           break;
       }
     }
+    deleteFriendEvent() {
+      if (this.viewState == 3)
+        return;
+      this.addBox.visible = false;
+      this.addBox.active = false;
+      this.viewState = 3;
+      let newF = [];
+      this.friends.forEach((d) => {
+        if (!d.applyIng)
+          newF.push(d);
+      });
+      this.itemList.array = newF;
+      this.itemList.height = 914;
+      this.itemList.refresh();
+      this.isEmpty();
+      this.addFriend.skin = `game/img_friendBtn.png`;
+    }
+    addFriendEvent() {
+      if (this.viewState == 3 || this.viewState == 2) {
+        this.viewState = 1;
+        this.itemList.array = this.friends;
+        this.itemList.height = 914;
+        this.addFriend.skin = `game/img_addBtn.png`;
+        this.addBox.visible = false;
+        this.addBox.active = false;
+        this.isEmpty();
+      } else {
+        this.viewState = 2;
+        this.addBox.visible = true;
+        this.addBox.active = true;
+        this.itemList.array = [];
+        this.itemList.height = 590;
+        this.addFriend.skin = `game/img_friendBtn.png`;
+        this.empty_lb.visible = false;
+      }
+      this.itemList.refresh();
+    }
     ignore(target) {
       let data = target.dataSource;
       this.canClick = false;
@@ -1875,7 +1884,23 @@
         api: ApiHttp.friendInviteList,
         data: {}
       }).then((d) => {
-        core_default.view.open(Res_default.views.FriendsRewardView, { parm: d.list });
+        core_default.view.open(Res_default.views.FriendsRewardView, {
+          parm: {
+            list: d.list,
+            call: () => {
+              HttpControl.inst.send({
+                api: ApiHttp.friendList
+              }).then((d2) => {
+                this.friends = d2.list;
+                this.friendsList = this.friends;
+                this.updateListData();
+                this.itemList.array = this.friendsList;
+                this.isEmpty();
+                this.itemList.refresh();
+              });
+            }
+          }
+        });
         this.canClick = true;
       }).catch(() => {
         this.canClick = true;
@@ -1919,6 +1944,7 @@
                 break;
               }
             }
+            this.itemList.array = this.friendsList;
             this.itemList.refresh();
             this.isEmpty();
           });
@@ -2467,6 +2493,13 @@
     }
   };
 
+  // src/common/ErrorCode.ts
+  var ErrorCode;
+  (function(ErrorCode2) {
+    ErrorCode2[ErrorCode2["_2001"] = 2001] = "_2001";
+  })(ErrorCode || (ErrorCode = {}));
+  var ErrorCode_default = ErrorCode;
+
   // src/components/FieldComponent.ts
   var FieldComponent = class extends core_default.gameScript {
     constructor() {
@@ -2862,8 +2895,11 @@
               list: rewardList
             });
           }
-        }).catch(() => {
+        }).catch((code) => {
           this.canClick = true;
+          if (code === ErrorCode_default._2001) {
+            this.clearField();
+          }
         });
       });
     }

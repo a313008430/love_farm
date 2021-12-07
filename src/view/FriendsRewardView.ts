@@ -23,14 +23,17 @@ export default class FriendsRewardView extends Core.gameScript {
     private proportion: number = 0;
     private canClick: boolean = true;
 
+    private call: Function;
+
     onHdAwake() {
         this.priceList.vScrollBarSkin = null;
         this.priceList.array = new Array(3);
         this.priceList.renderHandler = new Laya.Handler(this, this.renderItem);
     }
 
-    onOpened(list: InviteData[] = []) {
-        this.inviteList = list;
+    onOpened(data: { list: []; call: Function }) {
+        this.inviteList = data.list || [];
+        this.call = data.call;
         if (UserInfo.invitePeople) {
             this.inviteBox.visible = false;
             this.inviteBox.active = false;
@@ -137,6 +140,7 @@ export default class FriendsRewardView extends Core.gameScript {
                 this.inviteBox.visible = false;
                 this.inviteBox.active = false;
                 this.canClick = true;
+                if (this.call) this.call();
             })
             .catch(() => {
                 this.canClick = true;
