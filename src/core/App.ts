@@ -57,6 +57,7 @@ export default class AppCore {
             // }
         } else {
             console.log(JSON.stringify(data));
+            // alert(JSON.stringify(data));
             // alert(window["$App"] && window["$App"]["webRequest"]);
             if (window["$App"] && window["$App"]["webRequest"]) {
                 return new Promise((resolve) => {

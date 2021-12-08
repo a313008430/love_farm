@@ -2165,7 +2165,7 @@
         return new Promise((resolve) => {
           HttpControl.inst.send({
             api: ApiHttp.configClient,
-            data: { type: this.getBuildType() }
+            data: { id: this.getBuildType() }
           }).then((d) => {
             var _a;
             const version = Number((_a = LocalStorageService_default.getJSON().version) == null ? void 0 : _a.replace(/\./g, ""));

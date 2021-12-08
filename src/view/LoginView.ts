@@ -92,7 +92,7 @@ export default class LoginView extends GameScript {
             HttpControl.inst
                 .send({
                     api: ApiHttp.configClient,
-                    data: { type: this.getBuildType() },
+                    data: { id: this.getBuildType() },
                 })
                 .then((d: ConfigClient) => {
                     const version = Number(
