@@ -13,6 +13,7 @@ import LoginView from "./view/LoginView"
 import MailDescView from "./view/MailDescView"
 import MailView from "./view/MailView"
 import MainView from "./view/MainView"
+import FigureAni from "./components/FigureAni"
 import FieldComponent from "./components/FieldComponent"
 import OrderView from "./view/OrderView"
 import OverView from "./view/OverView"
@@ -55,6 +56,7 @@ export default class GameConfig{
         reg("view/MailDescView.ts",MailDescView);
         reg("view/MailView.ts",MailView);
         reg("view/MainView.ts",MainView);
+        reg("components/FigureAni.ts",FigureAni);
         reg("components/FieldComponent.ts",FieldComponent);
         reg("view/OrderView.ts",OrderView);
         reg("view/OverView.ts",OverView);

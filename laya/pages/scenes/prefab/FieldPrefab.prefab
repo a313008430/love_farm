@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"Image",
-    "selectedBox":254,
-    "selecteID":279,
+    "selectedBox":105,
+    "selecteID":280,
     "searchKey":"Image",
     "props":{"y":-2,"x":-2,"width":403,"skin":"main_scene/img_wasteland.png","sceneColor":null,"presetID":1,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","pivotY":100,"pivotX":200,"mouseEnabled":true,"isPresetRoot":true,"height":203,"anchorY":0.5,"anchorX":0.5},
     "nodeParent":-1,
-    "maxID":280,
+    "maxID":281,
     "label":"Image(FieldPrefab)",
     "isOpen":true,
     "isDirectory":true,
@@ -159,6 +159,20 @@
             "isAniNode":true,
             "hasChild":false,
             "compId":269,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Image",
+            "searchKey":"Image,reduceTime",
+            "props":{"y":-36,"x":201.5,"skin":"game/img_10min.png","presetID":12,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab","name":"reduceTime","anchorX":0.5},
+            "nodeParent":105,
+            "label":"reduceTime",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":280,
             "child":[
                 ]
         }],

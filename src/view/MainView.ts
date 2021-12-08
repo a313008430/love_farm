@@ -96,8 +96,10 @@ export default class MainView extends Core.gameScript {
     /** @prop {name:guideHand, tips:"新手引导手指", type:Node}*/
     private guideHand: Laya.Sprite = null;
 
-    /** @prop {name:figureAni, tips:"人物动画", type:Node}*/
-    private figureAni: Laya.Box = null;
+    /** @prop {name:figureBoxAni, tips:"人物动画容器", type:Node}*/
+    private figureBoxAni: Laya.Box = null;
+    /** @prop {name:figureBox2Ani, tips:"人物动画容器", type:Node}*/
+    private figureBox2Ani: Laya.Box = null;
 
     /** 土地组件 列表 */
     private landList: FieldComponent[] = [];
@@ -161,8 +163,24 @@ export default class MainView extends Core.gameScript {
             this.updateAllStateIcon();
         });
 
-        let a = Laya.Tween.to(this.figureAni, { x: -167, y: 435 }, 10000);
-        a.repeat = 0;
+        this.figureAniEvent();
+    }
+
+    private figureAniEvent() {
+        // const fAni = this.figureBoxAni.getChildByName("figure_ani") as Laya.Animation,
+        //     fAni3 = this.figureBoxAni.getChildByName("figure3_ani") as Laya.Animation,
+        //     fAni4 = this.figureBoxAni.getChildByName("figure4_ani") as Laya.Animation,
+        //     fAni1 = this.figureBox2Ani.getChildByName("figure1_ani") as Laya.Animation,
+        //     fAni2 = this.figureBox2Ani.getChildByName("figure2_ani") as Laya.Animation,
+        //     fAni5 = this.figureBox2Ani.getChildByName("figure5_ani") as Laya.Animation;
+        // fAni3.alpha = 0;
+        // fAni4.alpha = 0;
+        // fAni1.alpha = 0;
+        // fAni2.alpha = 0;
+        // fAni5.alpha = 0;
+        // fAni.alpha = 0;
+        // Laya.Tween.to(fAni, { alpha: 1 }, 600);
+        // Laya.Tween.to(fAni, { x: -600, y: 328 }, 10000);
     }
 
     /**

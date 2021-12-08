@@ -45,6 +45,9 @@ export default class FieldComponent extends Core.gameScript {
     /** 顶部icon装饰 */
     @Core.findByName
     private upAni: Laya.Animation = null;
+    /** 减时间提示 */
+    @Core.findByName
+    private reduceTime: Laya.Image = null;
 
     /** @prop {name:unlockIcon, tips:"拓展土地icon地址", type:String,accept:res}*/
     private unlockIcon: string = "";
@@ -89,6 +92,7 @@ export default class FieldComponent extends Core.gameScript {
         this.topStateIcon.visible = false;
         this.lvNode.visible = false;
         this.upAni.visible = false;
+        this.reduceTime.visible = false;
         this.upAni.on(Laya.Event.COMPLETE, this, () => {
             this.upAni.visible = false;
         });
@@ -305,6 +309,10 @@ export default class FieldComponent extends Core.gameScript {
     }
 
     /**
+     * 减时间表现
+     */
+    private reduceTimeAni: Laya.TimeLine;
+    /**
      * 加速
      */
     @Core.eventOn(EventMaps.land_speed_up)
@@ -314,6 +322,29 @@ export default class FieldComponent extends Core.gameScript {
                 .value as number;
             this.matureTime = this.data.matureTimeLeft * 1000 + Date.now();
             this.updateCountDown();
+            console.log(11);
+
+            //减时间提示
+            this.reduceTime.visible = true;
+            this.reduceTime.alpha = 0;
+            this.reduceTime.y = -39;
+            if (!this.reduceTimeAni)
+                this.reduceTimeAni = Laya.TimeLine.to(
+                    this.reduceTime,
+                    { y: -69, alpha: 1 },
+                    300
+                ).to(
+                    this.reduceTime,
+                    {
+                        y: -100,
+                        alpha: 0,
+                    },
+                    300,
+                    null,
+                    1000
+                );
+
+            this.reduceTimeAni.play();
         }
     }
 

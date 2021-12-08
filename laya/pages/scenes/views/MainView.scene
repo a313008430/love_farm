@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":908,
-    "selecteID":477,
+    "selectedBox":895,
+    "selecteID":934,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":920,
+    "maxID":955,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -21,7 +21,7 @@
             "source":"src/view/MainView.ts",
             "searchKey":"Script,MainView",
             "removeAble":true,
-            "props":{"y":0,"x":0,"width":14,"warehouseBtn":"@node:99","vitalityBuyBtn":"@node:879","vitalityBox":"@node:877","topLayerOnStage":"@node:837","topGoldIcon":"@node:72","topDiamondIcon":"@node:78","testBtn":"@node:237","taskBox":"@node:244","redNode":"@node:477","petBox":"@node:870","orderBox":"@node:80","moneyLb":"@node:479","landUpLayer":"@node:496","landBox":"@node:112","height":14,"guideLayer":"@node:897","guideHand":"@node:905","goldNode":"@node:73","goHomeBtn":"@node:875","getRewardPrefab":"@Prefab:scenes/prefab/GetReward.prefab","floatRewardIcon":"@Prefab:scenes/prefab/FloatRewardIcon.prefab","figureAni":"@node:895","diamondNode":"@node:79","center_box":"@node:96","centerBox":"@node:96","bottomBox":"@node:243","avatarNode":"@node:350","anyDoor":"@node:241","addLandLayer":"@node:316","addLandBg":"@node:332"},
+            "props":{"y":0,"x":0,"width":14,"warehouseBtn":"@node:99","vitalityBuyBtn":"@node:879","vitalityBox":"@node:877","topLayerOnStage":"@node:837","topGoldIcon":"@node:72","topDiamondIcon":"@node:78","testBtn":"@node:237","taskBox":"@node:244","redNode":"@node:477","petBox":"@node:870","orderBox":"@node:80","moneyLb":"@node:479","landUpLayer":"@node:496","landBox":"@node:112","height":14,"guideLayer":"@node:897","guideHand":"@node:905","goldNode":"@node:73","goHomeBtn":"@node:875","getRewardPrefab":"@Prefab:scenes/prefab/GetReward.prefab","floatRewardIcon":"@Prefab:scenes/prefab/FloatRewardIcon.prefab","figureBoxAni":"@node:942","figureBox2Ani":"@node:895","figureAni":"@node:894","diamondNode":"@node:79","center_box":"@node:96","centerBox":"@node:96","bottomBox":"@node:243","avatarNode":"@node:350","anyDoor":"@node:241","addLandLayer":"@node:316","addLandBg":"@node:332"},
             "nodeParent":2,
             "label":"MainView",
             "isDirectory":false,
@@ -112,43 +112,14 @@
                     "props":{"y":-57,"x":-106,"name":"house_box"},
                     "nodeParent":96,
                     "label":"house_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":101,
                     "child":[
                         {
-                            "type":"Image",
-                            "searchKey":"Image,shop",
-                            "props":{"y":252,"x":1003,"skin":"main_scene/img_marketBuilding.png","name":"shop","anchorY":0.5,"anchorX":0.5},
-                            "nodeParent":101,
-                            "label":"shop",
-                            "isOpen":null,
-                            "isDirectory":true,
-                            "isAniNode":true,
-                            "hasChild":true,
-                            "compId":97,
-                            "child":[
-                                {
-                                    "type":"Script",
-                                    "switchAble":true,
-                                    "source":"src/components/Button.ts",
-                                    "searchKey":"Script,Button",
-                                    "removeAble":true,
-                                    "props":{"scaleVal":0.95,"isScale":true},
-                                    "nodeParent":97,
-                                    "label":"Button",
-                                    "isDirectory":false,
-                                    "isClose":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":119,
-                                    "child":[
-                                        ]
-                                }]
-                        },
-                        {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,landLevelUp",
                             "props":{"y":149,"x":657,"skin":"main_scene/img_landUpdate.png","name":"landLevelUp","anchorY":0.5,"anchorX":0.5},
@@ -178,12 +149,13 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,warehouse",
                             "props":{"y":272,"x":270,"skin":"main_scene/img_storehouseBuilding.png","name":"warehouse","anchorY":0.5,"anchorX":0.5},
                             "nodeParent":101,
                             "label":"warehouse",
-                            "isOpen":null,
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
@@ -205,6 +177,247 @@
                                     "child":[
                                         ]
                                 }]
+                        },
+                        {
+                            "x":45,
+                            "type":"Box",
+                            "searchKey":"Box,figure_box",
+                            "props":{"y":209,"x":520,"name":"figure_box"},
+                            "nodeParent":101,
+                            "label":"figure_box",
+                            "isOpen":true,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":942,
+                            "child":[
+                                {
+                                    "x":60,
+                                    "type":"Animation",
+                                    "searchKey":"Animation,figure_ani",
+                                    "props":{"width":100,"source":"res/figure.atlas","name":"figure_ani","interval":150,"height":100,"autoPlay":true},
+                                    "nodeParent":942,
+                                    "label":"figure_ani",
+                                    "isOpen":null,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":943,
+                                    "child":[
+                                        {
+                                            "type":"Script",
+                                            "switchAble":true,
+                                            "source":"src/components/FigureAni.ts",
+                                            "searchKey":"Script,FigureAni",
+                                            "removeAble":true,
+                                            "props":{"delay":"1000","_y":"331","_x":"-592"},
+                                            "nodeParent":943,
+                                            "label":"FigureAni",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":949,
+                                            "child":[
+                                                ]
+                                        }]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Animation",
+                                    "searchKey":"Animation,figure3_ani",
+                                    "props":{"y":39,"x":-62,"width":100,"source":"res/figure3.atlas","name":"figure3_ani","interval":150,"height":100,"autoPlay":true},
+                                    "nodeParent":942,
+                                    "label":"figure3_ani",
+                                    "isOpen":null,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":946,
+                                    "child":[
+                                        {
+                                            "type":"Script",
+                                            "switchAble":true,
+                                            "source":"src/components/FigureAni.ts",
+                                            "searchKey":"Script,FigureAni",
+                                            "removeAble":true,
+                                            "props":{"delay":"10000","_y":"331","_x":"-592"},
+                                            "nodeParent":946,
+                                            "label":"FigureAni",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":950,
+                                            "child":[
+                                                ]
+                                        }]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Animation",
+                                    "searchKey":"Animation,figure4_ani",
+                                    "props":{"y":-171,"x":267,"width":100,"source":"res/figure4.atlas","name":"figure4_ani","interval":150,"height":100,"autoPlay":true},
+                                    "nodeParent":942,
+                                    "label":"figure4_ani",
+                                    "isOpen":null,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":947,
+                                    "child":[
+                                        {
+                                            "type":"Script",
+                                            "switchAble":true,
+                                            "source":"src/components/FigureAni.ts",
+                                            "searchKey":"Script,FigureAni",
+                                            "removeAble":true,
+                                            "props":{"time":"14000","delay":"1000","_y":"331","_x":"-592"},
+                                            "nodeParent":947,
+                                            "label":"FigureAni",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":951,
+                                            "child":[
+                                                ]
+                                        }]
+                                }],
+                            "$HIDDEN":false
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image,shop",
+                            "props":{"y":252,"x":1003,"skin":"main_scene/img_marketBuilding.png","name":"shop","anchorY":0.5,"anchorX":0.5},
+                            "nodeParent":101,
+                            "label":"shop",
+                            "isOpen":false,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":97,
+                            "child":[
+                                {
+                                    "type":"Script",
+                                    "switchAble":true,
+                                    "source":"src/components/Button.ts",
+                                    "searchKey":"Script,Button",
+                                    "removeAble":true,
+                                    "props":{"scaleVal":0.95,"isScale":true},
+                                    "nodeParent":97,
+                                    "label":"Button",
+                                    "isDirectory":false,
+                                    "isClose":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":119,
+                                    "child":[
+                                        ]
+                                }]
+                        },
+                        {
+                            "x":45,
+                            "type":"Box",
+                            "searchKey":"Box,figure2_box",
+                            "props":{"y":209,"x":521,"name":"figure2_box"},
+                            "nodeParent":101,
+                            "label":"figure2_box",
+                            "isOpen":true,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":895,
+                            "child":[
+                                {
+                                    "x":60,
+                                    "type":"Animation",
+                                    "searchKey":"Animation,figure1_ani",
+                                    "props":{"y":40,"x":299,"width":100,"source":"res/figure1.atlas","name":"figure1_ani","interval":150,"height":100,"autoPlay":true},
+                                    "nodeParent":895,
+                                    "label":"figure1_ani",
+                                    "isOpen":null,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":930,
+                                    "child":[
+                                        {
+                                            "type":"Script",
+                                            "switchAble":true,
+                                            "source":"src/components/FigureAni.ts",
+                                            "searchKey":"Script,FigureAni",
+                                            "removeAble":true,
+                                            "props":{"delay":"100","_y":"278","_x":"769"},
+                                            "nodeParent":930,
+                                            "label":"FigureAni",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":952,
+                                            "child":[
+                                                ]
+                                        }]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Animation",
+                                    "searchKey":"Animation,figure2_ani",
+                                    "props":{"y":20,"x":240,"width":100,"source":"res/figure2.atlas","name":"figure2_ani","interval":150,"height":100,"autoPlay":true},
+                                    "nodeParent":895,
+                                    "label":"figure2_ani",
+                                    "isOpen":null,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":931,
+                                    "child":[
+                                        {
+                                            "type":"Script",
+                                            "switchAble":true,
+                                            "source":"src/components/FigureAni.ts",
+                                            "searchKey":"Script,FigureAni",
+                                            "removeAble":true,
+                                            "props":{"delay":"12000","_y":"278","_x":"769"},
+                                            "nodeParent":931,
+                                            "label":"FigureAni",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":953,
+                                            "child":[
+                                                ]
+                                        }]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Animation",
+                                    "searchKey":"Animation,figure5_ani",
+                                    "props":{"y":-80,"x":13,"width":100,"source":"res/figure5.atlas","name":"figure5_ani","interval":150,"height":100,"autoPlay":true},
+                                    "nodeParent":895,
+                                    "label":"figure5_ani",
+                                    "isOpen":null,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":934,
+                                    "child":[
+                                        {
+                                            "type":"Script",
+                                            "switchAble":true,
+                                            "source":"src/components/FigureAni.ts",
+                                            "searchKey":"Script,FigureAni",
+                                            "removeAble":true,
+                                            "props":{"time":"13000","delay":"5000","_y":"278","_x":"769"},
+                                            "nodeParent":934,
+                                            "label":"FigureAni",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":954,
+                                            "child":[
+                                                ]
+                                        }]
+                                }],
+                            "$HIDDEN":false
                         }]
                 },
                 {
@@ -248,34 +461,6 @@
                     "compId":116,
                     "child":[
                         ]
-                },
-                {
-                    "x":30,
-                    "type":"Box",
-                    "searchKey":"Box,figure_box",
-                    "props":{"y":151,"x":413,"name":"figure_box"},
-                    "nodeParent":96,
-                    "label":"figure_box",
-                    "isOpen":true,
-                    "isDirectory":true,
-                    "isAniNode":true,
-                    "hasChild":true,
-                    "compId":895,
-                    "child":[
-                        {
-                            "x":45,
-                            "type":"Animation",
-                            "searchKey":"Animation,figure_ani",
-                            "props":{"width":100,"source":"res/figure.atlas","name":"figure_ani","interval":150,"height":100,"autoPlay":true},
-                            "nodeParent":895,
-                            "label":"figure_ani",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":894,
-                            "child":[
-                                ]
-                        }]
                 },
                 {
                     "x":30,
@@ -438,6 +623,19 @@
                                     "isAniNode":true,
                                     "hasChild":false,
                                     "compId":885,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":12,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab"},
+                                    "nodeParent":351,
+                                    "label":"reduceTime",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":920,
                                     "child":[
                                         ]
                                 }],
@@ -604,6 +802,19 @@
                                     "compId":886,
                                     "child":[
                                         ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":12,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab"},
+                                    "nodeParent":357,
+                                    "label":"reduceTime",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":921,
+                                    "child":[
+                                        ]
                                 }],
                             "appendDic":{
 
@@ -766,6 +977,19 @@
                                     "isAniNode":true,
                                     "hasChild":false,
                                     "compId":887,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":12,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab"},
+                                    "nodeParent":362,
+                                    "label":"reduceTime",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":922,
                                     "child":[
                                         ]
                                 }],
@@ -932,6 +1156,19 @@
                                     "compId":888,
                                     "child":[
                                         ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":12,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab"},
+                                    "nodeParent":367,
+                                    "label":"reduceTime",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":923,
+                                    "child":[
+                                        ]
                                 }],
                             "appendDic":{
 
@@ -1094,6 +1331,19 @@
                                     "isAniNode":true,
                                     "hasChild":false,
                                     "compId":889,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":12,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab"},
+                                    "nodeParent":368,
+                                    "label":"reduceTime",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":924,
                                     "child":[
                                         ]
                                 }],
@@ -1260,6 +1510,19 @@
                                     "compId":890,
                                     "child":[
                                         ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":12,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab"},
+                                    "nodeParent":369,
+                                    "label":"reduceTime",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":925,
+                                    "child":[
+                                        ]
                                 }],
                             "appendDic":{
 
@@ -1422,6 +1685,19 @@
                                     "isAniNode":true,
                                     "hasChild":false,
                                     "compId":891,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":12,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab"},
+                                    "nodeParent":413,
+                                    "label":"reduceTime",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":926,
                                     "child":[
                                         ]
                                 }],
@@ -1588,6 +1864,19 @@
                                     "compId":892,
                                     "child":[
                                         ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":12,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab"},
+                                    "nodeParent":414,
+                                    "label":"reduceTime",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":927,
+                                    "child":[
+                                        ]
                                 }],
                             "appendDic":{
 
@@ -1750,6 +2039,19 @@
                                     "isAniNode":true,
                                     "hasChild":false,
                                     "compId":893,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"presetID":12,"preset":"laya/pages/scenes/prefab/FieldPrefab.prefab"},
+                                    "nodeParent":415,
+                                    "label":"reduceTime",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":928,
                                     "child":[
                                         ]
                                 }],
