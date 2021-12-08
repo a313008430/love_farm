@@ -8,6 +8,7 @@ import FieldLevelUpView from "./view/FieldLevelUpView"
 import FriendsDescView from "./view/FriendsDescView"
 import FriendsRewardView from "./view/FriendsRewardView"
 import FriendsView from "./view/FriendsView"
+import GuideView from "./view/GuideView"
 import HintView from "./view/HintView"
 import LoginView from "./view/LoginView"
 import MailDescView from "./view/MailDescView"
@@ -51,6 +52,7 @@ export default class GameConfig{
         reg("view/FriendsDescView.ts",FriendsDescView);
         reg("view/FriendsRewardView.ts",FriendsRewardView);
         reg("view/FriendsView.ts",FriendsView);
+        reg("view/GuideView.ts",GuideView);
         reg("view/HintView.ts",HintView);
         reg("view/LoginView.ts",LoginView);
         reg("view/MailDescView.ts",MailDescView);

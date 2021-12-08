@@ -4,4 +4,5 @@
    <item name="view/LoadDialog.scene" props="" ifExport="默认" aName="弹窗加载"/>
    <item name="scenes/views/ShopView.scene" props="" ifExport="默认" aName="集市"/>
    <item name="scenes/views/HintView.scene" props="" ifExport="默认" aName="提示弹窗"/>
+   <item name="scenes/views/GuideView.scene" props="" ifExport="默认" aName="引导界面"/>
 </page>

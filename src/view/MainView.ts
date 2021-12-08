@@ -92,10 +92,6 @@ export default class MainView extends Core.gameScript {
     /** @prop {name:taskBox, tips:"任务容器", type:Node}*/
     private taskBox: Laya.Image = null;
 
-    //新手引导
-    /** @prop {name:guideHand, tips:"新手引导手指", type:Node}*/
-    private guideHand: Laya.Sprite = null;
-
     /** @prop {name:figureBoxAni, tips:"人物动画容器", type:Node}*/
     private figureBoxAni: Laya.Box = null;
     /** @prop {name:figureBox2Ani, tips:"人物动画容器", type:Node}*/
@@ -137,6 +133,8 @@ export default class MainView extends Core.gameScript {
         Laya.timer.frameOnce(1, this, () => {
             this.updateTask();
         });
+
+        // Core.view.open(Res.views.GuideView);
     }
 
     onHdAwake() {
@@ -195,13 +193,6 @@ export default class MainView extends Core.gameScript {
             } else {
                 if (!UserInfo.isFirstTime && !guidLand) {
                     guidLand = this.landList[x];
-                    this.updateGuidHandAttribute(
-                        true,
-                        this.topLayerOnStage.globalToLocal(
-                            (guidLand.owner as Laya.Box).localToGlobal(new Laya.Point(300, 160))
-                        ),
-                        this.owner
-                    );
                 }
             }
         }
@@ -309,14 +300,6 @@ export default class MainView extends Core.gameScript {
                 }
                 if (this.vitalityBox.getChildByName("bar"))
                     (this.vitalityBox.getChildByName("bar") as Laya.Image).width = 268 * vitality;
-            })
-            .key("isFirstTime", (e) => {
-                if (e) {
-                    this.guidAni?.destroy();
-                    this.guideHand?.destroy();
-                } else {
-                    if (e === 0) this.guidHandAni();
-                }
             });
 
         this.addLandLayer.visible = false;
@@ -951,41 +934,4 @@ export default class MainView extends Core.gameScript {
             this.goHome();
         }
     }
-
-    //#region 新手引导相关
-    private guidAni: Laya.TimeLine;
-    /**
-     * 新手引导手指动画
-     */
-    private guidHandAni() {
-        this.guidAni = Laya.TimeLine.to(this.guideHand, { rotation: -15 }, 400, null).to(
-            this.guideHand,
-            { rotation: 0 },
-            400
-        );
-        this.guidAni.play(null, true);
-    }
-
-    /**
-     * 更新引导手指属性
-     * @param show
-     * @param pos
-     */
-    @Core.eventOn(EventMaps.update_guid_hand)
-    private updateGuidHandAttribute(show: boolean, pos?: Laya.Point, parent?: Laya.Node) {
-        if (show) {
-            this.guideHand.visible = true;
-            this.guideHand.pos(pos.x, pos.y);
-            if (parent) {
-                parent.addChild(this.guideHand);
-            } else {
-                this.topLayerOnStage.addChild(this.guideHand);
-            }
-        } else {
-            this.guideHand.visible = false;
-            this.topLayerOnStage.addChild(this.guideHand);
-        }
-    }
-
-    //#endregion
 }

@@ -19,6 +19,8 @@
         FriendsRewardView = "scenes/views/FriendsRewardView.scene", 
         /** scenes/views/FriendsView.scene */
         FriendsView = "scenes/views/FriendsView.scene", 
+        /** scenes/views/GuideView.scene */
+        GuideView = "scenes/views/GuideView.scene", 
         /** scenes/views/HintView.scene */
         HintView = "scenes/views/HintView.scene", 
         /** scenes/views/LoginView.scene */
@@ -82,6 +84,7 @@
          "scenes/views/MailDescView.scene",
          "scenes/views/LoginView.scene",
          "scenes/views/HintView.scene",
+         "scenes/views/GuideView.scene",
          "scenes/views/FriendsView.scene",
          "scenes/views/FriendsRewardView.scene",
          "scenes/views/FriendsDescView.scene",

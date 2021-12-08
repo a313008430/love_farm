@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":895,
-    "selecteID":934,
+    "selectedBox":2,
+    "selecteID":955,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":955,
+    "maxID":957,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -85,14 +85,13 @@
             "props":{"width":1083,"name":"center_box","height":1149,"centerY":0,"centerX":0,"anchorY":0.5,"anchorX":0.5},
             "nodeParent":2,
             "label":"center_box",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":96,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":391,"x":-107.5,"skin":"res/img_landBg.png"},
@@ -106,7 +105,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Box",
                     "searchKey":"Box,house_box",
                     "props":{"y":-57,"x":-106,"name":"house_box"},
@@ -119,7 +117,6 @@
                     "compId":101,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,landLevelUp",
                             "props":{"y":149,"x":657,"skin":"main_scene/img_landUpdate.png","name":"landLevelUp","anchorY":0.5,"anchorX":0.5},
@@ -149,7 +146,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,warehouse",
                             "props":{"y":272,"x":270,"skin":"main_scene/img_storehouseBuilding.png","name":"warehouse","anchorY":0.5,"anchorX":0.5},
@@ -179,7 +175,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,figure_box",
                             "props":{"y":209,"x":520,"name":"figure_box"},
@@ -192,7 +187,6 @@
                             "compId":942,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure_ani",
                                     "props":{"width":100,"source":"res/figure.atlas","name":"figure_ani","interval":150,"height":100,"autoPlay":true},
@@ -222,7 +216,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure3_ani",
                                     "props":{"y":39,"x":-62,"width":100,"source":"res/figure3.atlas","name":"figure3_ani","interval":150,"height":100,"autoPlay":true},
@@ -252,7 +245,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure4_ani",
                                     "props":{"y":-171,"x":267,"width":100,"source":"res/figure4.atlas","name":"figure4_ani","interval":150,"height":100,"autoPlay":true},
@@ -284,7 +276,6 @@
                             "$HIDDEN":false
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,shop",
                             "props":{"y":252,"x":1003,"skin":"main_scene/img_marketBuilding.png","name":"shop","anchorY":0.5,"anchorX":0.5},
@@ -315,7 +306,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,figure2_box",
                             "props":{"y":209,"x":521,"name":"figure2_box"},
@@ -328,7 +318,6 @@
                             "compId":895,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure1_ani",
                                     "props":{"y":40,"x":299,"width":100,"source":"res/figure1.atlas","name":"figure1_ani","interval":150,"height":100,"autoPlay":true},
@@ -358,7 +347,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure2_ani",
                                     "props":{"y":20,"x":240,"width":100,"source":"res/figure2.atlas","name":"figure2_ani","interval":150,"height":100,"autoPlay":true},
@@ -388,7 +376,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure5_ani",
                                     "props":{"y":-80,"x":13,"width":100,"source":"res/figure5.atlas","name":"figure5_ani","interval":150,"height":100,"autoPlay":true},
@@ -421,7 +408,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":889,"x":30,"skin":"main_scene/img_billboard.png"},
@@ -448,7 +434,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,buy_feed",
                     "props":{"y":1132,"x":941,"width":102,"skin":"main_scene/img_bowlWithFood.png","name":"buy_feed","mouseEnabled":true,"height":72},
@@ -463,7 +448,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Box",
                     "searchKey":"Box,land_box",
                     "props":{"y":452,"x":15,"width":1087,"name":"land_box","mouseEnabled":true,"height":610},
@@ -2071,7 +2055,6 @@
                     "$HIDDEN":false
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,dog_house",
                     "props":{"y":1008,"x":988,"skin":"main_scene/img_dogHouse.png","name":"dog_house","mouseEnabled":true,"anchorY":0.5,"anchorX":0.5},
@@ -2101,7 +2084,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Box",
                     "searchKey":"Box,dog_box",
                     "props":{"y":1058,"x":718,"width":237,"name":"dog_box","mouseEnabled":true,"height":256},
@@ -2162,14 +2144,13 @@
             "props":{"y":49,"x":120,"width":932,"top":49,"name":"top_box","mouseEnabled":true,"hitTestPrior":false,"height":123},
             "nodeParent":2,
             "label":"top_box",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":67,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,money_box",
                     "props":{"width":932,"skin":"main_scene/img_portraitBg.png","name":"money_box","mouseEnabled":true},
@@ -2182,7 +2163,6 @@
                     "compId":908,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,money_red_box",
                             "props":{"y":26,"x":108,"width":233,"skin":"main_scene/img_coinbg.png","name":"money_red_box","mouseEnabled":true,"height":64},
@@ -2222,7 +2202,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,glod_box",
                             "props":{"y":26,"x":378,"width":233,"skin":"main_scene/img_coinbg.png","name":"glod_box"},
@@ -2262,7 +2241,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,diamond_box",
                             "props":{"y":26,"x":668,"width":233,"skin":"main_scene/img_coinbg.png","name":"diamond_box","mouseEnabled":true},
@@ -2303,7 +2281,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,head",
                     "props":{"y":-15,"x":-58,"skin":"main_scene/img_portrait.png","name":"head","mouseEnabled":true},
@@ -2360,7 +2337,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,order_box_outer",
                     "props":{"y":120,"x":417,"skin":"main_scene/img_taskbg.png","name":"order_box_outer","mouseEnabled":true,"anchorX":0.5},
@@ -2743,7 +2719,6 @@
                     "$HIDDEN":false
                 },
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,count_down",
                     "props":{"y":27,"x":431,"visible":false,"text":"00:00","name":"count_down","fontSize":60,"font":"Microsoft YaHei","color":"#755037","bold":true,"anchorX":0.5},
@@ -3414,25 +3389,12 @@
             "nodeParent":2,
             "label":"topLayer",
             "isOpen":true,
-            "isDirectory":true,
+            "isDirectory":false,
             "isAniNode":true,
-            "hasChild":true,
+            "hasChild":false,
             "compId":837,
             "child":[
-                {
-                    "x":30,
-                    "type":"Image",
-                    "searchKey":"Image,guid_hand",
-                    "props":{"y":1578,"x":670,"width":164,"visible":false,"skin":"game/img_guidHand.png","rotation":0,"pivotY":132,"pivotX":103,"name":"guid_hand","height":198},
-                    "nodeParent":837,
-                    "label":"guid_hand",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":905,
-                    "child":[
-                        ]
-                }],
+                ],
             "$LOCKED":true,
             "$HIDDEN":true
         }],
