@@ -124,11 +124,11 @@ export default class TaskView extends GameScript {
     private async jump(id, target) {
         switch (id) {
             case 1001:
-                await AppCore.runAppFunction({
-                    uri: AppEventMap.ad,
-                    data: {},
-                    timestamp: Date.now(),
-                });
+                // await AppCore.runAppFunction({
+                //     uri: AppEventMap.ad,
+                //     data: {},
+                //     timestamp: Date.now(),
+                // });
                 HttpControl.inst
                     .send({
                         api: ApiHttp.ad,

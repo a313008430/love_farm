@@ -33,33 +33,33 @@
 
   // src/common/EventMaps.ts
   var EventMaps;
-  (function(EventMaps3) {
-    EventMaps3["load_progress"] = "load_progress";
-    EventMaps3["update_field"] = "update_field";
-    EventMaps3["update_Order"] = "update_Order";
-    EventMaps3["land_speed_up"] = "land_speed_up";
-    EventMaps3["login_game"] = "login_game";
-    EventMaps3["login_out"] = "login_out";
-    EventMaps3["update_task"] = "update_task";
-    EventMaps3["update_guid_hand"] = "update_guid_hand";
-    EventMaps3["play_get_reward"] = "play_get_reward";
-    EventMaps3["play_ad_get_reward"] = "play_ad_get_reward";
-    EventMaps3["go_friend_home"] = "go_friend_home";
+  (function(EventMaps2) {
+    EventMaps2["load_progress"] = "load_progress";
+    EventMaps2["update_field"] = "update_field";
+    EventMaps2["update_Order"] = "update_Order";
+    EventMaps2["land_speed_up"] = "land_speed_up";
+    EventMaps2["login_game"] = "login_game";
+    EventMaps2["login_out"] = "login_out";
+    EventMaps2["update_task"] = "update_task";
+    EventMaps2["update_guid_hand"] = "update_guid_hand";
+    EventMaps2["play_get_reward"] = "play_get_reward";
+    EventMaps2["play_ad_get_reward"] = "play_ad_get_reward";
+    EventMaps2["go_friend_home"] = "go_friend_home";
   })(EventMaps || (EventMaps = {}));
   var AppEventMap;
-  (function(AppEventMap2) {
-    AppEventMap2["ad"] = "ad";
-    AppEventMap2["closeImage"] = "closeImage";
-    AppEventMap2["wxLogin"] = "wxLogin";
-    AppEventMap2["wxLoginSuccess"] = "wxLoginSuccess";
-    AppEventMap2["wxShare"] = "wxShare";
-    AppEventMap2["eventCount"] = "eventCount";
-    AppEventMap2["privacyAgreement"] = "privacyAgreement";
-    AppEventMap2["serviceAgreement"] = "serviceAgreement";
-    AppEventMap2["registerSuccess"] = "registerSuccess";
-    AppEventMap2["loginSuccess"] = "LoginSuccess";
-    AppEventMap2["clearCache"] = "clearCache";
-    AppEventMap2["showBackground"] = "showBackground";
+  (function(AppEventMap3) {
+    AppEventMap3["ad"] = "ad";
+    AppEventMap3["closeImage"] = "closeImage";
+    AppEventMap3["wxLogin"] = "wxLogin";
+    AppEventMap3["wxLoginSuccess"] = "wxLoginSuccess";
+    AppEventMap3["wxShare"] = "wxShare";
+    AppEventMap3["eventCount"] = "eventCount";
+    AppEventMap3["privacyAgreement"] = "privacyAgreement";
+    AppEventMap3["serviceAgreement"] = "serviceAgreement";
+    AppEventMap3["registerSuccess"] = "registerSuccess";
+    AppEventMap3["loginSuccess"] = "LoginSuccess";
+    AppEventMap3["clearCache"] = "clearCache";
+    AppEventMap3["showBackground"] = "showBackground";
   })(AppEventMap || (AppEventMap = {}));
 
   // src/common/Res.ts
@@ -1359,11 +1359,6 @@
         }
         let ad = false;
         if (((_a = data.data) == null ? void 0 : _a.type) == ConfigGame_default.ApiTypeAD) {
-          yield AppCore.runAppFunction({
-            uri: AppEventMap.ad,
-            data: {},
-            timestamp: Date.now()
-          });
           ad = true;
         }
         return new Promise((resolve, reject) => __async(this, null, function* () {
@@ -4582,11 +4577,6 @@
       return __async(this, null, function* () {
         switch (id) {
           case 1001:
-            yield AppCore.runAppFunction({
-              uri: AppEventMap.ad,
-              data: {},
-              timestamp: Date.now()
-            });
             HttpControl.inst.send({
               api: ApiHttp.ad,
               data: {}
