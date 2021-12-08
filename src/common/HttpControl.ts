@@ -142,11 +142,11 @@ export default class HttpControl {
 
         let ad = false;
         if (data.data?.type == ConfigGame.ApiTypeAD) {
-            // await AppCore.runAppFunction({
-            //     uri: AppEventMap.ad,
-            //     data: {},
-            //     timestamp: Date.now(),
-            // });
+            await AppCore.runAppFunction({
+                uri: AppEventMap.ad,
+                data: {},
+                timestamp: Date.now(),
+            });
             ad = true;
         }
 
