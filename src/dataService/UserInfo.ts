@@ -42,6 +42,8 @@ class UserInfo {
     isFirstTime: number;
     /** 用户提现数据 */
     withdraw: WithdrawData[];
+    /** 新手引导数据 */
+    guideData: string = "";
 
     get ttt() {
         return this.orderLevel;

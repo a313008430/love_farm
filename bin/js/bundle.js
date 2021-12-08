@@ -1029,6 +1029,7 @@
       this.speedUpTimes = 0;
       this.vitality = 0;
       this.proportion = 1e-4;
+      this.guideData = "";
     }
     get ttt() {
       return this.orderLevel;
@@ -2033,12 +2034,39 @@
     constructor() {
       super(...arguments);
       this.guideHand = null;
+      this.descLb = null;
+      this.textList = [
+        "\u60A8\u7684\u94B1\u5305\u4F59\u989D",
+        "\u8FD9\u91CC\u662F\u96C6\u5E02,\u8D2D\u4E70\u79CD\u4E86\u3001\u72D7\u6D6A\u7684\u5730\u65B9\u8FD8\u6709\u54C1\u91CD\u8981\u7684\u94B1\u5E84\u4E5F\u5728\u8FD9\u91CC,\u63D0\u73B0\u7684\u65F6\u5019\u60A8\u4F1A\u7ECF\u5E38\u6765\u7684\u3002",
+        "\u8FD9\u91CC\u662F\u5E02\u626C\u8BA2\u5355,\u6309\u8981\u6C42\u5B8C\u6210\u540E\u4F1A\u81EA\u52A8\u8FDB\u5165\u4E0B\u4E00\u7EA7\u8BA2\u5355\u3002",
+        "\u571F\u5730\u5347\u7EA7\u5728\u8FD9\u91CC,\u58EB\u5730\u7B49\u7EA7\u8D85\u9AD8,\u571F\u5730\u8D8A\u80A5\u6C83\uFF0C\u6536\u83B7\u5C31\u8D8A\u591A",
+        "\u8FD9\u91CC\u662F\u4EA7\u5E93,\u6536\u8981\u7684\u4F5C\u7269\u90FD\u5B58\u653E\u5728\u8FD9\u91CC\uFF0C\u51FA\u552E\u4F5C\u7269\u4E5F\u5728\u8FD9\u91CC\u3002",
+        "\u8FD9\u91CC\u662F\u60A8\u7684\u519C\u573A\u3002\u79CD\u690D\u3001\u6536\u83B7\u90FD\u5728\u8FD9\u91CC,\u6084\u9500\u544A\u8BC9\u5F7B\u8FD9\u5757\u5730\u6536\u82F1\u7684\u65F6\u5019\u53EF\u80FD\u4F1A\u4EA7\u51FA\u6D01\u77F3\u54E6\u3002",
+        "\u8FD9\u91CC\u53EF\u4EE5\u53BB\u522B\u4EBA\u7684\u519C\u573A\u8F6C\u8F6C,\u5E2E\u522B\u4EBA\u6536\u6536\u84DD,\u4F46\u662F\u8981\u5C0F\u5FC3\u72D7\u72D7\u54E6\u3002",
+        "\u60A8\u7684\u4EFB\u52A1",
+        "\u60A8\u7684\u6765\u4FE1"
+      ];
+      this.step = 0;
     }
     onOpened(data) {
+      if (!data)
+        return;
+      if (!data.nodeList)
+        data.nodeList = [];
+      this.data = data;
       this.guidHandAni();
+      this.updateStep();
+    }
+    updateStep() {
+      if (!this.textList[this.step]) {
+        core_default.view.close(Res_default.views.GuideView);
+        return;
+      }
+      this.descLb.text = this.textList[this.step];
+      this.step++;
     }
     onClick(e) {
-      core_default.view.close(Res_default.views.GuideView);
+      this.updateStep();
       switch (e.target.name) {
         default:
           break;
@@ -2049,7 +2077,8 @@
       this.guidAni.play(null, true);
     }
     onHdDisable() {
-      this.guidAni.destroy();
+      var _a;
+      (_a = this.guidAni) == null ? void 0 : _a.destroy();
     }
   };
 
@@ -2240,7 +2269,9 @@
             this.canClick = true;
             AppCore.runAppFunction({
               uri: AppEventMap.loginSuccess,
-              data: {}
+              data: {
+                user_id: Number(d.userInfo.key)
+              }
             });
           }).catch(() => {
             this.canClick = true;
@@ -2306,12 +2337,16 @@
             if (!UserInfo_default.isFirstTime) {
               AppCore.runAppFunction({
                 uri: AppEventMap.registerSuccess,
-                data: {}
+                data: {
+                  user_id: Number(d.userInfo.key)
+                }
               });
             }
             AppCore.runAppFunction({
               uri: AppEventMap.loginSuccess,
-              data: {}
+              data: {
+                user_id: Number(d.userInfo.key)
+              }
             });
           }).catch(() => {
             this.canClick = true;
@@ -2778,13 +2813,6 @@
                 parm: {
                   call: () => {
                     this.mainViewCom.updateAllStateIcon();
-                    if (!UserInfo_default.isFirstTime) {
-                      core_default.eventGlobal.event(EventMaps.update_guid_hand, [
-                        true,
-                        this.mainViewCom.owner.globalToLocal(this.owner.localToGlobal(new Laya.Point(300, 160))),
-                        this.mainViewCom.owner
-                      ]);
-                    }
                   }
                 }
               });
@@ -2830,9 +2858,6 @@
                 Laya.timer.frameOnce(1, this, () => {
                   this.mainViewCom.updateAllStateIcon();
                 });
-                if (!UserInfo_default.isFirstTime) {
-                  UserInfo_default.isFirstTime = 1;
-                }
               }).catch(() => {
                 this.canClick = true;
               });
@@ -2850,13 +2875,6 @@
                   this.renderData();
                   core_default.audio.playSound(Res_default.audios.zhongzhi);
                   this.mainViewCom.updateAllStateIcon(this.data.id);
-                  if (!UserInfo_default.isFirstTime) {
-                    core_default.eventGlobal.event(EventMaps.update_guid_hand, [
-                      true,
-                      this.mainViewCom.owner.globalToLocal(this.owner.localToGlobal(new Laya.Point(300, 160))),
-                      this.mainViewCom.owner
-                    ]);
-                  }
                 }
               }
             });
@@ -3009,8 +3027,15 @@
       this.vitalityBuyBtn = null;
       this.petBox = null;
       this.taskBox = null;
-      this.figureBoxAni = null;
-      this.figureBox2Ani = null;
+      this.step1 = null;
+      this.step2 = null;
+      this.step3 = null;
+      this.step4 = null;
+      this.step5 = null;
+      this.step6 = null;
+      this.step7 = null;
+      this.step8 = null;
+      this.step9 = null;
       this.landList = [];
       this.isOuter = false;
       this.outCountDownNumber = 60;
@@ -3070,7 +3095,7 @@
           this.landList[x].showIcon(true);
           break;
         } else {
-          if (!UserInfo_default.isFirstTime && !guidLand) {
+          if (!guidLand) {
             guidLand = this.landList[x];
           }
         }
@@ -3921,16 +3946,6 @@
       this.topBtnSelectIndex = (e == null ? void 0 : e.id) || 0;
       this.priceDataList = TableAnalyze_default.table("config").get("withdrawal_times").value;
       this.updateTopBtnState();
-      if (!UserInfo_default.isFirstTime) {
-        this.itemList.disabled = true;
-        this.itemList.gray = false;
-        Laya.timer.frameOnce(10, this, () => {
-          core_default.eventGlobal.event(EventMaps.update_guid_hand, [
-            true,
-            this.owner.globalToLocal(this.itemBuyBtn.localToGlobal(new Laya.Point(300, 100)))
-          ]);
-        });
-      }
     }
     onSelect(e) {
       this.itemListSelectIndex = e;
@@ -4029,15 +4044,12 @@
       var _a;
       switch (e.target.name) {
         case "close":
-          if (UserInfo_default.isFirstTime)
-            ViewManager.inst.close(Res_default.views.ShopView);
+          ViewManager.inst.close(Res_default.views.ShopView);
           break;
         case "seed":
         case "pet":
         case "feed":
         case "bank":
-          if (!UserInfo_default.isFirstTime)
-            break;
           core_default.audio.playSound(Res_default.audios.button_click);
           let topBtnIndex = this.btnBoxTop.getChildIndex(e.target);
           if (this.topBtnSelectIndex != topBtnIndex) {
@@ -4046,12 +4058,6 @@
           }
           break;
         case "buy_btn":
-          if (!UserInfo_default.isFirstTime) {
-            core_default.eventGlobal.event(EventMaps.update_guid_hand, [
-              false,
-              Laya.Point.create()
-            ]);
-          }
           if (!this.canClick) {
             return;
           }
@@ -4455,28 +4461,16 @@
       if (UserInfo_default.advertiseTimes <= 0) {
         this.speedUpBtn.disabled = true;
       }
-      if (!UserInfo_default.isFirstTime) {
-        Laya.timer.frameOnce(10, this, () => {
-          core_default.eventGlobal.event(EventMaps.update_guid_hand, [
-            true,
-            this.owner.globalToLocal(this.speedUpBtn.localToGlobal(new Laya.Point(250, 120)))
-          ]);
-        });
-      }
     }
     onClick(e) {
       switch (e.target.name) {
         case "close":
-          if (UserInfo_default.isFirstTime)
-            core_default.view.close(Res_default.views.SpeedUpView);
+          core_default.view.close(Res_default.views.SpeedUpView);
           break;
         case "speed_up":
           if (!this.canClick)
             return;
           this.canClick = false;
-          if (!UserInfo_default.isFirstTime) {
-            core_default.eventGlobal.event(EventMaps.update_guid_hand, [false]);
-          }
           HttpControl.inst.send({
             api: ApiHttp.landSpeedUp,
             data: { type: ConfigGame_default.ApiTypeAD }

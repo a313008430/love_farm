@@ -124,20 +124,6 @@ export default class ShopView extends GameScript {
 
         this.priceDataList = TableAnalyze.table("config").get("withdrawal_times").value as any;
         this.updateTopBtnState();
-
-        if (!UserInfo.isFirstTime) {
-            this.itemList.disabled = true;
-            this.itemList.gray = false;
-            Laya.timer.frameOnce(10, this, () => {
-                Core.eventGlobal.event(EventMaps.update_guid_hand, [
-                    true,
-                    (this.owner as Laya.Box).globalToLocal(
-                        this.itemBuyBtn.localToGlobal(new Laya.Point(300, 100))
-                    ),
-                    // this.owner,
-                ]);
-            });
-        }
     }
 
     /**
@@ -273,14 +259,13 @@ export default class ShopView extends GameScript {
         // console.log(e.target.name);
         switch (e.target.name) {
             case "close":
-                if (UserInfo.isFirstTime) ViewManager.inst.close(Res.views.ShopView);
+                ViewManager.inst.close(Res.views.ShopView);
                 break;
 
             case "seed":
             case "pet":
             case "feed":
             case "bank":
-                if (!UserInfo.isFirstTime) break;
                 Core.audio.playSound(Res.audios.button_click);
                 let topBtnIndex = this.btnBoxTop.getChildIndex(e.target);
                 if (this.topBtnSelectIndex != topBtnIndex) {
@@ -291,13 +276,6 @@ export default class ShopView extends GameScript {
                 break;
             //播种
             case "buy_btn":
-                if (!UserInfo.isFirstTime) {
-                    Core.eventGlobal.event(EventMaps.update_guid_hand, [
-                        false,
-                        Laya.Point.create(),
-                        // this.owner,
-                    ]);
-                }
                 if (!this.canClick) {
                     return;
                 }

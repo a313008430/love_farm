@@ -92,10 +92,25 @@ export default class MainView extends Core.gameScript {
     /** @prop {name:taskBox, tips:"任务容器", type:Node}*/
     private taskBox: Laya.Image = null;
 
-    /** @prop {name:figureBoxAni, tips:"人物动画容器", type:Node}*/
-    private figureBoxAni: Laya.Box = null;
-    /** @prop {name:figureBox2Ani, tips:"人物动画容器", type:Node}*/
-    private figureBox2Ani: Laya.Box = null;
+    //新手引导
+    /** @prop {name:step1, tips:"需要引导的按钮", type:Node}*/
+    private step1: Laya.Box = null;
+    /** @prop {name:step2, tips:"需要引导的按钮", type:Node}*/
+    private step2: Laya.Box = null;
+    /** @prop {name:step3, tips:"需要引导的按钮", type:Node}*/
+    private step3: Laya.Box = null;
+    /** @prop {name:step4, tips:"需要引导的按钮", type:Node}*/
+    private step4: Laya.Box = null;
+    /** @prop {name:step5, tips:"需要引导的按钮", type:Node}*/
+    private step5: Laya.Box = null;
+    /** @prop {name:step6, tips:"需要引导的按钮", type:Node}*/
+    private step6: Laya.Box = null;
+    /** @prop {name:step7, tips:"需要引导的按钮", type:Node}*/
+    private step7: Laya.Box = null;
+    /** @prop {name:step8, tips:"需要引导的按钮", type:Node}*/
+    private step8: Laya.Box = null;
+    /** @prop {name:step9, tips:"需要引导的按钮", type:Node}*/
+    private step9: Laya.Box = null;
 
     /** 土地组件 列表 */
     private landList: FieldComponent[] = [];
@@ -134,7 +149,22 @@ export default class MainView extends Core.gameScript {
             this.updateTask();
         });
 
-        // Core.view.open(Res.views.GuideView);
+        // Core.view.open(Res.views.GuideView, {
+        //     parm: {
+        //         nodeList: [
+        //             this.step1,
+        //             this.step2,
+        //             this.step3,
+        //             this.step4,
+        //             this.step5,
+        //             this.step6,
+        //             this.step7,
+        //             this.step8,
+        //             this.step9,
+        //         ],
+        //         call: () => {},
+        //     },
+        // });
     }
 
     onHdAwake() {
@@ -191,7 +221,7 @@ export default class MainView extends Core.gameScript {
                 this.landList[x].showIcon(true);
                 break;
             } else {
-                if (!UserInfo.isFirstTime && !guidLand) {
+                if (!guidLand) {
                     guidLand = this.landList[x];
                 }
             }

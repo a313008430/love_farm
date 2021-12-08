@@ -173,7 +173,9 @@ export default class LoginView extends GameScript {
                     this.canClick = true;
                     AppCore.runAppFunction({
                         uri: AppEventMap.loginSuccess,
-                        data: {},
+                        data: {
+                            user_id: Number(d.userInfo.key),
+                        },
                     });
                 })
                 .catch(() => {
@@ -251,12 +253,16 @@ export default class LoginView extends GameScript {
                     if (!UserInfo.isFirstTime) {
                         AppCore.runAppFunction({
                             uri: AppEventMap.registerSuccess,
-                            data: {},
+                            data: {
+                                user_id: Number(d.userInfo.key),
+                            },
                         });
                     }
                     AppCore.runAppFunction({
                         uri: AppEventMap.loginSuccess,
-                        data: {},
+                        data: {
+                            user_id: Number(d.userInfo.key),
+                        },
                     });
                 })
                 .catch(() => {
