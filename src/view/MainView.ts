@@ -149,22 +149,22 @@ export default class MainView extends Core.gameScript {
             this.updateTask();
         });
 
-        // Core.view.open(Res.views.GuideView, {
-        //     parm: {
-        //         nodeList: [
-        //             this.step1,
-        //             this.step2,
-        //             this.step3,
-        //             this.step4,
-        //             this.step5,
-        //             this.step6,
-        //             this.step7,
-        //             this.step8,
-        //             this.step9,
-        //         ],
-        //         call: () => {},
-        //     },
-        // });
+        Core.view.open(Res.views.GuideView, {
+            parm: {
+                nodeList: [
+                    this.step1,
+                    this.step2,
+                    this.step3,
+                    this.step4,
+                    this.step5,
+                    this.step6,
+                    this.step7,
+                    this.step8,
+                    this.step9,
+                ],
+                call: () => {},
+            },
+        });
     }
 
     onHdAwake() {

@@ -11,9 +11,10 @@ export default class GuideView extends Core.gameScript {
     //新手引导
     /** @prop {name:guideHand, tips:"新手引导手指", type:Node}*/
     private guideHand: Laya.Sprite = null;
-    /** 文案 */
     /** @prop {name:descLb, tips:"描述文本", type:Node}*/
     private descLb: Laya.Label = null;
+    /** @prop {name:nodeBox, tips:"描述文本", type:Node}*/
+    private nodeBox: Laya.Box = null;
 
     private guidAni: Laya.TimeLine;
 
@@ -45,6 +46,8 @@ export default class GuideView extends Core.gameScript {
             Core.view.close(Res.views.GuideView);
             return;
         }
+        this.nodeBox.addChild(this.data.nodeList[this.step]);
+
         this.descLb.text = this.textList[this.step];
         this.step++;
     }
