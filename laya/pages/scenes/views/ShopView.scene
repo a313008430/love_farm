@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":237,
-    "selecteID":159,
+    "selectedBox":129,
+    "selecteID":239,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/ShopView.jpg","right":0,"left":0,"height":1920,"btnList":"@arr:,,","bottom":0},
     "nodeParent":-1,
-    "maxID":238,
+    "maxID":240,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -1473,20 +1473,6 @@
                                 },
                                 {
                                     "x":60,
-                                    "type":"Label",
-                                    "searchKey":"Label,desc",
-                                    "props":{"y":764,"x":54,"wordWrap":true,"width":761,"visible":false,"text":"播种后约3小时成熟，每次可收获2份农作物。","overflow":"scroll","name":"desc","leading":16,"height":197,"fontSize":44,"font":"SimHei","color":"#906344"},
-                                    "nodeParent":129,
-                                    "label":"desc",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":150,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "x":60,
                                     "type":"List",
                                     "searchKey":"List,price_list",
                                     "props":{"y":257,"x":4,"width":850,"spaceY":10,"spaceX":18,"selectedIndex":-1,"selectEnable":true,"repeatY":2,"repeatX":3,"name":"price_list","height":414,"elasticEnabled":false},
@@ -1580,14 +1566,13 @@
                                     "props":{"y":139,"x":130},
                                     "nodeParent":129,
                                     "label":"HBox",
-                                    "isOpen":true,
+                                    "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
                                     "compId":237,
                                     "child":[
                                         {
-                                            "x":75,
                                             "type":"FontClip",
                                             "searchKey":"FontClip,diamond",
                                             "props":{"value":"12345","spaceX":-5,"skin":"game/fontClip_bank.png","sheet":"0123456789","name":"diamond"},
@@ -1601,7 +1586,6 @@
                                                 ]
                                         },
                                         {
-                                            "x":75,
                                             "type":"Label",
                                             "searchKey":"Label,proportion",
                                             "props":{"x":0,"text":"=¥0元","name":"proportion","fontSize":36,"font":"SimHei","color":"#D1330E","bold":true,"align":"left"},
@@ -1614,6 +1598,36 @@
                                             "child":[
                                                 ]
                                         }]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Label",
+                                    "searchKey":"Label,desc",
+                                    "props":{"y":764,"x":54,"wordWrap":true,"width":761,"visible":true,"text":"1.土地升级后更高概率获得更多钻石","overflow":"scroll","name":"desc","leading":16,"height":69,"fontSize":44,"font":"SimHei","color":"#D1330E"},
+                                    "nodeParent":129,
+                                    "label":"desc",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":238,
+                                    "child":[
+                                        ],
+                                    "$HIDDEN":false
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Label",
+                                    "searchKey":"Label,desc",
+                                    "props":{"y":844,"x":54,"wordWrap":true,"width":761,"visible":true,"text":"2.为菜地加速可获得钻石","overflow":"scroll","name":"desc","leading":16,"height":69,"fontSize":44,"font":"SimHei","color":"#D1330E"},
+                                    "nodeParent":129,
+                                    "label":"desc",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":239,
+                                    "child":[
+                                        ],
+                                    "$HIDDEN":false
                                 }],
                             "$HIDDEN":false
                         }],

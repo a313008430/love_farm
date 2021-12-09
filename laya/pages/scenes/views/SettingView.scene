@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":31,
-    "selecteID":66,
+    "selectedBox":17,
+    "selecteID":65,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/SettingView.jpg","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -163,38 +163,26 @@
                             "props":{"skin":"main_scene/img_portrait.png","name":"head"},
                             "nodeParent":31,
                             "label":"head",
-                            "isOpen":false,
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":16,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,avater",
                                     "props":{"y":68,"x":68,"width":83,"skin":"main_scene/img_defaultPortrait.png","name":"avater","height":81,"anchorY":0.5,"anchorX":0.5},
                                     "nodeParent":16,
                                     "label":"avater",
                                     "isOpen":true,
-                                    "isDirectory":true,
+                                    "isDirectory":false,
                                     "isAniNode":true,
-                                    "hasChild":true,
+                                    "hasChild":false,
                                     "compId":17,
                                     "child":[
-                                        {
-                                            "type":"Image",
-                                            "searchKey":"Image,mask",
-                                            "props":{"y":40,"x":41,"width":83,"skin":"main_scene/img_defaultPortrait.png","renderType":"mask","name":"mask","height":81,"anchorY":0.5,"anchorX":0.5},
-                                            "nodeParent":17,
-                                            "label":"mask",
-                                            "isOpen":true,
-                                            "isDirectory":false,
-                                            "isAniNode":true,
-                                            "hasChild":false,
-                                            "compId":65,
-                                            "child":[
-                                                ]
-                                        }]
+                                        ]
                                 }]
                         },
                         {

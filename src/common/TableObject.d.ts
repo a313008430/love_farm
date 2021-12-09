@@ -36,6 +36,10 @@ interface LandLevelBase {
     cost: RewardCurrencyBase;
     /** 额外收益 */
     gain: number;
+    /** 产出钻石概率 */
+    probability: number;
+    /** get_diamond */
+    getDiamond: number;
 }
 
 /**

@@ -127,7 +127,4 @@ export default class SettingView extends Core.gameScript {
         icon.skin = !sound ? `game/img_musicOnBtn.png` : "game/img_musicOffBtn.png";
         box.skin = !sound ? `game/img_switchOn.png` : "game/img_swithOff.png";
     }
-    onHdDestroy(): void {
-        this.avatarNode.removeChildren();
-    }
 }

@@ -14,6 +14,8 @@ export default class FieldLevelUpView extends GameScript {
     private priceLabel: Laya.Label = null;
     /** @prop {name:priceIcon, tips:"价格icon", type:Node}*/
     private priceIcon: Laya.Image = null;
+    /** @prop {name:desc, tips:"描述", type:Node}*/
+    private desc: Laya.Label = null;
 
     private data: { obj: LandObj; call: Function };
 
@@ -22,7 +24,10 @@ export default class FieldLevelUpView extends GameScript {
         let nextLand = TableAnalyze.table("landLevel").get(e.obj.level + 1);
         this.priceLabel.text = `价格：${nextLand.cost.count}`;
         this.priceIcon.skin = nextLand.cost.obj.icon;
-        console.log(e);
+        console.log(e, nextLand);
+        this.desc.text = `土地升级到${e.obj.level + 1}级，收益增加${
+            nextLand.gain * 100
+        }%；钻石产出概率增加${nextLand.probability * 100}%`;
     }
 
     onClick(e: Laya.Event) {

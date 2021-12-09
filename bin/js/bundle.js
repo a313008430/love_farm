@@ -708,7 +708,7 @@
   var LocalStorageService_default = new LocalStorageService();
 
   // src/common/Table.ts
-  var Table = { "task": [{ "id": 1001, "reward": "1001:50", "times": 1, "title": "\u7B7E\u5230\u9886\u94BB\u77F3", "desc": "\u770B\u89C6\u9891\u7B7E\u5230", "icon": null }, { "id": 1002, "reward": "1001:100", "times": 10, "title": "\u83DC\u5730\u65BD\u80A510\u6B21", "desc": "\u83DC\u5730\u52A0\u901F10\u6B21", "icon": null }, { "id": 1003, "reward": "1001:50", "times": 10, "title": "\u83DC\u5730\u6536\u83B710\u6B21", "desc": "\u83DC\u5730\u6536\u83B710\u6B21", "icon": null }, { "id": 1004, "reward": "1001:50", "times": 5, "title": "\u8BBF\u53CB5\u6B21", "desc": "\u5077\u83DC5\u6B21", "icon": null }, { "id": 1005, "reward": "1001:20", "times": 3, "title": "\u5582\u517B\u72D7\u72D73\u6B21", "desc": "\u5582\u517B\u72D7\u72D73\u6B21", "icon": null }, { "id": 1006, "reward": "1001:20", "times": 5, "title": "\u8D2D\u4E70\u9972\u65995\u6B21", "desc": "\u8D2D\u4E70\u9972\u65995\u6B21", "icon": null }, { "id": 1007, "reward": "1001:20", "times": 10, "title": "\u8D2D\u4E70\u79CD\u5B5010\u6B21", "desc": "\u8D2D\u4E70\u79CD\u5B5010\u6B21", "icon": null }, { "id": 1008, "reward": "1002:500", "times": 3, "title": "\u51FA\u552E\u4F5C\u72693\u6B21", "desc": "\u51FA\u552E\u4F5C\u72693\u6B21", "icon": null }, { "id": 1009, "reward": "1001:100", "times": 5, "title": "\u6DFB\u52A0\u597D\u53CB", "desc": "\u6DFB\u52A0\u597D\u53CB5\u4E2A", "icon": null }, { "id": 1010, "reward": "1001:50", "times": 1, "title": "\u5206\u4EAB\u5F97\u597D\u793C", "desc": "\u5206\u4EAB\u4E00\u6B21", "icon": null }, { "id": 1011, "reward": "1002:500", "times": 3, "title": "\u6307\u5B9A\u79CD\u690D", "desc": "\u79CD\u690D\u6307\u5B9A\u79CD\u5B50", "icon": null }, { "id": 1012, "reward": "1001:50", "times": 10, "title": "\u770B\u89C6\u9891\u9886\u798F\u5229", "desc": "\u770B\u89C6\u989110\u6B21", "icon": null }], "signIn": [{ "id": 1001, "days": 7, "reward": "1001:20000" }, { "id": 1002, "days": 10, "reward": "1001:30000" }, { "id": 1003, "days": 15, "reward": "1001:50000" }, { "id": 1004, "days": 20, "reward": "1001:80000" }, { "id": 1005, "days": 30, "reward": "1001:120000" }, { "id": 1006, "days": 50, "reward": "1001:180000" }, { "id": 1007, "days": 80, "reward": "1001:300000" }, { "id": 1008, "days": 100, "reward": "1001:350000" }, { "id": 1009, "days": 150, "reward": "1001:500000" }], "plant": [{ "id": 1001, "name": "\u6C34\u7A3B", "icon": "plant_icon/1002_seed.png", "seed_price": "1002:50", "gain": "1001:0,1002:50", "harvest": "1~2", "mature_time": "180", "unlock_cost": null, "unlock_reward": null, "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1002, "name": "\u5927\u8C46", "icon": "plant_icon/1004_seed.png", "seed_price": "1002:50", "gain": "1001:0,1002:50", "harvest": "1~2", "mature_time": "180", "unlock_cost": null, "unlock_reward": null, "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1003, "name": "\u5927\u849C", "icon": "plant_icon/1012_seed.png", "seed_price": "1002:50", "gain": "1001:0,1002:50", "harvest": "1~2", "mature_time": "240", "unlock_cost": null, "unlock_reward": null, "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1004, "name": "\u5305\u5FC3\u83DC", "icon": "plant_icon/1006_seed.png", "seed_price": "1002:75", "gain": "1001:0,1002:75", "harvest": "1~2", "mature_time": "300", "unlock_cost": "1002:1000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1005, "name": "\u571F\u8C46", "icon": "plant_icon/1007_seed.png", "seed_price": "1002:75", "gain": "1001:0,1002:75", "harvest": "2~3", "mature_time": "300", "unlock_cost": "1002:1000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1006, "name": "\u841D\u535C", "icon": "plant_icon/1005_seed.png", "seed_price": "1002:75", "gain": "1001:0,1002:75", "harvest": "2~3", "mature_time": "480", "unlock_cost": "1002:1000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1007, "name": "\u5C0F\u9EA6", "icon": "plant_icon/1001_seed.png", "seed_price": "1002:120", "gain": "1001:0,1002:120", "harvest": "2~3", "mature_time": "480", "unlock_cost": "1002:1500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1008, "name": "\u8FA3\u6912", "icon": "plant_icon/1010_seed.png", "seed_price": "1002:120", "gain": "1001:0,1002:120", "harvest": "2~3", "mature_time": "600", "unlock_cost": "1002:2000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1009, "name": "\u9EC4\u74DC", "icon": "plant_icon/1011_seed.png", "seed_price": "1002:200", "gain": "1001:0,1002:200", "harvest": "3~4", "mature_time": "720", "unlock_cost": "1002:3000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1010, "name": "\u8304\u5B50", "icon": "plant_icon/1013_seed.png", "seed_price": "1002:200", "gain": "1001:0,1002:200", "harvest": "3~4", "mature_time": "720", "unlock_cost": "1002:3500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1011, "name": "\u80E1\u841D\u535C", "icon": "plant_icon/1008_seed.png", "seed_price": "1002:350", "gain": "1001:0,1002:350", "harvest": "3~4", "mature_time": "900", "unlock_cost": "1002:4500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1012, "name": "\u5357\u74DC", "icon": "plant_icon/1014_seed.png", "seed_price": "1002:350", "gain": "1001:0,1002:350", "harvest": "3~4", "mature_time": "900", "unlock_cost": "1002:5000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1013, "name": "\u7389\u7C73", "icon": "plant_icon/1003_seed.png", "seed_price": "1002:500", "gain": "1001:0,1002:500", "harvest": "3~5", "mature_time": "1200", "unlock_cost": "1002:5500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1014, "name": "\u7518\u8517", "icon": "plant_icon/1015_seed.png", "seed_price": "1002:500", "gain": "1001:0,1002:500", "harvest": "3~5", "mature_time": "1200", "unlock_cost": "1002:6000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1015, "name": "\u756A\u8304", "icon": "plant_icon/1009_seed.png", "seed_price": "1002:500", "gain": "1001:0,1002:500", "harvest": "3~5", "mature_time": "1200", "unlock_cost": "1002:6500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }], "pet": [{ "id": 1001, "name": "\u65FA\u8D22", "icon": "pet_feed/1001_dog.png", "vitality_max": 100, "vitality_consume": 10, "cost": "1002:3000", "desc": "\u7231\u5B83\u5C31\u4E70\u5B83~\u5B83\u5C31\u662F\u6709\u70B9\u61D2~", "sensitive": 34, "ability": 42 }, { "id": 1002, "name": "\u6C64\u5706", "icon": "pet_feed/1007_dog.png", "vitality_max": 100, "vitality_consume": 15, "cost": "1002:4000", "desc": "\u989C\u503C\u3001\u667A\u5546\u53CC\u53CC\u5728\u7EBF", "sensitive": 40, "ability": 48 }, { "id": 1003, "name": "\u8089\u5E72", "icon": "pet_feed/1009_dog.png", "vitality_max": 100, "vitality_consume": 16, "cost": "1002:4500", "desc": "\u6700\u5FE0\u8BDA\u7684\u4F19\u4F34", "sensitive": 45, "ability": 55 }, { "id": 1004, "name": "\u4E8C\u54C8", "icon": "pet_feed/1002_dog.png", "vitality_max": 100, "vitality_consume": 16, "cost": "1002:5000", "desc": "\u7EDD\u4E0D\u62C6\u5BB6\uFF01", "sensitive": 48, "ability": 60 }, { "id": 1005, "name": "\u5927\u773C\u775B", "icon": "pet_feed/1005_dog.png", "vitality_max": 100, "vitality_consume": 17, "cost": "1002:7000", "desc": "\u6D3B\u597D\u5403\u7684\u5C11", "sensitive": 50, "ability": 75 }, { "id": 1006, "name": "\u5C0F\u5C3E\u5DF4", "icon": "pet_feed/1004_dog.png", "vitality_max": 100, "vitality_consume": 18, "cost": "1002:7500", "desc": "\u6B66\u529B\u5929\u8D4B\u5DF2\u70B9\u6EE1~\u62FF\u634F\uFF01", "sensitive": 60, "ability": 80 }, { "id": 1007, "name": "\u7403\u7403", "icon": "pet_feed/1008_dog.png", "vitality_max": 100, "vitality_consume": 18, "cost": "1002:8000", "desc": "\u5C31\u4E24\u4E2A\u5B57\uFF0C\u542C\u8BDD\uFF01", "sensitive": 69, "ability": 85 }, { "id": 1008, "name": "\u5C0F\u767D", "icon": "pet_feed/1003_dog.png", "vitality_max": 100, "vitality_consume": 18, "cost": "1002:8000", "desc": "\u770B\u5BB6\u3001\u770B\u83DC\u3001\u770B\u5B69\u5B50", "sensitive": 76, "ability": 88 }, { "id": 1009, "name": "\u70B9\u70B9", "icon": "pet_feed/1006_dog.png", "vitality_max": 100, "vitality_consume": 19, "cost": "1002:10000", "desc": "\u4F60\u503C\u5F97\u62E5\u6709\uFF01", "sensitive": 85, "ability": 93 }, { "id": 1010, "name": "\u95F7\u58A9", "icon": "pet_feed/1010_dog.png", "vitality_max": 100, "vitality_consume": 30, "cost": "1002:15000", "desc": "\u957F\u5F97\u5C31\u5F88\u51F6\uFF0C\u6293\u5C0F\u5077\u66F4\u51F6", "sensitive": 90, "ability": 99 }], "order": [{ "id": 1, "commission": "1.12", "condition": "1001:2" }, { "id": 2, "commission": "0.87", "condition": "1001:1,1002:2" }, { "id": 3, "commission": "0.69", "condition": "1001:1,1003:2,1002:3" }, { "id": 4, "commission": "0.61", "condition": "1002:4,1003:3,1004:3,1001:4" }, { "id": 5, "commission": "0.61", "condition": "1004:6,1002:5,1005:4,1001:5" }, { "id": 6, "commission": "0.68", "condition": "1003:10,1004:5,1005:3,1006:3" }, { "id": 7, "commission": "0.43", "condition": "1007:4,1003:5,1004:7,1006:10" }, { "id": 8, "commission": "0.56", "condition": "1008:13,1007:3,1005:5,1002:5" }, { "id": 9, "commission": "0.39", "condition": "1006:2,1009:10,1007:8,1003:8" }, { "id": 10, "commission": "0.22", "condition": "1006:10,1010:5,1008:10,1009:6" }, { "id": 11, "commission": "0.76", "condition": "1009:5,1004:10,1001:9,1002:10" }, { "id": 12, "commission": "0.43", "condition": "1007:6,1003:11,1011:6,1005:10" }, { "id": 13, "commission": "0.17", "condition": "1010:5,1005:13,1001:8,1012:8" }, { "id": 14, "commission": "0.55", "condition": "1013:10,1008:8,1006:6,1001:10" }, { "id": 15, "commission": "0.48", "condition": "1002:10,1005:10,1011:12,1001:10" }, { "id": 16, "commission": 0.29, "condition": "1008:11,1014:4,1006:8,1005:17" }, { "id": 17, "commission": 0.37, "condition": "1006:14,1007:6,1015:12,1001:14" }, { "id": 18, "commission": 0.48, "condition": "1008:14,1011:12,1009:15,1002:5" }, { "id": 19, "commission": 0.75, "condition": "1013:10,1003:20,1014:11,1001:7" }, { "id": 20, "commission": 0.67, "condition": "1003:10,1011:17,1002:14,1005:12" }, { "id": 21, "commission": 0.64, "condition": "1010:10,1003:14,1005:16,1007:15" }, { "id": 22, "commission": "0.4", "condition": "1015:19,1007:12,1011:5,1004:17" }, { "id": 23, "commission": "0.4", "condition": "1003:19,1014:22,1015:16,1008:14" }, { "id": 24, "commission": 0.77, "condition": "1014:13,1001:17,1008:18,1004:15" }, { "id": 25, "commission": "0.39", "condition": "1012:23,1011:19,1010:15,1015:20" }, { "id": 26, "commission": 0.03, "condition": "1002:21,1011:12,1012:22,1003:19" }, { "id": 27, "commission": 0.49, "condition": "1007:16,1014:16,1006:20,1011:17" }, { "id": 28, "commission": 0.53, "condition": "1014:17,1007:12,1011:17,1003:17" }, { "id": 29, "commission": 0.77, "condition": "1012:10,1005:16,1010:14,1015:18" }, { "id": 30, "commission": "0.34", "condition": "1011:17,1014:19,1006:14,1004:30" }, { "id": 31, "commission": 0.53, "condition": "1007:18,1010:14,1013:19,1006:11" }, { "id": 32, "commission": 0.46, "condition": "1013:19,1005:22,1012:12,1008:20" }, { "id": 33, "commission": "0.44", "condition": "1012:16,1013:20,1002:23,1009:16" }, { "id": 34, "commission": "0.42", "condition": "1009:19,1010:12,1011:14,1012:20" }, { "id": 35, "commission": "0.33", "condition": "1001:18,1004:19,1013:16,1003:20" }, { "id": 36, "commission": 0.21, "condition": "1003:11,1008:17,1014:17,1007:19" }, { "id": 37, "commission": 0.44, "condition": "1012:19,1010:20,1002:14,1011:11" }, { "id": 38, "commission": 0.22, "condition": "1014:13,1004:19,1002:11,1015:18" }, { "id": 39, "commission": 0.36, "condition": "1007:18,1012:13,1004:16,1002:26" }, { "id": 40, "commission": 0.28, "condition": "1004:30,1005:10,1008:18,1011:16" }, { "id": 41, "commission": "0.48", "condition": "1010:18,1009:18,1008:17,1011:26" }, { "id": 42, "commission": 0.43, "condition": "1009:21,1005:18,1007:20,1002:23" }, { "id": 43, "commission": "0.24", "condition": "1006:30,1004:14,1014:11,1008:15" }, { "id": 44, "commission": 0.62, "condition": "1009:15,1003:28,1002:34,1007:19" }, { "id": 45, "commission": "0.41", "condition": "1012:15,1010:23,1007:13,1011:13" }, { "id": 46, "commission": 0.39, "condition": "1003:22,1007:23,1010:16,1002:24" }, { "id": 47, "commission": 0.49, "condition": "1010:24,1015:20,1003:25,1014:16" }, { "id": 48, "commission": "0.26", "condition": "1013:17,1007:24,1008:37,1001:30" }, { "id": 49, "commission": 0.48, "condition": "1002:26,1004:21,1009:22,1006:20" }, { "id": 50, "commission": "0.25", "condition": "1006:27,1012:19,1008:20,1015:11" }, { "id": 51, "commission": "0.34", "condition": "1011:18,1004:19,1002:25,1003:11" }, { "id": 52, "commission": 0.43, "condition": "1015:15,1013:20,1001:25,1004:26" }, { "id": 53, "commission": "0.28", "condition": "1014:14,1012:12,1010:20,1015:18" }, { "id": 54, "commission": 0.45, "condition": "1005:22,1002:33,1009:16,1015:17" }, { "id": 55, "commission": "0.56", "condition": "1001:23,1014:19,1005:17,1010:15" }, { "id": 56, "commission": "0.35", "condition": "1006:27,1005:29,1009:17,1003:18" }, { "id": 57, "commission": 0.67, "condition": "1007:21,1008:17,1002:16,1009:25" }, { "id": 58, "commission": 0.32, "condition": "1006:20,1008:25,1005:24,1007:19" }, { "id": 59, "commission": 0.79, "condition": "1012:25,1009:30,1013:16,1008:15" }, { "id": 60, "commission": 0.69, "condition": "1015:26,1012:27,1010:31,1001:23" }, { "id": 61, "commission": 0.39, "condition": "1015:12,1006:25,1011:15,1002:17" }, { "id": 62, "commission": 0.44, "condition": "1015:21,1007:15,1011:18,1006:26" }, { "id": 63, "commission": 0.01, "condition": "1010:18,1005:16,1009:13,1003:27" }, { "id": 64, "commission": 0.27, "condition": "1007:17,1006:10,1005:29,1004:25" }, { "id": 65, "commission": 0.39, "condition": "1008:15,1003:30,1014:20,1005:15" }, { "id": 66, "commission": 0.73, "condition": "1004:25,1008:25,1002:34,1012:14" }, { "id": 67, "commission": 0.13, "condition": "1001:36,1012:20,1011:20,1003:20" }, { "id": 68, "commission": 0.69, "condition": "1013:24,1008:23,1006:16,1007:17" }, { "id": 69, "commission": 0.37, "condition": "1015:30,1004:29,1013:17,1009:10" }, { "id": 70, "commission": 0.71, "condition": "1010:23,1004:31,1011:17,1012:11" }, { "id": 71, "commission": 0.29, "condition": "1008:11,1002:26,1003:28,1015:13" }, { "id": 72, "commission": 0.31, "condition": "1005:25,1002:38,1012:19,1010:14" }, { "id": 73, "commission": 0.39, "condition": "1012:34,1006:22,1003:27,1004:20" }, { "id": 74, "commission": 0.26, "condition": "1003:20,1012:18,1002:30,1001:20" }, { "id": 75, "commission": 0.18, "condition": "1006:31,1014:30,1008:12,1002:25" }, { "id": 76, "commission": 0.51, "condition": "1007:21,1012:20,1004:11,1014:20" }, { "id": 77, "commission": 0.21, "condition": "1008:15,1009:16,1012:24,1007:30" }, { "id": 78, "commission": 0.73, "condition": "1015:16,1012:16,1006:20,1008:22" }, { "id": 79, "commission": 0.65, "condition": "1006:26,1004:18,1007:12,1011:27" }, { "id": 80, "commission": 0.39, "condition": "1009:15,1003:16,1004:19,1007:24" }, { "id": 81, "commission": 0.14, "condition": "1012:20,1015:28,1002:24,1003:38" }, { "id": 82, "commission": 0.2, "condition": "1005:12,1011:19,1009:18,1002:14" }, { "id": 83, "commission": 0.53, "condition": "1010:19,1003:38,1007:22,1015:20" }, { "id": 84, "commission": 0.62, "condition": "1005:29,1014:26,1002:18,1007:38" }, { "id": 85, "commission": 0.37, "condition": "1011:20,1001:17,1012:12,1004:32" }, { "id": 86, "commission": 0.59, "condition": "1009:25,1011:20,1006:14,1015:21" }, { "id": 87, "commission": "0.31", "condition": "1006:26,1005:19,1013:20,1014:29" }, { "id": 88, "commission": "0.48", "condition": "1008:37,1011:24,1015:12,1014:11" }, { "id": 89, "commission": "0.22", "condition": "1002:17,1003:28,1005:22,1010:31" }, { "id": 90, "commission": 0.32, "condition": "1002:39,1013:28,1007:25,1001:33" }, { "id": 91, "commission": 0.19, "condition": "1008:15,1013:20,1014:10,1007:26" }, { "id": 92, "commission": 0.13, "condition": "1004:38,1011:13,1008:15,1007:29" }, { "id": 93, "commission": 0.34, "condition": "1013:12,1001:39,1006:38,1008:31" }, { "id": 94, "commission": 0.22, "condition": "1002:36,1014:27,1013:16,1005:31" }, { "id": 95, "commission": 0.15, "condition": "1005:26,1011:34,1015:34,1008:16" }, { "id": 96, "commission": "0.49", "condition": "1003:24,1001:34,1007:28,1005:30" }, { "id": 97, "commission": "0.6", "condition": "1013:32,1009:33,1006:30,1011:40" }], "lang": [], "landLevel": [{ "id": 1, "reward": "1002:0", "cost": "1002:0", "gain": null }, { "id": 2, "reward": "1002:1500", "cost": "1002:10000", "gain": 0.1 }, { "id": 3, "reward": "1002:2000", "cost": "1002:30000", "gain": 0.25 }, { "id": 4, "reward": "1002:2500", "cost": "1002:50000", "gain": 0.4 }, { "id": 5, "reward": "1002:3000", "cost": "1002:100000", "gain": 0.55 }], "feed": [{ "id": 1001, "name": "\u997C\u5E72", "icon": "pet_feed/1001_feed.png", "vitality": 1, "cost": "1002:30", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1002, "name": "\u575A\u679C", "icon": "pet_feed/1002_feed.png", "vitality": 2, "cost": "1002:50", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1003, "name": "\u706B\u817F", "icon": "pet_feed/1003_feed.png", "vitality": 5, "cost": "1002:100", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1004, "name": "\u725B\u8089", "icon": "pet_feed/1004_feed.png", "vitality": 50, "cost": "1002:900", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1005, "name": "\u732A\u8089", "icon": "pet_feed/1005_feed.png", "vitality": 20, "cost": "1002:460", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1006, "name": "\u9E21\u8089", "icon": "pet_feed/1006_feed.png", "vitality": 10, "cost": "1002:270", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }], "currency": [{ "id": 1001, "name": "\u94BB\u77F3", "icon": "main_scene/img_diamond.png" }, { "id": 1002, "name": "\u91D1\u5E01", "icon": "main_scene/img_coin.png" }], "config": [{ "id": "all_speed_up_times", "value": 30 }, { "id": "all_speed_up_time", "value": 600 }, { "id": "unlock_land_cost", "value": "1002:0,1002:0,1002:5000,1002:10000,1002:20000,1002:30000,1002:40000,1002:50000,1002:60000" }, { "id": "goldDefault", "value": "1002:100" }, { "id": "diamondDefault", "value": "1001:50" }, { "id": "ADTimesLimit", "value": 30 }, { "id": "ADSpeedUptimes", "value": 6 }, { "id": "vitalityBuyCostGold", "value": "1002:10000" }, { "id": "vitalityLimit", "value": 10 }, { "id": "landAmountMax", "value": 9 }, { "id": "petDefaultVitality", "value": 100 }, { "id": "petDigestIntervalTime", "value": 60 }, { "id": "Videorewards", "value": "1001:100" }, { "id": "withdrawal", "value": "1001:10000:1" }, { "id": "Invitation_rewards", "value": "1001:5000" }, { "id": "withdrawal_times", "value": "0.3:3,0.5:2,5:0,10:0,50:0" }] };
+  var Table = { "task": [{ "id": 1001, "reward": "1001:50", "times": 1, "title": "\u7B7E\u5230\u9886\u94BB\u77F3", "desc": "\u770B\u89C6\u9891\u7B7E\u5230", "icon": null }, { "id": 1002, "reward": "1001:100", "times": 10, "title": "\u83DC\u5730\u65BD\u80A510\u6B21", "desc": "\u83DC\u5730\u52A0\u901F10\u6B21", "icon": null }, { "id": 1003, "reward": "1001:50", "times": 10, "title": "\u83DC\u5730\u6536\u83B710\u6B21", "desc": "\u83DC\u5730\u6536\u83B710\u6B21", "icon": null }, { "id": 1004, "reward": "1001:50", "times": 5, "title": "\u8BBF\u53CB5\u6B21", "desc": "\u5077\u83DC5\u6B21", "icon": null }, { "id": 1005, "reward": "1001:20", "times": 3, "title": "\u5582\u517B\u72D7\u72D73\u6B21", "desc": "\u5582\u517B\u72D7\u72D73\u6B21", "icon": null }, { "id": 1006, "reward": "1001:20", "times": 5, "title": "\u8D2D\u4E70\u9972\u65995\u6B21", "desc": "\u8D2D\u4E70\u9972\u65995\u6B21", "icon": null }, { "id": 1007, "reward": "1001:20", "times": 10, "title": "\u8D2D\u4E70\u79CD\u5B5010\u6B21", "desc": "\u8D2D\u4E70\u79CD\u5B5010\u6B21", "icon": null }, { "id": 1008, "reward": "1002:500", "times": 3, "title": "\u51FA\u552E\u4F5C\u72693\u6B21", "desc": "\u51FA\u552E\u4F5C\u72693\u6B21", "icon": null }, { "id": 1009, "reward": "1001:100", "times": 5, "title": "\u6DFB\u52A0\u597D\u53CB", "desc": "\u6DFB\u52A0\u597D\u53CB5\u4E2A", "icon": null }, { "id": 1010, "reward": "1001:50", "times": 1, "title": "\u5206\u4EAB\u5F97\u597D\u793C", "desc": "\u5206\u4EAB\u4E00\u6B21", "icon": null }, { "id": 1011, "reward": "1002:500", "times": 3, "title": "\u6307\u5B9A\u79CD\u690D", "desc": "\u79CD\u690D\u6307\u5B9A\u79CD\u5B50", "icon": null }, { "id": 1012, "reward": "1001:50", "times": 10, "title": "\u770B\u89C6\u9891\u9886\u798F\u5229", "desc": "\u770B\u89C6\u989110\u6B21", "icon": null }], "signIn": [{ "id": 1001, "days": 7, "reward": "1001:20000" }, { "id": 1002, "days": 10, "reward": "1001:30000" }, { "id": 1003, "days": 15, "reward": "1001:50000" }, { "id": 1004, "days": 20, "reward": "1001:80000" }, { "id": 1005, "days": 30, "reward": "1001:120000" }, { "id": 1006, "days": 50, "reward": "1001:180000" }, { "id": 1007, "days": 80, "reward": "1001:300000" }, { "id": 1008, "days": 100, "reward": "1001:350000" }, { "id": 1009, "days": 150, "reward": "1001:500000" }], "plant": [{ "id": 1001, "name": "\u6C34\u7A3B", "icon": "plant_icon/1002_seed.png", "seed_price": "1002:50", "gain": "1001:0,1002:50", "harvest": "1~2", "mature_time": "180", "unlock_cost": null, "unlock_reward": null, "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1002, "name": "\u5927\u8C46", "icon": "plant_icon/1004_seed.png", "seed_price": "1002:50", "gain": "1001:0,1002:50", "harvest": "1~2", "mature_time": "180", "unlock_cost": null, "unlock_reward": null, "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1003, "name": "\u5927\u849C", "icon": "plant_icon/1012_seed.png", "seed_price": "1002:50", "gain": "1001:0,1002:50", "harvest": "1~2", "mature_time": "240", "unlock_cost": null, "unlock_reward": null, "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1004, "name": "\u5305\u5FC3\u83DC", "icon": "plant_icon/1006_seed.png", "seed_price": "1002:75", "gain": "1001:0,1002:75", "harvest": "1~2", "mature_time": "300", "unlock_cost": "1002:1000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1005, "name": "\u571F\u8C46", "icon": "plant_icon/1007_seed.png", "seed_price": "1002:75", "gain": "1001:0,1002:75", "harvest": "2~3", "mature_time": "300", "unlock_cost": "1002:1000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1006, "name": "\u841D\u535C", "icon": "plant_icon/1005_seed.png", "seed_price": "1002:75", "gain": "1001:0,1002:75", "harvest": "2~3", "mature_time": "480", "unlock_cost": "1002:1000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1007, "name": "\u5C0F\u9EA6", "icon": "plant_icon/1001_seed.png", "seed_price": "1002:120", "gain": "1001:0,1002:120", "harvest": "2~3", "mature_time": "480", "unlock_cost": "1002:1500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1008, "name": "\u8FA3\u6912", "icon": "plant_icon/1010_seed.png", "seed_price": "1002:120", "gain": "1001:0,1002:120", "harvest": "2~3", "mature_time": "600", "unlock_cost": "1002:2000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1009, "name": "\u9EC4\u74DC", "icon": "plant_icon/1011_seed.png", "seed_price": "1002:200", "gain": "1001:0,1002:200", "harvest": "3~4", "mature_time": "720", "unlock_cost": "1002:3000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1010, "name": "\u8304\u5B50", "icon": "plant_icon/1013_seed.png", "seed_price": "1002:200", "gain": "1001:0,1002:200", "harvest": "3~4", "mature_time": "720", "unlock_cost": "1002:3500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1011, "name": "\u80E1\u841D\u535C", "icon": "plant_icon/1008_seed.png", "seed_price": "1002:350", "gain": "1001:0,1002:350", "harvest": "3~4", "mature_time": "900", "unlock_cost": "1002:4500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1012, "name": "\u5357\u74DC", "icon": "plant_icon/1014_seed.png", "seed_price": "1002:350", "gain": "1001:0,1002:350", "harvest": "3~4", "mature_time": "900", "unlock_cost": "1002:5000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1013, "name": "\u7389\u7C73", "icon": "plant_icon/1003_seed.png", "seed_price": "1002:500", "gain": "1001:0,1002:500", "harvest": "3~5", "mature_time": "1200", "unlock_cost": "1002:5500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1014, "name": "\u7518\u8517", "icon": "plant_icon/1015_seed.png", "seed_price": "1002:500", "gain": "1001:0,1002:500", "harvest": "3~5", "mature_time": "1200", "unlock_cost": "1002:6000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1015, "name": "\u756A\u8304", "icon": "plant_icon/1009_seed.png", "seed_price": "1002:500", "gain": "1001:0,1002:500", "harvest": "3~5", "mature_time": "1200", "unlock_cost": "1002:6500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }], "pet": [{ "id": 1001, "name": "\u65FA\u8D22", "icon": "pet_feed/1001_dog.png", "vitality_max": 100, "vitality_consume": 10, "cost": "1002:3000", "desc": "\u7231\u5B83\u5C31\u4E70\u5B83~\u5B83\u5C31\u662F\u6709\u70B9\u61D2~", "sensitive": 34, "ability": 42 }, { "id": 1002, "name": "\u6C64\u5706", "icon": "pet_feed/1007_dog.png", "vitality_max": 100, "vitality_consume": 15, "cost": "1002:4000", "desc": "\u989C\u503C\u3001\u667A\u5546\u53CC\u53CC\u5728\u7EBF", "sensitive": 40, "ability": 48 }, { "id": 1003, "name": "\u8089\u5E72", "icon": "pet_feed/1009_dog.png", "vitality_max": 100, "vitality_consume": 16, "cost": "1002:4500", "desc": "\u6700\u5FE0\u8BDA\u7684\u4F19\u4F34", "sensitive": 45, "ability": 55 }, { "id": 1004, "name": "\u4E8C\u54C8", "icon": "pet_feed/1002_dog.png", "vitality_max": 100, "vitality_consume": 16, "cost": "1002:5000", "desc": "\u7EDD\u4E0D\u62C6\u5BB6\uFF01", "sensitive": 48, "ability": 60 }, { "id": 1005, "name": "\u5927\u773C\u775B", "icon": "pet_feed/1005_dog.png", "vitality_max": 100, "vitality_consume": 17, "cost": "1002:7000", "desc": "\u6D3B\u597D\u5403\u7684\u5C11", "sensitive": 50, "ability": 75 }, { "id": 1006, "name": "\u5C0F\u5C3E\u5DF4", "icon": "pet_feed/1004_dog.png", "vitality_max": 100, "vitality_consume": 18, "cost": "1002:7500", "desc": "\u6B66\u529B\u5929\u8D4B\u5DF2\u70B9\u6EE1~\u62FF\u634F\uFF01", "sensitive": 60, "ability": 80 }, { "id": 1007, "name": "\u7403\u7403", "icon": "pet_feed/1008_dog.png", "vitality_max": 100, "vitality_consume": 18, "cost": "1002:8000", "desc": "\u5C31\u4E24\u4E2A\u5B57\uFF0C\u542C\u8BDD\uFF01", "sensitive": 69, "ability": 85 }, { "id": 1008, "name": "\u5C0F\u767D", "icon": "pet_feed/1003_dog.png", "vitality_max": 100, "vitality_consume": 18, "cost": "1002:8000", "desc": "\u770B\u5BB6\u3001\u770B\u83DC\u3001\u770B\u5B69\u5B50", "sensitive": 76, "ability": 88 }, { "id": 1009, "name": "\u70B9\u70B9", "icon": "pet_feed/1006_dog.png", "vitality_max": 100, "vitality_consume": 19, "cost": "1002:10000", "desc": "\u4F60\u503C\u5F97\u62E5\u6709\uFF01", "sensitive": 85, "ability": 93 }, { "id": 1010, "name": "\u95F7\u58A9", "icon": "pet_feed/1010_dog.png", "vitality_max": 100, "vitality_consume": 30, "cost": "1002:15000", "desc": "\u957F\u5F97\u5C31\u5F88\u51F6\uFF0C\u6293\u5C0F\u5077\u66F4\u51F6", "sensitive": 90, "ability": 99 }], "order": [{ "id": 1, "commission": "1.12", "condition": "1001:2" }, { "id": 2, "commission": "0.87", "condition": "1001:1,1002:2" }, { "id": 3, "commission": "0.69", "condition": "1001:1,1003:2,1002:3" }, { "id": 4, "commission": "0.61", "condition": "1002:4,1003:3,1004:3,1001:4" }, { "id": 5, "commission": "0.61", "condition": "1004:6,1002:5,1005:4,1001:5" }, { "id": 6, "commission": "0.68", "condition": "1003:10,1004:5,1005:3,1006:3" }, { "id": 7, "commission": "0.43", "condition": "1007:4,1003:5,1004:7,1006:10" }, { "id": 8, "commission": "0.56", "condition": "1008:13,1007:3,1005:5,1002:5" }, { "id": 9, "commission": "0.39", "condition": "1006:2,1009:10,1007:8,1003:8" }, { "id": 10, "commission": "0.22", "condition": "1006:10,1010:5,1008:10,1009:6" }, { "id": 11, "commission": "0.76", "condition": "1009:5,1004:10,1001:9,1002:10" }, { "id": 12, "commission": "0.43", "condition": "1007:6,1003:11,1011:6,1005:10" }, { "id": 13, "commission": "0.17", "condition": "1010:5,1005:13,1001:8,1012:8" }, { "id": 14, "commission": "0.55", "condition": "1013:10,1008:8,1006:6,1001:10" }, { "id": 15, "commission": "0.48", "condition": "1002:10,1005:10,1011:12,1001:10" }, { "id": 16, "commission": 0.29, "condition": "1008:11,1014:4,1006:8,1005:17" }, { "id": 17, "commission": 0.37, "condition": "1006:14,1007:6,1015:12,1001:14" }, { "id": 18, "commission": 0.48, "condition": "1008:14,1011:12,1009:15,1002:5" }, { "id": 19, "commission": 0.75, "condition": "1013:10,1003:20,1014:11,1001:7" }, { "id": 20, "commission": 0.67, "condition": "1003:10,1011:17,1002:14,1005:12" }, { "id": 21, "commission": 0.64, "condition": "1010:10,1003:14,1005:16,1007:15" }, { "id": 22, "commission": "0.4", "condition": "1015:19,1007:12,1011:5,1004:17" }, { "id": 23, "commission": "0.4", "condition": "1003:19,1014:22,1015:16,1008:14" }, { "id": 24, "commission": 0.77, "condition": "1014:13,1001:17,1008:18,1004:15" }, { "id": 25, "commission": "0.39", "condition": "1012:23,1011:19,1010:15,1015:20" }, { "id": 26, "commission": 0.03, "condition": "1002:21,1011:12,1012:22,1003:19" }, { "id": 27, "commission": 0.49, "condition": "1007:16,1014:16,1006:20,1011:17" }, { "id": 28, "commission": 0.53, "condition": "1014:17,1007:12,1011:17,1003:17" }, { "id": 29, "commission": 0.77, "condition": "1012:10,1005:16,1010:14,1015:18" }, { "id": 30, "commission": "0.34", "condition": "1011:17,1014:19,1006:14,1004:30" }, { "id": 31, "commission": 0.53, "condition": "1007:18,1010:14,1013:19,1006:11" }, { "id": 32, "commission": 0.46, "condition": "1013:19,1005:22,1012:12,1008:20" }, { "id": 33, "commission": "0.44", "condition": "1012:16,1013:20,1002:23,1009:16" }, { "id": 34, "commission": "0.42", "condition": "1009:19,1010:12,1011:14,1012:20" }, { "id": 35, "commission": "0.33", "condition": "1001:18,1004:19,1013:16,1003:20" }, { "id": 36, "commission": 0.21, "condition": "1003:11,1008:17,1014:17,1007:19" }, { "id": 37, "commission": 0.44, "condition": "1012:19,1010:20,1002:14,1011:11" }, { "id": 38, "commission": 0.22, "condition": "1014:13,1004:19,1002:11,1015:18" }, { "id": 39, "commission": 0.36, "condition": "1007:18,1012:13,1004:16,1002:26" }, { "id": 40, "commission": 0.28, "condition": "1004:30,1005:10,1008:18,1011:16" }, { "id": 41, "commission": "0.48", "condition": "1010:18,1009:18,1008:17,1011:26" }, { "id": 42, "commission": 0.43, "condition": "1009:21,1005:18,1007:20,1002:23" }, { "id": 43, "commission": "0.24", "condition": "1006:30,1004:14,1014:11,1008:15" }, { "id": 44, "commission": 0.62, "condition": "1009:15,1003:28,1002:34,1007:19" }, { "id": 45, "commission": "0.41", "condition": "1012:15,1010:23,1007:13,1011:13" }, { "id": 46, "commission": 0.39, "condition": "1003:22,1007:23,1010:16,1002:24" }, { "id": 47, "commission": 0.49, "condition": "1010:24,1015:20,1003:25,1014:16" }, { "id": 48, "commission": "0.26", "condition": "1013:17,1007:24,1008:37,1001:30" }, { "id": 49, "commission": 0.48, "condition": "1002:26,1004:21,1009:22,1006:20" }, { "id": 50, "commission": "0.25", "condition": "1006:27,1012:19,1008:20,1015:11" }, { "id": 51, "commission": "0.34", "condition": "1011:18,1004:19,1002:25,1003:11" }, { "id": 52, "commission": 0.43, "condition": "1015:15,1013:20,1001:25,1004:26" }, { "id": 53, "commission": "0.28", "condition": "1014:14,1012:12,1010:20,1015:18" }, { "id": 54, "commission": 0.45, "condition": "1005:22,1002:33,1009:16,1015:17" }, { "id": 55, "commission": "0.56", "condition": "1001:23,1014:19,1005:17,1010:15" }, { "id": 56, "commission": "0.35", "condition": "1006:27,1005:29,1009:17,1003:18" }, { "id": 57, "commission": 0.67, "condition": "1007:21,1008:17,1002:16,1009:25" }, { "id": 58, "commission": 0.32, "condition": "1006:20,1008:25,1005:24,1007:19" }, { "id": 59, "commission": 0.79, "condition": "1012:25,1009:30,1013:16,1008:15" }, { "id": 60, "commission": 0.69, "condition": "1015:26,1012:27,1010:31,1001:23" }, { "id": 61, "commission": 0.39, "condition": "1015:12,1006:25,1011:15,1002:17" }, { "id": 62, "commission": 0.44, "condition": "1015:21,1007:15,1011:18,1006:26" }, { "id": 63, "commission": 0.01, "condition": "1010:18,1005:16,1009:13,1003:27" }, { "id": 64, "commission": 0.27, "condition": "1007:17,1006:10,1005:29,1004:25" }, { "id": 65, "commission": 0.39, "condition": "1008:15,1003:30,1014:20,1005:15" }, { "id": 66, "commission": 0.73, "condition": "1004:25,1008:25,1002:34,1012:14" }, { "id": 67, "commission": 0.13, "condition": "1001:36,1012:20,1011:20,1003:20" }, { "id": 68, "commission": 0.69, "condition": "1013:24,1008:23,1006:16,1007:17" }, { "id": 69, "commission": 0.37, "condition": "1015:30,1004:29,1013:17,1009:10" }, { "id": 70, "commission": 0.71, "condition": "1010:23,1004:31,1011:17,1012:11" }, { "id": 71, "commission": 0.29, "condition": "1008:11,1002:26,1003:28,1015:13" }, { "id": 72, "commission": 0.31, "condition": "1005:25,1002:38,1012:19,1010:14" }, { "id": 73, "commission": 0.39, "condition": "1012:34,1006:22,1003:27,1004:20" }, { "id": 74, "commission": 0.26, "condition": "1003:20,1012:18,1002:30,1001:20" }, { "id": 75, "commission": 0.18, "condition": "1006:31,1014:30,1008:12,1002:25" }, { "id": 76, "commission": 0.51, "condition": "1007:21,1012:20,1004:11,1014:20" }, { "id": 77, "commission": 0.21, "condition": "1008:15,1009:16,1012:24,1007:30" }, { "id": 78, "commission": 0.73, "condition": "1015:16,1012:16,1006:20,1008:22" }, { "id": 79, "commission": 0.65, "condition": "1006:26,1004:18,1007:12,1011:27" }, { "id": 80, "commission": 0.39, "condition": "1009:15,1003:16,1004:19,1007:24" }, { "id": 81, "commission": 0.14, "condition": "1012:20,1015:28,1002:24,1003:38" }, { "id": 82, "commission": 0.2, "condition": "1005:12,1011:19,1009:18,1002:14" }, { "id": 83, "commission": 0.53, "condition": "1010:19,1003:38,1007:22,1015:20" }, { "id": 84, "commission": 0.62, "condition": "1005:29,1014:26,1002:18,1007:38" }, { "id": 85, "commission": 0.37, "condition": "1011:20,1001:17,1012:12,1004:32" }, { "id": 86, "commission": 0.59, "condition": "1009:25,1011:20,1006:14,1015:21" }, { "id": 87, "commission": "0.31", "condition": "1006:26,1005:19,1013:20,1014:29" }, { "id": 88, "commission": "0.48", "condition": "1008:37,1011:24,1015:12,1014:11" }, { "id": 89, "commission": "0.22", "condition": "1002:17,1003:28,1005:22,1010:31" }, { "id": 90, "commission": 0.32, "condition": "1002:39,1013:28,1007:25,1001:33" }, { "id": 91, "commission": 0.19, "condition": "1008:15,1013:20,1014:10,1007:26" }, { "id": 92, "commission": 0.13, "condition": "1004:38,1011:13,1008:15,1007:29" }, { "id": 93, "commission": 0.34, "condition": "1013:12,1001:39,1006:38,1008:31" }, { "id": 94, "commission": 0.22, "condition": "1002:36,1014:27,1013:16,1005:31" }, { "id": 95, "commission": 0.15, "condition": "1005:26,1011:34,1015:34,1008:16" }, { "id": 96, "commission": "0.49", "condition": "1003:24,1001:34,1007:28,1005:30" }, { "id": 97, "commission": "0.6", "condition": "1013:32,1009:33,1006:30,1011:40" }], "lang": [], "landLevel": [{ "id": 1, "reward": "1002:0", "cost": "1002:0", "gain": null, "probability": 0.01, "get_diamond": 1 }, { "id": 2, "reward": "1002:1500", "cost": "1002:10000", "gain": 0.1, "probability": 0.03, "get_diamond": 1 }, { "id": 3, "reward": "1002:2000", "cost": "1002:30000", "gain": 0.25, "probability": 0.05, "get_diamond": 2 }, { "id": 4, "reward": "1002:2500", "cost": "1002:50000", "gain": 0.4, "probability": 0.08, "get_diamond": 3 }, { "id": 5, "reward": "1002:3000", "cost": "1002:100000", "gain": 0.55, "probability": 0.1, "get_diamond": 5 }], "feed": [{ "id": 1001, "name": "\u997C\u5E72", "icon": "pet_feed/1001_feed.png", "vitality": 1, "cost": "1002:30", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1002, "name": "\u575A\u679C", "icon": "pet_feed/1002_feed.png", "vitality": 2, "cost": "1002:50", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1003, "name": "\u706B\u817F", "icon": "pet_feed/1003_feed.png", "vitality": 5, "cost": "1002:100", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1004, "name": "\u725B\u8089", "icon": "pet_feed/1004_feed.png", "vitality": 50, "cost": "1002:900", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1005, "name": "\u732A\u8089", "icon": "pet_feed/1005_feed.png", "vitality": 20, "cost": "1002:460", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1006, "name": "\u9E21\u8089", "icon": "pet_feed/1006_feed.png", "vitality": 10, "cost": "1002:270", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }], "currency": [{ "id": 1001, "name": "\u94BB\u77F3", "icon": "main_scene/img_diamond.png" }, { "id": 1002, "name": "\u91D1\u5E01", "icon": "main_scene/img_coin.png" }], "config": [{ "id": "all_speed_up_times", "value": 30 }, { "id": "all_speed_up_time", "value": 600 }, { "id": "unlock_land_cost", "value": "1002:0,1002:0,1002:5000,1002:10000,1002:20000,1002:30000,1002:40000,1002:50000,1002:60000" }, { "id": "goldDefault", "value": "1002:100" }, { "id": "diamondDefault", "value": "1001:50" }, { "id": "ADTimesLimit", "value": 30 }, { "id": "ADSpeedUptimes", "value": 6 }, { "id": "vitalityBuyCostGold", "value": "1002:10000" }, { "id": "vitalityLimit", "value": 10 }, { "id": "Initial_physical_strength", "value": 10 }, { "id": "landAmountMax", "value": 9 }, { "id": "petDefaultVitality", "value": 100 }, { "id": "petDigestIntervalTime", "value": 300 }, { "id": "Videorewards", "value": "1001:200" }, { "id": "withdrawal", "value": "1001:10000:1" }, { "id": "Invitation_rewards", "value": "1001:5000" }, { "id": "withdrawal_times", "value": "0.3:3,0.5:2,5:0,10:0,50:0" }] };
 
   // src/common/Tools.ts
   var Tools = class {
@@ -786,7 +786,9 @@
         id: d.id,
         reward: getRewardCurrencyBase(d.reward),
         cost: getRewardCurrencyBase(d.cost),
-        gain: d.gain
+        gain: d.gain,
+        probability: d.probability,
+        getDiamond: d.get_diamond
       };
     },
     config(d) {
@@ -1547,13 +1549,15 @@
       super(...arguments);
       this.priceLabel = null;
       this.priceIcon = null;
+      this.desc = null;
     }
     onOpened(e) {
       this.data = e;
       let nextLand = TableAnalyze_default.table("landLevel").get(e.obj.level + 1);
       this.priceLabel.text = `\u4EF7\u683C\uFF1A${nextLand.cost.count}`;
       this.priceIcon.skin = nextLand.cost.obj.icon;
-      console.log(e);
+      console.log(e, nextLand);
+      this.desc.text = `\u571F\u5730\u5347\u7EA7\u5230${e.obj.level + 1}\u7EA7\uFF0C\u6536\u76CA\u589E\u52A0${nextLand.gain * 100}%\uFF1B\u94BB\u77F3\u4EA7\u51FA\u6982\u7387\u589E\u52A0${nextLand.probability * 100}%`;
     }
     onClick(e) {
       switch (e.target.name) {
@@ -1707,958 +1711,6 @@
       });
     }
     onHdDestroy() {
-    }
-  };
-
-  // src/view/FriendsView.ts
-  var FriendsView = class extends core_default.gameScript {
-    constructor() {
-      super(...arguments);
-      this.empty_lb = null;
-      this.viewState = 1;
-      this.friends = [];
-      this.friendsList = [];
-      this.canClick = true;
-    }
-    onOpened(data) {
-      this.friends = data.friendData.list;
-      this.friendsList = this.friends;
-      this.updateListData();
-      this.addBox.visible = false;
-      this.addBox.active = false;
-      this.itemList.array = this.friendsList;
-      this.isEmpty();
-      this.itemList.renderHandler = new Laya.Handler(this, this.itemRender);
-      this.itemList.vScrollBarSkin = null;
-      this.userKey.text = `\u6211\u7684\u53CB\u60C5\u7801\uFF1A${UserInfo_default.key}`;
-      console.log(data.type);
-      if (data.type && data.type == 1) {
-        this.addFriendEvent();
-      }
-    }
-    isEmpty() {
-      this.empty_lb.visible = !this.itemList.array.length;
-    }
-    updateListData() {
-      this.friendsList.sort((a, b) => {
-        return b.applyIng * 1e5 - a.applyIng * 1e5;
-      });
-    }
-    itemRender(cell, i) {
-      const data = this.friendsList[i];
-      let newBox = cell.getChildByName("new_box"), heartBox = cell.getChildByName("heart_box"), goPlayBtn = cell.getChildByName("go_play_btn"), applyBtn = cell.getChildByName("apply_btn"), delBtn = cell.getChildByName("del_btn");
-      heartBox.visible = false;
-      goPlayBtn.visible = false;
-      applyBtn.visible = false;
-      delBtn.visible = false;
-      if (data == null ? void 0 : data.avatar)
-        cell.getChildByName("head").skin = data.avatar;
-      cell.getChildByName("name").text = data.nickname;
-      cell.getChildByName("lv").text = (data.orderLevel || 0) + "";
-      heartBox.getChildByName("val").text = (data.intimacy || 0) + "";
-      cell.getChildByName("reward_box").getChildByName("value").text = data.gainDiamond + "";
-      cell.getChildByName("del_btn").dataSource = data;
-      goPlayBtn.dataSource = data;
-      switch (this.viewState) {
-        case 1:
-          goPlayBtn.visible = true;
-          heartBox.visible = true;
-          break;
-        case 2:
-          applyBtn.dataSource = data;
-          applyBtn.visible = true;
-          newBox.visible = false;
-          newBox.active = false;
-          break;
-        case 3:
-          heartBox.visible = true;
-          delBtn.visible = true;
-          break;
-      }
-      if (this.viewState == 1 || this.viewState == 3) {
-        if (data.applyIng) {
-          newBox.visible = true;
-          newBox.active = true;
-          newBox.getChildByName("past_btn").dataSource = data;
-          newBox.getChildByName("ignore").dataSource = data;
-          heartBox.visible = false;
-          goPlayBtn.visible = false;
-        } else {
-          newBox.visible = false;
-          newBox.active = false;
-        }
-      }
-    }
-    onClick(e) {
-      if (!this.canClick)
-        return;
-      console.log(e.target.name);
-      switch (e.target.name) {
-        case "close":
-          core_default.view.close(Res_default.views.FriendsView);
-          break;
-        case "add_friend":
-          this.addFriendEvent();
-          break;
-        case "del_friend":
-          this.deleteFriendEvent();
-          break;
-        case "desc_btn":
-          core_default.view.open(Res_default.views.FriendsDescView);
-          break;
-        case "reward_btn":
-          this.openReward();
-          break;
-        case "copy_btn":
-          this.copy();
-          break;
-        case "search_btn":
-          this.search();
-          break;
-        case "apply_btn":
-          this.applyEvent(e.target);
-          break;
-        case "past_btn":
-          this.allowFriend(e.target);
-          break;
-        case "del_btn":
-          this.deleteFriend(e.target);
-          break;
-        case "ignore":
-          this.ignore(e.target);
-          break;
-        case "go_play_btn":
-          this.visitFriend(e.target);
-          break;
-        default:
-          break;
-      }
-    }
-    deleteFriendEvent() {
-      if (this.viewState == 3)
-        return;
-      this.addBox.visible = false;
-      this.addBox.active = false;
-      this.viewState = 3;
-      let newF = [];
-      this.friends.forEach((d) => {
-        if (!d.applyIng)
-          newF.push(d);
-      });
-      this.itemList.array = newF;
-      this.itemList.height = 914;
-      this.itemList.refresh();
-      this.isEmpty();
-      this.addFriend.skin = `game/img_friendBtn.png`;
-    }
-    addFriendEvent() {
-      if (this.viewState == 3 || this.viewState == 2) {
-        this.viewState = 1;
-        this.itemList.array = this.friends;
-        this.itemList.height = 914;
-        this.addFriend.skin = `game/img_addBtn.png`;
-        this.addBox.visible = false;
-        this.addBox.active = false;
-        this.isEmpty();
-      } else {
-        this.viewState = 2;
-        this.addBox.visible = true;
-        this.addBox.active = true;
-        this.itemList.array = [];
-        this.itemList.height = 590;
-        this.addFriend.skin = `game/img_friendBtn.png`;
-        this.empty_lb.visible = false;
-      }
-      this.itemList.refresh();
-    }
-    ignore(target) {
-      let data = target.dataSource;
-      this.canClick = false;
-      HttpControl.inst.send({
-        api: ApiHttp.friendDelete,
-        data: {
-          friendId: data.uid
-        }
-      }).then((e) => {
-        for (let x = 0; x < this.friends.length; x++) {
-          if (this.friends[x].uid == data.uid) {
-            this.friends.splice(x, 1);
-            break;
-          }
-        }
-        this.canClick = true;
-        this.itemList.refresh();
-        this.isEmpty();
-      }).catch(() => {
-        this.canClick = true;
-      });
-    }
-    openReward() {
-      this.canClick = false;
-      HttpControl.inst.send({
-        api: ApiHttp.friendInviteList,
-        data: {}
-      }).then((d) => {
-        core_default.view.open(Res_default.views.FriendsRewardView, {
-          parm: {
-            list: d.list,
-            call: () => {
-              HttpControl.inst.send({
-                api: ApiHttp.friendList
-              }).then((d2) => {
-                this.friends = d2.list;
-                this.friendsList = this.friends;
-                this.updateListData();
-                this.itemList.array = this.friendsList;
-                this.isEmpty();
-                this.itemList.refresh();
-              });
-            }
-          }
-        });
-        this.canClick = true;
-      }).catch(() => {
-        this.canClick = true;
-      });
-    }
-    visitFriend(target) {
-      this.canClick = false;
-      core_default.view.setOverView(true, () => {
-        let data = target.dataSource;
-        HttpControl.inst.send({
-          api: ApiHttp.friendVisit,
-          data: {
-            friendId: data.uid
-          }
-        }).then((d) => {
-          core_default.view.close(Res_default.views.FriendsView);
-          core_default.eventGlobal.event(EventMaps.go_friend_home, [d, data]);
-          setTimeout(() => {
-            core_default.view.setOverView(false);
-            this.canClick = true;
-          }, 300);
-        }).catch(() => {
-          this.canClick = true;
-        });
-      });
-    }
-    deleteFriend(target) {
-      core_default.view.openHint({
-        text: "\u786E\u8BA4\u8981\u5220\u9664\u597D\u53CB\u5417\uFF1F",
-        call: () => {
-          let data = target.dataSource;
-          HttpControl.inst.send({
-            api: ApiHttp.friendDelete,
-            data: {
-              friendId: data.uid
-            }
-          }).then((e) => {
-            for (let x = 0; x < this.friends.length; x++) {
-              if (this.friends[x].uid == data.uid) {
-                this.friends.splice(x, 1);
-                break;
-              }
-            }
-            this.itemList.array = this.friendsList;
-            this.itemList.refresh();
-            this.isEmpty();
-          });
-        },
-        cancelCall: () => {
-        }
-      });
-    }
-    allowFriend(target) {
-      this.canClick = false;
-      let data = target.dataSource;
-      HttpControl.inst.send({
-        api: ApiHttp.friendAllow,
-        data: {
-          friendId: data.uid
-        }
-      }).then(() => {
-        data.applyIng = 0;
-        this.itemList.refresh();
-        this.canClick = true;
-      }).catch(() => {
-        this.canClick = true;
-      });
-    }
-    applyEvent(target) {
-      let data = target.dataSource;
-      this.canClick = false;
-      HttpControl.inst.send({
-        api: ApiHttp.friendApply,
-        data: {
-          friendId: data.uid
-        }
-      }).then(() => {
-        this.friendsList = [];
-        this.itemList.array = this.friendsList;
-        this.itemList.refresh();
-        core_default.view.openHint({ text: "\u5DF2\u53D1\u9001\u6FC0\u60C5", call: () => {
-        } });
-        this.canClick = true;
-      }).catch(() => {
-        this.canClick = true;
-      });
-    }
-    search() {
-      if (!this.keyInputNode.text.length) {
-        core_default.view.openHint({ text: "\u53CB\u60C5\u7801\u4E0D\u80FD\u4E3A\u7A7A", call: () => {
-        } });
-        return;
-      }
-      if (this.keyInputNode.text == UserInfo_default.key) {
-        core_default.view.openHint({ text: "\u641C\u7D22\u81EA\u5DF1\u5E72\u5565", call: () => {
-        } });
-        return;
-      }
-      this.canClick = false;
-      HttpControl.inst.send({
-        api: ApiHttp.friendSearch,
-        data: {
-          key: this.keyInputNode.text
-        }
-      }).then((d) => {
-        this.friendsList = [d];
-        this.itemList.array = this.friendsList;
-        this.itemList.refresh();
-        this.canClick = true;
-      }).catch(() => {
-        this.canClick = true;
-      });
-    }
-    copy() {
-      let a = document.createElement("input");
-      document.body.appendChild(a);
-      a.value = UserInfo_default.key;
-      a.select();
-      document.execCommand("copy");
-      a.remove();
-      core_default.view.openHint({ text: "\u590D\u5236\u6210\u529F", call: () => {
-      } });
-    }
-  };
-
-  // src/view/GuideView.ts
-  var GuideView = class extends core_default.gameScript {
-    constructor() {
-      super(...arguments);
-      this.guideHand = null;
-      this.descLb = null;
-      this.nodeBox = null;
-      this.textList = [
-        "\u60A8\u7684\u94B1\u5305\u4F59\u989D",
-        "\u8FD9\u91CC\u662F\u5E02\u626C\u8BA2\u5355,\u6309\u8981\u6C42\u5B8C\u6210\u540E\u4F1A\u81EA\u52A8\u8FDB\u5165\u4E0B\u4E00\u7EA7\u8BA2\u5355\u3002",
-        "\u8FD9\u91CC\u662F\u4ED3\u5E93,\u6536\u83B7\u7684\u4F5C\u7269\u90FD\u5B58\u653E\u5728\u8FD9\u91CC\uFF0C\u51FA\u552E\u4F5C\u7269\u4E5F\u5728\u8FD9\u91CC\u3002",
-        "\u8FD9\u91CC\u662F\u96C6\u5E02,\u8D2D\u4E70\u79CD\u5B50\u3001\u72D7\u7CAE\u7684\u5730\u65B9\u8FD8\u6709\u6700\u91CD\u8981\u7684\u94B1\u5E84\u4E5F\u5728\u8FD9\u91CC,\u63D0\u73B0\u7684\u65F6\u5019\u60A8\u4F1A\u7ECF\u5E38\u6765\u7684\u3002",
-        "\u571F\u5730\u5347\u7EA7\u5728\u8FD9\u91CC,\u571F\u5730\u7B49\u7EA7\u8D8A\u9AD8,\u8D8A\u80A5\u6C83\uFF0C\u6536\u83B7\u5C31\u8D8A\u591A\u3002",
-        "\u8FD9\u91CC\u662F\u60A8\u7684\u519C\u573A\u3002\u79CD\u690D\u3001\u6536\u83B7\u90FD\u5728\u8FD9\u91CC,\u6084\u6084\u544A\u8BC9\u4F60\u8FD9\u5757\u5730\u6536\u83B7\u7684\u65F6\u5019\u53EF\u80FD\u4F1A\u4EA7\u51FA\u94BB\u77F3\u54E6\u3002",
-        "\u60A8\u7684\u4EFB\u52A1",
-        "\u60A8\u7684\u4FE1\u4EF6",
-        "\u8FD9\u91CC\u53EF\u4EE5\u53BB\u522B\u4EBA\u7684\u519C\u573A\u8F6C\u8F6C,\u5E2E\u522B\u4EBA\u6536\u7684\u83DC\u90FD\u5F52\u60A8,\u4F46\u662F\u8981\u5C0F\u5FC3\u72D7\u72D7\u54E6\u3002"
-      ];
-      this.step = 0;
-      this.canClick = true;
-    }
-    onOpened(data) {
-      if (!data)
-        return;
-      if (!data.nodeList)
-        data.nodeList = [];
-      this.data = data;
-      this.guideHand.alpha = 0;
-      this.userStep = UserInfo_default.guideData.split("");
-      if (!this.userStep.length) {
-        this.step = 0;
-      } else {
-        for (let x = 0; x < 9; x++) {
-          if (!this.userStep[x] || this.userStep[x] == "0") {
-            this.step = x;
-            break;
-          }
-        }
-      }
-      this.guidHandAni();
-      this.updateStep();
-    }
-    updateStep() {
-      let pos;
-      const preNode = this.data.nodeList[this.step - 1];
-      if (preNode && this.oldParent) {
-        pos = this.oldParent.globalToLocal(this.nodeBox.localToGlobal(new Laya.Point(preNode.x, preNode.y)));
-        this.oldParent.addChildAt(preNode, this.oldZOrder);
-        preNode.pos(pos.x, pos.y);
-      }
-      if (!this.textList[this.step]) {
-        core_default.view.close(Res_default.views.GuideView);
-        return;
-      }
-      const node = this.data.nodeList[this.step];
-      this.oldZOrder = node.zOrder;
-      this.oldParent = node.parent;
-      pos = this.nodeBox.globalToLocal(this.oldParent.localToGlobal(new Laya.Point(node.x, node.y)));
-      this.nodeBox.addChild(node);
-      node.pos(pos.x, pos.y);
-      this.guideHand.scaleX = 1;
-      const textPosAdd = new Laya.Point();
-      switch (this.step) {
-        case 0:
-          pos.x += 200;
-          pos.y += 150;
-          textPosAdd.setTo(-100, 80);
-          break;
-        case 1:
-          pos.x += 200;
-          pos.y += 250;
-          textPosAdd.setTo(-300, 80);
-          break;
-        case 2:
-          pos.x += 200;
-          pos.y += 250;
-          textPosAdd.setTo(-200, 80);
-          break;
-        case 3:
-          pos.x += -100;
-          pos.y += 250;
-          this.guideHand.scaleX = -1;
-          textPosAdd.setTo(-400, 80);
-          break;
-        case 4:
-          pos.x += 200;
-          pos.y += 250;
-          textPosAdd.setTo(-200, 80);
-          break;
-        case 5:
-          pos.x += 600;
-          pos.y += 450;
-          textPosAdd.setTo(-200, 80);
-          break;
-        case 6:
-          pos.x += 160;
-          pos.y += 100;
-          textPosAdd.setTo(-200, -280);
-          break;
-        case 7:
-          pos.x += 160;
-          pos.y += 100;
-          textPosAdd.setTo(-200, -280);
-          break;
-        case 8:
-          pos.x += 140;
-          pos.y += 100;
-          textPosAdd.setTo(-560, -380);
-          break;
-      }
-      Laya.Tween.to(this.guideHand, { x: pos.x, y: pos.y, alpha: 1 }, 300);
-      this.descLb.alpha = 0;
-      Laya.Tween.to(this.descLb, { alpha: 1 }, 150);
-      this.descLb.pos(pos.x + textPosAdd.x, pos.y + textPosAdd.y);
-      this.descLb.text = this.textList[this.step];
-      this.step++;
-    }
-    onClick(e) {
-      if (!this.canClick)
-        return;
-      this.canClick = false;
-      this.userStep[this.step] = "1";
-      HttpControl.inst.send({
-        api: ApiHttp.guide,
-        data: {
-          data: this.userStep.join("")
-        }
-      }).then(() => {
-        this.updateStep();
-        this.canClick = true;
-      }).catch(() => {
-        this.canClick = true;
-      });
-    }
-    guidHandAni() {
-      this.guidAni = Laya.TimeLine.to(this.guideHand, { rotation: -15 }, 400, null).to(this.guideHand, { rotation: 0 }, 400);
-      this.guidAni.play(null, true);
-    }
-    onHdDisable() {
-      var _a;
-      (_a = this.guidAni) == null ? void 0 : _a.destroy();
-    }
-  };
-
-  // src/view/HintView.ts
-  var HintView = class extends core_default.gameScript {
-    onOpened(d) {
-      var _a;
-      this.data = d;
-      this.text.text = ((_a = this.data) == null ? void 0 : _a.text) || "";
-      if (this.data.call) {
-        this.confirmBtn.visible = true;
-      } else {
-        this.confirmBtn.visible = false;
-      }
-      if (this.data.cancelCall) {
-        this.cancelBtn.visible = true;
-      } else {
-        this.cancelBtn.visible = false;
-      }
-      if (this.data.call && this.data.cancelCall) {
-        this.confirmBtn.x = 252;
-      } else {
-        this.confirmBtn.x = 458;
-      }
-    }
-    onClick(e) {
-      var _a, _b;
-      switch (e.target.name) {
-        case "cancel":
-          if ((_a = this.data) == null ? void 0 : _a.cancelCall) {
-            this.data.cancelCall();
-          }
-          core_default.view.close(Res_default.views.HintView);
-          break;
-        case "confirm":
-          if ((_b = this.data) == null ? void 0 : _b.call) {
-            this.data.call();
-          }
-          core_default.view.close(Res_default.views.HintView);
-          break;
-      }
-    }
-  };
-
-  // src/view/LoginView.ts
-  var LoginView = class extends GameScript {
-    constructor() {
-      super(...arguments);
-      this.loadBar = null;
-      this.loadBox = null;
-      this.loginBox = null;
-      this.privacyBox = null;
-      this.privacyCheckIcon = null;
-      this.loadBarOldWidth = 0;
-      this.canClick = true;
-    }
-    onOpened(d) {
-      return __async(this, null, function* () {
-        var _a;
-        this.data = d;
-        this.loginBox.visible = false;
-        this.loadBox.visible = false;
-        this.privacyBox.visible = false;
-        yield this.version();
-        if ((_a = LocalStorageService_default.getJSON()) == null ? void 0 : _a.isLogin) {
-          this.login(false);
-          this.loginBox.visible = false;
-          this.loadBox.visible = true;
-        } else {
-          this.loginBox.visible = true;
-          this.loadBox.visible = false;
-          this.privacyBox.visible = true;
-        }
-      });
-    }
-    onHdAwake() {
-      EventGlobal_default.on(EventMaps.load_progress, this, this.loadProgress);
-      console.log("awake");
-    }
-    onHdEnable() {
-      this.loadBarOldWidth = this.loadBar.width;
-      this.loadBar.width = 0;
-    }
-    getBuildType() {
-      let buildType = null;
-      switch ("test") {
-        case BuildType.debug:
-          buildType = 3;
-          break;
-        case BuildType.test:
-          buildType = 2;
-          break;
-        case BuildType.online:
-          buildType = 1;
-          break;
-      }
-      if (!buildType) {
-        return core_default.view.openHint({
-          text: "\u73AF\u5883type\u914D\u7F6E\u51FA\u9519",
-          call: () => {
-            AppCore.runAppFunction({
-              uri: AppEventMap.clearCache,
-              data: {}
-            });
-            location.reload();
-          }
-        });
-      }
-      return buildType;
-    }
-    version() {
-      return __async(this, null, function* () {
-        return new Promise((resolve) => {
-          HttpControl.inst.send({
-            api: ApiHttp.configClient,
-            data: { id: this.getBuildType() }
-          }).then((d) => {
-            var _a;
-            const version = Number((_a = LocalStorageService_default.getJSON().version) == null ? void 0 : _a.replace(/\./g, ""));
-            if (!version) {
-              resolve(null);
-              LocalStorageService_default.setJSON("version", d.version);
-              ConfigGame_default.version = d.version;
-              return;
-            }
-            if (Number(d.version.replace(/\./g, "")) > version) {
-              AppCore.runAppFunction({
-                uri: AppEventMap.clearCache,
-                data: {}
-              });
-              core_default.view.openHint({
-                text: "\u68C0\u6D4B\u5230\u65B0\u7684\u7248\u672C\uFF0C\u8BF7\u66F4\u65B0\uFF01",
-                call: () => {
-                  LocalStorageService_default.setJSON("version", d.version);
-                  AppCore.runAppFunction({
-                    uri: AppEventMap.showBackground,
-                    data: {}
-                  });
-                  location.reload();
-                }
-              });
-            } else {
-              ConfigGame_default.version = d.version;
-              resolve(null);
-            }
-          }).catch(() => {
-            alert("\u7248\u672C\u68C0\u6D4B\u51FA\u9519");
-            resolve(null);
-          });
-        });
-      });
-    }
-    onClick(e) {
-      switch (e.target.name) {
-        case "login_btn":
-          this.login(true);
-          break;
-        case "check_box":
-          this.privacyCheckIcon.visible = !this.privacyCheckIcon.visible;
-          break;
-        case "privacy_lb":
-          AppCore.runAppFunction({
-            uri: AppEventMap.privacyAgreement,
-            data: {}
-          });
-          break;
-      }
-    }
-    login(isWx) {
-      return __async(this, null, function* () {
-        if (!this.canClick)
-          return;
-        this.canClick = false;
-        if (LocalStorageService_default.getJSON().token) {
-          HttpControl.inst.send({
-            api: ApiHttp.loginToken,
-            error: (code, data) => {
-              LocalStorageService_default.clear();
-              this.loginBox.visible = true;
-              this.loadBox.visible = false;
-            }
-          }).then((d) => {
-            var _a;
-            if ((_a = this.data) == null ? void 0 : _a.call)
-              this.data.call(d);
-            this.loginBox.visible = false;
-            this.loadBox.visible = true;
-            this.canClick = true;
-            AppCore.runAppFunction({
-              uri: AppEventMap.loginSuccess,
-              data: {
-                user_id: Number(d.userInfo.key)
-              }
-            }).then((data) => {
-              ConfigGame_default.channel = data.data["channel"];
-            });
-          }).catch(() => {
-            this.canClick = true;
-          });
-          this.privacyBox.visible = false;
-        } else {
-          this.privacyBox.visible = true;
-          if (!this.privacyCheckIcon.visible) {
-            core_default.view.openHint({
-              text: "\u8BF7\u9605\u8BFB\u300A\u7528\u6237\u9690\u79C1\u534F\u8BAE\u300B",
-              call: () => {
-                LocalStorageService_default.clear();
-                this.loginBox.visible = true;
-                this.canClick = true;
-                this.loadBox.visible = false;
-              }
-            });
-            return;
-          }
-          let testK = location.search.match(/\?id=(.+)/), testKe = null;
-          if (testK && testK.length > 1) {
-            testKe = testK[1];
-          }
-          let wxOpenId = testKe, nickname = "", avatar = "";
-          if (isWx && !wxOpenId) {
-            const data = yield AppCore.runAppFunction({
-              uri: AppEventMap.wxLogin,
-              data: {},
-              timestamp: Date.now()
-            });
-            if (data) {
-              wxOpenId = data.data["openid"];
-              avatar = data.data["iconurl"];
-              nickname = data.data["name"];
-            }
-          }
-          if (!wxOpenId) {
-            core_default.view.openHint({ text: "\u672A\u83B7\u53D6\u5230\u5FAE\u4FE1id", call: () => {
-            } });
-            return;
-          }
-          this.privacyBox.visible = false;
-          HttpControl.inst.send({
-            api: ApiHttp.login,
-            data: {
-              wxId: wxOpenId,
-              avatar,
-              nickname
-            },
-            error: (code, data) => {
-              LocalStorageService_default.clear();
-              this.loginBox.visible = true;
-              this.loadBox.visible = false;
-              this.canClick = true;
-            }
-          }).then((d) => {
-            var _a;
-            if ((_a = this.data) == null ? void 0 : _a.call)
-              this.data.call(d);
-            this.loginBox.visible = false;
-            this.loadBox.visible = true;
-            this.canClick = true;
-            if (!UserInfo_default.isFirstTime) {
-              AppCore.runAppFunction({
-                uri: AppEventMap.registerSuccess,
-                data: {
-                  user_id: Number(d.userInfo.key)
-                }
-              });
-            }
-            AppCore.runAppFunction({
-              uri: AppEventMap.loginSuccess,
-              data: {
-                user_id: Number(d.userInfo.key)
-              }
-            }).then((data) => {
-              ConfigGame_default.channel = data.data["channel"];
-            });
-          }).catch(() => {
-            this.canClick = true;
-          });
-        }
-      });
-    }
-    loadProgress(v) {
-      this.loadBar.width = v * this.loadBarOldWidth;
-    }
-    onHdDisable() {
-      EventGlobal_default.off(EventMaps.load_progress, this, this.loadProgress);
-    }
-  };
-
-  // src/view/MailDescView.ts
-  var MailDescView = class extends core_default.gameScript {
-    constructor() {
-      super(...arguments);
-      this.mailId = null;
-    }
-    onOpened(d) {
-      const data = d.data;
-      this.call = d.call;
-      this.mailId = d.data.id;
-      this.centerPanel.vScrollBarSkin = null;
-      this.title.text = `${data.message}\u6F5C\u5165\u4E86\u4F60\u7684\u83DC\u5730\u91C7\u9752`;
-      console.log(d);
-      const itemsLost = [], itemsBack = [];
-      let lostDiamond = 0, lostGold = 0;
-      Tools.parseString(data.itemsLost).map((_d) => {
-        _d = Tools.parseString(_d, ":");
-        console.log(_d);
-        if (_d[0] == 1) {
-          lostDiamond += Number(_d[2]);
-          return;
-        }
-        let has = false;
-        itemsLost.forEach((d2) => {
-          if (d2.id == _d[1]) {
-            has = true;
-          }
-        });
-        if (!has) {
-          itemsLost.push({ id: _d[1], amount: Number(_d[2]) });
-          return;
-        }
-        for (let x = 0; x < itemsLost.length; x++) {
-          if (itemsLost[x].id == _d[1]) {
-            itemsLost[x].amount += Number(_d[2]);
-            break;
-          }
-        }
-      });
-      Tools.parseString(data.items).map((_d) => {
-        _d = Tools.parseString(_d, ":");
-        let has = false;
-        itemsBack.forEach((d2) => {
-          if (d2.id == _d[1]) {
-            has = true;
-          }
-        });
-        if (!has) {
-          itemsBack.push({ id: _d[1], amount: Number(_d[2]) });
-          return;
-        }
-        for (let x = 0; x < itemsBack.length; x++) {
-          if (itemsBack[x].id == _d[1]) {
-            itemsBack[x].amount += Number(_d[2]);
-            break;
-          }
-        }
-      });
-      let yAdd = 0, _x = 0;
-      for (let x = 0; x < itemsLost.length; x++) {
-        let itemNode = this.item.create();
-        if (_x > 2 && !yAdd) {
-          yAdd++;
-          _x = -1;
-        }
-        if (yAdd && _x > 2) {
-          yAdd++;
-          _x = -1;
-        }
-        itemNode.x = 230 + _x * 190;
-        itemNode.y = 105 + yAdd * 95;
-        _x++;
-        let plant = TableAnalyze_default.table("plant").get(itemsLost[x].id);
-        const icon = itemNode.getChildByName("icon");
-        icon.skin = plant.icon;
-        icon.scale(0.7, 0.7);
-        icon.anchorX = 0.5;
-        itemNode.getChildByName("lb").text = `x${itemsLost[x].amount}`;
-        plant.gain.forEach((d2) => {
-          if (d2.obj.id == ConfigGame_default.diamondId)
-            return;
-          lostGold += d2.count * itemsLost[x].amount;
-        });
-        this.centerPanel.addChild(itemNode);
-      }
-      let yAddBack = 0;
-      _x = 0;
-      for (let x = 0; x < itemsBack.length; x++) {
-        let itemNode = this.item.create();
-        if (_x > 1 && !yAddBack) {
-          yAddBack++;
-          _x = -2;
-        }
-        if (yAddBack && _x > 1) {
-          yAddBack++;
-          _x = -2;
-        }
-        itemNode.x = 420 + _x * 190;
-        itemNode.y = 208 + yAdd * 95 + yAddBack * 95;
-        _x++;
-        this.centerPanel.addChild(itemNode);
-      }
-      this.lostLb.y = 114;
-      this.backLb.y = 218 + yAdd * 95;
-      this.bottomLb.y = 301 + yAdd * 95 + yAddBack * 95;
-      this.bottomLb.text = `\u5171\u8BA1\u635F\u5931\u4E86${lostGold}\u91D1\u5E01\uFF0C${lostDiamond}\u94BB\u77F3`;
-    }
-    onClick(e) {
-      switch (e.target.name) {
-        case "close":
-          core_default.view.close(Res_default.views.MailDescView);
-          break;
-        case "delete":
-          HttpControl.inst.send({
-            api: ApiHttp.mailDelete,
-            data: { id: this.mailId }
-          }).then(() => {
-            if (this.call) {
-              this.call(this.mailId);
-            }
-            Laya.timer.frameOnce(1, this, () => {
-              core_default.view.close(Res_default.views.MailDescView);
-            });
-          });
-          break;
-      }
-    }
-  };
-
-  // src/view/MailView.ts
-  var MailView = class extends GameScript {
-    constructor() {
-      super(...arguments);
-      this.list = null;
-      this.empty_lb = null;
-      this.listData = [];
-    }
-    onHdAwake() {
-      this.list.vScrollBarSkin = null;
-      this.list.renderHandler = new Laya.Handler(this, this.renderItem);
-    }
-    onOpened(list = []) {
-      this.listData = list;
-      this.updateListData();
-    }
-    updateListData() {
-      this.list.array = this.listData.sort((a, b) => {
-        return b.createTime - (b.read ? 1e6 : 0) - (a.createTime - (a.read ? 1e6 : 0));
-      });
-      this.empty_lb.visible = !this.list.array.length;
-    }
-    renderItem(cell, index) {
-      const data = this.listData[index];
-      cell.getChildByName("title").text = "\u7CFB\u7EDF\u90AE\u4EF6";
-      cell.getChildByName("desc").text = `${data.message}\u6F5C\u5165\u83DC\u5730\u5077\u83DC,\u88AB\u72D7\u72D7\u53D1\u73B0\u5E76\u8FFD\u52A0\u56DE\u4E86~~`;
-      cell.getChildByName("time").text = `${new Date(data.createTime).toLocaleString("zh-CN", { hour12: false })}`;
-      cell.getChildByName("read_icon").visible = !data.read;
-      cell.dataSource = data;
-    }
-    onClick(e) {
-      if (e.target.name.indexOf("item") > -1) {
-        HttpControl.inst.send({
-          api: ApiHttp.mailRead,
-          data: {
-            id: e.target["dataSource"].id
-          }
-        }).then(() => {
-          e.target["dataSource"].read = 1;
-          this.list.refresh();
-          core_default.view.open(Res_default.views.MailDescView, {
-            parm: {
-              data: e.target["dataSource"],
-              call: (mailId) => {
-                for (let x = 0; x < this.listData.length; x++) {
-                  if (this.listData[x].id == mailId) {
-                    this.listData.splice(x, 1);
-                    break;
-                  }
-                }
-                this.list.refresh();
-              }
-            }
-          });
-        });
-      }
-      switch (e.target.name) {
-        case "close":
-          ViewManager.inst.close(Res_default.views.MailView);
-          break;
-      }
     }
   };
 
@@ -3112,7 +2164,7 @@
   ], FieldComponent.prototype, "speedUp", 1);
 
   // src/view/MainView.ts
-  var MainView = class extends core_default.gameScript {
+  var _MainView = class extends core_default.gameScript {
     constructor() {
       super(...arguments);
       this.addLandLayer = null;
@@ -3153,6 +2205,7 @@
       this.orderQueueIng = false;
     }
     onOpened() {
+      _MainView.inst = this;
       [
         "res/loadingBg.png",
         "res/img_woodtitle.png",
@@ -3674,6 +2727,7 @@
       });
     }
     goFriendListen(d, friendData) {
+      this.outCountDownNumber = 60;
       this.isOuter = true;
       this.goFriend(d, friendData);
     }
@@ -3734,7 +2788,6 @@
       const topBox = this.orderBox.parent, moneyBox = topBox.getChildByName("money_box"), countDown = topBox.getChildByName("count_down"), orderBox = this.orderBox.getChildByName("order_box"), friendName = this.orderBox.getChildByName("friend_name"), bottomList = [
         this.bottomBox.getChildByName("task"),
         this.bottomBox.getChildByName("signIn"),
-        this.bottomBox.getChildByName("friends"),
         this.bottomBox.getChildByName("mail")
       ];
       if (this.isOuter) {
@@ -3770,6 +2823,7 @@
       }
     }
   };
+  var MainView = _MainView;
   __decorateClass([
     core_default.eventOn(EventMaps.plant_sow)
   ], MainView.prototype, "sow", 1);
@@ -3791,6 +2845,966 @@
   __decorateClass([
     core_default.eventOn(EventMaps.go_friend_home)
   ], MainView.prototype, "goFriendListen", 1);
+
+  // src/view/FriendsView.ts
+  var FriendsView = class extends core_default.gameScript {
+    constructor() {
+      super(...arguments);
+      this.empty_lb = null;
+      this.viewState = 1;
+      this.friends = [];
+      this.friendsList = [];
+      this.canClick = true;
+    }
+    onOpened(data) {
+      this.friends = data.friendData.list;
+      this.friendsList = this.friends;
+      this.updateListData();
+      this.addBox.visible = false;
+      this.addBox.active = false;
+      this.itemList.array = this.friendsList;
+      this.isEmpty();
+      this.itemList.renderHandler = new Laya.Handler(this, this.itemRender);
+      this.itemList.vScrollBarSkin = null;
+      this.userKey.text = `\u6211\u7684\u53CB\u60C5\u7801\uFF1A${UserInfo_default.key}`;
+      console.log(data.type);
+      if (data.type && data.type == 1) {
+        this.addFriendEvent();
+      }
+    }
+    isEmpty() {
+      this.empty_lb.visible = !this.itemList.array.length;
+    }
+    updateListData() {
+      this.friendsList.sort((a, b) => {
+        return b.applyIng * 1e5 - a.applyIng * 1e5;
+      });
+    }
+    itemRender(cell, i) {
+      const data = this.friendsList[i];
+      let newBox = cell.getChildByName("new_box"), heartBox = cell.getChildByName("heart_box"), goPlayBtn = cell.getChildByName("go_play_btn"), applyBtn = cell.getChildByName("apply_btn"), delBtn = cell.getChildByName("del_btn");
+      heartBox.visible = false;
+      goPlayBtn.visible = false;
+      applyBtn.visible = false;
+      delBtn.visible = false;
+      if (data == null ? void 0 : data.avatar)
+        cell.getChildByName("head").skin = data.avatar;
+      cell.getChildByName("name").text = data.nickname;
+      cell.getChildByName("lv").text = (data.orderLevel || 0) + "";
+      heartBox.getChildByName("val").text = (data.intimacy || 0) + "";
+      cell.getChildByName("reward_box").getChildByName("value").text = data.gainDiamond + "";
+      cell.getChildByName("del_btn").dataSource = data;
+      goPlayBtn.dataSource = data;
+      switch (this.viewState) {
+        case 1:
+          goPlayBtn.visible = true;
+          heartBox.visible = true;
+          break;
+        case 2:
+          applyBtn.dataSource = data;
+          applyBtn.visible = true;
+          newBox.visible = false;
+          newBox.active = false;
+          break;
+        case 3:
+          heartBox.visible = true;
+          delBtn.visible = true;
+          break;
+      }
+      if (this.viewState == 1 || this.viewState == 3) {
+        if (data.applyIng) {
+          newBox.visible = true;
+          newBox.active = true;
+          newBox.getChildByName("past_btn").dataSource = data;
+          newBox.getChildByName("ignore").dataSource = data;
+          heartBox.visible = false;
+          goPlayBtn.visible = false;
+        } else {
+          newBox.visible = false;
+          newBox.active = false;
+        }
+      }
+    }
+    onClick(e) {
+      if (!this.canClick)
+        return;
+      console.log(e.target.name);
+      switch (e.target.name) {
+        case "close":
+          core_default.view.close(Res_default.views.FriendsView);
+          break;
+        case "add_friend":
+          this.addFriendEvent();
+          break;
+        case "del_friend":
+          this.deleteFriendEvent();
+          break;
+        case "desc_btn":
+          core_default.view.open(Res_default.views.FriendsDescView);
+          break;
+        case "reward_btn":
+          this.openReward();
+          break;
+        case "copy_btn":
+          this.copy();
+          break;
+        case "search_btn":
+          this.search();
+          break;
+        case "apply_btn":
+          this.applyEvent(e.target);
+          break;
+        case "past_btn":
+          this.allowFriend(e.target);
+          break;
+        case "del_btn":
+          this.deleteFriend(e.target);
+          break;
+        case "ignore":
+          this.ignore(e.target);
+          break;
+        case "go_play_btn":
+          this.visitFriend(e.target);
+          break;
+        default:
+          break;
+      }
+    }
+    deleteFriendEvent() {
+      if (this.viewState == 3)
+        return;
+      this.addBox.visible = false;
+      this.addBox.active = false;
+      this.viewState = 3;
+      let newF = [];
+      this.friends.forEach((d) => {
+        if (!d.applyIng)
+          newF.push(d);
+      });
+      this.itemList.array = newF;
+      this.itemList.height = 914;
+      this.itemList.refresh();
+      this.isEmpty();
+      this.addFriend.skin = `game/img_friendBtn.png`;
+    }
+    addFriendEvent() {
+      if (this.viewState == 3 || this.viewState == 2) {
+        this.viewState = 1;
+        this.itemList.array = this.friends;
+        this.itemList.height = 914;
+        this.addFriend.skin = `game/img_addBtn.png`;
+        this.addBox.visible = false;
+        this.addBox.active = false;
+        this.isEmpty();
+      } else {
+        this.viewState = 2;
+        this.addBox.visible = true;
+        this.addBox.active = true;
+        this.itemList.array = [];
+        this.itemList.height = 590;
+        this.addFriend.skin = `game/img_friendBtn.png`;
+        this.empty_lb.visible = false;
+      }
+      this.itemList.refresh();
+    }
+    ignore(target) {
+      let data = target.dataSource;
+      this.canClick = false;
+      HttpControl.inst.send({
+        api: ApiHttp.friendDelete,
+        data: {
+          friendId: data.uid
+        }
+      }).then((e) => {
+        for (let x = 0; x < this.friends.length; x++) {
+          if (this.friends[x].uid == data.uid) {
+            this.friends.splice(x, 1);
+            break;
+          }
+        }
+        this.canClick = true;
+        this.itemList.refresh();
+        this.isEmpty();
+      }).catch(() => {
+        this.canClick = true;
+      });
+    }
+    openReward() {
+      this.canClick = false;
+      HttpControl.inst.send({
+        api: ApiHttp.friendInviteList,
+        data: {}
+      }).then((d) => {
+        core_default.view.open(Res_default.views.FriendsRewardView, {
+          parm: {
+            list: d.list,
+            call: () => {
+              HttpControl.inst.send({
+                api: ApiHttp.friendList
+              }).then((d2) => {
+                this.friends = d2.list;
+                this.friendsList = this.friends;
+                this.updateListData();
+                this.itemList.array = this.friendsList;
+                this.isEmpty();
+                this.itemList.refresh();
+              });
+            }
+          }
+        });
+        this.canClick = true;
+      }).catch(() => {
+        this.canClick = true;
+      });
+    }
+    visitFriend(target) {
+      this.canClick = false;
+      core_default.view.setOverView(true, () => __async(this, null, function* () {
+        let data = target.dataSource;
+        if (MainView.inst.isOuter) {
+          yield HttpControl.inst.send({
+            api: ApiHttp.goHome,
+            data: {}
+          });
+        }
+        HttpControl.inst.send({
+          api: ApiHttp.friendVisit,
+          data: {
+            friendId: data.uid
+          }
+        }).then((d) => {
+          core_default.view.close(Res_default.views.FriendsView);
+          core_default.eventGlobal.event(EventMaps.go_friend_home, [d, data]);
+          setTimeout(() => {
+            core_default.view.setOverView(false);
+            this.canClick = true;
+          }, 300);
+        }).catch(() => {
+          this.canClick = true;
+        });
+      }));
+    }
+    deleteFriend(target) {
+      core_default.view.openHint({
+        text: "\u786E\u8BA4\u8981\u5220\u9664\u597D\u53CB\u5417\uFF1F",
+        call: () => {
+          let data = target.dataSource;
+          HttpControl.inst.send({
+            api: ApiHttp.friendDelete,
+            data: {
+              friendId: data.uid
+            }
+          }).then((e) => {
+            for (let x = 0; x < this.friends.length; x++) {
+              if (this.friends[x].uid == data.uid) {
+                this.friends.splice(x, 1);
+                break;
+              }
+            }
+            this.itemList.array = this.friendsList;
+            this.itemList.refresh();
+            this.isEmpty();
+          });
+        },
+        cancelCall: () => {
+        }
+      });
+    }
+    allowFriend(target) {
+      this.canClick = false;
+      let data = target.dataSource;
+      HttpControl.inst.send({
+        api: ApiHttp.friendAllow,
+        data: {
+          friendId: data.uid
+        }
+      }).then(() => {
+        data.applyIng = 0;
+        this.itemList.refresh();
+        this.canClick = true;
+      }).catch(() => {
+        this.canClick = true;
+      });
+    }
+    applyEvent(target) {
+      let data = target.dataSource;
+      this.canClick = false;
+      HttpControl.inst.send({
+        api: ApiHttp.friendApply,
+        data: {
+          friendId: data.uid
+        }
+      }).then(() => {
+        this.friendsList = [];
+        this.itemList.array = this.friendsList;
+        this.itemList.refresh();
+        core_default.view.openHint({ text: "\u5DF2\u53D1\u9001\u6FC0\u60C5", call: () => {
+        } });
+        this.canClick = true;
+      }).catch(() => {
+        this.canClick = true;
+      });
+    }
+    search() {
+      if (!this.keyInputNode.text.length) {
+        core_default.view.openHint({ text: "\u53CB\u60C5\u7801\u4E0D\u80FD\u4E3A\u7A7A", call: () => {
+        } });
+        return;
+      }
+      if (this.keyInputNode.text == UserInfo_default.key) {
+        core_default.view.openHint({ text: "\u641C\u7D22\u81EA\u5DF1\u5E72\u5565", call: () => {
+        } });
+        return;
+      }
+      this.canClick = false;
+      HttpControl.inst.send({
+        api: ApiHttp.friendSearch,
+        data: {
+          key: this.keyInputNode.text
+        }
+      }).then((d) => {
+        this.friendsList = [d];
+        this.itemList.array = this.friendsList;
+        this.itemList.refresh();
+        this.canClick = true;
+      }).catch(() => {
+        this.canClick = true;
+      });
+    }
+    copy() {
+      let a = document.createElement("input");
+      document.body.appendChild(a);
+      a.value = UserInfo_default.key;
+      a.select();
+      document.execCommand("copy");
+      a.remove();
+      core_default.view.openHint({ text: "\u590D\u5236\u6210\u529F", call: () => {
+      } });
+    }
+  };
+
+  // src/view/GuideView.ts
+  var GuideView = class extends core_default.gameScript {
+    constructor() {
+      super(...arguments);
+      this.guideHand = null;
+      this.descLb = null;
+      this.nodeBox = null;
+      this.textList = [
+        "\u60A8\u7684\u94B1\u5305\u4F59\u989D",
+        "\u8FD9\u91CC\u662F\u5E02\u626C\u8BA2\u5355,\u6309\u8981\u6C42\u5B8C\u6210\u540E\u4F1A\u81EA\u52A8\u8FDB\u5165\u4E0B\u4E00\u7EA7\u8BA2\u5355\u3002",
+        "\u8FD9\u91CC\u662F\u4ED3\u5E93,\u6536\u83B7\u7684\u4F5C\u7269\u90FD\u5B58\u653E\u5728\u8FD9\u91CC\uFF0C\u51FA\u552E\u4F5C\u7269\u4E5F\u5728\u8FD9\u91CC\u3002",
+        "\u8FD9\u91CC\u662F\u96C6\u5E02,\u8D2D\u4E70\u79CD\u5B50\u3001\u72D7\u7CAE\u7684\u5730\u65B9\u8FD8\u6709\u6700\u91CD\u8981\u7684\u94B1\u5E84\u4E5F\u5728\u8FD9\u91CC,\u63D0\u73B0\u7684\u65F6\u5019\u60A8\u4F1A\u7ECF\u5E38\u6765\u7684\u3002",
+        "\u571F\u5730\u5347\u7EA7\u5728\u8FD9\u91CC,\u571F\u5730\u7B49\u7EA7\u8D8A\u9AD8,\u8D8A\u80A5\u6C83\uFF0C\u6536\u83B7\u5C31\u8D8A\u591A\u3002",
+        "\u8FD9\u91CC\u662F\u60A8\u7684\u519C\u573A\u3002\u79CD\u690D\u3001\u6536\u83B7\u90FD\u5728\u8FD9\u91CC,\u6084\u6084\u544A\u8BC9\u4F60\u8FD9\u5757\u5730\u6536\u83B7\u7684\u65F6\u5019\u53EF\u80FD\u4F1A\u4EA7\u51FA\u94BB\u77F3\u54E6\u3002",
+        "\u60A8\u7684\u4EFB\u52A1",
+        "\u60A8\u7684\u4FE1\u4EF6",
+        "\u8FD9\u91CC\u53EF\u4EE5\u53BB\u522B\u4EBA\u7684\u519C\u573A\u8F6C\u8F6C,\u5E2E\u522B\u4EBA\u6536\u7684\u83DC\u90FD\u5F52\u60A8,\u4F46\u662F\u8981\u5C0F\u5FC3\u72D7\u72D7\u54E6\u3002"
+      ];
+      this.step = 0;
+      this.canClick = true;
+    }
+    onOpened(data) {
+      if (!data)
+        return;
+      if (!data.nodeList)
+        data.nodeList = [];
+      this.data = data;
+      this.guideHand.alpha = 0;
+      this.userStep = UserInfo_default.guideData.split("");
+      if (!this.userStep.length) {
+        this.step = 0;
+      } else {
+        for (let x = 0; x < 9; x++) {
+          if (!this.userStep[x] || this.userStep[x] == "0") {
+            this.step = x;
+            break;
+          }
+        }
+      }
+      this.guidHandAni();
+      this.updateStep();
+    }
+    updateStep() {
+      let pos;
+      const preNode = this.data.nodeList[this.step - 1];
+      if (preNode && this.oldParent) {
+        pos = this.oldParent.globalToLocal(this.nodeBox.localToGlobal(new Laya.Point(preNode.x, preNode.y)));
+        this.oldParent.addChildAt(preNode, this.oldZOrder);
+        preNode.pos(pos.x, pos.y);
+      }
+      if (!this.textList[this.step]) {
+        core_default.view.close(Res_default.views.GuideView);
+        return;
+      }
+      const node = this.data.nodeList[this.step];
+      this.oldZOrder = node.zOrder;
+      this.oldParent = node.parent;
+      pos = this.nodeBox.globalToLocal(this.oldParent.localToGlobal(new Laya.Point(node.x, node.y)));
+      this.nodeBox.addChild(node);
+      node.pos(pos.x, pos.y);
+      this.guideHand.scaleX = 1;
+      const textPosAdd = new Laya.Point();
+      switch (this.step) {
+        case 0:
+          pos.x += 200;
+          pos.y += 150;
+          textPosAdd.setTo(-100, 80);
+          break;
+        case 1:
+          pos.x += 200;
+          pos.y += 250;
+          textPosAdd.setTo(-300, 80);
+          break;
+        case 2:
+          pos.x += 200;
+          pos.y += 250;
+          textPosAdd.setTo(-200, 80);
+          break;
+        case 3:
+          pos.x += -100;
+          pos.y += 250;
+          this.guideHand.scaleX = -1;
+          textPosAdd.setTo(-400, 80);
+          break;
+        case 4:
+          pos.x += 200;
+          pos.y += 250;
+          textPosAdd.setTo(-200, 80);
+          break;
+        case 5:
+          pos.x += 600;
+          pos.y += 450;
+          textPosAdd.setTo(-200, 80);
+          break;
+        case 6:
+          pos.x += 160;
+          pos.y += 100;
+          textPosAdd.setTo(-200, -280);
+          break;
+        case 7:
+          pos.x += 160;
+          pos.y += 100;
+          textPosAdd.setTo(-200, -280);
+          break;
+        case 8:
+          pos.x += 140;
+          pos.y += 100;
+          textPosAdd.setTo(-560, -380);
+          break;
+      }
+      Laya.Tween.to(this.guideHand, { x: pos.x, y: pos.y, alpha: 1 }, 300);
+      this.descLb.alpha = 0;
+      Laya.Tween.to(this.descLb, { alpha: 1 }, 150);
+      this.descLb.pos(pos.x + textPosAdd.x, pos.y + textPosAdd.y);
+      this.descLb.text = this.textList[this.step];
+      this.step++;
+    }
+    onClick(e) {
+      if (!this.canClick)
+        return;
+      this.canClick = false;
+      this.userStep[this.step] = "1";
+      HttpControl.inst.send({
+        api: ApiHttp.guide,
+        data: {
+          data: this.userStep.join("")
+        }
+      }).then(() => {
+        this.updateStep();
+        this.canClick = true;
+      }).catch(() => {
+        this.canClick = true;
+      });
+    }
+    guidHandAni() {
+      this.guidAni = Laya.TimeLine.to(this.guideHand, { rotation: -15 }, 400, null).to(this.guideHand, { rotation: 0 }, 400);
+      this.guidAni.play(null, true);
+    }
+    onHdDisable() {
+      var _a;
+      (_a = this.guidAni) == null ? void 0 : _a.destroy();
+    }
+  };
+
+  // src/view/HintView.ts
+  var HintView = class extends core_default.gameScript {
+    onOpened(d) {
+      var _a;
+      this.data = d;
+      this.text.text = ((_a = this.data) == null ? void 0 : _a.text) || "";
+      if (this.data.call) {
+        this.confirmBtn.visible = true;
+      } else {
+        this.confirmBtn.visible = false;
+      }
+      if (this.data.cancelCall) {
+        this.cancelBtn.visible = true;
+      } else {
+        this.cancelBtn.visible = false;
+      }
+      if (this.data.call && this.data.cancelCall) {
+        this.confirmBtn.x = 252;
+      } else {
+        this.confirmBtn.x = 458;
+      }
+    }
+    onClick(e) {
+      var _a, _b;
+      switch (e.target.name) {
+        case "cancel":
+          if ((_a = this.data) == null ? void 0 : _a.cancelCall) {
+            this.data.cancelCall();
+          }
+          core_default.view.close(Res_default.views.HintView);
+          break;
+        case "confirm":
+          if ((_b = this.data) == null ? void 0 : _b.call) {
+            this.data.call();
+          }
+          core_default.view.close(Res_default.views.HintView);
+          break;
+      }
+    }
+  };
+
+  // src/view/LoginView.ts
+  var LoginView = class extends GameScript {
+    constructor() {
+      super(...arguments);
+      this.loadBar = null;
+      this.loadBox = null;
+      this.loginBox = null;
+      this.privacyBox = null;
+      this.privacyCheckIcon = null;
+      this.loadBarOldWidth = 0;
+      this.canClick = true;
+    }
+    onOpened(d) {
+      return __async(this, null, function* () {
+        var _a;
+        this.data = d;
+        this.loginBox.visible = false;
+        this.loadBox.visible = false;
+        this.privacyBox.visible = false;
+        yield this.version();
+        if ((_a = LocalStorageService_default.getJSON()) == null ? void 0 : _a.isLogin) {
+          this.login(false);
+          this.loginBox.visible = false;
+          this.loadBox.visible = true;
+        } else {
+          this.loginBox.visible = true;
+          this.loadBox.visible = false;
+          this.privacyBox.visible = true;
+        }
+      });
+    }
+    onHdAwake() {
+      EventGlobal_default.on(EventMaps.load_progress, this, this.loadProgress);
+      console.log("awake");
+    }
+    onHdEnable() {
+      this.loadBarOldWidth = this.loadBar.width;
+      this.loadBar.width = 0;
+    }
+    getBuildType() {
+      let buildType = null;
+      switch ("test") {
+        case BuildType.debug:
+          buildType = 3;
+          break;
+        case BuildType.test:
+          buildType = 2;
+          break;
+        case BuildType.online:
+          buildType = 1;
+          break;
+      }
+      if (!buildType) {
+        return core_default.view.openHint({
+          text: "\u73AF\u5883type\u914D\u7F6E\u51FA\u9519",
+          call: () => {
+            AppCore.runAppFunction({
+              uri: AppEventMap.clearCache,
+              data: {}
+            });
+            location.reload();
+          }
+        });
+      }
+      return buildType;
+    }
+    version() {
+      return __async(this, null, function* () {
+        return new Promise((resolve) => {
+          HttpControl.inst.send({
+            api: ApiHttp.configClient,
+            data: { id: this.getBuildType() }
+          }).then((d) => {
+            var _a;
+            const version = Number((_a = LocalStorageService_default.getJSON().version) == null ? void 0 : _a.replace(/\./g, ""));
+            if (!version) {
+              resolve(null);
+              LocalStorageService_default.setJSON("version", d.version);
+              ConfigGame_default.version = d.version;
+              return;
+            }
+            if (Number(d.version.replace(/\./g, "")) > version) {
+              AppCore.runAppFunction({
+                uri: AppEventMap.clearCache,
+                data: {}
+              });
+              core_default.view.openHint({
+                text: "\u68C0\u6D4B\u5230\u65B0\u7684\u7248\u672C\uFF0C\u8BF7\u66F4\u65B0\uFF01",
+                call: () => {
+                  LocalStorageService_default.setJSON("version", d.version);
+                  AppCore.runAppFunction({
+                    uri: AppEventMap.showBackground,
+                    data: {}
+                  });
+                  location.reload();
+                }
+              });
+            } else {
+              ConfigGame_default.version = d.version;
+              resolve(null);
+            }
+          }).catch(() => {
+            alert("\u7248\u672C\u68C0\u6D4B\u51FA\u9519");
+            resolve(null);
+          });
+        });
+      });
+    }
+    onClick(e) {
+      switch (e.target.name) {
+        case "login_btn":
+          this.login(true);
+          break;
+        case "check_box":
+          this.privacyCheckIcon.visible = !this.privacyCheckIcon.visible;
+          break;
+        case "privacy_lb":
+          AppCore.runAppFunction({
+            uri: AppEventMap.privacyAgreement,
+            data: {}
+          });
+          break;
+      }
+    }
+    login(isWx) {
+      return __async(this, null, function* () {
+        if (!this.canClick)
+          return;
+        this.canClick = false;
+        if (LocalStorageService_default.getJSON().token) {
+          HttpControl.inst.send({
+            api: ApiHttp.loginToken,
+            error: (code, data) => {
+              LocalStorageService_default.clear();
+              this.loginBox.visible = true;
+              this.loadBox.visible = false;
+            }
+          }).then((d) => {
+            var _a;
+            if ((_a = this.data) == null ? void 0 : _a.call)
+              this.data.call(d);
+            this.loginBox.visible = false;
+            this.loadBox.visible = true;
+            this.canClick = true;
+            AppCore.runAppFunction({
+              uri: AppEventMap.loginSuccess,
+              data: {
+                user_id: Number(d.userInfo.key)
+              },
+              timestamp: Date.now()
+            }).then((data) => {
+              ConfigGame_default.channel = data.data["channel"];
+            });
+          }).catch(() => {
+            this.canClick = true;
+          });
+          this.privacyBox.visible = false;
+        } else {
+          this.privacyBox.visible = true;
+          if (!this.privacyCheckIcon.visible) {
+            core_default.view.openHint({
+              text: "\u8BF7\u9605\u8BFB\u300A\u7528\u6237\u9690\u79C1\u534F\u8BAE\u300B",
+              call: () => {
+                LocalStorageService_default.clear();
+                this.loginBox.visible = true;
+                this.canClick = true;
+                this.loadBox.visible = false;
+              }
+            });
+            return;
+          }
+          let testK = location.search.match(/\?id=(.+)/), testKe = null;
+          if (testK && testK.length > 1) {
+            testKe = testK[1];
+          }
+          let wxOpenId = testKe, nickname = "", avatar = "";
+          if (isWx && !wxOpenId) {
+            const data = yield AppCore.runAppFunction({
+              uri: AppEventMap.wxLogin,
+              data: {},
+              timestamp: Date.now()
+            });
+            if (data) {
+              wxOpenId = data.data["openid"];
+              avatar = data.data["iconurl"];
+              nickname = data.data["name"];
+            }
+          }
+          if (!wxOpenId) {
+            core_default.view.openHint({ text: "\u672A\u83B7\u53D6\u5230\u5FAE\u4FE1id", call: () => {
+            } });
+            return;
+          }
+          this.privacyBox.visible = false;
+          HttpControl.inst.send({
+            api: ApiHttp.login,
+            data: {
+              wxId: wxOpenId,
+              avatar,
+              nickname
+            },
+            error: (code, data) => {
+              LocalStorageService_default.clear();
+              this.loginBox.visible = true;
+              this.loadBox.visible = false;
+              this.canClick = true;
+            }
+          }).then((d) => {
+            var _a;
+            if ((_a = this.data) == null ? void 0 : _a.call)
+              this.data.call(d);
+            this.loginBox.visible = false;
+            this.loadBox.visible = true;
+            this.canClick = true;
+            if (!UserInfo_default.isFirstTime) {
+              AppCore.runAppFunction({
+                uri: AppEventMap.registerSuccess,
+                data: {
+                  user_id: Number(d.userInfo.key)
+                }
+              });
+            }
+            AppCore.runAppFunction({
+              uri: AppEventMap.loginSuccess,
+              data: {
+                user_id: Number(d.userInfo.key)
+              },
+              timestamp: Date.now()
+            }).then((data) => {
+              ConfigGame_default.channel = data.data["channel"];
+            });
+          }).catch(() => {
+            this.canClick = true;
+          });
+        }
+      });
+    }
+    loadProgress(v) {
+      this.loadBar.width = v * this.loadBarOldWidth;
+    }
+    onHdDisable() {
+      EventGlobal_default.off(EventMaps.load_progress, this, this.loadProgress);
+    }
+  };
+
+  // src/view/MailDescView.ts
+  var MailDescView = class extends core_default.gameScript {
+    constructor() {
+      super(...arguments);
+      this.mailId = null;
+    }
+    onOpened(d) {
+      const data = d.data;
+      this.call = d.call;
+      this.mailId = d.data.id;
+      this.centerPanel.vScrollBarSkin = null;
+      this.title.text = `${data.message}\u6F5C\u5165\u4E86\u4F60\u7684\u83DC\u5730\u91C7\u9752`;
+      console.log(d);
+      const itemsLost = [], itemsBack = [];
+      let lostDiamond = 0, lostGold = 0;
+      Tools.parseString(data.itemsLost).map((_d) => {
+        _d = Tools.parseString(_d, ":");
+        console.log(_d);
+        if (_d[0] == 1) {
+          lostDiamond += Number(_d[2]);
+          return;
+        }
+        let has = false;
+        itemsLost.forEach((d2) => {
+          if (d2.id == _d[1]) {
+            has = true;
+          }
+        });
+        if (!has) {
+          itemsLost.push({ id: _d[1], amount: Number(_d[2]) });
+          return;
+        }
+        for (let x = 0; x < itemsLost.length; x++) {
+          if (itemsLost[x].id == _d[1]) {
+            itemsLost[x].amount += Number(_d[2]);
+            break;
+          }
+        }
+      });
+      Tools.parseString(data.items).map((_d) => {
+        _d = Tools.parseString(_d, ":");
+        let has = false;
+        itemsBack.forEach((d2) => {
+          if (d2.id == _d[1]) {
+            has = true;
+          }
+        });
+        if (!has) {
+          itemsBack.push({ id: _d[1], amount: Number(_d[2]) });
+          return;
+        }
+        for (let x = 0; x < itemsBack.length; x++) {
+          if (itemsBack[x].id == _d[1]) {
+            itemsBack[x].amount += Number(_d[2]);
+            break;
+          }
+        }
+      });
+      let yAdd = 0, _x = 0;
+      for (let x = 0; x < itemsLost.length; x++) {
+        let itemNode = this.item.create();
+        if (_x > 2 && !yAdd) {
+          yAdd++;
+          _x = -1;
+        }
+        if (yAdd && _x > 2) {
+          yAdd++;
+          _x = -1;
+        }
+        itemNode.x = 230 + _x * 190;
+        itemNode.y = 105 + yAdd * 95;
+        _x++;
+        let plant = TableAnalyze_default.table("plant").get(itemsLost[x].id);
+        const icon = itemNode.getChildByName("icon");
+        icon.skin = plant.icon;
+        icon.scale(0.7, 0.7);
+        icon.anchorX = 0.5;
+        itemNode.getChildByName("lb").text = `x${itemsLost[x].amount}`;
+        plant.gain.forEach((d2) => {
+          if (d2.obj.id == ConfigGame_default.diamondId)
+            return;
+          lostGold += d2.count * itemsLost[x].amount;
+        });
+        this.centerPanel.addChild(itemNode);
+      }
+      let yAddBack = 0;
+      _x = 0;
+      for (let x = 0; x < itemsBack.length; x++) {
+        let itemNode = this.item.create();
+        if (_x > 1 && !yAddBack) {
+          yAddBack++;
+          _x = -2;
+        }
+        if (yAddBack && _x > 1) {
+          yAddBack++;
+          _x = -2;
+        }
+        itemNode.x = 420 + _x * 190;
+        itemNode.y = 208 + yAdd * 95 + yAddBack * 95;
+        _x++;
+        this.centerPanel.addChild(itemNode);
+      }
+      this.lostLb.y = 114;
+      this.backLb.y = 218 + yAdd * 95;
+      this.bottomLb.y = 301 + yAdd * 95 + yAddBack * 95;
+      this.bottomLb.text = `\u5171\u8BA1\u635F\u5931\u4E86${lostGold}\u91D1\u5E01\uFF0C${lostDiamond}\u94BB\u77F3`;
+    }
+    onClick(e) {
+      switch (e.target.name) {
+        case "close":
+          core_default.view.close(Res_default.views.MailDescView);
+          break;
+        case "delete":
+          HttpControl.inst.send({
+            api: ApiHttp.mailDelete,
+            data: { id: this.mailId }
+          }).then(() => {
+            if (this.call) {
+              this.call(this.mailId);
+            }
+            Laya.timer.frameOnce(1, this, () => {
+              core_default.view.close(Res_default.views.MailDescView);
+            });
+          });
+          break;
+      }
+    }
+  };
+
+  // src/view/MailView.ts
+  var MailView = class extends GameScript {
+    constructor() {
+      super(...arguments);
+      this.list = null;
+      this.empty_lb = null;
+      this.listData = [];
+    }
+    onHdAwake() {
+      this.list.vScrollBarSkin = null;
+      this.list.renderHandler = new Laya.Handler(this, this.renderItem);
+    }
+    onOpened(list = []) {
+      this.listData = list;
+      this.updateListData();
+    }
+    updateListData() {
+      this.list.array = this.listData.sort((a, b) => {
+        return b.createTime - (b.read ? 1e6 : 0) - (a.createTime - (a.read ? 1e6 : 0));
+      });
+      this.empty_lb.visible = !this.list.array.length;
+    }
+    renderItem(cell, index) {
+      const data = this.listData[index];
+      cell.getChildByName("title").text = "\u7CFB\u7EDF\u90AE\u4EF6";
+      cell.getChildByName("desc").text = `${data.message}\u6F5C\u5165\u83DC\u5730\u5077\u83DC,\u88AB\u72D7\u72D7\u53D1\u73B0\u5E76\u8FFD\u52A0\u56DE\u4E86~~`;
+      cell.getChildByName("time").text = `${new Date(data.createTime).toLocaleString("zh-CN", { hour12: false })}`;
+      cell.getChildByName("read_icon").visible = !data.read;
+      cell.dataSource = data;
+    }
+    onClick(e) {
+      if (e.target.name.indexOf("item") > -1) {
+        HttpControl.inst.send({
+          api: ApiHttp.mailRead,
+          data: {
+            id: e.target["dataSource"].id
+          }
+        }).then(() => {
+          e.target["dataSource"].read = 1;
+          this.list.refresh();
+          core_default.view.open(Res_default.views.MailDescView, {
+            parm: {
+              data: e.target["dataSource"],
+              call: (mailId) => {
+                for (let x = 0; x < this.listData.length; x++) {
+                  if (this.listData[x].id == mailId) {
+                    this.listData.splice(x, 1);
+                    break;
+                  }
+                }
+                this.list.refresh();
+              }
+            }
+          });
+        });
+      }
+      switch (e.target.name) {
+        case "close":
+          ViewManager.inst.close(Res_default.views.MailView);
+          break;
+      }
+    }
+  };
 
   // src/components/FigureAni.ts
   var FigureAni = class extends Laya.Script {
@@ -4024,9 +4038,6 @@
       icon.x = !sound ? -14 : 91;
       icon.skin = !sound ? `game/img_musicOnBtn.png` : "game/img_musicOffBtn.png";
       box.skin = !sound ? `game/img_switchOn.png` : "game/img_swithOff.png";
-    }
-    onHdDestroy() {
-      this.avatarNode.removeChildren();
     }
   };
 
@@ -5070,7 +5081,7 @@
   GameConfig.startScene = "scenes/views/MainView.scene";
   GameConfig.sceneRoot = "";
   GameConfig.debug = false;
-  GameConfig.stat = true;
+  GameConfig.stat = false;
   GameConfig.physicsDebug = false;
   GameConfig.exportSceneToJson = true;
   GameConfig.init();

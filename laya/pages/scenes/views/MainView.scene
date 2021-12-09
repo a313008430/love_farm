@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":101,
-    "selecteID":942,
+    "selectedBox":350,
+    "selecteID":896,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -2162,13 +2162,14 @@
             "props":{"y":49,"x":120,"width":932,"top":49,"name":"top_box","mouseEnabled":true,"hitTestPrior":false,"height":123},
             "nodeParent":2,
             "label":"top_box",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":67,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,money_box",
                     "props":{"width":932,"skin":"main_scene/img_portraitBg.png","name":"money_box","mouseEnabled":true},
@@ -2299,45 +2300,35 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,head",
                     "props":{"y":-15,"x":-58,"skin":"main_scene/img_portrait.png","name":"head","mouseEnabled":true},
                     "nodeParent":67,
                     "label":"head",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":68,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,avater",
                             "props":{"y":68,"x":68,"width":83,"skin":"main_scene/img_defaultPortrait.png","name":"avater","height":81,"anchorY":0.5,"anchorX":0.5},
                             "nodeParent":68,
                             "label":"avater",
-                            "isOpen":false,
-                            "isDirectory":true,
+                            "isOpen":true,
+                            "isDirectory":false,
                             "isAniNode":true,
-                            "hasChild":true,
+                            "hasChild":false,
                             "compId":350,
                             "child":[
-                                {
-                                    "type":"Image",
-                                    "searchKey":"Image,mask",
-                                    "props":{"y":40.5,"x":41.5,"width":83,"skin":"main_scene/img_defaultPortrait.png","renderType":"mask","name":"mask","height":81,"anchorY":0.5,"anchorX":0.5},
-                                    "nodeParent":350,
-                                    "label":"mask",
-                                    "isOpen":true,
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":896,
-                                    "child":[
-                                        ]
-                                }]
+                                ]
                         },
                         {
+                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -2355,6 +2346,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,order_box_outer",
                     "props":{"y":120,"x":417,"skin":"main_scene/img_taskbg.png","name":"order_box_outer","mouseEnabled":true,"anchorX":0.5},
@@ -2737,6 +2729,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,count_down",
                     "props":{"y":27,"x":431,"visible":false,"text":"00:00","name":"count_down","fontSize":60,"font":"Microsoft YaHei","color":"#755037","bold":true,"anchorX":0.5},

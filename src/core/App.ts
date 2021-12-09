@@ -88,7 +88,6 @@ export default class AppCore {
         //监听手机关闭事件响应
 
         window["appResponse"] = (d: AppDespatchReturnData) => {
-            // alert(JSON.stringify(d));
             // alert(d?.timestamp);
             if (EventMap.has(d?.timestamp) && !d.code) {
                 EventMap.get(d.timestamp)(d);

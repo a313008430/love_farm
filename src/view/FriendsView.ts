@@ -4,6 +4,7 @@ import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
 import Core from "src/core/index";
 import UserInfo from "src/dataService/UserInfo";
+import MainView from "./MainView";
 
 //export default class FriendsView extends Laya.Script {
 export default class FriendsView extends Core.gameScript {
@@ -274,8 +275,15 @@ export default class FriendsView extends Core.gameScript {
      */
     private visitFriend(target: Laya.Image) {
         this.canClick = false;
-        Core.view.setOverView(true, () => {
+        Core.view.setOverView(true, async () => {
             let data = target.dataSource as FriendData;
+
+            if (MainView.inst.isOuter) {
+                await HttpControl.inst.send({
+                    api: ApiHttp.goHome,
+                    data: {},
+                });
+            }
 
             HttpControl.inst
                 .send({

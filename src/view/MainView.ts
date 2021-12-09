@@ -37,6 +37,8 @@ export interface GetFloatRewardObj {
 
 //  MainView extends Laya.Script {
 export default class MainView extends Core.gameScript {
+    static inst: MainView;
+
     /** @prop {name:addLandLayer, tips:"拓展土地容器", type:Node}*/
     private addLandLayer: Laya.Box = null;
 
@@ -116,14 +118,15 @@ export default class MainView extends Core.gameScript {
     private landList: FieldComponent[] = [];
 
     /**是否在外面 */
-    private isOuter: boolean = false;
+    isOuter: boolean = false;
     /** 离开家的时间 */
     private outerTime: number;
     /**去好友 家倒计时 */
-    private outCountDownNumber = 60;
+    outCountDownNumber = 60;
     private canClick: boolean = true;
 
     onOpened() {
+        MainView.inst = this;
         [
             "res/loadingBg.png",
             "res/img_woodtitle.png",
@@ -870,6 +873,7 @@ export default class MainView extends Core.gameScript {
 
     @Core.eventOn(EventMaps.go_friend_home)
     private goFriendListen(d: ReturnNeighbor, friendData: FriendData) {
+        this.outCountDownNumber = 60;
         this.isOuter = true;
         this.goFriend(d, friendData);
     }
@@ -953,7 +957,7 @@ export default class MainView extends Core.gameScript {
             bottomList: Laya.Image[] = [
                 this.bottomBox.getChildByName("task") as Laya.Image,
                 this.bottomBox.getChildByName("signIn") as Laya.Image,
-                this.bottomBox.getChildByName("friends") as Laya.Image,
+                // this.bottomBox.getChildByName("friends") as Laya.Image,
                 this.bottomBox.getChildByName("mail") as Laya.Image,
             ];
         if (this.isOuter) {

@@ -105,6 +105,8 @@ const TablePropertyEvent = {
             reward: getRewardCurrencyBase(d.reward),
             cost: getRewardCurrencyBase(d.cost),
             gain: d.gain,
+            probability: d.probability,
+            getDiamond: d.get_diamond,
         };
     },
 

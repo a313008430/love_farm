@@ -1,7 +1,7 @@
 import ConfigGame, { BuildType } from "src/common/ConfigGame";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
-import AppCore from "src/core/App";
+import AppCore, { AppDespatchReturnData } from "src/core/App";
 import GameScript from "src/core/GameScript";
 import Core from "src/core/index";
 import LocalStorageService from "src/dataService/LocalStorageService";
@@ -176,6 +176,7 @@ export default class LoginView extends GameScript {
                         data: {
                             user_id: Number(d.userInfo.key),
                         },
+                        timestamp: Date.now(),
                     }).then((data) => {
                         ConfigGame.channel = data.data["channel"];
                     });
@@ -265,7 +266,8 @@ export default class LoginView extends GameScript {
                         data: {
                             user_id: Number(d.userInfo.key),
                         },
-                    }).then((data) => {
+                        timestamp: Date.now(),
+                    }).then((data: AppDespatchReturnData) => {
                         ConfigGame.channel = data.data["channel"];
                     });
                 })
