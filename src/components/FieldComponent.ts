@@ -494,22 +494,7 @@ export default class FieldComponent extends Core.gameScript {
                 }
             } else {
                 //种菜
-                Core.view.open(Res.views.ShopView, {
-                    parm: <ShopViewData>{
-                        id: 0,
-                        parm: { landId: this.fieldId },
-                        call: (d: PlantDataBase) => {
-                            this.landList.get(this.fieldId).productId = d.base.id;
-                            this.landList.get(this.fieldId).matureTimeLeft = d.base.mature_time;
-                            this.matureTime = d.base.mature_time * 1000 + Date.now();
-
-                            this.data = this.landList.get(this.fieldId);
-                            this.renderData();
-                            Core.audio.playSound(Res.audios.zhongzhi);
-                            this.mainViewCom.updateAllStateIcon(this.data.id);
-                        },
-                    },
-                });
+                this.sow();
             }
         } else {
             //解锁土地
@@ -531,6 +516,25 @@ export default class FieldComponent extends Core.gameScript {
                 },
             });
         }
+    }
+
+    sow() {
+        Core.view.open(Res.views.ShopView, {
+            parm: <ShopViewData>{
+                id: 0,
+                parm: { landId: this.fieldId },
+                call: (d: PlantDataBase) => {
+                    this.landList.get(this.fieldId).productId = d.base.id;
+                    this.landList.get(this.fieldId).matureTimeLeft = d.base.mature_time;
+                    this.matureTime = d.base.mature_time * 1000 + Date.now();
+
+                    this.data = this.landList.get(this.fieldId);
+                    this.renderData();
+                    Core.audio.playSound(Res.audios.zhongzhi);
+                    this.mainViewCom.updateAllStateIcon(this.data.id);
+                },
+            },
+        });
     }
 
     /**

@@ -91,6 +91,9 @@ export default class SignInView extends GameScript {
             case "close":
                 ViewManager.inst.close(Res.views.SignInView);
                 break;
+            case "desc_btn":
+                Core.view.open(Res.views.SignInDescView);
+                break;
             case "get_btn":
                 //领取奖励
 

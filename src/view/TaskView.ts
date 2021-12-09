@@ -123,6 +123,7 @@ export default class TaskView extends GameScript {
 
     private async jump(id, target) {
         switch (id) {
+            case 1012:
             case 1001:
                 await AppCore.runAppFunction({
                     uri: AppEventMap.ad,
@@ -143,28 +144,60 @@ export default class TaskView extends GameScript {
 
                 break;
             case 1002:
+                await AppCore.runAppFunction({
+                    uri: AppEventMap.ad,
+                    data: {},
+                    timestamp: Date.now(),
+                });
+                HttpControl.inst
+                    .send({
+                        api: ApiHttp.ad,
+                        data: {
+                            taskId: 1002,
+                        },
+                    })
+                    .then(() => {
+                        Core.eventGlobal.event(EventMaps.play_ad_get_reward, target);
+                        this.taskList.refresh();
+                        TaskService.taskAddTimes(1001);
+                        TaskService.taskAddTimes(1012);
+                        TaskService.taskAddTimes(1002);
+                    });
                 break;
             case 1003:
+                Core.view.close(Res.views.TaskView);
                 break;
             case 1004:
+                Core.view.close(Res.views.TaskView);
+                Core.eventGlobal.event(EventMaps.open_friend);
                 break;
             case 1005:
+                Core.view.close(Res.views.TaskView);
+                Core.view.open(Res.views.ShopView, { parm: { id: 1 } });
                 break;
             case 1006:
+                Core.view.close(Res.views.TaskView);
+                Core.view.open(Res.views.ShopView, { parm: { id: 1 } });
                 break;
             case 1007:
+                Core.view.close(Res.views.TaskView);
+                Core.eventGlobal.event(EventMaps.plant_sow);
                 break;
             case 1008:
                 Core.view.close(Res.views.TaskView);
                 Core.view.open(Res.views.WarehouseView);
                 break;
             case 1009:
+                Core.view.close(Res.views.TaskView);
+                Core.eventGlobal.event(EventMaps.open_friend);
                 break;
             case 1010:
+                Core.view.close(Res.views.TaskView);
+                Core.eventGlobal.event(EventMaps.open_friend, [1]);
                 break;
             case 1011:
-                break;
-            case 1012:
+                Core.view.close(Res.views.TaskView);
+                Core.eventGlobal.event(EventMaps.plant_sow);
                 break;
         }
     }

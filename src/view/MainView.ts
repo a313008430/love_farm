@@ -406,7 +406,6 @@ export default class MainView extends Core.gameScript {
                 break;
             case "friends":
                 this.openFriend();
-
                 break;
             case "land":
                 break;
@@ -437,6 +436,17 @@ export default class MainView extends Core.gameScript {
         }
     }
 
+    /** 种菜 */
+    @Core.eventOn(EventMaps.plant_sow)
+    private sow() {
+        for (let x = 0, l = this.landList.length; x < l; x++) {
+            if (!this.landList[x]?.data?.productId) {
+                this.landList[x].sow();
+                break;
+            }
+        }
+    }
+
     /**
      * 打开邮件
      */
@@ -461,7 +471,8 @@ export default class MainView extends Core.gameScript {
     /**
      * 打开好友 列表
      */
-    private openFriend() {
+    @Core.eventOn(EventMaps.open_friend)
+    private openFriend(type = null) {
         if (!this.canClick) {
             return;
         }
@@ -472,7 +483,7 @@ export default class MainView extends Core.gameScript {
             })
             .then((d: FriendListData) => {
                 this.canClick = true;
-                Core.view.open(Res.views.FriendsView, { parm: d });
+                Core.view.open(Res.views.FriendsView, { parm: { friendData: d, type: type } });
             })
             .catch(() => {
                 this.canClick = true;
@@ -970,6 +981,10 @@ export default class MainView extends Core.gameScript {
         //倒计时
     }
 
+    /**
+     * 倒计时结束
+     * @param lb
+     */
     private outCountDownEvent(lb: Laya.Label) {
         this.outCountDownNumber--;
         lb.text = Tools.formatSeconds(this.outCountDownNumber);

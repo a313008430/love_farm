@@ -48,6 +48,10 @@ export const enum EventMaps {
     play_ad_get_reward = "play_ad_get_reward",
     /** 去好友家 */
     go_friend_home = "go_friend_home",
+    /** 打开好友界面 */
+    open_friend = "open_friend",
+    /** 种菜主界面进入 */
+    plant_sow = "plant_sow",
 }
 
 /**

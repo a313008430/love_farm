@@ -29,8 +29,12 @@ export default class FriendsView extends Core.gameScript {
 
     private canClick: boolean = true;
 
-    onOpened(d: FriendListData) {
-        this.friends = d.list;
+    onOpened(data: {
+        friendData: FriendListData;
+        /** type为1打开加好友界面 */
+        type: number;
+    }) {
+        this.friends = data.friendData.list;
         this.friendsList = this.friends;
         this.updateListData();
         this.addBox.visible = false;
@@ -40,6 +44,10 @@ export default class FriendsView extends Core.gameScript {
         this.itemList.renderHandler = new Laya.Handler(this, this.itemRender);
         this.itemList.vScrollBarSkin = null;
         this.userKey.text = `我的友情码：${UserInfo.key}`;
+        console.log(data.type);
+        if (data.type && data.type == 1) {
+            this.addFriendEvent();
+        }
     }
 
     private isEmpty() {

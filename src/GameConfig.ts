@@ -20,6 +20,7 @@ import OrderView from "./view/OrderView"
 import OverView from "./view/OverView"
 import SettingView from "./view/SettingView"
 import ShopView from "./view/ShopView"
+import SignInDescView from "./view/SignInDescView"
 import SignInView from "./view/SignInView"
 import SpeedUpView from "./view/SpeedUpView"
 import TaskView from "./view/TaskView"
@@ -37,7 +38,7 @@ export default class GameConfig{
     static startScene:any="scenes/views/MainView.scene";
     static sceneRoot:string="";
     static debug:boolean=false;
-    static stat:boolean=false;
+    static stat:boolean=true;
     static physicsDebug:boolean=false;
     static exportSceneToJson:boolean=true;
     constructor(){}
@@ -64,6 +65,7 @@ export default class GameConfig{
         reg("view/OverView.ts",OverView);
         reg("view/SettingView.ts",SettingView);
         reg("view/ShopView.ts",ShopView);
+        reg("view/SignInDescView.ts",SignInDescView);
         reg("view/SignInView.ts",SignInView);
         reg("view/SpeedUpView.ts",SpeedUpView);
         reg("view/TaskView.ts",TaskView);

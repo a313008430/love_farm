@@ -39,6 +39,8 @@
         SettingView = "scenes/views/SettingView.scene", 
         /** scenes/views/ShopView.scene */
         ShopView = "scenes/views/ShopView.scene", 
+        /** scenes/views/SignInDescView.scene */
+        SignInDescView = "scenes/views/SignInDescView.scene", 
         /** scenes/views/SignInView.scene */
         SignInView = "scenes/views/SignInView.scene", 
         /** scenes/views/SpeedUpView.scene */
@@ -75,6 +77,7 @@
          "scenes/views/TaskView.scene",
          "scenes/views/SpeedUpView.scene",
          "scenes/views/SignInView.scene",
+         "scenes/views/SignInDescView.scene",
          "scenes/views/ShopView.scene",
          "scenes/views/SettingView.scene",
          "scenes/views/OverView.scene",
