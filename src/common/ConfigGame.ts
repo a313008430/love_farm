@@ -36,4 +36,6 @@ export default {
     /** 广告条件 加速使用了6次 */
     ADSpeedUpTimes: 6,
     version: "1.0.0",
+    /**渠道 */
+    channel: "",
 };

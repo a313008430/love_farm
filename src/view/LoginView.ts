@@ -176,6 +176,8 @@ export default class LoginView extends GameScript {
                         data: {
                             user_id: Number(d.userInfo.key),
                         },
+                    }).then((data) => {
+                        ConfigGame.channel = data.data["channel"];
                     });
                 })
                 .catch(() => {
@@ -263,6 +265,8 @@ export default class LoginView extends GameScript {
                         data: {
                             user_id: Number(d.userInfo.key),
                         },
+                    }).then((data) => {
+                        ConfigGame.channel = data.data["channel"];
                     });
                 })
                 .catch(() => {

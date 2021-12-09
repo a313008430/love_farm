@@ -3,6 +3,7 @@ import { AppEventMap } from "src/common/EventMaps";
 import Res from "src/common/Res";
 import AppCore from "src/core/App";
 import Core from "src/core/index";
+import UserInfo from "src/dataService/UserInfo";
 
 // export default class AboutView extends Laya.Script {
 export default class AboutView extends Core.gameScript {
@@ -10,7 +11,7 @@ export default class AboutView extends Core.gameScript {
     private version: Laya.Label = null;
 
     onOpened() {
-        this.version.text = `版本号：V${ConfigGame.version}`;
+        this.version.text = `版本号：V${ConfigGame.version}_${ConfigGame.channel}`;
     }
 
     onClick(e: Laya.Event) {

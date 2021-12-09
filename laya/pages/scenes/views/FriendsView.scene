@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":52,
-    "selecteID":108,
+    "selectedBox":108,
+    "selecteID":150,
     "searchKey":"View",
     "props":{"y":0,"x":0,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/FriendsView.jpg","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":151,
+    "maxID":152,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -162,26 +162,12 @@
                                     "nodeParent":52,
                                     "label":"head",
                                     "isOpen":true,
-                                    "isDirectory":true,
+                                    "isDirectory":false,
                                     "isAniNode":false,
-                                    "hasChild":true,
+                                    "hasChild":false,
                                     "compId":108,
                                     "child":[
-                                        {
-                                            "x":75,
-                                            "type":"Image",
-                                            "searchKey":"Image,mask",
-                                            "props":{"y":63,"x":63,"width":126,"skin":"main_scene/img_defaultPortrait.png","renderType":"mask","name":"mask","height":126,"anchorY":0.5,"anchorX":0.5},
-                                            "nodeParent":108,
-                                            "label":"mask",
-                                            "isOpen":true,
-                                            "isDirectory":false,
-                                            "isAniNode":false,
-                                            "hasChild":false,
-                                            "compId":150,
-                                            "child":[
-                                                ]
-                                        }]
+                                        ]
                                 },
                                 {
                                     "x":60,
