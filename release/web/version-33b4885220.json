@@ -64,7 +64,7 @@
   "scenes/prefab/GetReward.json": "scenes/prefab/GetReward-3048e756f2.json",
   "scenes/prefab/MailItem.json": "scenes/prefab/MailItem-6ce9a0f9b7.json",
   "scenes/prefab/PlotPrefab.json": "scenes/prefab/PlotPrefab-db4e8a1783.json",
-  "scenes/views/AboutView.json": "scenes/views/AboutView-e80c8921f3.json",
+  "scenes/views/AboutView.json": "scenes/views/AboutView-7179c26dd5.json",
   "scenes/views/AddLandView.json": "scenes/views/AddLandView-33ec9dd987.json",
   "scenes/views/BuyVitalityView.json": "scenes/views/BuyVitalityView-55d8f0351b.json",
   "scenes/views/FieldLevelUpView.json": "scenes/views/FieldLevelUpView-c77d4d4e01.json",
@@ -87,5 +87,5 @@
   "scenes/views/TaskView.json": "scenes/views/TaskView-848c330910.json",
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-ad12d45048.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-47704090c6.json"
+  "version.json": "version-33b4885220.json"
 }
