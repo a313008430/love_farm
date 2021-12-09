@@ -110,6 +110,7 @@ export default class ShopView extends GameScript {
 
         Core.observableProperty.watch(UserInfo, this).key("diamond", (v) => {
             this.diamondFont.value = v;
+            console.log(TableAnalyze.table("config"));
 
             let withdrawal = TableAnalyze.table("config").get("withdrawal").value as string[];
             this.proportion.text = ` = ¥${((Number(withdrawal[2]) / Number(withdrawal[1])) * v)

@@ -3,15 +3,17 @@ import { AppEventMap } from "src/common/EventMaps";
 import Res from "src/common/Res";
 import AppCore from "src/core/App";
 import Core from "src/core/index";
-import UserInfo from "src/dataService/UserInfo";
 
 // export default class AboutView extends Laya.Script {
 export default class AboutView extends Core.gameScript {
     /** @prop {name:version, tips:"玩家名称", type:Node}*/
     private version: Laya.Label = null;
+    /** @prop {name:channel, tips:"渠道", type:Node}*/
+    private channel: Laya.Label = null;
 
     onOpened() {
-        this.version.text = `版本号：V${ConfigGame.version}_${ConfigGame.channel}`;
+        this.version.text = `版本号：V${ConfigGame.version}`;
+        this.channel.text = `渠道号：${ConfigGame.channel}`;
     }
 
     onClick(e: Laya.Event) {

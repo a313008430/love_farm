@@ -150,6 +150,8 @@ const TablePropertyEvent = {
                 };
             case "vitalityLimit":
                 return { id: "vitalityLimit", value: d.value };
+            case "Initial_physical_strength":
+                return { id: "Initial_physical_strength", value: d.value };
             case "landAmountMax":
                 return { id: "landAmountMax", value: d.value };
             case "petDefaultVitality":

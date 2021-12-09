@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":11,
+    "selectedBox":12,
+    "selecteID":25,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/AboutView.jpg","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":25,
+    "maxID":26,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -124,6 +124,20 @@
                     "isAniNode":true,
                     "hasChild":false,
                     "compId":13,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label,channal",
+                    "props":{"y":309,"x":110,"width":276.6796875,"text":"版本号：V0.0.1","name":"channal","height":40,"fontSize":40,"font":"Microsoft YaHei","color":"#906344","anchorX":0.5},
+                    "nodeParent":12,
+                    "label":"channal",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":25,
                     "child":[
                         ]
                 }]
@@ -267,7 +281,7 @@
             "source":"src/view/AboutView.ts",
             "searchKey":"Script,AboutView",
             "removeAble":true,
-            "props":{"version":"@node:13"},
+            "props":{"version":"@node:13","channel":"@node:25"},
             "nodeParent":2,
             "label":"AboutView",
             "isDirectory":false,

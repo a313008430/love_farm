@@ -612,9 +612,11 @@
     constructor() {
       super(...arguments);
       this.version = null;
+      this.channel = null;
     }
     onOpened() {
-      this.version.text = `\u7248\u672C\u53F7\uFF1AV${ConfigGame_default.version}_${ConfigGame_default.channel}`;
+      this.version.text = `\u7248\u672C\u53F7\uFF1AV${ConfigGame_default.version}`;
+      this.channel.text = `\u6E20\u9053\u53F7\uFF1A${ConfigGame_default.channel}`;
     }
     onClick(e) {
       switch (e.target.name) {
@@ -823,6 +825,8 @@
           };
         case "vitalityLimit":
           return { id: "vitalityLimit", value: d.value };
+        case "Initial_physical_strength":
+          return { id: "Initial_physical_strength", value: d.value };
         case "landAmountMax":
           return { id: "landAmountMax", value: d.value };
         case "petDefaultVitality":
@@ -4107,6 +4111,7 @@
       this.priceList.selectHandler = new Laya.Handler(this, this.onPriceSelect);
       core_default.observableProperty.watch(UserInfo_default, this).key("diamond", (v) => {
         this.diamondFont.value = v;
+        console.log(TableAnalyze_default.table("config"));
         let withdrawal = TableAnalyze_default.table("config").get("withdrawal").value;
         this.proportion.text = ` = \xA5${(Number(withdrawal[2]) / Number(withdrawal[1]) * v).toString().match(/^\d+(?:\.\d{0,2})?/)}\u5143`;
       });
