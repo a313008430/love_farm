@@ -72,4 +72,6 @@ export const enum ApiHttp {
     withdraw = "/withdraw",
     /** 客户端版本 */
     configClient = "/config/client",
+    /** 引导数据 */
+    guide = "/guide",
 }

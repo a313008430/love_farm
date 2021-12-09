@@ -1,7 +1,7 @@
 {
   "fileconfig.json": "fileconfig-51332adee3.json",
-  "index.js": "index-a5ce1c6880.js",
-  "js/bundle.js": "js/bundle-b3361bafc3.js",
+  "index.js": "index-3945458db6.js",
+  "js/bundle.js": "js/bundle-fd5a9fd323.js",
   "js/ps-N3BPHYGU.fs": "js/ps-N3BPHYGU-319562bd17.fs",
   "libs/min/laya.ani.min.js": "libs/min/laya-a72326a604.ani.min.js",
   "libs/min/laya.core.min.js": "libs/min/laya-4fc7637454.core.min.js",
@@ -69,13 +69,13 @@
   "scenes/views/FieldLevelUpView.json": "scenes/views/FieldLevelUpView-ffe77d9dba.json",
   "scenes/views/FriendsDescView.json": "scenes/views/FriendsDescView-cd7dd30616.json",
   "scenes/views/FriendsRewardView.json": "scenes/views/FriendsRewardView-22f7f6749e.json",
-  "scenes/views/FriendsView.json": "scenes/views/FriendsView-b63879477a.json",
-  "scenes/views/GuideView.json": "scenes/views/GuideView-d5886bdf5f.json",
+  "scenes/views/FriendsView.json": "scenes/views/FriendsView-bafaefd6e6.json",
+  "scenes/views/GuideView.json": "scenes/views/GuideView-9e802e2ad7.json",
   "scenes/views/HintView.json": "scenes/views/HintView-4c7c0b0b39.json",
   "scenes/views/LoginView.json": "scenes/views/LoginView-7c16d3b9b9.json",
   "scenes/views/MailDescView.json": "scenes/views/MailDescView-89d343848c.json",
   "scenes/views/MailView.json": "scenes/views/MailView-8beb5f2aac.json",
-  "scenes/views/MainView.json": "scenes/views/MainView-dae6f12ec2.json",
+  "scenes/views/MainView.json": "scenes/views/MainView-3b897ef323.json",
   "scenes/views/OrderView.json": "scenes/views/OrderView-d76d4889ff.json",
   "scenes/views/OverView.json": "scenes/views/OverView-1fd4e68b13.json",
   "scenes/views/SettingView.json": "scenes/views/SettingView-463a2199b7.json",
@@ -85,5 +85,5 @@
   "scenes/views/TaskView.json": "scenes/views/TaskView-848c330910.json",
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-ad12d45048.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-566984d958.json"
+  "version.json": "version-b582c4250d.json"
 }

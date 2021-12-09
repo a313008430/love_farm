@@ -149,22 +149,36 @@ export default class MainView extends Core.gameScript {
             this.updateTask();
         });
 
-        Core.view.open(Res.views.GuideView, {
-            parm: {
-                nodeList: [
-                    this.step1,
-                    this.step2,
-                    this.step3,
-                    this.step4,
-                    this.step5,
-                    this.step6,
-                    this.step7,
-                    this.step8,
-                    this.step9,
-                ],
-                call: () => {},
-            },
-        });
+        let ok = false,
+            step = 0;
+        if (UserInfo.guideData.length) {
+            UserInfo.guideData.split("").forEach((d) => {
+                if (d == "1") {
+                    step++;
+                }
+            });
+            if (step >= 9) {
+                ok = true;
+            }
+        }
+        if (!UserInfo.guideData.length || !ok) {
+            Core.view.open(Res.views.GuideView, {
+                parm: {
+                    nodeList: [
+                        this.step1,
+                        this.step2,
+                        this.step3,
+                        this.step4,
+                        this.step5,
+                        this.step6,
+                        this.step7,
+                        this.step8,
+                        this.step9,
+                    ],
+                    call: () => {},
+                },
+            });
+        }
     }
 
     onHdAwake() {
@@ -948,7 +962,7 @@ export default class MainView extends Core.gameScript {
             friendName.visible = false;
             moneyBox.visible = true;
             countDown.visible = false;
-            this.avatarNode.skin = UserInfo.avatar;
+            if (!UserInfo.avatar) this.avatarNode.skin = UserInfo.avatar;
         }
         bottomList.forEach((e) => {
             e.disabled = this.isOuter;

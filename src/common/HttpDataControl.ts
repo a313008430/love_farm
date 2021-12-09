@@ -111,6 +111,7 @@ class HttpDataControl {
         UserInfo.vitality = d.userInfo.vitality;
         UserInfo.invitePeople = d.userInfo.invitePeople;
         UserInfo.isFirstTime = d.userInfo.isFirstTime;
+        UserInfo.guideData = d.userInfo.guideData || "";
         UserInfo.withdraw = d.withdraw;
         PetService.init(d.pets);
         TaskService.init(d.tasks);
@@ -147,6 +148,7 @@ class HttpDataControl {
         UserInfo.invitePeople = null;
         UserInfo.isFirstTime = null;
         UserInfo.withdraw = [];
+        UserInfo.guideData = "";
     }
 
     /**
