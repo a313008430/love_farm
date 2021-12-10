@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":350,
-    "selecteID":896,
+    "selectedBox":67,
+    "selecteID":68,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -85,14 +85,13 @@
             "props":{"width":1083,"name":"center_box","height":1149,"centerY":0,"centerX":0,"anchorY":0.5,"anchorX":0.5},
             "nodeParent":2,
             "label":"center_box",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":96,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":391,"x":-107.5,"skin":"res/img_landBg.png"},
@@ -106,7 +105,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Box",
                     "searchKey":"Box,house_box",
                     "props":{"y":-57,"x":-106,"name":"house_box"},
@@ -119,7 +117,6 @@
                     "compId":101,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,landLevelUp",
                             "props":{"y":149,"x":657,"skin":"main_scene/img_landUpdate.png","name":"landLevelUp","anchorY":0.5,"anchorX":0.5},
@@ -149,7 +146,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,warehouse",
                             "props":{"y":272,"x":270,"skin":"main_scene/img_storehouseBuilding.png","name":"warehouse","anchorY":0.5,"anchorX":0.5},
@@ -179,7 +175,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,figure_box",
                             "props":{"y":209,"x":520,"name":"figure_box"},
@@ -192,7 +187,6 @@
                             "compId":942,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure_ani",
                                     "props":{"width":100,"source":"res/figure.atlas","name":"figure_ani","interval":150,"height":100,"autoPlay":true},
@@ -222,7 +216,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure3_ani",
                                     "props":{"y":39,"x":-62,"width":100,"source":"res/figure3.atlas","name":"figure3_ani","interval":150,"height":100,"autoPlay":true},
@@ -252,7 +245,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure4_ani",
                                     "props":{"y":-171,"x":267,"width":100,"source":"res/figure4.atlas","name":"figure4_ani","interval":150,"height":100,"autoPlay":true},
@@ -284,7 +276,6 @@
                             "$HIDDEN":true
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,shop",
                             "props":{"y":252,"x":1003,"skin":"main_scene/img_marketBuilding.png","name":"shop","anchorY":0.5,"anchorX":0.5},
@@ -315,7 +306,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,figure2_box",
                             "props":{"y":209,"x":521,"name":"figure2_box"},
@@ -328,7 +318,6 @@
                             "compId":895,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure1_ani",
                                     "props":{"y":40,"x":299,"width":100,"source":"res/figure1.atlas","name":"figure1_ani","interval":150,"height":100,"autoPlay":true},
@@ -358,7 +347,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure2_ani",
                                     "props":{"y":20,"x":240,"width":100,"source":"res/figure2.atlas","name":"figure2_ani","interval":150,"height":100,"autoPlay":true},
@@ -388,7 +376,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure5_ani",
                                     "props":{"y":-80,"x":13,"width":100,"source":"res/figure5.atlas","name":"figure5_ani","interval":150,"height":100,"autoPlay":true},
@@ -421,7 +408,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":889,"x":30,"skin":"main_scene/img_billboard.png"},
@@ -448,7 +434,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,buy_feed",
                     "props":{"y":1132,"x":941,"width":102,"skin":"main_scene/img_bowlWithFood.png","name":"buy_feed","mouseEnabled":true,"height":72},
@@ -463,7 +448,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Box",
                     "searchKey":"Box,land_box",
                     "props":{"zOrder":1,"y":452,"x":15,"width":1087,"name":"land_box","mouseEnabled":true,"height":610},
@@ -2071,7 +2055,6 @@
                     "$HIDDEN":false
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,dog_house",
                     "props":{"y":1008,"x":988,"skin":"main_scene/img_dogHouse.png","name":"dog_house","mouseEnabled":true,"anchorY":0.5,"anchorX":0.5},
@@ -2101,7 +2084,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Box",
                     "searchKey":"Box,dog_box",
                     "props":{"y":1058,"x":718,"width":237,"name":"dog_box","mouseEnabled":true,"height":256},
@@ -2302,6 +2284,21 @@
                 {
                     "x":30,
                     "type":"Image",
+                    "searchKey":"Image,avater",
+                    "props":{"y":53,"x":11,"width":92,"skin":"main_scene/img_defaultPortrait.png","name":"avater","height":90,"anchorY":0.5,"anchorX":0.5},
+                    "nodeParent":67,
+                    "label":"avater",
+                    "isOpen":true,
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":350,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Image",
                     "searchKey":"Image,head",
                     "props":{"y":-15,"x":-58,"skin":"main_scene/img_portrait.png","name":"head","mouseEnabled":true},
                     "nodeParent":67,
@@ -2312,21 +2309,6 @@
                     "hasChild":true,
                     "compId":68,
                     "child":[
-                        {
-                            "x":45,
-                            "type":"Image",
-                            "searchKey":"Image,avater",
-                            "props":{"y":68,"x":68,"width":83,"skin":"main_scene/img_defaultPortrait.png","name":"avater","height":81,"anchorY":0.5,"anchorX":0.5},
-                            "nodeParent":68,
-                            "label":"avater",
-                            "isOpen":true,
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":350,
-                            "child":[
-                                ]
-                        },
                         {
                             "x":45,
                             "type":"Script",

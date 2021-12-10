@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":108,
-    "selecteID":150,
+    "selectedBox":52,
+    "selecteID":152,
     "searchKey":"View",
     "props":{"y":0,"x":0,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/FriendsView.jpg","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":152,
+    "maxID":153,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -152,7 +152,7 @@
                                     "compId":107,
                                     "child":[
                                         ],
-                                    "$HIDDEN":true
+                                    "$HIDDEN":false
                                 },
                                 {
                                     "x":60,
@@ -166,6 +166,20 @@
                                     "isAniNode":false,
                                     "hasChild":false,
                                     "compId":108,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Image",
+                                    "searchKey":"Image",
+                                    "props":{"y":34,"x":31,"skin":"game/img_portraitBg.png"},
+                                    "nodeParent":52,
+                                    "label":"Image",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":152,
                                     "child":[
                                         ]
                                 },

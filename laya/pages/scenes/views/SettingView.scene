@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":17,
-    "selecteID":65,
+    "selectedBox":31,
+    "selecteID":16,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/SettingView.jpg","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -159,31 +159,32 @@
                         {
                             "x":45,
                             "type":"Image",
+                            "searchKey":"Image,avater",
+                            "props":{"y":69,"x":69,"width":94,"skin":"main_scene/img_defaultPortrait.png","name":"avater","height":92,"anchorY":0.5,"anchorX":0.5},
+                            "nodeParent":31,
+                            "label":"avater",
+                            "isOpen":true,
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":17,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
                             "searchKey":"Image,head",
                             "props":{"skin":"main_scene/img_portrait.png","name":"head"},
                             "nodeParent":31,
                             "label":"head",
                             "isOpen":true,
-                            "isDirectory":true,
+                            "isDirectory":false,
                             "isAniNode":true,
-                            "hasChild":true,
+                            "hasChild":false,
                             "compId":16,
                             "child":[
-                                {
-                                    "x":60,
-                                    "type":"Image",
-                                    "searchKey":"Image,avater",
-                                    "props":{"y":68,"x":68,"width":83,"skin":"main_scene/img_defaultPortrait.png","name":"avater","height":81,"anchorY":0.5,"anchorX":0.5},
-                                    "nodeParent":16,
-                                    "label":"avater",
-                                    "isOpen":true,
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":17,
-                                    "child":[
-                                        ]
-                                }]
+                                ]
                         },
                         {
                             "x":45,
