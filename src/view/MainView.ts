@@ -977,7 +977,7 @@ export default class MainView extends Core.gameScript {
             friendName.visible = false;
             moneyBox.visible = true;
             countDown.visible = false;
-            if (!UserInfo.avatar) this.avatarNode.skin = UserInfo.avatar;
+            if (UserInfo.avatar) this.avatarNode.skin = UserInfo.avatar;
         }
         bottomList.forEach((e) => {
             e.disabled = this.isOuter;

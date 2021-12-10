@@ -2811,7 +2811,7 @@
         friendName.visible = false;
         moneyBox.visible = true;
         countDown.visible = false;
-        if (!UserInfo_default.avatar)
+        if (UserInfo_default.avatar)
           this.avatarNode.skin = UserInfo_default.avatar;
       }
       bottomList.forEach((e) => {
@@ -4734,7 +4734,7 @@
           if (btnObj.ok) {
             HttpControl.inst.send({
               api: ApiHttp.taskReward,
-              data: { type: ConfigGame_default.ApiTypeAD, taskId: btnObj.id }
+              data: { type: ConfigGame_default.ApiTypeDefault, taskId: btnObj.id }
             }).then(() => {
               const task = TaskService_default.getTask(btnObj.id);
               task.receive = 1;

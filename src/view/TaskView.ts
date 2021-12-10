@@ -90,7 +90,7 @@ export default class TaskView extends GameScript {
                     HttpControl.inst
                         .send({
                             api: ApiHttp.taskReward,
-                            data: { type: ConfigGame.ApiTypeAD, taskId: btnObj.id },
+                            data: { type: ConfigGame.ApiTypeDefault, taskId: btnObj.id },
                         })
                         .then(() => {
                             const task = TaskService.getTask(btnObj.id);
