@@ -533,7 +533,7 @@
     petDigestIntervalTime: 60,
     localKey: "love_HD_farm",
     userVitalityLimit: 10,
-    baseUrl: BuildType.debug == "test" ? "//192.168.101.50:3000" : "http://game.ahd168.com:3000",
+    baseUrl: BuildType.debug == "test" ? "http://game.ahd168.com:3000" : "http://game.ahd168.com:3000",
     ApiTypeDefault: 1,
     ApiTypeAD: 2,
     ADSpeedUpTimes: 6,
@@ -4197,7 +4197,7 @@
       }
     }
     updateSelectDesc() {
-      var _a, _b, _c, _d;
+      var _a, _b, _c;
       let d = this.getDataList()[this.itemListSelectIndex];
       if (this.topBtnSelectIndex === 2) {
         this.seedDesc.parent.visible = false;
@@ -4213,11 +4213,7 @@
       this.feedDesc.visible = false;
       this.seedDesc.text = base.desc;
       this.matureTime.text = Tools.formatSeconds(base.mature_time);
-      if ((_a = this.data) == null ? void 0 : _a.call) {
-        this.itemBuyBtn.visible = !d.lock;
-      } else {
-        this.itemBuyBtn.visible = true;
-      }
+      this.itemBuyBtn.visible = !d.lock;
       this.lockBtnBox.visible = d.lock;
       this.lockBtnBox.active = d.lock;
       let gainList = base.gain;
@@ -4234,8 +4230,8 @@
         itemBox.getChildByName("count").text = "x" + count;
       }
       let box = this.lockBtnBox.getChildByName("unlock_buy").getChildByName("box");
-      box.getChildByName("icon").skin = (_c = (_b = base.unlock_cost) == null ? void 0 : _b.obj) == null ? void 0 : _c.icon;
-      box.getChildByName("value").value = ((_d = base.unlock_cost) == null ? void 0 : _d.count) + "";
+      box.getChildByName("icon").skin = (_b = (_a = base.unlock_cost) == null ? void 0 : _a.obj) == null ? void 0 : _b.icon;
+      box.getChildByName("value").value = ((_c = base.unlock_cost) == null ? void 0 : _c.count) + "";
     }
     onClick(e) {
       var _a, _b;

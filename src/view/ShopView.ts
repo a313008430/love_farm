@@ -224,11 +224,11 @@ export default class ShopView extends GameScript {
         this.seedDesc.text = base.desc;
         this.matureTime.text = Tools.formatSeconds(base.mature_time);
 
-        if (this.data?.call) {
-            this.itemBuyBtn.visible = !d.lock;
-        } else {
-            this.itemBuyBtn.visible = true;
-        }
+        // if (this.data?.call) {
+        this.itemBuyBtn.visible = !d.lock;
+        // } else {
+        //     this.itemBuyBtn.visible = !d.lock;
+        // }
 
         this.lockBtnBox.visible = d.lock;
         this.lockBtnBox.active = d.lock;

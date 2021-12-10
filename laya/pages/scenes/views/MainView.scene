@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":67,
-    "selecteID":68,
+    "selectedBox":96,
+    "selecteID":114,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -85,13 +85,14 @@
             "props":{"width":1083,"name":"center_box","height":1149,"centerY":0,"centerX":0,"anchorY":0.5,"anchorX":0.5},
             "nodeParent":2,
             "label":"center_box",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":96,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":391,"x":-107.5,"skin":"res/img_landBg.png"},
@@ -105,12 +106,43 @@
                         ]
                 },
                 {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image,dog_house",
+                    "props":{"zOrder":2,"y":1008,"x":988,"skin":"main_scene/img_dogHouse.png","name":"dog_house","mouseEnabled":true,"anchorY":0.5,"anchorX":0.5},
+                    "nodeParent":96,
+                    "label":"dog_house",
+                    "isOpen":null,
+                    "isDirectory":true,
+                    "isAniNode":true,
+                    "hasChild":true,
+                    "compId":114,
+                    "child":[
+                        {
+                            "type":"Script",
+                            "switchAble":true,
+                            "source":"src/components/Button.ts",
+                            "searchKey":"Script,Button",
+                            "removeAble":true,
+                            "props":{"isScale":true},
+                            "nodeParent":114,
+                            "label":"Button",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":884,
+                            "child":[
+                                ]
+                        }]
+                },
+                {
+                    "x":30,
                     "type":"Box",
                     "searchKey":"Box,house_box",
                     "props":{"y":-57,"x":-106,"name":"house_box"},
                     "nodeParent":96,
                     "label":"house_box",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
@@ -408,6 +440,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":889,"x":30,"skin":"main_scene/img_billboard.png"},
@@ -434,6 +467,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,buy_feed",
                     "props":{"y":1132,"x":941,"width":102,"skin":"main_scene/img_bowlWithFood.png","name":"buy_feed","mouseEnabled":true,"height":72},
@@ -448,6 +482,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Box",
                     "searchKey":"Box,land_box",
                     "props":{"zOrder":1,"y":452,"x":15,"width":1087,"name":"land_box","mouseEnabled":true,"height":610},
@@ -2055,35 +2090,7 @@
                     "$HIDDEN":false
                 },
                 {
-                    "type":"Image",
-                    "searchKey":"Image,dog_house",
-                    "props":{"y":1008,"x":988,"skin":"main_scene/img_dogHouse.png","name":"dog_house","mouseEnabled":true,"anchorY":0.5,"anchorX":0.5},
-                    "nodeParent":96,
-                    "label":"dog_house",
-                    "isOpen":null,
-                    "isDirectory":true,
-                    "isAniNode":true,
-                    "hasChild":true,
-                    "compId":114,
-                    "child":[
-                        {
-                            "type":"Script",
-                            "switchAble":true,
-                            "source":"src/components/Button.ts",
-                            "searchKey":"Script,Button",
-                            "removeAble":true,
-                            "props":{"isScale":true},
-                            "nodeParent":114,
-                            "label":"Button",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":884,
-                            "child":[
-                                ]
-                        }]
-                },
-                {
+                    "x":30,
                     "type":"Box",
                     "searchKey":"Box,dog_box",
                     "props":{"y":1058,"x":718,"width":237,"name":"dog_box","mouseEnabled":true,"height":256},

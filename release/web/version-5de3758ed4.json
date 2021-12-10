@@ -1,7 +1,7 @@
 {
   "fileconfig.json": "fileconfig-2991a4af0f.json",
-  "index.js": "index-f6c197360b.js",
-  "js/bundle.js": "js/bundle-436f2dd4cc.js",
+  "index.js": "index-74239ae7ec.js",
+  "js/bundle.js": "js/bundle-03ba73ee0b.js",
   "js/ps-N3BPHYGU.fs": "js/ps-N3BPHYGU-319562bd17.fs",
   "libs/min/laya.ani.min.js": "libs/min/laya-a72326a604.ani.min.js",
   "libs/min/laya.core.min.js": "libs/min/laya-4fc7637454.core.min.js",
@@ -76,7 +76,7 @@
   "scenes/views/LoginView.json": "scenes/views/LoginView-7c16d3b9b9.json",
   "scenes/views/MailDescView.json": "scenes/views/MailDescView-d3fa224a4c.json",
   "scenes/views/MailView.json": "scenes/views/MailView-8beb5f2aac.json",
-  "scenes/views/MainView.json": "scenes/views/MainView-eb49b82b9c.json",
+  "scenes/views/MainView.json": "scenes/views/MainView-b09e3c8161.json",
   "scenes/views/OrderView.json": "scenes/views/OrderView-d76d4889ff.json",
   "scenes/views/OverView.json": "scenes/views/OverView-1fd4e68b13.json",
   "scenes/views/SettingView.json": "scenes/views/SettingView-0d69c9b5a6.json",
@@ -87,5 +87,5 @@
   "scenes/views/TaskView.json": "scenes/views/TaskView-848c330910.json",
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-ad12d45048.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-6fd3d64c0a.json"
+  "version.json": "version-5de3758ed4.json"
 }
