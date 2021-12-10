@@ -10,6 +10,7 @@ import FieldComponent from "src/components/FieldComponent";
 import AppCore from "src/core/App";
 import Core from "src/core/index";
 import LandService, { LandObj } from "src/dataService/LandService";
+import { PlantDataBase } from "src/dataService/PlantService";
 import TaskService from "src/dataService/TaskService";
 import WarehouseService from "src/dataService/WarehouseService";
 import Res from "../common/Res";
@@ -441,13 +442,33 @@ export default class MainView extends Core.gameScript {
 
     /** 种菜 */
     @Core.eventOn(EventMaps.plant_sow)
-    private sow() {
+    private sow(showView: boolean = false, d: PlantDataBase) {
+        let empty = true;
         for (let x = 0, l = this.landList.length; x < l; x++) {
             if (!this.landList[x]?.data?.productId) {
-                this.landList[x].sow();
+                if (showView) {
+                    this.landList[x].sowPlant(d);
+                } else {
+                    this.landList[x].sow();
+                }
+
+                empty = false;
                 break;
             }
         }
+        if (empty) {
+            Core.view.openHint({ text: "没有空的土地哦！", call: () => {} });
+        }
+    }
+
+    getEmptyLandId() {
+        console.log(this.landList);
+        for (let x = 0, l = this.landList.length; x < l; x++) {
+            if (this.landList[x].data && !this.landList[x].data.productId) {
+                return this.landList[x].fieldId;
+            }
+        }
+        return null;
     }
 
     /**

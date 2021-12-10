@@ -2055,16 +2055,19 @@
           id: 0,
           parm: { landId: this.fieldId },
           call: (d) => {
-            this.landList.get(this.fieldId).productId = d.base.id;
-            this.landList.get(this.fieldId).matureTimeLeft = d.base.mature_time;
-            this.matureTime = d.base.mature_time * 1e3 + Date.now();
-            this.data = this.landList.get(this.fieldId);
-            this.renderData();
-            core_default.audio.playSound(Res_default.audios.zhongzhi);
-            this.mainViewCom.updateAllStateIcon(this.data.id);
+            this.sowPlant(d);
           }
         }
       });
+    }
+    sowPlant(d) {
+      this.landList.get(this.fieldId).productId = d.base.id;
+      this.landList.get(this.fieldId).matureTimeLeft = d.base.mature_time;
+      this.matureTime = d.base.mature_time * 1e3 + Date.now();
+      this.data = this.landList.get(this.fieldId);
+      this.renderData();
+      core_default.audio.playSound(Res_default.audios.zhongzhi);
+      this.mainViewCom.updateAllStateIcon(this.data.id);
     }
     stealFood(data) {
       return __async(this, null, function* () {
@@ -2456,14 +2459,33 @@
           break;
       }
     }
-    sow() {
+    sow(showView = false, d) {
       var _a, _b;
+      let empty = true;
       for (let x = 0, l = this.landList.length; x < l; x++) {
         if (!((_b = (_a = this.landList[x]) == null ? void 0 : _a.data) == null ? void 0 : _b.productId)) {
-          this.landList[x].sow();
+          if (showView) {
+            this.landList[x].sowPlant(d);
+          } else {
+            this.landList[x].sow();
+          }
+          empty = false;
           break;
         }
       }
+      if (empty) {
+        core_default.view.openHint({ text: "\u6CA1\u6709\u7A7A\u7684\u571F\u5730\u54E6\uFF01", call: () => {
+        } });
+      }
+    }
+    getEmptyLandId() {
+      console.log(this.landList);
+      for (let x = 0, l = this.landList.length; x < l; x++) {
+        if (this.landList[x].data && !this.landList[x].data.productId) {
+          return this.landList[x].fieldId;
+        }
+      }
+      return null;
     }
     openMail() {
       if (!this.canClick) {
@@ -4194,7 +4216,7 @@
       if ((_a = this.data) == null ? void 0 : _a.call) {
         this.itemBuyBtn.visible = !d.lock;
       } else {
-        this.itemBuyBtn.visible = false;
+        this.itemBuyBtn.visible = true;
       }
       this.lockBtnBox.visible = d.lock;
       this.lockBtnBox.active = d.lock;
@@ -4216,7 +4238,7 @@
       box.getChildByName("value").value = ((_d = base.unlock_cost) == null ? void 0 : _d.count) + "";
     }
     onClick(e) {
-      var _a;
+      var _a, _b;
       switch (e.target.name) {
         case "close":
           ViewManager.inst.close(Res_default.views.ShopView);
@@ -4236,19 +4258,34 @@
           if (!this.canClick) {
             return;
           }
+          let landId = (_b = (_a = this.data) == null ? void 0 : _a.parm) == null ? void 0 : _b.landId;
+          if (!landId) {
+            landId = MainView.inst.getEmptyLandId();
+          }
+          if (!landId) {
+            core_default.view.openHint({ text: "\u6CA1\u6709\u7A7A\u7684\u571F\u5730\u54E6\uFF01", call: () => {
+            } });
+            return;
+          }
           this.canClick = false;
           HttpControl.inst.send({
             api: ApiHttp.landSow,
             data: {
-              landId: (_a = this.data.parm) == null ? void 0 : _a.landId,
+              landId,
               plantId: this.getDataList()[this.itemListSelectIndex].base.id,
               type: ConfigGame_default.ApiTypeDefault
             }
           }).then(() => {
             var _a2;
             ViewManager.inst.close(Res_default.views.ShopView);
-            if ((_a2 = this.data) == null ? void 0 : _a2.call)
+            if ((_a2 = this.data) == null ? void 0 : _a2.call) {
               this.data.call(this.getDataList()[this.itemListSelectIndex]);
+            } else {
+              core_default.eventGlobal.event(EventMaps.plant_sow, [
+                true,
+                this.getDataList()[this.itemListSelectIndex]
+              ]);
+            }
           }).catch(() => {
             this.canClick = true;
           });

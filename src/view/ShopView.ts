@@ -15,7 +15,7 @@ import FeedService, { FeedDataBase } from "src/dataService/FeedService";
 import PetService from "src/dataService/PetService";
 import PlantService from "src/dataService/PlantService";
 import UserInfo from "src/dataService/UserInfo";
-import { GetFloatRewardObj } from "./MainView";
+import MainView, { GetFloatRewardObj } from "./MainView";
 
 export interface ShopViewData {
     /** 界面tag下标id */
@@ -227,7 +227,7 @@ export default class ShopView extends GameScript {
         if (this.data?.call) {
             this.itemBuyBtn.visible = !d.lock;
         } else {
-            this.itemBuyBtn.visible = false;
+            this.itemBuyBtn.visible = true;
         }
 
         this.lockBtnBox.visible = d.lock;
@@ -280,20 +280,36 @@ export default class ShopView extends GameScript {
                 if (!this.canClick) {
                     return;
                 }
+
+                let landId = this.data?.parm?.landId;
+                if (!landId) {
+                    landId = MainView.inst.getEmptyLandId();
+                }
+                if (!landId) {
+                    Core.view.openHint({ text: "没有空的土地哦！", call: () => {} });
+                    return;
+                }
+
                 this.canClick = false;
                 HttpControl.inst
                     .send({
                         api: ApiHttp.landSow,
                         data: <NetSendApi["sow"]>{
-                            landId: this.data.parm?.landId,
+                            landId: landId,
                             plantId: this.getDataList()[this.itemListSelectIndex].base.id,
                             type: ConfigGame.ApiTypeDefault,
                         },
                     })
                     .then(() => {
                         ViewManager.inst.close(Res.views.ShopView);
-                        if (this.data?.call)
+                        if (this.data?.call) {
                             this.data.call(this.getDataList()[this.itemListSelectIndex]);
+                        } else {
+                            Core.eventGlobal.event(EventMaps.plant_sow, [
+                                true,
+                                this.getDataList()[this.itemListSelectIndex],
+                            ]);
+                        }
                     })
                     .catch(() => {
                         this.canClick = true;

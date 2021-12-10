@@ -524,17 +524,21 @@ export default class FieldComponent extends Core.gameScript {
                 id: 0,
                 parm: { landId: this.fieldId },
                 call: (d: PlantDataBase) => {
-                    this.landList.get(this.fieldId).productId = d.base.id;
-                    this.landList.get(this.fieldId).matureTimeLeft = d.base.mature_time;
-                    this.matureTime = d.base.mature_time * 1000 + Date.now();
-
-                    this.data = this.landList.get(this.fieldId);
-                    this.renderData();
-                    Core.audio.playSound(Res.audios.zhongzhi);
-                    this.mainViewCom.updateAllStateIcon(this.data.id);
+                    this.sowPlant(d);
                 },
             },
         });
+    }
+
+    sowPlant(d: PlantDataBase) {
+        this.landList.get(this.fieldId).productId = d.base.id;
+        this.landList.get(this.fieldId).matureTimeLeft = d.base.mature_time;
+        this.matureTime = d.base.mature_time * 1000 + Date.now();
+
+        this.data = this.landList.get(this.fieldId);
+        this.renderData();
+        Core.audio.playSound(Res.audios.zhongzhi);
+        this.mainViewCom.updateAllStateIcon(this.data.id);
     }
 
     /**
