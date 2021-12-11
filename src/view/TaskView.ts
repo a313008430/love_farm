@@ -133,7 +133,7 @@ export default class TaskView extends GameScript {
                     timestamp: Date.now(),
                 });
 
-                if (adData.code) {
+                if (adData?.code) {
                     Core.view.openHint({ text: `广告播放失败[${adData.code}]` });
                     return;
                 }
@@ -158,7 +158,7 @@ export default class TaskView extends GameScript {
                     timestamp: Date.now(),
                 });
 
-                if (adData.code) {
+                if (adData?.code) {
                     Core.view.openHint({ text: `广告播放失败[${adData.code}]` });
                     return;
                 }

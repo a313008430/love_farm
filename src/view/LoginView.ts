@@ -178,7 +178,7 @@ export default class LoginView extends GameScript {
                         },
                         timestamp: Date.now(),
                     }).then((data) => {
-                        if (data.code) {
+                        if (data?.code) {
                             Core.view.openHint({ text: `登录失败[${data.code}]` });
                         } else {
                             ConfigGame.channel = data.data["channel"];
@@ -276,10 +276,12 @@ export default class LoginView extends GameScript {
                         },
                         timestamp: Date.now(),
                     }).then((data: AppDespatchReturnData) => {
-                        if (data.code) {
-                            Core.view.openHint({ text: `登录失败[${data.code}]` });
-                        } else {
-                            ConfigGame.channel = data.data["channel"];
+                        if (data) {
+                            if (data.code) {
+                                Core.view.openHint({ text: `登录失败[${data.code}]` });
+                            } else {
+                                ConfigGame.channel = data.data["channel"];
+                            }
                         }
                     });
                 })

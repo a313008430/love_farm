@@ -533,13 +533,44 @@
     petDigestIntervalTime: 60,
     localKey: "love_HD_farm",
     userVitalityLimit: 10,
-    baseUrl: BuildType.debug == "test" ? "http://game.ahd168.com:3000" : "http://game.ahd168.com:3000",
+    baseUrl: BuildType.debug == "test" ? "//192.168.50.87:3000" : "http://game.ahd168.com:3000",
     ApiTypeDefault: 1,
     ApiTypeAD: 2,
     ADSpeedUpTimes: 6,
     version: "1.0.0",
     channel: ""
   };
+
+  // src/core/App.ts
+  var EventMap = new Map();
+  var AppCore = class {
+    static runAppFunction(data) {
+      let webAppFunction;
+      if (Laya.Browser.onIOS) {
+      } else {
+        console.log(JSON.stringify(data));
+        if (window["$App"] && window["$App"]["webRequest"]) {
+          return new Promise((resolve) => {
+            window["$App"]["webRequest"](JSON.stringify(data));
+            console.log(`send => ${data}`);
+            if (data.timestamp) {
+              EventMap.set(data.timestamp, resolve);
+            }
+          });
+        }
+      }
+    }
+    static listenAppFunction() {
+      window["appResponse"] = (d) => {
+        if (EventMap.has(d == null ? void 0 : d.timestamp)) {
+          EventMap.get(d.timestamp)(d);
+        }
+        console.log(d);
+      };
+    }
+  };
+  AppCore.typeIos = 1;
+  AppCore.typeAndroid = 2;
 
   // src/core/AudioControl.ts
   var AudioControl = class {
@@ -575,39 +606,6 @@
     audio: new AudioControl()
   };
   var core_default = Core;
-
-  // src/core/App.ts
-  var EventMap = new Map();
-  var AppCore = class {
-    static runAppFunction(data) {
-      let webAppFunction;
-      if (Laya.Browser.onIOS) {
-      } else {
-        console.log(JSON.stringify(data));
-        if (window["$App"] && window["$App"]["webRequest"]) {
-          return new Promise((resolve) => {
-            window["$App"]["webRequest"](JSON.stringify(data));
-            console.log(`send => ${data}`);
-            if (data.timestamp) {
-              EventMap.set(data.timestamp, resolve);
-            }
-          });
-        }
-      }
-    }
-    static listenAppFunction() {
-      window["appResponse"] = (d) => {
-        core_default.view.openHint({ text: JSON.stringify(d), call: () => {
-        } });
-        if (EventMap.has(d == null ? void 0 : d.timestamp)) {
-          EventMap.get(d.timestamp)(d);
-        }
-        console.log(d);
-      };
-    }
-  };
-  AppCore.typeIos = 1;
-  AppCore.typeAndroid = 2;
 
   // src/view/AboutView.ts
   var AboutView = class extends core_default.gameScript {
@@ -1381,7 +1379,7 @@
             data: {},
             timestamp: Date.now()
           });
-          if (adData.code) {
+          if (adData == null ? void 0 : adData.code) {
             return core_default.view.openHint({ text: `\u5E7F\u544A\u64AD\u653E\u5931\u8D25[${adData.code}]` });
           } else {
             ad = true;
@@ -3551,7 +3549,7 @@
               },
               timestamp: Date.now()
             }).then((data) => {
-              if (data.code) {
+              if (data == null ? void 0 : data.code) {
                 core_default.view.openHint({ text: `\u767B\u5F55\u5931\u8D25[${data.code}]` });
               } else {
                 ConfigGame_default.channel = data.data["channel"];
@@ -3637,10 +3635,12 @@
               },
               timestamp: Date.now()
             }).then((data) => {
-              if (data.code) {
-                core_default.view.openHint({ text: `\u767B\u5F55\u5931\u8D25[${data.code}]` });
-              } else {
-                ConfigGame_default.channel = data.data["channel"];
+              if (data) {
+                if (data.code) {
+                  core_default.view.openHint({ text: `\u767B\u5F55\u5931\u8D25[${data.code}]` });
+                } else {
+                  ConfigGame_default.channel = data.data["channel"];
+                }
               }
             });
           }).catch(() => {
@@ -4823,7 +4823,7 @@
               data: {},
               timestamp: Date.now()
             });
-            if (adData.code) {
+            if (adData == null ? void 0 : adData.code) {
               core_default.view.openHint({ text: `\u5E7F\u544A\u64AD\u653E\u5931\u8D25[${adData.code}]` });
               return;
             }
@@ -4843,7 +4843,7 @@
               data: {},
               timestamp: Date.now()
             });
-            if (adData.code) {
+            if (adData == null ? void 0 : adData.code) {
               core_default.view.openHint({ text: `\u5E7F\u544A\u64AD\u653E\u5931\u8D25[${adData.code}]` });
               return;
             }

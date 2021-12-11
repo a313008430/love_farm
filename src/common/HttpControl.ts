@@ -147,7 +147,7 @@ export default class HttpControl {
                 data: {},
                 timestamp: Date.now(),
             });
-            if (adData.code) {
+            if (adData?.code) {
                 return Core.view.openHint({ text: `广告播放失败[${adData.code}]` });
             } else {
                 ad = true;
