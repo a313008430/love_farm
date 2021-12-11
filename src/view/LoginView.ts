@@ -178,7 +178,11 @@ export default class LoginView extends GameScript {
                         },
                         timestamp: Date.now(),
                     }).then((data) => {
-                        ConfigGame.channel = data.data["channel"];
+                        if (data.code) {
+                            Core.view.openHint({ text: `登录失败[${data.code}]` });
+                        } else {
+                            ConfigGame.channel = data.data["channel"];
+                        }
                     });
                 })
                 .catch(() => {
@@ -217,9 +221,13 @@ export default class LoginView extends GameScript {
                 });
 
                 if (data) {
-                    wxOpenId = data.data["openid"];
-                    avatar = data.data["iconurl"];
-                    nickname = data.data["name"];
+                    if (data.code) {
+                        Core.view.openHint({ text: `微信登录失败[${data.code}]` });
+                    } else {
+                        wxOpenId = data.data["openid"];
+                        avatar = data.data["iconurl"];
+                        nickname = data.data["name"];
+                    }
                 }
             }
             if (!wxOpenId) {
@@ -268,7 +276,11 @@ export default class LoginView extends GameScript {
                         },
                         timestamp: Date.now(),
                     }).then((data: AppDespatchReturnData) => {
-                        ConfigGame.channel = data.data["channel"];
+                        if (data.code) {
+                            Core.view.openHint({ text: `登录失败[${data.code}]` });
+                        } else {
+                            ConfigGame.channel = data.data["channel"];
+                        }
                     });
                 })
                 .catch(() => {

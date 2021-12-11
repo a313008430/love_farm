@@ -122,14 +122,22 @@ export default class TaskView extends GameScript {
     }
 
     private async jump(id, target) {
+        let adData;
+
         switch (id) {
             case 1012:
             case 1001:
-                await AppCore.runAppFunction({
+                adData = await AppCore.runAppFunction({
                     uri: AppEventMap.ad,
                     data: {},
                     timestamp: Date.now(),
                 });
+
+                if (adData.code) {
+                    Core.view.openHint({ text: `广告播放失败[${adData.code}]` });
+                    return;
+                }
+
                 HttpControl.inst
                     .send({
                         api: ApiHttp.ad,
@@ -144,11 +152,17 @@ export default class TaskView extends GameScript {
 
                 break;
             case 1002:
-                await AppCore.runAppFunction({
+                adData = await AppCore.runAppFunction({
                     uri: AppEventMap.ad,
                     data: {},
                     timestamp: Date.now(),
                 });
+
+                if (adData.code) {
+                    Core.view.openHint({ text: `广告播放失败[${adData.code}]` });
+                    return;
+                }
+
                 HttpControl.inst
                     .send({
                         api: ApiHttp.ad,

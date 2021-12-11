@@ -142,12 +142,16 @@ export default class HttpControl {
 
         let ad = false;
         if (data.data?.type == ConfigGame.ApiTypeAD) {
-            await AppCore.runAppFunction({
+            const adData = await AppCore.runAppFunction({
                 uri: AppEventMap.ad,
                 data: {},
                 timestamp: Date.now(),
             });
-            ad = true;
+            if (adData.code) {
+                return Core.view.openHint({ text: `广告播放失败[${adData.code}]` });
+            } else {
+                ad = true;
+            }
         }
 
         return new Promise(async (resolve, reject) => {

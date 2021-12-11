@@ -562,7 +562,7 @@
     }
     static listenAppFunction() {
       window["appResponse"] = (d) => {
-        if (EventMap.has(d == null ? void 0 : d.timestamp) && !d.code) {
+        if (EventMap.has(d == null ? void 0 : d.timestamp)) {
           EventMap.get(d.timestamp)(d);
         }
         console.log(d);
@@ -1374,12 +1374,16 @@
         }
         let ad = false;
         if (((_a = data.data) == null ? void 0 : _a.type) == ConfigGame_default.ApiTypeAD) {
-          yield AppCore.runAppFunction({
+          const adData = yield AppCore.runAppFunction({
             uri: AppEventMap.ad,
             data: {},
             timestamp: Date.now()
           });
-          ad = true;
+          if (adData.code) {
+            return core_default.view.openHint({ text: `\u5E7F\u544A\u64AD\u653E\u5931\u8D25[${adData.code}]` });
+          } else {
+            ad = true;
+          }
         }
         return new Promise((resolve, reject) => __async(this, null, function* () {
           const xhr = this.createXhr(resolve, reject, ad);
@@ -3545,7 +3549,11 @@
               },
               timestamp: Date.now()
             }).then((data) => {
-              ConfigGame_default.channel = data.data["channel"];
+              if (data.code) {
+                core_default.view.openHint({ text: `\u767B\u5F55\u5931\u8D25[${data.code}]` });
+              } else {
+                ConfigGame_default.channel = data.data["channel"];
+              }
             });
           }).catch(() => {
             this.canClick = true;
@@ -3577,9 +3585,13 @@
               timestamp: Date.now()
             });
             if (data) {
-              wxOpenId = data.data["openid"];
-              avatar = data.data["iconurl"];
-              nickname = data.data["name"];
+              if (data.code) {
+                core_default.view.openHint({ text: `\u5FAE\u4FE1\u767B\u5F55\u5931\u8D25[${data.code}]` });
+              } else {
+                wxOpenId = data.data["openid"];
+                avatar = data.data["iconurl"];
+                nickname = data.data["name"];
+              }
             }
           }
           if (!wxOpenId) {
@@ -3623,7 +3635,11 @@
               },
               timestamp: Date.now()
             }).then((data) => {
-              ConfigGame_default.channel = data.data["channel"];
+              if (data.code) {
+                core_default.view.openHint({ text: `\u767B\u5F55\u5931\u8D25[${data.code}]` });
+              } else {
+                ConfigGame_default.channel = data.data["channel"];
+              }
             });
           }).catch(() => {
             this.canClick = true;
@@ -4796,14 +4812,19 @@
     }
     jump(id, target) {
       return __async(this, null, function* () {
+        let adData;
         switch (id) {
           case 1012:
           case 1001:
-            yield AppCore.runAppFunction({
+            adData = yield AppCore.runAppFunction({
               uri: AppEventMap.ad,
               data: {},
               timestamp: Date.now()
             });
+            if (adData.code) {
+              core_default.view.openHint({ text: `\u5E7F\u544A\u64AD\u653E\u5931\u8D25[${adData.code}]` });
+              return;
+            }
             HttpControl.inst.send({
               api: ApiHttp.ad,
               data: {}
@@ -4815,11 +4836,15 @@
             });
             break;
           case 1002:
-            yield AppCore.runAppFunction({
+            adData = yield AppCore.runAppFunction({
               uri: AppEventMap.ad,
               data: {},
               timestamp: Date.now()
             });
+            if (adData.code) {
+              core_default.view.openHint({ text: `\u5E7F\u544A\u64AD\u653E\u5931\u8D25[${adData.code}]` });
+              return;
+            }
             HttpControl.inst.send({
               api: ApiHttp.ad,
               data: {

@@ -89,7 +89,7 @@ export default class AppCore {
 
         window["appResponse"] = (d: AppDespatchReturnData) => {
             // alert(d?.timestamp);
-            if (EventMap.has(d?.timestamp) && !d.code) {
+            if (EventMap.has(d?.timestamp)) {
                 EventMap.get(d.timestamp)(d);
             }
             console.log(d);
