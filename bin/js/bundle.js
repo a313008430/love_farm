@@ -541,37 +541,6 @@
     channel: ""
   };
 
-  // src/core/App.ts
-  var EventMap = new Map();
-  var AppCore = class {
-    static runAppFunction(data) {
-      let webAppFunction;
-      if (Laya.Browser.onIOS) {
-      } else {
-        console.log(JSON.stringify(data));
-        if (window["$App"] && window["$App"]["webRequest"]) {
-          return new Promise((resolve) => {
-            window["$App"]["webRequest"](JSON.stringify(data));
-            console.log(`send => ${data}`);
-            if (data.timestamp) {
-              EventMap.set(data.timestamp, resolve);
-            }
-          });
-        }
-      }
-    }
-    static listenAppFunction() {
-      window["appResponse"] = (d) => {
-        if (EventMap.has(d == null ? void 0 : d.timestamp)) {
-          EventMap.get(d.timestamp)(d);
-        }
-        console.log(d);
-      };
-    }
-  };
-  AppCore.typeIos = 1;
-  AppCore.typeAndroid = 2;
-
   // src/core/AudioControl.ts
   var AudioControl = class {
     playSound(url, loops, complete, soundClass, startTime) {
@@ -606,6 +575,39 @@
     audio: new AudioControl()
   };
   var core_default = Core;
+
+  // src/core/App.ts
+  var EventMap = new Map();
+  var AppCore = class {
+    static runAppFunction(data) {
+      let webAppFunction;
+      if (Laya.Browser.onIOS) {
+      } else {
+        console.log(JSON.stringify(data));
+        if (window["$App"] && window["$App"]["webRequest"]) {
+          return new Promise((resolve) => {
+            window["$App"]["webRequest"](JSON.stringify(data));
+            console.log(`send => ${data}`);
+            if (data.timestamp) {
+              EventMap.set(data.timestamp, resolve);
+            }
+          });
+        }
+      }
+    }
+    static listenAppFunction() {
+      window["appResponse"] = (d) => {
+        core_default.view.openHint({ text: JSON.stringify(d), call: () => {
+        } });
+        if (EventMap.has(d == null ? void 0 : d.timestamp)) {
+          EventMap.get(d.timestamp)(d);
+        }
+        console.log(d);
+      };
+    }
+  };
+  AppCore.typeIos = 1;
+  AppCore.typeAndroid = 2;
 
   // src/view/AboutView.ts
   var AboutView = class extends core_default.gameScript {
