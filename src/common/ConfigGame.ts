@@ -7,6 +7,18 @@ export const enum BuildType {
     debug = "debug",
 }
 
+console.log(BUILD_TYPE);
+
+let baseUrl = "http://game.ahd168.com:3000";
+switch (BUILD_TYPE) {
+    case BuildType.debug:
+        baseUrl = "//192.168.101.50:3000";
+        break;
+    case BuildType.online:
+        baseUrl = "http://game.ahd168.com:3100";
+        break;
+}
+
 /**
  * 游戏配置
  */
@@ -23,8 +35,7 @@ export default {
     userVitalityLimit: 10,
     /** 协议地址 */
     // baseUrl: "//47.108.192.181:8092/ farm",
-    baseUrl:
-        BUILD_TYPE == BuildType.debug ? "//192.168.101.50:3000" : "http://game.ahd168.com:3000",
+    baseUrl: baseUrl,
     // BUILD_TYPE == BuildType.debug ? "//192.168.50.87:3000" : "http://game.ahd168.com:3000",
     // baseUrl: DEBUG ? "//192.168.101.50:3000" : "http://game.ahd168.com:3000",
     // baseUrl: "http://game.ahd168.com:3000",

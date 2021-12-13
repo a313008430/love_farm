@@ -1,7 +1,7 @@
 {
-  "fileconfig.json": "fileconfig-2991a4af0f.json",
-  "index.js": "index-f4d4c2a2d3.js",
-  "js/bundle.js": "js/bundle-c3a86247d0.js",
+  "fileconfig.json": "fileconfig-dab998f5f8.json",
+  "index.js": "index-11f44e8512.js",
+  "js/bundle.js": "js/bundle-fd9964803a.js",
   "js/ps-N3BPHYGU.fs": "js/ps-N3BPHYGU-319562bd17.fs",
   "libs/min/laya.ani.min.js": "libs/min/laya-a72326a604.ani.min.js",
   "libs/min/laya.core.min.js": "libs/min/laya-4fc7637454.core.min.js",
@@ -11,8 +11,8 @@
   "main_scene/img_homepageBg2.png": "main_scene/img_homepageBg2-b4f1dccf5a.png",
   "main_scene/img_homepageBg3.png": "main_scene/img_homepageBg3-f271879d22.png",
   "main_scene/img_landBg.png": "main_scene/img_landBg-ee0cfcf3c3.png",
-  "res/atlas/game.atlas": "res/atlas/game-75fed016e6.atlas",
-  "res/atlas/game.png": "res/atlas/game-2b8263fd9f.png",
+  "res/atlas/game.atlas": "res/atlas/game-851c5b109d.atlas",
+  "res/atlas/game.png": "res/atlas/game-0976b0f781.png",
   "res/atlas/load.atlas": "res/atlas/load-ee15b6548b.atlas",
   "res/atlas/load.png": "res/atlas/load-59a4e3576d.png",
   "res/atlas/main_scene.atlas": "res/atlas/main_scene-f31ced4626.atlas",
@@ -73,7 +73,7 @@
   "scenes/views/FriendsView.json": "scenes/views/FriendsView-d1c6ee2c85.json",
   "scenes/views/GuideView.json": "scenes/views/GuideView-9e802e2ad7.json",
   "scenes/views/HintView.json": "scenes/views/HintView-4c7c0b0b39.json",
-  "scenes/views/LoginView.json": "scenes/views/LoginView-7c16d3b9b9.json",
+  "scenes/views/LoginView.json": "scenes/views/LoginView-d84d403285.json",
   "scenes/views/MailDescView.json": "scenes/views/MailDescView-d3fa224a4c.json",
   "scenes/views/MailView.json": "scenes/views/MailView-8beb5f2aac.json",
   "scenes/views/MainView.json": "scenes/views/MainView-b09e3c8161.json",
@@ -87,5 +87,5 @@
   "scenes/views/TaskView.json": "scenes/views/TaskView-848c330910.json",
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-ad12d45048.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-9195c68c7a.json"
+  "version.json": "version-3201f53efb.json"
 }
