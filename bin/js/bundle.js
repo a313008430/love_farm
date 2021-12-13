@@ -527,9 +527,9 @@
     BuildType2["online"] = "online";
     BuildType2["debug"] = "debug";
   })(BuildType || (BuildType = {}));
-  console.log("online");
+  console.log("test");
   var baseUrl = "http://game.ahd168.com:3000";
-  switch ("online") {
+  switch ("test") {
     case BuildType.debug:
       baseUrl = "//192.168.101.50:3000";
       break;
@@ -3455,7 +3455,7 @@
     }
     getBuildType() {
       let buildType = null;
-      switch ("online") {
+      switch ("test") {
         case BuildType.debug:
           buildType = 3;
           break;
@@ -5196,7 +5196,7 @@
         Laya.Stat.show();
       Laya.alertGlobalError(true);
       Laya.stage.bgColor = "#ffffff";
-      BuildType.debug == "online" && GameConfig.stat && Laya.Stat.show();
+      BuildType.debug == "test" && GameConfig.stat && Laya.Stat.show();
       Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
     }
     onVersionLoaded() {
