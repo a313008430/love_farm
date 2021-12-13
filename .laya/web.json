@@ -17,7 +17,7 @@
     "compressImageNoteList": [
         ""
     ],
-    "compressJs": true,
+    "compressJs": false,
     "compressJsFilter": [
         "$basePath/**/*.js",
         "!$basePath/libs/min/**/*.js"
@@ -26,7 +26,7 @@
         "",
         ""
     ],
-    "version": true,
+    "version": false,
     "versionFilter": [
         "$basePath/**/*.*",
         "!$basePath/*.html",
@@ -65,5 +65,5 @@
     "useMinJsLibs": true,
     "es6toes5": false,
     "projectType": "ts",
-    "pubTime": 1639392688875
+    "pubTime": 1639393867666
 }
