@@ -148,7 +148,7 @@ export default class HttpControl {
                 timestamp: Date.now(),
             });
             if (adData?.code) {
-                return Core.view.openHint({ text: `广告播放失败[${adData.code}]` });
+                return Core.view.openHint({ text: `广告播放失败[${adData.code}]`, call: () => {} });
             } else {
                 ad = true;
             }

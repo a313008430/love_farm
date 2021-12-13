@@ -186,7 +186,11 @@ export default class LoginView extends GameScript {
                     });
                 })
                 .catch(() => {
+                    console.log(1);
                     this.canClick = true;
+                    this.loginBox.visible = true;
+                    this.loadBox.visible = false;
+                    this.privacyBox.visible = true;
                 });
             this.privacyBox.visible = false;
         } else {
