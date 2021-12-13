@@ -125,6 +125,7 @@ export default class LoginView extends GameScript {
                         });
                     } else {
                         ConfigGame.version = d.version;
+                        LocalStorageService.setJSON("version", d.version);
                         resolve(null);
                     }
                 })
@@ -186,7 +187,6 @@ export default class LoginView extends GameScript {
                     });
                 })
                 .catch(() => {
-                    console.log(1);
                     this.canClick = true;
                     this.loginBox.visible = true;
                     this.loadBox.visible = false;

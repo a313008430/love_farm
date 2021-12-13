@@ -565,9 +565,10 @@
             if (data.timestamp) {
               EventMap.set(data.timestamp, resolve);
             }
+          } else {
+            reject(null);
           }
         }
-        reject(null);
       });
     }
     static listenAppFunction() {
@@ -3513,6 +3514,7 @@
               });
             } else {
               ConfigGame_default.version = d.version;
+              LocalStorageService_default.setJSON("version", d.version);
               resolve(null);
             }
           }).catch(() => {
@@ -3573,7 +3575,6 @@
               }
             });
           }).catch(() => {
-            console.log(1);
             this.canClick = true;
             this.loginBox.visible = true;
             this.loadBox.visible = false;
