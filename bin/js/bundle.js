@@ -3448,7 +3448,7 @@
     }
     onHdAwake() {
       EventGlobal_default.on(EventMaps.load_progress, this, this.loadProgress);
-      console.log("awake");
+      console.log("awake2");
     }
     onHdEnable() {
       this.loadBarOldWidth = this.loadBar.width;
