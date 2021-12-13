@@ -555,20 +555,20 @@
   var EventMap = new Map();
   var AppCore = class {
     static runAppFunction(data) {
-      let webAppFunction;
-      if (Laya.Browser.onIOS) {
-      } else {
-        console.log(JSON.stringify(data));
-        if (window["$App"] && window["$App"]["webRequest"]) {
-          return new Promise((resolve) => {
+      return new Promise((resolve, reject) => {
+        let webAppFunction;
+        if (Laya.Browser.onIOS) {
+        } else {
+          if (window["$App"] && window["$App"]["webRequest"]) {
             window["$App"]["webRequest"](JSON.stringify(data));
             console.log(`send => ${data}`);
             if (data.timestamp) {
               EventMap.set(data.timestamp, resolve);
             }
-          });
+          }
         }
-      }
+        reject(null);
+      });
     }
     static listenAppFunction() {
       window["appResponse"] = (d) => {
@@ -1380,7 +1380,9 @@
         }
         const sendDataString = sendData.join("&");
         if (this.eventMap.get(uri + sendDataString)) {
-          return;
+          return new Promise((resolve, reject) => {
+            reject(null);
+          });
         }
         let ad = false;
         if (((_a = data.data) == null ? void 0 : _a.type) == ConfigGame_default.ApiTypeAD) {
@@ -1390,8 +1392,11 @@
             timestamp: Date.now()
           });
           if (adData == null ? void 0 : adData.code) {
-            return core_default.view.openHint({ text: `\u5E7F\u544A\u64AD\u653E\u5931\u8D25[${adData.code}]`, call: () => {
+            core_default.view.openHint({ text: `\u5E7F\u544A\u64AD\u653E\u5931\u8D25[${adData.code}]`, call: () => {
             } });
+            return new Promise((resolve, reject) => {
+              reject(null);
+            });
           } else {
             ad = true;
           }
@@ -1410,7 +1415,7 @@
             core_default.view.open(Res_default.views.HintView, {
               parm: { text: `http \u5730\u5740\u4E0D\u80FD\u4E3A\u7A7A` }
             });
-            return;
+            return reject(null);
           }
           xhr.open("POST", uri, true);
           xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -3563,7 +3568,8 @@
               if (data == null ? void 0 : data.code) {
                 core_default.view.openHint({ text: `\u767B\u5F55\u5931\u8D25[${data.code}]` });
               } else {
-                ConfigGame_default.channel = data.data["channel"];
+                if (data)
+                  ConfigGame_default.channel = data.data["channel"];
               }
             });
           }).catch(() => {

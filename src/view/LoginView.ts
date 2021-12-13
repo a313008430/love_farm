@@ -181,7 +181,7 @@ export default class LoginView extends GameScript {
                         if (data?.code) {
                             Core.view.openHint({ text: `登录失败[${data.code}]` });
                         } else {
-                            ConfigGame.channel = data.data["channel"];
+                            if (data) ConfigGame.channel = data.data["channel"];
                         }
                     });
                 })

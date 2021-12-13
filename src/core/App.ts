@@ -35,51 +35,55 @@ export default class AppCore {
      * @param name 方法名称
      * @param data 传入数据
      */
-    static runAppFunction(data?: AppDespatchData): Promise<AppDespatchReturnData> {
-        let webAppFunction;
-        if (Laya.Browser.onIOS) {
-            // webAppFunction = this.detectionHasFunction(this.typeIos, name);
-            // if (webAppFunction) {
-            //     // if (name == this.closeWebView) {
-            //     //     //关闭webview特殊处理
-            //     //     window["webkit"]["messageHandlers"][this.leaveChannel]["postMessage"](
-            //     //         JSON.stringify({ status: 1 })
-            //     //     ); //特殊处理需要先退出频道
-            //     // }
-            //     if (data) {
-            //         // webAppFunction['postMessage'](data);
-            //         console.log("run :" + name);
-            //         window["webkit"]["messageHandlers"][name]["postMessage"](data);
-            //     } else {
-            //         window["webkit"]["messageHandlers"][name]["postMessage"](
-            //             JSON.stringify({ status: 1 })
-            //         );
-            //     }
-            // }
-        } else {
-            console.log(JSON.stringify(data));
-            // alert(JSON.stringify(data));
-            // alert(window["$App"] && window["$App"]["webRequest"]);
-            if (window["$App"] && window["$App"]["webRequest"]) {
-                return new Promise((resolve) => {
+    static runAppFunction(data?: AppDespatchData): Promise<AppDespatchReturnData | null> {
+        return new Promise((resolve, reject) => {
+            let webAppFunction;
+            if (Laya.Browser.onIOS) {
+                // webAppFunction = this.detectionHasFunction(this.typeIos, name);
+                // if (webAppFunction) {
+                //     // if (name == this.closeWebView) {
+                //     //     //关闭webview特殊处理
+                //     //     window["webkit"]["messageHandlers"][this.leaveChannel]["postMessage"](
+                //     //         JSON.stringify({ status: 1 })
+                //     //     ); //特殊处理需要先退出频道
+                //     // }
+                //     if (data) {
+                //         // webAppFunction['postMessage'](data);
+                //         console.log("run :" + name);
+                //         window["webkit"]["messageHandlers"][name]["postMessage"](data);
+                //     } else {
+                //         window["webkit"]["messageHandlers"][name]["postMessage"](
+                //             JSON.stringify({ status: 1 })
+                //         );
+                //     }
+                // }
+            } else {
+                // alert(JSON.stringify(data));
+                // alert(window["$App"] && window["$App"]["webRequest"]);
+                if (window["$App"] && window["$App"]["webRequest"]) {
+                    // return new Promise((resolve) => {
                     window["$App"]["webRequest"](JSON.stringify(data));
                     console.log(`send => ${data}`);
                     if (data.timestamp) {
                         EventMap.set(data.timestamp, resolve);
                     }
-                });
+                    // });
+                }
+
+                // webAppFunction = this.detectionHasFunction(this.typeAndroid, name);
+                // if (webAppFunction) {
+                //     console.log(name);
+                //     if (data) {
+                //         window["webRequest"][name](data);
+                //     } else {
+                //         window["webRequest"][name]();
+                //     }
+                // }
             }
 
-            // webAppFunction = this.detectionHasFunction(this.typeAndroid, name);
-            // if (webAppFunction) {
-            //     console.log(name);
-            //     if (data) {
-            //         window["webRequest"][name](data);
-            //     } else {
-            //         window["webRequest"][name]();
-            //     }
-            // }
-        }
+            // resolve(null); //如果写这个会成功，所以正常不通过应用，一些功能这里不让用，就注释
+            reject(null);
+        });
     }
 
     /**

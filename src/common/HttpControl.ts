@@ -137,7 +137,9 @@ export default class HttpControl {
         const sendDataString = sendData.join("&");
 
         if (this.eventMap.get(uri + sendDataString)) {
-            return;
+            return new Promise((resolve, reject) => {
+                reject(null);
+            });
         }
 
         let ad = false;
@@ -148,7 +150,10 @@ export default class HttpControl {
                 timestamp: Date.now(),
             });
             if (adData?.code) {
-                return Core.view.openHint({ text: `广告播放失败[${adData.code}]`, call: () => {} });
+                Core.view.openHint({ text: `广告播放失败[${adData.code}]`, call: () => {} });
+                return new Promise((resolve, reject) => {
+                    reject(null);
+                });
             } else {
                 ad = true;
             }
@@ -178,7 +183,7 @@ export default class HttpControl {
                 Core.view.open(Res.views.HintView, {
                     parm: { text: `http 地址不能为空` },
                 });
-                return;
+                return reject(null);
             }
 
             xhr.open("POST", uri, true);
