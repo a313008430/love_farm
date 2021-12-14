@@ -70,7 +70,7 @@ export default class AppCore {
                     // });
                 } else {
                     // resolve(null); //如果写这个会成功，所以正常不通过应用，一些功能这里不让用，就注释
-                    reject(null);
+                    resolve(null);
                 }
 
                 // webAppFunction = this.detectionHasFunction(this.typeAndroid, name);

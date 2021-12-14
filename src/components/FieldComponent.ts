@@ -578,13 +578,11 @@ export default class FieldComponent extends Core.gameScript {
                     UserInfo.vitality = d.vitality;
                     this.canSteal = false;
                     this.topStateIconAni(false);
-
-                    WarehouseService.add(this.data.productId, d.amount);
-                    Core.audio.playSound(Res.audios.shoucai);
-
                     //收获的植物
                     const rewardList: any[] = [];
                     if (d.plantId) {
+                        Core.audio.playSound(Res.audios.shoucai);
+                        WarehouseService.add(this.data.productId, d.amount);
                         rewardList.push({
                             obj: TableAnalyze.table("plant").get(d.plantId),
                             count: d.amount,
@@ -592,6 +590,8 @@ export default class FieldComponent extends Core.gameScript {
                         });
                     } else {
                         Core.view.openHint({ text: "额，被狗咬了~~~没偷着~", call: () => {} });
+
+                        return;
                     }
 
                     //额外的钻石奖励

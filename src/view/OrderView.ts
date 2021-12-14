@@ -28,6 +28,7 @@ export default class OrderView extends Core.gameScript {
         this.orderList.array = this.dataList;
         this.orderList.renderHandler = new Laya.Handler(this, this.renderList);
         this.orderList.vScrollBarSkin = null;
+        console.log(this.dataList);
     }
 
     private renderList(cell: Laya.Image, i: number) {
@@ -75,7 +76,10 @@ export default class OrderView extends Core.gameScript {
             }
         }
 
+        let diamond = cell.getChildByName("reward_box_diamond") as Laya.Image;
         let btn = cell.getChildByName("btn") as Laya.Image;
+        diamond.visible = false;
+        btn.visible = true;
         if (d.id > UserInfo.orderLevel + 1) {
             //未激活
             btn.skin = this.btnLockRes;
@@ -87,8 +91,9 @@ export default class OrderView extends Core.gameScript {
             } else {
                 console.log("已完成");
                 //已完成
-                btn.gray = true;
+                // btn.gray = true;
                 btn.active = false;
+                btn.visible = false;
             }
         }
 

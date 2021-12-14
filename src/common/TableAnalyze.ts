@@ -60,6 +60,7 @@ const TablePropertyEvent = {
                     count: Number(v[1]),
                 };
             }),
+            extraReward: getRewardCurrencyBase(d.extra_reward),
         };
     },
 

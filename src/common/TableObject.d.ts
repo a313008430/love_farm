@@ -144,6 +144,8 @@ interface OrderBase {
         plant: PlantBase;
         count: number;
     }[];
+    /** 额外的奖励 */
+    extraReward: RewardCurrencyBase;
 }
 
 /**

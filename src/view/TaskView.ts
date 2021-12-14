@@ -159,7 +159,10 @@ export default class TaskView extends GameScript {
                 });
 
                 if (adData?.code) {
-                    Core.view.openHint({ text: `广告播放失败[${adData.code}]`, call: () => {} });
+                    Core.view.openHint({
+                        text: `${adData.data["message"]}[${adData.code}]`,
+                        call: () => {},
+                    });
                     return;
                 }
 

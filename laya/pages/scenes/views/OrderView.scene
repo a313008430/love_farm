@@ -2,11 +2,11 @@
     "x":0,
     "type":"View",
     "selectedBox":52,
-    "selecteID":46,
+    "selecteID":95,
     "searchKey":"View",
     "props":{"y":0,"x":0,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/OrderView.jpg","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":95,
+    "maxID":98,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -146,14 +146,13 @@
                                     "props":{"y":138,"x":819,"skin":"game/img_presentOrder.png","name":"btn","anchorY":0.5,"anchorX":0.5},
                                     "nodeParent":52,
                                     "label":"btn",
-                                    "isOpen":true,
+                                    "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":false,
                                     "hasChild":true,
                                     "compId":45,
                                     "child":[
                                         {
-                                            "x":75,
                                             "type":"Script",
                                             "switchAble":true,
                                             "source":"src/components/Button.ts",
@@ -178,14 +177,13 @@
                                     "props":{"y":57,"x":822,"space":20,"name":"reward_box","anchorY":0.5,"anchorX":0.5,"align":"none"},
                                     "nodeParent":52,
                                     "label":"reward_box",
-                                    "isOpen":true,
+                                    "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":false,
                                     "hasChild":true,
                                     "compId":47,
                                     "child":[
                                         {
-                                            "x":75,
                                             "type":"Image",
                                             "searchKey":"Image,icon",
                                             "props":{"width":55,"skin":"game/img_bankdiamond.png","name":"icon","height":55},
@@ -199,7 +197,6 @@
                                                 ]
                                         },
                                         {
-                                            "x":75,
                                             "type":"Label",
                                             "searchKey":"Label,value",
                                             "props":{"y":6,"x":77,"text":"+100","name":"value","fontSize":44,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
@@ -209,6 +206,47 @@
                                             "isAniNode":false,
                                             "hasChild":false,
                                             "compId":48,
+                                            "child":[
+                                                ]
+                                        }],
+                                    "$HIDDEN":false
+                                },
+                                {
+                                    "x":60,
+                                    "type":"HBox",
+                                    "searchKey":"HBox,reward_box_diamond",
+                                    "props":{"y":139,"x":822,"width":189.8984375,"space":20,"rotation":0,"name":"reward_box_diamond","height":55,"anchorY":0.5,"anchorX":0.5,"align":"none"},
+                                    "nodeParent":52,
+                                    "label":"reward_box_diamond",
+                                    "isOpen":false,
+                                    "isDirectory":true,
+                                    "isAniNode":false,
+                                    "hasChild":true,
+                                    "compId":95,
+                                    "child":[
+                                        {
+                                            "type":"Image",
+                                            "searchKey":"Image,icon",
+                                            "props":{"width":55,"skin":"game/img_bankdiamond.png","name":"icon","height":55},
+                                            "nodeParent":95,
+                                            "label":"icon",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":96,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"Label",
+                                            "searchKey":"Label,value",
+                                            "props":{"y":6,"x":77,"text":"+100","name":"value","fontSize":44,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
+                                            "nodeParent":95,
+                                            "label":"value",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":97,
                                             "child":[
                                                 ]
                                         }],
@@ -513,7 +551,7 @@
                     "x":30,
                     "type":"HBox",
                     "searchKey":"HBox",
-                    "props":{"y":125,"x":149.8759765625},
+                    "props":{"y":125,"x":209.8759765625},
                     "nodeParent":38,
                     "label":"HBox",
                     "isOpen":true,
@@ -526,7 +564,7 @@
                             "x":45,
                             "type":"Label",
                             "searchKey":"Label",
-                            "props":{"y":13,"text":"完成所有订单，累积可获得","fontSize":50,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
+                            "props":{"y":13,"text":"再完成10单可获得红包","fontSize":50,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
                             "nodeParent":81,
                             "label":"Label",
                             "isDirectory":false,
@@ -540,7 +578,7 @@
                             "x":45,
                             "type":"Label",
                             "searchKey":"Label",
-                            "props":{"text":"888","fontSize":70,"font":"Microsoft YaHei","color":"#D23210","bold":true},
+                            "props":{"text":"0.1","fontSize":70,"font":"Microsoft YaHei","color":"#D23210","bold":true},
                             "nodeParent":81,
                             "label":"Label",
                             "isOpen":true,
