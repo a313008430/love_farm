@@ -27,7 +27,7 @@ export default class FieldLevelUpView extends GameScript {
         console.log(e, nextLand);
         this.desc.text = `土地升级到${e.obj.level + 1}级，收益增加${
             nextLand.gain * 100
-        }%；钻石产出概率增加${nextLand.probability * 100}%`;
+        }% 钻石产出概率增加${Number((nextLand.probability * 100).toFixed(2))}%`;
     }
 
     onClick(e: Laya.Event) {
