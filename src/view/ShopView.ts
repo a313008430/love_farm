@@ -316,7 +316,7 @@ export default class ShopView extends GameScript {
                     });
 
                 break;
-            //广告解锁，或是金币解锁
+            //广告解锁，或是金币解锁1
             case "unlock_buy":
             case "ad_unlock":
                 if (!this.canClick) {

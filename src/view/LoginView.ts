@@ -21,7 +21,7 @@ export default class LoginView extends GameScript {
     /** @prop {name:privacyCheckIcon, tips:"隐私icon", type:Node}*/
     private privacyCheckIcon: Laya.Box = null;
 
-    /** 进度条默认宽度 */
+    /** 进度条默认宽度  1*/
     private loadBarOldWidth: number = 0;
 
     private canClick: boolean = true;
