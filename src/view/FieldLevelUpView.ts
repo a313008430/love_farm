@@ -7,6 +7,7 @@ import TableAnalyze from "src/common/TableAnalyze";
 import GameScript from "src/core/GameScript";
 import Core from "src/core/index";
 import { LandObj } from "src/dataService/LandService";
+import UserInfo from "src/dataService/UserInfo";
 
 //  FieldLevelUpView extends Laya.Script {
 export default class FieldLevelUpView extends GameScript {
@@ -21,6 +22,9 @@ export default class FieldLevelUpView extends GameScript {
     /** @prop {name:probability, tips:"概率", type:Node}*/
     private probability: Laya.Label = null;
 
+    /** @prop {name:adBtn, tips:"广告按钮", type:Node}*/
+    private adBtn: Laya.Image = null;
+
     private data: { obj: LandObj; call: Function };
 
     onOpened(e: { obj: LandObj; call: Function }) {
@@ -32,6 +36,9 @@ export default class FieldLevelUpView extends GameScript {
         this.lv.text = `${e.obj.level + 1}级`;
         this.reward.text = `+${Number((nextLand.gain * 100).toFixed(2))}`;
         this.probability.text = `+${Number((nextLand.probability * 100).toFixed(2))}%`;
+
+        this.adBtn.disabled = !UserInfo.advertiseTimes;
+        this.adBtn.active = Boolean(UserInfo.advertiseTimes);
     }
 
     onClick(e: Laya.Event) {

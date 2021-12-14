@@ -2,7 +2,7 @@
     "x":0,
     "type":"View",
     "selectedBox":906,
-    "selecteID":93,
+    "selecteID":845,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -2652,7 +2652,6 @@
                                     "compId":845,
                                     "child":[
                                         {
-                                            "x":75,
                                             "type":"Image",
                                             "searchKey":"Image,icon",
                                             "props":{"width":45,"skin":"game/img_bankdiamond.png","name":"icon","height":45},
@@ -2666,7 +2665,6 @@
                                                 ]
                                         },
                                         {
-                                            "x":75,
                                             "type":"FontClip",
                                             "searchKey":"FontClip,value",
                                             "props":{"y":10.5,"value":"9999","spaceX":-6,"skin":"game/fontClip_bank.png","sheet":"0123456789","name":"value","align":"center"},
@@ -2694,7 +2692,6 @@
                                     "compId":957,
                                     "child":[
                                         {
-                                            "x":75,
                                             "type":"Image",
                                             "searchKey":"Image,icon",
                                             "props":{"width":45,"skin":"game/img_bankdiamond.png","name":"icon","height":45},
@@ -2708,7 +2705,6 @@
                                                 ]
                                         },
                                         {
-                                            "x":75,
                                             "type":"FontClip",
                                             "searchKey":"FontClip,value",
                                             "props":{"y":10.5,"x":0,"width":104,"value":"9999","spaceX":-6,"skin":"game/fontClip_bank.png","sheet":"0123456789","name":"value","height":38,"align":"center"},

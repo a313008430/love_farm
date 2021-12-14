@@ -1,7 +1,7 @@
 {
   "fileconfig.json": "fileconfig-2664c45dcc.json",
-  "index.js": "index-859a05d7df.js",
-  "js/bundle.js": "js/bundle-39678929aa.js",
+  "index.js": "index-5485afab9e.js",
+  "js/bundle.js": "js/bundle-4574a73308.js",
   "js/ps-N3BPHYGU.fs": "js/ps-N3BPHYGU-319562bd17.fs",
   "libs/min/laya.ani.min.js": "libs/min/laya-a72326a604.ani.min.js",
   "libs/min/laya.core.min.js": "libs/min/laya-4fc7637454.core.min.js",
@@ -65,9 +65,9 @@
   "scenes/prefab/MailItem.json": "scenes/prefab/MailItem-6ce9a0f9b7.json",
   "scenes/prefab/PlotPrefab.json": "scenes/prefab/PlotPrefab-db4e8a1783.json",
   "scenes/views/AboutView.json": "scenes/views/AboutView-2d121085ed.json",
-  "scenes/views/AddLandView.json": "scenes/views/AddLandView-33ec9dd987.json",
-  "scenes/views/BuyVitalityView.json": "scenes/views/BuyVitalityView-55d8f0351b.json",
-  "scenes/views/FieldLevelUpView.json": "scenes/views/FieldLevelUpView-080dd55d52.json",
+  "scenes/views/AddLandView.json": "scenes/views/AddLandView-99e0b1ace4.json",
+  "scenes/views/BuyVitalityView.json": "scenes/views/BuyVitalityView-a3bd74bd70.json",
+  "scenes/views/FieldLevelUpView.json": "scenes/views/FieldLevelUpView-ec52b40bc3.json",
   "scenes/views/FriendsDescView.json": "scenes/views/FriendsDescView-cd7dd30616.json",
   "scenes/views/FriendsRewardView.json": "scenes/views/FriendsRewardView-22f7f6749e.json",
   "scenes/views/FriendsView.json": "scenes/views/FriendsView-d1c6ee2c85.json",
@@ -87,5 +87,5 @@
   "scenes/views/TaskView.json": "scenes/views/TaskView-848c330910.json",
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-ad12d45048.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-14ad692a21.json"
+  "version.json": "version-7ff1f50c27.json"
 }

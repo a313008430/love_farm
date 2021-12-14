@@ -2,7 +2,7 @@
     "x":0,
     "type":"View",
     "selectedBox":2,
-    "selecteID":19,
+    "selecteID":10,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -181,14 +181,13 @@
                     "props":{"y":651,"x":268,"skin":"game/img_buybtm.png","name":"cost_gold","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":8,
                     "label":"cost_gold",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":17,
                     "child":[
                         {
-                            "x":45,
                             "type":"HBox",
                             "searchKey":"HBox",
                             "props":{"y":46,"x":160,"space":4,"anchorY":0.5,"anchorX":0.5,"align":"middle"},
@@ -201,7 +200,6 @@
                             "compId":18,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"x":0,"skin":"game/img_coins.png"},
@@ -215,7 +213,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"FontClip",
                                     "searchKey":"FontClip",
                                     "props":{"value":"1000","skin":"game/fontClip_price.png","sheet":"0123456789"},
@@ -230,7 +227,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -275,7 +271,7 @@
             "source":"src/view/AddLandView.ts",
             "searchKey":"Script,AddLandView",
             "removeAble":true,
-            "props":{"costIcon":"@node:19","costFont":"@node:20"},
+            "props":{"costIcon":"@node:19","costFont":"@node:20","adBtn":"@node:10"},
             "nodeParent":2,
             "label":"AddLandView",
             "isDirectory":false,

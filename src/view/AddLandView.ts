@@ -16,6 +16,8 @@ export default class AddLandView extends GameScript {
     private costIcon: Laya.Image = null;
     /** @prop {name:costFont, tips:"价格Font", type:Node}*/
     private costFont: Laya.FontClip = null;
+    /** @prop {name:adBtn, tips:"广告按钮", type:Node}*/
+    private adBtn: Laya.Image = null;
 
     private data: { id: number; call: Function };
 
@@ -29,6 +31,9 @@ export default class AddLandView extends GameScript {
         ] as RewardCurrencyBase;
         this.costIcon.skin = this.landData.obj.icon;
         this.costFont.value = this.landData.count + "";
+
+        this.adBtn.disabled = !UserInfo.advertiseTimes;
+        this.adBtn.active = Boolean(UserInfo.advertiseTimes);
     }
 
     onClick(e: Laya.Event) {

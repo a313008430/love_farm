@@ -7,6 +7,7 @@ import TableAnalyze from "src/common/TableAnalyze";
 import { RewardCurrencyBase } from "src/common/TableObject";
 import Core from "src/core/index";
 import PlantService from "src/dataService/PlantService";
+import UserInfo from "src/dataService/UserInfo";
 import WarehouseService, { WareHouseData } from "src/dataService/WarehouseService";
 import { GetFloatRewardObj } from "./MainView";
 
@@ -55,6 +56,8 @@ export default class WarehouseView extends Core.gameScript {
 
     onOpened() {
         Core.audio.playSound(Res.audios.dakaicangku);
+        this.sellAdBtn.disabled = !UserInfo.advertiseTimes;
+        this.sellAdBtn.active = Boolean(UserInfo.advertiseTimes);
     }
 
     onHdAwake() {
@@ -178,6 +181,8 @@ export default class WarehouseView extends Core.gameScript {
                             },
                         })
                         .then(() => {
+                            this.sellAdBtn.disabled = !UserInfo.advertiseTimes;
+                            this.sellAdBtn.active = Boolean(UserInfo.advertiseTimes);
                             this.canClick = true;
                             WarehouseService.reduceAmount(
                                 this.selectItemData.base.id,

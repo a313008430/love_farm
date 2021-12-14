@@ -1467,12 +1467,15 @@
       super(...arguments);
       this.costIcon = null;
       this.costFont = null;
+      this.adBtn = null;
     }
     onOpened(d) {
       this.data = d;
       this.landData = TableAnalyze_default.table("config").get("unlock_land_cost").value[LandService_default.list.size];
       this.costIcon.skin = this.landData.obj.icon;
       this.costFont.value = this.landData.count + "";
+      this.adBtn.disabled = !UserInfo_default.advertiseTimes;
+      this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
     }
     onClick(e) {
       switch (e.target.name) {
@@ -1530,12 +1533,15 @@
       super(...arguments);
       this.priceLabel = null;
       this.priceIcon = null;
+      this.adBtn = null;
     }
     onOpened(e) {
       this.data = e;
       let costGoldCount = TableAnalyze_default.table("config").get("vitalityBuyCostGold").value;
       this.costGoldCount = costGoldCount;
       this.priceLabel.text = `\u4EF7\u683C\uFF1A${costGoldCount}`;
+      this.adBtn.disabled = !UserInfo_default.advertiseTimes;
+      this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
     }
     onClick(e) {
       switch (e.target.name) {
@@ -1581,6 +1587,7 @@
       this.lv = null;
       this.reward = null;
       this.probability = null;
+      this.adBtn = null;
     }
     onOpened(e) {
       this.data = e;
@@ -1590,6 +1597,8 @@
       this.lv.text = `${e.obj.level + 1}\u7EA7`;
       this.reward.text = `+${Number((nextLand.gain * 100).toFixed(2))}`;
       this.probability.text = `+${Number((nextLand.probability * 100).toFixed(2))}%`;
+      this.adBtn.disabled = !UserInfo_default.advertiseTimes;
+      this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
     }
     onClick(e) {
       switch (e.target.name) {
@@ -5033,6 +5042,8 @@
     }
     onOpened() {
       core_default.audio.playSound(Res_default.audios.dakaicangku);
+      this.sellAdBtn.disabled = !UserInfo_default.advertiseTimes;
+      this.sellAdBtn.active = Boolean(UserInfo_default.advertiseTimes);
     }
     onHdAwake() {
       this.itemList.renderHandler = new Laya.Handler(this, this.renderItemList);
@@ -5136,6 +5147,8 @@
                 type: btnName == "sellBtn" ? ConfigGame_default.ApiTypeDefault : ConfigGame_default.ApiTypeAD
               }
             }).then(() => {
+              this.sellAdBtn.disabled = !UserInfo_default.advertiseTimes;
+              this.sellAdBtn.active = Boolean(UserInfo_default.advertiseTimes);
               this.canClick = true;
               WarehouseService_default.reduceAmount(this.selectItemData.base.id, this.selectItemSellCount);
               this.dataList = [];
