@@ -590,7 +590,6 @@ export default class FieldComponent extends Core.gameScript {
                         });
                     } else {
                         Core.view.openHint({ text: "额，被狗咬了~~~没偷着~", call: () => {} });
-
                         return;
                     }
 
