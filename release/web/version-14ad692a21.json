@@ -1,7 +1,7 @@
 {
-  "fileconfig.json": "fileconfig-dab998f5f8.json",
-  "index.js": "index-1d1d493036.js",
-  "js/bundle.js": "js/bundle-a5ab24fbd9.js",
+  "fileconfig.json": "fileconfig-2664c45dcc.json",
+  "index.js": "index-859a05d7df.js",
+  "js/bundle.js": "js/bundle-39678929aa.js",
   "js/ps-N3BPHYGU.fs": "js/ps-N3BPHYGU-319562bd17.fs",
   "libs/min/laya.ani.min.js": "libs/min/laya-a72326a604.ani.min.js",
   "libs/min/laya.core.min.js": "libs/min/laya-4fc7637454.core.min.js",
@@ -11,8 +11,8 @@
   "main_scene/img_homepageBg2.png": "main_scene/img_homepageBg2-b4f1dccf5a.png",
   "main_scene/img_homepageBg3.png": "main_scene/img_homepageBg3-f271879d22.png",
   "main_scene/img_landBg.png": "main_scene/img_landBg-ee0cfcf3c3.png",
-  "res/atlas/game.atlas": "res/atlas/game-851c5b109d.atlas",
-  "res/atlas/game.png": "res/atlas/game-0976b0f781.png",
+  "res/atlas/game.atlas": "res/atlas/game-70385206b2.atlas",
+  "res/atlas/game.png": "res/atlas/game-2e511673df.png",
   "res/atlas/load.atlas": "res/atlas/load-ee15b6548b.atlas",
   "res/atlas/load.png": "res/atlas/load-59a4e3576d.png",
   "res/atlas/main_scene.atlas": "res/atlas/main_scene-f31ced4626.atlas",
@@ -67,7 +67,7 @@
   "scenes/views/AboutView.json": "scenes/views/AboutView-2d121085ed.json",
   "scenes/views/AddLandView.json": "scenes/views/AddLandView-33ec9dd987.json",
   "scenes/views/BuyVitalityView.json": "scenes/views/BuyVitalityView-55d8f0351b.json",
-  "scenes/views/FieldLevelUpView.json": "scenes/views/FieldLevelUpView-bdfcf02628.json",
+  "scenes/views/FieldLevelUpView.json": "scenes/views/FieldLevelUpView-080dd55d52.json",
   "scenes/views/FriendsDescView.json": "scenes/views/FriendsDescView-cd7dd30616.json",
   "scenes/views/FriendsRewardView.json": "scenes/views/FriendsRewardView-22f7f6749e.json",
   "scenes/views/FriendsView.json": "scenes/views/FriendsView-d1c6ee2c85.json",
@@ -76,8 +76,8 @@
   "scenes/views/LoginView.json": "scenes/views/LoginView-d84d403285.json",
   "scenes/views/MailDescView.json": "scenes/views/MailDescView-d3fa224a4c.json",
   "scenes/views/MailView.json": "scenes/views/MailView-8beb5f2aac.json",
-  "scenes/views/MainView.json": "scenes/views/MainView-b09e3c8161.json",
-  "scenes/views/OrderView.json": "scenes/views/OrderView-549d7922a0.json",
+  "scenes/views/MainView.json": "scenes/views/MainView-dd03bbf493.json",
+  "scenes/views/OrderView.json": "scenes/views/OrderView-c5f615a516.json",
   "scenes/views/OverView.json": "scenes/views/OverView-1fd4e68b13.json",
   "scenes/views/SettingView.json": "scenes/views/SettingView-0d69c9b5a6.json",
   "scenes/views/ShopView.json": "scenes/views/ShopView-d7aed71de1.json",
@@ -87,5 +87,5 @@
   "scenes/views/TaskView.json": "scenes/views/TaskView-848c330910.json",
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-ad12d45048.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-7d38547d82.json"
+  "version.json": "version-14ad692a21.json"
 }

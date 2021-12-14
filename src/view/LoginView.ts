@@ -48,7 +48,6 @@ export default class LoginView extends GameScript {
 
     onHdAwake() {
         EventGlobal.on(EventMaps.load_progress, this, this.loadProgress);
-        console.log("awake2");
     }
 
     onHdEnable(): void {

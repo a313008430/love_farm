@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":96,
-    "selecteID":114,
+    "selectedBox":906,
+    "selecteID":93,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":957,
+    "maxID":960,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -2341,13 +2341,14 @@
                     "props":{"y":120,"x":417,"skin":"main_scene/img_taskbg.png","name":"order_box_outer","mouseEnabled":true,"anchorX":0.5},
                     "nodeParent":67,
                     "label":"order_box_outer",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":80,
                     "child":[
                         {
+                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,order_box",
                             "props":{"y":38,"x":146,"name":"order_box"},
@@ -2360,9 +2361,10 @@
                             "compId":906,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,name_title",
-                                    "props":{"x":669,"text":"完成1级订单","name":"name_title","fontSize":30,"color":"#D23210","bold":true,"anchorX":0.5},
+                                    "props":{"y":-4,"x":708,"width":168.515625,"text":"完成1级订单","name":"name_title","height":30,"fontSize":30,"color":"#D23210","bold":true,"anchorX":0.5},
                                     "nodeParent":906,
                                     "label":"name_title",
                                     "isDirectory":false,
@@ -2373,6 +2375,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Box",
                                     "searchKey":"Box,item_0",
                                     "props":{"y":16,"width":100,"name":"item_0","height":100},
@@ -2438,6 +2441,7 @@
                                         }]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Box",
                                     "searchKey":"Box,item_1",
                                     "props":{"y":16,"x":148,"width":100,"name":"item_1","height":100},
@@ -2503,6 +2507,7 @@
                                         }]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Box",
                                     "searchKey":"Box,item_2",
                                     "props":{"y":16,"x":297,"width":100,"name":"item_2","height":100},
@@ -2568,6 +2573,7 @@
                                         }]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Box",
                                     "searchKey":"Box,item_3",
                                     "props":{"y":16,"x":445,"width":100,"name":"item_3","height":100},
@@ -2633,59 +2639,91 @@
                                         }]
                                 },
                                 {
-                                    "type":"Image",
-                                    "searchKey":"Image,btn_box",
-                                    "props":{"y":76,"x":677,"width":210,"skin":"game/img_buybtm.png","name":"btn_box","mouseEnabled":false,"height":68,"anchorY":0.5,"anchorX":0.5},
+                                    "x":60,
+                                    "type":"HBox",
+                                    "searchKey":"HBox,gold_box",
+                                    "props":{"y":51,"x":674,"width":112,"space":6,"rotation":0,"name":"gold_box","height":55,"anchorY":0.5,"anchorX":0.5,"align":"middle"},
                                     "nodeParent":906,
-                                    "label":"btn_box",
+                                    "label":"gold_box",
                                     "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
-                                    "compId":843,
+                                    "compId":845,
                                     "child":[
                                         {
-                                            "type":"HBox",
-                                            "searchKey":"HBox,box",
-                                            "props":{"y":34,"space":6,"name":"box","centerY":0,"centerX":0,"anchorY":0.5,"anchorX":0.5,"align":"middle"},
-                                            "nodeParent":843,
-                                            "label":"box",
-                                            "isOpen":true,
-                                            "isDirectory":true,
+                                            "x":75,
+                                            "type":"Image",
+                                            "searchKey":"Image,icon",
+                                            "props":{"width":45,"skin":"game/img_bankdiamond.png","name":"icon","height":45},
+                                            "nodeParent":845,
+                                            "label":"icon",
+                                            "isDirectory":false,
                                             "isAniNode":true,
-                                            "hasChild":true,
-                                            "compId":845,
+                                            "hasChild":false,
+                                            "compId":846,
                                             "child":[
-                                                {
-                                                    "type":"Image",
-                                                    "searchKey":"Image,icon",
-                                                    "props":{"width":55,"skin":"game/img_bankdiamond.png","name":"icon","height":55},
-                                                    "nodeParent":845,
-                                                    "label":"icon",
-                                                    "isDirectory":false,
-                                                    "isAniNode":true,
-                                                    "hasChild":false,
-                                                    "compId":846,
-                                                    "child":[
-                                                        ]
-                                                },
-                                                {
-                                                    "type":"FontClip",
-                                                    "searchKey":"FontClip,value",
-                                                    "props":{"value":"9999","spaceX":-6,"skin":"game/fontClip_price.png","sheet":"0123456789","name":"value","align":"center"},
-                                                    "nodeParent":845,
-                                                    "label":"value",
-                                                    "isDirectory":false,
-                                                    "isAniNode":true,
-                                                    "hasChild":false,
-                                                    "compId":847,
-                                                    "child":[
-                                                        ]
-                                                }]
-                                        }],
-                                    "$HIDDEN":false
+                                                ]
+                                        },
+                                        {
+                                            "x":75,
+                                            "type":"FontClip",
+                                            "searchKey":"FontClip,value",
+                                            "props":{"y":10.5,"value":"9999","spaceX":-6,"skin":"game/fontClip_bank.png","sheet":"0123456789","name":"value","align":"center"},
+                                            "nodeParent":845,
+                                            "label":"value",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":847,
+                                            "child":[
+                                                ]
+                                        }]
                                 },
                                 {
+                                    "x":60,
+                                    "type":"HBox",
+                                    "searchKey":"HBox,diamond_box",
+                                    "props":{"y":101,"x":674,"width":112,"space":6,"rotation":0,"name":"diamond_box","height":55,"anchorY":0.5,"anchorX":0.5,"align":"middle"},
+                                    "nodeParent":906,
+                                    "label":"diamond_box",
+                                    "isOpen":false,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":957,
+                                    "child":[
+                                        {
+                                            "x":75,
+                                            "type":"Image",
+                                            "searchKey":"Image,icon",
+                                            "props":{"width":45,"skin":"game/img_bankdiamond.png","name":"icon","height":45},
+                                            "nodeParent":957,
+                                            "label":"icon",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":958,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "x":75,
+                                            "type":"FontClip",
+                                            "searchKey":"FontClip,value",
+                                            "props":{"y":10.5,"x":0,"width":104,"value":"9999","spaceX":-6,"skin":"game/fontClip_bank.png","sheet":"0123456789","name":"value","height":38,"align":"center"},
+                                            "nodeParent":957,
+                                            "label":"value",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":959,
+                                            "child":[
+                                                ]
+                                        }]
+                                },
+                                {
+                                    "x":60,
                                     "type":"Script",
                                     "switchAble":true,
                                     "source":"src/components/Button.ts",
@@ -2703,6 +2741,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,friend_name",
                             "props":{"y":78,"x":530,"text":"xxx的农场","name":"friend_name","fontSize":60,"font":"Microsoft YaHei","color":"#755037","bold":true,"anchorX":0.5},

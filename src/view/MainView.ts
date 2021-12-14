@@ -570,11 +570,25 @@ export default class MainView extends Core.gameScript {
             }
 
             if (reward) {
-                let btnBox = box.getChildByName("btn_box").getChildByName("box");
-                (btnBox.getChildByName("icon") as Laya.Image).skin = reward.obj.icon;
-                (btnBox.getChildByName("value") as Laya.FontClip).value = `${
+                let goldBox = box.getChildByName("gold_box") as Laya.Box,
+                    diamondBox = box.getChildByName("diamond_box") as Laya.Box;
+                (goldBox.getChildByName("icon") as Laya.Image).skin = reward.obj.icon;
+                (goldBox.getChildByName("value") as Laya.FontClip).value = `${
                     rewardCount + Math.round(rewardCount * d.commission)
                 }`;
+
+                if (d.extraReward) {
+                    (diamondBox.getChildByName("icon") as Laya.Image).skin = d.extraReward.obj.icon;
+                    (
+                        diamondBox.getChildByName("value") as Laya.FontClip
+                    ).value = `${d.extraReward.count}`;
+
+                    diamondBox.visible = true;
+                    goldBox.y = 46;
+                } else {
+                    goldBox.y = 66;
+                    diamondBox.visible = false;
+                }
             }
 
             (box.getChildByName("name_title") as Laya.Label).text = `完成${
@@ -598,15 +612,24 @@ export default class MainView extends Core.gameScript {
                         this.orderQueueIng = false;
                         UserInfo.orderLevel++;
 
+                        let reward = [];
+                        reward.push({
+                            obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
+                            count: rewardCount + Math.round(rewardCount * d.commission),
+                            posType: 1,
+                        });
+
+                        if (d.extraReward) {
+                            reward.push({
+                                obj: TableAnalyze.table("currency").get(d.extraReward.obj.id),
+                                count: d.extraReward.count,
+                                posType: 2,
+                            });
+                        }
+
                         this.playGetRewardAni({
-                            node: box.getChildByName("btn_box") as any,
-                            list: [
-                                {
-                                    obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
-                                    count: rewardCount + Math.round(rewardCount * d.commission),
-                                    posType: 1,
-                                },
-                            ],
+                            node: box.getChildByName("gold_box") as any,
+                            list: reward,
                             callBack: () => {
                                 this.updateOrder();
                             },

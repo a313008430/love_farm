@@ -1578,15 +1578,18 @@
       super(...arguments);
       this.priceLabel = null;
       this.priceIcon = null;
-      this.desc = null;
+      this.lv = null;
+      this.reward = null;
+      this.probability = null;
     }
     onOpened(e) {
       this.data = e;
       let nextLand = TableAnalyze_default.table("landLevel").get(e.obj.level + 1);
       this.priceLabel.text = `\u4EF7\u683C\uFF1A${nextLand.cost.count}`;
       this.priceIcon.skin = nextLand.cost.obj.icon;
-      console.log(e, nextLand);
-      this.desc.text = `\u571F\u5730\u5347\u7EA7\u5230${e.obj.level + 1}\u7EA7\uFF0C\u6536\u76CA\u589E\u52A0${nextLand.gain * 100}% \u94BB\u77F3\u4EA7\u51FA\u6982\u7387\u589E\u52A0${Number((nextLand.probability * 100).toFixed(2))}%`;
+      this.lv.text = `${e.obj.level + 1}\u7EA7`;
+      this.reward.text = `+${Number((nextLand.gain * 100).toFixed(2))}`;
+      this.probability.text = `+${Number((nextLand.probability * 100).toFixed(2))}%`;
     }
     onClick(e) {
       switch (e.target.name) {
@@ -2575,9 +2578,18 @@
           }
         }
         if (reward) {
-          let btnBox = box.getChildByName("btn_box").getChildByName("box");
-          btnBox.getChildByName("icon").skin = reward.obj.icon;
-          btnBox.getChildByName("value").value = `${rewardCount + Math.round(rewardCount * d.commission)}`;
+          let goldBox = box.getChildByName("gold_box"), diamondBox = box.getChildByName("diamond_box");
+          goldBox.getChildByName("icon").skin = reward.obj.icon;
+          goldBox.getChildByName("value").value = `${rewardCount + Math.round(rewardCount * d.commission)}`;
+          if (d.extraReward) {
+            diamondBox.getChildByName("icon").skin = d.extraReward.obj.icon;
+            diamondBox.getChildByName("value").value = `${d.extraReward.count}`;
+            diamondBox.visible = true;
+            goldBox.y = 46;
+          } else {
+            goldBox.y = 66;
+            diamondBox.visible = false;
+          }
         }
         box.getChildByName("name_title").text = `\u5B8C\u6210${UserInfo_default.orderLevel + 1}\u7EA7\u8BA2\u5355`;
         if (progress == d.condition.length) {
@@ -2594,15 +2606,22 @@
             });
             this.orderQueueIng = false;
             UserInfo_default.orderLevel++;
+            let reward2 = [];
+            reward2.push({
+              obj: TableAnalyze_default.table("currency").get(ConfigGame_default.goldId),
+              count: rewardCount + Math.round(rewardCount * d.commission),
+              posType: 1
+            });
+            if (d.extraReward) {
+              reward2.push({
+                obj: TableAnalyze_default.table("currency").get(d.extraReward.obj.id),
+                count: d.extraReward.count,
+                posType: 2
+              });
+            }
             this.playGetRewardAni({
-              node: box.getChildByName("btn_box"),
-              list: [
-                {
-                  obj: TableAnalyze_default.table("currency").get(ConfigGame_default.goldId),
-                  count: rewardCount + Math.round(rewardCount * d.commission),
-                  posType: 1
-                }
-              ],
+              node: box.getChildByName("gold_box"),
+              list: reward2,
               callBack: () => {
                 this.updateOrder();
               }
@@ -3453,7 +3472,6 @@
     }
     onHdAwake() {
       EventGlobal_default.on(EventMaps.load_progress, this, this.loadProgress);
-      console.log("awake2");
     }
     onHdEnable() {
       this.loadBarOldWidth = this.loadBar.width;
@@ -3919,6 +3937,7 @@
       this.orderList = null;
       this.btnLockRes = null;
       this.btnResCur = null;
+      this.topDesc = null;
     }
     onOpened() {
       this.dataList = TableAnalyze_default.table("order").list;
@@ -3929,12 +3948,26 @@
       this.orderList.array = this.dataList;
       this.orderList.renderHandler = new Laya.Handler(this, this.renderList);
       this.orderList.vScrollBarSkin = null;
-      console.log(this.dataList);
+      let step = 0, reward;
+      for (let x = 0; x < this.dataList.length; x++) {
+        if (this.dataList[x].id >= UserInfo_default.orderLevel) {
+          step++;
+          if (this.dataList[x].extraReward) {
+            reward = this.dataList[x].extraReward;
+            break;
+          }
+        }
+      }
+      if (step) {
+        let withdrawal = TableAnalyze_default.table("config").get("withdrawal").value;
+        this.topDesc.getChildAt(0).text = step == 1 ? "\u5B8C\u6210\u5F53\u524D\u8BA2\u5355\u53EF\u83B7\u5F97\u7EA2\u5305" : `\u518D\u5B8C\u6210${step}\u5355\u53EF\u83B7\u5F97\u7EA2\u5305`;
+        this.topDesc.getChildAt(1).text = `${(Number(withdrawal[2]) / Number(withdrawal[1]) * reward.count).toString().match(/^\d+(?:\.\d{0,2})?/)}`;
+      }
     }
     renderList(cell, i) {
       var _a;
-      let d = this.dataList[i], reward, rewardCount = 0, curCount = 0, maxCount = 0, progress = 0, rewardBox = cell.getChildByName("reward_box");
-      cell.getChildByName("order_lv").text = `${d.id}\u7EA7\u8BA2\u5355`;
+      let d = this.dataList[i], reward, rewardCount = 0, curCount = 0, maxCount = 0, progress = 0, rewardBox = cell.getChildByName("reward_box"), order_lv = cell.getChildByName("order_lv");
+      order_lv.text = `${d.id}\u7EA7\u8BA2\u5355`;
       for (let x = 0; x < 4; x++) {
         let item = cell.getChildByName("item_" + x);
         if (d.condition[x]) {
@@ -3965,19 +3998,48 @@
         }
       }
       let diamond = cell.getChildByName("reward_box_diamond");
-      let btn = cell.getChildByName("btn");
+      let btn = cell.getChildByName("btn"), finishIcon = cell.getChildByName("finish"), curIcon = cell.getChildByName("cur_icon"), lv_box = cell.getChildByName("lv_box");
+      finishIcon.visible = false;
+      curIcon.visible = false;
       diamond.visible = false;
       btn.visible = true;
+      rewardBox.y = 57;
+      lv_box.visible = true;
+      order_lv.visible = true;
       if (d.id > UserInfo_default.orderLevel + 1) {
         btn.skin = this.btnLockRes;
         btn.active = false;
+        if (d.extraReward) {
+          btn.visible = false;
+          diamond.getChildByName("icon").skin = d.extraReward.obj.icon;
+          diamond.getChildByName("value").text = `+${d.extraReward.count}`;
+          diamond.visible = true;
+        } else {
+          btn.visible = true;
+        }
       } else {
         if (d.id == UserInfo_default.orderLevel + 1) {
-          btn.skin = this.btnResCur;
+          if (d.extraReward) {
+            curIcon.visible = true;
+            lv_box.visible = false;
+            btn.visible = false;
+            order_lv.visible = false;
+            diamond.getChildByName("icon").skin = d.extraReward.obj.icon;
+            diamond.getChildByName("value").text = `+${d.extraReward.count}`;
+            diamond.visible = true;
+          } else {
+            btn.skin = this.btnResCur;
+          }
         } else {
           console.log("\u5DF2\u5B8C\u6210");
           btn.active = false;
           btn.visible = false;
+          finishIcon.visible = true;
+          if (d.extraReward) {
+            rewardBox.y = 57;
+          } else {
+            rewardBox.y = 100;
+          }
         }
       }
       if (reward) {
