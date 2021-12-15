@@ -47,6 +47,7 @@
     EventMaps3["go_friend_home"] = "go_friend_home";
     EventMaps3["open_friend"] = "open_friend";
     EventMaps3["plant_sow"] = "plant_sow";
+    EventMaps3["add_diamond_gold"] = "add_diamond_gold";
   })(EventMaps || (EventMaps = {}));
   var AppEventMap;
   (function(AppEventMap2) {
@@ -1161,6 +1162,7 @@
     ApiHttp2["friendInviteList"] = "/friend/invite/list";
     ApiHttp2["friendInviteReceive"] = "/friend/invite/receive";
     ApiHttp2["friendVisit"] = "/friend/visit";
+    ApiHttp2["friendShare"] = "/friend/share";
     ApiHttp2["mailList"] = "/mail/list";
     ApiHttp2["mailRead"] = "/mail/read";
     ApiHttp2["mailDelete"] = "/mail/delete";
@@ -1595,7 +1597,7 @@
       this.priceLabel.text = `\u4EF7\u683C\uFF1A${nextLand.cost.count}`;
       this.priceIcon.skin = nextLand.cost.obj.icon;
       this.lv.text = `${e.obj.level + 1}\u7EA7`;
-      this.reward.text = `+${Number((nextLand.gain * 100).toFixed(2))}`;
+      this.reward.text = `+${Number((nextLand.gain * 100).toFixed(2))}%`;
       this.probability.text = `+${Number((nextLand.probability * 100).toFixed(2))}%`;
       this.adBtn.disabled = !UserInfo_default.advertiseTimes;
       this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
@@ -1679,6 +1681,19 @@
             uri: AppEventMap.wxShare,
             data: {},
             timestamp: Date.now()
+          }).then((d) => {
+            if (d.code) {
+              core_default.view.openHint({ text: d.data["message"], call: () => {
+              } });
+            } else {
+              core_default.view.openHint({ text: d.data["message"], call: () => {
+              } });
+              HttpControl.inst.send({
+                api: ApiHttp.friendShare
+              }).then(() => {
+                TaskService_default.taskAddTimes(1010);
+              });
+            }
           });
           break;
         case "submit":
@@ -2008,6 +2023,7 @@
           }
           if (this.data.productId) {
             if (this.data.matureTimeLeft) {
+              this.mainViewCom.hideGuideHand();
               console.log("\u52A0\u901F");
               core_default.view.open(Res_default.views.SpeedUpView, {
                 parm: {
@@ -2066,6 +2082,7 @@
             this.sow();
           }
         } else {
+          this.mainViewCom.hideGuideHand();
           core_default.view.open(Res_default.views.AddLandView, {
             parm: {
               id: this.fieldId,
@@ -2128,6 +2145,7 @@
             uid: this.stealUid
           }
         }).then((d) => {
+          TaskService_default.taskAddTimes(1004);
           this.canClick = true;
           UserInfo_default.vitality = d.vitality;
           this.canSteal = false;
@@ -2228,6 +2246,8 @@
       this.moneyLb = null;
       this.getRewardPrefab = null;
       this.floatRewardIcon = null;
+      this.goldAdd = null;
+      this.diamondAdd = null;
       this.goHomeBtn = null;
       this.anyDoor = null;
       this.vitalityBox = null;
@@ -2247,6 +2267,9 @@
       this.isOuter = false;
       this.outCountDownNumber = 60;
       this.canClick = true;
+      this.guideHand = null;
+      this.guidIdList = [1, 2, 3, 5];
+      this.hasGuide = false;
       this.orderQueueIng = false;
     }
     onOpened() {
@@ -2298,10 +2321,15 @@
               this.step9
             ],
             call: () => {
+              this.timeGuide();
             }
           }
         });
+      } else {
+        this.timeGuide();
       }
+      this.guidHandAnimation();
+      this.guideHand.visible = false;
     }
     onHdAwake() {
       Laya.stage.addChild(this.topLayerOnStage);
@@ -2322,9 +2350,92 @@
         this.updateHitLandAdd();
         this.updateAllStateIcon();
       });
-      this.figureAniEvent();
     }
-    figureAniEvent() {
+    timeGuide() {
+      Laya.stage.on(Laya.Event.MOUSE_DOWN, this, this.timeGuideTouch);
+      this.timeGuideTouch();
+    }
+    timeGuideTouch() {
+      Laya.timer.clear(this, this.timeGuideAction);
+      Laya.timer.once(15e3, this, this.timeGuideAction);
+    }
+    timeGuideAction() {
+      if (this.hasGuide || this.isOuter) {
+        return;
+      }
+      this.timeGuideTouch();
+      this.guideHand.visible = true;
+      this.updateGuideTask();
+    }
+    hideGuideHand() {
+      this.guideHand.visible = false;
+      this.timeGuide();
+      this.hasGuide = false;
+    }
+    updateGuideTask() {
+      var _a, _b;
+      let landEmpty = false, land, unlockLand;
+      for (let x = 0; x < this.landList.length; x++) {
+        if (this.landList[x].data && !this.landList[x].data.productId) {
+          landEmpty = true;
+          break;
+        } else {
+          if (((_a = this.landList[x].data) == null ? void 0 : _a.productId) && ((_b = this.landList[x].data) == null ? void 0 : _b.matureTimeLeft)) {
+            land = this.landList[x];
+            break;
+          }
+        }
+      }
+      for (let x = 0; x < this.landList.length; x++) {
+        if (!this.landList[x].data) {
+          unlockLand = this.landList[x];
+          break;
+        }
+      }
+      if (!unlockLand && this.guidIdList.indexOf(5) > -1) {
+        this.guidIdList.splice(this.guidIdList.indexOf(5), 1);
+        console.log(this.guidIdList);
+      }
+      this.hasGuide = true;
+      let pos = { x: 0, y: 0 };
+      if (landEmpty) {
+        pos = this.getNodeTopLayerPos(this.step4);
+      } else {
+        if (!land) {
+          return this.updateGuideTask();
+        }
+        let id = this.guidIdList[Math.floor(Math.random() * this.guidIdList.length)];
+        switch (id) {
+          case 1:
+            pos = this.getNodeTopLayerPos(land.owner);
+            pos.x += 100;
+            pos.y += 100;
+            break;
+          case 2:
+            pos = this.getNodeTopLayerPos(this.step9);
+            pos.x += 100;
+            pos.y += 100;
+            break;
+          case 3:
+            pos = this.getNodeTopLayerPos(this.step5);
+            pos.x += 100;
+            pos.y += 100;
+            break;
+          case 5:
+            pos = this.getNodeTopLayerPos(unlockLand.owner);
+            pos.x += 100;
+            pos.y += 100;
+            break;
+        }
+      }
+      this.guideHand.pos(pos.x, pos.y);
+    }
+    getNodeTopLayerPos(node) {
+      return this.topLayerOnStage.globalToLocal(node.parent.localToGlobal(new Laya.Point(node.x, node.y)));
+    }
+    guidHandAnimation() {
+      this.guidHandAni = Laya.TimeLine.to(this.guideHand, { rotation: -15 }, 400, null).to(this.guideHand, { rotation: 0 }, 400);
+      this.guidHandAni.play(null, true);
     }
     updateHitLandAdd() {
       let guidLand;
@@ -2451,6 +2562,7 @@
           break;
         case "shop":
           core_default.view.open(Res_default.views.ShopView);
+          this.hideGuideHand();
           break;
         case "head":
           core_default.view.open(Res_default.views.SettingView);
@@ -2644,6 +2756,7 @@
     switchLandLevelUp(show) {
       let bg = this.landUpLayer.getChildByName("bg");
       if (show) {
+        this.hideGuideHand();
         bg.alpha = 0;
         Laya.Tween.to(bg, { alpha: 0.75 }, 150);
         this.landUpLayer.getChildByName("land_outer").addChild(this.landBox);
@@ -2712,6 +2825,14 @@
         node.pos(nodeNewPos.x + obj.node.get_width() * obj.node.anchorX, nodeNewPos.y - i * 60);
         this.topLayerOnStage.addChild(node);
         node.getChildByName("count").value = "x" + d.count;
+        switch (d.posType) {
+          case 1:
+            this.addGoldDiamondAni(this.goldAdd, d.count);
+            break;
+          case 2:
+            this.addGoldDiamondAni(this.diamondAdd, d.count);
+            break;
+        }
         Laya.Tween.to(node, { y: node.y - 40, alpha: 1 }, 150, null, Laya.Handler.create(this, (e) => {
           Laya.timer.once(1e3, this, () => {
             Laya.Pool.recover("floatRewardBox", e);
@@ -2749,6 +2870,18 @@
           });
         }, [node]), 50 * i, null, true);
       });
+    }
+    addGoldDiamondAni(node, count) {
+      node.visible = true;
+      node.alpha = 0;
+      node.value = `+${count}`;
+      node.y = 30;
+      node.offAll();
+      Laya.Tween.to(node, { alpha: 1, y: -30 }, 500, null, new Laya.Handler(this, () => {
+        Laya.timer.once(2e3, this, () => {
+          node.alpha = 0;
+        });
+      }));
     }
     playAdReward(target) {
       const reward = TableAnalyze_default.table("config").get("Videorewards").value;
@@ -2791,6 +2924,7 @@
       });
     }
     goToNeighbor() {
+      this.hideGuideHand();
       core_default.view.setOverView(true, () => {
         HttpControl.inst.send({
           api: ApiHttp.neighbor,
@@ -2901,6 +3035,10 @@
         Laya.timer.clear(this, this.outCountDownEvent);
         this.goHome();
       }
+    }
+    onHdDestroy() {
+      var _a;
+      (_a = this.guidHandAni) == null ? void 0 : _a.destroy();
     }
   };
   var MainView = _MainView;
@@ -3221,6 +3359,7 @@
         core_default.view.openHint({ text: "\u5DF2\u53D1\u9001\u6FC0\u60C5", call: () => {
         } });
         this.canClick = true;
+        TaskService_default.taskAddTimes(1009);
       }).catch(() => {
         this.canClick = true;
       });
@@ -3315,6 +3454,8 @@
       }
       if (!this.textList[this.step]) {
         core_default.view.close(Res_default.views.GuideView);
+        if (this.data.call)
+          this.data.call();
         return;
       }
       const node = this.data.nodeList[this.step];
@@ -4849,6 +4990,7 @@
     constructor() {
       super(...arguments);
       this.taskList = null;
+      this.canClick = true;
     }
     onOpened() {
       this.updateTaskList();
@@ -4894,7 +5036,10 @@
           ViewManager.inst.close(Res_default.views.TaskView);
           break;
         case "go_run":
+          if (!this.canClick)
+            return;
           let btnObj = e.target["dataSource"];
+          this.canClick = false;
           if (btnObj.ok) {
             HttpControl.inst.send({
               api: ApiHttp.taskReward,
@@ -4903,6 +5048,7 @@
               const task = TaskService_default.getTask(btnObj.id);
               task.receive = 1;
               btnObj.ok = false;
+              this.canClick = true;
               Laya.timer.frameOnce(1, this, () => {
                 this.updateTaskList();
                 this.taskList.refresh();
@@ -4939,6 +5085,7 @@
             if (adData == null ? void 0 : adData.code) {
               core_default.view.openHint({ text: `\u5E7F\u544A\u64AD\u653E\u5931\u8D25[${adData.code}]`, call: () => {
               } });
+              this.canClick = true;
               return;
             }
             HttpControl.inst.send({
@@ -4949,6 +5096,7 @@
               this.taskList.refresh();
               TaskService_default.taskAddTimes(1001);
               TaskService_default.taskAddTimes(1012);
+              this.canClick = true;
             });
             break;
           case 1002:
@@ -4963,6 +5111,7 @@
                 call: () => {
                 }
               });
+              this.canClick = true;
               return;
             }
             HttpControl.inst.send({
@@ -4976,6 +5125,7 @@
               TaskService_default.taskAddTimes(1001);
               TaskService_default.taskAddTimes(1012);
               TaskService_default.taskAddTimes(1002);
+              this.canClick = true;
             });
             break;
           case 1003:
@@ -5007,7 +5157,18 @@
             break;
           case 1010:
             core_default.view.close(Res_default.views.TaskView);
-            core_default.eventGlobal.event(EventMaps.open_friend, [1]);
+            HttpControl.inst.send({
+              api: ApiHttp.friendInviteList,
+              data: {}
+            }).then((d) => {
+              core_default.view.open(Res_default.views.FriendsRewardView, {
+                parm: {
+                  list: d.list,
+                  call: () => {
+                  }
+                }
+              });
+            });
             break;
           case 1011:
             core_default.view.close(Res_default.views.TaskView);

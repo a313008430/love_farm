@@ -10,6 +10,7 @@ import Tools from "src/common/Tools";
 import Core from "src/core/index";
 import LandService, { LandObj } from "src/dataService/LandService";
 import { PlantDataBase } from "src/dataService/PlantService";
+import TaskService from "src/dataService/TaskService";
 import UserInfo from "src/dataService/UserInfo";
 import WarehouseService from "src/dataService/WarehouseService";
 import MainView, { GetFloatRewardObj } from "src/view/MainView";
@@ -401,6 +402,7 @@ export default class FieldComponent extends Core.gameScript {
 
             if (this.data.productId) {
                 if (this.data.matureTimeLeft) {
+                    this.mainViewCom.hideGuideHand();
                     console.log("加速");
                     Core.view.open(Res.views.SpeedUpView, {
                         parm: {
@@ -498,6 +500,7 @@ export default class FieldComponent extends Core.gameScript {
             }
         } else {
             //解锁土地
+            this.mainViewCom.hideGuideHand();
             Core.view.open(Res.views.AddLandView, {
                 parm: {
                     id: this.fieldId,
@@ -574,6 +577,7 @@ export default class FieldComponent extends Core.gameScript {
                     /** 额外奖励 */
                     rewardDiamond: number;
                 }) => {
+                    TaskService.taskAddTimes(1004);
                     this.canClick = true;
                     UserInfo.vitality = d.vitality;
                     this.canSteal = false;

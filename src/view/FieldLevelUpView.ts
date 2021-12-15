@@ -34,7 +34,7 @@ export default class FieldLevelUpView extends GameScript {
         this.priceIcon.skin = nextLand.cost.obj.icon;
 
         this.lv.text = `${e.obj.level + 1}级`;
-        this.reward.text = `+${Number((nextLand.gain * 100).toFixed(2))}`;
+        this.reward.text = `+${Number((nextLand.gain * 100).toFixed(2))}%`;
         this.probability.text = `+${Number((nextLand.probability * 100).toFixed(2))}%`;
 
         this.adBtn.disabled = !UserInfo.advertiseTimes;

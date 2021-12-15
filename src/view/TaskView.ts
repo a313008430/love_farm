@@ -26,6 +26,8 @@ export default class TaskView extends GameScript {
     /** @prop {name:taskList, tips:"任务列表", type:Node}*/
     private taskList: Laya.List = null;
 
+    private canClick = true;
+
     onOpened() {
         this.updateTaskList();
         this.taskList.renderHandler = new Laya.Handler(this, this.itemRender);
@@ -83,7 +85,9 @@ export default class TaskView extends GameScript {
                 ViewManager.inst.close(Res.views.TaskView);
                 break;
             case "go_run":
+                if (!this.canClick) return;
                 let btnObj: ButtonObj = e.target["dataSource"];
+                this.canClick = false;
 
                 if (btnObj.ok) {
                     //获取奖励
@@ -96,6 +100,7 @@ export default class TaskView extends GameScript {
                             const task = TaskService.getTask(btnObj.id);
                             task.receive = 1;
                             btnObj.ok = false;
+                            this.canClick = true;
 
                             Laya.timer.frameOnce(1, this, () => {
                                 this.updateTaskList();
@@ -135,6 +140,7 @@ export default class TaskView extends GameScript {
 
                 if (adData?.code) {
                     Core.view.openHint({ text: `广告播放失败[${adData.code}]`, call: () => {} });
+                    this.canClick = true;
                     return;
                 }
 
@@ -148,6 +154,7 @@ export default class TaskView extends GameScript {
                         this.taskList.refresh();
                         TaskService.taskAddTimes(1001);
                         TaskService.taskAddTimes(1012);
+                        this.canClick = true;
                     });
 
                 break;
@@ -163,6 +170,7 @@ export default class TaskView extends GameScript {
                         text: `${adData.data["message"]}[${adData.code}]`,
                         call: () => {},
                     });
+                    this.canClick = true;
                     return;
                 }
 
@@ -179,6 +187,7 @@ export default class TaskView extends GameScript {
                         TaskService.taskAddTimes(1001);
                         TaskService.taskAddTimes(1012);
                         TaskService.taskAddTimes(1002);
+                        this.canClick = true;
                     });
                 break;
             case 1003:
@@ -210,7 +219,20 @@ export default class TaskView extends GameScript {
                 break;
             case 1010:
                 Core.view.close(Res.views.TaskView);
-                Core.eventGlobal.event(EventMaps.open_friend, [1]);
+                // Core.eventGlobal.event(EventMaps.open_friend, [1]);
+                HttpControl.inst
+                    .send({
+                        api: ApiHttp.friendInviteList,
+                        data: {},
+                    })
+                    .then((d: InviteList) => {
+                        Core.view.open(Res.views.FriendsRewardView, {
+                            parm: {
+                                list: d.list,
+                                call: () => {},
+                            },
+                        });
+                    });
                 break;
             case 1011:
                 Core.view.close(Res.views.TaskView);
