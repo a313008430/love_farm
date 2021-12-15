@@ -3049,8 +3049,11 @@
         friendName.visible = false;
         moneyBox.visible = true;
         countDown.visible = false;
-        if (UserInfo_default.avatar)
+        if (UserInfo_default.avatar) {
           this.avatarNode.skin = UserInfo_default.avatar;
+        } else {
+          this.avatarNode.skin = `main_scene/img_defaultPortrait.png`;
+        }
         if (UserInfo_default.warePetId) {
           this.petBox.visible = true;
           this.petBox.getChildByName("dog_ani").source = `res/dog_${UserInfo_default.warePetId}.atlas`;

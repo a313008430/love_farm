@@ -1165,7 +1165,11 @@ export default class MainView extends Core.gameScript {
             friendName.visible = false;
             moneyBox.visible = true;
             countDown.visible = false;
-            if (UserInfo.avatar) this.avatarNode.skin = UserInfo.avatar;
+            if (UserInfo.avatar) {
+                this.avatarNode.skin = UserInfo.avatar;
+            } else {
+                this.avatarNode.skin = `main_scene/img_defaultPortrait.png`;
+            }
             if (UserInfo.warePetId) {
                 this.petBox.visible = true;
                 (
