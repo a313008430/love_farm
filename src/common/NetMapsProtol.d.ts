@@ -226,6 +226,7 @@ interface ReturnNeighbor {
     nickname: "string";
     uid: number;
     avatar: string;
+    dogId: number;
 }
 
 /**

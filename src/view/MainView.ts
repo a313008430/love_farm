@@ -292,7 +292,7 @@ export default class MainView extends Core.gameScript {
             pos = this.getNodeTopLayerPos(this.step4);
         } else {
             if (!land) {
-                return this.updateGuideTask();
+                return null;
             }
             let id = this.guidIdList[Math.floor(Math.random() * this.guidIdList.length)];
 
@@ -419,8 +419,10 @@ export default class MainView extends Core.gameScript {
             .key("warePetId", (e) => {
                 if (e) {
                     this.petBox.visible = true;
-                    (this.petBox.getChildByName("dog") as Laya.Image).skin =
-                        TableAnalyze.table("pet").get(e).icon;
+                    (
+                        this.petBox.getChildByName("dog_ani") as Laya.Animation
+                    ).source = `res/dog_${e}.atlas`;
+                    // TableAnalyze.table("pet").get(e).icon;
                 } else {
                     this.petBox.visible = false;
                 }
@@ -513,7 +515,7 @@ export default class MainView extends Core.gameScript {
             case "dog_house":
                 Core.view.open(Res.views.ShopView, { parm: { id: 1 } });
                 break;
-            case "dog":
+            case "dog_ani":
                 Core.view.open(Res.views.ShopView, { parm: { id: 2 } });
                 break;
             case "diamond_box":
@@ -849,13 +851,15 @@ export default class MainView extends Core.gameScript {
             this.topLayerOnStage.addChild(node);
             (node.getChildByName("count") as Laya.FontClip).value = "x" + d.count;
 
-            switch (d.posType) {
-                case 1:
-                    this.addGoldDiamondAni(this.goldAdd, d.count);
-                    break;
-                case 2:
-                    this.addGoldDiamondAni(this.diamondAdd, d.count);
-                    break;
+            if (!obj?.notFly) {
+                switch (d.posType) {
+                    case 1:
+                        this.addGoldDiamondAni(this.goldAdd, d.count);
+                        break;
+                    case 2:
+                        this.addGoldDiamondAni(this.diamondAdd, d.count);
+                        break;
+                }
             }
 
             Laya.Tween.to(
@@ -1111,24 +1115,20 @@ export default class MainView extends Core.gameScript {
         this.updateAllStateIcon();
 
         if (this.isOuter) {
-            //隐藏宠物
-            this.petBox.visible = false;
             //隐藏任务
             this.taskBox.visible = false;
         } else {
-            //显示 宠物
-            if (UserInfo.warePetId) this.petBox.visible = true;
             //显示任务
             this.taskBox.visible = true;
         }
 
-        this.updateFriendView(d?.nickname, friendData);
+        this.updateFriendView(d?.nickname, friendData, d?.dogId);
     }
 
     /**
      * 更新去好友家还是自己家的界面状态
      */
-    private updateFriendView(nickname: string = "", friendData: FriendData) {
+    private updateFriendView(nickname: string = "", friendData: FriendData, pedId?: number) {
         const topBox = this.orderBox.parent as Laya.Box,
             moneyBox = topBox.getChildByName("money_box") as Laya.Box,
             countDown = topBox.getChildByName("count_down") as Laya.Label,
@@ -1150,6 +1150,14 @@ export default class MainView extends Core.gameScript {
             countDown.text = Tools.formatSeconds(this.outCountDownNumber);
             Laya.timer.loop(1000, this, this.outCountDownEvent, [countDown]);
             if (friendData?.avatar) this.avatarNode.skin = friendData?.avatar;
+            if (pedId) {
+                this.petBox.visible = true;
+                (
+                    this.petBox.getChildByName("dog_ani") as Laya.Animation
+                ).source = `res/dog_${pedId}.atlas`;
+            } else {
+                this.petBox.visible = false;
+            }
         } else {
             this.outCountDownNumber = 60;
             Laya.timer.clear(this, this.outCountDownEvent);
@@ -1158,6 +1166,14 @@ export default class MainView extends Core.gameScript {
             moneyBox.visible = true;
             countDown.visible = false;
             if (UserInfo.avatar) this.avatarNode.skin = UserInfo.avatar;
+            if (UserInfo.warePetId) {
+                this.petBox.visible = true;
+                (
+                    this.petBox.getChildByName("dog_ani") as Laya.Animation
+                ).source = `res/dog_${UserInfo.warePetId}.atlas`;
+            } else {
+                this.petBox.visible = false;
+            }
         }
         bottomList.forEach((e) => {
             e.disabled = this.isOuter;

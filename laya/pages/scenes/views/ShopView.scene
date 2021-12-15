@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":129,
-    "selecteID":158,
+    "selectedBox":91,
+    "selecteID":241,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/ShopView.jpg","right":0,"left":0,"height":1920,"btnList":"@arr:,,","bottom":0},
     "nodeParent":-1,
-    "maxID":241,
+    "maxID":242,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -21,7 +21,7 @@
             "source":"src/view/ShopView.ts",
             "searchKey":"Script,ShopView",
             "removeAble":true,
-            "props":{"vitalityMax":"@node:226","seedDesc":"@node:46","proportion":"@node:159","priceList":"@node:172","petName":"@node:112","petIcon":"@node:107","petDesc":"@node:114","petBuyBtn":"@node:92","petButBtn":"@node:92","matureTime":"@node:188","matureGainBox":"@node:192","lockBtnBox":"@node:210","itemList":"@node:86","itemBuyBtn":"@node:41","intType":"@node:8","img":"@node:21","goWatch":"@node:233","goRest":"@node:235","feedDesc":"@node:224","feedBuyBtn":"@node:218","diamondFont":"@node:157","btnList":["@node:30","@node:32","@node:34","@node:36"],"btnBoxTop":"@node:38","bottomBox":"@node:40","alphaBg":"@node:21"},
+            "props":{"vitalityMax":"@node:226","seedDesc":"@node:46","proportion":"@node:159","priceList":"@node:172","petName":"@node:112","petIcon":"@node:241","petDesc":"@node:114","petBuyBtn":"@node:92","petButBtn":"@node:92","matureTime":"@node:188","matureGainBox":"@node:192","lockBtnBox":"@node:210","itemList":"@node:86","itemBuyBtn":"@node:41","intType":"@node:8","img":"@node:21","goWatch":"@node:233","goRest":"@node:235","feedDesc":"@node:224","feedBuyBtn":"@node:218","diamondFont":"@node:157","btnList":["@node:30","@node:32","@node:34","@node:36"],"btnBoxTop":"@node:38","bottomBox":"@node:40","alphaBg":"@node:21"},
             "nodeParent":2,
             "label":"ShopView",
             "isDirectory":false,
@@ -899,13 +899,14 @@
                             "props":{"y":-853,"x":14,"width":868,"visible":false,"name":"petBox","mouseEnabled":true,"height":1157},
                             "nodeParent":40,
                             "label":"petBox",
-                            "isOpen":false,
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":91,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,pet_btn",
                                     "props":{"y":1071,"x":415,"width":320,"skin":"game/img_buybtm.png","name":"pet_btn","height":92,"anchorY":0.5,"anchorX":0.5},
@@ -975,6 +976,7 @@
                                     "$HIDDEN":false
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":39,"x":121,"width":610,"skin":"game/img_petbagNormal.png","height":658},
@@ -989,6 +991,7 @@
                                     "$HIDDEN":false
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,left",
                                     "props":{"y":374,"x":121,"skin":"game/img_baclbtn.png","name":"left","anchorY":0.5,"anchorX":0.5},
@@ -1018,6 +1021,7 @@
                                         }]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,right",
                                     "props":{"y":374,"x":744,"width":110,"skin":"game/img_baclbtn.png","scaleX":-1,"name":"right","height":113,"anchorY":0.5,"anchorX":0.5},
@@ -1047,6 +1051,7 @@
                                         }]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":627,"x":187,"skin":"game/img_getBack.png"},
@@ -1060,6 +1065,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":573,"x":187,"skin":"game/img_findThief.png"},
@@ -1074,6 +1080,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":517,"x":187,"skin":"game/img_upper Limit.png"},
@@ -1087,6 +1094,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"FontClip",
                                     "searchKey":"FontClip,vitality_max",
                                     "props":{"y":516,"x":360,"value":"0123456789","skin":"game/fontClip_coin.png","sheet":"0123456789","name":"vitality_max"},
@@ -1100,19 +1108,22 @@
                                         ]
                                 },
                                 {
-                                    "type":"Image",
-                                    "searchKey":"Image,pet_icon",
-                                    "props":{"y":336,"x":406,"skin":"pet_feed/1001_dog.png","name":"pet_icon","anchorY":0.5,"anchorX":0.5},
+                                    "x":60,
+                                    "type":"Animation",
+                                    "searchKey":"Animation,dog_ani",
+                                    "props":{"y":199,"x":326,"width":185,"source":"res/dog_1001.atlas","name":"dog_ani","interval":150,"height":249,"autoPlay":true},
                                     "nodeParent":91,
-                                    "label":"pet_icon",
+                                    "label":"dog_ani",
+                                    "isOpen":true,
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":107,
+                                    "compId":241,
                                     "child":[
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"HBox",
                                     "searchKey":"HBox,find_box",
                                     "props":{"y":562,"x":360,"space":12,"name":"find_box"},
@@ -1191,6 +1202,7 @@
                                         }]
                                 },
                                 {
+                                    "x":60,
                                     "type":"HBox",
                                     "searchKey":"HBox,back_box",
                                     "props":{"y":619,"x":360,"space":12,"name":"back_box"},
@@ -1269,6 +1281,7 @@
                                         }]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,pet_name",
                                     "props":{"y":98,"x":424,"width":457,"text":"金毛寻回犬","name":"pet_name","leading":16,"height":60,"fontSize":46,"font":"SimHei","color":"#955942","bold":true,"anchorY":0.5,"anchorX":0.5,"align":"center"},
@@ -1282,6 +1295,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,pet_desc",
                                     "props":{"y":764,"x":54,"wordWrap":true,"width":761,"text":"播种后约3小时成熟，每次可收获2份农作物。","overflow":"scroll","name":"pet_desc","leading":16,"height":197,"fontSize":44,"font":"SimHei","color":"#906344"},
@@ -1295,6 +1309,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,go_watch",
                                     "props":{"y":1071,"x":415,"skin":"game/img_garding.png","name":"go_watch","anchorY":0.5,"anchorX":0.5},
@@ -1325,6 +1340,7 @@
                                     "$HIDDEN":false
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,go_rest",
                                     "props":{"y":1071,"x":415,"skin":"game/img_rest.png","name":"go_rest","anchorY":0.5,"anchorX":0.5},
@@ -1354,7 +1370,7 @@
                                         }],
                                     "$HIDDEN":false
                                 }],
-                            "$HIDDEN":true
+                            "$HIDDEN":false
                         },
                         {
                             "x":45,
@@ -1363,14 +1379,13 @@
                             "props":{"y":-853,"x":14,"width":868,"visible":false,"name":"bankBox","height":1157},
                             "nodeParent":40,
                             "label":"bankBox",
-                            "isOpen":true,
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":129,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":12,"x":8,"width":840,"skin":"game/img_listBg.png","height":200},
@@ -1385,7 +1400,6 @@
                                     "$HIDDEN":false
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,withdraw_btn",
                                     "props":{"y":1069,"x":415,"width":320,"skin":"game/img_withdrawbtn.png","name":"withdraw_btn","height":92,"anchorY":0.5,"anchorX":0.5},
@@ -1429,7 +1443,6 @@
                                     "$HIDDEN":false
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":131,"x":62,"skin":"game/img_bankdiamond.png"},
@@ -1443,7 +1456,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,record_btn",
                                     "props":{"y":76,"x":844,"skin":"game/img_record.png","name":"record_btn","anchorY":0.5,"anchorX":1},
@@ -1474,7 +1486,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,name",
                                     "props":{"y":52,"x":58,"width":254,"text":"我的资产","name":"name","height":60,"fontSize":54,"font":"SimHei","color":"#5A3F2A","bold":true,"align":"left"},
@@ -1489,7 +1500,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"List",
                                     "searchKey":"List,price_list",
                                     "props":{"y":257,"x":4,"width":850,"spaceY":10,"spaceX":18,"selectedIndex":-1,"selectEnable":true,"repeatY":2,"repeatX":3,"name":"price_list","height":414,"elasticEnabled":false},
@@ -1502,7 +1512,6 @@
                                     "compId":172,
                                     "child":[
                                         {
-                                            "x":75,
                                             "type":"Box",
                                             "searchKey":"Box",
                                             "props":{"x":0,"width":273,"renderType":"render","height":181},
@@ -1515,7 +1524,6 @@
                                             "compId":231,
                                             "child":[
                                                 {
-                                                    "x":90,
                                                     "type":"Image",
                                                     "searchKey":"Image,bg",
                                                     "props":{"y":12,"x":0,"skin":"game/img_pricenormal.png","name":"bg"},
@@ -1531,7 +1539,6 @@
                                                     "$HIDDEN":false
                                                 },
                                                 {
-                                                    "x":90,
                                                     "type":"Image",
                                                     "searchKey":"Image,times_box",
                                                     "props":{"y":2,"x":117,"skin":"game/img_residue.png","name":"times_box"},
@@ -1544,7 +1551,6 @@
                                                     "compId":177,
                                                     "child":[
                                                         {
-                                                            "x":105,
                                                             "type":"Label",
                                                             "searchKey":"Label,times",
                                                             "props":{"y":7,"x":75,"text":"剩余1次","name":"times","fontSize":28,"font":"Microsoft YaHei","color":"#ffffff","bold":true,"anchorX":0.5,"align":"left"},
@@ -1560,7 +1566,6 @@
                                                         }]
                                                 },
                                                 {
-                                                    "x":90,
                                                     "type":"Label",
                                                     "searchKey":"Label,value",
                                                     "props":{"y":63,"x":129,"text":"0.3元","name":"value","fontSize":60,"font":"Microsoft YaHei","color":"#D1330E","bold":true,"anchorX":0.5,"align":"left"},
@@ -1577,7 +1582,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"HBox",
                                     "searchKey":"HBox",
                                     "props":{"y":139,"x":130},
@@ -1617,7 +1621,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,desc",
                                     "props":{"y":764,"x":54,"wordWrap":true,"width":761,"visible":true,"text":"1.土地升级后更高概率获得更多钻石","overflow":"scroll","name":"desc","leading":16,"height":69,"fontSize":44,"font":"SimHei","color":"#D1330E"},
@@ -1632,7 +1635,6 @@
                                     "$HIDDEN":false
                                 },
                                 {
-                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,desc",
                                     "props":{"y":844,"x":54,"wordWrap":true,"width":761,"visible":true,"text":"2.为菜地加速可获得钻石","overflow":"scroll","name":"desc","leading":16,"height":69,"fontSize":44,"font":"SimHei","color":"#D1330E"},
@@ -1646,7 +1648,7 @@
                                         ],
                                     "$HIDDEN":false
                                 }],
-                            "$HIDDEN":false
+                            "$HIDDEN":true
                         }],
                     "$LOCKED":true,
                     "$HIDDEN":false

@@ -159,6 +159,26 @@
     "res/figure1.atlas",
     "res/figure.png",
     "res/figure.atlas",
+    "res/dog_1010.png",
+    "res/dog_1010.atlas",
+    "res/dog_1009.png",
+    "res/dog_1009.atlas",
+    "res/dog_1008.png",
+    "res/dog_1008.atlas",
+    "res/dog_1007.png",
+    "res/dog_1007.atlas",
+    "res/dog_1006.png",
+    "res/dog_1006.atlas",
+    "res/dog_1005.png",
+    "res/dog_1005.atlas",
+    "res/dog_1004.png",
+    "res/dog_1004.atlas",
+    "res/dog_1003.png",
+    "res/dog_1003.atlas",
+    "res/dog_1002.png",
+    "res/dog_1002.atlas",
+    "res/dog_1001.png",
+    "res/dog_1001.atlas",
     "res/shader/vs.vs",
     "res/shader/ps.fs",
     "res/audio/zhongzhi.mp3",
@@ -2405,7 +2425,7 @@
         pos = this.getNodeTopLayerPos(this.step4);
       } else {
         if (!land) {
-          return this.updateGuideTask();
+          return null;
         }
         let id = this.guidIdList[Math.floor(Math.random() * this.guidIdList.length)];
         switch (id) {
@@ -2498,7 +2518,7 @@
       }).key("warePetId", (e) => {
         if (e) {
           this.petBox.visible = true;
-          this.petBox.getChildByName("dog").skin = TableAnalyze_default.table("pet").get(e).icon;
+          this.petBox.getChildByName("dog_ani").source = `res/dog_${e}.atlas`;
         } else {
           this.petBox.visible = false;
         }
@@ -2579,7 +2599,7 @@
         case "dog_house":
           core_default.view.open(Res_default.views.ShopView, { parm: { id: 1 } });
           break;
-        case "dog":
+        case "dog_ani":
           core_default.view.open(Res_default.views.ShopView, { parm: { id: 2 } });
           break;
         case "diamond_box":
@@ -2828,13 +2848,15 @@
         node.pos(nodeNewPos.x + obj.node.get_width() * obj.node.anchorX, nodeNewPos.y - i * 60);
         this.topLayerOnStage.addChild(node);
         node.getChildByName("count").value = "x" + d.count;
-        switch (d.posType) {
-          case 1:
-            this.addGoldDiamondAni(this.goldAdd, d.count);
-            break;
-          case 2:
-            this.addGoldDiamondAni(this.diamondAdd, d.count);
-            break;
+        if (!(obj == null ? void 0 : obj.notFly)) {
+          switch (d.posType) {
+            case 1:
+              this.addGoldDiamondAni(this.goldAdd, d.count);
+              break;
+            case 2:
+              this.addGoldDiamondAni(this.diamondAdd, d.count);
+              break;
+          }
         }
         Laya.Tween.to(node, { y: node.y - 40, alpha: 1 }, 150, null, Laya.Handler.create(this, (e) => {
           Laya.timer.once(1e3, this, () => {
@@ -2992,16 +3014,13 @@
       }
       this.updateAllStateIcon();
       if (this.isOuter) {
-        this.petBox.visible = false;
         this.taskBox.visible = false;
       } else {
-        if (UserInfo_default.warePetId)
-          this.petBox.visible = true;
         this.taskBox.visible = true;
       }
-      this.updateFriendView(d == null ? void 0 : d.nickname, friendData);
+      this.updateFriendView(d == null ? void 0 : d.nickname, friendData, d == null ? void 0 : d.dogId);
     }
-    updateFriendView(nickname = "", friendData) {
+    updateFriendView(nickname = "", friendData, pedId) {
       const topBox = this.orderBox.parent, moneyBox = topBox.getChildByName("money_box"), countDown = topBox.getChildByName("count_down"), orderBox = this.orderBox.getChildByName("order_box"), friendName = this.orderBox.getChildByName("friend_name"), bottomList = [
         this.bottomBox.getChildByName("task"),
         this.bottomBox.getChildByName("signIn"),
@@ -3017,6 +3036,12 @@
         Laya.timer.loop(1e3, this, this.outCountDownEvent, [countDown]);
         if (friendData == null ? void 0 : friendData.avatar)
           this.avatarNode.skin = friendData == null ? void 0 : friendData.avatar;
+        if (pedId) {
+          this.petBox.visible = true;
+          this.petBox.getChildByName("dog_ani").source = `res/dog_${pedId}.atlas`;
+        } else {
+          this.petBox.visible = false;
+        }
       } else {
         this.outCountDownNumber = 60;
         Laya.timer.clear(this, this.outCountDownEvent);
@@ -3026,6 +3051,12 @@
         countDown.visible = false;
         if (UserInfo_default.avatar)
           this.avatarNode.skin = UserInfo_default.avatar;
+        if (UserInfo_default.warePetId) {
+          this.petBox.visible = true;
+          this.petBox.getChildByName("dog_ani").source = `res/dog_${UserInfo_default.warePetId}.atlas`;
+        } else {
+          this.petBox.visible = false;
+        }
       }
       bottomList.forEach((e) => {
         e.disabled = this.isOuter;
@@ -4654,7 +4685,7 @@
             {
               obj: feed.base,
               count: 1,
-              posType: 2
+              posType: 3
             }
           ],
           notFly: true
@@ -4757,7 +4788,7 @@
       if (!PetService_default.list.length)
         PetService_default.init([]);
       let pet = PetService_default.list[this.selectPetIndex];
-      this.petIcon.skin = pet.base.icon;
+      this.petIcon.source = `res/dog_${pet.base.id}.atlas`;
       this.petName.text = pet.base.name;
       this.petDesc.text = pet.base.desc;
       this.vitalityMax.value = pet.base.vitality_max + "";

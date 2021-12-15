@@ -53,7 +53,7 @@ export default class ShopView extends GameScript {
 
     //宠物
     /** @prop {name:petIcon, tips:"宠物icon", type:Node}*/
-    private petIcon: Laya.Image = null;
+    private petIcon: Laya.Animation = null;
     /** @prop {name:petDesc, tips:"宠物描述", type:Node}*/
     private petDesc: Laya.Label = null;
     /** @prop {name:petName, tips:"宠物名称", type:Node}*/
@@ -431,7 +431,7 @@ export default class ShopView extends GameScript {
                         {
                             obj: feed.base,
                             count: 1,
-                            posType: 2,
+                            posType: 3,
                         },
                     ],
                     notFly: true,
@@ -564,7 +564,7 @@ export default class ShopView extends GameScript {
     private updatePet() {
         if (!PetService.list.length) PetService.init([]);
         let pet = PetService.list[this.selectPetIndex];
-        this.petIcon.skin = pet.base.icon;
+        this.petIcon.source = `res/dog_${pet.base.id}.atlas`;
         this.petName.text = pet.base.name;
         this.petDesc.text = pet.base.desc;
         this.vitalityMax.value = pet.base.vitality_max + "";
