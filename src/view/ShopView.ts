@@ -383,7 +383,27 @@ export default class ShopView extends GameScript {
                 //提现
                 this.withdraw();
                 break;
+
+            case "record_btn":
+                this.openWithdrawRecord();
+                break;
         }
+    }
+
+    private openWithdrawRecord() {
+        if (!this.canClick) {
+            return;
+        }
+        this.canClick = false;
+        HttpControl.inst
+            .send({
+                api: ApiHttp.withdrawRecord,
+                data: {},
+            })
+            .then((d) => {
+                this.canClick = true;
+                Core.view.open(Res.views.WithdrawRecordView, { parm: d });
+            });
     }
 
     private feedBuy() {

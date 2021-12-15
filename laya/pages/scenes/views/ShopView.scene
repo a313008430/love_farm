@@ -2,11 +2,11 @@
     "x":0,
     "type":"View",
     "selectedBox":129,
-    "selecteID":239,
+    "selecteID":158,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/ShopView.jpg","right":0,"left":0,"height":1920,"btnList":"@arr:,,","bottom":0},
     "nodeParent":-1,
-    "maxID":240,
+    "maxID":241,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -1445,16 +1445,33 @@
                                 {
                                     "x":60,
                                     "type":"Image",
-                                    "searchKey":"Image",
-                                    "props":{"y":44,"x":663,"skin":"game/img_record.png"},
+                                    "searchKey":"Image,record_btn",
+                                    "props":{"y":76,"x":844,"skin":"game/img_record.png","name":"record_btn","anchorY":0.5,"anchorX":1},
                                     "nodeParent":129,
-                                    "label":"Image",
-                                    "isDirectory":false,
+                                    "label":"record_btn",
+                                    "isOpen":null,
+                                    "isDirectory":true,
                                     "isAniNode":true,
-                                    "hasChild":false,
+                                    "hasChild":true,
                                     "compId":158,
                                     "child":[
-                                        ]
+                                        {
+                                            "type":"Script",
+                                            "switchAble":true,
+                                            "source":"src/components/Button.ts",
+                                            "searchKey":"Script,Button",
+                                            "removeAble":true,
+                                            "props":{"isScale":true},
+                                            "nodeParent":158,
+                                            "label":"Button",
+                                            "isDirectory":false,
+                                            "isClose":true,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":240,
+                                            "child":[
+                                                ]
+                                        }]
                                 },
                                 {
                                     "x":60,

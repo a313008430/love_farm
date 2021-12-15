@@ -90,6 +90,7 @@
     views3["SpeedUpView"] = "scenes/views/SpeedUpView.scene";
     views3["TaskView"] = "scenes/views/TaskView.scene";
     views3["WarehouseView"] = "scenes/views/WarehouseView.scene";
+    views3["WithdrawRecordView"] = "scenes/views/WithdrawRecordView.scene";
   })(views || (views = {}));
   var audios;
   (function(audios2) {
@@ -102,6 +103,7 @@
     audios2["BGM"] = "res/audio/BGM.mp3";
   })(audios || (audios = {}));
   var scenes = [
+    "scenes/views/WithdrawRecordView.scene",
     "scenes/views/WarehouseView.scene",
     "scenes/views/TaskView.scene",
     "scenes/views/SpeedUpView.scene",
@@ -1167,6 +1169,7 @@
     ApiHttp2["mailRead"] = "/mail/read";
     ApiHttp2["mailDelete"] = "/mail/delete";
     ApiHttp2["withdraw"] = "/withdraw";
+    ApiHttp2["withdrawRecord"] = "/withdraw/record";
     ApiHttp2["configClient"] = "/config/client";
     ApiHttp2["guide"] = "/guide";
   })(ApiHttp || (ApiHttp = {}));
@@ -4610,7 +4613,23 @@
         case "withdraw_btn":
           this.withdraw();
           break;
+        case "record_btn":
+          this.openWithdrawRecord();
+          break;
       }
+    }
+    openWithdrawRecord() {
+      if (!this.canClick) {
+        return;
+      }
+      this.canClick = false;
+      HttpControl.inst.send({
+        api: ApiHttp.withdrawRecord,
+        data: {}
+      }).then((d) => {
+        this.canClick = true;
+        core_default.view.open(Res_default.views.WithdrawRecordView, { parm: d });
+      });
     }
     feedBuy() {
       let feed = this.getDataList()[this.itemListSelectIndex];
@@ -5386,6 +5405,32 @@
     }
   };
 
+  // src/view/WithdrawRecordView.ts
+  var WithdrawRecordView = class extends core_default.gameScript {
+    onOpened(e) {
+      e.sort((a, b) => b.time - a.time);
+      this.dataList = e;
+      this.list.array = e;
+      this.list.renderHandler = new Laya.Handler(this, this.itemRender);
+      this.list.vScrollBarSkin = null;
+      this.owner.getChildByName("empty_lb").visible = !e.length;
+    }
+    itemRender(cell, i) {
+      const d = this.dataList[i];
+      cell.getChildByName("reward_box").getChildByName("amount").text = `-${d.diamond}`;
+      cell.getChildByName("time").text = `${new Date(d.time).toLocaleString("zh-CN", { hour12: false })}`;
+      cell.getChildByName("state").text = `${d.state ? "\u5BA1\u6838\u4E2D" : "\u5DF2\u5230\u8D26"}`;
+      cell.getChildByName("state").color = d.state ? "#E93636" : "#5A3F2A";
+    }
+    onClick(e) {
+      switch (e.target.name) {
+        case "close":
+          core_default.view.close(Res_default.views.WithdrawRecordView);
+          break;
+      }
+    }
+  };
+
   // src/GameConfig.ts
   var GameConfig = class {
     constructor() {
@@ -5418,6 +5463,7 @@
       reg("view/SpeedUpView.ts", SpeedUpView);
       reg("view/TaskView.ts", TaskView);
       reg("view/WarehouseView.ts", WarehouseView);
+      reg("view/WithdrawRecordView.ts", WithdrawRecordView);
     }
   };
   GameConfig.width = 1080;

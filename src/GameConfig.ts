@@ -25,6 +25,7 @@ import SignInView from "./view/SignInView"
 import SpeedUpView from "./view/SpeedUpView"
 import TaskView from "./view/TaskView"
 import WarehouseView from "./view/WarehouseView"
+import WithdrawRecordView from "./view/WithdrawRecordView"
 /*
 * 游戏初始化配置;
 */
@@ -70,6 +71,7 @@ export default class GameConfig{
         reg("view/SpeedUpView.ts",SpeedUpView);
         reg("view/TaskView.ts",TaskView);
         reg("view/WarehouseView.ts",WarehouseView);
+        reg("view/WithdrawRecordView.ts",WithdrawRecordView);
     }
 }
 GameConfig.init();

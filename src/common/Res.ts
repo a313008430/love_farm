@@ -49,6 +49,8 @@
         TaskView = "scenes/views/TaskView.scene", 
         /** scenes/views/WarehouseView.scene */
         WarehouseView = "scenes/views/WarehouseView.scene", 
+        /** scenes/views/WithdrawRecordView.scene */
+        WithdrawRecordView = "scenes/views/WithdrawRecordView.scene", 
     }
 
  export enum audios 
@@ -73,6 +75,7 @@
  * 界面列表
  */
  export const scenes = [
+         "scenes/views/WithdrawRecordView.scene",
          "scenes/views/WarehouseView.scene",
          "scenes/views/TaskView.scene",
          "scenes/views/SpeedUpView.scene",
