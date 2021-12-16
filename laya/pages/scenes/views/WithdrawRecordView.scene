@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":39,
+    "selectedBox":27,
+    "selecteID":41,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":40,
+    "maxID":42,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -107,13 +107,14 @@
             "props":{"x":43,"width":1003,"top":260,"spaceY":20,"repeatY":9,"repeatX":1,"bottom":0},
             "nodeParent":2,
             "label":"List",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":26,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":0,"x":0,"skin":"game/img_listBg.png","renderType":"render","mouseEnabled":true},
@@ -126,6 +127,7 @@
                     "compId":27,
                     "child":[
                         {
+                            "x":45,
                             "type":"HBox",
                             "searchKey":"HBox,reward_box",
                             "props":{"y":74,"x":822,"width":189.8984375,"space":20,"rotation":0,"name":"reward_box","height":55,"anchorY":0.5,"anchorX":0.5,"align":"none"},
@@ -138,6 +140,7 @@
                             "compId":32,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,icon",
                                     "props":{"width":55,"skin":"game/img_bankdiamond.png","name":"icon","height":55},
@@ -151,6 +154,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,amount",
                                     "props":{"y":10,"x":75,"text":"+100","name":"amount","fontSize":44,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
@@ -165,6 +169,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,title",
                             "props":{"y":51,"x":38,"text":"开心农场红包版钻石兑换","name":"title","fontSize":50,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
@@ -178,6 +183,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,time",
                             "props":{"y":131,"x":38,"text":"开心农场红包版钻石兑换","name":"time","fontSize":40,"font":"Microsoft YaHei","color":"#5A3F2A","bold":false},
@@ -191,17 +197,46 @@
                                 ]
                         },
                         {
-                            "type":"Label",
-                            "searchKey":"Label,state",
-                            "props":{"y":127,"x":831,"text":"已到账","name":"state","fontSize":42,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true,"anchorX":0.5},
+                            "x":45,
+                            "type":"HBox",
+                            "searchKey":"HBox,state_box",
+                            "props":{"y":127,"x":844,"width":252,"rotation":0,"name":"state_box","height":42,"anchorX":0.5},
                             "nodeParent":27,
-                            "label":"state",
-                            "isDirectory":false,
+                            "label":"state_box",
+                            "isOpen":true,
+                            "isDirectory":true,
                             "isAniNode":false,
-                            "hasChild":false,
-                            "compId":37,
+                            "hasChild":true,
+                            "compId":41,
                             "child":[
-                                ]
+                                {
+                                    "x":60,
+                                    "type":"Label",
+                                    "searchKey":"Label,price",
+                                    "props":{"x":-63,"text":"已到账","name":"price","fontSize":42,"font":"Microsoft YaHei","color":"#D23210"},
+                                    "nodeParent":41,
+                                    "label":"price",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":40,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Label",
+                                    "searchKey":"Label,state",
+                                    "props":{"x":63,"text":"已到账","name":"state","fontSize":42,"font":"Microsoft YaHei","color":"#5A3F2A"},
+                                    "nodeParent":41,
+                                    "label":"state",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":37,
+                                    "child":[
+                                        ]
+                                }]
                         }]
                 }]
         },

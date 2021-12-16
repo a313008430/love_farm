@@ -5459,8 +5459,11 @@
       const d = this.dataList[i];
       cell.getChildByName("reward_box").getChildByName("amount").text = `-${d.diamond}`;
       cell.getChildByName("time").text = `${new Date(d.time).toLocaleString("zh-CN", { hour12: false })}`;
-      cell.getChildByName("state").text = `${d.state ? "\u5BA1\u6838\u4E2D" : "\u5DF2\u5230\u8D26"}`;
-      cell.getChildByName("state").color = d.state ? "#E93636" : "#5A3F2A";
+      const state = cell.getChildByName("state_box").getChildByName("state");
+      let withdrawal = TableAnalyze_default.table("config").get("withdrawal").value;
+      cell.getChildByName("state_box").getChildByName("price").text = `${(Number(withdrawal[2]) / Number(withdrawal[1]) * d.diamond).toString().match(/^\d+(?:\.\d{0,2})?/)}\u5143`;
+      state.text = `${d.state ? "\u5BA1\u6838\u4E2D" : "\u5DF2\u5230\u8D26"}`;
+      state.color = d.state ? "#E93636" : "#5A3F2A";
     }
     onClick(e) {
       switch (e.target.name) {

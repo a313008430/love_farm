@@ -1,4 +1,5 @@
 import Res from "src/common/Res";
+import TableAnalyze from "src/common/TableAnalyze";
 import Core from "src/core/index";
 
 //export default class WithdrawRecordView extends Laya.Script {
@@ -26,8 +27,16 @@ export default class WithdrawRecordView extends Core.gameScript {
             "zh-CN",
             { hour12: false }
         )}`;
-        (cell.getChildByName("state") as Laya.Label).text = `${d.state ? "审核中" : "已到账"}`;
-        (cell.getChildByName("state") as Laya.Label).color = d.state ? "#E93636" : "#5A3F2A";
+        const state = cell.getChildByName("state_box").getChildByName("state") as Laya.Label;
+        let withdrawal = TableAnalyze.table("config").get("withdrawal").value as string[];
+        (cell.getChildByName("state_box").getChildByName("price") as Laya.Label).text = `${(
+            (Number(withdrawal[2]) / Number(withdrawal[1])) *
+            d.diamond
+        )
+            .toString()
+            .match(/^\d+(?:\.\d{0,2})?/)}元`;
+        state.text = `${d.state ? "审核中" : "已到账"}`;
+        state.color = d.state ? "#E93636" : "#5A3F2A";
     }
 
     onClick(e: Laya.Event): void {
