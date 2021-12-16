@@ -17,6 +17,10 @@ class Main {
     static customRenderID: number[] = [];
 
     constructor() {
+        if (navigator.userAgent.indexOf("iPhone") > -1) {
+            Config.useWebGL2 = false;
+        }
+
         //根据IDE设置初始化引擎
         if (window["Laya3D"]) Laya3D.init(GameConfig.width, GameConfig.height);
         else Laya.init(GameConfig.width, GameConfig.height, Laya["WebGL"]);

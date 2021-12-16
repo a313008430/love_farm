@@ -2298,24 +2298,6 @@
     }
     onOpened() {
       _MainView.inst = this;
-      [
-        "res/loadingBg.png",
-        "res/img_woodtitle.png",
-        "res/img_storeHouseBg.png",
-        "res/img_storebg.png",
-        "res/img_shelf.png",
-        "res/img_popUpBg.png",
-        "res/img_landBg.png",
-        "res/img_inviteBg1.png",
-        "res/img_housetop.png",
-        "res/img_farmlandLogo.png",
-        "res/atlas/plant_icon.png",
-        "res/atlas/pet_feed.png",
-        "res/atlas/main_scene.png"
-      ].forEach((e) => {
-        if (e.endsWith("png"))
-          Laya.loader.clearTextureRes(e);
-      });
       Laya.timer.frameOnce(1, this, () => {
         this.updateTask();
       });
@@ -5521,6 +5503,9 @@
   // src/Main.ts
   var Main = class {
     constructor() {
+      if (navigator.userAgent.indexOf("iPhone") > -1) {
+        Config.useWebGL2 = false;
+      }
       if (window["Laya3D"])
         Laya3D.init(GameConfig.width, GameConfig.height);
       else
