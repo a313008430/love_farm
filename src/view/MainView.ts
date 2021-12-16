@@ -439,6 +439,9 @@ export default class MainView extends Core.gameScript {
                     if (scale > 1) scale = 1;
 
                     bar.width = 130 * scale;
+                    (
+                        this.petBox.getChildByName("box").getChildByName("hungry") as Laya.Image
+                    ).visible = !e;
                 }
             })
             .key("digestCountDown", (e) => {
@@ -1158,6 +1161,7 @@ export default class MainView extends Core.gameScript {
             } else {
                 this.petBox.visible = false;
             }
+            (this.petBox.getChildByName("box") as Laya.Image).visible = false;
         } else {
             this.outCountDownNumber = 60;
             Laya.timer.clear(this, this.outCountDownEvent);
@@ -1178,6 +1182,7 @@ export default class MainView extends Core.gameScript {
             } else {
                 this.petBox.visible = false;
             }
+            (this.petBox.getChildByName("box") as Laya.Image).visible = true;
         }
         bottomList.forEach((e) => {
             e.disabled = this.isOuter;

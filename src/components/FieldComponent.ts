@@ -542,6 +542,7 @@ export default class FieldComponent extends Core.gameScript {
         this.renderData();
         Core.audio.playSound(Res.audios.zhongzhi);
         this.mainViewCom.updateAllStateIcon(this.data.id);
+        TaskService.taskAddTimes(1011);
     }
 
     /**

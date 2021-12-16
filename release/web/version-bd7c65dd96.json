@@ -1,7 +1,7 @@
 {
-  "fileconfig.json": "fileconfig-e3e18aa7db.json",
-  "index.js": "index-fa0022454f.js",
-  "js/bundle.js": "js/bundle-529041fcb1.js",
+  "fileconfig.json": "fileconfig-43ec8f47e9.json",
+  "index.js": "index-60600034b6.js",
+  "js/bundle.js": "js/bundle-c858b5ab96.js",
   "js/ps-N3BPHYGU.fs": "js/ps-N3BPHYGU-319562bd17.fs",
   "libs/min/laya.ani.min.js": "libs/min/laya-a72326a604.ani.min.js",
   "libs/min/laya.core.min.js": "libs/min/laya-4fc7637454.core.min.js",
@@ -15,8 +15,8 @@
   "res/atlas/game.png": "res/atlas/game-2e511673df.png",
   "res/atlas/load.atlas": "res/atlas/load-ee15b6548b.atlas",
   "res/atlas/load.png": "res/atlas/load-59a4e3576d.png",
-  "res/atlas/main_scene.atlas": "res/atlas/main_scene-e7f4d401d1.atlas",
-  "res/atlas/main_scene.png": "res/atlas/main_scene-b9271bdcaf.png",
+  "res/atlas/main_scene.atlas": "res/atlas/main_scene-e5252efcb7.atlas",
+  "res/atlas/main_scene.png": "res/atlas/main_scene-78b0b4aed8.png",
   "res/atlas/pet_feed.atlas": "res/atlas/pet_feed-3cf0af990e.atlas",
   "res/atlas/pet_feed.png": "res/atlas/pet_feed-2e5ca68657.png",
   "res/atlas/plant_icon.atlas": "res/atlas/plant_icon-c756d98efb.atlas",
@@ -96,7 +96,7 @@
   "scenes/views/LoginView.json": "scenes/views/LoginView-d84d403285.json",
   "scenes/views/MailDescView.json": "scenes/views/MailDescView-d3fa224a4c.json",
   "scenes/views/MailView.json": "scenes/views/MailView-8beb5f2aac.json",
-  "scenes/views/MainView.json": "scenes/views/MainView-bbc3fbf7e4.json",
+  "scenes/views/MainView.json": "scenes/views/MainView-a1a28b93a4.json",
   "scenes/views/OrderView.json": "scenes/views/OrderView-c5f615a516.json",
   "scenes/views/OverView.json": "scenes/views/OverView-1fd4e68b13.json",
   "scenes/views/SettingView.json": "scenes/views/SettingView-0d69c9b5a6.json",
@@ -108,5 +108,5 @@
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-ad12d45048.json",
   "scenes/views/WithdrawRecordView.json": "scenes/views/WithdrawRecordView-7c877db685.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-6b11f7b363.json"
+  "version.json": "version-bd7c65dd96.json"
 }

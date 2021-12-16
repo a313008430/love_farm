@@ -2145,6 +2145,7 @@
       this.renderData();
       core_default.audio.playSound(Res_default.audios.zhongzhi);
       this.mainViewCom.updateAllStateIcon(this.data.id);
+      TaskService_default.taskAddTimes(1011);
     }
     stealFood(data) {
       return __async(this, null, function* () {
@@ -2531,6 +2532,7 @@
           if (scale > 1)
             scale = 1;
           bar.width = 130 * scale;
+          this.petBox.getChildByName("box").getChildByName("hungry").visible = !e;
         }
       }).key("digestCountDown", (e) => {
         Laya.timer.clear(this, this.digestCountDown);
@@ -3042,6 +3044,7 @@
         } else {
           this.petBox.visible = false;
         }
+        this.petBox.getChildByName("box").visible = false;
       } else {
         this.outCountDownNumber = 60;
         Laya.timer.clear(this, this.outCountDownEvent);
@@ -3060,6 +3063,7 @@
         } else {
           this.petBox.visible = false;
         }
+        this.petBox.getChildByName("box").visible = true;
       }
       bottomList.forEach((e) => {
         e.disabled = this.isOuter;
@@ -3389,14 +3393,16 @@
         data: {
           friendId: data.uid
         }
-      }).then(() => {
+      }).then((d) => {
         this.friendsList = [];
         this.itemList.array = this.friendsList;
         this.itemList.refresh();
         core_default.view.openHint({ text: "\u5DF2\u53D1\u9001\u6FC0\u60C5", call: () => {
         } });
         this.canClick = true;
-        TaskService_default.taskAddTimes(1009);
+        if (d.taskState) {
+          TaskService_default.taskAddTimes(1009);
+        }
       }).catch(() => {
         this.canClick = true;
       });

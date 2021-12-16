@@ -377,13 +377,15 @@ export default class FriendsView extends Core.gameScript {
                     friendId: data.uid,
                 },
             })
-            .then(() => {
+            .then((d: { status: boolean; taskState: boolean }) => {
                 this.friendsList = [];
                 this.itemList.array = this.friendsList;
                 this.itemList.refresh();
                 Core.view.openHint({ text: "已发送激情", call: () => {} });
                 this.canClick = true;
-                TaskService.taskAddTimes(1009);
+                if (d.taskState) {
+                    TaskService.taskAddTimes(1009);
+                }
             })
             .catch(() => {
                 this.canClick = true;

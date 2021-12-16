@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":870,
-    "selecteID":965,
+    "selectedBox":96,
+    "selecteID":870,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":967,
+    "maxID":970,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -61,7 +61,7 @@
             "compId":337,
             "child":[
                 ],
-            "$LOCKED":false
+            "$LOCKED":true
         },
         {
             "x":15,
@@ -142,14 +142,13 @@
                     "props":{"y":-57,"x":-106,"name":"house_box"},
                     "nodeParent":96,
                     "label":"house_box",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":101,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,landLevelUp",
                             "props":{"y":149,"x":657,"skin":"main_scene/img_landUpdate.png","name":"landLevelUp","anchorY":0.5,"anchorX":0.5},
@@ -179,7 +178,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,warehouse",
                             "props":{"y":272,"x":270,"skin":"main_scene/img_storehouseBuilding.png","name":"warehouse","anchorY":0.5,"anchorX":0.5},
@@ -206,10 +204,10 @@
                                     "compId":121,
                                     "child":[
                                         ]
-                                }]
+                                }],
+                            "$HIDDEN":true
                         },
                         {
-                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,figure_box",
                             "props":{"y":209,"x":520,"name":"figure_box"},
@@ -311,7 +309,6 @@
                             "$HIDDEN":true
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,shop",
                             "props":{"y":252,"x":1003,"skin":"main_scene/img_marketBuilding.png","name":"shop","anchorY":0.5,"anchorX":0.5},
@@ -342,20 +339,18 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,figure2_box",
                             "props":{"y":209,"x":521,"name":"figure2_box"},
                             "nodeParent":101,
                             "label":"figure2_box",
-                            "isOpen":true,
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":895,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure1_ani",
                                     "props":{"y":40,"x":299,"width":100,"source":"res/figure1.atlas","name":"figure1_ani","interval":150,"height":100,"autoPlay":true},
@@ -385,7 +380,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure2_ani",
                                     "props":{"y":20,"x":240,"width":100,"source":"res/figure2.atlas","name":"figure2_ani","interval":150,"height":100,"autoPlay":true},
@@ -415,7 +409,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure5_ani",
                                     "props":{"y":-80,"x":13,"width":100,"source":"res/figure5.atlas","name":"figure5_ani","interval":150,"height":100,"autoPlay":true},
@@ -2101,17 +2094,16 @@
                     "x":30,
                     "type":"Box",
                     "searchKey":"Box,dog_box",
-                    "props":{"y":1058,"x":718,"width":237,"name":"dog_box","mouseEnabled":true,"height":256},
+                    "props":{"zOrder":10,"y":1058,"x":718,"width":237,"name":"dog_box","mouseEnabled":true,"height":256},
                     "nodeParent":96,
                     "label":"dog_box",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":870,
                     "child":[
                         {
-                            "x":45,
                             "type":"Animation",
                             "searchKey":"Animation,dog_ani",
                             "props":{"y":-37,"x":-30,"width":185,"source":"res/dog_1001.atlas","name":"dog_ani","mouseEnabled":true,"interval":150,"height":249,"autoPlay":true},
@@ -2126,7 +2118,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,box",
                             "props":{"y":182,"x":12,"width":143,"skin":"main_scene/img_progressBarBg.png","name":"box"},
@@ -2139,7 +2130,6 @@
                             "compId":871,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,vitality_bar",
                                     "props":{"y":5,"x":6,"width":130,"skin":"main_scene/img_dogProgress.png","name":"vitality_bar","height":20},
@@ -2151,6 +2141,45 @@
                                     "compId":872,
                                     "child":[
                                         ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image,hungry",
+                                    "props":{"y":-391,"x":-417,"skin":"main_scene/img_dialogBg.png","name":"hungry"},
+                                    "nodeParent":871,
+                                    "label":"hungry",
+                                    "isOpen":true,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":967,
+                                    "child":[
+                                        {
+                                            "type":"Label",
+                                            "searchKey":"Label,lb",
+                                            "props":{"y":54,"x":76,"text":"我饿了。。。","name":"lb","fontSize":38,"font":"Microsoft YaHei","color":"#906344","bold":true,"align":"center"},
+                                            "nodeParent":967,
+                                            "label":"lb",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":968,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"Image",
+                                            "searchKey":"Image",
+                                            "props":{"y":167,"x":369.5,"skin":"main_scene/img_dialogBg2.png"},
+                                            "nodeParent":967,
+                                            "label":"Image",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":969,
+                                            "child":[
+                                                ]
+                                        }]
                                 }]
                         }]
                 }],
@@ -2811,13 +2840,14 @@
             "props":{"x":-13,"width":1162,"name":"bottom_box","height":289,"bottom":0},
             "nodeParent":2,
             "label":"bottom_box",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":243,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":123,"x":15,"skin":"main_scene/img_menuWoodBg.png"},
@@ -2831,6 +2861,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,task",
                     "props":{"zOrder":1,"y":167,"x":169,"skin":"main_scene/img_daytimeTask.png","name":"task","anchorY":0.5,"anchorX":0.5},
@@ -2860,6 +2891,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,signIn",
                     "props":{"y":167,"x":362,"skin":"main_scene/img_clock.png","name":"signIn","anchorY":0.5,"anchorX":0.5},
@@ -2889,6 +2921,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,friends",
                     "props":{"y":141,"x":554,"skin":"main_scene/img_friend.png","name":"friends","anchorY":0.5,"anchorX":0.5},
@@ -2918,6 +2951,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,mail",
                     "props":{"zOrder":1,"y":167,"x":747,"skin":"main_scene/img_emailMenu.png","name":"mail","anchorY":0.5,"anchorX":0.5},
@@ -2947,6 +2981,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,any_door",
                     "props":{"zOrder":1,"y":167,"x":939,"skin":"main_scene/img_hangOut.png","name":"any_door","anchorY":0.5,"anchorX":0.5},
@@ -2976,18 +3011,20 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,msg_box",
                     "props":{"y":-59,"x":-10,"width":689,"skin":"main_scene/img_taskBg2.png","rotation":0,"name":"msg_box","height":86},
                     "nodeParent":243,
                     "label":"msg_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":244,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,icon",
                             "props":{"y":34,"skin":"main_scene/img_coinBtn.png","right":-24,"name":"icon","anchorY":0.5,"anchorX":0.5},
@@ -3000,6 +3037,7 @@
                             "compId":274,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"FontClip",
                                     "searchKey":"FontClip,amountFont",
                                     "props":{"y":73,"x":37,"value":"x100","spaceX":-8,"skin":"main_scene/fontClip_coinBtnNumber.png","sheet":"0123456789x","name":"amountFont","anchorY":0.5,"anchorX":0.5,"align":"center"},
@@ -3014,6 +3052,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,lb",
                             "props":{"y":24,"x":33,"text":"任务：辣椒(3/10) 胡萝卜(10/10)","name":"lb","fontSize":38,"font":"Microsoft YaHei","color":"#906344","bold":true},
@@ -3029,6 +3068,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,go_home",
                     "props":{"zOrder":1,"y":171,"x":936,"skin":"game/img_goHome.png","name":"go_home","anchorY":0.5,"anchorX":0.5},
@@ -3059,6 +3099,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,vitality_box",
                     "props":{"y":-51,"x":134,"skin":"game/img_energyBarBg.png","name":"vitality_box"},
