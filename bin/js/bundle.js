@@ -4136,7 +4136,7 @@
       this.dataList = TableAnalyze_default.table("order").list;
       let orderOldLv = UserInfo_default.orderLevel || 0;
       this.dataList.sort((a, b) => {
-        return a.id * (b.id <= orderOldLv ? -1 : 1);
+        return a.id + (a.id <= orderOldLv ? 2e3 : 0) - (b.id + (b.id <= orderOldLv ? 2e3 : 0));
       });
       this.orderList.array = this.dataList;
       this.orderList.renderHandler = new Laya.Handler(this, this.renderList);
