@@ -4001,11 +4001,6 @@
         icon.scale(0.7, 0.7);
         icon.anchorX = 0.5;
         itemNode.getChildByName("lb").text = `x${itemsBack[x].amount}`;
-        plant.gain.forEach((d2) => {
-          if (d2.obj.id == ConfigGame_default.diamondId)
-            return;
-          lostGold += d2.count * itemsBack[x].amount;
-        });
         this.centerPanel.addChild(itemNode);
       }
       this.lostLb.y = 114;
