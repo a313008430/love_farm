@@ -5503,9 +5503,7 @@
   // src/Main.ts
   var Main = class {
     constructor() {
-      if (navigator.userAgent.indexOf("iPhone") > -1) {
-        Config.useWebGL2 = false;
-      }
+      Config.useWebGL2 = false;
       if (window["Laya3D"])
         Laya3D.init(GameConfig.width, GameConfig.height);
       else
