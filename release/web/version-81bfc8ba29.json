@@ -108,5 +108,6 @@
   "scenes/views/TaskView.json": "scenes/views/TaskView-848c330910.json",
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-ad12d45048.json",
   "scenes/views/WithdrawRecordView.json": "scenes/views/WithdrawRecordView-da13a8c1de.json",
-  "unpack.json": "unpack-2e418a710a.json"
+  "unpack.json": "unpack-2e418a710a.json",
+  "version.json": "version-81bfc8ba29.json"
 }
