@@ -230,7 +230,12 @@ export default class LoginView extends GameScript {
 
                 if (data) {
                     if (data.code) {
-                        Core.view.openHint({ text: `微信登录失败[${data.code}]` });
+                        Core.view.openHint({
+                            text: `微信登录失败[${data.code}]，请重试`,
+                            call: () => {
+                                location.reload();
+                            },
+                        });
                     } else {
                         wxOpenId = data.data["openid"];
                         avatar = data.data["iconurl"];
@@ -286,7 +291,12 @@ export default class LoginView extends GameScript {
                     }).then((data: AppDespatchReturnData) => {
                         if (data) {
                             if (data.code) {
-                                Core.view.openHint({ text: `登录失败[${data.code}]` });
+                                Core.view.openHint({
+                                    text: `登录失败[${data.code}]`,
+                                    call: () => {
+                                        location.reload();
+                                    },
+                                });
                             } else {
                                 ConfigGame.channel = data.data["channel"];
                             }

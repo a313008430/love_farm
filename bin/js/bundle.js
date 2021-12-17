@@ -3821,7 +3821,12 @@
             });
             if (data) {
               if (data.code) {
-                core_default.view.openHint({ text: `\u5FAE\u4FE1\u767B\u5F55\u5931\u8D25[${data.code}]` });
+                core_default.view.openHint({
+                  text: `\u5FAE\u4FE1\u767B\u5F55\u5931\u8D25[${data.code}]\uFF0C\u8BF7\u91CD\u8BD5`,
+                  call: () => {
+                    location.reload();
+                  }
+                });
               } else {
                 wxOpenId = data.data["openid"];
                 avatar = data.data["iconurl"];
@@ -3872,7 +3877,12 @@
             }).then((data) => {
               if (data) {
                 if (data.code) {
-                  core_default.view.openHint({ text: `\u767B\u5F55\u5931\u8D25[${data.code}]` });
+                  core_default.view.openHint({
+                    text: `\u767B\u5F55\u5931\u8D25[${data.code}]`,
+                    call: () => {
+                      location.reload();
+                    }
+                  });
                 } else {
                   ConfigGame_default.channel = data.data["channel"];
                 }
