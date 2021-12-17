@@ -94,7 +94,7 @@ export default class AppCore {
         //监听手机关闭事件响应
 
         window["appResponse"] = (d: AppDespatchReturnData) => {
-            alert(`back ${JSON.stringify(d)}`);
+            // alert(`back ${JSON.stringify(d)}`);
 
             // Core.view.openHint({ text: JSON.stringify(d), call: () => {} });
             // alert(d?.timestamp);
