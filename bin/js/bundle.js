@@ -596,7 +596,6 @@
     }
     static listenAppFunction() {
       window["appResponse"] = (d) => {
-        alert(`back ${JSON.stringify(d)}`);
         if (EventMap.has(d == null ? void 0 : d.timestamp)) {
           EventMap.get(d.timestamp)(d);
         }
