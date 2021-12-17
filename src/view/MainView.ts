@@ -1029,7 +1029,11 @@ export default class MainView extends Core.gameScript {
     }
 
     @Core.eventOn(EventMaps.go_home)
-    private goHomeNodeData() {
+    private goHomeNodeData(updateOutTime = false) {
+        if (updateOutTime) {
+            //这里主要是为了处理好友访问失败，更新离开时间
+            this.outerTime = Date.now();
+        }
         this.isOuter = false;
         Laya.timer.once(300, this, () => {
             Core.view.setOverView(false);
@@ -1077,7 +1081,6 @@ export default class MainView extends Core.gameScript {
         let lands = this.landList,
             userLands = LandService.list;
         let otherLands: Map<number, LandObj> = new Map();
-
         if (this.isOuter) {
             d.lands.forEach((e) => {
                 otherLands.set(e.id, e);
@@ -1099,6 +1102,7 @@ export default class MainView extends Core.gameScript {
 
         for (let x = 0; x < lands.length; x++) {
             const land = lands[x];
+
             if (this.isOuter) {
                 land.isOuter = true;
                 land.stealUid = d.uid;
@@ -1114,7 +1118,7 @@ export default class MainView extends Core.gameScript {
                 land.canSteal = false;
                 land.isOuter = false;
                 land.stealUid = null;
-                land.updateData({ list: userLands });
+                land.updateData({ list: null });
             }
 
             land.plantIconAni(Boolean(land.data?.productId));

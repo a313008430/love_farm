@@ -2978,7 +2978,10 @@
         });
       });
     }
-    goHomeNodeData() {
+    goHomeNodeData(updateOutTime = false) {
+      if (updateOutTime) {
+        this.outerTime = Date.now();
+      }
       this.isOuter = false;
       Laya.timer.once(300, this, () => {
         core_default.view.setOverView(false);
@@ -3046,7 +3049,7 @@
           land.canSteal = false;
           land.isOuter = false;
           land.stealUid = null;
-          land.updateData({ list: userLands });
+          land.updateData({ list: null });
         }
         land.plantIconAni(Boolean((_a = land.data) == null ? void 0 : _a.productId));
       }
@@ -3368,7 +3371,7 @@
         HttpControl.inst.send({
           api: ApiHttp.friendVisit,
           data: {
-            friendId: data.uid + 1
+            friendId: data.uid
           }
         }).then((d) => {
           core_default.view.close(Res_default.views.FriendsView);
@@ -3379,7 +3382,7 @@
           }, 300);
         }).catch(() => {
           this.canClick = true;
-          core_default.eventGlobal.event(EventMaps.go_home);
+          core_default.eventGlobal.event(EventMaps.go_home, [true]);
         });
       }));
     }
