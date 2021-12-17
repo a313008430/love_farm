@@ -1,7 +1,7 @@
 {
   "fileconfig.json": "fileconfig-43ec8f47e9.json",
-  "index.js": "index-ddf747713e.js",
-  "js/bundle.js": "js/bundle-153caab785.js",
+  "index.js": "index-c4697b1345.js",
+  "js/bundle.js": "js/bundle-0c76e9eb88.js",
   "js/ps-N3BPHYGU.fs": "js/ps-N3BPHYGU-319562bd17.fs",
   "libs/min/bytebuffer.min.js": "libs/min/bytebuffer-9637a546e0.min.js",
   "libs/min/laya.ani.min.js": "libs/min/laya-a72326a604.ani.min.js",
@@ -19,7 +19,7 @@
   "res/atlas/main_scene.atlas": "res/atlas/main_scene-e5252efcb7.atlas",
   "res/atlas/main_scene.png": "res/atlas/main_scene-78b0b4aed8.png",
   "res/atlas/pet_feed.atlas": "res/atlas/pet_feed-3cf0af990e.atlas",
-  "res/atlas/pet_feed.png": "res/atlas/pet_feed-2e5ca68657.png",
+  "res/atlas/pet_feed.png": "res/atlas/pet_feed-564add4baf.png",
   "res/atlas/plant_icon.atlas": "res/atlas/plant_icon-c756d98efb.atlas",
   "res/atlas/plant_icon.png": "res/atlas/plant_icon-714b44a199.png",
   "res/audio/BGM.mp3": "res/audio/BGM-2c57b583bc.mp3",
@@ -109,5 +109,5 @@
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-ad12d45048.json",
   "scenes/views/WithdrawRecordView.json": "scenes/views/WithdrawRecordView-da13a8c1de.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-5c935c4ef9.json"
+  "version.json": "version-6b27f3daca.json"
 }
