@@ -1,7 +1,7 @@
 {
   "fileconfig.json": "fileconfig-43ec8f47e9.json",
-  "index.js": "index-38eef26c78.js",
-  "js/bundle.js": "js/bundle-9a74a93ff0.js",
+  "index.js": "index-8b75bbaf9d.js",
+  "js/bundle.js": "js/bundle-ffec39a7ec.js",
   "js/ps-N3BPHYGU.fs": "js/ps-N3BPHYGU-319562bd17.fs",
   "libs/min/bytebuffer.min.js": "libs/min/bytebuffer-9637a546e0.min.js",
   "libs/min/laya.ani.min.js": "libs/min/laya-a72326a604.ani.min.js",
@@ -108,6 +108,5 @@
   "scenes/views/TaskView.json": "scenes/views/TaskView-848c330910.json",
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-ad12d45048.json",
   "scenes/views/WithdrawRecordView.json": "scenes/views/WithdrawRecordView-da13a8c1de.json",
-  "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-ad696ff28d.json"
+  "unpack.json": "unpack-2e418a710a.json"
 }
