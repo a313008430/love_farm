@@ -47,6 +47,7 @@
     EventMaps3["go_friend_home"] = "go_friend_home";
     EventMaps3["open_friend"] = "open_friend";
     EventMaps3["plant_sow"] = "plant_sow";
+    EventMaps3["add_diamond_gold"] = "add_diamond_gold";
   })(EventMaps || (EventMaps = {}));
   var AppEventMap;
   (function(AppEventMap2) {
@@ -89,6 +90,7 @@
     views3["SpeedUpView"] = "scenes/views/SpeedUpView.scene";
     views3["TaskView"] = "scenes/views/TaskView.scene";
     views3["WarehouseView"] = "scenes/views/WarehouseView.scene";
+    views3["WithdrawRecordView"] = "scenes/views/WithdrawRecordView.scene";
   })(views || (views = {}));
   var audios;
   (function(audios2) {
@@ -101,6 +103,7 @@
     audios2["BGM"] = "res/audio/BGM.mp3";
   })(audios || (audios = {}));
   var scenes = [
+    "scenes/views/WithdrawRecordView.scene",
     "scenes/views/WarehouseView.scene",
     "scenes/views/TaskView.scene",
     "scenes/views/SpeedUpView.scene",
@@ -156,6 +159,26 @@
     "res/figure1.atlas",
     "res/figure.png",
     "res/figure.atlas",
+    "res/dog_1010.png",
+    "res/dog_1010.atlas",
+    "res/dog_1009.png",
+    "res/dog_1009.atlas",
+    "res/dog_1008.png",
+    "res/dog_1008.atlas",
+    "res/dog_1007.png",
+    "res/dog_1007.atlas",
+    "res/dog_1006.png",
+    "res/dog_1006.atlas",
+    "res/dog_1005.png",
+    "res/dog_1005.atlas",
+    "res/dog_1004.png",
+    "res/dog_1004.atlas",
+    "res/dog_1003.png",
+    "res/dog_1003.atlas",
+    "res/dog_1002.png",
+    "res/dog_1002.atlas",
+    "res/dog_1001.png",
+    "res/dog_1001.atlas",
     "res/shader/vs.vs",
     "res/shader/ps.fs",
     "res/audio/zhongzhi.mp3",
@@ -1161,10 +1184,12 @@
     ApiHttp2["friendInviteList"] = "/friend/invite/list";
     ApiHttp2["friendInviteReceive"] = "/friend/invite/receive";
     ApiHttp2["friendVisit"] = "/friend/visit";
+    ApiHttp2["friendShare"] = "/friend/share";
     ApiHttp2["mailList"] = "/mail/list";
     ApiHttp2["mailRead"] = "/mail/read";
     ApiHttp2["mailDelete"] = "/mail/delete";
     ApiHttp2["withdraw"] = "/withdraw";
+    ApiHttp2["withdrawRecord"] = "/withdraw/record";
     ApiHttp2["configClient"] = "/config/client";
     ApiHttp2["guide"] = "/guide";
   })(ApiHttp || (ApiHttp = {}));
@@ -1467,12 +1492,15 @@
       super(...arguments);
       this.costIcon = null;
       this.costFont = null;
+      this.adBtn = null;
     }
     onOpened(d) {
       this.data = d;
       this.landData = TableAnalyze_default.table("config").get("unlock_land_cost").value[LandService_default.list.size];
       this.costIcon.skin = this.landData.obj.icon;
       this.costFont.value = this.landData.count + "";
+      this.adBtn.disabled = !UserInfo_default.advertiseTimes;
+      this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
     }
     onClick(e) {
       switch (e.target.name) {
@@ -1530,12 +1558,15 @@
       super(...arguments);
       this.priceLabel = null;
       this.priceIcon = null;
+      this.adBtn = null;
     }
     onOpened(e) {
       this.data = e;
       let costGoldCount = TableAnalyze_default.table("config").get("vitalityBuyCostGold").value;
       this.costGoldCount = costGoldCount;
       this.priceLabel.text = `\u4EF7\u683C\uFF1A${costGoldCount}`;
+      this.adBtn.disabled = !UserInfo_default.advertiseTimes;
+      this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
     }
     onClick(e) {
       switch (e.target.name) {
@@ -1578,15 +1609,21 @@
       super(...arguments);
       this.priceLabel = null;
       this.priceIcon = null;
-      this.desc = null;
+      this.lv = null;
+      this.reward = null;
+      this.probability = null;
+      this.adBtn = null;
     }
     onOpened(e) {
       this.data = e;
       let nextLand = TableAnalyze_default.table("landLevel").get(e.obj.level + 1);
       this.priceLabel.text = `\u4EF7\u683C\uFF1A${nextLand.cost.count}`;
       this.priceIcon.skin = nextLand.cost.obj.icon;
-      console.log(e, nextLand);
-      this.desc.text = `\u571F\u5730\u5347\u7EA7\u5230${e.obj.level + 1}\u7EA7\uFF0C\u6536\u76CA\u589E\u52A0${nextLand.gain * 100}% \u94BB\u77F3\u4EA7\u51FA\u6982\u7387\u589E\u52A0${Number((nextLand.probability * 100).toFixed(2))}%`;
+      this.lv.text = `${e.obj.level + 1}\u7EA7`;
+      this.reward.text = `+${Number((nextLand.gain * 100).toFixed(2))}%`;
+      this.probability.text = `+${Number((nextLand.probability * 100).toFixed(2))}%`;
+      this.adBtn.disabled = !UserInfo_default.advertiseTimes;
+      this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
     }
     onClick(e) {
       switch (e.target.name) {
@@ -1667,6 +1704,19 @@
             uri: AppEventMap.wxShare,
             data: {},
             timestamp: Date.now()
+          }).then((d) => {
+            if (d.code) {
+              core_default.view.openHint({ text: d.data["message"], call: () => {
+              } });
+            } else {
+              core_default.view.openHint({ text: d.data["message"], call: () => {
+              } });
+              HttpControl.inst.send({
+                api: ApiHttp.friendShare
+              }).then(() => {
+                TaskService_default.taskAddTimes(1010);
+              });
+            }
           });
           break;
         case "submit":
@@ -1938,7 +1988,6 @@
         this.data.matureTimeLeft -= TableAnalyze_default.table("config").get("all_speed_up_time").value;
         this.matureTime = this.data.matureTimeLeft * 1e3 + Date.now();
         this.updateCountDown();
-        console.log(11);
         this.reduceTime.visible = true;
         this.reduceTime.alpha = 0;
         this.reduceTime.y = -39;
@@ -1996,6 +2045,7 @@
           }
           if (this.data.productId) {
             if (this.data.matureTimeLeft) {
+              this.mainViewCom.hideGuideHand();
               console.log("\u52A0\u901F");
               core_default.view.open(Res_default.views.SpeedUpView, {
                 parm: {
@@ -2054,6 +2104,7 @@
             this.sow();
           }
         } else {
+          this.mainViewCom.hideGuideHand();
           core_default.view.open(Res_default.views.AddLandView, {
             parm: {
               id: this.fieldId,
@@ -2093,6 +2144,11 @@
       this.renderData();
       core_default.audio.playSound(Res_default.audios.zhongzhi);
       this.mainViewCom.updateAllStateIcon(this.data.id);
+      TaskService_default.taskAddTimes(1011);
+      AppCore.runAppFunction({
+        uri: AppEventMap.eventCount,
+        data: { type: "plant" }
+      });
     }
     stealFood(data) {
       return __async(this, null, function* () {
@@ -2116,6 +2172,11 @@
             uid: this.stealUid
           }
         }).then((d) => {
+          AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "Stealvegetables" }
+          });
+          TaskService_default.taskAddTimes(1004);
           this.canClick = true;
           UserInfo_default.vitality = d.vitality;
           this.canSteal = false;
@@ -2216,6 +2277,8 @@
       this.moneyLb = null;
       this.getRewardPrefab = null;
       this.floatRewardIcon = null;
+      this.goldAdd = null;
+      this.diamondAdd = null;
       this.goHomeBtn = null;
       this.anyDoor = null;
       this.vitalityBox = null;
@@ -2235,28 +2298,13 @@
       this.isOuter = false;
       this.outCountDownNumber = 60;
       this.canClick = true;
+      this.guideHand = null;
+      this.guidIdList = [1, 2, 3, 5];
+      this.hasGuide = false;
       this.orderQueueIng = false;
     }
     onOpened() {
       _MainView.inst = this;
-      [
-        "res/loadingBg.png",
-        "res/img_woodtitle.png",
-        "res/img_storeHouseBg.png",
-        "res/img_storebg.png",
-        "res/img_shelf.png",
-        "res/img_popUpBg.png",
-        "res/img_landBg.png",
-        "res/img_inviteBg1.png",
-        "res/img_housetop.png",
-        "res/img_farmlandLogo.png",
-        "res/atlas/plant_icon.png",
-        "res/atlas/pet_feed.png",
-        "res/atlas/main_scene.png"
-      ].forEach((e) => {
-        if (e.endsWith("png"))
-          Laya.loader.clearTextureRes(e);
-      });
       Laya.timer.frameOnce(1, this, () => {
         this.updateTask();
       });
@@ -2286,10 +2334,15 @@
               this.step9
             ],
             call: () => {
+              this.timeGuide();
             }
           }
         });
+      } else {
+        this.timeGuide();
       }
+      this.guidHandAnimation();
+      this.guideHand.visible = false;
     }
     onHdAwake() {
       Laya.stage.addChild(this.topLayerOnStage);
@@ -2310,9 +2363,92 @@
         this.updateHitLandAdd();
         this.updateAllStateIcon();
       });
-      this.figureAniEvent();
     }
-    figureAniEvent() {
+    timeGuide() {
+      Laya.stage.on(Laya.Event.MOUSE_DOWN, this, this.timeGuideTouch);
+      this.timeGuideTouch();
+    }
+    timeGuideTouch() {
+      Laya.timer.clear(this, this.timeGuideAction);
+      Laya.timer.once(15e3, this, this.timeGuideAction);
+    }
+    timeGuideAction() {
+      if (this.hasGuide || this.isOuter) {
+        return;
+      }
+      this.timeGuideTouch();
+      this.guideHand.visible = true;
+      this.updateGuideTask();
+    }
+    hideGuideHand() {
+      this.guideHand.visible = false;
+      this.timeGuide();
+      this.hasGuide = false;
+    }
+    updateGuideTask() {
+      var _a, _b;
+      let landEmpty = false, land, unlockLand;
+      for (let x = 0; x < this.landList.length; x++) {
+        if (this.landList[x].data && !this.landList[x].data.productId) {
+          landEmpty = true;
+          break;
+        } else {
+          if (((_a = this.landList[x].data) == null ? void 0 : _a.productId) && ((_b = this.landList[x].data) == null ? void 0 : _b.matureTimeLeft)) {
+            land = this.landList[x];
+            break;
+          }
+        }
+      }
+      for (let x = 0; x < this.landList.length; x++) {
+        if (!this.landList[x].data) {
+          unlockLand = this.landList[x];
+          break;
+        }
+      }
+      if (!unlockLand && this.guidIdList.indexOf(5) > -1) {
+        this.guidIdList.splice(this.guidIdList.indexOf(5), 1);
+        console.log(this.guidIdList);
+      }
+      this.hasGuide = true;
+      let pos = { x: 0, y: 0 };
+      if (landEmpty) {
+        pos = this.getNodeTopLayerPos(this.step4);
+      } else {
+        if (!land) {
+          return null;
+        }
+        let id = this.guidIdList[Math.floor(Math.random() * this.guidIdList.length)];
+        switch (id) {
+          case 1:
+            pos = this.getNodeTopLayerPos(land.owner);
+            pos.x += 100;
+            pos.y += 100;
+            break;
+          case 2:
+            pos = this.getNodeTopLayerPos(this.step9);
+            pos.x += 100;
+            pos.y += 100;
+            break;
+          case 3:
+            pos = this.getNodeTopLayerPos(this.step5);
+            pos.x += 100;
+            pos.y += 100;
+            break;
+          case 5:
+            pos = this.getNodeTopLayerPos(unlockLand.owner);
+            pos.x += 100;
+            pos.y += 100;
+            break;
+        }
+      }
+      this.guideHand.pos(pos.x, pos.y);
+    }
+    getNodeTopLayerPos(node) {
+      return this.topLayerOnStage.globalToLocal(node.parent.localToGlobal(new Laya.Point(node.x, node.y)));
+    }
+    guidHandAnimation() {
+      this.guidHandAni = Laya.TimeLine.to(this.guideHand, { rotation: -15 }, 400, null).to(this.guideHand, { rotation: 0 }, 400);
+      this.guidHandAni.play(null, true);
     }
     updateHitLandAdd() {
       let guidLand;
@@ -2372,7 +2508,7 @@
       }).key("warePetId", (e) => {
         if (e) {
           this.petBox.visible = true;
-          this.petBox.getChildByName("dog").skin = TableAnalyze_default.table("pet").get(e).icon;
+          this.petBox.getChildByName("dog_ani").source = `res/dog_${e}.atlas`;
         } else {
           this.petBox.visible = false;
         }
@@ -2385,6 +2521,7 @@
           if (scale > 1)
             scale = 1;
           bar.width = 130 * scale;
+          this.petBox.getChildByName("box").getChildByName("hungry").visible = !e;
         }
       }).key("digestCountDown", (e) => {
         Laya.timer.clear(this, this.digestCountDown);
@@ -2439,6 +2576,7 @@
           break;
         case "shop":
           core_default.view.open(Res_default.views.ShopView);
+          this.hideGuideHand();
           break;
         case "head":
           core_default.view.open(Res_default.views.SettingView);
@@ -2452,7 +2590,7 @@
         case "dog_house":
           core_default.view.open(Res_default.views.ShopView, { parm: { id: 1 } });
           break;
-        case "dog":
+        case "dog_ani":
           core_default.view.open(Res_default.views.ShopView, { parm: { id: 2 } });
           break;
         case "diamond_box":
@@ -2575,9 +2713,18 @@
           }
         }
         if (reward) {
-          let btnBox = box.getChildByName("btn_box").getChildByName("box");
-          btnBox.getChildByName("icon").skin = reward.obj.icon;
-          btnBox.getChildByName("value").value = `${rewardCount + Math.round(rewardCount * d.commission)}`;
+          let goldBox = box.getChildByName("gold_box"), diamondBox = box.getChildByName("diamond_box");
+          goldBox.getChildByName("icon").skin = reward.obj.icon;
+          goldBox.getChildByName("value").value = `${rewardCount + Math.round(rewardCount * d.commission)}`;
+          if (d.extraReward) {
+            diamondBox.getChildByName("icon").skin = d.extraReward.obj.icon;
+            diamondBox.getChildByName("value").value = `${d.extraReward.count}`;
+            diamondBox.visible = true;
+            goldBox.y = 46;
+          } else {
+            goldBox.y = 66;
+            diamondBox.visible = false;
+          }
         }
         box.getChildByName("name_title").text = `\u5B8C\u6210${UserInfo_default.orderLevel + 1}\u7EA7\u8BA2\u5355`;
         if (progress == d.condition.length) {
@@ -2594,15 +2741,22 @@
             });
             this.orderQueueIng = false;
             UserInfo_default.orderLevel++;
+            let reward2 = [];
+            reward2.push({
+              obj: TableAnalyze_default.table("currency").get(ConfigGame_default.goldId),
+              count: rewardCount + Math.round(rewardCount * d.commission),
+              posType: 1
+            });
+            if (d.extraReward) {
+              reward2.push({
+                obj: TableAnalyze_default.table("currency").get(d.extraReward.obj.id),
+                count: d.extraReward.count,
+                posType: 2
+              });
+            }
             this.playGetRewardAni({
-              node: box.getChildByName("btn_box"),
-              list: [
-                {
-                  obj: TableAnalyze_default.table("currency").get(ConfigGame_default.goldId),
-                  count: rewardCount + Math.round(rewardCount * d.commission),
-                  posType: 1
-                }
-              ],
+              node: box.getChildByName("gold_box"),
+              list: reward2,
               callBack: () => {
                 this.updateOrder();
               }
@@ -2616,6 +2770,7 @@
     switchLandLevelUp(show) {
       let bg = this.landUpLayer.getChildByName("bg");
       if (show) {
+        this.hideGuideHand();
         bg.alpha = 0;
         Laya.Tween.to(bg, { alpha: 0.75 }, 150);
         this.landUpLayer.getChildByName("land_outer").addChild(this.landBox);
@@ -2684,6 +2839,16 @@
         node.pos(nodeNewPos.x + obj.node.get_width() * obj.node.anchorX, nodeNewPos.y - i * 60);
         this.topLayerOnStage.addChild(node);
         node.getChildByName("count").value = "x" + d.count;
+        if (!(obj == null ? void 0 : obj.notFly)) {
+          switch (d.posType) {
+            case 1:
+              this.addGoldDiamondAni(this.goldAdd, d.count);
+              break;
+            case 2:
+              this.addGoldDiamondAni(this.diamondAdd, d.count);
+              break;
+          }
+        }
         Laya.Tween.to(node, { y: node.y - 40, alpha: 1 }, 150, null, Laya.Handler.create(this, (e) => {
           Laya.timer.once(1e3, this, () => {
             Laya.Pool.recover("floatRewardBox", e);
@@ -2721,6 +2886,18 @@
           });
         }, [node]), 50 * i, null, true);
       });
+    }
+    addGoldDiamondAni(node, count) {
+      node.visible = true;
+      node.alpha = 0;
+      node.value = `+${count}`;
+      node.y = 30;
+      node.offAll();
+      Laya.Tween.to(node, { alpha: 1, y: -30 }, 500, null, new Laya.Handler(this, () => {
+        Laya.timer.once(2e3, this, () => {
+          node.alpha = 0;
+        });
+      }));
     }
     playAdReward(target) {
       const reward = TableAnalyze_default.table("config").get("Videorewards").value;
@@ -2763,6 +2940,7 @@
       });
     }
     goToNeighbor() {
+      this.hideGuideHand();
       core_default.view.setOverView(true, () => {
         HttpControl.inst.send({
           api: ApiHttp.neighbor,
@@ -2827,16 +3005,13 @@
       }
       this.updateAllStateIcon();
       if (this.isOuter) {
-        this.petBox.visible = false;
         this.taskBox.visible = false;
       } else {
-        if (UserInfo_default.warePetId)
-          this.petBox.visible = true;
         this.taskBox.visible = true;
       }
-      this.updateFriendView(d == null ? void 0 : d.nickname, friendData);
+      this.updateFriendView(d == null ? void 0 : d.nickname, friendData, d == null ? void 0 : d.dogId);
     }
-    updateFriendView(nickname = "", friendData) {
+    updateFriendView(nickname = "", friendData, pedId) {
       const topBox = this.orderBox.parent, moneyBox = topBox.getChildByName("money_box"), countDown = topBox.getChildByName("count_down"), orderBox = this.orderBox.getChildByName("order_box"), friendName = this.orderBox.getChildByName("friend_name"), bottomList = [
         this.bottomBox.getChildByName("task"),
         this.bottomBox.getChildByName("signIn"),
@@ -2852,6 +3027,13 @@
         Laya.timer.loop(1e3, this, this.outCountDownEvent, [countDown]);
         if (friendData == null ? void 0 : friendData.avatar)
           this.avatarNode.skin = friendData == null ? void 0 : friendData.avatar;
+        if (pedId) {
+          this.petBox.visible = true;
+          this.petBox.getChildByName("dog_ani").source = `res/dog_${pedId}.atlas`;
+        } else {
+          this.petBox.visible = false;
+        }
+        this.petBox.getChildByName("box").visible = false;
       } else {
         this.outCountDownNumber = 60;
         Laya.timer.clear(this, this.outCountDownEvent);
@@ -2859,8 +3041,18 @@
         friendName.visible = false;
         moneyBox.visible = true;
         countDown.visible = false;
-        if (UserInfo_default.avatar)
+        if (UserInfo_default.avatar) {
           this.avatarNode.skin = UserInfo_default.avatar;
+        } else {
+          this.avatarNode.skin = `main_scene/img_defaultPortrait.png`;
+        }
+        if (UserInfo_default.warePetId) {
+          this.petBox.visible = true;
+          this.petBox.getChildByName("dog_ani").source = `res/dog_${UserInfo_default.warePetId}.atlas`;
+        } else {
+          this.petBox.visible = false;
+        }
+        this.petBox.getChildByName("box").visible = true;
       }
       bottomList.forEach((e) => {
         e.disabled = this.isOuter;
@@ -2873,6 +3065,10 @@
         Laya.timer.clear(this, this.outCountDownEvent);
         this.goHome();
       }
+    }
+    onHdDestroy() {
+      var _a;
+      (_a = this.guidHandAni) == null ? void 0 : _a.destroy();
     }
   };
   var MainView = _MainView;
@@ -3174,6 +3370,10 @@
         data.applyIng = 0;
         this.itemList.refresh();
         this.canClick = true;
+        AppCore.runAppFunction({
+          uri: AppEventMap.eventCount,
+          data: { type: "Addfriends" }
+        });
       }).catch(() => {
         this.canClick = true;
       });
@@ -3186,13 +3386,16 @@
         data: {
           friendId: data.uid
         }
-      }).then(() => {
+      }).then((d) => {
         this.friendsList = [];
         this.itemList.array = this.friendsList;
         this.itemList.refresh();
         core_default.view.openHint({ text: "\u5DF2\u53D1\u9001\u6FC0\u60C5", call: () => {
         } });
         this.canClick = true;
+        if (d.taskState) {
+          TaskService_default.taskAddTimes(1009);
+        }
       }).catch(() => {
         this.canClick = true;
       });
@@ -3287,6 +3490,8 @@
       }
       if (!this.textList[this.step]) {
         core_default.view.close(Res_default.views.GuideView);
+        if (this.data.call)
+          this.data.call();
         return;
       }
       const node = this.data.nodeList[this.step];
@@ -3453,7 +3658,6 @@
     }
     onHdAwake() {
       EventGlobal_default.on(EventMaps.load_progress, this, this.loadProgress);
-      console.log("awake2");
     }
     onHdEnable() {
       this.loadBarOldWidth = this.loadBar.width;
@@ -3579,6 +3783,10 @@
                   ConfigGame_default.channel = data.data["channel"];
               }
             });
+            AppCore.runAppFunction({
+              uri: AppEventMap.eventCount,
+              data: { type: "Signin" }
+            });
           }).catch(() => {
             this.canClick = true;
             this.loginBox.visible = true;
@@ -3669,6 +3877,10 @@
                   ConfigGame_default.channel = data.data["channel"];
                 }
               }
+            });
+            AppCore.runAppFunction({
+              uri: AppEventMap.eventCount,
+              data: { type: "Signin" }
             });
           }).catch(() => {
             this.canClick = true;
@@ -3790,11 +4002,6 @@
         icon.scale(0.7, 0.7);
         icon.anchorX = 0.5;
         itemNode.getChildByName("lb").text = `x${itemsBack[x].amount}`;
-        plant.gain.forEach((d2) => {
-          if (d2.obj.id == ConfigGame_default.diamondId)
-            return;
-          lostGold += d2.count * itemsBack[x].amount;
-        });
         this.centerPanel.addChild(itemNode);
       }
       this.lostLb.y = 114;
@@ -3919,22 +4126,37 @@
       this.orderList = null;
       this.btnLockRes = null;
       this.btnResCur = null;
+      this.topDesc = null;
     }
     onOpened() {
       this.dataList = TableAnalyze_default.table("order").list;
       let orderOldLv = UserInfo_default.orderLevel || 0;
       this.dataList.sort((a, b) => {
-        return a.id * (b.id <= orderOldLv ? -1 : 1);
+        return a.id + (a.id <= orderOldLv ? 2e3 : 0) - (b.id + (b.id <= orderOldLv ? 2e3 : 0));
       });
       this.orderList.array = this.dataList;
       this.orderList.renderHandler = new Laya.Handler(this, this.renderList);
       this.orderList.vScrollBarSkin = null;
-      console.log(this.dataList);
+      let step = 0, reward;
+      for (let x = 0; x < this.dataList.length; x++) {
+        if (this.dataList[x].id >= UserInfo_default.orderLevel) {
+          step++;
+          if (this.dataList[x].extraReward) {
+            reward = this.dataList[x].extraReward;
+            break;
+          }
+        }
+      }
+      if (step) {
+        let withdrawal = TableAnalyze_default.table("config").get("withdrawal").value;
+        this.topDesc.getChildAt(0).text = step == 1 ? "\u5B8C\u6210\u5F53\u524D\u8BA2\u5355\u53EF\u83B7\u5F97\u7EA2\u5305" : `\u518D\u5B8C\u6210${step}\u5355\u53EF\u83B7\u5F97\u7EA2\u5305`;
+        this.topDesc.getChildAt(1).text = `${(Number(withdrawal[2]) / Number(withdrawal[1]) * reward.count).toString().match(/^\d+(?:\.\d{0,2})?/)}`;
+      }
     }
     renderList(cell, i) {
       var _a;
-      let d = this.dataList[i], reward, rewardCount = 0, curCount = 0, maxCount = 0, progress = 0, rewardBox = cell.getChildByName("reward_box");
-      cell.getChildByName("order_lv").text = `${d.id}\u7EA7\u8BA2\u5355`;
+      let d = this.dataList[i], reward, rewardCount = 0, curCount = 0, maxCount = 0, progress = 0, rewardBox = cell.getChildByName("reward_box"), order_lv = cell.getChildByName("order_lv");
+      order_lv.text = `${d.id}\u7EA7\u8BA2\u5355`;
       for (let x = 0; x < 4; x++) {
         let item = cell.getChildByName("item_" + x);
         if (d.condition[x]) {
@@ -3965,19 +4187,48 @@
         }
       }
       let diamond = cell.getChildByName("reward_box_diamond");
-      let btn = cell.getChildByName("btn");
+      let btn = cell.getChildByName("btn"), finishIcon = cell.getChildByName("finish"), curIcon = cell.getChildByName("cur_icon"), lv_box = cell.getChildByName("lv_box");
+      finishIcon.visible = false;
+      curIcon.visible = false;
       diamond.visible = false;
       btn.visible = true;
+      rewardBox.y = 57;
+      lv_box.visible = true;
+      order_lv.visible = true;
       if (d.id > UserInfo_default.orderLevel + 1) {
         btn.skin = this.btnLockRes;
         btn.active = false;
+        if (d.extraReward) {
+          btn.visible = false;
+          diamond.getChildByName("icon").skin = d.extraReward.obj.icon;
+          diamond.getChildByName("value").text = `+${d.extraReward.count}`;
+          diamond.visible = true;
+        } else {
+          btn.visible = true;
+        }
       } else {
         if (d.id == UserInfo_default.orderLevel + 1) {
-          btn.skin = this.btnResCur;
+          if (d.extraReward) {
+            curIcon.visible = true;
+            lv_box.visible = false;
+            btn.visible = false;
+            order_lv.visible = false;
+            diamond.getChildByName("icon").skin = d.extraReward.obj.icon;
+            diamond.getChildByName("value").text = `+${d.extraReward.count}`;
+            diamond.visible = true;
+          } else {
+            btn.skin = this.btnResCur;
+          }
         } else {
           console.log("\u5DF2\u5B8C\u6210");
           btn.active = false;
           btn.visible = false;
+          finishIcon.visible = true;
+          if (d.extraReward) {
+            rewardBox.y = 57;
+          } else {
+            rewardBox.y = 100;
+          }
         }
       }
       if (reward) {
@@ -4398,7 +4649,23 @@
         case "withdraw_btn":
           this.withdraw();
           break;
+        case "record_btn":
+          this.openWithdrawRecord();
+          break;
       }
+    }
+    openWithdrawRecord() {
+      if (!this.canClick) {
+        return;
+      }
+      this.canClick = false;
+      HttpControl.inst.send({
+        api: ApiHttp.withdrawRecord,
+        data: {}
+      }).then((d) => {
+        this.canClick = true;
+        core_default.view.open(Res_default.views.WithdrawRecordView, { parm: d });
+      });
     }
     feedBuy() {
       let feed = this.getDataList()[this.itemListSelectIndex];
@@ -4423,7 +4690,7 @@
             {
               obj: feed.base,
               count: 1,
-              posType: 2
+              posType: 3
             }
           ],
           notFly: true
@@ -4526,7 +4793,7 @@
       if (!PetService_default.list.length)
         PetService_default.init([]);
       let pet = PetService_default.list[this.selectPetIndex];
-      this.petIcon.skin = pet.base.icon;
+      this.petIcon.source = `res/dog_${pet.base.id}.atlas`;
       this.petName.text = pet.base.name;
       this.petDesc.text = pet.base.desc;
       this.vitalityMax.value = pet.base.vitality_max + "";
@@ -4595,6 +4862,10 @@
         UserInfo_default.withdraw = d.list;
         UserInfo_default.diamond = d.diamond;
         this.priceList.refresh();
+        AppCore.runAppFunction({
+          uri: AppEventMap.eventCount,
+          data: { type: "Withdrawal" }
+        });
       }).catch(() => {
         this.canClick = true;
       });
@@ -4761,6 +5032,10 @@
             UserInfo_default.advertiseTimes = d.advertiseTimes;
             if (UserInfo_default.speedUpTimes == ConfigGame_default.ADSpeedUpTimes) {
               UserInfo_default.signInDays++;
+              AppCore.runAppFunction({
+                uri: AppEventMap.eventCount,
+                data: { type: "punchtheclock" }
+              });
             }
             core_default.view.close(Res_default.views.SpeedUpView);
             core_default.eventGlobal.event(EventMaps.land_speed_up);
@@ -4778,6 +5053,7 @@
     constructor() {
       super(...arguments);
       this.taskList = null;
+      this.canClick = true;
     }
     onOpened() {
       this.updateTaskList();
@@ -4823,7 +5099,10 @@
           ViewManager.inst.close(Res_default.views.TaskView);
           break;
         case "go_run":
+          if (!this.canClick)
+            return;
           let btnObj = e.target["dataSource"];
+          this.canClick = false;
           if (btnObj.ok) {
             HttpControl.inst.send({
               api: ApiHttp.taskReward,
@@ -4832,6 +5111,7 @@
               const task = TaskService_default.getTask(btnObj.id);
               task.receive = 1;
               btnObj.ok = false;
+              this.canClick = true;
               Laya.timer.frameOnce(1, this, () => {
                 this.updateTaskList();
                 this.taskList.refresh();
@@ -4868,6 +5148,7 @@
             if (adData == null ? void 0 : adData.code) {
               core_default.view.openHint({ text: `\u5E7F\u544A\u64AD\u653E\u5931\u8D25[${adData.code}]`, call: () => {
               } });
+              this.canClick = true;
               return;
             }
             HttpControl.inst.send({
@@ -4878,6 +5159,7 @@
               this.taskList.refresh();
               TaskService_default.taskAddTimes(1001);
               TaskService_default.taskAddTimes(1012);
+              this.canClick = true;
             });
             break;
           case 1002:
@@ -4892,6 +5174,7 @@
                 call: () => {
                 }
               });
+              this.canClick = true;
               return;
             }
             HttpControl.inst.send({
@@ -4905,6 +5188,7 @@
               TaskService_default.taskAddTimes(1001);
               TaskService_default.taskAddTimes(1012);
               TaskService_default.taskAddTimes(1002);
+              this.canClick = true;
             });
             break;
           case 1003:
@@ -4936,7 +5220,18 @@
             break;
           case 1010:
             core_default.view.close(Res_default.views.TaskView);
-            core_default.eventGlobal.event(EventMaps.open_friend, [1]);
+            HttpControl.inst.send({
+              api: ApiHttp.friendInviteList,
+              data: {}
+            }).then((d) => {
+              core_default.view.open(Res_default.views.FriendsRewardView, {
+                parm: {
+                  list: d.list,
+                  call: () => {
+                  }
+                }
+              });
+            });
             break;
           case 1011:
             core_default.view.close(Res_default.views.TaskView);
@@ -4971,6 +5266,8 @@
     }
     onOpened() {
       core_default.audio.playSound(Res_default.audios.dakaicangku);
+      this.sellAdBtn.disabled = !UserInfo_default.advertiseTimes;
+      this.sellAdBtn.active = Boolean(UserInfo_default.advertiseTimes);
     }
     onHdAwake() {
       this.itemList.renderHandler = new Laya.Handler(this, this.renderItemList);
@@ -5074,6 +5371,8 @@
                 type: btnName == "sellBtn" ? ConfigGame_default.ApiTypeDefault : ConfigGame_default.ApiTypeAD
               }
             }).then(() => {
+              this.sellAdBtn.disabled = !UserInfo_default.advertiseTimes;
+              this.sellAdBtn.active = Boolean(UserInfo_default.advertiseTimes);
               this.canClick = true;
               WarehouseService_default.reduceAmount(this.selectItemData.base.id, this.selectItemSellCount);
               this.dataList = [];
@@ -5150,6 +5449,35 @@
     }
   };
 
+  // src/view/WithdrawRecordView.ts
+  var WithdrawRecordView = class extends core_default.gameScript {
+    onOpened(e) {
+      e.sort((a, b) => b.time - a.time);
+      this.dataList = e;
+      this.list.array = e;
+      this.list.renderHandler = new Laya.Handler(this, this.itemRender);
+      this.list.vScrollBarSkin = null;
+      this.owner.getChildByName("empty_lb").visible = !e.length;
+    }
+    itemRender(cell, i) {
+      const d = this.dataList[i];
+      cell.getChildByName("reward_box").getChildByName("amount").text = `-${d.diamond}`;
+      cell.getChildByName("time").text = `${new Date(d.time).toLocaleString("zh-CN", { hour12: false })}`;
+      const state = cell.getChildByName("state_box").getChildByName("state");
+      let withdrawal = TableAnalyze_default.table("config").get("withdrawal").value;
+      cell.getChildByName("state_box").getChildByName("price").text = `${(Number(withdrawal[2]) / Number(withdrawal[1]) * d.diamond).toString().match(/^\d+(?:\.\d{0,2})?/)}\u5143`;
+      state.text = `${d.state ? "\u5BA1\u6838\u4E2D" : "\u5DF2\u5230\u8D26"}`;
+      state.color = d.state ? "#E93636" : "#5A3F2A";
+    }
+    onClick(e) {
+      switch (e.target.name) {
+        case "close":
+          core_default.view.close(Res_default.views.WithdrawRecordView);
+          break;
+      }
+    }
+  };
+
   // src/GameConfig.ts
   var GameConfig = class {
     constructor() {
@@ -5182,6 +5510,7 @@
       reg("view/SpeedUpView.ts", SpeedUpView);
       reg("view/TaskView.ts", TaskView);
       reg("view/WarehouseView.ts", WarehouseView);
+      reg("view/WithdrawRecordView.ts", WithdrawRecordView);
     }
   };
   GameConfig.width = 1080;
@@ -5201,6 +5530,9 @@
   // src/Main.ts
   var Main = class {
     constructor() {
+      if (navigator.userAgent.indexOf("iPhone") > -1) {
+        Config.useWebGL2 = false;
+      }
       if (window["Laya3D"])
         Laya3D.init(GameConfig.width, GameConfig.height);
       else

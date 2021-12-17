@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":39,
+    "selectedBox":3,
+    "selecteID":31,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/FriendsDescView.jpg","right":0,"left":0,"height":1920,"bottom":0,"autoDestroyAtClosed":true},
     "nodeParent":-1,
@@ -36,13 +36,14 @@
             "props":{"top":0,"right":0,"left":0,"bottom":0},
             "nodeParent":2,
             "label":"Panel",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":89,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":0,"x":0,"skin":"res/img_inviteBg1.png"},
@@ -55,6 +56,7 @@
                     "compId":3,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,invite_btn",
                             "props":{"y":828,"x":511,"skin":"game/img_ongKeyInvite.png","name":"invite_btn","mouseEnabled":true,"anchorY":0.5,"anchorX":0.5},
@@ -86,6 +88,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label",
                     "props":{"y":988,"x":39,"text":"好友说明：","fontSize":50,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
@@ -99,6 +102,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Box",
                     "searchKey":"Box",
                     "props":{"y":1054,"x":39,"width":1003,"renderType":"render","mouseEnabled":true,"height":206},
@@ -111,6 +115,7 @@
                     "compId":45,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,bg",
                             "props":{"y":0,"x":0,"skin":"game/img_listBg.png","name":"bg","alpha":1},
@@ -125,6 +130,7 @@
                             "$HIDDEN":false
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,head",
                             "props":{"y":35,"x":32,"width":126,"skin":"game/img_defaultPortrait.png","name":"head","height":126},
@@ -138,6 +144,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":149,"x":55,"skin":"game/img_levelBg.png"},
@@ -151,6 +158,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,heart_box",
                             "props":{"y":55,"x":504.5,"skin":"game/img_heart.png","name":"heart_box"},
@@ -178,6 +186,7 @@
                             "$HIDDEN":false
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,go_play_btn",
                             "props":{"y":103,"x":827,"skin":"game/img_hangout.png","name":"go_play_btn","anchorY":0.5,"anchorX":0.5},
@@ -193,6 +202,7 @@
                             "$HIDDEN":false
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,lv",
                             "props":{"y":153,"x":104,"text":"LV2","name":"lv","fontSize":20,"font":"Arial","color":"#ffffff","bold":true,"anchorX":0.5},
@@ -206,6 +216,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,name",
                             "props":{"y":52,"x":182,"text":"艾丽娅","name":"name","fontSize":46,"font":"Microsoft YaHei","color":"#755037","bold":true},
@@ -219,6 +230,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"HBox",
                             "searchKey":"HBox,reward_box",
                             "props":{"y":137,"x":178,"space":20,"name":"reward_box","anchorY":0.5,"align":"none"},
@@ -259,6 +271,7 @@
                             "$HIDDEN":false
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":102,"x":270,"skin":"game/img_one.png"},
@@ -272,6 +285,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":35,"x":577.5,"skin":"game/img_two.png"},
@@ -285,6 +299,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":24,"x":297,"skin":"game/img_three.png"},
@@ -300,6 +315,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Box",
                     "searchKey":"Box",
                     "props":{"y":1724,"x":39,"width":1003,"rotation":0,"renderType":"render","mouseEnabled":true,"height":206},
@@ -312,6 +328,7 @@
                     "compId":69,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,bg",
                             "props":{"y":0,"x":0,"skin":"game/img_listBg.png","name":"bg","alpha":1},
@@ -326,6 +343,7 @@
                             "$HIDDEN":false
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,head",
                             "props":{"y":35,"x":32,"width":126,"skin":"game/img_defaultPortrait.png","name":"head","height":126},
@@ -339,6 +357,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":149,"x":55,"skin":"game/img_levelBg.png"},
@@ -352,6 +371,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,lv",
                             "props":{"y":153,"x":104,"text":"LV2","name":"lv","fontSize":20,"font":"Arial","color":"#ffffff","bold":true,"anchorX":0.5},
@@ -365,6 +385,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,name",
                             "props":{"y":52,"x":182,"text":"艾丽娅","name":"name","fontSize":46,"font":"Microsoft YaHei","color":"#755037","bold":true},
@@ -378,6 +399,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"HBox",
                             "searchKey":"HBox,reward_box",
                             "props":{"y":137,"x":178,"space":20,"name":"reward_box","anchorY":0.5,"align":"none"},
@@ -418,6 +440,7 @@
                             "$HIDDEN":false
                         },
                         {
+                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,new_box",
                             "props":{"y":62,"x":497,"width":464,"name":"new_box","height":123},
@@ -474,6 +497,7 @@
                             "$HIDDEN":false
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":91,"x":269,"skin":"game/img_one.png"},
@@ -489,6 +513,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,desc",
                     "props":{"y":1297,"x":41,"wordWrap":true,"width":1007,"text":"【①】好友给你带来的收益，都是可以直接提现的。\\n【②友好度】去玩家偷菜会降低友好度。友好度越高，偷得越多；友好度太底，不仅偷得少，还可能被好友的看门犬抓到，得不偿失。你可以通过喂好友家的狗狗来提升好感度。\\n【③有效好友】这是你邀请的好友哟，他们看视频就会给你带来额外的现金收益呢。","overflow":"scroll","name":"desc","leading":20,"height":354,"fontSize":38,"font":"Microsoft YaHei","color":"#916443","bold":false},
@@ -502,6 +527,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label",
                     "props":{"y":1666,"x":39,"text":"好友申请列表：","fontSize":50,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
@@ -515,6 +541,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,desc",
                     "props":{"y":1972,"x":41,"wordWrap":true,"width":1007,"text":"【①】预计好友可以给你带来的收益。","overflow":"scroll","name":"desc","leading":20,"height":114,"fontSize":38,"font":"Microsoft YaHei","color":"#916443","bold":false},

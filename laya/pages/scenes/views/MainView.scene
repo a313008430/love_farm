@@ -2,11 +2,11 @@
     "x":0,
     "type":"View",
     "selectedBox":96,
-    "selecteID":114,
+    "selecteID":870,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":957,
+    "maxID":970,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -21,7 +21,7 @@
             "source":"src/view/MainView.ts",
             "searchKey":"Script,MainView",
             "removeAble":true,
-            "props":{"y":0,"x":0,"width":14,"warehouseBtn":"@node:99","vitalityBuyBtn":"@node:879","vitalityBox":"@node:877","topLayerOnStage":"@node:837","topGoldIcon":"@node:72","topDiamondIcon":"@node:78","testBtn":"@node:237","taskBox":"@node:244","step9":"@node:241","step8":"@node:239","step7":"@node:117","step6":"@node:112","step5":"@node:98","step4":"@node:97","step3":"@node:99","step2":"@node:80","step1":"@node:477","redNode":"@node:477","petBox":"@node:870","orderBox":"@node:80","moneyLb":"@node:479","landUpLayer":"@node:496","landBox":"@node:112","height":14,"guideLayer":"@node:897","guideHand":"@node:905","goldNode":"@node:73","goHomeBtn":"@node:875","getRewardPrefab":"@Prefab:scenes/prefab/GetReward.prefab","floatRewardIcon":"@Prefab:scenes/prefab/FloatRewardIcon.prefab","figureBoxAni":"@node:942","figureBox2Ani":"@node:895","figureAni":"@node:894","diamondNode":"@node:79","center_box":"@node:96","centerBox":"@node:96","bottomBox":"@node:243","avatarNode":"@node:350","anyDoor":"@node:241","addLandLayer":"@node:316","addLandBg":"@node:332"},
+            "props":{"y":0,"x":0,"width":14,"warehouseBtn":"@node:99","vitalityBuyBtn":"@node:879","vitalityBox":"@node:877","topLayerOnStage":"@node:837","topGoldIcon":"@node:72","topDiamondIcon":"@node:78","testBtn":"@node:237","taskBox":"@node:244","step9":"@node:241","step8":"@node:239","step7":"@node:117","step6":"@node:112","step5":"@node:98","step4":"@node:97","step3":"@node:99","step2":"@node:80","step1":"@node:477","redNode":"@node:477","petBox":"@node:870","orderBox":"@node:80","moneyLb":"@node:479","landUpLayer":"@node:496","landBox":"@node:112","height":14,"guideLayer":"@node:897","guideHand":"@node:961","goldNode":"@node:73","goldAdd":"@node:963","goHomeBtn":"@node:875","getRewardPrefab":"@Prefab:scenes/prefab/GetReward.prefab","floatRewardIcon":"@Prefab:scenes/prefab/FloatRewardIcon.prefab","figureBoxAni":"@node:942","figureBox2Ani":"@node:895","figureAni":"@node:894","diamondNode":"@node:79","diamondAdd":"@node:964","center_box":"@node:96","centerBox":"@node:96","bottomBox":"@node:243","avatarNode":"@node:350","anyDoor":"@node:241","addLandLayer":"@node:316","addLandBg":"@node:332"},
             "nodeParent":2,
             "label":"MainView",
             "isDirectory":false,
@@ -61,7 +61,7 @@
             "compId":337,
             "child":[
                 ],
-            "$LOCKED":false
+            "$LOCKED":true
         },
         {
             "x":15,
@@ -204,7 +204,8 @@
                                     "compId":121,
                                     "child":[
                                         ]
-                                }]
+                                }],
+                            "$HIDDEN":true
                         },
                         {
                             "type":"Box",
@@ -212,7 +213,7 @@
                             "props":{"y":209,"x":520,"name":"figure_box"},
                             "nodeParent":101,
                             "label":"figure_box",
-                            "isOpen":true,
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
@@ -343,7 +344,7 @@
                             "props":{"y":209,"x":521,"name":"figure2_box"},
                             "nodeParent":101,
                             "label":"figure2_box",
-                            "isOpen":true,
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
@@ -355,7 +356,7 @@
                                     "props":{"y":40,"x":299,"width":100,"source":"res/figure1.atlas","name":"figure1_ani","interval":150,"height":100,"autoPlay":true},
                                     "nodeParent":895,
                                     "label":"figure1_ani",
-                                    "isOpen":null,
+                                    "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
@@ -2093,7 +2094,7 @@
                     "x":30,
                     "type":"Box",
                     "searchKey":"Box,dog_box",
-                    "props":{"y":1058,"x":718,"width":237,"name":"dog_box","mouseEnabled":true,"height":256},
+                    "props":{"zOrder":10,"y":1058,"x":718,"width":237,"name":"dog_box","mouseEnabled":true,"height":256},
                     "nodeParent":96,
                     "label":"dog_box",
                     "isOpen":false,
@@ -2103,15 +2104,16 @@
                     "compId":870,
                     "child":[
                         {
-                            "type":"Image",
-                            "searchKey":"Image,dog",
-                            "props":{"y":182,"x":79,"skin":"main_scene/img_dog1.png","name":"dog","mouseEnabled":true,"anchorY":1,"anchorX":0.5},
+                            "type":"Animation",
+                            "searchKey":"Animation,dog_ani",
+                            "props":{"y":-37,"x":-30,"width":185,"source":"res/dog_1001.atlas","name":"dog_ani","mouseEnabled":true,"interval":150,"height":249,"autoPlay":true},
                             "nodeParent":870,
-                            "label":"dog",
+                            "label":"dog_ani",
+                            "isOpen":true,
                             "isDirectory":false,
                             "isAniNode":true,
                             "hasChild":false,
-                            "compId":115,
+                            "compId":965,
                             "child":[
                                 ]
                         },
@@ -2139,6 +2141,45 @@
                                     "compId":872,
                                     "child":[
                                         ]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image,hungry",
+                                    "props":{"y":-391,"x":-417,"skin":"main_scene/img_dialogBg.png","name":"hungry"},
+                                    "nodeParent":871,
+                                    "label":"hungry",
+                                    "isOpen":true,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":967,
+                                    "child":[
+                                        {
+                                            "type":"Label",
+                                            "searchKey":"Label,lb",
+                                            "props":{"y":54,"x":76,"text":"我饿了。。。","name":"lb","fontSize":38,"font":"Microsoft YaHei","color":"#906344","bold":true,"align":"center"},
+                                            "nodeParent":967,
+                                            "label":"lb",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":968,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"Image",
+                                            "searchKey":"Image",
+                                            "props":{"y":167,"x":369.5,"skin":"main_scene/img_dialogBg2.png"},
+                                            "nodeParent":967,
+                                            "label":"Image",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":969,
+                                            "child":[
+                                                ]
+                                        }]
                                 }]
                         }]
                 }],
@@ -2164,13 +2205,14 @@
                     "props":{"width":932,"skin":"main_scene/img_portraitBg.png","name":"money_box","mouseEnabled":true},
                     "nodeParent":67,
                     "label":"money_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":908,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,money_red_box",
                             "props":{"y":26,"x":108,"width":233,"skin":"main_scene/img_coinbg.png","name":"money_red_box","mouseEnabled":true,"height":64},
@@ -2210,11 +2252,12 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
-                            "searchKey":"Image,glod_box",
-                            "props":{"y":26,"x":378,"width":233,"skin":"main_scene/img_coinbg.png","name":"glod_box"},
+                            "searchKey":"Image,gold_box",
+                            "props":{"y":26,"x":378,"width":233,"skin":"main_scene/img_coinbg.png","name":"gold_box"},
                             "nodeParent":908,
-                            "label":"glod_box",
+                            "label":"gold_box",
                             "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
@@ -2249,18 +2292,20 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,diamond_box",
                             "props":{"y":26,"x":668,"width":233,"skin":"main_scene/img_coinbg.png","name":"diamond_box","mouseEnabled":true},
                             "nodeParent":908,
                             "label":"diamond_box",
-                            "isOpen":false,
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":77,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":-7,"x":-23,"skin":"main_scene/img_diamond.png"},
@@ -2274,6 +2319,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"FontClip",
                                     "searchKey":"FontClip,diamon",
                                     "props":{"y":13,"x":138,"value":"12345","spaceX":-6,"skin":"main_scene/fontClip_head.png","sheet":"0123456789","name":"diamon","anchorX":0.5,"align":"center"},
@@ -2286,6 +2332,34 @@
                                     "child":[
                                         ]
                                 }]
+                        },
+                        {
+                            "x":45,
+                            "type":"FontClip",
+                            "searchKey":"FontClip,glod_add",
+                            "props":{"y":30,"x":513,"visible":false,"value":"+0","spaceX":-6,"skin":"main_scene/fontClip_addNum.png","sheet":"0123456789+","name":"glod_add","anchorX":0.5},
+                            "nodeParent":908,
+                            "label":"glod_add",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":963,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"FontClip",
+                            "searchKey":"FontClip,diamond_add",
+                            "props":{"y":30,"x":813,"visible":false,"value":"+0","spaceX":-6,"skin":"main_scene/fontClip_addNum.png","sheet":"0123456789+","name":"diamond_add","anchorX":0.5},
+                            "nodeParent":908,
+                            "label":"diamond_add",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":964,
+                            "child":[
+                                ]
                         }]
                 },
                 {
@@ -2362,7 +2436,7 @@
                                 {
                                     "type":"Label",
                                     "searchKey":"Label,name_title",
-                                    "props":{"x":669,"text":"完成1级订单","name":"name_title","fontSize":30,"color":"#D23210","bold":true,"anchorX":0.5},
+                                    "props":{"y":-4,"x":708,"width":168.515625,"text":"完成1级订单","name":"name_title","height":30,"fontSize":30,"color":"#D23210","bold":true,"anchorX":0.5},
                                     "nodeParent":906,
                                     "label":"name_title",
                                     "isDirectory":false,
@@ -2633,57 +2707,82 @@
                                         }]
                                 },
                                 {
-                                    "type":"Image",
-                                    "searchKey":"Image,btn_box",
-                                    "props":{"y":76,"x":677,"width":210,"skin":"game/img_buybtm.png","name":"btn_box","mouseEnabled":false,"height":68,"anchorY":0.5,"anchorX":0.5},
+                                    "type":"HBox",
+                                    "searchKey":"HBox,gold_box",
+                                    "props":{"y":51,"x":674,"width":112,"space":6,"rotation":0,"name":"gold_box","height":55,"anchorY":0.5,"anchorX":0.5,"align":"middle"},
                                     "nodeParent":906,
-                                    "label":"btn_box",
+                                    "label":"gold_box",
                                     "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
-                                    "compId":843,
+                                    "compId":845,
                                     "child":[
                                         {
-                                            "type":"HBox",
-                                            "searchKey":"HBox,box",
-                                            "props":{"y":34,"space":6,"name":"box","centerY":0,"centerX":0,"anchorY":0.5,"anchorX":0.5,"align":"middle"},
-                                            "nodeParent":843,
-                                            "label":"box",
-                                            "isOpen":true,
-                                            "isDirectory":true,
+                                            "type":"Image",
+                                            "searchKey":"Image,icon",
+                                            "props":{"width":45,"skin":"game/img_bankdiamond.png","name":"icon","height":45},
+                                            "nodeParent":845,
+                                            "label":"icon",
+                                            "isDirectory":false,
                                             "isAniNode":true,
-                                            "hasChild":true,
-                                            "compId":845,
+                                            "hasChild":false,
+                                            "compId":846,
                                             "child":[
-                                                {
-                                                    "type":"Image",
-                                                    "searchKey":"Image,icon",
-                                                    "props":{"width":55,"skin":"game/img_bankdiamond.png","name":"icon","height":55},
-                                                    "nodeParent":845,
-                                                    "label":"icon",
-                                                    "isDirectory":false,
-                                                    "isAniNode":true,
-                                                    "hasChild":false,
-                                                    "compId":846,
-                                                    "child":[
-                                                        ]
-                                                },
-                                                {
-                                                    "type":"FontClip",
-                                                    "searchKey":"FontClip,value",
-                                                    "props":{"value":"9999","spaceX":-6,"skin":"game/fontClip_price.png","sheet":"0123456789","name":"value","align":"center"},
-                                                    "nodeParent":845,
-                                                    "label":"value",
-                                                    "isDirectory":false,
-                                                    "isAniNode":true,
-                                                    "hasChild":false,
-                                                    "compId":847,
-                                                    "child":[
-                                                        ]
-                                                }]
-                                        }],
-                                    "$HIDDEN":false
+                                                ]
+                                        },
+                                        {
+                                            "type":"FontClip",
+                                            "searchKey":"FontClip,value",
+                                            "props":{"y":10.5,"value":"9999","spaceX":-6,"skin":"game/fontClip_bank.png","sheet":"0123456789","name":"value","align":"center"},
+                                            "nodeParent":845,
+                                            "label":"value",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":847,
+                                            "child":[
+                                                ]
+                                        }]
+                                },
+                                {
+                                    "type":"HBox",
+                                    "searchKey":"HBox,diamond_box",
+                                    "props":{"y":101,"x":674,"width":112,"space":6,"rotation":0,"name":"diamond_box","height":55,"anchorY":0.5,"anchorX":0.5,"align":"middle"},
+                                    "nodeParent":906,
+                                    "label":"diamond_box",
+                                    "isOpen":false,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":957,
+                                    "child":[
+                                        {
+                                            "type":"Image",
+                                            "searchKey":"Image,icon",
+                                            "props":{"width":45,"skin":"game/img_bankdiamond.png","name":"icon","height":45},
+                                            "nodeParent":957,
+                                            "label":"icon",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":958,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "type":"FontClip",
+                                            "searchKey":"FontClip,value",
+                                            "props":{"y":10.5,"x":0,"width":104,"value":"9999","spaceX":-6,"skin":"game/fontClip_bank.png","sheet":"0123456789","name":"value","height":38,"align":"center"},
+                                            "nodeParent":957,
+                                            "label":"value",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":959,
+                                            "child":[
+                                                ]
+                                        }]
                                 },
                                 {
                                     "type":"Script",
@@ -2918,13 +3017,14 @@
                     "props":{"y":-59,"x":-10,"width":689,"skin":"main_scene/img_taskBg2.png","rotation":0,"name":"msg_box","height":86},
                     "nodeParent":243,
                     "label":"msg_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":244,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,icon",
                             "props":{"y":34,"skin":"main_scene/img_coinBtn.png","right":-24,"name":"icon","anchorY":0.5,"anchorX":0.5},
@@ -2937,6 +3037,7 @@
                             "compId":274,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"FontClip",
                                     "searchKey":"FontClip,amountFont",
                                     "props":{"y":73,"x":37,"value":"x100","spaceX":-8,"skin":"main_scene/fontClip_coinBtnNumber.png","sheet":"0123456789x","name":"amountFont","anchorY":0.5,"anchorX":0.5,"align":"center"},
@@ -2951,6 +3052,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,lb",
                             "props":{"y":24,"x":33,"text":"任务：辣椒(3/10) 胡萝卜(10/10)","name":"lb","fontSize":38,"font":"Microsoft YaHei","color":"#906344","bold":true},
@@ -3393,6 +3495,20 @@
         },
         {
             "x":15,
+            "type":"Image",
+            "searchKey":"Image,hand",
+            "props":{"y":672,"x":968,"width":164,"skin":"game/img_guidHand.png","pivotY":131,"pivotX":108,"name":"hand","height":198},
+            "nodeParent":2,
+            "label":"hand",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":961,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
             "type":"Box",
             "searchKey":"Box,topLayer",
             "props":{"zOrder":999,"top":0,"right":0,"name":"topLayer","left":0,"bottom":0},
@@ -3406,7 +3522,7 @@
             "child":[
                 ],
             "$LOCKED":true,
-            "$HIDDEN":true
+            "$HIDDEN":false
         }],
     "animations":[
         {

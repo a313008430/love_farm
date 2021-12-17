@@ -77,6 +77,10 @@ export default class MainView extends Core.gameScript {
     private getRewardPrefab: Laya.Prefab = null;
     /** @prop {name:floatRewardIcon, tips:"奖励飞动画icon", type:Prefab}*/
     private floatRewardIcon: Laya.Prefab = null;
+    /** @prop {name:goldAdd, tips:"添加金币", type:Node}*/
+    private goldAdd: Laya.FontClip = null;
+    /** @prop {name:diamondAdd, tips:"添加钻石", type:Node}*/
+    private diamondAdd: Laya.FontClip = null;
 
     /** @prop {name:goHomeBtn, tips:"返回家按钮", type:Node}*/
     private goHomeBtn: Laya.Image = null;
@@ -128,31 +132,32 @@ export default class MainView extends Core.gameScript {
 
     onOpened() {
         MainView.inst = this;
-        [
-            "res/loadingBg.png",
-            "res/img_woodtitle.png",
-            "res/img_storeHouseBg.png",
-            "res/img_storebg.png",
-            "res/img_shelf.png",
-            "res/img_popUpBg.png",
-            "res/img_landBg.png",
-            "res/img_inviteBg1.png",
-            "res/img_housetop.png",
-            // "res/img_homepageBg3.png",
-            // "res/img_homepageBg2.png",
-            // "res/img_homepageBg1.png",
-            "res/img_farmlandLogo.png",
-            "res/atlas/plant_icon.png",
-            "res/atlas/pet_feed.png",
-            "res/atlas/main_scene.png",
-        ].forEach((e) => {
-            if (e.endsWith("png")) Laya.loader.clearTextureRes(e);
-        });
+        // [
+        //     "res/loadingBg.png",
+        //     "res/img_woodtitle.png",
+        //     "res/img_storeHouseBg.png",
+        //     "res/img_storebg.png",
+        //     "res/img_shelf.png",
+        //     "res/img_popUpBg.png",
+        //     "res/img_landBg.png",
+        //     "res/img_inviteBg1.png",
+        //     "res/img_housetop.png",
+        //     // "res/img_homepageBg3.png",
+        //     // "res/img_homepageBg2.png",
+        //     // "res/img_homepageBg1.png",
+        //     "res/img_farmlandLogo.png",
+        //     "res/atlas/plant_icon.png",
+        //     "res/atlas/pet_feed.png",
+        //     "res/atlas/main_scene.png",
+        // ].forEach((e) => {
+        //     if (e.endsWith("png")) Laya.loader.clearTextureRes(e);
+        // });
 
         Laya.timer.frameOnce(1, this, () => {
             this.updateTask();
         });
 
+        //新手引导
         let ok = false,
             step = 0;
         if (UserInfo.guideData.length) {
@@ -179,10 +184,17 @@ export default class MainView extends Core.gameScript {
                         this.step8,
                         this.step9,
                     ],
-                    call: () => {},
+                    call: () => {
+                        this.timeGuide();
+                    },
                 },
             });
+        } else {
+            this.timeGuide();
         }
+
+        this.guidHandAnimation();
+        this.guideHand.visible = false;
     }
 
     onHdAwake() {
@@ -208,26 +220,128 @@ export default class MainView extends Core.gameScript {
             this.updateHitLandAdd();
             this.updateAllStateIcon();
         });
-
-        this.figureAniEvent();
     }
 
-    private figureAniEvent() {
-        // const fAni = this.figureBoxAni.getChildByName("figure_ani") as Laya.Animation,
-        //     fAni3 = this.figureBoxAni.getChildByName("figure3_ani") as Laya.Animation,
-        //     fAni4 = this.figureBoxAni.getChildByName("figure4_ani") as Laya.Animation,
-        //     fAni1 = this.figureBox2Ani.getChildByName("figure1_ani") as Laya.Animation,
-        //     fAni2 = this.figureBox2Ani.getChildByName("figure2_ani") as Laya.Animation,
-        //     fAni5 = this.figureBox2Ani.getChildByName("figure5_ani") as Laya.Animation;
-        // fAni3.alpha = 0;
-        // fAni4.alpha = 0;
-        // fAni1.alpha = 0;
-        // fAni2.alpha = 0;
-        // fAni5.alpha = 0;
-        // fAni.alpha = 0;
-        // Laya.Tween.to(fAni, { alpha: 1 }, 600);
-        // Laya.Tween.to(fAni, { x: -600, y: 328 }, 10000);
+    // #region 待机引导
+
+    private guidHandAni: Laya.TimeLine;
+    /** @prop {name:guideHand, tips:"新手引导手指", type:Node}*/
+    private guideHand: Laya.Sprite = null;
+    /**
+     * 待机功能引导
+     */
+    private timeGuide() {
+        Laya.stage.on(Laya.Event.MOUSE_DOWN, this, this.timeGuideTouch);
+        this.timeGuideTouch();
     }
+
+    private timeGuideTouch() {
+        Laya.timer.clear(this, this.timeGuideAction);
+        Laya.timer.once(15000, this, this.timeGuideAction);
+    }
+
+    private guidIdList = [1, 2, 3, 5];
+    private hasGuide: boolean = false;
+
+    private timeGuideAction() {
+        if (this.hasGuide || this.isOuter) {
+            return;
+        }
+        this.timeGuideTouch();
+        this.guideHand.visible = true;
+        this.updateGuideTask();
+    }
+
+    hideGuideHand() {
+        this.guideHand.visible = false;
+        this.timeGuide();
+        this.hasGuide = false;
+    }
+
+    private updateGuideTask() {
+        let landEmpty = false,
+            land: FieldComponent,
+            unlockLand: FieldComponent;
+        for (let x = 0; x < this.landList.length; x++) {
+            if (this.landList[x].data && !this.landList[x].data.productId) {
+                landEmpty = true;
+                break;
+            } else {
+                if (this.landList[x].data?.productId && this.landList[x].data?.matureTimeLeft) {
+                    land = this.landList[x];
+                    break;
+                }
+            }
+        }
+        //检测有没有未解锁空地
+        for (let x = 0; x < this.landList.length; x++) {
+            if (!this.landList[x].data) {
+                unlockLand = this.landList[x];
+                break;
+            }
+        }
+
+        if (!unlockLand && this.guidIdList.indexOf(5) > -1) {
+            this.guidIdList.splice(this.guidIdList.indexOf(5), 1);
+            console.log(this.guidIdList);
+        }
+
+        this.hasGuide = true;
+        let pos = { x: 0, y: 0 };
+        if (landEmpty) {
+            pos = this.getNodeTopLayerPos(this.step4);
+        } else {
+            if (!land) {
+                return null;
+            }
+            let id = this.guidIdList[Math.floor(Math.random() * this.guidIdList.length)];
+
+            switch (id) {
+                case 1:
+                    pos = this.getNodeTopLayerPos(land.owner);
+                    pos.x += 100;
+                    pos.y += 100;
+                    break;
+                case 2:
+                    pos = this.getNodeTopLayerPos(this.step9);
+                    pos.x += 100;
+                    pos.y += 100;
+                    break;
+                case 3:
+                    pos = this.getNodeTopLayerPos(this.step5);
+                    pos.x += 100;
+                    pos.y += 100;
+                    break;
+                case 5:
+                    pos = this.getNodeTopLayerPos(unlockLand.owner);
+                    pos.x += 100;
+                    pos.y += 100;
+                    break;
+            }
+        }
+
+        this.guideHand.pos(pos.x, pos.y);
+    }
+
+    private getNodeTopLayerPos(node) {
+        return this.topLayerOnStage.globalToLocal(
+            (node.parent as any).localToGlobal(new Laya.Point(node.x, node.y))
+        );
+    }
+
+    /**
+     * 新手引导手指动画
+     */
+    private guidHandAnimation() {
+        this.guidHandAni = Laya.TimeLine.to(this.guideHand, { rotation: -15 }, 400, null).to(
+            this.guideHand,
+            { rotation: 0 },
+            400
+        );
+        this.guidHandAni.play(null, true);
+    }
+
+    //#endregion
 
     /**
      * 提示显示扩建icon
@@ -305,8 +419,10 @@ export default class MainView extends Core.gameScript {
             .key("warePetId", (e) => {
                 if (e) {
                     this.petBox.visible = true;
-                    (this.petBox.getChildByName("dog") as Laya.Image).skin =
-                        TableAnalyze.table("pet").get(e).icon;
+                    (
+                        this.petBox.getChildByName("dog_ani") as Laya.Animation
+                    ).source = `res/dog_${e}.atlas`;
+                    // TableAnalyze.table("pet").get(e).icon;
                 } else {
                     this.petBox.visible = false;
                 }
@@ -323,6 +439,9 @@ export default class MainView extends Core.gameScript {
                     if (scale > 1) scale = 1;
 
                     bar.width = 130 * scale;
+                    (
+                        this.petBox.getChildByName("box").getChildByName("hungry") as Laya.Image
+                    ).visible = !e;
                 }
             })
             .key("digestCountDown", (e) => {
@@ -385,6 +504,7 @@ export default class MainView extends Core.gameScript {
                 break;
             case "shop":
                 Core.view.open(Res.views.ShopView);
+                this.hideGuideHand();
                 break;
             case "head":
                 Core.view.open(Res.views.SettingView);
@@ -398,7 +518,7 @@ export default class MainView extends Core.gameScript {
             case "dog_house":
                 Core.view.open(Res.views.ShopView, { parm: { id: 1 } });
                 break;
-            case "dog":
+            case "dog_ani":
                 Core.view.open(Res.views.ShopView, { parm: { id: 2 } });
                 break;
             case "diamond_box":
@@ -415,15 +535,6 @@ export default class MainView extends Core.gameScript {
                 break;
             case "landLevelUp":
                 if (!this.isOuter) this.switchLandLevelUp(true);
-
-                // this.playGetRewardAni({
-                //     node: this.testBtn as any,
-                //     list: [
-                //         { obj: TableAnalyze.table("currency").get(1001), count: 100, posType: 1 },
-                //         { obj: TableAnalyze.table("currency").get(1001), count: 100, posType: 1 },
-                //         { obj: TableAnalyze.table("currency").get(1001), count: 100, posType: 1 },
-                //     ],
-                // });
                 break;
             case "close_up":
                 this.switchLandLevelUp(false);
@@ -570,11 +681,25 @@ export default class MainView extends Core.gameScript {
             }
 
             if (reward) {
-                let btnBox = box.getChildByName("btn_box").getChildByName("box");
-                (btnBox.getChildByName("icon") as Laya.Image).skin = reward.obj.icon;
-                (btnBox.getChildByName("value") as Laya.FontClip).value = `${
+                let goldBox = box.getChildByName("gold_box") as Laya.Box,
+                    diamondBox = box.getChildByName("diamond_box") as Laya.Box;
+                (goldBox.getChildByName("icon") as Laya.Image).skin = reward.obj.icon;
+                (goldBox.getChildByName("value") as Laya.FontClip).value = `${
                     rewardCount + Math.round(rewardCount * d.commission)
                 }`;
+
+                if (d.extraReward) {
+                    (diamondBox.getChildByName("icon") as Laya.Image).skin = d.extraReward.obj.icon;
+                    (
+                        diamondBox.getChildByName("value") as Laya.FontClip
+                    ).value = `${d.extraReward.count}`;
+
+                    diamondBox.visible = true;
+                    goldBox.y = 46;
+                } else {
+                    goldBox.y = 66;
+                    diamondBox.visible = false;
+                }
             }
 
             (box.getChildByName("name_title") as Laya.Label).text = `完成${
@@ -598,15 +723,24 @@ export default class MainView extends Core.gameScript {
                         this.orderQueueIng = false;
                         UserInfo.orderLevel++;
 
+                        let reward = [];
+                        reward.push({
+                            obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
+                            count: rewardCount + Math.round(rewardCount * d.commission),
+                            posType: 1,
+                        });
+
+                        if (d.extraReward) {
+                            reward.push({
+                                obj: TableAnalyze.table("currency").get(d.extraReward.obj.id),
+                                count: d.extraReward.count,
+                                posType: 2,
+                            });
+                        }
+
                         this.playGetRewardAni({
-                            node: box.getChildByName("btn_box") as any,
-                            list: [
-                                {
-                                    obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
-                                    count: rewardCount + Math.round(rewardCount * d.commission),
-                                    posType: 1,
-                                },
-                            ],
+                            node: box.getChildByName("gold_box") as any,
+                            list: reward,
                             callBack: () => {
                                 this.updateOrder();
                             },
@@ -626,6 +760,7 @@ export default class MainView extends Core.gameScript {
     private switchLandLevelUp(show: boolean) {
         let bg = this.landUpLayer.getChildByName("bg") as Laya.Image;
         if (show) {
+            this.hideGuideHand();
             bg.alpha = 0;
             Laya.Tween.to(bg, { alpha: 0.75 }, 150);
             this.landUpLayer.getChildByName("land_outer").addChild(this.landBox);
@@ -719,6 +854,17 @@ export default class MainView extends Core.gameScript {
             this.topLayerOnStage.addChild(node);
             (node.getChildByName("count") as Laya.FontClip).value = "x" + d.count;
 
+            if (!obj?.notFly) {
+                switch (d.posType) {
+                    case 1:
+                        this.addGoldDiamondAni(this.goldAdd, d.count);
+                        break;
+                    case 2:
+                        this.addGoldDiamondAni(this.diamondAdd, d.count);
+                        break;
+                }
+            }
+
             Laya.Tween.to(
                 node,
                 { y: node.y - 40, alpha: 1 },
@@ -802,6 +948,25 @@ export default class MainView extends Core.gameScript {
         });
     }
 
+    private addGoldDiamondAni(node, count: number) {
+        node.visible = true;
+        node.alpha = 0;
+        node.value = `+${count}`;
+        node.y = 30;
+        node.offAll();
+        Laya.Tween.to(
+            node,
+            { alpha: 1, y: -30 },
+            500,
+            null,
+            new Laya.Handler(this, () => {
+                Laya.timer.once(2000, this, () => {
+                    node.alpha = 0;
+                });
+            })
+        );
+    }
+
     /**
      * 播放看广告以后的奖励
      */
@@ -872,6 +1037,7 @@ export default class MainView extends Core.gameScript {
      * 去邻居家
      */
     private goToNeighbor() {
+        this.hideGuideHand();
         Core.view.setOverView(true, () => {
             HttpControl.inst
                 .send({
@@ -952,24 +1118,20 @@ export default class MainView extends Core.gameScript {
         this.updateAllStateIcon();
 
         if (this.isOuter) {
-            //隐藏宠物
-            this.petBox.visible = false;
             //隐藏任务
             this.taskBox.visible = false;
         } else {
-            //显示 宠物
-            if (UserInfo.warePetId) this.petBox.visible = true;
             //显示任务
             this.taskBox.visible = true;
         }
 
-        this.updateFriendView(d?.nickname, friendData);
+        this.updateFriendView(d?.nickname, friendData, d?.dogId);
     }
 
     /**
      * 更新去好友家还是自己家的界面状态
      */
-    private updateFriendView(nickname: string = "", friendData: FriendData) {
+    private updateFriendView(nickname: string = "", friendData: FriendData, pedId?: number) {
         const topBox = this.orderBox.parent as Laya.Box,
             moneyBox = topBox.getChildByName("money_box") as Laya.Box,
             countDown = topBox.getChildByName("count_down") as Laya.Label,
@@ -991,6 +1153,15 @@ export default class MainView extends Core.gameScript {
             countDown.text = Tools.formatSeconds(this.outCountDownNumber);
             Laya.timer.loop(1000, this, this.outCountDownEvent, [countDown]);
             if (friendData?.avatar) this.avatarNode.skin = friendData?.avatar;
+            if (pedId) {
+                this.petBox.visible = true;
+                (
+                    this.petBox.getChildByName("dog_ani") as Laya.Animation
+                ).source = `res/dog_${pedId}.atlas`;
+            } else {
+                this.petBox.visible = false;
+            }
+            (this.petBox.getChildByName("box") as Laya.Image).visible = false;
         } else {
             this.outCountDownNumber = 60;
             Laya.timer.clear(this, this.outCountDownEvent);
@@ -998,7 +1169,20 @@ export default class MainView extends Core.gameScript {
             friendName.visible = false;
             moneyBox.visible = true;
             countDown.visible = false;
-            if (UserInfo.avatar) this.avatarNode.skin = UserInfo.avatar;
+            if (UserInfo.avatar) {
+                this.avatarNode.skin = UserInfo.avatar;
+            } else {
+                this.avatarNode.skin = `main_scene/img_defaultPortrait.png`;
+            }
+            if (UserInfo.warePetId) {
+                this.petBox.visible = true;
+                (
+                    this.petBox.getChildByName("dog_ani") as Laya.Animation
+                ).source = `res/dog_${UserInfo.warePetId}.atlas`;
+            } else {
+                this.petBox.visible = false;
+            }
+            (this.petBox.getChildByName("box") as Laya.Image).visible = true;
         }
         bottomList.forEach((e) => {
             e.disabled = this.isOuter;
@@ -1017,5 +1201,9 @@ export default class MainView extends Core.gameScript {
             Laya.timer.clear(this, this.outCountDownEvent);
             this.goHome();
         }
+    }
+
+    onHdDestroy(): void {
+        this.guidHandAni?.destroy();
     }
 }

@@ -226,6 +226,7 @@ interface ReturnNeighbor {
     nickname: "string";
     uid: number;
     avatar: string;
+    dogId: number;
 }
 
 /**
@@ -287,4 +288,16 @@ interface WithdrawData {
  */
 interface ConfigClient {
     version: string;
+}
+
+/**
+ * 提现记录
+ */
+interface WithdrawRecordData {
+    /** 提现时间 */
+    time: number;
+    /** 提现的钻石 */
+    diamond: number;
+    /** 提现状态 */
+    state: number;
 }

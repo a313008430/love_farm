@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":52,
-    "selecteID":95,
+    "selectedBox":2,
+    "selecteID":81,
     "searchKey":"View",
     "props":{"y":0,"x":0,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/OrderView.jpg","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":98,
+    "maxID":100,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -120,14 +120,13 @@
                     "props":{"y":269,"x":43,"width":1003,"spaceY":20,"repeatY":4,"repeatX":1,"height":896},
                     "nodeParent":38,
                     "label":"List",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":53,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"x":-0.5,"skin":"game/img_listBg.png","renderType":"render","mouseEnabled":true},
@@ -140,7 +139,6 @@
                             "compId":52,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,btn",
                                     "props":{"y":138,"x":819,"skin":"game/img_presentOrder.png","name":"btn","anchorY":0.5,"anchorX":0.5},
@@ -171,7 +169,6 @@
                                     "$HIDDEN":false
                                 },
                                 {
-                                    "x":60,
                                     "type":"HBox",
                                     "searchKey":"HBox,reward_box",
                                     "props":{"y":57,"x":822,"space":20,"name":"reward_box","anchorY":0.5,"anchorX":0.5,"align":"none"},
@@ -212,7 +209,6 @@
                                     "$HIDDEN":false
                                 },
                                 {
-                                    "x":60,
                                     "type":"HBox",
                                     "searchKey":"HBox,reward_box_diamond",
                                     "props":{"y":139,"x":822,"width":189.8984375,"space":20,"rotation":0,"name":"reward_box_diamond","height":55,"anchorY":0.5,"anchorX":0.5,"align":"none"},
@@ -253,12 +249,11 @@
                                     "$HIDDEN":false
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
-                                    "searchKey":"Image",
-                                    "props":{"skin":"game/img_orderLevelBg.png"},
+                                    "searchKey":"Image,lv_box",
+                                    "props":{"skin":"game/img_orderLevelBg.png","name":"lv_box"},
                                     "nodeParent":52,
-                                    "label":"Image",
+                                    "label":"lv_box",
                                     "isOpen":true,
                                     "isDirectory":false,
                                     "isAniNode":false,
@@ -268,7 +263,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,order_lv",
                                     "props":{"y":12,"x":72,"text":"999级订单","name":"order_lv","fontSize":26,"font":"Microsoft YaHei","color":"#D13210","bold":true,"anchorX":0.5},
@@ -282,7 +276,19 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
+                                    "type":"Image",
+                                    "searchKey":"Image,cur_icon",
+                                    "props":{"y":0,"x":21,"skin":"game/img_currentOrde.png","name":"cur_icon"},
+                                    "nodeParent":52,
+                                    "label":"cur_icon",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":98,
+                                    "child":[
+                                        ]
+                                },
+                                {
                                     "type":"Box",
                                     "searchKey":"Box,item_0",
                                     "props":{"y":61,"x":72,"width":100,"name":"item_0","height":100},
@@ -348,7 +354,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Box",
                                     "searchKey":"Box,item_1",
                                     "props":{"y":61,"x":218,"width":100,"name":"item_1","height":100},
@@ -414,7 +419,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Box",
                                     "searchKey":"Box,item_2",
                                     "props":{"y":61,"x":365,"width":100,"name":"item_2","height":100},
@@ -480,7 +484,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Box",
                                     "searchKey":"Box,item_3",
                                     "props":{"y":61,"x":511,"width":100,"name":"item_3","height":100},
@@ -544,16 +547,29 @@
                                             "child":[
                                                 ]
                                         }]
+                                },
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image,finish",
+                                    "props":{"y":39,"x":576,"skin":"game/img_accomplished.png","name":"finish"},
+                                    "nodeParent":52,
+                                    "label":"finish",
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":99,
+                                    "child":[
+                                        ]
                                 }]
                         }]
                 },
                 {
                     "x":30,
                     "type":"HBox",
-                    "searchKey":"HBox",
-                    "props":{"y":125,"x":209.8759765625},
+                    "searchKey":"HBox,desc",
+                    "props":{"y":125,"x":209.8759765625,"name":"desc"},
                     "nodeParent":38,
-                    "label":"HBox",
+                    "label":"desc",
                     "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
@@ -631,7 +647,7 @@
             "source":"src/view/OrderView.ts",
             "searchKey":"Script,OrderView",
             "removeAble":true,
-            "props":{"orderList":"@node:53","btnResCur":"game/img_presentOrder.png","btnLockRes":"game/img_lockedOrder.png"},
+            "props":{"topDesc":"@node:81","orderList":"@node:53","btnResCur":"game/img_presentOrder.png","btnLockRes":"game/img_lockedOrder.png"},
             "nodeParent":2,
             "label":"OrderView",
             "isDirectory":false,

@@ -15,6 +15,8 @@ export default class OrderView extends Core.gameScript {
     private btnLockRes: string = null;
     /** @prop {name:btnResCur, tips:"订单按钮当前状态按钮", type:String,accept:res}*/
     private btnResCur: string = null;
+    /** @prop {name:topDesc, tips:"顶部描述", type:Node}*/
+    private topDesc: Laya.Box = null;
 
     /** 数据列表 */
     private dataList: OrderBase[];
@@ -23,12 +25,36 @@ export default class OrderView extends Core.gameScript {
         this.dataList = TableAnalyze.table("order").list;
         let orderOldLv = UserInfo.orderLevel || 0;
         this.dataList.sort((a, b) => {
-            return a.id * (b.id <= orderOldLv ? -1 : 1);
+            // return a.id * (b.id <= orderOldLv ? -1 : 1);
+            return (
+                a.id + (a.id <= orderOldLv ? 2000 : 0) - (b.id + (b.id <= orderOldLv ? 2000 : 0))
+            );
         });
         this.orderList.array = this.dataList;
         this.orderList.renderHandler = new Laya.Handler(this, this.renderList);
         this.orderList.vScrollBarSkin = null;
-        console.log(this.dataList);
+        let step = 0,
+            reward: RewardCurrencyBase;
+        for (let x = 0; x < this.dataList.length; x++) {
+            if (this.dataList[x].id >= UserInfo.orderLevel) {
+                step++;
+                if (this.dataList[x].extraReward) {
+                    reward = this.dataList[x].extraReward;
+                    break;
+                }
+            }
+        }
+        if (step) {
+            let withdrawal = TableAnalyze.table("config").get("withdrawal").value as string[];
+            (this.topDesc.getChildAt(0) as Laya.Label).text =
+                step == 1 ? "完成当前订单可获得红包" : `再完成${step}单可获得红包`;
+            (this.topDesc.getChildAt(1) as Laya.Label).text = `${(
+                (Number(withdrawal[2]) / Number(withdrawal[1])) *
+                reward.count
+            )
+                .toString()
+                .match(/^\d+(?:\.\d{0,2})?/)}`;
+        }
     }
 
     private renderList(cell: Laya.Image, i: number) {
@@ -38,8 +64,9 @@ export default class OrderView extends Core.gameScript {
             curCount = 0,
             maxCount = 0,
             progress = 0,
-            rewardBox = cell.getChildByName("reward_box") as Laya.Box;
-        (cell.getChildByName("order_lv") as Laya.Label).text = `${d.id}级订单`;
+            rewardBox = cell.getChildByName("reward_box") as Laya.Box,
+            order_lv = cell.getChildByName("order_lv") as Laya.Label;
+        order_lv.text = `${d.id}级订单`;
 
         for (let x = 0; x < 4; x++) {
             let item = cell.getChildByName("item_" + x) as Laya.Box;
@@ -77,23 +104,57 @@ export default class OrderView extends Core.gameScript {
         }
 
         let diamond = cell.getChildByName("reward_box_diamond") as Laya.Image;
-        let btn = cell.getChildByName("btn") as Laya.Image;
+        let btn = cell.getChildByName("btn") as Laya.Image,
+            finishIcon = cell.getChildByName("finish") as Laya.Image,
+            curIcon = cell.getChildByName("cur_icon") as Laya.Image,
+            lv_box = cell.getChildByName("lv_box") as Laya.Image;
+        finishIcon.visible = false;
+        curIcon.visible = false;
         diamond.visible = false;
         btn.visible = true;
+        rewardBox.y = 57;
+        lv_box.visible = true;
+        order_lv.visible = true;
         if (d.id > UserInfo.orderLevel + 1) {
             //未激活
             btn.skin = this.btnLockRes;
             btn.active = false;
+            if (d.extraReward) {
+                btn.visible = false;
+                (diamond.getChildByName("icon") as Laya.Image).skin = d.extraReward.obj.icon;
+                (diamond.getChildByName("value") as Laya.Label).text = `+${d.extraReward.count}`;
+                diamond.visible = true;
+            } else {
+                btn.visible = true;
+            }
         } else {
             if (d.id == UserInfo.orderLevel + 1) {
                 //当前
-                btn.skin = this.btnResCur;
+                if (d.extraReward) {
+                    curIcon.visible = true;
+                    lv_box.visible = false;
+                    btn.visible = false;
+                    order_lv.visible = false;
+                    (diamond.getChildByName("icon") as Laya.Image).skin = d.extraReward.obj.icon;
+                    (
+                        diamond.getChildByName("value") as Laya.Label
+                    ).text = `+${d.extraReward.count}`;
+                    diamond.visible = true;
+                } else {
+                    btn.skin = this.btnResCur;
+                }
             } else {
                 console.log("已完成");
                 //已完成
                 // btn.gray = true;
                 btn.active = false;
                 btn.visible = false;
+                finishIcon.visible = true;
+                if (d.extraReward) {
+                    rewardBox.y = 57;
+                } else {
+                    rewardBox.y = 100;
+                }
             }
         }
 

@@ -48,7 +48,6 @@ export default class LoginView extends GameScript {
 
     onHdAwake() {
         EventGlobal.on(EventMaps.load_progress, this, this.loadProgress);
-        console.log("awake2");
     }
 
     onHdEnable(): void {
@@ -185,6 +184,11 @@ export default class LoginView extends GameScript {
                             if (data) ConfigGame.channel = data.data["channel"];
                         }
                     });
+
+                    AppCore.runAppFunction({
+                        uri: AppEventMap.eventCount,
+                        data: { type: "Signin" },
+                    });
                 })
                 .catch(() => {
                     this.canClick = true;
@@ -287,6 +291,11 @@ export default class LoginView extends GameScript {
                                 ConfigGame.channel = data.data["channel"];
                             }
                         }
+                    });
+
+                    AppCore.runAppFunction({
+                        uri: AppEventMap.eventCount,
+                        data: { type: "Signin" },
                     });
                 })
                 .catch(() => {

@@ -49,6 +49,8 @@
         TaskView = "scenes/views/TaskView.scene", 
         /** scenes/views/WarehouseView.scene */
         WarehouseView = "scenes/views/WarehouseView.scene", 
+        /** scenes/views/WithdrawRecordView.scene */
+        WithdrawRecordView = "scenes/views/WithdrawRecordView.scene", 
     }
 
  export enum audios 
@@ -73,6 +75,7 @@
  * 界面列表
  */
  export const scenes = [
+         "scenes/views/WithdrawRecordView.scene",
          "scenes/views/WarehouseView.scene",
          "scenes/views/TaskView.scene",
          "scenes/views/SpeedUpView.scene",
@@ -128,6 +131,26 @@
             "res/figure1.atlas",
             "res/figure.png",
             "res/figure.atlas",
+            "res/dog_1010.png",
+            "res/dog_1010.atlas",
+            "res/dog_1009.png",
+            "res/dog_1009.atlas",
+            "res/dog_1008.png",
+            "res/dog_1008.atlas",
+            "res/dog_1007.png",
+            "res/dog_1007.atlas",
+            "res/dog_1006.png",
+            "res/dog_1006.atlas",
+            "res/dog_1005.png",
+            "res/dog_1005.atlas",
+            "res/dog_1004.png",
+            "res/dog_1004.atlas",
+            "res/dog_1003.png",
+            "res/dog_1003.atlas",
+            "res/dog_1002.png",
+            "res/dog_1002.atlas",
+            "res/dog_1001.png",
+            "res/dog_1001.atlas",
             "res/shader/vs.vs",
             "res/shader/ps.fs",
             "res/audio/zhongzhi.mp3",

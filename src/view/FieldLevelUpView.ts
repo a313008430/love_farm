@@ -7,6 +7,7 @@ import TableAnalyze from "src/common/TableAnalyze";
 import GameScript from "src/core/GameScript";
 import Core from "src/core/index";
 import { LandObj } from "src/dataService/LandService";
+import UserInfo from "src/dataService/UserInfo";
 
 //  FieldLevelUpView extends Laya.Script {
 export default class FieldLevelUpView extends GameScript {
@@ -14,8 +15,15 @@ export default class FieldLevelUpView extends GameScript {
     private priceLabel: Laya.Label = null;
     /** @prop {name:priceIcon, tips:"价格icon", type:Node}*/
     private priceIcon: Laya.Image = null;
-    /** @prop {name:desc, tips:"描述", type:Node}*/
-    private desc: Laya.Label = null;
+    /** @prop {name:lv, tips:"等级", type:Node}*/
+    private lv: Laya.Label = null;
+    /** @prop {name:reward, tips:"奖励", type:Node}*/
+    private reward: Laya.Label = null;
+    /** @prop {name:probability, tips:"概率", type:Node}*/
+    private probability: Laya.Label = null;
+
+    /** @prop {name:adBtn, tips:"广告按钮", type:Node}*/
+    private adBtn: Laya.Image = null;
 
     private data: { obj: LandObj; call: Function };
 
@@ -24,10 +32,13 @@ export default class FieldLevelUpView extends GameScript {
         let nextLand = TableAnalyze.table("landLevel").get(e.obj.level + 1);
         this.priceLabel.text = `价格：${nextLand.cost.count}`;
         this.priceIcon.skin = nextLand.cost.obj.icon;
-        console.log(e, nextLand);
-        this.desc.text = `土地升级到${e.obj.level + 1}级，收益增加${
-            nextLand.gain * 100
-        }% 钻石产出概率增加${Number((nextLand.probability * 100).toFixed(2))}%`;
+
+        this.lv.text = `${e.obj.level + 1}级`;
+        this.reward.text = `+${Number((nextLand.gain * 100).toFixed(2))}%`;
+        this.probability.text = `+${Number((nextLand.probability * 100).toFixed(2))}%`;
+
+        this.adBtn.disabled = !UserInfo.advertiseTimes;
+        this.adBtn.active = Boolean(UserInfo.advertiseTimes);
     }
 
     onClick(e: Laya.Event) {

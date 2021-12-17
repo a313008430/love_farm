@@ -1,5 +1,5 @@
 import ConfigGame from "src/common/ConfigGame";
-import { EventMaps } from "src/common/EventMaps";
+import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
@@ -8,6 +8,7 @@ import TableAnalyze from "src/common/TableAnalyze";
 import { FeedBase, PlantBase, RewardCurrencyBase } from "src/common/TableObject";
 import Tools from "src/common/Tools";
 import FloatViewShowAni from "src/components/FloatViewShowAni";
+import AppCore from "src/core/App";
 import GameScript from "src/core/GameScript";
 import Core from "src/core/index";
 import { ViewManager } from "src/core/ViewManager";
@@ -53,7 +54,7 @@ export default class ShopView extends GameScript {
 
     //宠物
     /** @prop {name:petIcon, tips:"宠物icon", type:Node}*/
-    private petIcon: Laya.Image = null;
+    private petIcon: Laya.Animation = null;
     /** @prop {name:petDesc, tips:"宠物描述", type:Node}*/
     private petDesc: Laya.Label = null;
     /** @prop {name:petName, tips:"宠物名称", type:Node}*/
@@ -383,7 +384,27 @@ export default class ShopView extends GameScript {
                 //提现
                 this.withdraw();
                 break;
+
+            case "record_btn":
+                this.openWithdrawRecord();
+                break;
         }
+    }
+
+    private openWithdrawRecord() {
+        if (!this.canClick) {
+            return;
+        }
+        this.canClick = false;
+        HttpControl.inst
+            .send({
+                api: ApiHttp.withdrawRecord,
+                data: {},
+            })
+            .then((d) => {
+                this.canClick = true;
+                Core.view.open(Res.views.WithdrawRecordView, { parm: d });
+            });
     }
 
     private feedBuy() {
@@ -411,7 +432,7 @@ export default class ShopView extends GameScript {
                         {
                             obj: feed.base,
                             count: 1,
-                            posType: 2,
+                            posType: 3,
                         },
                     ],
                     notFly: true,
@@ -544,7 +565,7 @@ export default class ShopView extends GameScript {
     private updatePet() {
         if (!PetService.list.length) PetService.init([]);
         let pet = PetService.list[this.selectPetIndex];
-        this.petIcon.skin = pet.base.icon;
+        this.petIcon.source = `res/dog_${pet.base.id}.atlas`;
         this.petName.text = pet.base.name;
         this.petDesc.text = pet.base.desc;
         this.vitalityMax.value = pet.base.vitality_max + "";
@@ -640,6 +661,10 @@ export default class ShopView extends GameScript {
                 UserInfo.withdraw = d.list;
                 UserInfo.diamond = d.diamond;
                 this.priceList.refresh();
+                AppCore.runAppFunction({
+                    uri: AppEventMap.eventCount,
+                    data: { type: "Withdrawal" },
+                });
             })
             .catch(() => {
                 this.canClick = true;

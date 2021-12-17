@@ -52,6 +52,8 @@ export const enum EventMaps {
     open_friend = "open_friend",
     /** 种菜主界面进入 */
     plant_sow = "plant_sow",
+    /** 添加钻石或是金币 */
+    add_diamond_gold = "add_diamond_gold",
 }
 
 /**

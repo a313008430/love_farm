@@ -62,6 +62,8 @@ export const enum ApiHttp {
     friendInviteReceive = "/friend/invite/receive",
     /** 访问好友家里 */
     friendVisit = "/friend/visit",
+    /** 好友分享 */
+    friendShare = "/friend/share",
     /** 邮件列表 */
     mailList = "/mail/list",
     /** 邮件阅读 */
@@ -70,6 +72,8 @@ export const enum ApiHttp {
     mailDelete = "/mail/delete",
     /** 提现 */
     withdraw = "/withdraw",
+    /** 提现记录*/
+    withdrawRecord = "/withdraw/record",
     /** 客户端版本 */
     configClient = "/config/client",
     /** 引导数据 */

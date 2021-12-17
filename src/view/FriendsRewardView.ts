@@ -6,6 +6,7 @@ import TableAnalyze from "src/common/TableAnalyze";
 import { RewardCurrencyBase } from "src/common/TableObject";
 import AppCore from "src/core/App";
 import Core from "src/core/index";
+import TaskService from "src/dataService/TaskService";
 import UserInfo from "src/dataService/UserInfo";
 
 //export default class FriendsRewardView extends Laya.Script {
@@ -57,6 +58,19 @@ export default class FriendsRewardView extends Core.gameScript {
                     uri: AppEventMap.wxShare,
                     data: {},
                     timestamp: Date.now(),
+                }).then((d) => {
+                    if (d.code) {
+                        Core.view.openHint({ text: d.data["message"], call: () => {} });
+                    } else {
+                        Core.view.openHint({ text: d.data["message"], call: () => {} });
+                        HttpControl.inst
+                            .send({
+                                api: ApiHttp.friendShare,
+                            })
+                            .then(() => {
+                                TaskService.taskAddTimes(1010);
+                            });
+                    }
                 });
                 break;
             case "submit":

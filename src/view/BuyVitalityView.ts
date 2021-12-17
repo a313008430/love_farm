@@ -15,6 +15,8 @@ export default class BuyVitalityView extends GameScript {
     private priceLabel: Laya.Label = null;
     /** @prop {name:priceIcon, tips:"价格icon", type:Node}*/
     private priceIcon: Laya.Image = null;
+    /** @prop {name:adBtn, tips:"广告按钮", type:Node}*/
+    private adBtn: Laya.Image = null;
 
     private data: { call: Function };
     private costGoldCount: number;
@@ -24,6 +26,9 @@ export default class BuyVitalityView extends GameScript {
         let costGoldCount = TableAnalyze.table("config").get("vitalityBuyCostGold").value as number;
         this.costGoldCount = costGoldCount;
         this.priceLabel.text = `价格：${costGoldCount}`;
+
+        this.adBtn.disabled = !UserInfo.advertiseTimes;
+        this.adBtn.active = Boolean(UserInfo.advertiseTimes);
     }
 
     onClick(e: Laya.Event) {

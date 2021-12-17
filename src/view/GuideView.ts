@@ -74,6 +74,7 @@ export default class GuideView extends Core.gameScript {
 
         if (!this.textList[this.step]) {
             Core.view.close(Res.views.GuideView);
+            if (this.data.call) this.data.call();
             return;
         }
 

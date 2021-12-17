@@ -1,8 +1,10 @@
-import { EventMaps } from "src/common/EventMaps";
+import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
+import AppCore from "src/core/App";
 import Core from "src/core/index";
+import TaskService from "src/dataService/TaskService";
 import UserInfo from "src/dataService/UserInfo";
 import MainView from "./MainView";
 
@@ -356,6 +358,10 @@ export default class FriendsView extends Core.gameScript {
                 data.applyIng = 0;
                 this.itemList.refresh();
                 this.canClick = true;
+                AppCore.runAppFunction({
+                    uri: AppEventMap.eventCount,
+                    data: { type: "Addfriends" },
+                });
             })
             .catch(() => {
                 this.canClick = true;
@@ -376,12 +382,15 @@ export default class FriendsView extends Core.gameScript {
                     friendId: data.uid,
                 },
             })
-            .then(() => {
+            .then((d: { status: boolean; taskState: boolean }) => {
                 this.friendsList = [];
                 this.itemList.array = this.friendsList;
                 this.itemList.refresh();
                 Core.view.openHint({ text: "已发送激情", call: () => {} });
                 this.canClick = true;
+                if (d.taskState) {
+                    TaskService.taskAddTimes(1009);
+                }
             })
             .catch(() => {
                 this.canClick = true;
