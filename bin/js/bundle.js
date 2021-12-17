@@ -1493,6 +1493,7 @@
       this.costIcon = null;
       this.costFont = null;
       this.adBtn = null;
+      this.canClick = true;
     }
     onOpened(d) {
       this.data = d;
@@ -1508,6 +1509,9 @@
           core_default.view.close(Res_default.views.AddLandView);
           break;
         case "cost_gold":
+          if (!this.canClick) {
+            return;
+          }
           if (this.landData.obj.id == ConfigGame_default.goldId && this.landData.count > UserInfo_default.gold) {
             core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3", call: () => {
             } });
@@ -1518,6 +1522,7 @@
             } });
             return;
           }
+          this.canClick = false;
           HttpControl.inst.send({
             api: ApiHttp.landUnlock,
             data: {
@@ -1526,13 +1531,20 @@
             }
           }).then(() => {
             var _a;
+            this.canClick = true;
             if ((_a = this.data) == null ? void 0 : _a.call) {
               this.data.call();
               core_default.view.close(Res_default.views.AddLandView);
             }
+          }).catch(() => {
+            this.canClick = true;
           });
           break;
         case "ad_btn":
+          if (!this.canClick) {
+            return;
+          }
+          this.canClick = false;
           HttpControl.inst.send({
             api: ApiHttp.landUnlock,
             data: {
@@ -1541,11 +1553,14 @@
             }
           }).then(() => {
             var _a;
+            this.canClick = true;
             if ((_a = this.data) == null ? void 0 : _a.call) {
               this.data.call();
               core_default.view.close(Res_default.views.AddLandView);
             }
             core_default.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
+          }).catch(() => {
+            this.canClick = true;
           });
           break;
       }

@@ -23,6 +23,8 @@ export default class AddLandView extends GameScript {
 
     private landData: RewardCurrencyBase;
 
+    private canClick: boolean = true;
+
     onOpened(d) {
         this.data = d;
 
@@ -42,6 +44,9 @@ export default class AddLandView extends GameScript {
                 Core.view.close(Res.views.AddLandView);
                 break;
             case "cost_gold":
+                if (!this.canClick) {
+                    return;
+                }
                 if (
                     this.landData.obj.id == ConfigGame.goldId &&
                     this.landData.count > UserInfo.gold
@@ -56,6 +61,7 @@ export default class AddLandView extends GameScript {
                     Core.view.openHint({ text: "钻石不足", call: () => {} });
                     return;
                 }
+                this.canClick = false;
                 HttpControl.inst
                     .send({
                         api: ApiHttp.landUnlock,
@@ -65,13 +71,21 @@ export default class AddLandView extends GameScript {
                         },
                     })
                     .then(() => {
+                        this.canClick = true;
                         if (this.data?.call) {
                             this.data.call();
                             Core.view.close(Res.views.AddLandView);
                         }
+                    })
+                    .catch(() => {
+                        this.canClick = true;
                     });
                 break;
             case "ad_btn":
+                if (!this.canClick) {
+                    return;
+                }
+                this.canClick = false;
                 HttpControl.inst
                     .send({
                         api: ApiHttp.landUnlock,
@@ -81,12 +95,16 @@ export default class AddLandView extends GameScript {
                         },
                     })
                     .then(() => {
+                        this.canClick = true;
                         if (this.data?.call) {
                             this.data.call();
                             Core.view.close(Res.views.AddLandView);
                         }
 
                         Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
+                    })
+                    .catch(() => {
+                        this.canClick = true;
                     });
 
                 break;
