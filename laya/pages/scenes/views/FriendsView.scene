@@ -2,7 +2,7 @@
     "x":0,
     "type":"View",
     "selectedBox":52,
-    "selecteID":152,
+    "selecteID":115,
     "searchKey":"View",
     "props":{"y":0,"x":0,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/FriendsView.jpg","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -393,14 +393,13 @@
                                     "props":{"y":62,"x":497,"width":464,"name":"new_box","height":123},
                                     "nodeParent":52,
                                     "label":"new_box",
-                                    "isOpen":true,
+                                    "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":false,
                                     "hasChild":true,
                                     "compId":115,
                                     "child":[
                                         {
-                                            "x":75,
                                             "type":"Image",
                                             "searchKey":"Image,past_btn",
                                             "props":{"y":72,"x":330.5,"width":237,"skin":"game/img_agree.png","name":"past_btn","height":82,"anchorY":0.5,"anchorX":0.5},
@@ -430,7 +429,6 @@
                                                 }]
                                         },
                                         {
-                                            "x":75,
                                             "type":"Image",
                                             "searchKey":"Image,ignore",
                                             "props":{"y":-10,"x":330,"width":88,"skin":"game/img_ignore.png","rotation":0,"name":"ignore","height":44,"anchorY":0.5,"anchorX":0.5},
@@ -460,7 +458,6 @@
                                                 }]
                                         },
                                         {
-                                            "x":75,
                                             "type":"Label",
                                             "searchKey":"Label,new_friend",
                                             "props":{"y":21,"x":-0.5,"text":"新朋友","name":"new_friend","fontSize":38,"font":"Microsoft YaHei","color":"#755037","bold":true},
@@ -486,13 +483,14 @@
                     "props":{"y":125,"x":150,"width":936,"rotation":0,"name":"top_box","height":86},
                     "nodeParent":38,
                     "label":"top_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":81,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,reward_btn",
                             "props":{"y":19,"x":68,"skin":"game/img_rewardFriend.png","name":"reward_btn","anchorY":0.5,"anchorX":0.5},
@@ -522,6 +520,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,del_friend",
                             "props":{"y":34,"x":434,"skin":"game/img_deleteBtn.png","name":"del_friend","anchorY":0.5,"anchorX":0.5},
@@ -548,9 +547,11 @@
                                     "compId":98,
                                     "child":[
                                         ]
-                                }]
+                                }],
+                            "$HIDDEN":false
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,add_friend",
                             "props":{"y":34,"x":685,"skin":"game/img_addBtn.png","name":"add_friend","anchorY":0.5,"anchorX":0.5},
@@ -577,9 +578,11 @@
                                     "compId":104,
                                     "child":[
                                         ]
-                                }]
+                                }],
+                            "$HIDDEN":false
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,desc_btn",
                             "props":{"y":37,"x":859,"skin":"game/img_helpBtn.png","name":"desc_btn","anchorY":0.5,"anchorX":0.5},
@@ -606,9 +609,10 @@
                                     "compId":106,
                                     "child":[
                                         ]
-                                }]
+                                }],
+                            "$HIDDEN":false
                         }],
-                    "$HIDDEN":true
+                    "$HIDDEN":false
                 },
                 {
                     "x":30,

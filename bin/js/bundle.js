@@ -3182,12 +3182,13 @@
       });
     }
     itemRender(cell, i) {
-      const data = this.friendsList[i];
+      const data = this.itemList.array[i];
       let newBox = cell.getChildByName("new_box"), heartBox = cell.getChildByName("heart_box"), goPlayBtn = cell.getChildByName("go_play_btn"), applyBtn = cell.getChildByName("apply_btn"), delBtn = cell.getChildByName("del_btn");
       heartBox.visible = false;
       goPlayBtn.visible = false;
       applyBtn.visible = false;
       delBtn.visible = false;
+      console.log(data);
       if (data == null ? void 0 : data.avatar)
         cell.getChildByName("head").skin = data.avatar;
       cell.getChildByName("name").text = data.nickname;
@@ -3225,6 +3226,7 @@
           newBox.active = false;
         }
       }
+      console.log(this.viewState);
     }
     onClick(e) {
       if (!this.canClick)
@@ -3290,6 +3292,7 @@
     }
     addFriendEvent() {
       if (this.viewState == 3 || this.viewState == 2) {
+        console.log(this.viewState);
         this.viewState = 1;
         this.itemList.array = this.friends;
         this.itemList.height = 914;

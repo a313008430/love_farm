@@ -27,6 +27,7 @@ export default class FriendsView extends Core.gameScript {
     /** 1是好友列表 2 加好友  3删除好友 */
     private viewState: 1 | 2 | 3 = 1;
 
+    //这两个好友 有点乱，需要优化
     private friends: FriendData[] = [];
     private friendsList: FriendData[] = [];
 
@@ -64,7 +65,7 @@ export default class FriendsView extends Core.gameScript {
     }
 
     private itemRender(cell: Laya.Box, i: number) {
-        const data = this.friendsList[i];
+        const data = this.itemList.array[i];
 
         let newBox = cell.getChildByName("new_box") as Laya.Box,
             heartBox = cell.getChildByName("heart_box") as Laya.Image,
@@ -76,6 +77,7 @@ export default class FriendsView extends Core.gameScript {
         goPlayBtn.visible = false;
         applyBtn.visible = false;
         delBtn.visible = false;
+        console.log(data);
 
         if (data?.avatar) (cell.getChildByName("head") as Laya.Image).skin = data.avatar;
         (cell.getChildByName("name") as Laya.Label).text = data.nickname;
@@ -119,6 +121,7 @@ export default class FriendsView extends Core.gameScript {
                 newBox.active = false;
             }
         }
+        console.log(this.viewState);
     }
 
     onClick(e: Laya.Event) {
@@ -185,6 +188,7 @@ export default class FriendsView extends Core.gameScript {
 
     private addFriendEvent() {
         if (this.viewState == 3 || this.viewState == 2) {
+            console.log(this.viewState);
             this.viewState = 1;
             this.itemList.array = this.friends;
             this.itemList.height = 914;
