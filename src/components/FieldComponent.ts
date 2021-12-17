@@ -130,7 +130,6 @@ export default class FieldComponent extends Core.gameScript {
             this.lvNode.visible = true;
             this.updateLevel();
             this.timeBox.visible = false;
-
             if (this.data.productId) {
                 this.plantIconAni(true);
             }
