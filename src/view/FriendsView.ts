@@ -291,7 +291,7 @@ export default class FriendsView extends Core.gameScript {
                 .send({
                     api: ApiHttp.friendVisit,
                     data: {
-                        friendId: data.uid,
+                        friendId: data.uid + 1,
                     },
                 })
                 .then((d) => {
@@ -304,6 +304,7 @@ export default class FriendsView extends Core.gameScript {
                 })
                 .catch(() => {
                     this.canClick = true;
+                    Core.eventGlobal.event(EventMaps.go_home);
                 });
         });
     }

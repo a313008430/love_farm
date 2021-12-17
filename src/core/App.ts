@@ -63,7 +63,8 @@ export default class AppCore {
                 if (window["$App"] && window["$App"]["webRequest"]) {
                     // return new Promise((resolve) => {
                     window["$App"]["webRequest"](JSON.stringify(data));
-                    console.log(`send => ${data}`);
+                    // console.log(`send => ${data}`);
+                    // alert(`send => ${JSON.stringify(data)}`);
                     if (data.timestamp) {
                         EventMap.set(data.timestamp, resolve);
                     }
@@ -93,6 +94,8 @@ export default class AppCore {
         //监听手机关闭事件响应
 
         window["appResponse"] = (d: AppDespatchReturnData) => {
+            alert(`back ${JSON.stringify(d)}`);
+
             // Core.view.openHint({ text: JSON.stringify(d), call: () => {} });
             // alert(d?.timestamp);
             if (EventMap.has(d?.timestamp)) {

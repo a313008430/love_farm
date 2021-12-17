@@ -345,6 +345,11 @@ export default class ShopView extends GameScript {
 
                         if (e.target.name == "ad_unlock") {
                             Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
+                        } else {
+                            AppCore.runAppFunction({
+                                uri: AppEventMap.eventCount,
+                                data: { type: "Freeunlock" },
+                            });
                         }
                     })
                     .catch(() => {

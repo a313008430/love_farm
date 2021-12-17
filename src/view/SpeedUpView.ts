@@ -56,6 +56,11 @@ export default class SpeedUpView extends Core.gameScript {
                             });
                         }
 
+                        AppCore.runAppFunction({
+                            uri: AppEventMap.eventCount,
+                            data: { type: "Advertisingacceleration" },
+                        });
+
                         Core.view.close(Res.views.SpeedUpView);
                         Core.eventGlobal.event(EventMaps.land_speed_up);
 

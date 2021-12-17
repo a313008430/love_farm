@@ -1,10 +1,11 @@
 import ConfigGame from "src/common/ConfigGame";
-import { EventMaps } from "src/common/EventMaps";
+import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
 import TableAnalyze from "src/common/TableAnalyze";
 import { RewardCurrencyBase } from "src/common/TableObject";
+import AppCore from "src/core/App";
 import Core from "src/core/index";
 import PlantService from "src/dataService/PlantService";
 import UserInfo from "src/dataService/UserInfo";
@@ -220,6 +221,10 @@ export default class WarehouseView extends Core.gameScript {
 
                             if (btnName == "sellBtnAd") {
                                 Core.eventGlobal.event(EventMaps.play_ad_get_reward, target);
+                                AppCore.runAppFunction({
+                                    uri: AppEventMap.eventCount,
+                                    data: { type: "Doublesale" },
+                                });
                             }
 
                             Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{

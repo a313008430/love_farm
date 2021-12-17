@@ -1,9 +1,10 @@
 import ConfigGame from "src/common/ConfigGame";
-import { EventMaps } from "src/common/EventMaps";
+import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
 import TableAnalyze from "src/common/TableAnalyze";
+import AppCore from "src/core/App";
 import GameScript from "src/core/GameScript";
 import Core from "src/core/index";
 import { LandObj } from "src/dataService/LandService";
@@ -62,6 +63,11 @@ export default class FieldLevelUpView extends GameScript {
                     .then(() => {
                         if (e.target.name == "upgradeAdBtn") {
                             Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
+                        } else {
+                            AppCore.runAppFunction({
+                                uri: AppEventMap.eventCount,
+                                data: { type: "Landupgrading" },
+                            });
                         }
 
                         if (this.data.call) {
