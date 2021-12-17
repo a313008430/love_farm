@@ -1,12 +1,13 @@
 import ConfigGame from "src/common/ConfigGame";
 import ErrorCode from "src/common/ErrorCode";
-import { EventMaps } from "src/common/EventMaps";
+import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
 import { Table } from "src/common/Table";
 import TableAnalyze from "src/common/TableAnalyze";
 import Tools from "src/common/Tools";
+import AppCore from "src/core/App";
 import Core from "src/core/index";
 import LandService, { LandObj } from "src/dataService/LandService";
 import { PlantDataBase } from "src/dataService/PlantService";
@@ -323,7 +324,7 @@ export default class FieldComponent extends Core.gameScript {
                 .value as number;
             this.matureTime = this.data.matureTimeLeft * 1000 + Date.now();
             this.updateCountDown();
-            console.log(11);
+            // console.log(11);
 
             //减时间提示
             this.reduceTime.visible = true;
@@ -543,6 +544,10 @@ export default class FieldComponent extends Core.gameScript {
         Core.audio.playSound(Res.audios.zhongzhi);
         this.mainViewCom.updateAllStateIcon(this.data.id);
         TaskService.taskAddTimes(1011);
+        AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "plant" },
+        });
     }
 
     /**
@@ -578,6 +583,10 @@ export default class FieldComponent extends Core.gameScript {
                     /** 额外奖励 */
                     rewardDiamond: number;
                 }) => {
+                    AppCore.runAppFunction({
+                        uri: AppEventMap.eventCount,
+                        data: { type: "Stealvegetables" },
+                    });
                     TaskService.taskAddTimes(1004);
                     this.canClick = true;
                     UserInfo.vitality = d.vitality;

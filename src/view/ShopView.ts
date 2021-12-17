@@ -1,5 +1,5 @@
 import ConfigGame from "src/common/ConfigGame";
-import { EventMaps } from "src/common/EventMaps";
+import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
@@ -8,6 +8,7 @@ import TableAnalyze from "src/common/TableAnalyze";
 import { FeedBase, PlantBase, RewardCurrencyBase } from "src/common/TableObject";
 import Tools from "src/common/Tools";
 import FloatViewShowAni from "src/components/FloatViewShowAni";
+import AppCore from "src/core/App";
 import GameScript from "src/core/GameScript";
 import Core from "src/core/index";
 import { ViewManager } from "src/core/ViewManager";
@@ -660,6 +661,10 @@ export default class ShopView extends GameScript {
                 UserInfo.withdraw = d.list;
                 UserInfo.diamond = d.diamond;
                 this.priceList.refresh();
+                AppCore.runAppFunction({
+                    uri: AppEventMap.eventCount,
+                    data: { type: "Withdrawal" },
+                });
             })
             .catch(() => {
                 this.canClick = true;

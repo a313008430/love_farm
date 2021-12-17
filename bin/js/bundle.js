@@ -1988,7 +1988,6 @@
         this.data.matureTimeLeft -= TableAnalyze_default.table("config").get("all_speed_up_time").value;
         this.matureTime = this.data.matureTimeLeft * 1e3 + Date.now();
         this.updateCountDown();
-        console.log(11);
         this.reduceTime.visible = true;
         this.reduceTime.alpha = 0;
         this.reduceTime.y = -39;
@@ -2146,6 +2145,10 @@
       core_default.audio.playSound(Res_default.audios.zhongzhi);
       this.mainViewCom.updateAllStateIcon(this.data.id);
       TaskService_default.taskAddTimes(1011);
+      AppCore.runAppFunction({
+        uri: AppEventMap.eventCount,
+        data: { type: "plant" }
+      });
     }
     stealFood(data) {
       return __async(this, null, function* () {
@@ -2169,6 +2172,10 @@
             uid: this.stealUid
           }
         }).then((d) => {
+          AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "Stealvegetables" }
+          });
           TaskService_default.taskAddTimes(1004);
           this.canClick = true;
           UserInfo_default.vitality = d.vitality;
@@ -3363,6 +3370,10 @@
         data.applyIng = 0;
         this.itemList.refresh();
         this.canClick = true;
+        AppCore.runAppFunction({
+          uri: AppEventMap.eventCount,
+          data: { type: "Addfriends" }
+        });
       }).catch(() => {
         this.canClick = true;
       });
@@ -3772,6 +3783,10 @@
                   ConfigGame_default.channel = data.data["channel"];
               }
             });
+            AppCore.runAppFunction({
+              uri: AppEventMap.eventCount,
+              data: { type: "Signin" }
+            });
           }).catch(() => {
             this.canClick = true;
             this.loginBox.visible = true;
@@ -3862,6 +3877,10 @@
                   ConfigGame_default.channel = data.data["channel"];
                 }
               }
+            });
+            AppCore.runAppFunction({
+              uri: AppEventMap.eventCount,
+              data: { type: "Signin" }
             });
           }).catch(() => {
             this.canClick = true;
@@ -4843,6 +4862,10 @@
         UserInfo_default.withdraw = d.list;
         UserInfo_default.diamond = d.diamond;
         this.priceList.refresh();
+        AppCore.runAppFunction({
+          uri: AppEventMap.eventCount,
+          data: { type: "Withdrawal" }
+        });
       }).catch(() => {
         this.canClick = true;
       });
@@ -5009,6 +5032,10 @@
             UserInfo_default.advertiseTimes = d.advertiseTimes;
             if (UserInfo_default.speedUpTimes == ConfigGame_default.ADSpeedUpTimes) {
               UserInfo_default.signInDays++;
+              AppCore.runAppFunction({
+                uri: AppEventMap.eventCount,
+                data: { type: "punchtheclock" }
+              });
             }
             core_default.view.close(Res_default.views.SpeedUpView);
             core_default.eventGlobal.event(EventMaps.land_speed_up);

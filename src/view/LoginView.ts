@@ -184,6 +184,11 @@ export default class LoginView extends GameScript {
                             if (data) ConfigGame.channel = data.data["channel"];
                         }
                     });
+
+                    AppCore.runAppFunction({
+                        uri: AppEventMap.eventCount,
+                        data: { type: "Signin" },
+                    });
                 })
                 .catch(() => {
                     this.canClick = true;
@@ -286,6 +291,11 @@ export default class LoginView extends GameScript {
                                 ConfigGame.channel = data.data["channel"];
                             }
                         }
+                    });
+
+                    AppCore.runAppFunction({
+                        uri: AppEventMap.eventCount,
+                        data: { type: "Signin" },
                     });
                 })
                 .catch(() => {

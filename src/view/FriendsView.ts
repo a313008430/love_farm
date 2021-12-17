@@ -1,7 +1,8 @@
-import { EventMaps } from "src/common/EventMaps";
+import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
+import AppCore from "src/core/App";
 import Core from "src/core/index";
 import TaskService from "src/dataService/TaskService";
 import UserInfo from "src/dataService/UserInfo";
@@ -357,6 +358,10 @@ export default class FriendsView extends Core.gameScript {
                 data.applyIng = 0;
                 this.itemList.refresh();
                 this.canClick = true;
+                AppCore.runAppFunction({
+                    uri: AppEventMap.eventCount,
+                    data: { type: "Addfriends" },
+                });
             })
             .catch(() => {
                 this.canClick = true;

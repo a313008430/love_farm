@@ -1,9 +1,10 @@
 import ConfigGame from "src/common/ConfigGame";
-import { EventMaps } from "src/common/EventMaps";
+import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
 import TableAnalyze from "src/common/TableAnalyze";
+import AppCore from "src/core/App";
 import Core from "src/core/index";
 import UserInfo from "src/dataService/UserInfo";
 
@@ -49,6 +50,10 @@ export default class SpeedUpView extends Core.gameScript {
 
                         if (UserInfo.speedUpTimes == ConfigGame.ADSpeedUpTimes) {
                             UserInfo.signInDays++;
+                            AppCore.runAppFunction({
+                                uri: AppEventMap.eventCount,
+                                data: { type: "punchtheclock" },
+                            });
                         }
 
                         Core.view.close(Res.views.SpeedUpView);
