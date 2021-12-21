@@ -1,10 +1,10 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":7,
-    "selecteID":14,
+    "selectedBox":2,
+    "selecteID":3,
     "searchKey":"View",
-    "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/FriendsRewardView.jpg","right":0,"left":0,"height":1920,"bottom":0},
+    "props":{"width":1080,"top":0,"sceneColor":"#000000","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
     "maxID":45,
     "label":"View",
@@ -27,7 +27,7 @@
             "compId":5,
             "child":[
                 ],
-            "$HIDDEN":true
+            "$HIDDEN":false
         },
         {
             "x":15,
@@ -42,7 +42,7 @@
             "compId":3,
             "child":[
                 ],
-            "$HIDDEN":true
+            "$HIDDEN":false
         },
         {
             "x":15,

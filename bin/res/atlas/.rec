@@ -26,7 +26,6 @@ P 672A8708 img_boundary.png
 P DD15BFE4 img_buy.png
 P 2A5D7635 img_buybtm.png
 P 0FFEE95B img_buygoods.png
-P F02E4566 img_cadpa12.png
 P 70E23636 img_calender.png
 P A4EBAA76 img_cancel.png
 P 9F1B54B6 img_cancelBtn.png
@@ -174,6 +173,7 @@ P D1F64019 img_withdraw.png
 P 56728B6A img_withdrawbtn.png
 P 6ABCA748 img_x.png
 D load
+P F02E4566 img_cadpa12.png
 P D9834561 img_checkBox1.png
 P A3BD2BFE img_checkBox2.png
 P BCBEBC71 img_cloud1.png
@@ -245,6 +245,7 @@ P B46183DC img_level9.png
 P 68B33E78 img_marketBuilding.png
 P 9217EA91 img_menuWoodBg.png
 P 0A72C1FE img_money.png
+P 3427DF58 img_notReceived.png
 P 0395F97A img_OKBtn.png
 P 7BF4F8F5 img_popUpBg.png
 P 9A49788D img_portrait.png

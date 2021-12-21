@@ -16,7 +16,7 @@
         "build:online": "node libs/hd/index.js online",
         "build:test": "node libs/hd/index.js test",
         "start": "node libs/hd/index.js debug",
-        "start:test": "node libs/hd/index.js test",
+        "start:test": "node libs/hd/index.js debug_test_start",
         "start:online": "node libs/hd/index.js online"
     },
     "repository": {

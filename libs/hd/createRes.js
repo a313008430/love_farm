@@ -1,8 +1,7 @@
 const chokidar = require("chokidar");
 const fs = require("fs");
 const path = require("path");
-
-const buildType = process.argv[2];
+const { buildType } = require("./config");
 
 /////======================================
 
@@ -95,7 +94,10 @@ export default Res;
             return;
         }
         console.info("\x1b[33m", "更新生成 Res.ts");
-        if (!process.argv.includes("debug")) {
+        if (
+            !process.argv.includes(buildType.debug) &&
+            !process.argv.includes(buildType.debug_test_start)
+        ) {
             console.log("结束构建");
             process.kill(process.pid);
         }

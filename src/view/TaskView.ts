@@ -13,6 +13,7 @@ import { ApiHttp } from "src/common/NetMaps";
 import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import { GetFloatRewardObj } from "./MainView";
 import AppCore from "src/core/App";
+import { RewardCurrencyBase } from "src/common/TableObject";
 
 interface ButtonObj {
     /** 任务id */
@@ -50,7 +51,16 @@ export default class TaskView extends GameScript {
 
         const rewardBox = cell.getChildByName("reward") as Laya.Box;
         (rewardBox.getChildByName("icon") as Laya.Image).skin = obj.reward.obj.icon;
-        (rewardBox.getChildByName("amount") as Laya.Label).text = "x" + obj.reward.count;
+
+        if (obj.id === 1012) {
+            const reward = (
+                TableAnalyze.table("config").get("Videorewards").value as RewardCurrencyBase
+            ).count;
+            (rewardBox.getChildByName("amount") as Laya.Label).text =
+                "x" + (obj.reward.count + (obj.times - (task?.times || 0)) * reward);
+        } else {
+            (rewardBox.getChildByName("amount") as Laya.Label).text = "x" + obj.reward.count;
+        }
 
         const btn = cell.getChildByName("go_run") as Laya.Image;
 

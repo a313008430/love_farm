@@ -2,12 +2,10 @@ import ConfigGame from "src/common/ConfigGame";
 import { EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
-import { Table } from "src/common/Table";
 import TableAnalyze from "src/common/TableAnalyze";
 import { RewardCurrencyBase } from "src/common/TableObject";
 import Tools from "src/common/Tools";
 import FieldComponent from "src/components/FieldComponent";
-import AppCore from "src/core/App";
 import Core from "src/core/index";
 import LandService, { LandObj } from "src/dataService/LandService";
 import { PlantDataBase } from "src/dataService/PlantService";
@@ -57,6 +55,8 @@ export default class MainView extends Core.gameScript {
     private orderBox: Laya.Box = null;
     /** @prop {name:bottomBox, tips:"底部按钮容器", type:Node}*/
     private bottomBox: Laya.Box = null;
+    /** @prop {name:rewardShareGuide, tips:"奖励引导", type:Node}*/
+    private rewardShareGuide: Laya.Box = null;
 
     /** @prop {name:landUpLayer, tips:"土地升级窗口", type:Node}*/
     private landUpLayer: Laya.Image = null;
@@ -90,6 +90,10 @@ export default class MainView extends Core.gameScript {
     private vitalityBox: Laya.Image = null;
     /** @prop {name:vitalityBuyBtn, tips:"体力购买按钮", type:Node}*/
     private vitalityBuyBtn: Laya.Image = null;
+
+    //红点相关
+    /** @prop {name:anyDoorRed, tips:"去转转红点", type:Node}*/
+    private anyDoorRed: Laya.Image = null;
 
     //宠物
     /** @prop {name:petBox, tips:"宠物容器", type:Node}*/
@@ -195,6 +199,7 @@ export default class MainView extends Core.gameScript {
 
         this.guidHandAnimation();
         this.guideHand.visible = false;
+        this.friendShareGuide(true);
     }
 
     onHdAwake() {
@@ -454,12 +459,14 @@ export default class MainView extends Core.gameScript {
             .key("vitality", (e) => {
                 let vitality = e / ConfigGame.userVitalityLimit;
                 if (vitality >= 1) {
+                    this.anyDoorRed.visible = true;
                     vitality = 1;
                     this.vitalityBuyBtn.gray = true;
                     Laya.timer.frameOnce(1, this, () => {
                         this.vitalityBuyBtn.mouseEnabled = false;
                     });
                 } else {
+                    this.anyDoorRed.visible = false;
                     this.vitalityBuyBtn.gray = false;
                     Laya.timer.frameOnce(1, this, () => {
                         this.vitalityBuyBtn.mouseEnabled = true;
@@ -547,6 +554,9 @@ export default class MainView extends Core.gameScript {
                 break;
             case "add_vitality":
                 this.buyVitality();
+                break;
+            case "reward_share_guide":
+                this.goFriendRewardView();
                 break;
         }
     }
@@ -1214,5 +1224,83 @@ export default class MainView extends Core.gameScript {
 
     onHdDestroy(): void {
         this.guidHandAni?.destroy();
+        this.rewardShareIconAni(false);
     }
+
+    // #region 好友奖励提示功能
+    /**
+     * 好友邀请数据
+     */
+    private friendInviteData: InviteData[] = [];
+    /**
+     * 奖励引导动画
+     */
+    private rewardShareGuideAnimation: Laya.TimeLine;
+
+    /**
+     * 去好友奖励界面
+     */
+    private goFriendRewardView() {
+        Core.view.open(Res.views.FriendsRewardView, {
+            parm: {
+                list: this.friendInviteData,
+                call: () => {},
+            },
+        });
+    }
+    /**
+     * 好友分享引导
+     */
+    @Core.eventOn(EventMaps.update_friend_share_guide)
+    private async friendShareGuide(init: boolean, data?: InviteData[]) {
+        if (init) {
+            let d = (await HttpControl.inst.send({
+                api: ApiHttp.friendInviteList,
+                data: {},
+            })) as InviteList;
+            data = d.list;
+        }
+        this.friendInviteData = data;
+        if (data.length < 3) {
+            this.rewardShareIconAni(true);
+            return;
+        }
+        let hasReward = false;
+        for (let x = 0; x < 3; x++) {
+            if (!data[x].receivedReward) {
+                hasReward = true;
+                break;
+            }
+        }
+        this.rewardShareIconAni(hasReward);
+    }
+
+    /**
+     * 奖励引导动画显示隐藏
+     * @param show
+     */
+    private rewardShareIconAni(show: boolean) {
+        if (show) {
+            this.rewardShareGuide.visible = true;
+            if (!this.rewardShareGuideAnimation) {
+                this.rewardShareGuideAnimation = Laya.TimeLine.to(
+                    this.rewardShareGuide,
+                    { rotation: 15 },
+                    150,
+                    null,
+                    5000
+                )
+                    .to(this.rewardShareGuide, { rotation: -15 }, 300, null)
+                    .to(this.rewardShareGuide, { rotation: 15 }, 300, null)
+                    .to(this.rewardShareGuide, { rotation: 0 }, 150, null);
+            }
+            this.rewardShareGuideAnimation.play(null, true);
+        } else {
+            this.rewardShareGuideAnimation?.destroy();
+            this.rewardShareGuideAnimation = null;
+            this.rewardShareGuide.visible = false;
+        }
+    }
+
+    //endregion
 }

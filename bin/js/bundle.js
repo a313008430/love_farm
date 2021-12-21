@@ -42,6 +42,7 @@
     EventMaps3["login_out"] = "login_out";
     EventMaps3["update_task"] = "update_task";
     EventMaps3["update_guid_hand"] = "update_guid_hand";
+    EventMaps3["update_friend_share_guide"] = "update_friend_share_guide";
     EventMaps3["play_get_reward"] = "play_get_reward";
     EventMaps3["play_ad_get_reward"] = "play_ad_get_reward";
     EventMaps3["go_friend_home"] = "go_friend_home";
@@ -1680,6 +1681,9 @@
 
   // src/view/FriendsDescView.ts
   var FriendsDescView = class extends core_default.gameScript {
+    onOpened(e) {
+      this.call = e == null ? void 0 : e.call;
+    }
     onHdAwake() {
       this.panelNode.vScrollBarSkin = null;
     }
@@ -1687,6 +1691,13 @@
       switch (e.target.name) {
         case "close":
           core_default.view.close(Res_default.views.FriendsDescView);
+          break;
+        case "invite_btn":
+          core_default.view.close(Res_default.views.FriendsDescView);
+          if (this.call) {
+            this.call();
+            core_default.view.close(Res_default.views.FriendsView);
+          }
           break;
       }
     }
@@ -1706,7 +1717,7 @@
     }
     onHdAwake() {
       this.priceList.vScrollBarSkin = null;
-      this.priceList.array = new Array(3);
+      this.priceList.array = new Array(6);
       this.priceList.renderHandler = new Laya.Handler(this, this.renderItem);
     }
     onOpened(data) {
@@ -1731,7 +1742,7 @@
             data: {},
             timestamp: Date.now()
           }).then((d) => {
-            if (d.code) {
+            if (!d || (d == null ? void 0 : d.code)) {
               core_default.view.openHint({ text: d.data["message"], call: () => {
               } });
             } else {
@@ -1767,6 +1778,7 @@
         } });
         this.inviteList[i].receivedReward = 1;
         this.priceList.refresh();
+        core_default.eventGlobal.event(EventMaps.update_friend_share_guide, [this.inviteList]);
       }).catch(() => {
         this.canClick = true;
       });
@@ -1785,6 +1797,10 @@
         }
       } else {
         btn.disabled = true;
+      }
+      if (i > 2) {
+        btn.disabled = false;
+        btn.visible = false;
       }
       btn.dataSource = i;
     }
@@ -2295,6 +2311,7 @@
       this.centerBox = null;
       this.orderBox = null;
       this.bottomBox = null;
+      this.rewardShareGuide = null;
       this.landUpLayer = null;
       this.topLayerOnStage = null;
       this.topGoldIcon = null;
@@ -2309,6 +2326,7 @@
       this.anyDoor = null;
       this.vitalityBox = null;
       this.vitalityBuyBtn = null;
+      this.anyDoorRed = null;
       this.petBox = null;
       this.taskBox = null;
       this.step1 = null;
@@ -2328,6 +2346,7 @@
       this.guidIdList = [1, 2, 3, 5];
       this.hasGuide = false;
       this.orderQueueIng = false;
+      this.friendInviteData = [];
     }
     onOpened() {
       _MainView.inst = this;
@@ -2387,6 +2406,7 @@
       }
       this.guidHandAnimation();
       this.guideHand.visible = false;
+      this.friendShareGuide(true);
     }
     onHdAwake() {
       Laya.stage.addChild(this.topLayerOnStage);
@@ -2575,12 +2595,14 @@
       }).key("vitality", (e) => {
         let vitality = e / ConfigGame_default.userVitalityLimit;
         if (vitality >= 1) {
+          this.anyDoorRed.visible = true;
           vitality = 1;
           this.vitalityBuyBtn.gray = true;
           Laya.timer.frameOnce(1, this, () => {
             this.vitalityBuyBtn.mouseEnabled = false;
           });
         } else {
+          this.anyDoorRed.visible = false;
           this.vitalityBuyBtn.gray = false;
           Laya.timer.frameOnce(1, this, () => {
             this.vitalityBuyBtn.mouseEnabled = true;
@@ -2664,6 +2686,9 @@
           break;
         case "add_vitality":
           this.buyVitality();
+          break;
+        case "reward_share_guide":
+          this.goFriendRewardView();
           break;
       }
     }
@@ -3119,6 +3144,54 @@
     onHdDestroy() {
       var _a;
       (_a = this.guidHandAni) == null ? void 0 : _a.destroy();
+      this.rewardShareIconAni(false);
+    }
+    goFriendRewardView() {
+      core_default.view.open(Res_default.views.FriendsRewardView, {
+        parm: {
+          list: this.friendInviteData,
+          call: () => {
+          }
+        }
+      });
+    }
+    friendShareGuide(init, data) {
+      return __async(this, null, function* () {
+        if (init) {
+          let d = yield HttpControl.inst.send({
+            api: ApiHttp.friendInviteList,
+            data: {}
+          });
+          data = d.list;
+        }
+        this.friendInviteData = data;
+        if (data.length < 3) {
+          this.rewardShareIconAni(true);
+          return;
+        }
+        let hasReward = false;
+        for (let x = 0; x < 3; x++) {
+          if (!data[x].receivedReward) {
+            hasReward = true;
+            break;
+          }
+        }
+        this.rewardShareIconAni(hasReward);
+      });
+    }
+    rewardShareIconAni(show) {
+      var _a;
+      if (show) {
+        this.rewardShareGuide.visible = true;
+        if (!this.rewardShareGuideAnimation) {
+          this.rewardShareGuideAnimation = Laya.TimeLine.to(this.rewardShareGuide, { rotation: 15 }, 150, null, 5e3).to(this.rewardShareGuide, { rotation: -15 }, 300, null).to(this.rewardShareGuide, { rotation: 15 }, 300, null).to(this.rewardShareGuide, { rotation: 0 }, 150, null);
+        }
+        this.rewardShareGuideAnimation.play(null, true);
+      } else {
+        (_a = this.rewardShareGuideAnimation) == null ? void 0 : _a.destroy();
+        this.rewardShareGuideAnimation = null;
+        this.rewardShareGuide.visible = false;
+      }
     }
   };
   var MainView = _MainView;
@@ -3146,6 +3219,9 @@
   __decorateClass([
     core_default.eventOn(EventMaps.go_friend_home)
   ], MainView.prototype, "goFriendListen", 1);
+  __decorateClass([
+    core_default.eventOn(EventMaps.update_friend_share_guide)
+  ], MainView.prototype, "friendShareGuide", 1);
 
   // src/view/FriendsView.ts
   var FriendsView = class extends core_default.gameScript {
@@ -3243,7 +3319,13 @@
           this.deleteFriendEvent();
           break;
         case "desc_btn":
-          core_default.view.open(Res_default.views.FriendsDescView);
+          core_default.view.open(Res_default.views.FriendsDescView, {
+            parm: {
+              call: () => {
+                this.openReward();
+              }
+            }
+          });
           break;
         case "reward_btn":
           this.openReward();
@@ -4562,7 +4644,7 @@
         priceBox.getChildByName("gold_icon").skin = icon;
       }
       cell.getChildByName("icon").skin = d.base.icon;
-      cell.getChildByName("name").text = d.base.name;
+      cell.getChildByName("name").text = d.base.name + (this.topBtnSelectIndex ? "" : "\u79CD\u5B50");
       if (index == this.itemListSelectIndex) {
         cell.skin = this.itemSelectBg[1];
         this.updateSelectDesc();
@@ -5147,7 +5229,12 @@
       cell.getChildByName("desc").text = `${obj.desc}(${((task == null ? void 0 : task.times) > obj.times ? obj.times : task == null ? void 0 : task.times) || 0}/${obj.times})`;
       const rewardBox = cell.getChildByName("reward");
       rewardBox.getChildByName("icon").skin = obj.reward.obj.icon;
-      rewardBox.getChildByName("amount").text = "x" + obj.reward.count;
+      if (obj.id === 1012) {
+        const reward = TableAnalyze_default.table("config").get("Videorewards").value.count;
+        rewardBox.getChildByName("amount").text = "x" + (obj.reward.count + (obj.times - ((task == null ? void 0 : task.times) || 0)) * reward);
+      } else {
+        rewardBox.getChildByName("amount").text = "x" + obj.reward.count;
+      }
       const btn = cell.getChildByName("go_run");
       const btnObj = {
         id: obj.id,
