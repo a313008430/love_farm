@@ -215,9 +215,11 @@ export default class LoginView extends GameScript {
 
             let testK = location.search.match(/\?id=(.+)/),
                 testKe = null;
-            if (testK && testK.length > 1) {
+
+            if (testK && testK.length > 1 && BUILD_TYPE == BuildType.debug) {
                 testKe = testK[1];
             }
+
             let wxOpenId = testKe,
                 nickname = "",
                 avatar = "";
