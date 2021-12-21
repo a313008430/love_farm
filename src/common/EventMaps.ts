@@ -22,6 +22,8 @@ export const enum EventMaps {
     update_task = "update_task",
     /** 更新新手任务手 */
     update_guid_hand = "update_guid_hand",
+    /** 好友分享引导 */
+    update_friend_share_guide = "update_friend_share_guide",
 
     /**
      * 播放获得奖励动画

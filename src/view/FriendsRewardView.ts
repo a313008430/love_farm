@@ -1,4 +1,4 @@
-import { AppEventMap } from "src/common/EventMaps";
+import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
@@ -28,7 +28,7 @@ export default class FriendsRewardView extends Core.gameScript {
 
     onHdAwake() {
         this.priceList.vScrollBarSkin = null;
-        this.priceList.array = new Array(3);
+        this.priceList.array = new Array(6);
         this.priceList.renderHandler = new Laya.Handler(this, this.renderItem);
     }
 
@@ -59,7 +59,7 @@ export default class FriendsRewardView extends Core.gameScript {
                     data: {},
                     timestamp: Date.now(),
                 }).then((d) => {
-                    if (d.code) {
+                    if (!d || d?.code) {
                         Core.view.openHint({ text: d.data["message"], call: () => {} });
                     } else {
                         Core.view.openHint({ text: d.data["message"], call: () => {} });
@@ -101,6 +101,7 @@ export default class FriendsRewardView extends Core.gameScript {
                 Core.view.openHint({ text: "提现成功", call: () => {} });
                 this.inviteList[i].receivedReward = 1;
                 this.priceList.refresh();
+                Core.eventGlobal.event(EventMaps.update_friend_share_guide, [this.inviteList]);
             })
             .catch(() => {
                 this.canClick = true;
@@ -125,6 +126,11 @@ export default class FriendsRewardView extends Core.gameScript {
             }
         } else {
             btn.disabled = true;
+        }
+
+        if (i > 2) {
+            btn.disabled = false;
+            btn.visible = false;
         }
 
         btn.dataSource = i;

@@ -187,7 +187,8 @@ export default class ShopView extends GameScript {
         }
 
         (cell.getChildByName("icon") as Laya.Image).skin = d.base.icon;
-        (cell.getChildByName("name") as Laya.Label).text = d.base.name;
+        (cell.getChildByName("name") as Laya.Label).text =
+            d.base.name + (this.topBtnSelectIndex ? "" : "种子");
 
         if (index == this.itemListSelectIndex) {
             cell.skin = this.itemSelectBg[1];

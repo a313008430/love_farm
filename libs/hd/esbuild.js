@@ -1,8 +1,9 @@
 const esbuild = require("esbuild");
 const chokidar = require("chokidar");
 const { performance } = require("perf_hooks");
+const { buildType } = require("./config");
 
-const buildType = process.argv[2];
+const build_type = process.argv[2];
 
 /**
  * 编译ts=>bundle.js
@@ -12,7 +13,12 @@ function EsBuildTs() {
     // if (rebuild) {
     //     return rebuild.rebuild();
     // }
-    if (process.argv.includes("debug")) {
+
+    if (
+        process.argv.includes(buildType.debug) ||
+        process.argv.includes(buildType.debug_test_start)
+    ) {
+        console.info("\x1b[33m", "ts watching.....");
         esbuild
             .build({
                 entryPoints: ["src/Main.ts"],
@@ -20,7 +26,11 @@ function EsBuildTs() {
                 bundle: true,
                 sourcemap: "inline",
                 incremental: true,
-                define: { BUILD_TYPE: JSON.stringify(buildType) },
+                define: {
+                    BUILD_TYPE: JSON.stringify(
+                        build_type == buildType.debug ? build_type : buildType.test
+                    ),
+                },
                 // watch: true,
                 watch: {
                     onRebuild(e, s) {
@@ -47,13 +57,10 @@ function EsBuildTs() {
             bundle: true,
             // sourcemap: "inline",
             incremental: true,
-            define: { BUILD_TYPE: JSON.stringify(buildType) },
+            define: { BUILD_TYPE: JSON.stringify(build_type) },
             loader: { ".fs": "text", ".vs": "text", ".glsl": "text" },
         });
     }
-}
-if (process.argv.includes("debug")) {
-    console.info("\x1b[33m", "ts watching.....");
 }
 
 /**

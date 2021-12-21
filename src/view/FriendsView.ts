@@ -77,7 +77,7 @@ export default class FriendsView extends Core.gameScript {
         goPlayBtn.visible = false;
         applyBtn.visible = false;
         delBtn.visible = false;
-        console.log(data);
+        // console.log(data);
 
         if (data?.avatar) (cell.getChildByName("head") as Laya.Image).skin = data.avatar;
         (cell.getChildByName("name") as Laya.Label).text = data.nickname;
@@ -121,7 +121,7 @@ export default class FriendsView extends Core.gameScript {
                 newBox.active = false;
             }
         }
-        console.log(this.viewState);
+        // console.log(this.viewState);
     }
 
     onClick(e: Laya.Event) {
@@ -139,7 +139,13 @@ export default class FriendsView extends Core.gameScript {
                 this.deleteFriendEvent();
                 break;
             case "desc_btn":
-                Core.view.open(Res.views.FriendsDescView);
+                Core.view.open(Res.views.FriendsDescView, {
+                    parm: {
+                        call: () => {
+                            this.openReward();
+                        },
+                    },
+                });
                 break;
             case "reward_btn":
                 this.openReward();
