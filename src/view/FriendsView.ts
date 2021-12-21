@@ -1,4 +1,5 @@
 import { AppEventMap, EventMaps } from "src/common/EventMaps";
+import Heartbeat from "src/common/Heartbeat";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
@@ -239,6 +240,7 @@ export default class FriendsView extends Core.gameScript {
                 this.canClick = true;
                 this.itemList.refresh();
                 this.isEmpty();
+                Heartbeat.updateMsg();
             })
             .catch(() => {
                 this.canClick = true;
@@ -373,6 +375,7 @@ export default class FriendsView extends Core.gameScript {
                     uri: AppEventMap.eventCount,
                     data: { type: "Addfriends" },
                 });
+                Heartbeat.updateMsg();
             })
             .catch(() => {
                 this.canClick = true;

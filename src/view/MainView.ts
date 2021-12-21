@@ -458,15 +458,14 @@ export default class MainView extends Core.gameScript {
             })
             .key("vitality", (e) => {
                 let vitality = e / ConfigGame.userVitalityLimit;
+                this.anyDoorRed.visible = Boolean(e);
                 if (vitality >= 1) {
-                    this.anyDoorRed.visible = true;
                     vitality = 1;
                     this.vitalityBuyBtn.gray = true;
                     Laya.timer.frameOnce(1, this, () => {
                         this.vitalityBuyBtn.mouseEnabled = false;
                     });
                 } else {
-                    this.anyDoorRed.visible = false;
                     this.vitalityBuyBtn.gray = false;
                     Laya.timer.frameOnce(1, this, () => {
                         this.vitalityBuyBtn.mouseEnabled = true;

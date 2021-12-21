@@ -216,7 +216,7 @@ export default class LoginView extends GameScript {
             let testK = location.search.match(/\?id=(.+)/),
                 testKe = null;
 
-            if (testK && testK.length > 1 && BUILD_TYPE == BuildType.debug) {
+            if (testK && testK.length > 1 && BUILD_TYPE != BuildType.online) {
                 testKe = testK[1];
             }
 
@@ -246,7 +246,12 @@ export default class LoginView extends GameScript {
                 }
             }
             if (!wxOpenId) {
-                Core.view.openHint({ text: "未获取到微信id", call: () => {} });
+                Core.view.openHint({
+                    text: "未获取到微信id",
+                    call: () => {
+                        this.canClick = true;
+                    },
+                });
                 return;
             }
             this.privacyBox.visible = false;
