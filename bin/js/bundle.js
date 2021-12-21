@@ -3264,7 +3264,6 @@
       goPlayBtn.visible = false;
       applyBtn.visible = false;
       delBtn.visible = false;
-      console.log(data);
       if (data == null ? void 0 : data.avatar)
         cell.getChildByName("head").skin = data.avatar;
       cell.getChildByName("name").text = data.nickname;
@@ -3302,7 +3301,6 @@
           newBox.active = false;
         }
       }
-      console.log(this.viewState);
     }
     onClick(e) {
       if (!this.canClick)
