@@ -2351,12 +2351,16 @@
     onOpened() {
       _MainView.inst = this;
       [
+        "res/loadingBg.png",
         "res/img_woodtitle.png",
+        "res/img_storeHouseBg.png",
         "res/img_storebg.png",
         "res/img_shelf.png",
         "res/img_popUpBg.png",
+        "res/img_landBg.png",
         "res/img_inviteBg1.png",
         "res/img_housetop.png",
+        "res/img_farmlandLogo.png",
         "res/atlas/plant_icon.png",
         "res/atlas/pet_feed.png",
         "res/atlas/main_scene.png"
