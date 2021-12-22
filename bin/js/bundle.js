@@ -4055,7 +4055,7 @@
             return;
           }
           let testK = location.search.match(/\?id=(.+)/), testKe = null;
-          if (testK && testK.length > 1 && BuildType.online != "test") {
+          if (testK && testK.length > 1 && BuildType.online != "online") {
             testKe = testK[1];
           }
           let wxOpenId = testKe, nickname = "", avatar = "";
