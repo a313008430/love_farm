@@ -5398,7 +5398,7 @@
                   {
                     obj: task.base.reward.obj,
                     count: task.base.reward.count,
-                    posType: 2
+                    posType: task.base.reward.obj.id == ConfigGame_default.diamondId ? 2 : 1
                   }
                 ]
               });
