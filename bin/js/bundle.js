@@ -582,8 +582,15 @@
   var AppCore = class {
     static runAppFunction(data) {
       return new Promise((resolve, reject) => {
-        let webAppFunction;
         if (Laya.Browser.onIOS) {
+          if (window["webRequest"]) {
+            window["webRequest"].postMessage(JSON.stringify(data));
+            if (data.timestamp) {
+              EventMap.set(data.timestamp, resolve);
+            }
+          } else {
+            resolve(null);
+          }
         } else {
           if (window["$App"] && window["$App"]["webRequest"]) {
             window["$App"]["webRequest"](JSON.stringify(data));
