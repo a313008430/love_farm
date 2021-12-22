@@ -1,6 +1,7 @@
 import { EventMaps } from "src/common/EventMaps";
 import TableAnalyze from "src/common/TableAnalyze";
 import { TaskBase } from "src/common/TableObject";
+import { RedDotType } from "src/components/RedDotComponent";
 import Core from "src/core/index";
 
 export interface TaskDataObj {
@@ -36,6 +37,7 @@ class TaskService {
      * @returns
      */
     getTask(id: number) {
+        this.updateRedDot();
         for (let x = 0; x < this.list.length; x++) {
             if (this.list[x].id == id) {
                 return this.list[x];
@@ -49,6 +51,7 @@ class TaskService {
      * @returns
      */
     getList() {
+        this.updateRedDot();
         return this.list.sort((a, b) => {
             let tA = this.getTask(a.id),
                 tB = this.getTask(b.id);
@@ -76,6 +79,24 @@ class TaskService {
         }
         task.times++;
         Core.eventGlobal.event(EventMaps.update_task);
+        this.updateRedDot();
+    }
+
+    /**
+     * 更新红点
+     */
+    updateRedDot() {
+        let hasReward = false;
+        for (let x = 0; x < this.list.length; x++) {
+            if (
+                !this.list[x].receive &&
+                this.list[x].times >= TableAnalyze.table("task").get(this.list[x].id).times
+            ) {
+                hasReward = true;
+                break;
+            }
+        }
+        Core.eventGlobal.event(EventMaps.update_red_dot, [RedDotType.task, hasReward]);
     }
 
     clear() {

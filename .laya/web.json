@@ -12,7 +12,7 @@
     ],
     "compressImage": false,
     "compressImageFilter": [
-        "$basePath/**/*.{png,jpg}"
+        "$basePath/res/atlas/pet_feed.{png,jpg}"
     ],
     "compressImageNoteList": [
         ""
@@ -65,5 +65,5 @@
     "useMinJsLibs": true,
     "es6toes5": false,
     "projectType": "ts",
-    "pubTime": 1640067065610
+    "pubTime": 1640135137239
 }

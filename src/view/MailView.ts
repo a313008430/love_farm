@@ -1,3 +1,4 @@
+import Heartbeat from "src/common/Heartbeat";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
@@ -61,6 +62,7 @@ export default class MailView extends GameScript {
                 .then(() => {
                     e.target["dataSource"].read = 1;
                     this.list.refresh();
+                    Heartbeat.updateMsg();
                     Core.view.open(Res.views.MailDescView, {
                         parm: {
                             data: e.target["dataSource"],

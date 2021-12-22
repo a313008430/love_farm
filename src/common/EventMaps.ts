@@ -24,6 +24,8 @@ export const enum EventMaps {
     update_guid_hand = "update_guid_hand",
     /** 好友分享引导 */
     update_friend_share_guide = "update_friend_share_guide",
+    /** 更新红点 */
+    update_red_dot = "update_red_dot",
 
     /**
      * 播放获得奖励动画

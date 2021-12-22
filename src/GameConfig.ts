@@ -16,6 +16,7 @@ import MailView from "./view/MailView"
 import MainView from "./view/MainView"
 import FigureAni from "./components/FigureAni"
 import FieldComponent from "./components/FieldComponent"
+import RedDotComponent from "./components/RedDotComponent"
 import OrderView from "./view/OrderView"
 import OverView from "./view/OverView"
 import SettingView from "./view/SettingView"
@@ -62,6 +63,7 @@ export default class GameConfig{
         reg("view/MainView.ts",MainView);
         reg("components/FigureAni.ts",FigureAni);
         reg("components/FieldComponent.ts",FieldComponent);
+        reg("components/RedDotComponent.ts",RedDotComponent);
         reg("view/OrderView.ts",OrderView);
         reg("view/OverView.ts",OverView);
         reg("view/SettingView.ts",SettingView);

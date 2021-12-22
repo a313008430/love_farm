@@ -43,6 +43,7 @@
     EventMaps3["update_task"] = "update_task";
     EventMaps3["update_guid_hand"] = "update_guid_hand";
     EventMaps3["update_friend_share_guide"] = "update_friend_share_guide";
+    EventMaps3["update_red_dot"] = "update_red_dot";
     EventMaps3["play_get_reward"] = "play_get_reward";
     EventMaps3["play_ad_get_reward"] = "play_ad_get_reward";
     EventMaps3["go_friend_home"] = "go_friend_home";
@@ -947,6 +948,46 @@
   var TableAnalyze = new TableControl();
   var TableAnalyze_default = TableAnalyze;
 
+  // src/components/RedDotComponent.ts
+  var RedDotType;
+  (function(RedDotType2) {
+    RedDotType2["task"] = "task";
+    RedDotType2["friend"] = "friend";
+    RedDotType2["mail"] = "mail";
+  })(RedDotType || (RedDotType = {}));
+  var RedDotComponent = class extends core_default.gameScript {
+    onHdAwake() {
+      let node = this.owner;
+      node.visible = false;
+      node.anchorX = 0.5;
+      node.anchorY = 0.5;
+    }
+    updateRedDot(type, show) {
+      if (this.redDotType == type) {
+        let node = this.owner;
+        if (show) {
+          if (!node.visible) {
+            node.scale(0, 0);
+            node.y -= 40;
+            Laya.Tween.clearAll(node);
+            Laya.Tween.to(node, { scaleX: 1, scaleY: 1 }, 300, Laya.Ease.backOut, new Laya.Handler(this, () => {
+              Laya.Tween.to(node, { y: node.y + 40 }, 300, Laya.Ease.backOut, null, 200);
+            }));
+          }
+          node.visible = show;
+        } else {
+          if (node.visible)
+            Laya.Tween.to(node, { scaleX: 0, scaleY: 0 }, 300, Laya.Ease.backIn, new Laya.Handler(this, () => {
+              node.visible = show;
+            }));
+        }
+      }
+    }
+  };
+  __decorateClass([
+    core_default.eventOn(EventMaps.update_red_dot)
+  ], RedDotComponent.prototype, "updateRedDot", 1);
+
   // src/dataService/TaskService.ts
   var TaskService = class {
     constructor() {
@@ -961,6 +1002,7 @@
       }));
     }
     getTask(id) {
+      this.updateRedDot();
       for (let x = 0; x < this.list.length; x++) {
         if (this.list[x].id == id) {
           return this.list[x];
@@ -969,6 +1011,7 @@
       return null;
     }
     getList() {
+      this.updateRedDot();
       return this.list.sort((a, b) => {
         let tA = this.getTask(a.id), tB = this.getTask(b.id);
         return a.id + ((tA == null ? void 0 : tA.receive) ? 1e3 : 1) + ((tA == null ? void 0 : tA.times) >= a.base.times ? 100 : 1e3) - (b.id + ((tB == null ? void 0 : tB.receive) ? 1e3 : 1) + ((tB == null ? void 0 : tB.times) >= b.base.times ? 100 : 1e3));
@@ -981,6 +1024,17 @@
       }
       task.times++;
       core_default.eventGlobal.event(EventMaps.update_task);
+      this.updateRedDot();
+    }
+    updateRedDot() {
+      let hasReward = false;
+      for (let x = 0; x < this.list.length; x++) {
+        if (!this.list[x].receive && this.list[x].times >= TableAnalyze_default.table("task").get(this.list[x].id).times) {
+          hasReward = true;
+          break;
+        }
+      }
+      core_default.eventGlobal.event(EventMaps.update_red_dot, [RedDotType.task, hasReward]);
     }
     clear() {
       this.list.length = 0;
@@ -1195,6 +1249,58 @@
     ApiHttp2["guide"] = "/guide";
   })(ApiHttp || (ApiHttp = {}));
 
+  // src/common/Heartbeat.ts
+  var HeartbeatControl = class {
+    constructor() {
+      this.intervalTime = 60;
+    }
+    init() {
+      setTimeout(() => {
+        this.updateMsg();
+      }, 2e3);
+      this.updateTime();
+    }
+    updateTime() {
+      if (this.timeId) {
+        clearTimeout(this.timeId);
+      }
+      this.timeId = setTimeout(() => {
+        this.updateMsg();
+        this.updateTime();
+      }, this.intervalTime * 1e3);
+    }
+    updateMsg() {
+      return __async(this, null, function* () {
+        let d = yield HttpControl.inst.send({
+          api: ApiHttp.mailList
+        });
+        let hasRed = false;
+        for (let x = 0; x < d.length; x++) {
+          if (!d[x].read) {
+            hasRed = true;
+            break;
+          }
+        }
+        core_default.eventGlobal.event(EventMaps.update_red_dot, [RedDotType.mail, hasRed]);
+        let friendData = yield HttpControl.inst.send({
+          api: ApiHttp.friendList
+        });
+        hasRed = false;
+        for (let x = 0; x < friendData.list.length; x++) {
+          if (friendData.list[x].steal || friendData.list[x].applyIng) {
+            hasRed = true;
+            break;
+          }
+        }
+        core_default.eventGlobal.event(EventMaps.update_red_dot, [RedDotType.friend, hasRed]);
+      });
+    }
+    destroy() {
+      clearTimeout(this.timeId);
+    }
+  };
+  var Heartbeat_default = new HeartbeatControl();
+
   // src/common/HttpDataControl.ts
   var HttpDataControl = class {
     forward(d) {
@@ -1287,8 +1393,10 @@
       LandService_default.init(d.lands);
       core_default.audio.soundMuted = LocalStorageService_default.getJSON().sound;
       core_default.audio.musicMuted = LocalStorageService_default.getJSON().music;
+      Heartbeat_default.init();
     }
     loginOut() {
+      Heartbeat_default.destroy();
       PlantService_default.clear();
       WarehouseService_default.clear();
       PetService_default.clear();
@@ -2594,15 +2702,14 @@
         }
       }).key("vitality", (e) => {
         let vitality = e / ConfigGame_default.userVitalityLimit;
+        this.anyDoorRed.visible = Boolean(e);
         if (vitality >= 1) {
-          this.anyDoorRed.visible = true;
           vitality = 1;
           this.vitalityBuyBtn.gray = true;
           Laya.timer.frameOnce(1, this, () => {
             this.vitalityBuyBtn.mouseEnabled = false;
           });
         } else {
-          this.anyDoorRed.visible = false;
           this.vitalityBuyBtn.gray = false;
           Laya.timer.frameOnce(1, this, () => {
             this.vitalityBuyBtn.mouseEnabled = true;
@@ -3409,6 +3516,7 @@
         this.canClick = true;
         this.itemList.refresh();
         this.isEmpty();
+        Heartbeat_default.updateMsg();
       }).catch(() => {
         this.canClick = true;
       });
@@ -3511,6 +3619,7 @@
           uri: AppEventMap.eventCount,
           data: { type: "Addfriends" }
         });
+        Heartbeat_default.updateMsg();
       }).catch(() => {
         this.canClick = true;
       });
@@ -3946,7 +4055,7 @@
             return;
           }
           let testK = location.search.match(/\?id=(.+)/), testKe = null;
-          if (testK && testK.length > 1) {
+          if (testK && testK.length > 1 && BuildType.online != "test") {
             testKe = testK[1];
           }
           let wxOpenId = testKe, nickname = "", avatar = "";
@@ -3972,8 +4081,12 @@
             }
           }
           if (!wxOpenId) {
-            core_default.view.openHint({ text: "\u672A\u83B7\u53D6\u5230\u5FAE\u4FE1id", call: () => {
-            } });
+            core_default.view.openHint({
+              text: "\u672A\u83B7\u53D6\u5230\u5FAE\u4FE1id",
+              call: () => {
+                this.canClick = true;
+              }
+            });
             return;
           }
           this.privacyBox.visible = false;
@@ -4218,6 +4331,7 @@
         }).then(() => {
           e.target["dataSource"].read = 1;
           this.list.refresh();
+          Heartbeat_default.updateMsg();
           core_default.view.open(Res_default.views.MailDescView, {
             parm: {
               data: e.target["dataSource"],
@@ -5284,7 +5398,7 @@
                   {
                     obj: task.base.reward.obj,
                     count: task.base.reward.count,
-                    posType: 2
+                    posType: task.base.reward.obj.id == ConfigGame_default.diamondId ? 2 : 1
                   }
                 ]
               });
@@ -5666,6 +5780,7 @@
       reg("view/MainView.ts", MainView);
       reg("components/FigureAni.ts", FigureAni);
       reg("components/FieldComponent.ts", FieldComponent);
+      reg("components/RedDotComponent.ts", RedDotComponent);
       reg("view/OrderView.ts", OrderView);
       reg("view/OverView.ts", OverView);
       reg("view/SettingView.ts", SettingView);

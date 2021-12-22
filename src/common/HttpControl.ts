@@ -121,7 +121,7 @@ export default class HttpControl {
         });
     }
 
-    async send(data: HttpSendData) {
+    async send(data: HttpSendData): Promise<any> {
         if (!data.method) data.method = "post";
         if (!data.responseType) data.responseType = "json";
         if (!data.baseUrl) data.baseUrl = this.baseUrl;

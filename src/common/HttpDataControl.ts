@@ -6,6 +6,7 @@ import PlantService from "src/dataService/PlantService";
 import TaskService from "src/dataService/TaskService";
 import UserInfo from "src/dataService/UserInfo";
 import WarehouseService from "src/dataService/WarehouseService";
+import Heartbeat from "./Heartbeat";
 import { ApiHttp } from "./NetMaps";
 import Res from "./Res";
 
@@ -121,9 +122,11 @@ class HttpDataControl {
 
         Core.audio.soundMuted = LocalStorageService.getJSON().sound;
         Core.audio.musicMuted = LocalStorageService.getJSON().music;
+        Heartbeat.init();
     }
 
     loginOut() {
+        Heartbeat.destroy();
         PlantService.clear();
         WarehouseService.clear();
         PetService.clear();

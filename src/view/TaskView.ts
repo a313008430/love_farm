@@ -117,13 +117,15 @@ export default class TaskView extends GameScript {
                                 this.taskList.refresh();
                                 Core.eventGlobal.event(EventMaps.update_task);
                             });
+
                             Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
                                 node: e.target,
                                 list: [
                                     {
                                         obj: task.base.reward.obj,
                                         count: task.base.reward.count,
-                                        posType: 2,
+                                        posType:
+                                            task.base.reward.obj.id == ConfigGame.diamondId ? 2 : 1,
                                     },
                                 ],
                             });

@@ -243,6 +243,8 @@ interface FriendData {
     applyIng: number;
     /** 用户昵称 */
     nickname: "string";
+    /** 是否可偷, 0为不可以 1 为可以 */
+    steal: number;
 }
 
 /**

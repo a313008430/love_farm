@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":7,
+    "selectedBox":5,
+    "selecteID":15,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -60,7 +60,7 @@
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image,upgradeAdBtn",
-                    "props":{"y":652,"x":654,"skin":"game/img_transformFree.png","name":"upgradeAdBtn","anchorY":0.5,"anchorX":0.5},
+                    "props":{"y":652,"x":654,"visible":false,"skin":"game/img_transformFree.png","name":"upgradeAdBtn","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":5,
                     "label":"upgradeAdBtn",
                     "isOpen":null,
@@ -84,7 +84,8 @@
                             "compId":8,
                             "child":[
                                 ]
-                        }]
+                        }],
+                    "$HIDDEN":true
                 },
                 {
                     "x":30,
@@ -164,7 +165,7 @@
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image,upgradeBtn",
-                    "props":{"y":651,"x":268,"skin":"game/img_transform.png","name":"upgradeBtn","anchorY":0.5,"anchorX":0.5},
+                    "props":{"y":651,"x":476,"skin":"game/img_transform.png","name":"upgradeBtn","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":5,
                     "label":"upgradeBtn",
                     "isOpen":false,
@@ -199,14 +200,13 @@
                     "props":{"y":541,"x":299,"width":269.00390625,"space":20,"rotation":0,"height":55,"align":"middle"},
                     "nodeParent":5,
                     "label":"HBox",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":24,
                     "child":[
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,price",
                             "props":{"y":-173,"x":0,"text":"价格：100","name":"price","fontSize":40,"font":"Microsoft YaHei","color":"#906344","bold":true,"anchorY":0.5},
@@ -220,7 +220,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":27,"x":0,"width":55,"skin":"main_scene/img_diamondMin.png","height":55,"anchorY":0.5},
@@ -241,14 +240,13 @@
                     "props":{"y":342,"x":296},
                     "nodeParent":5,
                     "label":"HBox",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":34,
                     "child":[
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,title",
                             "props":{"visible":true,"text":"土地提升到","name":"title","leading":16,"fontSize":36,"font":"SimHei","color":"#906344","align":"left"},
@@ -263,7 +261,6 @@
                             "$HIDDEN":false
                         },
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,lv",
                             "props":{"visible":true,"text":"1级","name":"lv","leading":16,"fontSize":36,"font":"SimHei","color":"#D1330E","bold":true,"align":"left"},
@@ -285,14 +282,13 @@
                     "props":{"y":402,"x":296},
                     "nodeParent":5,
                     "label":"HBox",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":35,
                     "child":[
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,title",
                             "props":{"visible":true,"text":"收益","name":"title","leading":16,"fontSize":36,"font":"SimHei","color":"#906344","align":"left"},
@@ -307,7 +303,6 @@
                             "$HIDDEN":false
                         },
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,reward",
                             "props":{"visible":true,"text":"1级","name":"reward","leading":16,"fontSize":36,"font":"SimHei","color":"#D1330E","bold":true,"align":"left"},
@@ -329,14 +324,13 @@
                     "props":{"y":462,"x":296,"width":235.40625,"rotation":0,"height":52},
                     "nodeParent":5,
                     "label":"HBox",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":38,
                     "child":[
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,title",
                             "props":{"visible":true,"text":"钻石产出概率","name":"title","leading":16,"fontSize":36,"font":"SimHei","color":"#906344","align":"left"},
@@ -351,7 +345,6 @@
                             "$HIDDEN":false
                         },
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,probability",
                             "props":{"visible":true,"text":"1级","name":"probability","leading":16,"fontSize":36,"font":"SimHei","color":"#D1330E","bold":true,"align":"left"},
