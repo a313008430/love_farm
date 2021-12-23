@@ -1029,8 +1029,9 @@
     getList() {
       this.updateRedDot();
       return this.list.sort((a, b) => {
+        var _a, _b;
         let tA = this.getTask(a.id), tB = this.getTask(b.id);
-        return a.id + ((tA == null ? void 0 : tA.receive) ? 1e3 : 1) + ((tA == null ? void 0 : tA.times) >= a.base.times ? 100 : 1e3) - (b.id + ((tB == null ? void 0 : tB.receive) ? 1e3 : 1) + ((tB == null ? void 0 : tB.times) >= b.base.times ? 100 : 1e3));
+        return a.id + ((tA == null ? void 0 : tA.receive) ? 1e3 : 1) + ((tA == null ? void 0 : tA.times) >= ((_a = a.base) == null ? void 0 : _a.times) ? 100 : 1e3) - (b.id + ((tB == null ? void 0 : tB.receive) ? 1e3 : 1) + ((tB == null ? void 0 : tB.times) >= ((_b = b.base) == null ? void 0 : _b.times) ? 100 : 1e3));
       });
     }
     taskAddTimes(id) {
@@ -1043,9 +1044,10 @@
       this.updateRedDot();
     }
     updateRedDot() {
+      var _a;
       let hasReward = false;
       for (let x = 0; x < this.list.length; x++) {
-        if (!this.list[x].receive && this.list[x].times >= TableAnalyze_default.table("task").get(this.list[x].id).times) {
+        if (!this.list[x].receive && this.list[x].times >= ((_a = TableAnalyze_default.table("task").get(this.list[x].id)) == null ? void 0 : _a.times)) {
           hasReward = true;
           break;
         }

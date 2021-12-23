@@ -59,8 +59,8 @@ class TaskService {
             return (
                 a.id +
                 (tA?.receive ? 1000 : 1) +
-                (tA?.times >= a.base.times ? 100 : 1000) -
-                (b.id + (tB?.receive ? 1000 : 1) + (tB?.times >= b.base.times ? 100 : 1000))
+                (tA?.times >= a.base?.times ? 100 : 1000) -
+                (b.id + (tB?.receive ? 1000 : 1) + (tB?.times >= b.base?.times ? 100 : 1000))
             );
         });
     }
@@ -90,7 +90,7 @@ class TaskService {
         for (let x = 0; x < this.list.length; x++) {
             if (
                 !this.list[x].receive &&
-                this.list[x].times >= TableAnalyze.table("task").get(this.list[x].id).times
+                this.list[x].times >= TableAnalyze.table("task").get(this.list[x].id)?.times
             ) {
                 hasReward = true;
                 break;
