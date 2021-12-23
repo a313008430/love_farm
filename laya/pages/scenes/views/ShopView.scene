@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":251,
-    "selecteID":256,
+    "selectedBox":243,
+    "selecteID":248,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/ShopView.jpg","right":0,"left":0,"height":1920,"btnList":"@arr:,,","bottom":0},
     "nodeParent":-1,
@@ -1690,14 +1690,13 @@
                                             "props":{"y":90,"x":0,"width":418,"rotation":0,"name":"desc","height":60},
                                             "nodeParent":243,
                                             "label":"desc",
-                                            "isOpen":true,
+                                            "isOpen":false,
                                             "isDirectory":true,
                                             "isAniNode":true,
                                             "hasChild":true,
                                             "compId":246,
                                             "child":[
                                                 {
-                                                    "x":90,
                                                     "type":"Label",
                                                     "searchKey":"Label,lb1",
                                                     "props":{"y":0,"x":0,"visible":true,"text":"邀请","name":"lb1","leading":16,"fontSize":44,"font":"SimHei","color":"#916443"},
@@ -1712,7 +1711,6 @@
                                                     "$HIDDEN":false
                                                 },
                                                 {
-                                                    "x":90,
                                                     "type":"Label",
                                                     "searchKey":"Label,lb2",
                                                     "props":{"y":0,"visible":true,"text":"3","name":"lb2","leading":16,"fontSize":44,"font":"SimHei","color":"#D1330E"},
@@ -1727,7 +1725,6 @@
                                                     "$HIDDEN":false
                                                 },
                                                 {
-                                                    "x":90,
                                                     "type":"Label",
                                                     "searchKey":"Label,lb3",
                                                     "props":{"y":0,"visible":true,"text":"个好友即可提现","name":"lb3","leading":16,"fontSize":44,"font":"SimHei","color":"#916443"},
@@ -1779,14 +1776,13 @@
                                             "props":{"y":151,"x":5,"width":440,"skin":"game/img_progressBarBg.png","name":"bar_box","height":30},
                                             "nodeParent":243,
                                             "label":"bar_box",
-                                            "isOpen":true,
+                                            "isOpen":false,
                                             "isDirectory":true,
                                             "isAniNode":true,
                                             "hasChild":true,
                                             "compId":251,
                                             "child":[
                                                 {
-                                                    "x":90,
                                                     "type":"Image",
                                                     "searchKey":"Image,bar",
                                                     "props":{"y":2,"x":3,"width":434,"skin":"game/img_progressBa.png","name":"bar","height":26},
@@ -1800,7 +1796,6 @@
                                                         ]
                                                 },
                                                 {
-                                                    "x":90,
                                                     "type":"Label",
                                                     "searchKey":"Label,lb",
                                                     "props":{"y":-2,"x":215,"visible":true,"text":"3/3","name":"lb","leading":16,"fontSize":30,"font":"SimHei","color":"#ffffff","anchorX":0.5},

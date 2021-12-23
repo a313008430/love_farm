@@ -41,7 +41,11 @@ export default class TaskView extends GameScript {
 
     private itemRender(cell: Laya.Box, i: number) {
         let obj = TaskService.list[i].base;
-        const task = TaskService.getTask(obj.id);
+        const task = TaskService.getTask(obj?.id);
+        if (!task) {
+            Core.view.openHint({ text: `任务配置出错,配置不存在`, call: () => {} });
+            return;
+        }
         (cell.getChildByName("icon") as Laya.Image).skin = obj.icon;
         (cell.getChildByName("title") as Laya.Label).text = obj.title;
 
