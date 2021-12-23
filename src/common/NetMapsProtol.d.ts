@@ -208,6 +208,13 @@ interface ReturnUserInfo {
     gold: 0;
     diamond: 0;
     advertiseTimes: 0;
+    /** 广告奖励 */
+    adReward: [
+        {
+            id: 0;
+            amount: 0;
+        }
+    ];
 }
 
 /**

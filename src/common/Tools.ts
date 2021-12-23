@@ -16,4 +16,11 @@ export default class Tools {
      * @returns 00:00:00
      */
     static formatSeconds = (s) => new Date(s * 1000).toISOString().substr(11, 8);
+
+    /**
+     * 转换金币。格式为两位
+     */
+    static formatMoney(num: number) {
+        return num.toString().match(/^\d+(?:\.\d{0,2})?/);
+    }
 }

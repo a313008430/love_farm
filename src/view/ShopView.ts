@@ -3,11 +3,9 @@ import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
-import { Table } from "src/common/Table";
 import TableAnalyze from "src/common/TableAnalyze";
-import { FeedBase, PlantBase, RewardCurrencyBase } from "src/common/TableObject";
+import { FeedBase, PlantBase } from "src/common/TableObject";
 import Tools from "src/common/Tools";
-import FloatViewShowAni from "src/components/FloatViewShowAni";
 import AppCore from "src/core/App";
 import GameScript from "src/core/GameScript";
 import Core from "src/core/index";
@@ -75,10 +73,16 @@ export default class ShopView extends GameScript {
     private priceList: Laya.List = null;
     /** @prop {name:proportion, tips:"兑换比例", type:Node}*/
     private proportion: Laya.Label = null;
+    /** @prop {name:descPriceBox, tips:"获取钻石途径描述", type:Node}*/
+    private descPriceBox: Laya.Box = null;
+    /** @prop {name:conditionBox, tips:"提现条件容器", type:Node}*/
+    private conditionBox: Laya.Box = null;
     /** 可提现数据列表 */
     private priceDataList: { price: number; times: number }[] = [];
     /** 钱庄选择的值 的下标 */
     private priceSelectIndex: number = null;
+    /** 邀请好友的数量 */
+    private inviteNum: number = 0;
 
     /** 顶部按钮文字资源列表 */
     private btnTopResList: string[][] = [
@@ -126,6 +130,17 @@ export default class ShopView extends GameScript {
 
         this.priceDataList = TableAnalyze.table("config").get("withdrawal_times").value as any;
         this.updateTopBtnState();
+
+        this.canClick = false;
+        HttpControl.inst
+            .send({ api: ApiHttp.friendInviteList })
+            .then((d: FriendListData) => {
+                this.canClick = true;
+                this.inviteNum = d.list.length;
+            })
+            .catch(() => {
+                this.canClick = true;
+            });
     }
 
     /**
@@ -336,7 +351,7 @@ export default class ShopView extends GameScript {
                                     : ConfigGame.ApiTypeDefault,
                         },
                     })
-                    .then(() => {
+                    .then((d: { adReward: ReturnUserInfo["adReward"] }) => {
                         PlantService.list[this.itemListSelectIndex].lock = false;
                         this.itemList.changeItem(
                             this.itemListSelectIndex,
@@ -345,7 +360,10 @@ export default class ShopView extends GameScript {
                         this.canClick = true;
 
                         if (e.target.name == "ad_unlock") {
-                            Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
+                            Core.eventGlobal.event(EventMaps.play_ad_get_reward, [
+                                e.target,
+                                d.adReward,
+                            ]);
                         } else {
                             AppCore.runAppFunction({
                                 uri: AppEventMap.eventCount,
@@ -394,6 +412,36 @@ export default class ShopView extends GameScript {
             case "record_btn":
                 this.openWithdrawRecord();
                 break;
+            case "go_jump":
+                this.priceGoJump(e.target as any);
+                break;
+        }
+    }
+
+    /**
+     * 提现条件跳转
+     * @param node
+     */
+    private priceGoJump(node: Laya.Image) {
+        if (node.dataSource == 1) {
+            //跳订单
+            Core.view.close(Res.views.ShopView);
+        } else if (node.dataSource == 2) {
+            Core.view.close(Res.views.ShopView);
+            //跳好友邀请
+            HttpControl.inst
+                .send({
+                    api: ApiHttp.friendInviteList,
+                    data: {},
+                })
+                .then((d: InviteList) => {
+                    Core.view.open(Res.views.FriendsRewardView, {
+                        parm: {
+                            list: d.list,
+                            call: () => {},
+                        },
+                    });
+                });
         }
     }
 
@@ -641,6 +689,56 @@ export default class ShopView extends GameScript {
      */
     private onPriceSelect(e: number) {
         this.priceSelectIndex = e;
+        this.updatePriceDesc();
+    }
+
+    private canPrice: boolean = true;
+
+    /**
+     * 更新底部取现描述等
+     */
+    private updatePriceDesc() {
+        let data =
+            TableAnalyze.table("config").get("withdrawal_times").value[this.priceSelectIndex];
+        let desc = this.conditionBox.getChildByName("desc");
+        let barBox = this.conditionBox.getChildByName("bar_box") as Laya.Box;
+        let btn = this.conditionBox.getChildByName("go_jump") as Laya.Image;
+        this.conditionBox.visible = false;
+        if (UserInfo.orderLevel < data.orderLv) {
+            this.conditionBox.visible = true;
+            this.descPriceBox.visible = false;
+            (desc.getChildByName("lb1") as Laya.Label).text = `订单`;
+            (desc.getChildByName("lb2") as Laya.Label).text = `${data.orderLv}`;
+            (desc.getChildByName("lb3") as Laya.Label).text = `级即可提现`;
+            (barBox.getChildByName("bar") as Laya.Image).width =
+                (UserInfo.orderLevel > data.orderLv ? 1 : UserInfo.orderLevel / data.orderLv) * 434;
+            (barBox.getChildByName("lb") as Laya.Label).text = `${
+                UserInfo.orderLevel > data.orderLv ? data.orderLv : UserInfo.orderLevel
+            }/${data.orderLv}`;
+            btn.skin = `game/img_goToWork.png`;
+            btn.dataSource = 1;
+            this.canPrice = false;
+            return;
+        }
+
+        if (this.inviteNum < data.inviteAmount) {
+            this.conditionBox.visible = true;
+            this.descPriceBox.visible = false;
+            (desc.getChildByName("lb1") as Laya.Label).text = `邀请`;
+            (desc.getChildByName("lb2") as Laya.Label).text = `${data.inviteAmount}`;
+            (desc.getChildByName("lb3") as Laya.Label).text = `个即可提现`;
+            (barBox.getChildByName("bar") as Laya.Image).width =
+                (this.inviteNum > data.inviteAmount ? 1 : this.inviteNum / data.inviteAmount) * 434;
+            (barBox.getChildByName("lb") as Laya.Label).text = `${
+                this.inviteNum > data.inviteAmount ? data.inviteAmount : this.inviteNum
+            }/${data.inviteAmount}`;
+            btn.skin = `game/img_goToInvite.png`;
+            btn.dataSource = 2;
+            this.canPrice = false;
+            return;
+        }
+        this.canPrice = true;
+        this.descPriceBox.visible = true;
     }
 
     private canClick: boolean = true;
@@ -648,6 +746,10 @@ export default class ShopView extends GameScript {
      * 提现
      */
     private withdraw() {
+        if (!this.canPrice) {
+            Core.view.openHint({ text: "提现条件不满足", call: () => {} });
+            return;
+        }
         if (this.priceSelectIndex == null) {
             Core.view.openHint({ text: "选择要提现的金额", call: () => {} });
             return;

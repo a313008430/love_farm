@@ -60,9 +60,12 @@ export default class FieldLevelUpView extends GameScript {
                                     : ConfigGame.ApiTypeAD,
                         },
                     })
-                    .then(() => {
+                    .then((d: { adReward: ReturnUserInfo["adReward"] }) => {
                         if (e.target.name == "upgradeAdBtn") {
-                            Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
+                            Core.eventGlobal.event(EventMaps.play_ad_get_reward, [
+                                e.target,
+                                d.adReward,
+                            ]);
                         } else {
                             AppCore.runAppFunction({
                                 uri: AppEventMap.eventCount,

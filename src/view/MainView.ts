@@ -6,6 +6,7 @@ import TableAnalyze from "src/common/TableAnalyze";
 import { RewardCurrencyBase } from "src/common/TableObject";
 import Tools from "src/common/Tools";
 import FieldComponent from "src/components/FieldComponent";
+import { RedDotType } from "src/components/RedDotComponent";
 import Core from "src/core/index";
 import LandService, { LandObj } from "src/dataService/LandService";
 import { PlantDataBase } from "src/dataService/PlantService";
@@ -71,6 +72,10 @@ export default class MainView extends Core.gameScript {
     private warehouseBtn: Laya.Image = null;
     /** @prop {name:moneyLb, tips:"红包文档", type:Node}*/
     private moneyLb: Laya.FontClip = null;
+    /** @prop {name:figureBox, tips:"人物容器", type:Node}*/
+    private figureBox: Laya.Box = null;
+    /** @prop {name:figureBox2, tips:"人物容器", type:Node}*/
+    private figureBox2: Laya.Box = null;
 
     //获得奖励，飞物品相关
     /** @prop {name:getRewardPrefab, tips:"获得奖励预设", type:Prefab}*/
@@ -458,7 +463,14 @@ export default class MainView extends Core.gameScript {
             })
             .key("vitality", (e) => {
                 let vitality = e / ConfigGame.userVitalityLimit;
-                this.anyDoorRed.visible = Boolean(e);
+
+                Laya.timer.frameOnce(1, this, () => {
+                    Core.eventGlobal.event(EventMaps.update_red_dot, [
+                        RedDotType.anyDoor,
+                        Boolean(e),
+                    ]);
+                });
+
                 if (vitality >= 1) {
                     vitality = 1;
                     this.vitalityBuyBtn.gray = true;
@@ -980,18 +992,20 @@ export default class MainView extends Core.gameScript {
      * 播放看广告以后的奖励
      */
     @Core.eventOn(EventMaps.play_ad_get_reward)
-    private playAdReward(target) {
-        const reward = TableAnalyze.table("config").get("Videorewards").value as RewardCurrencyBase;
+    private playAdReward(target, adReward: ReturnUserInfo["adReward"]) {
+        let rewardList = [];
+        adReward?.forEach((d) => {
+            console.log(d.id == ConfigGame.goldId ? 2 : 1);
+            rewardList.push({
+                obj: TableAnalyze.table("currency").get(d.id),
+                count: d.amount,
+                posType: d.id == ConfigGame.goldId ? 1 : 2,
+            });
+        });
 
         Core.eventGlobal.event(EventMaps.play_get_reward, <GetFloatRewardObj>{
             node: target,
-            list: [
-                {
-                    obj: reward.obj,
-                    count: reward.count,
-                    posType: reward.obj.id == ConfigGame.goldId ? 1 : 2,
-                },
-            ],
+            list: rewardList,
         });
     }
 
@@ -1180,7 +1194,11 @@ export default class MainView extends Core.gameScript {
                 this.petBox.visible = false;
             }
             (this.petBox.getChildByName("box") as Laya.Image).visible = false;
+            this.figureBox.visible = false;
+            this.figureBox2.visible = false;
         } else {
+            this.figureBox.visible = true;
+            this.figureBox2.visible = true;
             this.outCountDownNumber = 60;
             Laya.timer.clear(this, this.outCountDownEvent);
             orderBox.visible = true;

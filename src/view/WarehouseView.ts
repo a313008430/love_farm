@@ -181,7 +181,7 @@ export default class WarehouseView extends Core.gameScript {
                                         : ConfigGame.ApiTypeAD,
                             },
                         })
-                        .then(() => {
+                        .then((d: { adReward: ReturnUserInfo["adReward"] }) => {
                             this.sellAdBtn.disabled = !UserInfo.advertiseTimes;
                             this.sellAdBtn.active = Boolean(UserInfo.advertiseTimes);
                             this.canClick = true;
@@ -220,7 +220,10 @@ export default class WarehouseView extends Core.gameScript {
                             }
 
                             if (btnName == "sellBtnAd") {
-                                Core.eventGlobal.event(EventMaps.play_ad_get_reward, target);
+                                Core.eventGlobal.event(EventMaps.play_ad_get_reward, [
+                                    target,
+                                    d.adReward,
+                                ]);
                                 AppCore.runAppFunction({
                                     uri: AppEventMap.eventCount,
                                     data: { type: "Doublesale" },

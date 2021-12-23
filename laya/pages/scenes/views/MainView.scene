@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":237,
-    "selecteID":975,
+    "selectedBox":2,
+    "selecteID":942,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":979,
+    "maxID":980,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -21,7 +21,7 @@
             "source":"src/view/MainView.ts",
             "searchKey":"Script,MainView",
             "removeAble":true,
-            "props":{"y":0,"x":0,"width":14,"warehouseBtn":"@node:99","vitalityBuyBtn":"@node:879","vitalityBox":"@node:877","topLayerOnStage":"@node:837","topGoldIcon":"@node:72","topDiamondIcon":"@node:78","testBtn":"@node:237","taskBox":"@node:244","step9":"@node:241","step8":"@node:239","step7":"@node:117","step6":"@node:112","step5":"@node:98","step4":"@node:97","step3":"@node:99","step2":"@node:80","step1":"@node:477","rewardShareGuide":"@node:970","redNode":"@node:477","petBox":"@node:870","orderBox":"@node:80","moneyLb":"@node:479","landUpLayer":"@node:496","landBox":"@node:112","height":14,"guideLayer":"@node:897","guideHand":"@node:961","goldNode":"@node:73","goldAdd":"@node:963","goHomeBtn":"@node:875","getRewardPrefab":"@Prefab:scenes/prefab/GetReward.prefab","floatRewardIcon":"@Prefab:scenes/prefab/FloatRewardIcon.prefab","figureBoxAni":"@node:942","figureBox2Ani":"@node:895","figureAni":"@node:894","diamondNode":"@node:79","diamondAdd":"@node:964","center_box":"@node:96","centerBox":"@node:96","bottomBox":"@node:243","avatarNode":"@node:350","anyDoorRed":"@node:971","anyDoor":"@node:241","addLandLayer":"@node:316","addLandBg":"@node:332"},
+            "props":{"y":0,"x":0,"width":14,"warehouseBtn":"@node:99","vitalityBuyBtn":"@node:879","vitalityBox":"@node:877","topLayerOnStage":"@node:837","topGoldIcon":"@node:72","topDiamondIcon":"@node:78","testBtn":"@node:237","taskBox":"@node:244","step9":"@node:241","step8":"@node:239","step7":"@node:117","step6":"@node:112","step5":"@node:98","step4":"@node:97","step3":"@node:99","step2":"@node:80","step1":"@node:477","rewardShareGuide":"@node:970","redNode":"@node:477","petBox":"@node:870","orderBox":"@node:80","moneyLb":"@node:479","landUpLayer":"@node:496","landBox":"@node:112","height":14,"guideLayer":"@node:897","guideHand":"@node:961","goldNode":"@node:73","goldAdd":"@node:963","goHomeBtn":"@node:875","getRewardPrefab":"@Prefab:scenes/prefab/GetReward.prefab","floatRewardIcon":"@Prefab:scenes/prefab/FloatRewardIcon.prefab","figureBoxAni":"@node:942","figureBox2Ani":"@node:895","figureBox2":"@node:895","figureBox":"@node:942","figureAni":"@node:894","diamondNode":"@node:79","diamondAdd":"@node:964","center_box":"@node:96","centerBox":"@node:96","bottomBox":"@node:243","avatarNode":"@node:350","anyDoorRed":"@node:971","anyDoor":"@node:241","addLandLayer":"@node:316","addLandBg":"@node:332"},
             "nodeParent":2,
             "label":"MainView",
             "isDirectory":false,
@@ -142,13 +142,14 @@
                     "props":{"y":-57,"x":-106,"name":"house_box"},
                     "nodeParent":96,
                     "label":"house_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":101,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,landLevelUp",
                             "props":{"y":149,"x":657,"skin":"main_scene/img_landUpdate.png","name":"landLevelUp","anchorY":0.5,"anchorX":0.5},
@@ -178,6 +179,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,warehouse",
                             "props":{"y":272,"x":270,"skin":"main_scene/img_storehouseBuilding.png","name":"warehouse","anchorY":0.5,"anchorX":0.5},
@@ -208,6 +210,7 @@
                             "$HIDDEN":true
                         },
                         {
+                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,figure_box",
                             "props":{"y":209,"x":520,"name":"figure_box"},
@@ -220,6 +223,7 @@
                             "compId":942,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure_ani",
                                     "props":{"width":100,"source":"res/figure.atlas","name":"figure_ani","interval":150,"height":100,"autoPlay":true},
@@ -249,6 +253,7 @@
                                         }]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure4_ani",
                                     "props":{"y":-171,"x":267,"width":100,"source":"res/figure4.atlas","name":"figure4_ani","interval":150,"height":100,"autoPlay":true},
@@ -266,7 +271,7 @@
                                             "source":"src/components/FigureAni.ts",
                                             "searchKey":"Script,FigureAni",
                                             "removeAble":true,
-                                            "props":{"time":"14000","delay":"10000","_y":"331","_x":"-592"},
+                                            "props":{"time":"14000","delay":"90000","_y":"331","_x":"-592"},
                                             "nodeParent":947,
                                             "label":"FigureAni",
                                             "isDirectory":false,
@@ -280,6 +285,7 @@
                             "$HIDDEN":false
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,shop",
                             "props":{"y":252,"x":1003,"skin":"main_scene/img_marketBuilding.png","name":"shop","anchorY":0.5,"anchorX":0.5},
@@ -310,6 +316,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,figure2_box",
                             "props":{"y":209,"x":521,"name":"figure2_box"},
@@ -322,6 +329,7 @@
                             "compId":895,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure2_ani",
                                     "props":{"y":20,"x":240,"width":100,"source":"res/figure2.atlas","name":"figure2_ani","interval":150,"height":100,"autoPlay":true},
@@ -351,6 +359,7 @@
                                         }]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure5_ani",
                                     "props":{"y":-80,"x":13,"width":100,"source":"res/figure5.atlas","name":"figure5_ani","interval":150,"height":100,"autoPlay":true},
@@ -2769,14 +2778,13 @@
             "props":{"x":-13,"width":1162,"name":"bottom_box","height":289,"bottom":0},
             "nodeParent":2,
             "label":"bottom_box",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":243,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":123,"x":15,"skin":"main_scene/img_menuWoodBg.png"},
@@ -2790,7 +2798,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,task",
                     "props":{"zOrder":1,"y":167,"x":169,"skin":"main_scene/img_daytimeTask.png","name":"task","anchorY":0.5,"anchorX":0.5},
@@ -2803,7 +2810,6 @@
                     "compId":117,
                     "child":[
                         {
-                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -2820,7 +2826,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,red",
                             "props":{"y":10,"x":132,"visible":false,"skin":"game/img_readTag.png","name":"red"},
@@ -2851,7 +2856,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,signIn",
                     "props":{"y":167,"x":362,"skin":"main_scene/img_clock.png","name":"signIn","anchorY":0.5,"anchorX":0.5},
@@ -2881,7 +2885,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,mail",
                     "props":{"zOrder":1,"y":167,"x":747,"skin":"main_scene/img_emailMenu.png","name":"mail","anchorY":0.5,"anchorX":0.5},
@@ -2940,13 +2943,12 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,any_door",
                     "props":{"zOrder":1,"y":167,"x":939,"skin":"main_scene/img_hangOut.png","name":"any_door","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":243,
                     "label":"any_door",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
@@ -2974,16 +2976,31 @@
                             "props":{"y":-3,"x":102,"visible":false,"skin":"game/img_readTag.png","name":"red"},
                             "nodeParent":241,
                             "label":"red",
-                            "isDirectory":false,
+                            "isOpen":null,
+                            "isDirectory":true,
                             "isAniNode":true,
-                            "hasChild":false,
+                            "hasChild":true,
                             "compId":971,
                             "child":[
-                                ]
+                                {
+                                    "type":"Script",
+                                    "switchAble":true,
+                                    "source":"src/components/RedDotComponent.ts",
+                                    "searchKey":"Script,RedDotComponent",
+                                    "removeAble":true,
+                                    "props":{"redDotType":"anyDoor"},
+                                    "nodeParent":971,
+                                    "label":"RedDotComponent",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":979,
+                                    "child":[
+                                        ]
+                                }]
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,msg_box",
                     "props":{"y":-59,"x":-10,"width":689,"skin":"main_scene/img_taskBg2.png","rotation":0,"name":"msg_box","height":86},
@@ -3037,13 +3054,12 @@
                     "$HIDDEN":false
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,go_home",
                     "props":{"zOrder":1,"y":171,"x":936,"width":136,"skin":"game/img_goHome.png","name":"go_home","height":146,"anchorY":0.5,"anchorX":0.5},
                     "nodeParent":243,
                     "label":"go_home",
-                    "isOpen":null,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
@@ -3069,13 +3085,12 @@
                     "$HIDDEN":false
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,vitality_box",
                     "props":{"y":-51,"x":134,"skin":"game/img_energyBarBg.png","name":"vitality_box"},
                     "nodeParent":243,
                     "label":"vitality_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
@@ -3139,7 +3154,6 @@
                     "$HIDDEN":false
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,reward_share_guide",
                     "props":{"y":76,"x":652,"width":328,"skin":"main_scene/img_notReceived.png","pivotY":166,"pivotX":81,"name":"reward_share_guide","mouseEnabled":true,"height":191},
@@ -3153,7 +3167,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,friends",
                     "props":{"y":141,"x":554,"skin":"main_scene/img_friend.png","name":"friends","anchorY":0.5,"anchorX":0.5},
@@ -3166,7 +3179,6 @@
                     "compId":237,
                     "child":[
                         {
-                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -3183,13 +3195,12 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,red",
                             "props":{"y":-4,"x":189,"visible":false,"skin":"game/img_readTag.png","name":"red"},
                             "nodeParent":237,
                             "label":"red",
-                            "isOpen":null,
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,

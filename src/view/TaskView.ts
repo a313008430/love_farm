@@ -161,8 +161,8 @@ export default class TaskView extends GameScript {
                         api: ApiHttp.ad,
                         data: {},
                     })
-                    .then(() => {
-                        Core.eventGlobal.event(EventMaps.play_ad_get_reward, target);
+                    .then((d: { adReward: ReturnUserInfo["adReward"] }) => {
+                        Core.eventGlobal.event(EventMaps.play_ad_get_reward, [target, d.adReward]);
                         this.taskList.refresh();
                         TaskService.taskAddTimes(1001);
                         TaskService.taskAddTimes(1012);
@@ -193,8 +193,8 @@ export default class TaskView extends GameScript {
                             taskId: 1002,
                         },
                     })
-                    .then(() => {
-                        Core.eventGlobal.event(EventMaps.play_ad_get_reward, target);
+                    .then((d: { adReward: ReturnUserInfo["adReward"] }) => {
+                        Core.eventGlobal.event(EventMaps.play_ad_get_reward, [target, d.adReward]);
                         this.taskList.refresh();
                         TaskService.taskAddTimes(1001);
                         TaskService.taskAddTimes(1012);

@@ -2,6 +2,7 @@ import ConfigGame from "src/common/ConfigGame";
 import Res from "src/common/Res";
 import TableAnalyze from "src/common/TableAnalyze";
 import { OrderBase, RewardCurrencyBase } from "src/common/TableObject";
+import Tools from "src/common/Tools";
 import Core from "src/core/index";
 import UserInfo from "src/dataService/UserInfo";
 import WarehouseService from "src/dataService/WarehouseService";
@@ -33,28 +34,20 @@ export default class OrderView extends Core.gameScript {
         this.orderList.array = this.dataList;
         this.orderList.renderHandler = new Laya.Handler(this, this.renderList);
         this.orderList.vScrollBarSkin = null;
-        let step = 0,
-            reward: RewardCurrencyBase;
+        let reward: number = 0;
         for (let x = 0; x < this.dataList.length; x++) {
             if (this.dataList[x].id >= UserInfo.orderLevel) {
-                step++;
-                if (this.dataList[x].extraReward) {
-                    reward = this.dataList[x].extraReward;
-                    break;
-                }
+                reward += this.dataList[x].extraReward.count;
             }
         }
-        if (step) {
-            let withdrawal = TableAnalyze.table("config").get("withdrawal").value as string[];
-            (this.topDesc.getChildAt(0) as Laya.Label).text =
-                step == 1 ? "完成当前订单可获得红包" : `再完成${step}单可获得红包`;
-            (this.topDesc.getChildAt(1) as Laya.Label).text = `${(
-                (Number(withdrawal[2]) / Number(withdrawal[1])) *
-                reward.count
-            )
-                .toString()
-                .match(/^\d+(?:\.\d{0,2})?/)}`;
-        }
+
+        let withdrawal = TableAnalyze.table("config").get("withdrawal").value as string[];
+
+        (this.topDesc.getChildAt(0) as Laya.Label).text = "完成所有订单可获得红包";
+
+        (this.topDesc.getChildAt(1) as Laya.Label).text = `${Tools.formatMoney(
+            (Number(withdrawal[2]) / Number(withdrawal[1])) * reward
+        )}`;
     }
 
     private renderList(cell: Laya.Image, i: number) {

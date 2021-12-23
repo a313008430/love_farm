@@ -44,6 +44,8 @@ class UserInfo {
     withdraw: WithdrawData[];
     /** 新手引导数据 */
     guideData: string = "";
+    /** 新手引导数据 */
+    days: number = 0;
 
     get ttt() {
         return this.orderLevel;

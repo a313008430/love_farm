@@ -94,14 +94,17 @@ export default class AddLandView extends GameScript {
                             type: ConfigGame.ApiTypeAD,
                         },
                     })
-                    .then(() => {
+                    .then((d: { adReward: ReturnUserInfo["adReward"] }) => {
                         this.canClick = true;
                         if (this.data?.call) {
                             this.data.call();
                             Core.view.close(Res.views.AddLandView);
                         }
 
-                        Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
+                        Core.eventGlobal.event(EventMaps.play_ad_get_reward, [
+                            e.target,
+                            d.adReward,
+                        ]);
                     })
                     .catch(() => {
                         this.canClick = true;
