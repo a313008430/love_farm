@@ -36,9 +36,21 @@ export default class OrderView extends Core.gameScript {
         this.orderList.vScrollBarSkin = null;
         let reward: number = 0;
         for (let x = 0; x < this.dataList.length; x++) {
-            if (this.dataList[x].id >= UserInfo.orderLevel) {
-                reward += this.dataList[x].extraReward.count;
-            }
+            // if (this.dataList[x].id >= UserInfo.orderLevel) {
+            let addDiamond = 0;
+            this.dataList[x].condition.forEach((d) => {
+                d.plant.gain.forEach((p) => {
+                    if (p.obj.id === ConfigGame.diamondId) {
+                        addDiamond += p.count * d.count;
+                    }
+                });
+            });
+
+            reward +=
+                this.dataList[x].extraReward.count +
+                addDiamond +
+                Math.round(addDiamond * this.dataList[x].commission);
+            // }
         }
 
         let withdrawal = TableAnalyze.table("config").get("withdrawal").value as string[];
@@ -54,6 +66,7 @@ export default class OrderView extends Core.gameScript {
         let d = this.dataList[i],
             reward: RewardCurrencyBase,
             rewardCount: number = 0,
+            rewardDiamondCount: number = 0,
             curCount = 0,
             maxCount = 0,
             progress = 0,
@@ -89,6 +102,8 @@ export default class OrderView extends Core.gameScript {
                             reward = e;
                         }
                         rewardCount += e.count * d.condition[x].count;
+                    } else {
+                        rewardDiamondCount += e.count * d.condition[x].count;
                     }
                 });
             } else {
@@ -115,7 +130,11 @@ export default class OrderView extends Core.gameScript {
             if (d.extraReward) {
                 btn.visible = false;
                 (diamond.getChildByName("icon") as Laya.Image).skin = d.extraReward.obj.icon;
-                (diamond.getChildByName("value") as Laya.Label).text = `+${d.extraReward.count}`;
+                (diamond.getChildByName("value") as Laya.Label).text = `+${
+                    d.extraReward.count +
+                    rewardDiamondCount +
+                    Math.round(rewardDiamondCount * d.commission)
+                }`;
                 diamond.visible = true;
             } else {
                 btn.visible = true;
@@ -129,9 +148,11 @@ export default class OrderView extends Core.gameScript {
                     btn.visible = false;
                     order_lv.visible = false;
                     (diamond.getChildByName("icon") as Laya.Image).skin = d.extraReward.obj.icon;
-                    (
-                        diamond.getChildByName("value") as Laya.Label
-                    ).text = `+${d.extraReward.count}`;
+                    (diamond.getChildByName("value") as Laya.Label).text = `+${
+                        d.extraReward.count +
+                        rewardDiamondCount +
+                        Math.round(rewardDiamondCount * d.commission)
+                    }`;
                     diamond.visible = true;
                 } else {
                     btn.skin = this.btnResCur;
@@ -150,7 +171,6 @@ export default class OrderView extends Core.gameScript {
                 }
             }
         }
-
         if (reward) {
             (rewardBox.getChildByName("icon") as Laya.Image).skin = reward.obj.icon;
             (rewardBox.getChildByName("value") as Laya.Label).text = `+${

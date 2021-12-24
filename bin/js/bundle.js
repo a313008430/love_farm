@@ -78,6 +78,7 @@
     views3["FriendsDescView"] = "scenes/views/FriendsDescView.scene";
     views3["FriendsRewardView"] = "scenes/views/FriendsRewardView.scene";
     views3["FriendsView"] = "scenes/views/FriendsView.scene";
+    views3["GatherDescView"] = "scenes/views/GatherDescView.scene";
     views3["GuideView"] = "scenes/views/GuideView.scene";
     views3["HintView"] = "scenes/views/HintView.scene";
     views3["LoginView"] = "scenes/views/LoginView.scene";
@@ -122,6 +123,7 @@
     "scenes/views/LoginView.scene",
     "scenes/views/HintView.scene",
     "scenes/views/GuideView.scene",
+    "scenes/views/GatherDescView.scene",
     "scenes/views/FriendsView.scene",
     "scenes/views/FriendsRewardView.scene",
     "scenes/views/FriendsDescView.scene",
@@ -1353,6 +1355,9 @@
           this.updateUserInfo(d.data);
           this.taskUpdate(1008);
           break;
+        case ApiHttp.landSteal:
+          this.updateUserInfo(d.data);
+          break;
         case ApiHttp.seedsUnlock:
         case ApiHttp.landSow:
         case ApiHttp.landUnlock:
@@ -2233,47 +2238,7 @@
               return;
             } else {
               console.log("\u6536\u83B7");
-              this.canClick = false;
-              let plantAmount = 0, rewardDiamond = 0, productId = this.data.productId;
-              HttpControl.inst.send({
-                api: ApiHttp.landGather,
-                data: {
-                  landId: this.data.id,
-                  type: ConfigGame_default.ApiTypeDefault
-                }
-              }).then((d) => {
-                plantAmount = d.amount;
-                WarehouseService_default.add(productId, d.amount);
-                core_default.audio.playSound(Res_default.audios.shoucai);
-                rewardDiamond = d.rewardDiamond;
-                this.clearField();
-                this.canClick = true;
-                let plantObj = TableAnalyze_default.table("plant").get(productId), rewardList = [
-                  {
-                    obj: plantObj,
-                    count: plantAmount,
-                    posType: 3
-                  }
-                ];
-                if (rewardDiamond) {
-                  rewardList.push({
-                    obj: TableAnalyze_default.table("currency").get(ConfigGame_default.diamondId),
-                    count: rewardDiamond,
-                    posType: 2
-                  });
-                }
-                core_default.eventGlobal.event(EventMaps.play_get_reward, {
-                  node: this.owner,
-                  list: rewardList,
-                  callBack: () => {
-                  }
-                });
-                Laya.timer.frameOnce(1, this, () => {
-                  this.mainViewCom.updateAllStateIcon();
-                });
-              }).catch(() => {
-                this.canClick = true;
-              });
+              this.gather();
             }
           } else {
             this.sow();
@@ -2297,6 +2262,58 @@
               }
             }
           });
+        }
+      });
+    }
+    gather() {
+      if (!this.canClick)
+        return;
+      this.canClick = false;
+      let plantAmount = 0, rewardDiamond = 0, productId = this.data.productId;
+      return new Promise((resolve) => {
+        HttpControl.inst.send({
+          api: ApiHttp.landGather,
+          data: {
+            landId: [this.data.id],
+            type: ConfigGame_default.ApiTypeDefault
+          }
+        }).then((d) => {
+          resolve({ plantId: productId, amount: d.amount, diamond: rewardDiamond });
+          plantAmount = d.amount;
+          WarehouseService_default.add(productId, d.amount);
+          rewardDiamond = d.rewardDiamond;
+          this.canClick = true;
+          this.gatherEvent(productId, plantAmount, rewardDiamond);
+          Laya.timer.frameOnce(1, this, () => {
+            this.mainViewCom.updateAllStateIcon();
+          });
+        }).catch(() => {
+          this.canClick = true;
+          resolve(null);
+        });
+      });
+    }
+    gatherEvent(productId, plantAmount, rewardDiamond = 0) {
+      core_default.audio.playSound(Res_default.audios.shoucai);
+      this.clearField();
+      let plantObj = TableAnalyze_default.table("plant").get(productId), rewardList = [
+        {
+          obj: plantObj,
+          count: plantAmount,
+          posType: 3
+        }
+      ];
+      if (rewardDiamond) {
+        rewardList.push({
+          obj: TableAnalyze_default.table("currency").get(ConfigGame_default.diamondId),
+          count: rewardDiamond,
+          posType: 2
+        });
+      }
+      core_default.eventGlobal.event(EventMaps.play_get_reward, {
+        node: this.owner,
+        list: rewardList,
+        callBack: () => {
         }
       });
     }
@@ -2342,47 +2359,14 @@
         HttpControl.inst.send({
           api: ApiHttp.landSteal,
           data: {
-            landId: this.data.id,
+            landId: [this.data.id],
             type: ConfigGame_default.ApiTypeDefault,
             uid: this.stealUid
           }
         }).then((d) => {
-          AppCore.runAppFunction({
-            uri: AppEventMap.eventCount,
-            data: { type: "Stealvegetables" }
-          });
-          TaskService_default.taskAddTimes(1004);
           this.canClick = true;
           UserInfo_default.vitality = d.vitality;
-          this.canSteal = false;
-          this.topStateIconAni(false);
-          const rewardList = [];
-          if (d.plantId) {
-            core_default.audio.playSound(Res_default.audios.shoucai);
-            WarehouseService_default.add(this.data.productId, d.amount);
-            rewardList.push({
-              obj: TableAnalyze_default.table("plant").get(d.plantId),
-              count: d.amount,
-              posType: 3
-            });
-          } else {
-            core_default.view.openHint({ text: "\u989D\uFF0C\u88AB\u72D7\u54AC\u4E86~~~\u6CA1\u5077\u7740~", call: () => {
-            } });
-            return;
-          }
-          if (d.rewardDiamond) {
-            rewardList.push({
-              obj: TableAnalyze_default.table("currency").get(ConfigGame_default.diamondId),
-              count: d.rewardDiamond,
-              posType: 2
-            });
-          }
-          if (rewardList.length) {
-            core_default.eventGlobal.event(EventMaps.play_get_reward, {
-              node: this.owner,
-              list: rewardList
-            });
-          }
+          this.stealFoodEvent(d);
         }).catch((code) => {
           this.canClick = true;
           if (code === ErrorCode_default._2001) {
@@ -2390,6 +2374,45 @@
           }
         });
       });
+    }
+    stealFoodEvent(d, dog = true) {
+      AppCore.runAppFunction({
+        uri: AppEventMap.eventCount,
+        data: { type: "Stealvegetables" }
+      });
+      TaskService_default.taskAddTimes(1004);
+      this.canSteal = false;
+      this.topStateIconAni(false);
+      const rewardList = [];
+      if (d.plantId) {
+        core_default.audio.playSound(Res_default.audios.shoucai);
+        WarehouseService_default.add(this.data.productId, d.amount);
+        rewardList.push({
+          obj: TableAnalyze_default.table("plant").get(d.plantId),
+          count: d.amount,
+          posType: 3
+        });
+      } else {
+        if (!dog) {
+          return;
+        }
+        core_default.view.openHint({ text: "\u989D\uFF0C\u88AB\u72D7\u54AC\u4E86~~~\u6CA1\u5077\u7740~", call: () => {
+        } });
+        return;
+      }
+      if (d.rewardDiamond) {
+        rewardList.push({
+          obj: TableAnalyze_default.table("currency").get(ConfigGame_default.diamondId),
+          count: d.rewardDiamond,
+          posType: 2
+        });
+      }
+      if (rewardList.length) {
+        core_default.eventGlobal.event(EventMaps.play_get_reward, {
+          node: this.owner,
+          list: rewardList
+        });
+      }
     }
     onHdDestroy() {
       var _a, _b;
@@ -2461,7 +2484,6 @@
       this.anyDoor = null;
       this.vitalityBox = null;
       this.vitalityBuyBtn = null;
-      this.anyDoorRed = null;
       this.petBox = null;
       this.taskBox = null;
       this.step1 = null;
@@ -2480,6 +2502,7 @@
       this.guideHand = null;
       this.guidIdList = [1, 2, 3, 5];
       this.hasGuide = false;
+      this.stealAll = { list: [], rewardDiamond: 0 };
       this.orderQueueIng = false;
       this.friendInviteData = [];
     }
@@ -2829,26 +2852,118 @@
         case "reward_share_guide":
           this.goFriendRewardView();
           break;
+        case "fast_get":
+          this.fastGet();
+          break;
       }
     }
-    sow(showView = false, d) {
-      var _a, _b;
-      let empty = true;
-      for (let x = 0, l = this.landList.length; x < l; x++) {
-        if (!((_b = (_a = this.landList[x]) == null ? void 0 : _a.data) == null ? void 0 : _b.productId)) {
-          if (showView) {
-            this.landList[x].sowPlant(d);
-          } else {
-            this.landList[x].sow();
-          }
-          empty = false;
-          break;
+    fastGet() {
+      return __async(this, null, function* () {
+        var _a, _b, _c, _d, _e;
+        if (!this.canClick) {
+          return;
         }
-      }
-      if (empty) {
-        core_default.view.openHint({ text: "\u6CA1\u6709\u7A7A\u7684\u571F\u5730\u54E6\uFF01", call: () => {
-        } });
-      }
+        this.canClick = false;
+        if (this.isOuter) {
+          let lands = [], landComList = [];
+          for (let x = 0; x < this.landList.length; x++) {
+            if (((_a = this.landList[x].data) == null ? void 0 : _a.productId) && !((_b = this.landList[x].data) == null ? void 0 : _b.matureTimeLeft) && ((_c = this.landList[x].data) == null ? void 0 : _c.canSteal)) {
+              lands.push(this.landList[x].data.id);
+              landComList.push(this.landList[x]);
+            }
+          }
+          if (!lands.length) {
+            core_default.view.openHint({ text: "\u6CA1\u6709\u53EF\u4EE5\u5077\u7684", call: () => {
+            } });
+            this.canClick = true;
+            return;
+          }
+          HttpControl.inst.send({
+            api: ApiHttp.landSteal,
+            data: {
+              landId: lands,
+              type: ConfigGame_default.ApiTypeDefault,
+              uid: landComList[0].stealUid
+            }
+          }).then((d) => {
+            this.canClick = true;
+            UserInfo_default.vitality = d.vitality;
+            d.list.forEach((data, i) => {
+              landComList[i].stealFoodEvent(data, false);
+              this.stealAll.rewardDiamond += data.rewardDiamond;
+              if (!data.plantId)
+                return;
+              for (let x = 0; x < this.stealAll.list.length; x++) {
+                if (this.stealAll.list[x].plantId == data.plantId) {
+                  this.stealAll.list[x].amount += data.amount;
+                  return;
+                }
+              }
+              this.stealAll.list.push({
+                plantId: data.plantId,
+                amount: data.amount
+              });
+            });
+          }).catch(() => {
+            this.canClick = true;
+          });
+        } else {
+          let diamond = 0, list = [], lands = [], landComList = [];
+          for (let x = 0; x < this.landList.length; x++) {
+            if (((_d = this.landList[x].data) == null ? void 0 : _d.productId) && !((_e = this.landList[x].data) == null ? void 0 : _e.matureTimeLeft)) {
+              lands.push(this.landList[x].data.id);
+              landComList.push(this.landList[x]);
+            }
+          }
+          if (!lands.length) {
+            core_default.view.openHint({ text: "\u6CA1\u6709\u6210\u719F\u7684\u519C\u4F5C\u7269", call: () => {
+            } });
+            this.canClick = true;
+            return;
+          }
+          HttpControl.inst.send({
+            api: ApiHttp.landGather,
+            data: {
+              landId: lands,
+              type: ConfigGame_default.ApiTypeDefault
+            }
+          }).then((d) => {
+            this.canClick = true;
+            d.list.forEach((data) => {
+              diamond += data.rewardDiamond;
+              WarehouseService_default.add(data.plantId, data.amount);
+              for (let x = 0; x < list.length; x++) {
+                if (list[x].plantId == data.plantId) {
+                  list[x].amount += data.amount;
+                  return;
+                }
+              }
+              list.push({
+                plantId: data.plantId,
+                amount: data.amount
+              });
+            });
+            core_default.view.open(Res_default.views.GatherDescView, {
+              parm: {
+                type: 3,
+                data: list,
+                diamond,
+                call: (double) => {
+                  let mul = 1;
+                  if (double) {
+                    mul = 2;
+                  }
+                  d.list.forEach((data, i) => {
+                    if (double)
+                      WarehouseService_default.add(data.plantId, data.amount);
+                    landComList[i].gatherEvent(data.plantId, data.amount * mul, data.rewardDiamond * mul);
+                  });
+                }
+              }
+            });
+          });
+        }
+      });
     }
     getEmptyLandId() {
       console.log(this.landList);
@@ -2892,8 +3007,10 @@
     }
     updateOrder() {
       var _a;
+      if (this.isOuter)
+        return;
       if (!this.orderQueueIng) {
-        let box = this.orderBox.getChildByName("order_box"), d = TableAnalyze_default.table("order").get(UserInfo_default.orderLevel + 1), reward, rewardCount = 0, curCount = 0, maxCount = 0, progress = 0;
+        let box = this.orderBox.getChildByName("order_box"), d = TableAnalyze_default.table("order").get(UserInfo_default.orderLevel + 1), reward, rewardCount = 0, rewardDiamondCount = 0, curCount = 0, maxCount = 0, progress = 0;
         if (!d)
           return console.log("\u7B49\u7EA7\u5DF2\u5B8C");
         for (let x = 0; x < 4; x++) {
@@ -2914,6 +3031,8 @@
                   reward = e;
                 }
                 rewardCount += e.count * maxCount;
+              } else {
+                rewardDiamondCount += e.count * maxCount;
               }
             });
           } else {
@@ -2926,7 +3045,7 @@
           goldBox.getChildByName("value").value = `${rewardCount + Math.round(rewardCount * d.commission)}`;
           if (d.extraReward) {
             diamondBox.getChildByName("icon").skin = d.extraReward.obj.icon;
-            diamondBox.getChildByName("value").value = `${d.extraReward.count}`;
+            diamondBox.getChildByName("value").value = `${d.extraReward.count + rewardDiamondCount + Math.round(rewardDiamondCount * d.commission)}`;
             diamondBox.visible = true;
             goldBox.y = 46;
           } else {
@@ -2938,39 +3057,42 @@
         if (progress == d.condition.length) {
           const condition = d.condition;
           this.orderQueueIng = true;
-          HttpControl.inst.send({
-            api: ApiHttp.orderReward,
-            data: {
-              orderId: UserInfo_default.orderLevel + 1
-            }
-          }).then(() => {
-            condition.forEach((e) => {
-              WarehouseService_default.reduceAmount(e.plant.id, e.count);
-            });
-            this.orderQueueIng = false;
-            UserInfo_default.orderLevel++;
-            let reward2 = [];
-            reward2.push({
-              obj: TableAnalyze_default.table("currency").get(ConfigGame_default.goldId),
-              count: rewardCount + Math.round(rewardCount * d.commission),
-              posType: 1
-            });
-            if (d.extraReward) {
-              reward2.push({
-                obj: TableAnalyze_default.table("currency").get(d.extraReward.obj.id),
-                count: d.extraReward.count,
-                posType: 2
-              });
-            }
-            this.playGetRewardAni({
-              node: box.getChildByName("gold_box"),
-              list: reward2,
-              callBack: () => {
-                this.updateOrder();
+          let adDiamond = d.extraReward.count + rewardDiamondCount + Math.round(rewardDiamondCount * d.commission), adGold = rewardCount + Math.round(rewardCount * d.commission);
+          core_default.view.open(Res_default.views.GatherDescView, {
+            parm: {
+              type: 1,
+              data: {
+                diamond: adDiamond,
+                gold: adGold
+              },
+              call: (double) => {
+                condition.forEach((e) => {
+                  WarehouseService_default.reduceAmount(e.plant.id, e.count);
+                });
+                this.orderQueueIng = false;
+                UserInfo_default.orderLevel++;
+                let reward2 = [];
+                reward2.push({
+                  obj: TableAnalyze_default.table("currency").get(ConfigGame_default.goldId),
+                  count: adGold * (double ? 2 : 1),
+                  posType: 1
+                });
+                if (d.extraReward) {
+                  reward2.push({
+                    obj: TableAnalyze_default.table("currency").get(d.extraReward.obj.id),
+                    count: adDiamond * (double ? 2 : 1),
+                    posType: 2
+                  });
+                }
+                this.playGetRewardAni({
+                  node: box.getChildByName("gold_box"),
+                  list: reward2,
+                  callBack: () => {
+                    this.updateOrder();
+                  }
+                });
               }
-            });
-          }).catch(() => {
-            this.orderQueueIng = false;
+            }
           });
         }
       }
@@ -3138,7 +3260,7 @@
       core_default.view.setOverView(true, () => {
         HttpControl.inst.send({
           api: ApiHttp.goHome,
-          data: {}
+          data: { clear: true }
         }).then(() => {
           this.goHomeNodeData();
         });
@@ -3153,11 +3275,61 @@
         core_default.view.setOverView(false);
         this.goFriend(null);
         this.updateHitLandAdd();
+        if (this.stealAll.list.length) {
+          core_default.view.open(Res_default.views.GatherDescView, {
+            parm: {
+              type: 2,
+              data: this.stealAll.list,
+              diamond: this.stealAll.rewardDiamond,
+              call: (double, target) => __async(this, null, function* () {
+                if (double) {
+                  let data = yield HttpControl.inst.send({
+                    api: ApiHttp.landSteal,
+                    data: {
+                      landId: [],
+                      type: ConfigGame_default.ApiTypeAD,
+                      uid: 0
+                    }
+                  });
+                  let addDiamond = 0;
+                  const rewardList = [];
+                  data.list.forEach((d) => {
+                    WarehouseService_default.add(d.plantId, d.amount);
+                    UserInfo_default.diamond += d.rewardDiamond;
+                    addDiamond += d.rewardDiamond;
+                    rewardList.push({
+                      obj: TableAnalyze_default.table("plant").get(d.plantId),
+                      count: d.amount,
+                      posType: 3
+                    });
+                  });
+                  if (rewardList.length) {
+                    core_default.eventGlobal.event(EventMaps.play_get_reward, {
+                      node: target,
+                      list: rewardList
+                    });
+                  }
+                  data.adReward.forEach((data2, i) => {
+                    if (addDiamond && data2.id == ConfigGame_default.diamondId) {
+                      data2.amount += addDiamond;
+                    }
+                  });
+                  core_default.eventGlobal.event(EventMaps.play_ad_get_reward, [
+                    target,
+                    data.adReward
+                  ]);
+                  core_default.view.close(Res_default.views.GatherDescView);
+                }
+              })
+            }
+          });
+        }
       });
     }
     goToNeighbor() {
       this.hideGuideHand();
       core_default.view.setOverView(true, () => {
+        this.stealAll = { list: [], rewardDiamond: 0 };
         HttpControl.inst.send({
           api: ApiHttp.neighbor,
           data: {
@@ -3174,6 +3346,9 @@
     }
     goFriendListen(d, friendData) {
       this.outCountDownNumber = 60;
+      if (!this.isOuter) {
+        this.stealAll = { list: [], rewardDiamond: 0 };
+      }
       this.isOuter = true;
       this.goFriend(d, friendData);
     }
@@ -3340,9 +3515,6 @@
     }
   };
   var MainView = _MainView;
-  __decorateClass([
-    core_default.eventOn(EventMaps.plant_sow)
-  ], MainView.prototype, "sow", 1);
   __decorateClass([
     core_default.eventOn(EventMaps.open_friend)
   ], MainView.prototype, "openFriend", 1);
@@ -3719,6 +3891,140 @@
       a.remove();
       core_default.view.openHint({ text: "\u590D\u5236\u6210\u529F", call: () => {
       } });
+    }
+  };
+
+  // src/view/GatherDescView.ts
+  var GatherDescView = class extends core_default.gameScript {
+    constructor() {
+      super(...arguments);
+      this.canClick = true;
+    }
+    onOpened(d) {
+      this.stealGet.visible = false;
+      this.order.visible = false;
+      this.data = d;
+      this.stealGet.vScrollBarSkin = null;
+      this.order.vScrollBarSkin = null;
+      switch (d.type) {
+        case 1:
+          this.order.visible = true;
+          this.closeBtn.visible = false;
+          this.order.getChildByName("desc").getChildByName("lb2").text = `${UserInfo_default.orderLevel + 1}`;
+          let order = TableAnalyze_default.table("order").get(UserInfo_default.orderLevel + 1);
+          console.log(order);
+          console.log(d);
+          this.order.getChildByName("price_box").getChildAt(0).getChildByName("icon").skin = TableAnalyze_default.table("currency").get(ConfigGame_default.goldId).icon;
+          this.order.getChildByName("price_box").getChildAt(0).getChildByName("lb").text = "x" + d.data.gold;
+          this.order.getChildByName("price_box").getChildAt(1).getChildByName("lb").text = "x" + d.data.diamond;
+          this.order.getChildByName("price_box").getChildAt(1).getChildByName("icon").skin = TableAnalyze_default.table("currency").get(ConfigGame_default.diamondId).icon;
+          break;
+        case 2:
+          this.stealGet.visible = true;
+          this.stealGet.getChildByName("title").text = "\u5077\u83DC\u6210\u529F";
+          this.stealGet.getChildByName("top_lb").text = "\u4F60\u6F5C\u5165\u4E86xx\u7684\u83DC\u5730\uFF0C\u5077\u8D70\u4E86\uFF1A";
+          this.updateDescList();
+          break;
+        case 3:
+          this.stealGet.visible = true;
+          this.stealGet.getChildByName("title").text = "\u519C\u4F5C\u7269\u6210\u719F";
+          this.stealGet.getChildByName("top_lb").text = "\u901A\u8FC7\u60A8\u8F9B\u52E4\u52B3\u4F5C\uFF0C\u6536\u83B7\u4E86\uFF1A";
+          this.updateDescList();
+          break;
+      }
+    }
+    updateDescList() {
+      var _a;
+      let list = this.data.data;
+      let _x = 0, _y = 0;
+      for (let x = 0; x < list.length; x++) {
+        let itemNode = this.item.create();
+        if (_x > 3) {
+          _y += 1;
+          _x = 0;
+        }
+        itemNode.x = 28 + _x * 190;
+        itemNode.y = 203 + _y * 95;
+        let plant = TableAnalyze_default.table("plant").get(list[x].plantId);
+        const icon = itemNode.getChildByName("icon");
+        icon.skin = plant.icon;
+        icon.scale(0.7, 0.7);
+        icon.anchorX = 0.5;
+        itemNode.getChildByName("lb").text = `x${list[x].amount}`;
+        this.stealGet.addChild(itemNode);
+        _x++;
+      }
+      let lb = this.stealGet.getChildByName("bottom_lb");
+      lb.y += _y * 95;
+      lb.getChildByName("diamond").getChildByName("icon").skin = TableAnalyze_default.table("currency").get(ConfigGame_default.diamondId).icon;
+      lb.getChildByName("diamond").getChildByName("lb").text = `x${((_a = this.data) == null ? void 0 : _a.diamond) || 0}`;
+    }
+    onClick(e) {
+      switch (e.target.name) {
+        case "close":
+          core_default.view.close(Res_default.views.GatherDescView);
+          if (this.data.call) {
+            this.data.call(false);
+          }
+          break;
+        case "receive":
+        case "receive_double":
+          if (!this.canClick) {
+            return;
+          }
+          this.canClick = false;
+          if (this.data.type == 1) {
+            HttpControl.inst.send({
+              api: ApiHttp.orderReward,
+              data: {
+                orderId: UserInfo_default.orderLevel + 1,
+                type: e.target.name == "receive" ? ConfigGame_default.ApiTypeDefault : ConfigGame_default.ApiTypeAD
+              }
+            }).then(() => {
+              core_default.view.close(Res_default.views.GatherDescView);
+              this.canClick = true;
+              if (this.data.call) {
+                this.data.call(e.target.name != "receive");
+              }
+            }).catch(() => {
+              this.canClick = true;
+            });
+          } else {
+            if (e.target.name == "receive_double") {
+              if (this.data.type == 2) {
+                this.data.call(true, e.target);
+              } else {
+                HttpControl.inst.send({
+                  api: ApiHttp.landGather,
+                  data: {
+                    landId: [],
+                    type: ConfigGame_default.ApiTypeAD
+                  }
+                }).then((d) => {
+                  if (this.data.call) {
+                    this.data.call(true);
+                    d.adReward.forEach((data, i) => {
+                      if (this.data.diamond && data.id == ConfigGame_default.diamondId) {
+                        data.amount += this.data.diamond * 2;
+                      }
+                    });
+                    core_default.eventGlobal.event(EventMaps.play_ad_get_reward, [
+                      e.target,
+                      d.adReward
+                    ]);
+                  }
+                  core_default.view.close(Res_default.views.GatherDescView);
+                });
+              }
+            } else {
+              if (this.data.call) {
+                this.data.call(false);
+              }
+              core_default.view.close(Res_default.views.GatherDescView);
+            }
+          }
+          break;
+      }
     }
   };
 
@@ -4438,9 +4744,15 @@
       this.orderList.vScrollBarSkin = null;
       let reward = 0;
       for (let x = 0; x < this.dataList.length; x++) {
-        if (this.dataList[x].id >= UserInfo_default.orderLevel) {
-          reward += this.dataList[x].extraReward.count;
-        }
+        let addDiamond = 0;
+        this.dataList[x].condition.forEach((d) => {
+          d.plant.gain.forEach((p) => {
+            if (p.obj.id === ConfigGame_default.diamondId) {
+              addDiamond += p.count * d.count;
+            }
+          });
+        });
+        reward += this.dataList[x].extraReward.count + addDiamond + Math.round(addDiamond * this.dataList[x].commission);
       }
       let withdrawal = TableAnalyze_default.table("config").get("withdrawal").value;
       this.topDesc.getChildAt(0).text = "\u5B8C\u6210\u6240\u6709\u8BA2\u5355\u53EF\u83B7\u5F97\u7EA2\u5305";
@@ -4448,7 +4760,7 @@
     }
     renderList(cell, i) {
       var _a;
-      let d = this.dataList[i], reward, rewardCount = 0, curCount = 0, maxCount = 0, progress = 0, rewardBox = cell.getChildByName("reward_box"), order_lv = cell.getChildByName("order_lv");
+      let d = this.dataList[i], reward, rewardCount = 0, rewardDiamondCount = 0, curCount = 0, maxCount = 0, progress = 0, rewardBox = cell.getChildByName("reward_box"), order_lv = cell.getChildByName("order_lv");
       order_lv.text = `${d.id}\u7EA7\u8BA2\u5355`;
       for (let x = 0; x < 4; x++) {
         let item = cell.getChildByName("item_" + x);
@@ -4473,6 +4785,8 @@
                 reward = e;
               }
               rewardCount += e.count * d.condition[x].count;
+            } else {
+              rewardDiamondCount += e.count * d.condition[x].count;
             }
           });
         } else {
@@ -4494,7 +4808,7 @@
         if (d.extraReward) {
           btn.visible = false;
           diamond.getChildByName("icon").skin = d.extraReward.obj.icon;
-          diamond.getChildByName("value").text = `+${d.extraReward.count}`;
+          diamond.getChildByName("value").text = `+${d.extraReward.count + rewardDiamondCount + Math.round(rewardDiamondCount * d.commission)}`;
           diamond.visible = true;
         } else {
           btn.visible = true;
@@ -4507,7 +4821,7 @@
             btn.visible = false;
             order_lv.visible = false;
             diamond.getChildByName("icon").skin = d.extraReward.obj.icon;
-            diamond.getChildByName("value").text = `+${d.extraReward.count}`;
+            diamond.getChildByName("value").text = `+${d.extraReward.count + rewardDiamondCount + Math.round(rewardDiamondCount * d.commission)}`;
             diamond.visible = true;
           } else {
             btn.skin = this.btnResCur;
@@ -5892,6 +6206,7 @@
       reg("view/FriendsDescView.ts", FriendsDescView);
       reg("view/FriendsRewardView.ts", FriendsRewardView);
       reg("view/FriendsView.ts", FriendsView);
+      reg("view/GatherDescView.ts", GatherDescView);
       reg("view/GuideView.ts", GuideView);
       reg("view/HintView.ts", HintView);
       reg("view/LoginView.ts", LoginView);

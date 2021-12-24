@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":942,
+    "selectedBox":96,
+    "selecteID":113,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":980,
+    "maxID":981,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -394,10 +394,25 @@
                 {
                     "x":30,
                     "type":"Image",
-                    "searchKey":"Image",
-                    "props":{"y":889,"x":30,"skin":"main_scene/img_billboard.png"},
+                    "searchKey":"Image,buy_feed",
+                    "props":{"y":1132,"x":941,"width":102,"skin":"main_scene/img_bowlWithFood.png","name":"buy_feed","mouseEnabled":true,"height":72},
                     "nodeParent":96,
-                    "label":"Image",
+                    "label":"buy_feed",
+                    "isOpen":true,
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":116,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image,fast_get",
+                    "props":{"zOrder":5,"y":889,"x":30,"skin":"main_scene/img_billboard.png","name":"fast_get"},
+                    "nodeParent":96,
+                    "label":"fast_get",
                     "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
@@ -416,22 +431,23 @@
                             "compId":834,
                             "child":[
                                 ]
+                        },
+                        {
+                            "type":"Script",
+                            "switchAble":true,
+                            "source":"src/components/Button.ts",
+                            "searchKey":"Script,Button",
+                            "removeAble":true,
+                            "props":{"isScale":true},
+                            "nodeParent":113,
+                            "label":"Button",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":980,
+                            "child":[
+                                ]
                         }]
-                },
-                {
-                    "x":30,
-                    "type":"Image",
-                    "searchKey":"Image,buy_feed",
-                    "props":{"y":1132,"x":941,"width":102,"skin":"main_scene/img_bowlWithFood.png","name":"buy_feed","mouseEnabled":true,"height":72},
-                    "nodeParent":96,
-                    "label":"buy_feed",
-                    "isOpen":true,
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":116,
-                    "child":[
-                        ]
                 },
                 {
                     "x":30,

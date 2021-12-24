@@ -158,7 +158,7 @@ interface NetSendApi {
     /**  收菜 */
     gather: {
         /**土地Id */
-        landId: number;
+        landId: number[];
         /** 类型 1 默认 2 广告 */
         type: number;
     };
@@ -197,7 +197,7 @@ interface NetSendApi {
     landSteal: {
         type: 0;
         uid: 0;
-        landId: 0;
+        landId: number[];
     };
 }
 

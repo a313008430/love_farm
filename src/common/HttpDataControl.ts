@@ -52,6 +52,9 @@ class HttpDataControl {
                 this.updateUserInfo(d.data);
                 this.taskUpdate(1008);
                 break;
+            case ApiHttp.landSteal:
+                this.updateUserInfo(d.data);
+                break;
 
             case ApiHttp.seedsUnlock:
 

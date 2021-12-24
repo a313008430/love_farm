@@ -96,10 +96,6 @@ export default class MainView extends Core.gameScript {
     /** @prop {name:vitalityBuyBtn, tips:"体力购买按钮", type:Node}*/
     private vitalityBuyBtn: Laya.Image = null;
 
-    //红点相关
-    /** @prop {name:anyDoorRed, tips:"去转转红点", type:Node}*/
-    private anyDoorRed: Laya.Image = null;
-
     //宠物
     /** @prop {name:petBox, tips:"宠物容器", type:Node}*/
     private petBox: Laya.Box = null;
@@ -569,27 +565,169 @@ export default class MainView extends Core.gameScript {
             case "reward_share_guide":
                 this.goFriendRewardView();
                 break;
+            case "fast_get":
+                this.fastGet();
+                break;
         }
     }
 
-    /** 种菜 */
-    @Core.eventOn(EventMaps.plant_sow)
-    private sow(showView: boolean = false, d: PlantDataBase) {
-        let empty = true;
-        for (let x = 0, l = this.landList.length; x < l; x++) {
-            if (!this.landList[x]?.data?.productId) {
-                if (showView) {
-                    this.landList[x].sowPlant(d);
-                } else {
-                    this.landList[x].sow();
-                }
+    /**
+     * 出去一次偷的所有东西集合
+     */
+    private stealAll: {
+        list: { plantId: number; amount: number }[];
+        rewardDiamond: number;
+    } = { list: [], rewardDiamond: 0 };
 
-                empty = false;
-                break;
-            }
+    /**
+     * 一键收偷采
+     */
+    private async fastGet() {
+        if (!this.canClick) {
+            return;
         }
-        if (empty) {
-            Core.view.openHint({ text: "没有空的土地哦！", call: () => {} });
+        this.canClick = false;
+        if (this.isOuter) {
+            //偷菜
+            let lands: number[] = [],
+                landComList: FieldComponent[] = [];
+
+            for (let x = 0; x < this.landList.length; x++) {
+                if (
+                    this.landList[x].data?.productId &&
+                    !this.landList[x].data?.matureTimeLeft &&
+                    this.landList[x].data?.canSteal
+                ) {
+                    lands.push(this.landList[x].data.id);
+                    landComList.push(this.landList[x]);
+                }
+            }
+            if (!lands.length) {
+                Core.view.openHint({ text: "没有可以偷的", call: () => {} });
+                this.canClick = true;
+                return;
+            }
+            HttpControl.inst
+                .send({
+                    api: ApiHttp.landSteal,
+                    data: <NetSendApi["landSteal"]>{
+                        landId: lands,
+                        type: ConfigGame.ApiTypeDefault,
+                        uid: landComList[0].stealUid,
+                    },
+                })
+                .then(
+                    (d: {
+                        list: {
+                            plantId: number;
+                            amount: number;
+                            rewardDiamond: number;
+                        }[];
+                        vitality: number;
+                    }) => {
+                        this.canClick = true;
+                        UserInfo.vitality = d.vitality;
+                        d.list.forEach((data, i) => {
+                            landComList[i].stealFoodEvent(data, false);
+                            this.stealAll.rewardDiamond += data.rewardDiamond;
+
+                            if (!data.plantId) return;
+
+                            for (let x = 0; x < this.stealAll.list.length; x++) {
+                                if (this.stealAll.list[x].plantId == data.plantId) {
+                                    this.stealAll.list[x].amount += data.amount;
+                                    return;
+                                }
+                            }
+                            this.stealAll.list.push({
+                                plantId: data.plantId,
+                                amount: data.amount,
+                            });
+                        });
+                    }
+                )
+                .catch(() => {
+                    this.canClick = true;
+                });
+        } else {
+            let diamond = 0,
+                list: { plantId: number; amount: number }[] = [],
+                lands: number[] = [],
+                landComList: FieldComponent[] = [];
+
+            for (let x = 0; x < this.landList.length; x++) {
+                if (this.landList[x].data?.productId && !this.landList[x].data?.matureTimeLeft) {
+                    lands.push(this.landList[x].data.id);
+                    landComList.push(this.landList[x]);
+                }
+            }
+
+            if (!lands.length) {
+                Core.view.openHint({ text: "没有成熟的农作物", call: () => {} });
+                this.canClick = true;
+                return;
+            }
+
+            HttpControl.inst
+                .send({
+                    api: ApiHttp.landGather,
+                    data: <NetSendApi["gather"]>{
+                        landId: lands,
+                        type: ConfigGame.ApiTypeDefault,
+                    },
+                })
+                .then(
+                    (d: {
+                        gold: number;
+                        diamond: number;
+                        advertiseTimes: number;
+                        list: {
+                            plantId: number;
+                            amount: number;
+                            rewardDiamond: number;
+                        }[];
+                    }) => {
+                        this.canClick = true;
+                        d.list.forEach((data) => {
+                            diamond += data.rewardDiamond;
+                            WarehouseService.add(data.plantId, data.amount);
+
+                            for (let x = 0; x < list.length; x++) {
+                                if (list[x].plantId == data.plantId) {
+                                    list[x].amount += data.amount;
+                                    return;
+                                }
+                            }
+
+                            list.push({
+                                plantId: data.plantId,
+                                amount: data.amount,
+                            });
+                        });
+
+                        Core.view.open(Res.views.GatherDescView, {
+                            parm: {
+                                type: 3,
+                                data: list,
+                                diamond: diamond,
+                                call: (double: boolean) => {
+                                    let mul = 1;
+                                    if (double) {
+                                        mul = 2;
+                                    }
+                                    d.list.forEach((data, i) => {
+                                        if (double) WarehouseService.add(data.plantId, data.amount);
+                                        landComList[i].gatherEvent(
+                                            data.plantId,
+                                            data.amount * mul,
+                                            data.rewardDiamond * mul
+                                        );
+                                    });
+                                },
+                            },
+                        });
+                    }
+                );
         }
     }
 
@@ -661,11 +799,15 @@ export default class MainView extends Core.gameScript {
     @Core.eventOn(EventMaps.update_Order)
     private updateOrder() {
         // return;
+
+        if (this.isOuter) return;
+
         if (!this.orderQueueIng) {
             let box = this.orderBox.getChildByName("order_box"),
                 d = TableAnalyze.table("order").get(UserInfo.orderLevel + 1),
                 reward: RewardCurrencyBase,
                 rewardCount: number = 0,
+                rewardDiamondCount: number = 0,
                 curCount = 0,
                 maxCount = 0,
                 progress = 0;
@@ -694,6 +836,8 @@ export default class MainView extends Core.gameScript {
                                 reward = e;
                             }
                             rewardCount += e.count * maxCount;
+                        } else {
+                            rewardDiamondCount += e.count * maxCount;
                         }
                     });
                 } else {
@@ -711,9 +855,11 @@ export default class MainView extends Core.gameScript {
 
                 if (d.extraReward) {
                     (diamondBox.getChildByName("icon") as Laya.Image).skin = d.extraReward.obj.icon;
-                    (
-                        diamondBox.getChildByName("value") as Laya.FontClip
-                    ).value = `${d.extraReward.count}`;
+                    (diamondBox.getChildByName("value") as Laya.FontClip).value = `${
+                        d.extraReward.count +
+                        rewardDiamondCount +
+                        Math.round(rewardDiamondCount * d.commission)
+                    }`;
 
                     diamondBox.visible = true;
                     goldBox.y = 46;
@@ -730,46 +876,47 @@ export default class MainView extends Core.gameScript {
             if (progress == d.condition.length) {
                 const condition = d.condition;
                 this.orderQueueIng = true;
-                HttpControl.inst
-                    .send({
-                        api: ApiHttp.orderReward,
+                let adDiamond =
+                        d.extraReward.count +
+                        rewardDiamondCount +
+                        Math.round(rewardDiamondCount * d.commission),
+                    adGold = rewardCount + Math.round(rewardCount * d.commission);
+                Core.view.open(Res.views.GatherDescView, {
+                    parm: {
+                        type: 1,
                         data: {
-                            orderId: UserInfo.orderLevel + 1,
+                            diamond: adDiamond,
+                            gold: adGold,
                         },
-                    })
-                    .then(() => {
-                        condition.forEach((e) => {
-                            WarehouseService.reduceAmount(e.plant.id, e.count);
-                        });
-                        this.orderQueueIng = false;
-                        UserInfo.orderLevel++;
-
-                        let reward = [];
-                        reward.push({
-                            obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
-                            count: rewardCount + Math.round(rewardCount * d.commission),
-                            posType: 1,
-                        });
-
-                        if (d.extraReward) {
-                            reward.push({
-                                obj: TableAnalyze.table("currency").get(d.extraReward.obj.id),
-                                count: d.extraReward.count,
-                                posType: 2,
+                        call: (double: boolean) => {
+                            condition.forEach((e) => {
+                                WarehouseService.reduceAmount(e.plant.id, e.count);
                             });
-                        }
-
-                        this.playGetRewardAni({
-                            node: box.getChildByName("gold_box") as any,
-                            list: reward,
-                            callBack: () => {
-                                this.updateOrder();
-                            },
-                        });
-                    })
-                    .catch(() => {
-                        this.orderQueueIng = false;
-                    });
+                            this.orderQueueIng = false;
+                            UserInfo.orderLevel++;
+                            let reward = [];
+                            reward.push({
+                                obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
+                                count: adGold * (double ? 2 : 1),
+                                posType: 1,
+                            });
+                            if (d.extraReward) {
+                                reward.push({
+                                    obj: TableAnalyze.table("currency").get(d.extraReward.obj.id),
+                                    count: adDiamond * (double ? 2 : 1),
+                                    posType: 2,
+                                });
+                            }
+                            this.playGetRewardAni({
+                                node: box.getChildByName("gold_box") as any,
+                                list: reward,
+                                callBack: () => {
+                                    this.updateOrder();
+                                },
+                            });
+                        },
+                    },
+                });
             }
         }
     }
@@ -1042,7 +1189,7 @@ export default class MainView extends Core.gameScript {
             HttpControl.inst
                 .send({
                     api: ApiHttp.goHome,
-                    data: {},
+                    data: { clear: true },
                 })
                 .then(() => {
                     //回来
@@ -1062,6 +1209,75 @@ export default class MainView extends Core.gameScript {
             Core.view.setOverView(false);
             this.goFriend(null);
             this.updateHitLandAdd();
+
+            if (this.stealAll.list.length) {
+                Core.view.open(Res.views.GatherDescView, {
+                    parm: {
+                        type: 2,
+                        data: this.stealAll.list,
+                        diamond: this.stealAll.rewardDiamond,
+                        call: async (double: boolean, target) => {
+                            if (double) {
+                                let data: {
+                                    list: {
+                                        plantId: number;
+                                        amount: number;
+                                        rewardDiamond: number;
+                                    }[];
+                                    adReward: { id: number; amount: number }[];
+                                    advertiseTimes: number;
+                                    diamond: number;
+                                    gold: number;
+                                } = await HttpControl.inst.send({
+                                    api: ApiHttp.landSteal,
+                                    data: <NetSendApi["landSteal"]>{
+                                        landId: [],
+                                        type: ConfigGame.ApiTypeAD,
+                                        uid: 0,
+                                    },
+                                });
+
+                                let addDiamond = 0;
+                                //收获的植物
+                                const rewardList: any[] = [];
+
+                                data.list.forEach((d) => {
+                                    WarehouseService.add(d.plantId, d.amount);
+                                    UserInfo.diamond += d.rewardDiamond;
+                                    addDiamond += d.rewardDiamond;
+                                    rewardList.push({
+                                        obj: TableAnalyze.table("plant").get(d.plantId),
+                                        count: d.amount,
+                                        posType: 3,
+                                    });
+                                });
+
+                                if (rewardList.length) {
+                                    Core.eventGlobal.event(EventMaps.play_get_reward, <
+                                        GetFloatRewardObj
+                                    >{
+                                        node: target,
+                                        list: rewardList,
+                                    });
+                                }
+
+                                data.adReward.forEach((data, i) => {
+                                    if (addDiamond && data.id == ConfigGame.diamondId) {
+                                        data.amount += addDiamond;
+                                    }
+                                });
+
+                                Core.eventGlobal.event(EventMaps.play_ad_get_reward, [
+                                    target,
+                                    data.adReward,
+                                ]);
+
+                                Core.view.close(Res.views.GatherDescView);
+                            }
+                        },
+                    },
+                });
+            }
         });
     }
 
@@ -1071,6 +1287,8 @@ export default class MainView extends Core.gameScript {
     private goToNeighbor() {
         this.hideGuideHand();
         Core.view.setOverView(true, () => {
+            this.stealAll = { list: [], rewardDiamond: 0 };
+
             HttpControl.inst
                 .send({
                     api: ApiHttp.neighbor,
@@ -1093,6 +1311,9 @@ export default class MainView extends Core.gameScript {
     @Core.eventOn(EventMaps.go_friend_home)
     private goFriendListen(d: ReturnNeighbor, friendData: FriendData) {
         this.outCountDownNumber = 60;
+        if (!this.isOuter) {
+            this.stealAll = { list: [], rewardDiamond: 0 };
+        }
         this.isOuter = true;
         this.goFriend(d, friendData);
     }
