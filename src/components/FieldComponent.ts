@@ -606,6 +606,7 @@ export default class FieldComponent extends Core.gameScript {
         },
         dog: boolean = true
     ) {
+        this.data.canSteal = 0;
         AppCore.runAppFunction({
             uri: AppEventMap.eventCount,
             data: { type: "Stealvegetables" },

@@ -2377,6 +2377,7 @@
       });
     }
     stealFoodEvent(d, dog = true) {
+      this.data.canSteal = 0;
       AppCore.runAppFunction({
         uri: AppEventMap.eventCount,
         data: { type: "Stealvegetables" }
