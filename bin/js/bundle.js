@@ -560,6 +560,7 @@
   switch ("test") {
     case BuildType.debug:
       baseUrl = "//192.168.101.50:3000";
+      baseUrl = "//192.168.50.87:3000";
       break;
     case BuildType.online:
       baseUrl = "http://game.ahd168.com:3100";
@@ -2385,6 +2386,7 @@
       TaskService_default.taskAddTimes(1004);
       this.canSteal = false;
       this.topStateIconAni(false);
+      MainView.inst.stealAll.rewardDiamond += d.rewardDiamond;
       const rewardList = [];
       if (d.plantId) {
         core_default.audio.playSound(Res_default.audios.shoucai);
@@ -2393,6 +2395,16 @@
           obj: TableAnalyze_default.table("plant").get(d.plantId),
           count: d.amount,
           posType: 3
+        });
+        for (let x = 0; x < MainView.inst.stealAll.list.length; x++) {
+          if (MainView.inst.stealAll.list[x].plantId == d.plantId) {
+            MainView.inst.stealAll.list[x].amount += d.amount;
+            return;
+          }
+        }
+        MainView.inst.stealAll.list.push({
+          plantId: d.plantId,
+          amount: d.amount
         });
       } else {
         if (!dog) {
@@ -2891,19 +2903,6 @@
             UserInfo_default.vitality = d.vitality;
             d.list.forEach((data, i) => {
               landComList[i].stealFoodEvent(data, false);
-              this.stealAll.rewardDiamond += data.rewardDiamond;
-              if (!data.plantId)
-                return;
-              for (let x = 0; x < this.stealAll.list.length; x++) {
-                if (this.stealAll.list[x].plantId == data.plantId) {
-                  this.stealAll.list[x].amount += data.amount;
-                  return;
-                }
-              }
-              this.stealAll.list.push({
-                plantId: data.plantId,
-                amount: data.amount
-              });
             });
           }).catch(() => {
             this.canClick = true;

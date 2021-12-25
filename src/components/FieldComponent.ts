@@ -615,6 +615,8 @@ export default class FieldComponent extends Core.gameScript {
         this.canSteal = false;
         this.topStateIconAni(false);
 
+        MainView.inst.stealAll.rewardDiamond += d.rewardDiamond;
+
         //收获的植物
         const rewardList: any[] = [];
         if (d.plantId) {
@@ -624,6 +626,18 @@ export default class FieldComponent extends Core.gameScript {
                 obj: TableAnalyze.table("plant").get(d.plantId),
                 count: d.amount,
                 posType: 3,
+            });
+
+            //记录到展示
+            for (let x = 0; x < MainView.inst.stealAll.list.length; x++) {
+                if (MainView.inst.stealAll.list[x].plantId == d.plantId) {
+                    MainView.inst.stealAll.list[x].amount += d.amount;
+                    return;
+                }
+            }
+            MainView.inst.stealAll.list.push({
+                plantId: d.plantId,
+                amount: d.amount,
             });
         } else {
             if (!dog) {

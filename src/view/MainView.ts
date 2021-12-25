@@ -576,7 +576,7 @@ export default class MainView extends Core.gameScript {
     /**
      * 出去一次偷的所有东西集合
      */
-    private stealAll: {
+    stealAll: {
         list: { plantId: number; amount: number }[];
         rewardDiamond: number;
     } = { list: [], rewardDiamond: 0 };
@@ -631,20 +631,6 @@ export default class MainView extends Core.gameScript {
                         UserInfo.vitality = d.vitality;
                         d.list.forEach((data, i) => {
                             landComList[i].stealFoodEvent(data, false);
-                            this.stealAll.rewardDiamond += data.rewardDiamond;
-
-                            if (!data.plantId) return;
-
-                            for (let x = 0; x < this.stealAll.list.length; x++) {
-                                if (this.stealAll.list[x].plantId == data.plantId) {
-                                    this.stealAll.list[x].amount += data.amount;
-                                    return;
-                                }
-                            }
-                            this.stealAll.list.push({
-                                plantId: data.plantId,
-                                amount: data.amount,
-                            });
                         });
                     }
                 )
