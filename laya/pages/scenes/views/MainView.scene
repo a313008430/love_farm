@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":96,
-    "selecteID":113,
+    "selectedBox":2,
+    "selecteID":233,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -21,7 +21,7 @@
             "source":"src/view/MainView.ts",
             "searchKey":"Script,MainView",
             "removeAble":true,
-            "props":{"y":0,"x":0,"width":14,"warehouseBtn":"@node:99","vitalityBuyBtn":"@node:879","vitalityBox":"@node:877","topLayerOnStage":"@node:837","topGoldIcon":"@node:72","topDiamondIcon":"@node:78","testBtn":"@node:237","taskBox":"@node:244","step9":"@node:241","step8":"@node:239","step7":"@node:117","step6":"@node:112","step5":"@node:98","step4":"@node:97","step3":"@node:99","step2":"@node:80","step1":"@node:477","rewardShareGuide":"@node:970","redNode":"@node:477","petBox":"@node:870","orderBox":"@node:80","moneyLb":"@node:479","landUpLayer":"@node:496","landBox":"@node:112","height":14,"guideLayer":"@node:897","guideHand":"@node:961","goldNode":"@node:73","goldAdd":"@node:963","goHomeBtn":"@node:875","getRewardPrefab":"@Prefab:scenes/prefab/GetReward.prefab","floatRewardIcon":"@Prefab:scenes/prefab/FloatRewardIcon.prefab","figureBoxAni":"@node:942","figureBox2Ani":"@node:895","figureBox2":"@node:895","figureBox":"@node:942","figureAni":"@node:894","diamondNode":"@node:79","diamondAdd":"@node:964","center_box":"@node:96","centerBox":"@node:96","bottomBox":"@node:243","avatarNode":"@node:350","anyDoorRed":"@node:971","anyDoor":"@node:241","addLandLayer":"@node:316","addLandBg":"@node:332"},
+            "props":{"y":0,"x":0,"width":14,"warehouseBtn":"@node:99","vitalityBuyBtn":"@node:879","vitalityBox":"@node:877","topLayerOnStage":"@node:837","topGoldIcon":"@node:72","topDiamondIcon":"@node:78","testBtn":"@node:237","taskBox":"@node:244","step9":"@node:241","step8":"@node:239","step7":"@node:117","step6":"@node:112","step5":"@node:98","step4":"@node:97","step3":"@node:99","step2":"@node:80","step1":"@node:477","rewardShareGuide":"@node:970","redNode":"@node:477","petBox":"@node:870","orderBox":"@node:80","moneyLb":"@node:479","landUpLayer":"@node:496","landBox":"@node:112","height":14,"guideLayer":"@node:897","guideHand":"@node:961","goldNode":"@node:73","goldAdd":"@node:963","goHomeBtn":"@node:875","getRewardPrefab":"@Prefab:scenes/prefab/GetReward.prefab","floatRewardIcon":"@Prefab:scenes/prefab/FloatRewardIcon.prefab","figureBoxAni":"@node:942","figureBox2Ani":"@node:895","figureBox2":"@node:895","figureBox":"@node:942","figureAni":"@node:894","fastGetBtn":"@node:113","diamondNode":"@node:79","diamondAdd":"@node:964","center_box":"@node:96","centerBox":"@node:96","bottomBox":"@node:243","avatarNode":"@node:350","anyDoorRed":"@node:971","anyDoor":"@node:241","addLandLayer":"@node:316","addLandBg":"@node:332"},
             "nodeParent":2,
             "label":"MainView",
             "isDirectory":false,
@@ -410,29 +410,17 @@
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image,fast_get",
-                    "props":{"zOrder":5,"y":889,"x":30,"skin":"main_scene/img_billboard.png","name":"fast_get"},
+                    "props":{"zOrder":5,"y":999,"x":135,"skin":"main_scene/img_ongkeyGet.png","name":"fast_get","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":96,
                     "label":"fast_get",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":113,
                     "child":[
                         {
-                            "type":"Label",
-                            "searchKey":"Label",
-                            "props":{"y":62,"x":55,"wordWrap":true,"width":199,"text":"劳动光荣偷盗可耻","leading":16,"height":104,"fontSize":42,"font":"Microsoft YaHei","color":"#906344","bold":true},
-                            "nodeParent":113,
-                            "label":"Label",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":834,
-                            "child":[
-                                ]
-                        },
-                        {
+                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -2794,13 +2782,14 @@
             "props":{"x":-13,"width":1162,"name":"bottom_box","height":289,"bottom":0},
             "nodeParent":2,
             "label":"bottom_box",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":243,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":123,"x":15,"skin":"main_scene/img_menuWoodBg.png"},
@@ -2814,6 +2803,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,task",
                     "props":{"zOrder":1,"y":167,"x":169,"skin":"main_scene/img_daytimeTask.png","name":"task","anchorY":0.5,"anchorX":0.5},
@@ -2826,6 +2816,7 @@
                     "compId":117,
                     "child":[
                         {
+                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -2842,6 +2833,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,red",
                             "props":{"y":10,"x":132,"visible":false,"skin":"game/img_readTag.png","name":"red"},
@@ -2872,11 +2864,12 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
-                    "searchKey":"Image,signIn",
-                    "props":{"y":167,"x":362,"skin":"main_scene/img_clock.png","name":"signIn","anchorY":0.5,"anchorX":0.5},
+                    "searchKey":"Image,order_box",
+                    "props":{"y":167,"x":362,"skin":"main_scene/img_order.png","name":"order_box","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":243,
-                    "label":"signIn",
+                    "label":"order_box",
                     "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
@@ -2901,6 +2894,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,mail",
                     "props":{"zOrder":1,"y":167,"x":747,"skin":"main_scene/img_emailMenu.png","name":"mail","anchorY":0.5,"anchorX":0.5},
@@ -2959,6 +2953,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,any_door",
                     "props":{"zOrder":1,"y":167,"x":939,"skin":"main_scene/img_hangOut.png","name":"any_door","anchorY":0.5,"anchorX":0.5},
@@ -2971,6 +2966,7 @@
                     "compId":241,
                     "child":[
                         {
+                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -2987,6 +2983,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,red",
                             "props":{"y":-3,"x":102,"visible":false,"skin":"game/img_readTag.png","name":"red"},
@@ -3017,6 +3014,7 @@
                         }]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,msg_box",
                     "props":{"y":-59,"x":-10,"width":689,"skin":"main_scene/img_taskBg2.png","rotation":0,"name":"msg_box","height":86},
@@ -3070,6 +3068,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,go_home",
                     "props":{"zOrder":1,"y":171,"x":936,"width":136,"skin":"game/img_goHome.png","name":"go_home","height":146,"anchorY":0.5,"anchorX":0.5},
@@ -3082,6 +3081,7 @@
                     "compId":875,
                     "child":[
                         {
+                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -3101,6 +3101,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,vitality_box",
                     "props":{"y":-51,"x":134,"skin":"game/img_energyBarBg.png","name":"vitality_box"},
@@ -3113,6 +3114,7 @@
                     "compId":877,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,bar",
                             "props":{"y":5,"x":6,"width":268,"skin":"game/img_energyBar.png","name":"bar","height":46},
@@ -3126,6 +3128,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,add_vitality",
                             "props":{"y":29,"x":347,"skin":"game/img_addEnergytnm.png","name":"add_vitality","anchorY":0.5,"anchorX":0.5},
@@ -3155,6 +3158,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":5.5,"x":-113,"skin":"game/img_energy.png"},
@@ -3170,6 +3174,7 @@
                     "$HIDDEN":false
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,reward_share_guide",
                     "props":{"y":76,"x":652,"width":328,"skin":"main_scene/img_notReceived.png","pivotY":166,"pivotX":81,"name":"reward_share_guide","mouseEnabled":true,"height":191},
@@ -3183,6 +3188,7 @@
                         ]
                 },
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,friends",
                     "props":{"y":141,"x":554,"skin":"main_scene/img_friend.png","name":"friends","anchorY":0.5,"anchorX":0.5},
@@ -3195,6 +3201,7 @@
                     "compId":237,
                     "child":[
                         {
+                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -3211,6 +3218,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,red",
                             "props":{"y":-4,"x":189,"visible":false,"skin":"game/img_readTag.png","name":"red"},
@@ -3223,6 +3231,7 @@
                             "compId":975,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Script",
                                     "switchAble":true,
                                     "source":"src/components/RedDotComponent.ts",

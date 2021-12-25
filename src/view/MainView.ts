@@ -61,6 +61,8 @@ export default class MainView extends Core.gameScript {
 
     /** @prop {name:landUpLayer, tips:"土地升级窗口", type:Node}*/
     private landUpLayer: Laya.Image = null;
+    /** @prop {name:fastGetBtn, tips:"一键偷收菜", type:Node}*/
+    private fastGetBtn: Laya.Image = null;
 
     /** @prop {name:topLayerOnStage, tips:"在主场景上面的一个最上层的空层", type:Node}*/
     private topLayerOnStage: Laya.Image = null;
@@ -510,8 +512,8 @@ export default class MainView extends Core.gameScript {
             case "task":
                 Core.view.open(Res.views.TaskView);
                 break;
-            case "signIn":
-                Core.view.open(Res.views.SignInView);
+                // case "signIn":
+                //     Core.view.open(Res.views.SignInView);
                 break;
             case "mail":
                 this.openMail();
@@ -1392,7 +1394,7 @@ export default class MainView extends Core.gameScript {
             friendName = this.orderBox.getChildByName("friend_name") as Laya.Label,
             bottomList: Laya.Image[] = [
                 this.bottomBox.getChildByName("task") as Laya.Image,
-                this.bottomBox.getChildByName("signIn") as Laya.Image,
+                this.bottomBox.getChildByName("order_box") as Laya.Image,
                 // this.bottomBox.getChildByName("friends") as Laya.Image,
                 this.bottomBox.getChildByName("mail") as Laya.Image,
             ];
@@ -1417,7 +1419,9 @@ export default class MainView extends Core.gameScript {
             (this.petBox.getChildByName("box") as Laya.Image).visible = false;
             this.figureBox.visible = false;
             this.figureBox2.visible = false;
+            this.fastGetBtn.skin = "main_scene/img_ongkeySteel.png";
         } else {
+            this.fastGetBtn.skin = "main_scene/img_ongkeyGet.png";
             this.figureBox.visible = true;
             this.figureBox2.visible = true;
             this.outCountDownNumber = 60;

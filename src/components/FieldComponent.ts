@@ -462,13 +462,13 @@ export default class FieldComponent extends Core.gameScript {
                     },
                 })
                 .then(
-                    (d: {
+                    (data: {
                         gold: number;
                         diamond: number;
                         advertiseTimes: number;
-                        amount: number;
-                        rewardDiamond: number;
+                        list: { plantId: number; amount: number; rewardDiamond: number }[];
                     }) => {
+                        let d = data.list[0];
                         resolve({ plantId: productId, amount: d.amount, diamond: rewardDiamond });
                         plantAmount = d.amount;
                         WarehouseService.add(productId, d.amount);
@@ -576,12 +576,11 @@ export default class FieldComponent extends Core.gameScript {
                     plantId: number;
                     amount: number;
                     vitality: number;
-                    /** 额外奖励 */
-                    rewardDiamond: number;
+                    list: { plantId: number; amount: number; rewardDiamond: number }[];
                 }) => {
                     this.canClick = true;
                     UserInfo.vitality = d.vitality;
-                    this.stealFoodEvent(d);
+                    this.stealFoodEvent(d.list[0]);
                 }
             )
             .catch((code: number) => {

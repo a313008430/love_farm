@@ -2277,7 +2277,8 @@
             landId: [this.data.id],
             type: ConfigGame_default.ApiTypeDefault
           }
-        }).then((d) => {
+        }).then((data) => {
+          let d = data.list[0];
           resolve({ plantId: productId, amount: d.amount, diamond: rewardDiamond });
           plantAmount = d.amount;
           WarehouseService_default.add(productId, d.amount);
@@ -2366,7 +2367,7 @@
         }).then((d) => {
           this.canClick = true;
           UserInfo_default.vitality = d.vitality;
-          this.stealFoodEvent(d);
+          this.stealFoodEvent(d.list[0]);
         }).catch((code) => {
           this.canClick = true;
           if (code === ErrorCode_default._2001) {
@@ -2469,6 +2470,7 @@
       this.bottomBox = null;
       this.rewardShareGuide = null;
       this.landUpLayer = null;
+      this.fastGetBtn = null;
       this.topLayerOnStage = null;
       this.topGoldIcon = null;
       this.topDiamondIcon = null;
@@ -2796,8 +2798,6 @@
         case "task":
           core_default.view.open(Res_default.views.TaskView);
           break;
-        case "signIn":
-          core_default.view.open(Res_default.views.SignInView);
           break;
         case "mail":
           this.openMail();
@@ -3405,7 +3405,7 @@
     updateFriendView(nickname = "", friendData, pedId) {
       const topBox = this.orderBox.parent, moneyBox = topBox.getChildByName("money_box"), countDown = topBox.getChildByName("count_down"), orderBox = this.orderBox.getChildByName("order_box"), friendName = this.orderBox.getChildByName("friend_name"), bottomList = [
         this.bottomBox.getChildByName("task"),
-        this.bottomBox.getChildByName("signIn"),
+        this.bottomBox.getChildByName("order_box"),
         this.bottomBox.getChildByName("mail")
       ];
       if (this.isOuter) {
@@ -3427,7 +3427,9 @@
         this.petBox.getChildByName("box").visible = false;
         this.figureBox.visible = false;
         this.figureBox2.visible = false;
+        this.fastGetBtn.skin = "main_scene/img_ongkeySteel.png";
       } else {
+        this.fastGetBtn.skin = "main_scene/img_ongkeyGet.png";
         this.figureBox.visible = true;
         this.figureBox2.visible = true;
         this.outCountDownNumber = 60;
@@ -3909,7 +3911,6 @@
       switch (d.type) {
         case 1:
           this.order.visible = true;
-          this.closeBtn.visible = false;
           this.order.getChildByName("desc").getChildByName("lb2").text = `${UserInfo_default.orderLevel + 1}`;
           let order = TableAnalyze_default.table("order").get(UserInfo_default.orderLevel + 1);
           console.log(order);
@@ -3963,8 +3964,10 @@
       switch (e.target.name) {
         case "close":
           core_default.view.close(Res_default.views.GatherDescView);
-          if (this.data.call) {
-            this.data.call(false);
+          if (this.data.type != 1) {
+            if (this.data.call) {
+              this.data.call(false);
+            }
           }
           break;
         case "receive":

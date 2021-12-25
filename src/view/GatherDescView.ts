@@ -33,7 +33,7 @@ export default class GatherDescView extends Core.gameScript {
             case 1:
                 //订单
                 this.order.visible = true;
-                this.closeBtn.visible = false;
+                // this.closeBtn.visible = false;
                 (this.order.getChildByName("desc").getChildByName("lb2") as Laya.Label).text = `${
                     UserInfo.orderLevel + 1
                 }`;
@@ -129,9 +129,12 @@ export default class GatherDescView extends Core.gameScript {
         switch (e.target.name) {
             case "close":
                 Core.view.close(Res.views.GatherDescView);
-                if (this.data.call) {
-                    this.data.call(false);
+                if (this.data.type != 1) {
+                    if (this.data.call) {
+                        this.data.call(false);
+                    }
                 }
+
                 break;
             case "receive":
             case "receive_double":
