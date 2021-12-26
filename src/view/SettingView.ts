@@ -22,6 +22,10 @@ export default class SettingView extends Core.gameScript {
     onOpened() {
         this.musicChange();
         this.soundChange();
+        AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 3 },
+        });
 
         this.userKey.text = `邀请码：${UserInfo.key}`;
 
@@ -126,5 +130,12 @@ export default class SettingView extends Core.gameScript {
         icon.x = !sound ? -14 : 91;
         icon.skin = !sound ? `game/img_musicOnBtn.png` : "game/img_musicOffBtn.png";
         box.skin = !sound ? `game/img_switchOn.png` : "game/img_swithOff.png";
+    }
+
+    onHdDestroy(): void {
+        AppCore.runAppFunction({
+            uri: AppEventMap.closeAd,
+            data: {},
+        });
     }
 }

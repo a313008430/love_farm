@@ -68,6 +68,8 @@ export const enum EventMaps {
 export const enum AppEventMap {
     /** 看广告 */
     ad = "ad",
+    /** 关闭广告 */
+    closeAd = "closeAd",
     /** 关闭安卓启动遮罩 */
     closeImage = "closeImage",
     /** 微信登录 */

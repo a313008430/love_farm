@@ -55,6 +55,7 @@
   var AppEventMap;
   (function(AppEventMap2) {
     AppEventMap2["ad"] = "ad";
+    AppEventMap2["closeAd"] = "closeAd";
     AppEventMap2["closeImage"] = "closeImage";
     AppEventMap2["wxLogin"] = "wxLogin";
     AppEventMap2["wxLoginSuccess"] = "wxLoginSuccess";
@@ -3091,6 +3092,14 @@
                     this.updateOrder();
                   }
                 });
+                if (!double && !(UserInfo_default.orderLevel % 3)) {
+                  Laya.timer.once(300, this, () => {
+                    AppCore.runAppFunction({
+                      uri: AppEventMap.ad,
+                      data: { adType: 1 }
+                    });
+                  });
+                }
               }
             }
           });
@@ -3908,13 +3917,18 @@
       this.data = d;
       this.stealGet.vScrollBarSkin = null;
       this.order.vScrollBarSkin = null;
+      AppCore.runAppFunction({
+        uri: AppEventMap.ad,
+        data: { adType: 3 }
+      });
+      AppCore.runAppFunction({
+        uri: AppEventMap.ad,
+        data: { adType: 2 }
+      });
       switch (d.type) {
         case 1:
           this.order.visible = true;
           this.order.getChildByName("desc").getChildByName("lb2").text = `${UserInfo_default.orderLevel + 1}`;
-          let order = TableAnalyze_default.table("order").get(UserInfo_default.orderLevel + 1);
-          console.log(order);
-          console.log(d);
           this.order.getChildByName("price_box").getChildAt(0).getChildByName("icon").skin = TableAnalyze_default.table("currency").get(ConfigGame_default.goldId).icon;
           this.order.getChildByName("price_box").getChildAt(0).getChildByName("lb").text = "x" + d.data.gold;
           this.order.getChildByName("price_box").getChildAt(1).getChildByName("lb").text = "x" + d.data.diamond;
@@ -4028,6 +4042,12 @@
           }
           break;
       }
+    }
+    onHdDestroy() {
+      AppCore.runAppFunction({
+        uri: AppEventMap.closeAd,
+        data: {}
+      });
     }
   };
 
@@ -4897,6 +4917,10 @@
     onOpened() {
       this.musicChange();
       this.soundChange();
+      AppCore.runAppFunction({
+        uri: AppEventMap.ad,
+        data: { adType: 3 }
+      });
       this.userKey.text = `\u9080\u8BF7\u7801\uFF1A${UserInfo_default.key}`;
       core_default.observableProperty.watch(UserInfo_default, this).key("avatar", (e) => {
         if (e)
@@ -4985,6 +5009,12 @@
       icon.x = !sound ? -14 : 91;
       icon.skin = !sound ? `game/img_musicOnBtn.png` : "game/img_musicOffBtn.png";
       box.skin = !sound ? `game/img_switchOn.png` : "game/img_swithOff.png";
+    }
+    onHdDestroy() {
+      AppCore.runAppFunction({
+        uri: AppEventMap.closeAd,
+        data: {}
+      });
     }
   };
 
@@ -5952,6 +5982,7 @@
   };
 
   // src/view/WarehouseView.ts
+  var sellNum = 0;
   var WarehouseView = class extends core_default.gameScript {
     constructor() {
       super(...arguments);
@@ -5977,6 +6008,10 @@
       core_default.audio.playSound(Res_default.audios.dakaicangku);
       this.sellAdBtn.disabled = !UserInfo_default.advertiseTimes;
       this.sellAdBtn.active = Boolean(UserInfo_default.advertiseTimes);
+      AppCore.runAppFunction({
+        uri: AppEventMap.ad,
+        data: { adType: 3 }
+      });
     }
     onHdAwake() {
       this.itemList.renderHandler = new Laya.Handler(this, this.renderItemList);
@@ -6072,6 +6107,15 @@
           } else {
             this.canClick = false;
             let btnName = e.target.name, target = e.target;
+            if (btnName == "sellBtn") {
+              if (sellNum && !(sellNum % 10)) {
+                AppCore.runAppFunction({
+                  uri: AppEventMap.ad,
+                  data: { adType: 1 }
+                });
+              }
+              sellNum++;
+            }
             HttpControl.inst.send({
               api: ApiHttp.warehouseSell,
               data: {
@@ -6162,6 +6206,12 @@
       this.itemSellCountLb.text = this.selectItemSellCount + "";
       this.itemSellGold.getChildByName("price").text = this.selectItemSellCount * this.unitPriceGold + "";
       this.itemSellDiamond.getChildByName("price").text = this.selectItemSellCount * this.unitPriceDiamond + "";
+    }
+    onHdDestroy() {
+      AppCore.runAppFunction({
+        uri: AppEventMap.closeAd,
+        data: {}
+      });
     }
   };
 

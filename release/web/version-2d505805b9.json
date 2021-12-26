@@ -1,7 +1,7 @@
 {
   "fileconfig.json": "fileconfig-f9eb7d5370.json",
-  "index.js": "index-1c86802fb2.js",
-  "js/bundle.js": "js/bundle-c4e236fffd.js",
+  "index.js": "index-7b75bcba2d.js",
+  "js/bundle.js": "js/bundle-a9e649043c.js",
   "js/ps-N3BPHYGU.fs": "js/ps-N3BPHYGU-319562bd17.fs",
   "libs/min/bytebuffer.min.js": "libs/min/bytebuffer-b58189a75f.min.js",
   "libs/min/laya.ani.min.js": "libs/min/laya-a72326a604.ani.min.js",
@@ -92,7 +92,7 @@
   "scenes/views/FriendsDescView.json": "scenes/views/FriendsDescView-cd7dd30616.json",
   "scenes/views/FriendsRewardView.json": "scenes/views/FriendsRewardView-22f7f6749e.json",
   "scenes/views/FriendsView.json": "scenes/views/FriendsView-d1c6ee2c85.json",
-  "scenes/views/GatherDescView.json": "scenes/views/GatherDescView-cc83ba770b.json",
+  "scenes/views/GatherDescView.json": "scenes/views/GatherDescView-b875d37825.json",
   "scenes/views/GuideView.json": "scenes/views/GuideView-9e802e2ad7.json",
   "scenes/views/HintView.json": "scenes/views/HintView-4c7c0b0b39.json",
   "scenes/views/LoginView.json": "scenes/views/LoginView-78504f5d72.json",
@@ -110,5 +110,5 @@
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-ad12d45048.json",
   "scenes/views/WithdrawRecordView.json": "scenes/views/WithdrawRecordView-da13a8c1de.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-8a05ea7759.json"
+  "version.json": "version-2d505805b9.json"
 }

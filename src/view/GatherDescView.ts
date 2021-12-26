@@ -1,9 +1,10 @@
 import ConfigGame from "src/common/ConfigGame";
-import { EventMaps } from "src/common/EventMaps";
+import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
 import TableAnalyze from "src/common/TableAnalyze";
+import AppCore from "src/core/App";
 import Core from "src/core/index";
 import UserInfo from "src/dataService/UserInfo";
 
@@ -29,6 +30,15 @@ export default class GatherDescView extends Core.gameScript {
         this.stealGet.vScrollBarSkin = null;
         this.order.vScrollBarSkin = null;
 
+        AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 3 },
+        });
+        AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 2 },
+        });
+
         switch (d.type) {
             case 1:
                 //订单
@@ -37,9 +47,7 @@ export default class GatherDescView extends Core.gameScript {
                 (this.order.getChildByName("desc").getChildByName("lb2") as Laya.Label).text = `${
                     UserInfo.orderLevel + 1
                 }`;
-                let order = TableAnalyze.table("order").get(UserInfo.orderLevel + 1);
-                console.log(order);
-                console.log(d);
+                // let order = TableAnalyze.table("order").get(UserInfo.orderLevel + 1);
                 (
                     this.order
                         .getChildByName("price_box")
@@ -219,5 +227,12 @@ export default class GatherDescView extends Core.gameScript {
 
                 break;
         }
+    }
+
+    onHdDestroy(): void {
+        AppCore.runAppFunction({
+            uri: AppEventMap.closeAd,
+            data: {},
+        });
     }
 }

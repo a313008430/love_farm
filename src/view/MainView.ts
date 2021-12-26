@@ -1,5 +1,5 @@
 import ConfigGame from "src/common/ConfigGame";
-import { EventMaps } from "src/common/EventMaps";
+import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import TableAnalyze from "src/common/TableAnalyze";
@@ -7,6 +7,7 @@ import { RewardCurrencyBase } from "src/common/TableObject";
 import Tools from "src/common/Tools";
 import FieldComponent from "src/components/FieldComponent";
 import { RedDotType } from "src/components/RedDotComponent";
+import AppCore from "src/core/App";
 import Core from "src/core/index";
 import LandService, { LandObj } from "src/dataService/LandService";
 import { PlantDataBase } from "src/dataService/PlantService";
@@ -902,6 +903,15 @@ export default class MainView extends Core.gameScript {
                                     this.updateOrder();
                                 },
                             });
+
+                            if (!double && !(UserInfo.orderLevel % 3)) {
+                                Laya.timer.once(300, this, () => {
+                                    AppCore.runAppFunction({
+                                        uri: AppEventMap.ad,
+                                        data: { adType: 1 },
+                                    });
+                                });
+                            }
                         },
                     },
                 });
