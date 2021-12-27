@@ -180,37 +180,37 @@ export default class TaskView extends GameScript {
 
                 break;
             case 1002:
-                adData = await AppCore.runAppFunction({
-                    uri: AppEventMap.ad,
-                    data: {},
-                    timestamp: Date.now(),
-                });
+            // adData = await AppCore.runAppFunction({
+            //     uri: AppEventMap.ad,
+            //     data: {},
+            //     timestamp: Date.now(),
+            // });
 
-                if (adData?.code) {
-                    Core.view.openHint({
-                        text: `${adData.data["message"]}[${adData.code}]`,
-                        call: () => {},
-                    });
-                    this.canClick = true;
-                    return;
-                }
+            // if (adData?.code) {
+            //     Core.view.openHint({
+            //         text: `${adData.data["message"]}[${adData.code}]`,
+            //         call: () => {},
+            //     });
+            //     this.canClick = true;
+            //     return;
+            // }
 
-                HttpControl.inst
-                    .send({
-                        api: ApiHttp.ad,
-                        data: {
-                            taskId: 1002,
-                        },
-                    })
-                    .then((d: { adReward: ReturnUserInfo["adReward"] }) => {
-                        Core.eventGlobal.event(EventMaps.play_ad_get_reward, [target, d.adReward]);
-                        this.taskList.refresh();
-                        TaskService.taskAddTimes(1001);
-                        TaskService.taskAddTimes(1012);
-                        TaskService.taskAddTimes(1002);
-                        this.canClick = true;
-                    });
-                break;
+            // HttpControl.inst
+            //     .send({
+            //         api: ApiHttp.ad,
+            //         data: {
+            //             taskId: 1002,
+            //         },
+            //     })
+            //     .then((d: { adReward: ReturnUserInfo["adReward"] }) => {
+            //         Core.eventGlobal.event(EventMaps.play_ad_get_reward, [target, d.adReward]);
+            //         this.taskList.refresh();
+            //         TaskService.taskAddTimes(1001);
+            //         TaskService.taskAddTimes(1012);
+            //         TaskService.taskAddTimes(1002);
+            //         this.canClick = true;
+            //     });
+            // break;
             case 1003:
                 Core.view.close(Res.views.TaskView);
                 break;

@@ -812,158 +812,152 @@ export default class MainView extends Core.gameScript {
 
         if (this.isOuter) return;
 
-        Laya.timer.frameOnce(2, this, () => {
-            if (!this.orderQueueIng) {
-                let box = this.orderBox.getChildByName("order_box"),
-                    d = TableAnalyze.table("order").get(UserInfo.orderLevel + 1),
-                    reward: RewardCurrencyBase,
-                    rewardCount: number = 0,
-                    rewardDiamondCount: number = 0,
-                    curCount = 0,
-                    maxCount = 0,
-                    progress = 0;
-                if (!d) return console.log("等级已完");
-                for (let x = 0; x < 4; x++) {
-                    let item = box.getChildByName("item_" + x) as Laya.Box;
+        let box = this.orderBox.getChildByName("order_box"),
+            d = TableAnalyze.table("order").get(UserInfo.orderLevel + 1),
+            reward: RewardCurrencyBase,
+            rewardCount: number = 0,
+            rewardDiamondCount: number = 0,
+            curCount = 0,
+            maxCount = 0,
+            progress = 0;
+        if (!d) return console.log("等级已完");
+        for (let x = 0; x < 4; x++) {
+            let item = box.getChildByName("item_" + x) as Laya.Box;
 
-                    if (d.condition[x]) {
-                        curCount = WarehouseService.getOne(d.condition[x].plant.id)?.count || 0;
-                        maxCount = d.condition[x].count;
+            if (d.condition[x]) {
+                curCount = WarehouseService.getOne(d.condition[x].plant.id)?.count || 0;
+                maxCount = d.condition[x].count;
 
-                        if (curCount >= maxCount) {
-                            progress++;
+                if (curCount >= maxCount) {
+                    progress++;
+                }
+
+                (item.getChildByName("icon") as Laya.Image).skin = d.condition[x].plant.icon;
+                (item.getChildByName("num") as Laya.Label).text = `${curCount}/${maxCount}`;
+                (item.getChildByName("bar") as Laya.Image).width =
+                    87 * (curCount / maxCount > 1 ? 1 : curCount / maxCount);
+
+                item.visible = true;
+
+                d.condition[x].plant.gain.forEach((e) => {
+                    if (e.obj.id === ConfigGame.goldId) {
+                        if (!reward) {
+                            reward = e;
                         }
-
-                        (item.getChildByName("icon") as Laya.Image).skin =
-                            d.condition[x].plant.icon;
-                        (item.getChildByName("num") as Laya.Label).text = `${curCount}/${maxCount}`;
-                        (item.getChildByName("bar") as Laya.Image).width =
-                            87 * (curCount / maxCount > 1 ? 1 : curCount / maxCount);
-
-                        item.visible = true;
-
-                        d.condition[x].plant.gain.forEach((e) => {
-                            if (e.obj.id === ConfigGame.goldId) {
-                                if (!reward) {
-                                    reward = e;
-                                }
-                                rewardCount += e.count * maxCount;
-                            } else {
-                                rewardDiamondCount += e.count * maxCount;
-                            }
-                        });
+                        rewardCount += e.count * maxCount;
                     } else {
-                        item.visible = false;
+                        rewardDiamondCount += e.count * maxCount;
                     }
-                }
-
-                if (reward) {
-                    let goldBox = box.getChildByName("gold_box") as Laya.Box,
-                        diamondBox = box.getChildByName("diamond_box") as Laya.Box;
-                    (goldBox.getChildByName("icon") as Laya.Image).skin = reward.obj.icon;
-                    (goldBox.getChildByName("value") as Laya.FontClip).value = `${
-                        rewardCount + Math.round(rewardCount * d.commission)
-                    }`;
-
-                    if (d.extraReward) {
-                        (diamondBox.getChildByName("icon") as Laya.Image).skin =
-                            d.extraReward.obj.icon;
-                        (diamondBox.getChildByName("value") as Laya.FontClip).value = `${
-                            d.extraReward.count +
-                            rewardDiamondCount +
-                            Math.round(rewardDiamondCount * d.commission)
-                        }`;
-
-                        diamondBox.visible = true;
-                        goldBox.y = 46;
-                    } else {
-                        goldBox.y = 66;
-                        diamondBox.visible = false;
-                    }
-                }
-
-                (box.getChildByName("name_title") as Laya.Label).text = `完成${
-                    UserInfo.orderLevel + 1
-                }级订单`;
-
-                if (progress == d.condition.length) {
-                    const condition = d.condition;
-                    this.orderQueueIng = true;
-                    let adDiamond =
-                            d.extraReward.count +
-                            rewardDiamondCount +
-                            Math.round(rewardDiamondCount * d.commission),
-                        adGold = rewardCount + Math.round(rewardCount * d.commission);
-
-                    Laya.timer.frameOnce(1, this, () => {
-                        Core.eventGlobal.event(EventMaps.update_red_dot, [RedDotType.order, true]);
-                    });
-
-                    if (this.hindOrderLevel) {
-                        this.orderQueueIng = false;
-                        return;
-                    }
-
-                    this.hindOrderLevel = 1;
-
-                    Core.view.open(Res.views.GatherDescView, {
-                        parm: {
-                            type: 1,
-                            data: {
-                                diamond: adDiamond,
-                                gold: adGold,
-                            },
-                            call: (double: boolean) => {
-                                this.hindOrderLevel = 0;
-                                condition.forEach((e) => {
-                                    WarehouseService.reduceAmount(e.plant.id, e.count);
-                                });
-                                this.orderQueueIng = false;
-                                UserInfo.orderLevel++;
-                                let reward = [];
-                                reward.push({
-                                    obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
-                                    count: adGold * (double ? 2 : 1),
-                                    posType: 1,
-                                });
-                                if (d.extraReward) {
-                                    reward.push({
-                                        obj: TableAnalyze.table("currency").get(
-                                            d.extraReward.obj.id
-                                        ),
-                                        count: adDiamond * (double ? 2 : 1),
-                                        posType: 2,
-                                    });
-                                }
-                                this.playGetRewardAni({
-                                    node: box.getChildByName("gold_box") as any,
-                                    list: reward,
-                                    callBack: () => {
-                                        this.updateOrder();
-                                    },
-                                });
-
-                                if (!double && !(UserInfo.orderLevel % 3)) {
-                                    Laya.timer.once(300, this, () => {
-                                        AppCore.runAppFunction({
-                                            uri: AppEventMap.ad,
-                                            data: { adType: 1 },
-                                        });
-                                    });
-                                }
-                            },
-                            closeEvent: () => {
-                                this.orderQueueIng = false;
-                            },
-                        },
-                    });
-                } else {
-                    Laya.timer.frameOnce(1, this, () => {
-                        Core.eventGlobal.event(EventMaps.update_red_dot, [RedDotType.order, false]);
-                    });
-                }
+                });
+            } else {
+                item.visible = false;
             }
-        });
+        }
+
+        if (reward) {
+            let goldBox = box.getChildByName("gold_box") as Laya.Box,
+                diamondBox = box.getChildByName("diamond_box") as Laya.Box;
+            (goldBox.getChildByName("icon") as Laya.Image).skin = reward.obj.icon;
+            (goldBox.getChildByName("value") as Laya.FontClip).value = `${
+                rewardCount + Math.round(rewardCount * d.commission)
+            }`;
+
+            if (d.extraReward) {
+                (diamondBox.getChildByName("icon") as Laya.Image).skin = d.extraReward.obj.icon;
+                (diamondBox.getChildByName("value") as Laya.FontClip).value = `${
+                    d.extraReward.count +
+                    rewardDiamondCount +
+                    Math.round(rewardDiamondCount * d.commission)
+                }`;
+
+                diamondBox.visible = true;
+                goldBox.y = 46;
+            } else {
+                goldBox.y = 66;
+                diamondBox.visible = false;
+            }
+        }
+
+        (box.getChildByName("name_title") as Laya.Label).text = `完成${
+            UserInfo.orderLevel + 1
+        }级订单`;
+
+        if (!this.orderQueueIng) {
+            if (progress == d.condition.length) {
+                const condition = d.condition;
+                this.orderQueueIng = true;
+                let adDiamond =
+                        d.extraReward.count +
+                        rewardDiamondCount +
+                        Math.round(rewardDiamondCount * d.commission),
+                    adGold = rewardCount + Math.round(rewardCount * d.commission);
+
+                Laya.timer.frameOnce(1, this, () => {
+                    Core.eventGlobal.event(EventMaps.update_red_dot, [RedDotType.order, true]);
+                });
+
+                if (this.hindOrderLevel) {
+                    this.orderQueueIng = false;
+                    return;
+                }
+
+                this.hindOrderLevel = 1;
+
+                Core.view.open(Res.views.GatherDescView, {
+                    parm: {
+                        type: 1,
+                        data: {
+                            diamond: adDiamond,
+                            gold: adGold,
+                        },
+                        call: (double: boolean) => {
+                            this.hindOrderLevel = 0;
+                            condition.forEach((e) => {
+                                WarehouseService.reduceAmount(e.plant.id, e.count);
+                            });
+                            this.orderQueueIng = false;
+                            UserInfo.orderLevel++;
+                            let reward = [];
+                            reward.push({
+                                obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
+                                count: adGold * (double ? 2 : 1),
+                                posType: 1,
+                            });
+                            if (d.extraReward) {
+                                reward.push({
+                                    obj: TableAnalyze.table("currency").get(d.extraReward.obj.id),
+                                    count: adDiamond * (double ? 2 : 1),
+                                    posType: 2,
+                                });
+                            }
+                            this.playGetRewardAni({
+                                node: box.getChildByName("gold_box") as any,
+                                list: reward,
+                                callBack: () => {
+                                    this.updateOrder();
+                                },
+                            });
+
+                            if (!double && !(UserInfo.orderLevel % 3)) {
+                                Laya.timer.once(300, this, () => {
+                                    AppCore.runAppFunction({
+                                        uri: AppEventMap.ad,
+                                        data: { adType: 1 },
+                                    });
+                                });
+                            }
+                        },
+                        closeEvent: () => {
+                            this.orderQueueIng = false;
+                        },
+                    },
+                });
+            } else {
+                Laya.timer.frameOnce(1, this, () => {
+                    Core.eventGlobal.event(EventMaps.update_red_dot, [RedDotType.order, false]);
+                });
+            }
+        }
     }
 
     /**
