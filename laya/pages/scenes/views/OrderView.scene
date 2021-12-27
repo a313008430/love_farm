@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":52,
-    "selecteID":95,
+    "selectedBox":38,
+    "selecteID":81,
     "searchKey":"View",
     "props":{"y":0,"x":0,"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/OrderView.jpg","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":100,
+    "maxID":102,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -572,6 +572,36 @@
                                     "compId":99,
                                     "child":[
                                         ]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Image",
+                                    "searchKey":"Image,receive_btn",
+                                    "props":{"y":109.5,"x":819,"skin":"game/img_get.png","name":"receive_btn","anchorY":0.5,"anchorX":0.5},
+                                    "nodeParent":52,
+                                    "label":"receive_btn",
+                                    "isOpen":null,
+                                    "isDirectory":true,
+                                    "isAniNode":false,
+                                    "hasChild":true,
+                                    "compId":100,
+                                    "child":[
+                                        {
+                                            "type":"Script",
+                                            "switchAble":true,
+                                            "source":"src/components/Button.ts",
+                                            "searchKey":"Script,Button",
+                                            "removeAble":true,
+                                            "props":{"isScale":true},
+                                            "nodeParent":100,
+                                            "label":"Button",
+                                            "isDirectory":false,
+                                            "isAniNode":false,
+                                            "hasChild":false,
+                                            "compId":101,
+                                            "child":[
+                                                ]
+                                        }]
                                 }]
                         }]
                 },
@@ -579,16 +609,17 @@
                     "x":30,
                     "type":"HBox",
                     "searchKey":"HBox,desc",
-                    "props":{"y":125,"x":209.8759765625,"name":"desc"},
+                    "props":{"y":125,"x":568,"name":"desc","anchorX":0.5},
                     "nodeParent":38,
                     "label":"desc",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":81,
                     "child":[
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label",
                             "props":{"y":13,"text":"再完成10单可获得红包","fontSize":50,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
@@ -602,6 +633,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label",
                             "props":{"text":"0.1","fontSize":70,"font":"Microsoft YaHei","color":"#D23210","bold":true},
@@ -616,9 +648,10 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label",
-                            "props":{"y":13,"text":"元","fontSize":50,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
+                            "props":{"y":13,"text":"钻石","fontSize":50,"font":"Microsoft YaHei","color":"#5A3F2A","bold":true},
                             "nodeParent":81,
                             "label":"Label",
                             "isDirectory":false,

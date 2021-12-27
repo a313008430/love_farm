@@ -29,6 +29,15 @@ export default class SpeedUpView extends Core.gameScript {
         if (UserInfo.advertiseTimes <= 0) {
             this.speedUpBtn.disabled = true;
         }
+
+        AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 3 },
+        });
+        AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 2 },
+        });
     }
 
     onClick(e: Laya.Event) {
@@ -79,5 +88,12 @@ export default class SpeedUpView extends Core.gameScript {
                     );
                 break;
         }
+    }
+
+    onHdDestroy(): void {
+        AppCore.runAppFunction({
+            uri: AppEventMap.closeAd,
+            data: {},
+        });
     }
 }

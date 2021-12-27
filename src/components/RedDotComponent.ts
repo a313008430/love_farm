@@ -6,11 +6,12 @@ export const enum RedDotType {
     friend = "friend",
     mail = "mail",
     anyDoor = "anyDoor",
+    order = "order",
 }
 
 // export default class RedDotComponent extends Laya.Script {
 export default class RedDotComponent extends Core.gameScript {
-    /** @prop {name:redDotType, tips:"布尔类型示例", type:EditOption, option:"task,friend,mail,anyDoor"}*/
+    /** @prop {name:redDotType, tips:"布尔类型示例", type:EditOption, option:"task,friend,mail,anyDoor,order"}*/
     redDotType: string;
 
     onHdAwake(): void {

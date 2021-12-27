@@ -974,6 +974,7 @@
     RedDotType2["friend"] = "friend";
     RedDotType2["mail"] = "mail";
     RedDotType2["anyDoor"] = "anyDoor";
+    RedDotType2["order"] = "order";
   })(RedDotType || (RedDotType = {}));
   var RedDotComponent = class extends core_default.gameScript {
     onHdAwake() {
@@ -2525,7 +2526,6 @@
     onOpened() {
       _MainView.inst = this;
       [
-        "res/loadingBg.png",
         "res/img_woodtitle.png",
         "res/img_storeHouseBg.png",
         "res/img_storebg.png",
@@ -3059,6 +3059,9 @@
           const condition = d.condition;
           this.orderQueueIng = true;
           let adDiamond = d.extraReward.count + rewardDiamondCount + Math.round(rewardDiamondCount * d.commission), adGold = rewardCount + Math.round(rewardCount * d.commission);
+          Laya.timer.frameOnce(1, this, () => {
+            core_default.eventGlobal.event(EventMaps.update_red_dot, [RedDotType.order, true]);
+          });
           core_default.view.open(Res_default.views.GatherDescView, {
             parm: {
               type: 1,
@@ -3100,8 +3103,15 @@
                     });
                   });
                 }
+              },
+              closeEvent: () => {
+                this.orderQueueIng = false;
               }
             }
+          });
+        } else {
+          Laya.timer.frameOnce(1, this, () => {
+            core_default.eventGlobal.event(EventMaps.update_red_dot, [RedDotType.order, false]);
           });
         }
       }
@@ -4048,6 +4058,9 @@
         uri: AppEventMap.closeAd,
         data: {}
       });
+      if (this.data.closeEvent) {
+        this.data.closeEvent();
+      }
     }
   };
 
@@ -4779,7 +4792,7 @@
       }
       let withdrawal = TableAnalyze_default.table("config").get("withdrawal").value;
       this.topDesc.getChildAt(0).text = "\u5B8C\u6210\u6240\u6709\u8BA2\u5355\u53EF\u83B7\u5F97\u7EA2\u5305";
-      this.topDesc.getChildAt(1).text = `${Tools.formatMoney(Number(withdrawal[2]) / Number(withdrawal[1]) * reward)}`;
+      this.topDesc.getChildAt(1).text = `${reward}`;
     }
     renderList(cell, i) {
       var _a;
@@ -4817,14 +4830,16 @@
         }
       }
       let diamond = cell.getChildByName("reward_box_diamond");
-      let btn = cell.getChildByName("btn"), finishIcon = cell.getChildByName("finish"), curIcon = cell.getChildByName("cur_icon"), lv_box = cell.getChildByName("lv_box");
+      let btn = cell.getChildByName("btn"), finishIcon = cell.getChildByName("finish"), curIcon = cell.getChildByName("cur_icon"), receiveBtn = cell.getChildByName("receive_btn"), lv_box = cell.getChildByName("lv_box");
       finishIcon.visible = false;
       curIcon.visible = false;
       diamond.visible = false;
       btn.visible = true;
       rewardBox.y = 57;
+      rewardBox.visible = true;
       lv_box.visible = true;
       order_lv.visible = true;
+      receiveBtn.visible = false;
       if (d.id > UserInfo_default.orderLevel + 1) {
         btn.skin = this.btnLockRes;
         btn.active = false;
@@ -4842,10 +4857,9 @@
             curIcon.visible = true;
             lv_box.visible = false;
             btn.visible = false;
+            receiveBtn.visible = true;
             order_lv.visible = false;
-            diamond.getChildByName("icon").skin = d.extraReward.obj.icon;
-            diamond.getChildByName("value").text = `+${d.extraReward.count + rewardDiamondCount + Math.round(rewardDiamondCount * d.commission)}`;
-            diamond.visible = true;
+            rewardBox.visible = false;
           } else {
             btn.skin = this.btnResCur;
           }
@@ -4869,6 +4883,10 @@
     onClick(e) {
       switch (e.target.name) {
         case "close":
+          core_default.view.close(Res_default.views.OrderView);
+          break;
+        case "receive_btn":
+          core_default.eventGlobal.event(EventMaps.update_Order);
           core_default.view.close(Res_default.views.OrderView);
           break;
       }
@@ -5736,6 +5754,14 @@
       if (UserInfo_default.advertiseTimes <= 0) {
         this.speedUpBtn.disabled = true;
       }
+      AppCore.runAppFunction({
+        uri: AppEventMap.ad,
+        data: { adType: 3 }
+      });
+      AppCore.runAppFunction({
+        uri: AppEventMap.ad,
+        data: { adType: 2 }
+      });
     }
     onClick(e) {
       switch (e.target.name) {
@@ -5774,6 +5800,12 @@
           });
           break;
       }
+    }
+    onHdDestroy() {
+      AppCore.runAppFunction({
+        uri: AppEventMap.closeAd,
+        data: {}
+      });
     }
   };
 

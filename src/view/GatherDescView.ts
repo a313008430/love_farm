@@ -19,7 +19,13 @@ export default class GatherDescView extends Core.gameScript {
     /** @prop {name:item, tips:"物品节点", type:Prefab}*/
     private item: Laya.Prefab;
 
-    private data: { type: number; data: any; call: Function; diamond: number };
+    private data: {
+        type: number;
+        data: any;
+        call: Function;
+        diamond: number;
+        closeEvent: Function;
+    };
     private canClick: boolean = true;
 
     onOpened(d): void {
@@ -234,5 +240,9 @@ export default class GatherDescView extends Core.gameScript {
             uri: AppEventMap.closeAd,
             data: {},
         });
+
+        if (this.data.closeEvent) {
+            this.data.closeEvent();
+        }
     }
 }

@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":233,
+    "selectedBox":233,
+    "selecteID":981,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":981,
+    "maxID":983,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -2839,13 +2839,14 @@
                             "props":{"y":10,"x":132,"visible":false,"skin":"game/img_readTag.png","name":"red"},
                             "nodeParent":117,
                             "label":"red",
-                            "isOpen":null,
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":973,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Script",
                                     "switchAble":true,
                                     "source":"src/components/RedDotComponent.ts",
@@ -2870,13 +2871,14 @@
                     "props":{"y":167,"x":362,"skin":"main_scene/img_order.png","name":"order_box","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":243,
                     "label":"order_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":233,
                     "child":[
                         {
+                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -2891,6 +2893,37 @@
                             "compId":234,
                             "child":[
                                 ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Image",
+                            "searchKey":"Image,red",
+                            "props":{"y":10,"x":132,"visible":false,"skin":"game/img_readTag.png","name":"red"},
+                            "nodeParent":233,
+                            "label":"red",
+                            "isOpen":true,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":981,
+                            "child":[
+                                {
+                                    "x":60,
+                                    "type":"Script",
+                                    "switchAble":true,
+                                    "source":"src/components/RedDotComponent.ts",
+                                    "searchKey":"Script,RedDotComponent",
+                                    "removeAble":true,
+                                    "props":{"redDotType":"order"},
+                                    "nodeParent":981,
+                                    "label":"RedDotComponent",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":982,
+                                    "child":[
+                                        ]
+                                }]
                         }]
                 },
                 {

@@ -141,7 +141,7 @@ export default class MainView extends Core.gameScript {
     onOpened() {
         MainView.inst = this;
         [
-            "res/loadingBg.png",
+            // "res/loadingBg.png",
             "res/img_woodtitle.png",
             "res/img_storeHouseBg.png",
             "res/img_storebg.png",
@@ -870,6 +870,11 @@ export default class MainView extends Core.gameScript {
                         rewardDiamondCount +
                         Math.round(rewardDiamondCount * d.commission),
                     adGold = rewardCount + Math.round(rewardCount * d.commission);
+
+                Laya.timer.frameOnce(1, this, () => {
+                    Core.eventGlobal.event(EventMaps.update_red_dot, [RedDotType.order, true]);
+                });
+
                 Core.view.open(Res.views.GatherDescView, {
                     parm: {
                         type: 1,
@@ -913,7 +918,14 @@ export default class MainView extends Core.gameScript {
                                 });
                             }
                         },
+                        closeEvent: () => {
+                            this.orderQueueIng = false;
+                        },
                     },
+                });
+            } else {
+                Laya.timer.frameOnce(1, this, () => {
+                    Core.eventGlobal.event(EventMaps.update_red_dot, [RedDotType.order, false]);
                 });
             }
         }
