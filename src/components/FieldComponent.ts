@@ -645,16 +645,20 @@ export default class FieldComponent extends Core.gameScript {
             });
 
             //记录到展示
+            let has = false;
             for (let x = 0; x < MainView.inst.stealAll.list.length; x++) {
                 if (MainView.inst.stealAll.list[x].plantId == d.plantId) {
                     MainView.inst.stealAll.list[x].amount += d.amount;
-                    return;
+                    has = true;
+                    break;
                 }
             }
-            MainView.inst.stealAll.list.push({
-                plantId: d.plantId,
-                amount: d.amount,
-            });
+            if (!has) {
+                MainView.inst.stealAll.list.push({
+                    plantId: d.plantId,
+                    amount: d.amount,
+                });
+            }
         } else {
             if (!dog) {
                 return;

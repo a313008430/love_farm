@@ -1,7 +1,7 @@
 {
-  "fileconfig.json": "fileconfig-46cc68db6e.json",
-  "index.js": "index-c87ef96c3b.js",
-  "js/bundle.js": "js/bundle-77c7cc0800.js",
+  "fileconfig.json": "fileconfig-faef2b3344.json",
+  "index.js": "index-71822505de.js",
+  "js/bundle.js": "js/bundle-013ef7eba5.js",
   "js/ps-N3BPHYGU.fs": "js/ps-N3BPHYGU-319562bd17.fs",
   "libs/min/bytebuffer.min.js": "libs/min/bytebuffer-9637a546e0.min.js",
   "libs/min/laya.ani.min.js": "libs/min/laya-a72326a604.ani.min.js",
@@ -14,8 +14,8 @@
   "main_scene/img_landBg.png": "main_scene/img_landBg-ee0cfcf3c3.png",
   "res/atlas/game.atlas": "res/atlas/game-4710ae82e0.atlas",
   "res/atlas/game.png": "res/atlas/game-46fcb63ca9.png",
-  "res/atlas/load.atlas": "res/atlas/load-8924c19130.atlas",
-  "res/atlas/load.png": "res/atlas/load-2c1e8d97a0.png",
+  "res/atlas/load.atlas": "res/atlas/load-ffd59c0e8c.atlas",
+  "res/atlas/load.png": "res/atlas/load-c5a7ff9d9f.png",
   "res/atlas/main_scene.atlas": "res/atlas/main_scene-00daeb53c3.atlas",
   "res/atlas/main_scene.png": "res/atlas/main_scene-3e609b261e.png",
   "res/atlas/pet_feed.atlas": "res/atlas/pet_feed-b26a498ce4.atlas",
@@ -95,7 +95,7 @@
   "scenes/views/GatherDescView.json": "scenes/views/GatherDescView-345c59c05d.json",
   "scenes/views/GuideView.json": "scenes/views/GuideView-9e802e2ad7.json",
   "scenes/views/HintView.json": "scenes/views/HintView-c8f2b6acfe.json",
-  "scenes/views/LoginView.json": "scenes/views/LoginView-78504f5d72.json",
+  "scenes/views/LoginView.json": "scenes/views/LoginView-dff57b1189.json",
   "scenes/views/MailDescView.json": "scenes/views/MailDescView-d3fa224a4c.json",
   "scenes/views/MailView.json": "scenes/views/MailView-8beb5f2aac.json",
   "scenes/views/MainView.json": "scenes/views/MainView-4406068a59.json",
@@ -110,5 +110,5 @@
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-fd8ebc8e36.json",
   "scenes/views/WithdrawRecordView.json": "scenes/views/WithdrawRecordView-da13a8c1de.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-6fd9e9981c.json"
+  "version.json": "version-a242cf5465.json"
 }

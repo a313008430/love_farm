@@ -511,7 +511,7 @@ export default class MainView extends Core.gameScript {
 
         if (UserInfo.days > 5) {
             this.clickTimes++;
-            if (this.clickTimes % 5) {
+            if (!(this.clickTimes % 5)) {
                 AppCore.runAppFunction({
                     uri: AppEventMap.ad,
                     data: { adType: 1 },

@@ -2445,16 +2445,20 @@
           count: d.amount,
           posType: 3
         });
+        let has = false;
         for (let x = 0; x < MainView.inst.stealAll.list.length; x++) {
           if (MainView.inst.stealAll.list[x].plantId == d.plantId) {
             MainView.inst.stealAll.list[x].amount += d.amount;
-            return;
+            has = true;
+            break;
           }
         }
-        MainView.inst.stealAll.list.push({
-          plantId: d.plantId,
-          amount: d.amount
-        });
+        if (!has) {
+          MainView.inst.stealAll.list.push({
+            plantId: d.plantId,
+            amount: d.amount
+          });
+        }
       } else {
         if (!dog) {
           return;
@@ -2856,7 +2860,7 @@
       console.log(e.target.name);
       if (UserInfo_default.days > 5) {
         this.clickTimes++;
-        if (this.clickTimes % 5) {
+        if (!(this.clickTimes % 5)) {
           AppCore.runAppFunction({
             uri: AppEventMap.ad,
             data: { adType: 1 }
