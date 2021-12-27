@@ -57,7 +57,7 @@ export default class OrderView extends Core.gameScript {
 
         let withdrawal = TableAnalyze.table("config").get("withdrawal").value as string[];
 
-        (this.topDesc.getChildAt(0) as Laya.Label).text = "完成所有订单可获得红包";
+        (this.topDesc.getChildAt(0) as Laya.Label).text = "完成所有订单可获得";
 
         (this.topDesc.getChildAt(1) as Laya.Label).text = `${reward}`;
         // (this.topDesc.getChildAt(1) as Laya.Label).text = `${Tools.formatMoney(

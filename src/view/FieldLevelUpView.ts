@@ -56,7 +56,7 @@ export default class FieldLevelUpView extends GameScript {
 
     onHdAwake(): void {
         if (UserInfo.days > 5) {
-            (this.owner.getChildByName("center") as Laya.Image).y = -310;
+            (this.owner.getChildByName("center") as Laya.Image).centerY = -310;
         }
     }
 

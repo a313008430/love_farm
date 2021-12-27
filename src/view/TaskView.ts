@@ -240,20 +240,24 @@ export default class TaskView extends GameScript {
                 break;
             case 1010:
                 Core.view.close(Res.views.TaskView);
-                // Core.eventGlobal.event(EventMaps.open_friend, [1]);
-                HttpControl.inst
-                    .send({
-                        api: ApiHttp.friendInviteList,
-                        data: {},
-                    })
-                    .then((d: InviteList) => {
-                        Core.view.open(Res.views.FriendsRewardView, {
-                            parm: {
-                                list: d.list,
-                                call: () => {},
-                            },
-                        });
-                    });
+                AppCore.runAppFunction({
+                    uri: AppEventMap.wxShare,
+                    data: {},
+                    timestamp: Date.now(),
+                }).then((d) => {
+                    if (!d || d?.code) {
+                        Core.view.openHint({ text: d.data["message"], call: () => {} });
+                    } else {
+                        Core.view.openHint({ text: d.data["message"], call: () => {} });
+                        HttpControl.inst
+                            .send({
+                                api: ApiHttp.friendShare,
+                            })
+                            .then(() => {
+                                TaskService.taskAddTimes(1010);
+                            });
+                    }
+                });
                 break;
             case 1011:
                 Core.view.close(Res.views.TaskView);

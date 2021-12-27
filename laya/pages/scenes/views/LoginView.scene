@@ -202,7 +202,7 @@
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image,load_box",
-                    "props":{"y":906,"x":171,"width":660,"skin":"load/img_loadingScroll1.png","name":"load_box","centerX":0,"bottom":630},
+                    "props":{"width":660,"skin":"load/img_loadingScroll1.png","name":"load_box","centerX":0,"bottom":-530},
                     "nodeParent":5,
                     "label":"load_box",
                     "isOpen":false,
@@ -237,7 +237,7 @@
                             "child":[
                                 ]
                         }],
-                    "$HIDDEN":true
+                    "$HIDDEN":false
                 }]
         },
         {

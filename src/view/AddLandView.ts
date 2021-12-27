@@ -53,7 +53,7 @@ export default class AddLandView extends GameScript {
 
     onHdAwake(): void {
         if (UserInfo.days > 5) {
-            (this.owner.getChildByName("center") as Laya.Image).y = -310;
+            (this.owner.getChildByName("center") as Laya.Image).centerY = -310;
         }
     }
 
@@ -131,5 +131,12 @@ export default class AddLandView extends GameScript {
 
                 break;
         }
+    }
+
+    onHdDestroy(): void {
+        AppCore.runAppFunction({
+            uri: AppEventMap.closeAd,
+            data: {},
+        });
     }
 }
