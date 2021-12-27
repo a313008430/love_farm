@@ -1,7 +1,7 @@
 {
   "fileconfig.json": "fileconfig-46cc68db6e.json",
-  "index.js": "index-be1f2970a9.js",
-  "js/bundle.js": "js/bundle-78229f29db.js",
+  "index.js": "index-c87ef96c3b.js",
+  "js/bundle.js": "js/bundle-77c7cc0800.js",
   "js/ps-N3BPHYGU.fs": "js/ps-N3BPHYGU-319562bd17.fs",
   "libs/min/bytebuffer.min.js": "libs/min/bytebuffer-9637a546e0.min.js",
   "libs/min/laya.ani.min.js": "libs/min/laya-a72326a604.ani.min.js",
@@ -86,15 +86,15 @@
   "scenes/prefab/MailItem.json": "scenes/prefab/MailItem-6ce9a0f9b7.json",
   "scenes/prefab/PlotPrefab.json": "scenes/prefab/PlotPrefab-db4e8a1783.json",
   "scenes/views/AboutView.json": "scenes/views/AboutView-2d121085ed.json",
-  "scenes/views/AddLandView.json": "scenes/views/AddLandView-99e0b1ace4.json",
+  "scenes/views/AddLandView.json": "scenes/views/AddLandView-7e7be3fe1e.json",
   "scenes/views/BuyVitalityView.json": "scenes/views/BuyVitalityView-a3bd74bd70.json",
-  "scenes/views/FieldLevelUpView.json": "scenes/views/FieldLevelUpView-287b37cea0.json",
+  "scenes/views/FieldLevelUpView.json": "scenes/views/FieldLevelUpView-f807a41be9.json",
   "scenes/views/FriendsDescView.json": "scenes/views/FriendsDescView-cd7dd30616.json",
   "scenes/views/FriendsRewardView.json": "scenes/views/FriendsRewardView-22f7f6749e.json",
   "scenes/views/FriendsView.json": "scenes/views/FriendsView-d1c6ee2c85.json",
   "scenes/views/GatherDescView.json": "scenes/views/GatherDescView-345c59c05d.json",
   "scenes/views/GuideView.json": "scenes/views/GuideView-9e802e2ad7.json",
-  "scenes/views/HintView.json": "scenes/views/HintView-4c7c0b0b39.json",
+  "scenes/views/HintView.json": "scenes/views/HintView-c8f2b6acfe.json",
   "scenes/views/LoginView.json": "scenes/views/LoginView-78504f5d72.json",
   "scenes/views/MailDescView.json": "scenes/views/MailDescView-d3fa224a4c.json",
   "scenes/views/MailView.json": "scenes/views/MailView-8beb5f2aac.json",
@@ -110,5 +110,5 @@
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-fd8ebc8e36.json",
   "scenes/views/WithdrawRecordView.json": "scenes/views/WithdrawRecordView-da13a8c1de.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-e2037d089f.json"
+  "version.json": "version-6fd9e9981c.json"
 }

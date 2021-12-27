@@ -40,6 +40,24 @@ export default class FieldLevelUpView extends GameScript {
 
         this.adBtn.disabled = !UserInfo.advertiseTimes;
         this.adBtn.active = Boolean(UserInfo.advertiseTimes);
+
+        if (UserInfo.days > 5) {
+            AppCore.runAppFunction({
+                uri: AppEventMap.ad,
+                data: { adType: 2 },
+            });
+
+            AppCore.runAppFunction({
+                uri: AppEventMap.ad,
+                data: { adType: 3 },
+            });
+        }
+    }
+
+    onHdAwake(): void {
+        if (UserInfo.days > 5) {
+            (this.owner.getChildByName("center") as Laya.Image).y = -310;
+        }
     }
 
     onClick(e: Laya.Event) {
@@ -52,7 +70,7 @@ export default class FieldLevelUpView extends GameScript {
                 HttpControl.inst
                     .send({
                         api: ApiHttp.landUpgrade,
-                        data: <NetSendApi["gather"]>{
+                        data: {
                             landId: this.data.obj.id,
                             type:
                                 e.target.name == "upgradeBtn"
@@ -81,5 +99,12 @@ export default class FieldLevelUpView extends GameScript {
 
                 break;
         }
+    }
+
+    onHdDestroy(): void {
+        AppCore.runAppFunction({
+            uri: AppEventMap.closeImage,
+            data: {},
+        });
     }
 }

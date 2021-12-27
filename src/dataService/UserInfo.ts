@@ -44,7 +44,7 @@ class UserInfo {
     withdraw: WithdrawData[];
     /** 新手引导数据 */
     guideData: string = "";
-    /** 新手引导数据 */
+    /** 玩家在线天数 */
     days: number = 0;
 
     get ttt() {

@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":5,
-    "selecteID":15,
+    "selectedBox":2,
+    "selecteID":5,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -32,18 +32,17 @@
         {
             "x":15,
             "type":"Image",
-            "searchKey":"Image",
-            "props":{"y":1030,"x":560,"skin":"res/img_popUpBgMain.png","mouseEnabled":true,"centerY":50,"centerX":0,"anchorY":0.5,"anchorX":0.5},
+            "searchKey":"Image,center",
+            "props":{"y":1030,"x":560,"skin":"res/img_popUpBgMain.png","name":"center","mouseEnabled":true,"centerY":50,"centerX":0,"anchorY":0.5,"anchorX":0.5},
             "nodeParent":2,
-            "label":"Image",
-            "isOpen":true,
+            "label":"center",
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":5,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":90,"x":228.5,"skin":"game/img_landUpdage2.png"},
@@ -57,7 +56,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,upgradeAdBtn",
                     "props":{"y":652,"x":654,"visible":false,"skin":"game/img_transformFree.png","name":"upgradeAdBtn","anchorY":0.5,"anchorX":0.5},
@@ -88,7 +86,6 @@
                     "$HIDDEN":true
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":-115.5,"x":164.5,"skin":"res/img_woodtitle.png"},
@@ -104,7 +101,6 @@
                     "$HIDDEN":false
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":-41,"x":297,"skin":"game/img_landUpdate.png"},
@@ -118,7 +114,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,closeAddLandLayer",
                     "props":{"y":22,"x":870,"skin":"game/img_x.png","name":"closeAddLandLayer","mouseEnabled":true,"anchorY":0.5,"anchorX":0.5},
@@ -162,7 +157,6 @@
                     "$HIDDEN":false
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,upgradeBtn",
                     "props":{"y":651,"x":476,"skin":"game/img_transform.png","name":"upgradeBtn","anchorY":0.5,"anchorX":0.5},
@@ -194,7 +188,6 @@
                     "$HIDDEN":false
                 },
                 {
-                    "x":30,
                     "type":"HBox",
                     "searchKey":"HBox",
                     "props":{"y":541,"x":299,"width":269.00390625,"space":20,"rotation":0,"height":55,"align":"middle"},
@@ -234,7 +227,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"HBox",
                     "searchKey":"HBox",
                     "props":{"y":342,"x":296},
@@ -276,7 +268,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"HBox",
                     "searchKey":"HBox",
                     "props":{"y":402,"x":296},
@@ -318,7 +309,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"HBox",
                     "searchKey":"HBox",
                     "props":{"y":462,"x":296,"width":235.40625,"rotation":0,"height":52},

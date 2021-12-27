@@ -126,6 +126,8 @@ interface NetInit extends NetBase {
     ];
     /** 提现数据 */
     withdraw: { id: number; times: number }[];
+    /** 玩家在线天数 0为第一天 */
+    days: number;
 }
 
 interface NetSendApi {

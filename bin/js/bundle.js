@@ -1411,6 +1411,7 @@
       UserInfo_default.isFirstTime = d.userInfo.isFirstTime;
       UserInfo_default.guideData = d.userInfo.guideData || "";
       UserInfo_default.withdraw = d.withdraw;
+      UserInfo_default.days = d.days + 1;
       PetService_default.init(d.pets);
       TaskService_default.init(d.tasks);
       LocalStorageService_default.setJSON("isLogin", true);
@@ -1448,6 +1449,7 @@
       UserInfo_default.isFirstTime = null;
       UserInfo_default.withdraw = [];
       UserInfo_default.guideData = "";
+      UserInfo_default.days = 0;
     }
     updateUserInfo(d) {
       UserInfo_default.gold = d.gold;
@@ -1637,6 +1639,21 @@
       this.costFont.value = this.landData.count + "";
       this.adBtn.disabled = !UserInfo_default.advertiseTimes;
       this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
+      if (UserInfo_default.days > 5) {
+        AppCore.runAppFunction({
+          uri: AppEventMap.ad,
+          data: { adType: 2 }
+        });
+        AppCore.runAppFunction({
+          uri: AppEventMap.ad,
+          data: { adType: 3 }
+        });
+      }
+    }
+    onHdAwake() {
+      if (UserInfo_default.days > 5) {
+        this.owner.getChildByName("center").y = -310;
+      }
     }
     onClick(e) {
       switch (e.target.name) {
@@ -1783,6 +1800,21 @@
       this.probability.text = `+${Number((nextLand.probability * 100).toFixed(2))}%`;
       this.adBtn.disabled = !UserInfo_default.advertiseTimes;
       this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
+      if (UserInfo_default.days > 5) {
+        AppCore.runAppFunction({
+          uri: AppEventMap.ad,
+          data: { adType: 2 }
+        });
+        AppCore.runAppFunction({
+          uri: AppEventMap.ad,
+          data: { adType: 3 }
+        });
+      }
+    }
+    onHdAwake() {
+      if (UserInfo_default.days > 5) {
+        this.owner.getChildByName("center").y = -310;
+      }
     }
     onClick(e) {
       switch (e.target.name) {
@@ -1816,6 +1848,12 @@
           });
           break;
       }
+    }
+    onHdDestroy() {
+      AppCore.runAppFunction({
+        uri: AppEventMap.closeImage,
+        data: {}
+      });
     }
   };
 
@@ -2319,6 +2357,16 @@
         callBack: () => {
         }
       });
+      if (UserInfo_default.days > 5) {
+        AppCore.runAppFunction({
+          uri: AppEventMap.ad,
+          data: { adType: 1 }
+        });
+        AppCore.runAppFunction({
+          uri: AppEventMap.ad,
+          data: { adType: 3 }
+        });
+      }
     }
     sow() {
       core_default.view.open(Res_default.views.ShopView, {
@@ -2518,6 +2566,7 @@
       this.guideHand = null;
       this.guidIdList = [1, 2, 3, 5];
       this.hasGuide = false;
+      this.clickTimes = 0;
       this.stealAll = { list: [], rewardDiamond: 0, nickname: null };
       this.orderQueueIng = false;
       this.hindOrderLevel = null;
@@ -2805,6 +2854,19 @@
     }
     onClick(e) {
       console.log(e.target.name);
+      if (UserInfo_default.days > 5) {
+        this.clickTimes++;
+        if (this.clickTimes % 5) {
+          AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 1 }
+          });
+          AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 3 }
+          });
+        }
+      }
       switch (e.target.name) {
         case "closeAddLandLayer":
           this.addLandLayer.visible = false;
@@ -3303,6 +3365,16 @@
         this.goFriend(null);
         this.updateHitLandAdd();
         if (this.stealAll.list.length) {
+          if (UserInfo_default.days > 5) {
+            AppCore.runAppFunction({
+              uri: AppEventMap.ad,
+              data: { adType: 1 }
+            });
+            AppCore.runAppFunction({
+              uri: AppEventMap.ad,
+              data: { adType: 3 }
+            });
+          }
           core_default.view.open(Res_default.views.GatherDescView, {
             parm: {
               type: 2,
@@ -4242,6 +4314,21 @@
         this.confirmBtn.x = 252;
       } else {
         this.confirmBtn.x = 458;
+      }
+      if (UserInfo_default.days > 5) {
+        AppCore.runAppFunction({
+          uri: AppEventMap.ad,
+          data: { adType: 2 }
+        });
+        AppCore.runAppFunction({
+          uri: AppEventMap.ad,
+          data: { adType: 3 }
+        });
+      }
+    }
+    onHdAwake() {
+      if (UserInfo_default.days > 5) {
+        this.owner.getChildByName("center").y = -310;
       }
     }
     onClick(e) {
@@ -5858,7 +5945,11 @@
       rewardBox.getChildByName("icon").skin = obj.reward.obj.icon;
       if (obj.id === 1012) {
         const reward = TableAnalyze_default.table("config").get("Videorewards").value.count;
-        rewardBox.getChildByName("amount").text = "x" + (obj.reward.count + (obj.times - ((task == null ? void 0 : task.times) || 0)) * reward);
+        let price = obj.reward.count + (obj.times - ((task == null ? void 0 : task.times) || 0)) * reward;
+        if (price < obj.reward.count) {
+          price = obj.reward.count;
+        }
+        rewardBox.getChildByName("amount").text = "x" + price;
       } else {
         rewardBox.getChildByName("amount").text = "x" + obj.reward.count;
       }
@@ -6216,6 +6307,16 @@
                 callBack: () => {
                 }
               });
+              if (UserInfo_default.days > 5) {
+                AppCore.runAppFunction({
+                  uri: AppEventMap.ad,
+                  data: { adType: 1 }
+                });
+                AppCore.runAppFunction({
+                  uri: AppEventMap.ad,
+                  data: { adType: 3 }
+                });
+              }
             }).catch(() => {
               this.canClick = true;
             });

@@ -1,10 +1,11 @@
 import ConfigGame from "src/common/ConfigGame";
-import { EventMaps } from "src/common/EventMaps";
+import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
 import TableAnalyze from "src/common/TableAnalyze";
 import { RewardCurrencyBase } from "src/common/TableObject";
+import AppCore from "src/core/App";
 import GameScript from "src/core/GameScript";
 import Core from "src/core/index";
 import LandService from "src/dataService/LandService";
@@ -36,6 +37,24 @@ export default class AddLandView extends GameScript {
 
         this.adBtn.disabled = !UserInfo.advertiseTimes;
         this.adBtn.active = Boolean(UserInfo.advertiseTimes);
+
+        if (UserInfo.days > 5) {
+            AppCore.runAppFunction({
+                uri: AppEventMap.ad,
+                data: { adType: 2 },
+            });
+
+            AppCore.runAppFunction({
+                uri: AppEventMap.ad,
+                data: { adType: 3 },
+            });
+        }
+    }
+
+    onHdAwake(): void {
+        if (UserInfo.days > 5) {
+            (this.owner.getChildByName("center") as Laya.Image).y = -310;
+        }
     }
 
     onClick(e: Laya.Event) {

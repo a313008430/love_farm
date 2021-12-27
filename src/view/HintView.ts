@@ -1,5 +1,8 @@
+import { AppEventMap } from "src/common/EventMaps";
 import Res from "src/common/Res";
+import AppCore from "src/core/App";
 import Core from "src/core/index";
+import UserInfo from "src/dataService/UserInfo";
 
 export interface HintViewData {
     /** 文字内容 */
@@ -39,6 +42,24 @@ export default class HintView extends Core.gameScript {
             this.confirmBtn.x = 252;
         } else {
             this.confirmBtn.x = 458;
+        }
+
+        if (UserInfo.days > 5) {
+            AppCore.runAppFunction({
+                uri: AppEventMap.ad,
+                data: { adType: 2 },
+            });
+
+            AppCore.runAppFunction({
+                uri: AppEventMap.ad,
+                data: { adType: 3 },
+            });
+        }
+    }
+
+    onHdAwake(): void {
+        if (UserInfo.days > 5) {
+            (this.owner.getChildByName("center") as Laya.Image).y = -310;
         }
     }
 

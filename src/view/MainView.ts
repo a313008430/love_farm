@@ -504,8 +504,26 @@ export default class MainView extends Core.gameScript {
         UserInfo.digestCountDown = ConfigGame.petDigestIntervalTime;
     }
 
+    /** 主界面点击次数 */
+    private clickTimes = 0;
     onClick(e: Laya.Event) {
         console.log(e.target.name);
+
+        if (UserInfo.days > 5) {
+            this.clickTimes++;
+            if (this.clickTimes % 5) {
+                AppCore.runAppFunction({
+                    uri: AppEventMap.ad,
+                    data: { adType: 1 },
+                });
+
+                AppCore.runAppFunction({
+                    uri: AppEventMap.ad,
+                    data: { adType: 3 },
+                });
+            }
+        }
+
         switch (e.target.name) {
             case "closeAddLandLayer":
                 this.addLandLayer.visible = false;
@@ -1241,6 +1259,18 @@ export default class MainView extends Core.gameScript {
             this.updateHitLandAdd();
 
             if (this.stealAll.list.length) {
+                if (UserInfo.days > 5) {
+                    AppCore.runAppFunction({
+                        uri: AppEventMap.ad,
+                        data: { adType: 1 },
+                    });
+
+                    AppCore.runAppFunction({
+                        uri: AppEventMap.ad,
+                        data: { adType: 3 },
+                    });
+                }
+
                 Core.view.open(Res.views.GatherDescView, {
                     parm: {
                         type: 2,

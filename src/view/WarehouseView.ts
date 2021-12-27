@@ -252,6 +252,18 @@ export default class WarehouseView extends Core.gameScript {
                                 list: rewardList,
                                 callBack: () => {},
                             });
+
+                            if (UserInfo.days > 5) {
+                                AppCore.runAppFunction({
+                                    uri: AppEventMap.ad,
+                                    data: { adType: 1 },
+                                });
+
+                                AppCore.runAppFunction({
+                                    uri: AppEventMap.ad,
+                                    data: { adType: 3 },
+                                });
+                            }
                         })
                         .catch(() => {
                             this.canClick = true;

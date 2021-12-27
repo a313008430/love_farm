@@ -60,8 +60,13 @@ export default class TaskView extends GameScript {
             const reward = (
                 TableAnalyze.table("config").get("Videorewards").value as RewardCurrencyBase
             ).count;
-            (rewardBox.getChildByName("amount") as Laya.Label).text =
-                "x" + (obj.reward.count + (obj.times - (task?.times || 0)) * reward);
+
+            let price = obj.reward.count + (obj.times - (task?.times || 0)) * reward;
+            if (price < obj.reward.count) {
+                price = obj.reward.count;
+            }
+
+            (rewardBox.getChildByName("amount") as Laya.Label).text = "x" + price;
         } else {
             (rewardBox.getChildByName("amount") as Laya.Label).text = "x" + obj.reward.count;
         }

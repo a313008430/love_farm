@@ -444,6 +444,10 @@ export default class FieldComponent extends Core.gameScript {
         }
     }
 
+    /**
+     * 收菜
+     * @returns
+     */
     gather(): Promise<{ plantId: number; amount: number; diamond: number } | null> {
         if (!this.canClick) return;
         this.canClick = false;
@@ -516,6 +520,18 @@ export default class FieldComponent extends Core.gameScript {
             list: rewardList,
             callBack: () => {},
         });
+
+        if (UserInfo.days > 5) {
+            AppCore.runAppFunction({
+                uri: AppEventMap.ad,
+                data: { adType: 1 },
+            });
+
+            AppCore.runAppFunction({
+                uri: AppEventMap.ad,
+                data: { adType: 3 },
+            });
+        }
     }
 
     sow() {
