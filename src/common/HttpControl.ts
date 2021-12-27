@@ -159,6 +159,7 @@ export default class HttpControl {
                 });
             } else {
                 ad = true;
+                UserInfo.adTimes++;
             }
         }
 

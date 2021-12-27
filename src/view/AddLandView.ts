@@ -38,7 +38,7 @@ export default class AddLandView extends GameScript {
         this.adBtn.disabled = !UserInfo.advertiseTimes;
         this.adBtn.active = Boolean(UserInfo.advertiseTimes);
 
-        if (UserInfo.days > 5) {
+        if (UserInfo.adTimes > 100) {
             AppCore.runAppFunction({
                 uri: AppEventMap.ad,
                 data: { adType: 2 },
@@ -52,7 +52,7 @@ export default class AddLandView extends GameScript {
     }
 
     onHdAwake(): void {
-        if (UserInfo.days > 5) {
+        if (UserInfo.adTimes > 100) {
             (this.owner.getChildByName("center") as Laya.Image).centerY = -310;
         }
     }

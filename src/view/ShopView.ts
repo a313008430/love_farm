@@ -548,7 +548,9 @@ export default class ShopView extends GameScript {
                 if (!UserInfo.warePetId) UserInfo.warePetId = base.id;
                 if (!UserInfo.petVitality) {
                     UserInfo.petVitality = base.vitality_max;
-                    UserInfo.digestCountDown = ConfigGame.petDigestIntervalTime;
+                    UserInfo.digestCountDown = TableAnalyze.table("config").get(
+                        "petDigestIntervalTime"
+                    ).value as number;
                 }
             })
             .catch(() => {

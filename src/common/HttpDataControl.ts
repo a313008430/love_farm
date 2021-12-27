@@ -118,6 +118,7 @@ class HttpDataControl {
         UserInfo.guideData = d.userInfo.guideData || "";
         UserInfo.withdraw = d.withdraw;
         UserInfo.days = d.days + 1;
+        UserInfo.adTimes = d.userInfo.adTimes;
         PetService.init(d.pets);
         TaskService.init(d.tasks);
         LocalStorageService.setJSON("isLogin", true);
@@ -157,6 +158,7 @@ class HttpDataControl {
         UserInfo.withdraw = [];
         UserInfo.guideData = "";
         UserInfo.days = 0;
+        UserInfo.adTimes = 0;
     }
 
     /**

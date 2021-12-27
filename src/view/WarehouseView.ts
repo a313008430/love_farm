@@ -253,7 +253,7 @@ export default class WarehouseView extends Core.gameScript {
                                 callBack: () => {},
                             });
 
-                            if (UserInfo.days > 5) {
+                            if (UserInfo.adTimes > 100) {
                                 AppCore.runAppFunction({
                                     uri: AppEventMap.ad,
                                     data: { adType: 1 },

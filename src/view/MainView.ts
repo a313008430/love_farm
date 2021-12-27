@@ -509,7 +509,7 @@ export default class MainView extends Core.gameScript {
     onClick(e: Laya.Event) {
         console.log(e.target.name);
 
-        if (UserInfo.days > 5) {
+        if (UserInfo.adTimes > 100) {
             this.clickTimes++;
             if (!(this.clickTimes % 5)) {
                 AppCore.runAppFunction({
@@ -1253,7 +1253,7 @@ export default class MainView extends Core.gameScript {
             this.updateHitLandAdd();
 
             if (this.stealAll.list.length) {
-                if (UserInfo.days > 5) {
+                if (UserInfo.adTimes > 100) {
                     AppCore.runAppFunction({
                         uri: AppEventMap.ad,
                         data: { adType: 1 },

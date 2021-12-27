@@ -569,7 +569,7 @@
   var ConfigGame_default = {
     diamondId: 1001,
     goldId: 1002,
-    petDigestIntervalTime: 60,
+    petDigestIntervalTime: 60 * 3600,
     localKey: "love_HD_farm",
     userVitalityLimit: 10,
     baseUrl,
@@ -1064,6 +1064,37 @@
   };
   var TaskService_default = new TaskService();
 
+  // src/dataService/UserInfo.ts
+  var UserInfo = class {
+    constructor() {
+      this.orderLevel = 1;
+      this.nickname = "name";
+      this.key = null;
+      this.avatar = "";
+      this.diamond = 999;
+      this.gold = 999;
+      this.advertiseTimes = 0;
+      this.signInDays = 0;
+      this.signInId = 0;
+      this.speedUpTimes = 0;
+      this.vitality = 0;
+      this.proportion = 1e-4;
+      this.guideData = "";
+      this.days = 0;
+      this.adTimes = 0;
+    }
+    get ttt() {
+      return this.orderLevel;
+    }
+    set ttt(v) {
+      this.orderLevel = v;
+    }
+    clear() {
+      this.nickname = "";
+    }
+  };
+  var UserInfo_default = new UserInfo();
+
   // src/dataService/LandService.ts
   var LandService = class {
     constructor() {
@@ -1136,36 +1167,6 @@
     }
   };
   var PlantService_default = new PlantService();
-
-  // src/dataService/UserInfo.ts
-  var UserInfo = class {
-    constructor() {
-      this.orderLevel = 1;
-      this.nickname = "name";
-      this.key = null;
-      this.avatar = "";
-      this.diamond = 999;
-      this.gold = 999;
-      this.advertiseTimes = 0;
-      this.signInDays = 0;
-      this.signInId = 0;
-      this.speedUpTimes = 0;
-      this.vitality = 0;
-      this.proportion = 1e-4;
-      this.guideData = "";
-      this.days = 0;
-    }
-    get ttt() {
-      return this.orderLevel;
-    }
-    set ttt(v) {
-      this.orderLevel = v;
-    }
-    clear() {
-      this.nickname = "";
-    }
-  };
-  var UserInfo_default = new UserInfo();
 
   // src/dataService/WarehouseService.ts
   var WarehouseService = class {
@@ -1412,6 +1413,7 @@
       UserInfo_default.guideData = d.userInfo.guideData || "";
       UserInfo_default.withdraw = d.withdraw;
       UserInfo_default.days = d.days + 1;
+      UserInfo_default.adTimes = d.userInfo.adTimes;
       PetService_default.init(d.pets);
       TaskService_default.init(d.tasks);
       LocalStorageService_default.setJSON("isLogin", true);
@@ -1450,6 +1452,7 @@
       UserInfo_default.withdraw = [];
       UserInfo_default.guideData = "";
       UserInfo_default.days = 0;
+      UserInfo_default.adTimes = 0;
     }
     updateUserInfo(d) {
       UserInfo_default.gold = d.gold;
@@ -1566,6 +1569,7 @@
             });
           } else {
             ad = true;
+            UserInfo_default.adTimes++;
           }
         }
         return new Promise((resolve, reject) => __async(this, null, function* () {
@@ -1639,7 +1643,7 @@
       this.costFont.value = this.landData.count + "";
       this.adBtn.disabled = !UserInfo_default.advertiseTimes;
       this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
-      if (UserInfo_default.days > 5) {
+      if (UserInfo_default.adTimes > 100) {
         AppCore.runAppFunction({
           uri: AppEventMap.ad,
           data: { adType: 2 }
@@ -1651,7 +1655,7 @@
       }
     }
     onHdAwake() {
-      if (UserInfo_default.days > 5) {
+      if (UserInfo_default.adTimes > 100) {
         this.owner.getChildByName("center").centerY = -310;
       }
     }
@@ -1806,7 +1810,7 @@
       this.probability.text = `+${Number((nextLand.probability * 100).toFixed(2))}%`;
       this.adBtn.disabled = !UserInfo_default.advertiseTimes;
       this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
-      if (UserInfo_default.days > 5) {
+      if (UserInfo_default.adTimes > 100) {
         AppCore.runAppFunction({
           uri: AppEventMap.ad,
           data: { adType: 2 }
@@ -1818,7 +1822,7 @@
       }
     }
     onHdAwake() {
-      if (UserInfo_default.days > 5) {
+      if (UserInfo_default.adTimes > 100) {
         this.owner.getChildByName("center").centerY = -310;
       }
     }
@@ -2363,7 +2367,7 @@
         callBack: () => {
         }
       });
-      if (UserInfo_default.days > 5) {
+      if (UserInfo_default.adTimes > 100) {
         AppCore.runAppFunction({
           uri: AppEventMap.ad,
           data: { adType: 1 }
@@ -2864,7 +2868,7 @@
     }
     onClick(e) {
       console.log(e.target.name);
-      if (UserInfo_default.days > 5) {
+      if (UserInfo_default.adTimes > 100) {
         this.clickTimes++;
         if (!(this.clickTimes % 5)) {
           AppCore.runAppFunction({
@@ -3373,7 +3377,7 @@
         this.goFriend(null);
         this.updateHitLandAdd();
         if (this.stealAll.list.length) {
-          if (UserInfo_default.days > 5) {
+          if (UserInfo_default.adTimes > 100) {
             AppCore.runAppFunction({
               uri: AppEventMap.ad,
               data: { adType: 1 }
@@ -4323,7 +4327,7 @@
       } else {
         this.confirmBtn.x = 458;
       }
-      if (UserInfo_default.days > 5) {
+      if (UserInfo_default.adTimes > 100) {
         AppCore.runAppFunction({
           uri: AppEventMap.ad,
           data: { adType: 2 }
@@ -4335,7 +4339,7 @@
       }
     }
     onHdAwake() {
-      if (UserInfo_default.days > 5) {
+      if (UserInfo_default.adTimes > 100) {
         this.owner.getChildByName("center").centerY = -310;
       }
     }
@@ -5557,7 +5561,7 @@
           UserInfo_default.warePetId = base.id;
         if (!UserInfo_default.petVitality) {
           UserInfo_default.petVitality = base.vitality_max;
-          UserInfo_default.digestCountDown = ConfigGame_default.petDigestIntervalTime;
+          UserInfo_default.digestCountDown = TableAnalyze_default.table("config").get("petDigestIntervalTime").value;
         }
       }).catch(() => {
         this.canClick = true;
@@ -6299,7 +6303,7 @@
                 callBack: () => {
                 }
               });
-              if (UserInfo_default.days > 5) {
+              if (UserInfo_default.adTimes > 100) {
                 AppCore.runAppFunction({
                   uri: AppEventMap.ad,
                   data: { adType: 1 }

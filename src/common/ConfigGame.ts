@@ -29,7 +29,7 @@ export default {
     /** 金币id */
     goldId: 1002,
     /** 狗狗消化食物间隔时间 秒 */
-    petDigestIntervalTime: 60,
+    petDigestIntervalTime: 60 * 3600,
     /** 游戏本地储存key */
     localKey: "love_HD_farm",
     /** 用户体力上限 */
