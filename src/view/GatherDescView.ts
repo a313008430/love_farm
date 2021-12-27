@@ -25,6 +25,7 @@ export default class GatherDescView extends Core.gameScript {
         call: Function;
         diamond: number;
         closeEvent: Function;
+        nickname: string;
     };
     private canClick: boolean = true;
 
@@ -84,8 +85,9 @@ export default class GatherDescView extends Core.gameScript {
                 //偷菜
                 this.stealGet.visible = true;
                 (this.stealGet.getChildByName("title") as Laya.Label).text = "偷菜成功";
-                (this.stealGet.getChildByName("top_lb") as Laya.Label).text =
-                    "你潜入了xx的菜地，偷走了：";
+                (this.stealGet.getChildByName("top_lb") as Laya.Label).text = `你潜入了${
+                    this.data?.nickname || ""
+                }...的菜地，偷走了：`;
                 this.updateDescList();
                 break;
             case 3:

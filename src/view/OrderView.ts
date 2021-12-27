@@ -7,6 +7,7 @@ import Tools from "src/common/Tools";
 import Core from "src/core/index";
 import UserInfo from "src/dataService/UserInfo";
 import WarehouseService from "src/dataService/WarehouseService";
+import MainView from "./MainView";
 
 //class OrderView extends Laya.Script
 export default class OrderView extends Core.gameScript {
@@ -151,18 +152,23 @@ export default class OrderView extends Core.gameScript {
                     curIcon.visible = true;
                     lv_box.visible = false;
                     btn.visible = false;
-                    receiveBtn.visible = true;
+
                     order_lv.visible = false;
-                    // (diamond.getChildByName("icon") as Laya.Image).skin = d.extraReward.obj.icon;
-                    // (diamond.getChildByName("value") as Laya.Label).text = `+${
-                    //     d.extraReward.count +
-                    //     rewardDiamondCount +
-                    //     Math.round(rewardDiamondCount * d.commission)
-                    // }`;
-                    // diamond.visible = true;
-                    rewardBox.visible = false;
+                    (diamond.getChildByName("icon") as Laya.Image).skin = d.extraReward.obj.icon;
+                    (diamond.getChildByName("value") as Laya.Label).text = `+${
+                        d.extraReward.count +
+                        rewardDiamondCount +
+                        Math.round(rewardDiamondCount * d.commission)
+                    }`;
+                    diamond.visible = true;
                 } else {
                     btn.skin = this.btnResCur;
+                }
+
+                if (progress == d.condition.length) {
+                    receiveBtn.visible = true;
+                    rewardBox.visible = false;
+                    diamond.visible = false;
                 }
             } else {
                 console.log("已完成");
@@ -192,6 +198,7 @@ export default class OrderView extends Core.gameScript {
                 Core.view.close(Res.views.OrderView);
                 break;
             case "receive_btn":
+                MainView.inst.hindOrderLevel = 0;
                 Core.eventGlobal.event(EventMaps.update_Order);
                 Core.view.close(Res.views.OrderView);
                 break;
