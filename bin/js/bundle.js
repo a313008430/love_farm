@@ -561,7 +561,6 @@
   switch ("test") {
     case BuildType.debug:
       baseUrl = "//192.168.101.50:3000";
-      baseUrl = "//192.168.50.87:3000";
       break;
     case BuildType.online:
       baseUrl = "http://game.ahd168.com:3100";
@@ -3429,9 +3428,10 @@
       } else {
         this.taskBox.visible = true;
       }
-      this.updateFriendView(d == null ? void 0 : d.nickname, friendData, d == null ? void 0 : d.dogId);
+      this.updateFriendView(d, friendData);
     }
-    updateFriendView(nickname = "", friendData, pedId) {
+    updateFriendView(d, friendData) {
+      const nickname = d == null ? void 0 : d.nickname, pedId = d == null ? void 0 : d.dogId, avatar = friendData == null ? void 0 : friendData.avatar;
       const topBox = this.orderBox.parent, moneyBox = topBox.getChildByName("money_box"), countDown = topBox.getChildByName("count_down"), orderBox = this.orderBox.getChildByName("order_box"), friendName = this.orderBox.getChildByName("friend_name"), bottomList = [
         this.bottomBox.getChildByName("task"),
         this.bottomBox.getChildByName("order_box"),
@@ -3446,8 +3446,8 @@
         this.stealAll.nickname = nickname;
         countDown.text = Tools.formatSeconds(this.outCountDownNumber);
         Laya.timer.loop(1e3, this, this.outCountDownEvent, [countDown]);
-        if (friendData == null ? void 0 : friendData.avatar)
-          this.avatarNode.skin = friendData == null ? void 0 : friendData.avatar;
+        if (avatar)
+          this.avatarNode.skin = avatar;
         if (pedId) {
           this.petBox.visible = true;
           this.petBox.getChildByName("dog_ani").source = `res/dog_${pedId}.atlas`;

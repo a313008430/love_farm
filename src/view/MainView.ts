@@ -1409,13 +1409,17 @@ export default class MainView extends Core.gameScript {
             this.taskBox.visible = true;
         }
 
-        this.updateFriendView(d?.nickname, friendData, d?.dogId);
+        this.updateFriendView(d, friendData);
     }
 
     /**
      * 更新去好友家还是自己家的界面状态
      */
-    private updateFriendView(nickname: string = "", friendData: FriendData, pedId?: number) {
+    private updateFriendView(d?: ReturnNeighbor, friendData?: FriendData) {
+        const nickname = d?.nickname,
+            pedId = d?.dogId,
+            avatar = friendData?.avatar;
+
         const topBox = this.orderBox.parent as Laya.Box,
             moneyBox = topBox.getChildByName("money_box") as Laya.Box,
             countDown = topBox.getChildByName("count_down") as Laya.Label,
@@ -1438,7 +1442,7 @@ export default class MainView extends Core.gameScript {
 
             countDown.text = Tools.formatSeconds(this.outCountDownNumber);
             Laya.timer.loop(1000, this, this.outCountDownEvent, [countDown]);
-            if (friendData?.avatar) this.avatarNode.skin = friendData?.avatar;
+            if (avatar) this.avatarNode.skin = avatar;
             if (pedId) {
                 this.petBox.visible = true;
                 (
