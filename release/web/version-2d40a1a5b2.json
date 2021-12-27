@@ -92,7 +92,7 @@
   "scenes/views/FriendsDescView.json": "scenes/views/FriendsDescView-cd7dd30616.json",
   "scenes/views/FriendsRewardView.json": "scenes/views/FriendsRewardView-22f7f6749e.json",
   "scenes/views/FriendsView.json": "scenes/views/FriendsView-d1c6ee2c85.json",
-  "scenes/views/GatherDescView.json": "scenes/views/GatherDescView-345c59c05d.json",
+  "scenes/views/GatherDescView.json": "scenes/views/GatherDescView-57aa45bdcf.json",
   "scenes/views/GuideView.json": "scenes/views/GuideView-9e802e2ad7.json",
   "scenes/views/HintView.json": "scenes/views/HintView-c8f2b6acfe.json",
   "scenes/views/LoginView.json": "scenes/views/LoginView-dff57b1189.json",
@@ -110,5 +110,5 @@
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-fd8ebc8e36.json",
   "scenes/views/WithdrawRecordView.json": "scenes/views/WithdrawRecordView-da13a8c1de.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-a242cf5465.json"
+  "version.json": "version-2d40a1a5b2.json"
 }

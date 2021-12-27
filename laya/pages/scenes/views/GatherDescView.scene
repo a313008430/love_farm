@@ -164,7 +164,7 @@
                             "x":45,
                             "type":"Label",
                             "searchKey":"Label,top_lb",
-                            "props":{"y":197,"x":28,"wordWrap":true,"width":720,"text":"带走了：","name":"top_lb","height":48,"fontSize":48,"color":"#916443","anchorY":1},
+                            "props":{"y":197,"x":28,"wordWrap":true,"width":720,"text":"带走了：","name":"top_lb","fontSize":48,"color":"#916443","anchorY":1},
                             "nodeParent":29,
                             "label":"top_lb",
                             "isDirectory":false,
