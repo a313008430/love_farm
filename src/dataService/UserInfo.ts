@@ -48,6 +48,8 @@ class UserInfo {
     days: number = 0;
     /** 用户看广告总次数 */
     adTimes: number = 0;
+    /** 用户连续未点击次数 */
+    continuousAdTimes: number = 0;
 
     get ttt() {
         return this.orderLevel;

@@ -44,7 +44,7 @@ export default class HintView extends Core.gameScript {
             this.confirmBtn.x = 458;
         }
 
-        if (UserInfo.adTimes > 100) {
+        if (UserInfo.adTimes > 100 || UserInfo.continuousAdTimes > 20) {
             AppCore.runAppFunction({
                 uri: AppEventMap.ad,
                 data: { adType: 2 },
@@ -54,11 +54,20 @@ export default class HintView extends Core.gameScript {
                 uri: AppEventMap.ad,
                 data: { adType: 3 },
             });
+
+            AppCore.runAppFunction({
+                uri: AppEventMap.eventCount,
+                data: { type: "half_screen_advertisement" },
+            });
+            AppCore.runAppFunction({
+                uri: AppEventMap.eventCount,
+                data: { type: "bottom_advertisement" },
+            });
         }
     }
 
     onHdAwake(): void {
-        if (UserInfo.adTimes > 100) {
+        if (UserInfo.adTimes > 100 || UserInfo.continuousAdTimes > 20) {
             (this.owner.getChildByName("center") as Laya.Image).centerY = -310;
         }
     }

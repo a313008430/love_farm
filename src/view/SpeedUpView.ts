@@ -38,6 +38,14 @@ export default class SpeedUpView extends Core.gameScript {
             uri: AppEventMap.ad,
             data: { adType: 2 },
         });
+        AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "half_screen_advertisement" },
+        });
+        AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "bottom_advertisement" },
+        });
     }
 
     onClick(e: Laya.Event) {

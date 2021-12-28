@@ -509,7 +509,7 @@ export default class MainView extends Core.gameScript {
     onClick(e: Laya.Event) {
         console.log(e.target.name);
 
-        if (UserInfo.adTimes > 100) {
+        if (UserInfo.adTimes > 100 || UserInfo.continuousAdTimes > 20) {
             this.clickTimes++;
             if (!(this.clickTimes % 5)) {
                 AppCore.runAppFunction({
@@ -520,6 +520,14 @@ export default class MainView extends Core.gameScript {
                 AppCore.runAppFunction({
                     uri: AppEventMap.ad,
                     data: { adType: 3 },
+                });
+                AppCore.runAppFunction({
+                    uri: AppEventMap.eventCount,
+                    data: { type: "full_Screen" },
+                });
+                AppCore.runAppFunction({
+                    uri: AppEventMap.eventCount,
+                    data: { type: "bottom_advertisement" },
                 });
             }
         }
@@ -944,6 +952,10 @@ export default class MainView extends Core.gameScript {
                                         uri: AppEventMap.ad,
                                         data: { adType: 1 },
                                     });
+                                    AppCore.runAppFunction({
+                                        uri: AppEventMap.eventCount,
+                                        data: { type: "full_Screen" },
+                                    });
                                 });
                             }
                         },
@@ -1253,7 +1265,7 @@ export default class MainView extends Core.gameScript {
             this.updateHitLandAdd();
 
             if (this.stealAll.list.length) {
-                if (UserInfo.adTimes > 100) {
+                if (UserInfo.adTimes > 100 || UserInfo.continuousAdTimes > 20) {
                     AppCore.runAppFunction({
                         uri: AppEventMap.ad,
                         data: { adType: 1 },
@@ -1262,6 +1274,14 @@ export default class MainView extends Core.gameScript {
                     AppCore.runAppFunction({
                         uri: AppEventMap.ad,
                         data: { adType: 3 },
+                    });
+                    AppCore.runAppFunction({
+                        uri: AppEventMap.eventCount,
+                        data: { type: "full_Screen" },
+                    });
+                    AppCore.runAppFunction({
+                        uri: AppEventMap.eventCount,
+                        data: { type: "bottom_advertisement" },
                     });
                 }
 

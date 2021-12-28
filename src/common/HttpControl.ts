@@ -160,6 +160,16 @@ export default class HttpControl {
             } else {
                 ad = true;
                 UserInfo.adTimes++;
+
+                if (adData?.data["hasClicked"]) {
+                    UserInfo.continuousAdTimes = 0;
+                } else {
+                    UserInfo.continuousAdTimes++;
+                }
+                HttpControl.inst.send({
+                    api: ApiHttp.adRecordNotClick,
+                    data: { times: UserInfo.continuousAdTimes },
+                });
             }
         }
 

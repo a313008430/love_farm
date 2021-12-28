@@ -27,6 +27,11 @@ export default class SettingView extends Core.gameScript {
             data: { adType: 3 },
         });
 
+        AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "bottom_advertisement" },
+        });
+
         this.userKey.text = `邀请码：${UserInfo.key}`;
 
         Core.observableProperty

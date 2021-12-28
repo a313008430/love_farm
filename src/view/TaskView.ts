@@ -178,6 +178,16 @@ export default class TaskView extends GameScript {
                         this.canClick = true;
                     });
 
+                if (adData?.data["hasClicked"]) {
+                    UserInfo.continuousAdTimes = 0;
+                } else {
+                    UserInfo.continuousAdTimes++;
+                }
+                HttpControl.inst.send({
+                    api: ApiHttp.adRecordNotClick,
+                    data: { times: UserInfo.continuousAdTimes },
+                });
+
                 break;
             case 1002:
             // adData = await AppCore.runAppFunction({
@@ -255,6 +265,10 @@ export default class TaskView extends GameScript {
                             })
                             .then(() => {
                                 TaskService.taskAddTimes(1010);
+                                AppCore.runAppFunction({
+                                    uri: AppEventMap.eventCount,
+                                    data: { type: "share" },
+                                });
                             });
                     }
                 });

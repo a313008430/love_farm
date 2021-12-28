@@ -521,7 +521,7 @@ export default class FieldComponent extends Core.gameScript {
             callBack: () => {},
         });
 
-        if (UserInfo.adTimes > 100) {
+        if (UserInfo.adTimes > 100 || UserInfo.continuousAdTimes > 20) {
             AppCore.runAppFunction({
                 uri: AppEventMap.ad,
                 data: { adType: 1 },
@@ -530,6 +530,15 @@ export default class FieldComponent extends Core.gameScript {
             AppCore.runAppFunction({
                 uri: AppEventMap.ad,
                 data: { adType: 3 },
+            });
+
+            AppCore.runAppFunction({
+                uri: AppEventMap.eventCount,
+                data: { type: "full_Screen" },
+            });
+            AppCore.runAppFunction({
+                uri: AppEventMap.eventCount,
+                data: { type: "bottom_advertisement" },
             });
         }
     }

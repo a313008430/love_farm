@@ -69,6 +69,10 @@ export default class FriendsRewardView extends Core.gameScript {
                             })
                             .then(() => {
                                 TaskService.taskAddTimes(1010);
+                                AppCore.runAppFunction({
+                                    uri: AppEventMap.eventCount,
+                                    data: { type: "share" },
+                                });
                             });
                     }
                 });

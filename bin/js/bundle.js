@@ -595,8 +595,8 @@
             resolve(null);
           }
         } else {
-          if (window["$App"] && window["$App"]["webRequest"]) {
-            window["$App"]["webRequest"](JSON.stringify(data));
+          if (window && window["webRequest"]) {
+            window["webRequest"](JSON.stringify(data));
             if (data.timestamp) {
               EventMap.set(data.timestamp, resolve);
             }
@@ -1082,6 +1082,7 @@
       this.guideData = "";
       this.days = 0;
       this.adTimes = 0;
+      this.continuousAdTimes = 0;
     }
     get ttt() {
       return this.orderLevel;
@@ -1271,6 +1272,7 @@
     ApiHttp2["withdrawRecord"] = "/withdraw/record";
     ApiHttp2["configClient"] = "/config/client";
     ApiHttp2["guide"] = "/guide";
+    ApiHttp2["adRecordNotClick"] = "/ad/record/not/click";
   })(ApiHttp || (ApiHttp = {}));
 
   // src/common/Heartbeat.ts
@@ -1380,7 +1382,8 @@
     }
     error(errorCode, data) {
       core_default.view.openHint({
-        text: `${data == null ? void 0 : data.message}`,
+        text: `${data == null ? void 0 : data.message} 
+ ${data == null ? void 0 : data.error}`,
         call: () => {
         }
       });
@@ -1414,6 +1417,7 @@
       UserInfo_default.withdraw = d.withdraw;
       UserInfo_default.days = d.days + 1;
       UserInfo_default.adTimes = d.userInfo.adTimes;
+      UserInfo_default.continuousAdTimes = d.userInfo.continuousAdTimes;
       PetService_default.init(d.pets);
       TaskService_default.init(d.tasks);
       LocalStorageService_default.setJSON("isLogin", true);
@@ -1453,6 +1457,7 @@
       UserInfo_default.guideData = "";
       UserInfo_default.days = 0;
       UserInfo_default.adTimes = 0;
+      UserInfo_default.continuousAdTimes = 0;
     }
     updateUserInfo(d) {
       UserInfo_default.gold = d.gold;
@@ -1466,7 +1471,7 @@
   var HttpDataControl_default = new HttpDataControl();
 
   // src/common/HttpControl.ts
-  var HttpControl = class {
+  var _HttpControl = class {
     constructor() {
       this.baseUrl = null;
       this.eventMap = new Map();
@@ -1570,6 +1575,15 @@
           } else {
             ad = true;
             UserInfo_default.adTimes++;
+            if (adData == null ? void 0 : adData.data["hasClicked"]) {
+              UserInfo_default.continuousAdTimes = 0;
+            } else {
+              UserInfo_default.continuousAdTimes++;
+            }
+            _HttpControl.inst.send({
+              api: ApiHttp.adRecordNotClick,
+              data: { times: UserInfo_default.continuousAdTimes }
+            });
           }
         }
         return new Promise((resolve, reject) => __async(this, null, function* () {
@@ -1623,6 +1637,7 @@
       console.log(e);
     }
   };
+  var HttpControl = _HttpControl;
   __decorateClass([
     Instance
   ], HttpControl, "inst", 2);
@@ -1643,7 +1658,7 @@
       this.costFont.value = this.landData.count + "";
       this.adBtn.disabled = !UserInfo_default.advertiseTimes;
       this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
-      if (UserInfo_default.adTimes > 100) {
+      if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
         AppCore.runAppFunction({
           uri: AppEventMap.ad,
           data: { adType: 2 }
@@ -1652,10 +1667,18 @@
           uri: AppEventMap.ad,
           data: { adType: 3 }
         });
+        AppCore.runAppFunction({
+          uri: AppEventMap.eventCount,
+          data: { type: "half_screen_advertisement" }
+        });
+        AppCore.runAppFunction({
+          uri: AppEventMap.eventCount,
+          data: { type: "bottom_advertisement" }
+        });
       }
     }
     onHdAwake() {
-      if (UserInfo_default.adTimes > 100) {
+      if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
         this.owner.getChildByName("center").centerY = -310;
       }
     }
@@ -1810,7 +1833,7 @@
       this.probability.text = `+${Number((nextLand.probability * 100).toFixed(2))}%`;
       this.adBtn.disabled = !UserInfo_default.advertiseTimes;
       this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
-      if (UserInfo_default.adTimes > 100) {
+      if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
         AppCore.runAppFunction({
           uri: AppEventMap.ad,
           data: { adType: 2 }
@@ -1819,10 +1842,18 @@
           uri: AppEventMap.ad,
           data: { adType: 3 }
         });
+        AppCore.runAppFunction({
+          uri: AppEventMap.eventCount,
+          data: { type: "half_screen_advertisement" }
+        });
+        AppCore.runAppFunction({
+          uri: AppEventMap.eventCount,
+          data: { type: "bottom_advertisement" }
+        });
       }
     }
     onHdAwake() {
-      if (UserInfo_default.adTimes > 100) {
+      if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
         this.owner.getChildByName("center").centerY = -310;
       }
     }
@@ -1940,6 +1971,10 @@
                 api: ApiHttp.friendShare
               }).then(() => {
                 TaskService_default.taskAddTimes(1010);
+                AppCore.runAppFunction({
+                  uri: AppEventMap.eventCount,
+                  data: { type: "share" }
+                });
               });
             }
           });
@@ -2367,7 +2402,7 @@
         callBack: () => {
         }
       });
-      if (UserInfo_default.adTimes > 100) {
+      if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
         AppCore.runAppFunction({
           uri: AppEventMap.ad,
           data: { adType: 1 }
@@ -2375,6 +2410,14 @@
         AppCore.runAppFunction({
           uri: AppEventMap.ad,
           data: { adType: 3 }
+        });
+        AppCore.runAppFunction({
+          uri: AppEventMap.eventCount,
+          data: { type: "full_Screen" }
+        });
+        AppCore.runAppFunction({
+          uri: AppEventMap.eventCount,
+          data: { type: "bottom_advertisement" }
         });
       }
     }
@@ -2868,7 +2911,7 @@
     }
     onClick(e) {
       console.log(e.target.name);
-      if (UserInfo_default.adTimes > 100) {
+      if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
         this.clickTimes++;
         if (!(this.clickTimes % 5)) {
           AppCore.runAppFunction({
@@ -2878,6 +2921,14 @@
           AppCore.runAppFunction({
             uri: AppEventMap.ad,
             data: { adType: 3 }
+          });
+          AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "full_Screen" }
+          });
+          AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "bottom_advertisement" }
           });
         }
       }
@@ -3183,6 +3234,10 @@
                       uri: AppEventMap.ad,
                       data: { adType: 1 }
                     });
+                    AppCore.runAppFunction({
+                      uri: AppEventMap.eventCount,
+                      data: { type: "full_Screen" }
+                    });
                   });
                 }
               },
@@ -3377,7 +3432,7 @@
         this.goFriend(null);
         this.updateHitLandAdd();
         if (this.stealAll.list.length) {
-          if (UserInfo_default.adTimes > 100) {
+          if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
             AppCore.runAppFunction({
               uri: AppEventMap.ad,
               data: { adType: 1 }
@@ -3385,6 +3440,14 @@
             AppCore.runAppFunction({
               uri: AppEventMap.ad,
               data: { adType: 3 }
+            });
+            AppCore.runAppFunction({
+              uri: AppEventMap.eventCount,
+              data: { type: "full_Screen" }
+            });
+            AppCore.runAppFunction({
+              uri: AppEventMap.eventCount,
+              data: { type: "bottom_advertisement" }
             });
           }
           core_default.view.open(Res_default.views.GatherDescView, {
@@ -4031,6 +4094,14 @@
         uri: AppEventMap.ad,
         data: { adType: 2 }
       });
+      AppCore.runAppFunction({
+        uri: AppEventMap.eventCount,
+        data: { type: "half_screen_advertisement" }
+      });
+      AppCore.runAppFunction({
+        uri: AppEventMap.eventCount,
+        data: { type: "bottom_advertisement" }
+      });
       switch (d.type) {
         case 1:
           this.order.visible = true;
@@ -4327,7 +4398,7 @@
       } else {
         this.confirmBtn.x = 458;
       }
-      if (UserInfo_default.adTimes > 100) {
+      if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
         AppCore.runAppFunction({
           uri: AppEventMap.ad,
           data: { adType: 2 }
@@ -4336,10 +4407,18 @@
           uri: AppEventMap.ad,
           data: { adType: 3 }
         });
+        AppCore.runAppFunction({
+          uri: AppEventMap.eventCount,
+          data: { type: "half_screen_advertisement" }
+        });
+        AppCore.runAppFunction({
+          uri: AppEventMap.eventCount,
+          data: { type: "bottom_advertisement" }
+        });
       }
     }
     onHdAwake() {
-      if (UserInfo_default.adTimes > 100) {
+      if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
         this.owner.getChildByName("center").centerY = -310;
       }
     }
@@ -5062,6 +5141,10 @@
       AppCore.runAppFunction({
         uri: AppEventMap.ad,
         data: { adType: 3 }
+      });
+      AppCore.runAppFunction({
+        uri: AppEventMap.eventCount,
+        data: { type: "bottom_advertisement" }
       });
       this.userKey.text = `\u9080\u8BF7\u7801\uFF1A${UserInfo_default.key}`;
       core_default.observableProperty.watch(UserInfo_default, this).key("avatar", (e) => {
@@ -5886,6 +5969,14 @@
         uri: AppEventMap.ad,
         data: { adType: 2 }
       });
+      AppCore.runAppFunction({
+        uri: AppEventMap.eventCount,
+        data: { type: "half_screen_advertisement" }
+      });
+      AppCore.runAppFunction({
+        uri: AppEventMap.eventCount,
+        data: { type: "bottom_advertisement" }
+      });
     }
     onClick(e) {
       switch (e.target.name) {
@@ -6060,6 +6151,15 @@
               TaskService_default.taskAddTimes(1012);
               this.canClick = true;
             });
+            if (adData == null ? void 0 : adData.data["hasClicked"]) {
+              UserInfo_default.continuousAdTimes = 0;
+            } else {
+              UserInfo_default.continuousAdTimes++;
+            }
+            HttpControl.inst.send({
+              api: ApiHttp.adRecordNotClick,
+              data: { times: UserInfo_default.continuousAdTimes }
+            });
             break;
           case 1002:
           case 1003:
@@ -6106,6 +6206,10 @@
                   api: ApiHttp.friendShare
                 }).then(() => {
                   TaskService_default.taskAddTimes(1010);
+                  AppCore.runAppFunction({
+                    uri: AppEventMap.eventCount,
+                    data: { type: "share" }
+                  });
                 });
               }
             });
@@ -6149,6 +6253,10 @@
       AppCore.runAppFunction({
         uri: AppEventMap.ad,
         data: { adType: 3 }
+      });
+      AppCore.runAppFunction({
+        uri: AppEventMap.eventCount,
+        data: { type: "bottom_advertisement" }
       });
     }
     onHdAwake() {
@@ -6251,6 +6359,10 @@
                   uri: AppEventMap.ad,
                   data: { adType: 1 }
                 });
+                AppCore.runAppFunction({
+                  uri: AppEventMap.eventCount,
+                  data: { type: "full_Screen" }
+                });
               }
               sellNum++;
             }
@@ -6303,7 +6415,7 @@
                 callBack: () => {
                 }
               });
-              if (UserInfo_default.adTimes > 100) {
+              if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
                 AppCore.runAppFunction({
                   uri: AppEventMap.ad,
                   data: { adType: 1 }
@@ -6311,6 +6423,14 @@
                 AppCore.runAppFunction({
                   uri: AppEventMap.ad,
                   data: { adType: 3 }
+                });
+                AppCore.runAppFunction({
+                  uri: AppEventMap.eventCount,
+                  data: { type: "full_Screen" }
+                });
+                AppCore.runAppFunction({
+                  uri: AppEventMap.eventCount,
+                  data: { type: "bottom_advertisement" }
                 });
               }
             }).catch(() => {

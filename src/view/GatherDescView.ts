@@ -45,6 +45,14 @@ export default class GatherDescView extends Core.gameScript {
             uri: AppEventMap.ad,
             data: { adType: 2 },
         });
+        AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "half_screen_advertisement" },
+        });
+        AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "bottom_advertisement" },
+        });
 
         switch (d.type) {
             case 1:

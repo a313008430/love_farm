@@ -80,6 +80,8 @@ interface NetInit extends NetBase {
         isFirstTime: number;
         guideData: string;
         adTimes: number;
+        /** 连续未点击广告次数 */
+        continuousAdTimes: number;
     };
     lands: [
         {
