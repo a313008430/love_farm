@@ -1493,7 +1493,7 @@
                   TaskService_default.taskAddTimes(1001);
                 }
               }
-              this.completeHandler(data, resolve, reject);
+              this.completeHandler(data, resolve, reject, xmlhttp);
               this.clearOneInEventMap(xmlhttp);
               break;
             default:
@@ -1507,7 +1507,7 @@
                   });
                 } else {
                   d.code = 999;
-                  this.completeHandler(d, resolve, reject);
+                  this.completeHandler(d, resolve, reject, xmlhttp);
                 }
                 this.clearOneInEventMap(xmlhttp);
               }
@@ -1516,7 +1516,7 @@
                   code: 404,
                   data: { message: "\u670D\u52A1\u5668\u672A\u54CD\u5E94\uFF0C\u8BF7\u91CD\u8BD5" },
                   uri: ""
-                }, resolve, reject);
+                }, resolve, reject, xmlhttp);
                 this.clearOneInEventMap(xmlhttp);
               }
               break;
@@ -1587,7 +1587,7 @@
         return new Promise((resolve, reject) => __async(this, null, function* () {
           const xhr = this.createXhr(resolve, reject, ad);
           this.eventMap.set(uri + sendDataString, xhr);
-          this.sendData.push(data);
+          this.sendData.push({ xhr, data });
           if (data == null ? void 0 : data.before) {
             data.before();
           }
@@ -1608,19 +1608,24 @@
         }));
       });
     }
-    completeHandler(e, resolve, reject) {
-      var _a, _b;
-      let len = this.sendData.length - 1;
+    completeHandler(e, resolve, reject, xhr) {
+      let curData;
+      for (let x = 0; x < this.sendData.length; x++) {
+        if (this.sendData[x].xhr == xhr) {
+          curData = this.sendData[x].data;
+          this.sendData.slice(x, 1);
+          break;
+        }
+      }
       if (e.code) {
         reject(e.code);
-        if ((_a = this.sendData[len]) == null ? void 0 : _a.error) {
-          this.sendData[len].error(e.code, e.data);
+        if (curData == null ? void 0 : curData.error) {
+          curData.error(e.code, e.data);
         }
         HttpDataControl_default.error(e.code, e.data);
         return console.error(e);
       } else {
-        let api = (_b = this.sendData[len]) == null ? void 0 : _b.api;
-        this.sendData.splice(len, 1);
+        let api = curData.api;
         console.log(`%c <== back %c${api} `, `color:#b8e994;font-weight:700;`, `color:#78e08f;font-weight:700;`, e.data);
         if (e.code === 0) {
           HttpDataControl_default.forward({
