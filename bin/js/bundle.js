@@ -1474,6 +1474,7 @@
   var _HttpControl = class {
     constructor() {
       this.baseUrl = null;
+      this.sendData = [];
       this.eventMap = new Map();
     }
     init(url) {
@@ -1525,12 +1526,10 @@
       return xmlhttp;
     }
     clearOneInEventMap(xml) {
-      Laya.timer.frameOnce(1, this, () => {
-        this.eventMap.forEach((e, v) => {
-          if (e == xml) {
-            this.eventMap.delete(v);
-          }
-        });
+      this.eventMap.forEach((e, v) => {
+        if (e == xml) {
+          this.eventMap.delete(v);
+        }
       });
     }
     send(data) {
@@ -1587,7 +1586,8 @@
         }
         return new Promise((resolve, reject) => __async(this, null, function* () {
           const xhr = this.createXhr(resolve, reject, ad);
-          this.sendData = data;
+          this.eventMap.set(uri + sendDataString, xhr);
+          this.sendData.push(data);
           if (data == null ? void 0 : data.before) {
             data.before();
           }
@@ -1605,24 +1605,26 @@
           xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
           xhr.setRequestHeader("Authorization", `Bearer ${LocalStorageService_default.getJSON().token}`);
           xhr.send(sendDataString);
-          this.eventMap.set(uri + sendDataString, xhr);
         }));
       });
     }
     completeHandler(e, resolve, reject) {
-      var _a;
+      var _a, _b;
+      let len = this.sendData.length - 1;
       if (e.code) {
         reject(e.code);
-        if ((_a = this.sendData) == null ? void 0 : _a.error) {
-          this.sendData.error(e.code, e.data);
+        if ((_a = this.sendData[len]) == null ? void 0 : _a.error) {
+          this.sendData[len].error(e.code, e.data);
         }
         HttpDataControl_default.error(e.code, e.data);
         return console.error(e);
       } else {
-        console.log(`%c <== back %c${this.sendData.api} `, `color:#b8e994;font-weight:700;`, `color:#78e08f;font-weight:700;`, e.data);
+        let api = (_b = this.sendData[len]) == null ? void 0 : _b.api;
+        this.sendData.splice(len, 1);
+        console.log(`%c <== back %c${api} `, `color:#b8e994;font-weight:700;`, `color:#78e08f;font-weight:700;`, e.data);
         if (e.code === 0) {
           HttpDataControl_default.forward({
-            api: this.sendData.api,
+            api,
             data: e.data,
             resolveEvent: resolve
           });
@@ -5860,10 +5862,12 @@
       if (data.times) {
         let times = data.times - userData.times;
         cell.getChildByName("times_box").visible = true;
-        cell.getChildByName("times_box").getChildByName("times").text = `\u5269\u4F59${times < 0 ? 0 : times}\u6B21`;
+        cell.getChildByName("times_box").getChildByName("times").text = `\u65B0\u624B\u5956\u52B1`;
         if (times <= 0) {
           cell.disabled = true;
         }
+        if (data.price > 0.3)
+          cell.getChildByName("times_box").visible = false;
       } else {
         cell.getChildByName("times_box").visible = false;
       }

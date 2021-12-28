@@ -800,12 +800,17 @@ export default class ShopView extends GameScript {
         if (data.times) {
             let times = data.times - userData.times;
             (cell.getChildByName("times_box") as Laya.Box).visible = true;
-            (cell.getChildByName("times_box").getChildByName("times") as Laya.Label).text = `剩余${
-                times < 0 ? 0 : times
-            }次`;
+            // (cell.getChildByName("times_box").getChildByName("times") as Laya.Label).text = `剩余${
+            //     times < 0 ? 0 : times
+            // }次`;
+            (
+                cell.getChildByName("times_box").getChildByName("times") as Laya.Label
+            ).text = `新手奖励`;
             if (times <= 0) {
                 cell.disabled = true;
             }
+
+            if (data.price > 0.3) (cell.getChildByName("times_box") as Laya.Box).visible = false;
         } else {
             (cell.getChildByName("times_box") as Laya.Box).visible = false;
         }
