@@ -1383,7 +1383,7 @@
     error(errorCode, data) {
       core_default.view.openHint({
         text: `${data == null ? void 0 : data.message} 
- ${data == null ? void 0 : data.error}`,
+ ${(data == null ? void 0 : data.error) || ""}`,
         call: () => {
         }
       });
@@ -1490,7 +1490,6 @@
               if (!data.code) {
                 if (ad) {
                   TaskService_default.taskAddTimes(1001);
-                  TaskService_default.taskAddTimes(1012);
                 }
               }
               this.completeHandler(data, resolve, reject);
@@ -3093,6 +3092,25 @@
         }
       });
     }
+    sow(showView = false, d) {
+      var _a, _b;
+      let empty = true;
+      for (let x = 0, l = this.landList.length; x < l; x++) {
+        if (!((_b = (_a = this.landList[x]) == null ? void 0 : _a.data) == null ? void 0 : _b.productId)) {
+          if (showView) {
+            this.landList[x].sowPlant(d);
+          } else {
+            this.landList[x].sow();
+          }
+          empty = false;
+          break;
+        }
+      }
+      if (empty) {
+        core_default.view.openHint({ text: "\u6CA1\u6709\u7A7A\u7684\u571F\u5730\u54E6\uFF01", call: () => {
+        } });
+      }
+    }
     getEmptyLandId() {
       console.log(this.landList);
       for (let x = 0, l = this.landList.length; x < l; x++) {
@@ -3695,6 +3713,9 @@
   };
   var MainView = _MainView;
   __decorateClass([
+    core_default.eventOn(EventMaps.plant_sow)
+  ], MainView.prototype, "sow", 1);
+  __decorateClass([
     core_default.eventOn(EventMaps.open_friend)
   ], MainView.prototype, "openFriend", 1);
   __decorateClass([
@@ -4240,8 +4261,8 @@
       this.nodeBox = null;
       this.textList = [
         "\u60A8\u7684\u94B1\u5305\u4F59\u989D",
-        "\u8FD9\u91CC\u662F\u5E02\u626C\u8BA2\u5355,\u6309\u8981\u6C42\u5B8C\u6210\u540E\u4F1A\u81EA\u52A8\u8FDB\u5165\u4E0B\u4E00\u7EA7\u8BA2\u5355\u3002",
         "\u5B8C\u6210\u8BA2\u5355\u83B7\u5F97\u94BB\u77F3\u53EF\u4EE5\u5151\u6362\u7EA2\u5305\u3002",
+        "\u8FD9\u91CC\u662F\u4ED3\u5E93,\u6536\u83B7\u7684\u4F5C\u7269\u90FD\u5B58\u653E\u5728\u8FD9\u91CC\uFF0C\u51FA\u552E\u4F5C\u7269\u4E5F\u5728\u8FD9\u91CC\u3002",
         "\u8FD9\u91CC\u662F\u96C6\u5E02,\u8D2D\u4E70\u79CD\u5B50\u3001\u72D7\u7CAE\u7684\u5730\u65B9\u8FD8\u6709\u6700\u91CD\u8981\u7684\u94B1\u5E84\u4E5F\u5728\u8FD9\u91CC,\u63D0\u73B0\u7684\u65F6\u5019\u60A8\u4F1A\u7ECF\u5E38\u6765\u7684\u3002",
         "\u571F\u5730\u5347\u7EA7\u5728\u8FD9\u91CC,\u571F\u5730\u7B49\u7EA7\u8D8A\u9AD8,\u8D8A\u80A5\u6C83\uFF0C\u6536\u83B7\u5C31\u8D8A\u591A\u3002",
         "\u8FD9\u91CC\u662F\u60A8\u7684\u519C\u573A\u3002\u79CD\u690D\u3001\u6536\u83B7\u90FD\u5728\u8FD9\u91CC,\u6084\u6084\u544A\u8BC9\u4F60\u8FD9\u5757\u5730\u6536\u83B7\u7684\u65F6\u5019\u53EF\u80FD\u4F1A\u4EA7\u51FA\u94BB\u77F3\u54E6\u3002",
@@ -6143,12 +6164,15 @@
             }
             HttpControl.inst.send({
               api: ApiHttp.ad,
-              data: {}
+              data: {
+                taskId: id == 1012 ? 1012 : null
+              }
             }).then((d) => {
               core_default.eventGlobal.event(EventMaps.play_ad_get_reward, [target, d.adReward]);
               this.taskList.refresh();
               TaskService_default.taskAddTimes(1001);
-              TaskService_default.taskAddTimes(1012);
+              if (id == 1012)
+                TaskService_default.taskAddTimes(1012);
               this.canClick = true;
             });
             if (adData == null ? void 0 : adData.data["hasClicked"]) {

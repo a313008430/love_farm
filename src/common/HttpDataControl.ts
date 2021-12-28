@@ -83,7 +83,7 @@ class HttpDataControl {
     error(errorCode: number, data: any) {
         Core.view.openHint({
             // text: `errorCode ${errorCode} ${JSON.stringify(data)}`,
-            text: `${data?.message} \n ${data?.error}`,
+            text: `${data?.message} \n ${data?.error || ""}`,
             call: () => {},
         });
     }

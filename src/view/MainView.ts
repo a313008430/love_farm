@@ -747,6 +747,27 @@ export default class MainView extends Core.gameScript {
         }
     }
 
+    /** 种菜 */
+    @Core.eventOn(EventMaps.plant_sow)
+    private sow(showView: boolean = false, d: PlantDataBase) {
+        let empty = true;
+        for (let x = 0, l = this.landList.length; x < l; x++) {
+            if (!this.landList[x]?.data?.productId) {
+                if (showView) {
+                    this.landList[x].sowPlant(d);
+                } else {
+                    this.landList[x].sow();
+                }
+
+                empty = false;
+                break;
+            }
+        }
+        if (empty) {
+            Core.view.openHint({ text: "没有空的土地哦！", call: () => {} });
+        }
+    }
+
     getEmptyLandId() {
         console.log(this.landList);
         for (let x = 0, l = this.landList.length; x < l; x++) {

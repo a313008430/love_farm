@@ -168,13 +168,15 @@ export default class TaskView extends GameScript {
                 HttpControl.inst
                     .send({
                         api: ApiHttp.ad,
-                        data: {},
+                        data: {
+                            taskId: id == 1012 ? 1012 : null,
+                        },
                     })
                     .then((d: { adReward: ReturnUserInfo["adReward"] }) => {
                         Core.eventGlobal.event(EventMaps.play_ad_get_reward, [target, d.adReward]);
                         this.taskList.refresh();
                         TaskService.taskAddTimes(1001);
-                        TaskService.taskAddTimes(1012);
+                        if (id == 1012) TaskService.taskAddTimes(1012);
                         this.canClick = true;
                     });
 

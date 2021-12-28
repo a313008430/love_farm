@@ -61,7 +61,6 @@ export default class HttpControl {
                         if (!data.code) {
                             if (ad) {
                                 TaskService.taskAddTimes(1001);
-                                TaskService.taskAddTimes(1012);
                             }
                         }
 
