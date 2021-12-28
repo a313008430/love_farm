@@ -1658,21 +1658,23 @@
       this.adBtn.disabled = !UserInfo_default.advertiseTimes;
       this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
       if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
-        AppCore.runAppFunction({
-          uri: AppEventMap.ad,
-          data: { adType: 2 }
-        });
-        AppCore.runAppFunction({
-          uri: AppEventMap.ad,
-          data: { adType: 3 }
-        });
-        AppCore.runAppFunction({
-          uri: AppEventMap.eventCount,
-          data: { type: "half_screen_advertisement" }
-        });
-        AppCore.runAppFunction({
-          uri: AppEventMap.eventCount,
-          data: { type: "bottom_advertisement" }
+        Laya.timer.once(300, this, () => {
+          AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 2 }
+          });
+          AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 3 }
+          });
+          AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "half_screen_advertisement" }
+          });
+          AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "bottom_advertisement" }
+          });
         });
       }
     }
@@ -1833,21 +1835,23 @@
       this.adBtn.disabled = !UserInfo_default.advertiseTimes;
       this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
       if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
-        AppCore.runAppFunction({
-          uri: AppEventMap.ad,
-          data: { adType: 2 }
-        });
-        AppCore.runAppFunction({
-          uri: AppEventMap.ad,
-          data: { adType: 3 }
-        });
-        AppCore.runAppFunction({
-          uri: AppEventMap.eventCount,
-          data: { type: "half_screen_advertisement" }
-        });
-        AppCore.runAppFunction({
-          uri: AppEventMap.eventCount,
-          data: { type: "bottom_advertisement" }
+        Laya.timer.once(300, this, () => {
+          AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 2 }
+          });
+          AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 3 }
+          });
+          AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "half_screen_advertisement" }
+          });
+          AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "bottom_advertisement" }
+          });
         });
       }
     }
@@ -4107,21 +4111,23 @@
       this.data = d;
       this.stealGet.vScrollBarSkin = null;
       this.order.vScrollBarSkin = null;
-      AppCore.runAppFunction({
-        uri: AppEventMap.ad,
-        data: { adType: 3 }
-      });
-      AppCore.runAppFunction({
-        uri: AppEventMap.ad,
-        data: { adType: 2 }
-      });
-      AppCore.runAppFunction({
-        uri: AppEventMap.eventCount,
-        data: { type: "half_screen_advertisement" }
-      });
-      AppCore.runAppFunction({
-        uri: AppEventMap.eventCount,
-        data: { type: "bottom_advertisement" }
+      Laya.timer.once(300, this, () => {
+        AppCore.runAppFunction({
+          uri: AppEventMap.ad,
+          data: { adType: 3 }
+        });
+        AppCore.runAppFunction({
+          uri: AppEventMap.ad,
+          data: { adType: 2 }
+        });
+        AppCore.runAppFunction({
+          uri: AppEventMap.eventCount,
+          data: { type: "half_screen_advertisement" }
+        });
+        AppCore.runAppFunction({
+          uri: AppEventMap.eventCount,
+          data: { type: "bottom_advertisement" }
+        });
       });
       switch (d.type) {
         case 1:
@@ -4420,21 +4426,23 @@
         this.confirmBtn.x = 458;
       }
       if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
-        AppCore.runAppFunction({
-          uri: AppEventMap.ad,
-          data: { adType: 2 }
-        });
-        AppCore.runAppFunction({
-          uri: AppEventMap.ad,
-          data: { adType: 3 }
-        });
-        AppCore.runAppFunction({
-          uri: AppEventMap.eventCount,
-          data: { type: "half_screen_advertisement" }
-        });
-        AppCore.runAppFunction({
-          uri: AppEventMap.eventCount,
-          data: { type: "bottom_advertisement" }
+        Laya.timer.once(300, this, () => {
+          AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 2 }
+          });
+          AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 3 }
+          });
+          AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "half_screen_advertisement" }
+          });
+          AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "bottom_advertisement" }
+          });
         });
       }
     }
@@ -5982,21 +5990,23 @@
       if (UserInfo_default.advertiseTimes <= 0) {
         this.speedUpBtn.disabled = true;
       }
-      AppCore.runAppFunction({
-        uri: AppEventMap.ad,
-        data: { adType: 3 }
-      });
-      AppCore.runAppFunction({
-        uri: AppEventMap.ad,
-        data: { adType: 2 }
-      });
-      AppCore.runAppFunction({
-        uri: AppEventMap.eventCount,
-        data: { type: "half_screen_advertisement" }
-      });
-      AppCore.runAppFunction({
-        uri: AppEventMap.eventCount,
-        data: { type: "bottom_advertisement" }
+      Laya.timer.once(300, this, () => {
+        AppCore.runAppFunction({
+          uri: AppEventMap.ad,
+          data: { adType: 3 }
+        });
+        AppCore.runAppFunction({
+          uri: AppEventMap.ad,
+          data: { adType: 2 }
+        });
+        AppCore.runAppFunction({
+          uri: AppEventMap.eventCount,
+          data: { type: "half_screen_advertisement" }
+        });
+        AppCore.runAppFunction({
+          uri: AppEventMap.eventCount,
+          data: { type: "bottom_advertisement" }
+        });
       });
     }
     onClick(e) {

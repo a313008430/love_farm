@@ -42,22 +42,24 @@ export default class FieldLevelUpView extends GameScript {
         this.adBtn.active = Boolean(UserInfo.advertiseTimes);
 
         if (UserInfo.adTimes > 100 || UserInfo.continuousAdTimes > 20) {
-            AppCore.runAppFunction({
-                uri: AppEventMap.ad,
-                data: { adType: 2 },
-            });
+            Laya.timer.once(300, this, () => {
+                AppCore.runAppFunction({
+                    uri: AppEventMap.ad,
+                    data: { adType: 2 },
+                });
 
-            AppCore.runAppFunction({
-                uri: AppEventMap.ad,
-                data: { adType: 3 },
-            });
-            AppCore.runAppFunction({
-                uri: AppEventMap.eventCount,
-                data: { type: "half_screen_advertisement" },
-            });
-            AppCore.runAppFunction({
-                uri: AppEventMap.eventCount,
-                data: { type: "bottom_advertisement" },
+                AppCore.runAppFunction({
+                    uri: AppEventMap.ad,
+                    data: { adType: 3 },
+                });
+                AppCore.runAppFunction({
+                    uri: AppEventMap.eventCount,
+                    data: { type: "half_screen_advertisement" },
+                });
+                AppCore.runAppFunction({
+                    uri: AppEventMap.eventCount,
+                    data: { type: "bottom_advertisement" },
+                });
             });
         }
     }

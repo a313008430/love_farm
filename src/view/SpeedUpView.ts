@@ -29,22 +29,23 @@ export default class SpeedUpView extends Core.gameScript {
         if (UserInfo.advertiseTimes <= 0) {
             this.speedUpBtn.disabled = true;
         }
-
-        AppCore.runAppFunction({
-            uri: AppEventMap.ad,
-            data: { adType: 3 },
-        });
-        AppCore.runAppFunction({
-            uri: AppEventMap.ad,
-            data: { adType: 2 },
-        });
-        AppCore.runAppFunction({
-            uri: AppEventMap.eventCount,
-            data: { type: "half_screen_advertisement" },
-        });
-        AppCore.runAppFunction({
-            uri: AppEventMap.eventCount,
-            data: { type: "bottom_advertisement" },
+        Laya.timer.once(300, this, () => {
+            AppCore.runAppFunction({
+                uri: AppEventMap.ad,
+                data: { adType: 3 },
+            });
+            AppCore.runAppFunction({
+                uri: AppEventMap.ad,
+                data: { adType: 2 },
+            });
+            AppCore.runAppFunction({
+                uri: AppEventMap.eventCount,
+                data: { type: "half_screen_advertisement" },
+            });
+            AppCore.runAppFunction({
+                uri: AppEventMap.eventCount,
+                data: { type: "bottom_advertisement" },
+            });
         });
     }
 

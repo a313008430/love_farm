@@ -37,21 +37,23 @@ export default class GatherDescView extends Core.gameScript {
         this.stealGet.vScrollBarSkin = null;
         this.order.vScrollBarSkin = null;
 
-        AppCore.runAppFunction({
-            uri: AppEventMap.ad,
-            data: { adType: 3 },
-        });
-        AppCore.runAppFunction({
-            uri: AppEventMap.ad,
-            data: { adType: 2 },
-        });
-        AppCore.runAppFunction({
-            uri: AppEventMap.eventCount,
-            data: { type: "half_screen_advertisement" },
-        });
-        AppCore.runAppFunction({
-            uri: AppEventMap.eventCount,
-            data: { type: "bottom_advertisement" },
+        Laya.timer.once(300, this, () => {
+            AppCore.runAppFunction({
+                uri: AppEventMap.ad,
+                data: { adType: 3 },
+            });
+            AppCore.runAppFunction({
+                uri: AppEventMap.ad,
+                data: { adType: 2 },
+            });
+            AppCore.runAppFunction({
+                uri: AppEventMap.eventCount,
+                data: { type: "half_screen_advertisement" },
+            });
+            AppCore.runAppFunction({
+                uri: AppEventMap.eventCount,
+                data: { type: "bottom_advertisement" },
+            });
         });
 
         switch (d.type) {
