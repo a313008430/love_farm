@@ -1483,7 +1483,8 @@ export default class MainView extends Core.gameScript {
     private updateFriendView(d?: ReturnNeighbor, friendData?: FriendData) {
         const nickname = d?.nickname,
             pedId = d?.dogId,
-            avatar = friendData?.avatar;
+            avatar = friendData?.avatar || d?.avatar;
+        console.log(avatar);
 
         const topBox = this.orderBox.parent as Laya.Box,
             moneyBox = topBox.getChildByName("money_box") as Laya.Box,
