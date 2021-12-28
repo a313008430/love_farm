@@ -556,11 +556,12 @@
     BuildType2["online"] = "online";
     BuildType2["debug"] = "debug";
   })(BuildType || (BuildType = {}));
-  console.log("online");
+  console.log("test");
   var baseUrl = "http://game.ahd168.com:3000";
-  switch ("online") {
+  switch ("test") {
     case BuildType.debug:
       baseUrl = "//192.168.101.50:3000";
+      baseUrl = "//192.168.101.50:3100";
       break;
     case BuildType.online:
       baseUrl = "http://game.ahd168.com:3100";
@@ -3607,7 +3608,8 @@
       this.updateFriendView(d, friendData);
     }
     updateFriendView(d, friendData) {
-      const nickname = d == null ? void 0 : d.nickname, pedId = d == null ? void 0 : d.dogId, avatar = friendData == null ? void 0 : friendData.avatar;
+      const nickname = d == null ? void 0 : d.nickname, pedId = d == null ? void 0 : d.dogId, avatar = (friendData == null ? void 0 : friendData.avatar) || (d == null ? void 0 : d.avatar);
+      console.log(avatar);
       const topBox = this.orderBox.parent, moneyBox = topBox.getChildByName("money_box"), countDown = topBox.getChildByName("count_down"), orderBox = this.orderBox.getChildByName("order_box"), friendName = this.orderBox.getChildByName("friend_name"), bottomList = [
         this.bottomBox.getChildByName("task"),
         this.bottomBox.getChildByName("order_box"),
@@ -4523,7 +4525,7 @@
     }
     getBuildType() {
       let buildType = null;
-      switch ("online") {
+      switch ("test") {
         case BuildType.debug:
           buildType = 3;
           break;
@@ -4667,7 +4669,7 @@
             return;
           }
           let testK = location.search.match(/\?id=(.+)/), testKe = null;
-          if (testK && testK.length > 1 && BuildType.online != "online") {
+          if (testK && testK.length > 1 && BuildType.online != "test") {
             testKe = testK[1];
           }
           let wxOpenId = testKe, nickname = "", avatar = "";
@@ -6631,7 +6633,7 @@
         Laya.Stat.show();
       Laya.alertGlobalError(true);
       Laya.stage.bgColor = "#ffffff";
-      BuildType.debug == "online" && GameConfig.stat && Laya.Stat.show();
+      BuildType.debug == "test" && GameConfig.stat && Laya.Stat.show();
       Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
     }
     onVersionLoaded() {
