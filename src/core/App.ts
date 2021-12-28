@@ -48,10 +48,10 @@ export default class AppCore {
                 }
             } else {
                 // alert(JSON.stringify(data));
-                // alert(window && window["webRequest"]);
-                if (window && window["webRequest"]) {
+                // alert(window["$App"] && window["$App"]["webRequest"]);
+                if (window["$App"] && window["$App"]["webRequest"]) {
                     // return new Promise((resolve) => {
-                    window["webRequest"](JSON.stringify(data));
+                    window["$App"]["webRequest"](JSON.stringify(data));
                     // console.log(`send => ${data}`);
                     // alert(`send => ${JSON.stringify(data)}`);
                     if (data.timestamp) {

@@ -595,8 +595,8 @@
             resolve(null);
           }
         } else {
-          if (window && window["webRequest"]) {
-            window["webRequest"](JSON.stringify(data));
+          if (window["$App"] && window["$App"]["webRequest"]) {
+            window["$App"]["webRequest"](JSON.stringify(data));
             if (data.timestamp) {
               EventMap.set(data.timestamp, resolve);
             }
