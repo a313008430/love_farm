@@ -7,7 +7,6 @@ import {
     OrderBase,
     PetBase,
     PlantBase,
-    RewardBase,
     RewardCurrencyBase,
     SignInBase,
     TaskBase,
@@ -173,7 +172,12 @@ const TablePropertyEvent = {
                     id: "withdrawal_times",
                     value: Tools.parseString(d.value as string).map((v: any) => {
                         v = Tools.parseString(v, ":");
-                        return { price: Number(v[0]), times: Number(v[1]) };
+                        return {
+                            price: Number(v[0]) || 0,
+                            times: Number(v[1]) || 0,
+                            inviteAmount: Number(v[2]) || 0,
+                            orderLv: Number(v[3]) || 0,
+                        };
                     }),
                 };
         }

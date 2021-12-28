@@ -23,7 +23,7 @@ let resWatch = chokidar.watch(["laya/pages/**/*.scene", "bin/res/**/*"], {
     },
 });
 
-if (process.argv.includes("debug")) {
+if (process.argv.includes(buildType.debug) || process.argv.includes(buildType.debug_test_start)) {
     resWatch.once("ready", (eventName) => {
         resWatch.on("all", (eventName) => {
             CreateResTS();

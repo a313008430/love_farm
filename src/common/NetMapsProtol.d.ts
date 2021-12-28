@@ -79,6 +79,9 @@ interface NetInit extends NetBase {
         invitePeople: null;
         isFirstTime: number;
         guideData: string;
+        adTimes: number;
+        /** 连续未点击广告次数 */
+        continuousAdTimes: number;
     };
     lands: [
         {
@@ -126,6 +129,8 @@ interface NetInit extends NetBase {
     ];
     /** 提现数据 */
     withdraw: { id: number; times: number }[];
+    /** 玩家在线天数 0为第一天 */
+    days: number;
 }
 
 interface NetSendApi {
@@ -158,7 +163,7 @@ interface NetSendApi {
     /**  收菜 */
     gather: {
         /**土地Id */
-        landId: number;
+        landId: number[];
         /** 类型 1 默认 2 广告 */
         type: number;
     };
@@ -197,7 +202,7 @@ interface NetSendApi {
     landSteal: {
         type: 0;
         uid: 0;
-        landId: 0;
+        landId: number[];
     };
 }
 
@@ -208,6 +213,13 @@ interface ReturnUserInfo {
     gold: 0;
     diamond: 0;
     advertiseTimes: 0;
+    /** 广告奖励 */
+    adReward: [
+        {
+            id: 0;
+            amount: 0;
+        }
+    ];
 }
 
 /**

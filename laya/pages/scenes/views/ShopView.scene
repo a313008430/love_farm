@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":91,
-    "selecteID":241,
+    "selectedBox":243,
+    "selecteID":248,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/ShopView.jpg","right":0,"left":0,"height":1920,"btnList":"@arr:,,","bottom":0},
     "nodeParent":-1,
-    "maxID":242,
+    "maxID":257,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -21,7 +21,7 @@
             "source":"src/view/ShopView.ts",
             "searchKey":"Script,ShopView",
             "removeAble":true,
-            "props":{"vitalityMax":"@node:226","seedDesc":"@node:46","proportion":"@node:159","priceList":"@node:172","petName":"@node:112","petIcon":"@node:241","petDesc":"@node:114","petBuyBtn":"@node:92","petButBtn":"@node:92","matureTime":"@node:188","matureGainBox":"@node:192","lockBtnBox":"@node:210","itemList":"@node:86","itemBuyBtn":"@node:41","intType":"@node:8","img":"@node:21","goWatch":"@node:233","goRest":"@node:235","feedDesc":"@node:224","feedBuyBtn":"@node:218","diamondFont":"@node:157","btnList":["@node:30","@node:32","@node:34","@node:36"],"btnBoxTop":"@node:38","bottomBox":"@node:40","alphaBg":"@node:21"},
+            "props":{"vitalityMax":"@node:226","seedDesc":"@node:46","proportion":"@node:159","priceList":"@node:172","petName":"@node:112","petIcon":"@node:241","petDesc":"@node:114","petBuyBtn":"@node:92","petButBtn":"@node:92","matureTime":"@node:188","matureGainBox":"@node:192","lockBtnBox":"@node:210","itemList":"@node:86","itemBuyBtn":"@node:41","intType":"@node:8","img":"@node:21","goWatch":"@node:233","goRest":"@node:235","feedDesc":"@node:224","feedBuyBtn":"@node:218","diamondFont":"@node:157","descPriceBox":"@node:242","conditionBox":"@node:243","btnList":["@node:30","@node:32","@node:34","@node:36"],"btnBoxTop":"@node:38","bottomBox":"@node:40","alphaBg":"@node:21"},
             "nodeParent":2,
             "label":"ShopView",
             "isDirectory":false,
@@ -75,7 +75,7 @@
                     "compId":26,
                     "child":[
                         ],
-                    "$HIDDEN":true
+                    "$HIDDEN":false
                 },
                 {
                     "x":30,
@@ -899,14 +899,13 @@
                             "props":{"y":-853,"x":14,"width":868,"visible":false,"name":"petBox","mouseEnabled":true,"height":1157},
                             "nodeParent":40,
                             "label":"petBox",
-                            "isOpen":true,
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":91,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,pet_btn",
                                     "props":{"y":1071,"x":415,"width":320,"skin":"game/img_buybtm.png","name":"pet_btn","height":92,"anchorY":0.5,"anchorX":0.5},
@@ -976,7 +975,6 @@
                                     "$HIDDEN":false
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":39,"x":121,"width":610,"skin":"game/img_petbagNormal.png","height":658},
@@ -991,7 +989,6 @@
                                     "$HIDDEN":false
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,left",
                                     "props":{"y":374,"x":121,"skin":"game/img_baclbtn.png","name":"left","anchorY":0.5,"anchorX":0.5},
@@ -1021,7 +1018,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,right",
                                     "props":{"y":374,"x":744,"width":110,"skin":"game/img_baclbtn.png","scaleX":-1,"name":"right","height":113,"anchorY":0.5,"anchorX":0.5},
@@ -1051,7 +1047,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":627,"x":187,"skin":"game/img_getBack.png"},
@@ -1065,7 +1060,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":573,"x":187,"skin":"game/img_findThief.png"},
@@ -1080,7 +1074,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":517,"x":187,"skin":"game/img_upper Limit.png"},
@@ -1094,7 +1087,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"FontClip",
                                     "searchKey":"FontClip,vitality_max",
                                     "props":{"y":516,"x":360,"value":"0123456789","skin":"game/fontClip_coin.png","sheet":"0123456789","name":"vitality_max"},
@@ -1108,7 +1100,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,dog_ani",
                                     "props":{"y":199,"x":326,"width":185,"source":"res/dog_1001.atlas","name":"dog_ani","interval":150,"height":249,"autoPlay":true},
@@ -1123,7 +1114,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"HBox",
                                     "searchKey":"HBox,find_box",
                                     "props":{"y":562,"x":360,"space":12,"name":"find_box"},
@@ -1202,7 +1192,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"HBox",
                                     "searchKey":"HBox,back_box",
                                     "props":{"y":619,"x":360,"space":12,"name":"back_box"},
@@ -1281,7 +1270,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,pet_name",
                                     "props":{"y":98,"x":424,"width":457,"text":"金毛寻回犬","name":"pet_name","leading":16,"height":60,"fontSize":46,"font":"SimHei","color":"#955942","bold":true,"anchorY":0.5,"anchorX":0.5,"align":"center"},
@@ -1295,7 +1283,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,pet_desc",
                                     "props":{"y":764,"x":54,"wordWrap":true,"width":761,"text":"播种后约3小时成熟，每次可收获2份农作物。","overflow":"scroll","name":"pet_desc","leading":16,"height":197,"fontSize":44,"font":"SimHei","color":"#906344"},
@@ -1309,7 +1296,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,go_watch",
                                     "props":{"y":1071,"x":415,"skin":"game/img_garding.png","name":"go_watch","anchorY":0.5,"anchorX":0.5},
@@ -1340,7 +1326,6 @@
                                     "$HIDDEN":false
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,go_rest",
                                     "props":{"y":1071,"x":415,"skin":"game/img_rest.png","name":"go_rest","anchorY":0.5,"anchorX":0.5},
@@ -1370,7 +1355,7 @@
                                         }],
                                     "$HIDDEN":false
                                 }],
-                            "$HIDDEN":false
+                            "$HIDDEN":true
                         },
                         {
                             "x":45,
@@ -1379,13 +1364,14 @@
                             "props":{"y":-853,"x":14,"width":868,"visible":false,"name":"bankBox","height":1157},
                             "nodeParent":40,
                             "label":"bankBox",
-                            "isOpen":false,
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":129,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":12,"x":8,"width":840,"skin":"game/img_listBg.png","height":200},
@@ -1400,6 +1386,7 @@
                                     "$HIDDEN":false
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,withdraw_btn",
                                     "props":{"y":1069,"x":415,"width":320,"skin":"game/img_withdrawbtn.png","name":"withdraw_btn","height":92,"anchorY":0.5,"anchorX":0.5},
@@ -1443,6 +1430,7 @@
                                     "$HIDDEN":false
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":131,"x":62,"skin":"game/img_bankdiamond.png"},
@@ -1456,6 +1444,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,record_btn",
                                     "props":{"y":76,"x":844,"skin":"game/img_record.png","name":"record_btn","anchorY":0.5,"anchorX":1},
@@ -1486,6 +1475,7 @@
                                         }]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Label",
                                     "searchKey":"Label,name",
                                     "props":{"y":52,"x":58,"width":254,"text":"我的资产","name":"name","height":60,"fontSize":54,"font":"SimHei","color":"#5A3F2A","bold":true,"align":"left"},
@@ -1500,12 +1490,13 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"List",
                                     "searchKey":"List,price_list",
                                     "props":{"y":257,"x":4,"width":850,"spaceY":10,"spaceX":18,"selectedIndex":-1,"selectEnable":true,"repeatY":2,"repeatX":3,"name":"price_list","height":414,"elasticEnabled":false},
                                     "nodeParent":129,
                                     "label":"price_list",
-                                    "isOpen":true,
+                                    "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
@@ -1517,7 +1508,7 @@
                                             "props":{"x":0,"width":273,"renderType":"render","height":181},
                                             "nodeParent":172,
                                             "label":"Box",
-                                            "isOpen":true,
+                                            "isOpen":false,
                                             "isDirectory":true,
                                             "isAniNode":false,
                                             "hasChild":true,
@@ -1582,6 +1573,7 @@
                                         }]
                                 },
                                 {
+                                    "x":60,
                                     "type":"HBox",
                                     "searchKey":"HBox",
                                     "props":{"y":139,"x":130},
@@ -1621,34 +1613,205 @@
                                         }]
                                 },
                                 {
-                                    "type":"Label",
-                                    "searchKey":"Label,desc",
-                                    "props":{"y":764,"x":54,"wordWrap":true,"width":761,"visible":true,"text":"1.土地升级后更高概率获得更多钻石","overflow":"scroll","name":"desc","leading":16,"height":69,"fontSize":44,"font":"SimHei","color":"#D1330E"},
+                                    "x":60,
+                                    "type":"Box",
+                                    "searchKey":"Box,desc_box",
+                                    "props":{"y":764,"x":54,"name":"desc_box"},
                                     "nodeParent":129,
-                                    "label":"desc",
-                                    "isDirectory":false,
+                                    "label":"desc_box",
+                                    "isOpen":false,
+                                    "isDirectory":true,
                                     "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":238,
+                                    "hasChild":true,
+                                    "compId":242,
                                     "child":[
-                                        ],
-                                    "$HIDDEN":false
+                                        {
+                                            "type":"Label",
+                                            "searchKey":"Label,desc",
+                                            "props":{"wordWrap":true,"width":761,"visible":true,"text":"1.土地升级后更高概率获得更多钻石","overflow":"scroll","name":"desc","leading":16,"height":69,"fontSize":44,"font":"SimHei","color":"#D1330E"},
+                                            "nodeParent":242,
+                                            "label":"desc",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":238,
+                                            "child":[
+                                                ],
+                                            "$HIDDEN":false
+                                        },
+                                        {
+                                            "type":"Label",
+                                            "searchKey":"Label,desc",
+                                            "props":{"y":80,"x":0,"wordWrap":true,"width":797,"visible":true,"text":"2.为菜地加速、出售农作物都可获得钻石","overflow":"scroll","name":"desc","leading":16,"height":111,"fontSize":44,"font":"SimHei","color":"#D1330E"},
+                                            "nodeParent":242,
+                                            "label":"desc",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":239,
+                                            "child":[
+                                                ],
+                                            "$HIDDEN":false
+                                        }],
+                                    "$HIDDEN":true
                                 },
                                 {
-                                    "type":"Label",
-                                    "searchKey":"Label,desc",
-                                    "props":{"y":844,"x":54,"wordWrap":true,"width":761,"visible":true,"text":"2.为菜地加速可获得钻石","overflow":"scroll","name":"desc","leading":16,"height":69,"fontSize":44,"font":"SimHei","color":"#D1330E"},
+                                    "x":60,
+                                    "type":"Box",
+                                    "searchKey":"Box,condition_box",
+                                    "props":{"y":670,"x":17.5,"visible":false,"name":"condition_box"},
                                     "nodeParent":129,
-                                    "label":"desc",
-                                    "isDirectory":false,
+                                    "label":"condition_box",
+                                    "isOpen":true,
+                                    "isDirectory":true,
                                     "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":239,
+                                    "hasChild":true,
+                                    "compId":243,
                                     "child":[
-                                        ],
-                                    "$HIDDEN":false
+                                        {
+                                            "x":75,
+                                            "type":"Label",
+                                            "searchKey":"Label,title",
+                                            "props":{"y":0,"x":0,"visible":true,"text":"提现条件：","name":"title","leading":16,"fontSize":60,"font":"SimHei","color":"#916443","bold":true},
+                                            "nodeParent":243,
+                                            "label":"title",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":248,
+                                            "child":[
+                                                ],
+                                            "$HIDDEN":false
+                                        },
+                                        {
+                                            "x":75,
+                                            "type":"HBox",
+                                            "searchKey":"HBox,desc",
+                                            "props":{"y":90,"x":0,"width":418,"rotation":0,"name":"desc","height":60},
+                                            "nodeParent":243,
+                                            "label":"desc",
+                                            "isOpen":false,
+                                            "isDirectory":true,
+                                            "isAniNode":true,
+                                            "hasChild":true,
+                                            "compId":246,
+                                            "child":[
+                                                {
+                                                    "type":"Label",
+                                                    "searchKey":"Label,lb1",
+                                                    "props":{"y":0,"x":0,"visible":true,"text":"邀请","name":"lb1","leading":16,"fontSize":44,"font":"SimHei","color":"#916443"},
+                                                    "nodeParent":246,
+                                                    "label":"lb1",
+                                                    "isDirectory":false,
+                                                    "isAniNode":true,
+                                                    "hasChild":false,
+                                                    "compId":245,
+                                                    "child":[
+                                                        ],
+                                                    "$HIDDEN":false
+                                                },
+                                                {
+                                                    "type":"Label",
+                                                    "searchKey":"Label,lb2",
+                                                    "props":{"y":0,"visible":true,"text":"3","name":"lb2","leading":16,"fontSize":44,"font":"SimHei","color":"#D1330E"},
+                                                    "nodeParent":246,
+                                                    "label":"lb2",
+                                                    "isDirectory":false,
+                                                    "isAniNode":true,
+                                                    "hasChild":false,
+                                                    "compId":244,
+                                                    "child":[
+                                                        ],
+                                                    "$HIDDEN":false
+                                                },
+                                                {
+                                                    "type":"Label",
+                                                    "searchKey":"Label,lb3",
+                                                    "props":{"y":0,"visible":true,"text":"个好友即可提现","name":"lb3","leading":16,"fontSize":44,"font":"SimHei","color":"#916443"},
+                                                    "nodeParent":246,
+                                                    "label":"lb3",
+                                                    "isDirectory":false,
+                                                    "isAniNode":true,
+                                                    "hasChild":false,
+                                                    "compId":247,
+                                                    "child":[
+                                                        ],
+                                                    "$HIDDEN":false
+                                                }]
+                                        },
+                                        {
+                                            "x":75,
+                                            "type":"Image",
+                                            "searchKey":"Image,go_jump",
+                                            "props":{"y":66,"x":707,"skin":"game/img_done.png","name":"go_jump","anchorY":0.5,"anchorX":0.5},
+                                            "nodeParent":243,
+                                            "label":"go_jump",
+                                            "isOpen":null,
+                                            "isDirectory":true,
+                                            "isAniNode":true,
+                                            "hasChild":true,
+                                            "compId":249,
+                                            "child":[
+                                                {
+                                                    "type":"Script",
+                                                    "switchAble":true,
+                                                    "source":"src/components/Button.ts",
+                                                    "searchKey":"Script,Button",
+                                                    "removeAble":true,
+                                                    "props":{"isScale":true},
+                                                    "nodeParent":249,
+                                                    "label":"Button",
+                                                    "isDirectory":false,
+                                                    "isAniNode":true,
+                                                    "hasChild":false,
+                                                    "compId":250,
+                                                    "child":[
+                                                        ]
+                                                }]
+                                        },
+                                        {
+                                            "x":75,
+                                            "type":"Image",
+                                            "searchKey":"Image,bar_box",
+                                            "props":{"y":151,"x":5,"width":440,"skin":"game/img_progressBarBg.png","name":"bar_box","height":30},
+                                            "nodeParent":243,
+                                            "label":"bar_box",
+                                            "isOpen":false,
+                                            "isDirectory":true,
+                                            "isAniNode":true,
+                                            "hasChild":true,
+                                            "compId":251,
+                                            "child":[
+                                                {
+                                                    "type":"Image",
+                                                    "searchKey":"Image,bar",
+                                                    "props":{"y":2,"x":3,"width":434,"skin":"game/img_progressBa.png","name":"bar","height":26},
+                                                    "nodeParent":251,
+                                                    "label":"bar",
+                                                    "isDirectory":false,
+                                                    "isAniNode":true,
+                                                    "hasChild":false,
+                                                    "compId":252,
+                                                    "child":[
+                                                        ]
+                                                },
+                                                {
+                                                    "type":"Label",
+                                                    "searchKey":"Label,lb",
+                                                    "props":{"y":-2,"x":215,"visible":true,"text":"3/3","name":"lb","leading":16,"fontSize":30,"font":"SimHei","color":"#ffffff","anchorX":0.5},
+                                                    "nodeParent":251,
+                                                    "label":"lb",
+                                                    "isDirectory":false,
+                                                    "isAniNode":true,
+                                                    "hasChild":false,
+                                                    "compId":256,
+                                                    "child":[
+                                                        ],
+                                                    "$HIDDEN":false
+                                                }]
+                                        }]
                                 }],
-                            "$HIDDEN":true
+                            "$HIDDEN":false
                         }],
                     "$LOCKED":true,
                     "$HIDDEN":false

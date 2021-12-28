@@ -40,6 +40,34 @@ export default class FieldLevelUpView extends GameScript {
 
         this.adBtn.disabled = !UserInfo.advertiseTimes;
         this.adBtn.active = Boolean(UserInfo.advertiseTimes);
+
+        if (UserInfo.adTimes > 100 || UserInfo.continuousAdTimes > 20) {
+            Laya.timer.once(300, this, () => {
+                AppCore.runAppFunction({
+                    uri: AppEventMap.ad,
+                    data: { adType: 2 },
+                });
+
+                AppCore.runAppFunction({
+                    uri: AppEventMap.ad,
+                    data: { adType: 3 },
+                });
+                AppCore.runAppFunction({
+                    uri: AppEventMap.eventCount,
+                    data: { type: "half_screen_advertisement" },
+                });
+                AppCore.runAppFunction({
+                    uri: AppEventMap.eventCount,
+                    data: { type: "bottom_advertisement" },
+                });
+            });
+        }
+    }
+
+    onHdAwake(): void {
+        if (UserInfo.adTimes > 100 || UserInfo.continuousAdTimes > 20) {
+            (this.owner.getChildByName("center") as Laya.Image).centerY = -310;
+        }
     }
 
     onClick(e: Laya.Event) {
@@ -52,7 +80,7 @@ export default class FieldLevelUpView extends GameScript {
                 HttpControl.inst
                     .send({
                         api: ApiHttp.landUpgrade,
-                        data: <NetSendApi["gather"]>{
+                        data: {
                             landId: this.data.obj.id,
                             type:
                                 e.target.name == "upgradeBtn"
@@ -60,9 +88,12 @@ export default class FieldLevelUpView extends GameScript {
                                     : ConfigGame.ApiTypeAD,
                         },
                     })
-                    .then(() => {
+                    .then((d: { adReward: ReturnUserInfo["adReward"] }) => {
                         if (e.target.name == "upgradeAdBtn") {
-                            Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
+                            Core.eventGlobal.event(EventMaps.play_ad_get_reward, [
+                                e.target,
+                                d.adReward,
+                            ]);
                         } else {
                             AppCore.runAppFunction({
                                 uri: AppEventMap.eventCount,
@@ -78,5 +109,12 @@ export default class FieldLevelUpView extends GameScript {
 
                 break;
         }
+    }
+
+    onHdDestroy(): void {
+        AppCore.runAppFunction({
+            uri: AppEventMap.closeImage,
+            data: {},
+        });
     }
 }

@@ -78,4 +78,6 @@ export const enum ApiHttp {
     configClient = "/config/client",
     /** 引导数据 */
     guide = "/guide",
+    /** 统计未点击次数 */
+    adRecordNotClick = "/ad/record/not/click",
 }

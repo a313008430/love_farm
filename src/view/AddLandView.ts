@@ -1,10 +1,11 @@
 import ConfigGame from "src/common/ConfigGame";
-import { EventMaps } from "src/common/EventMaps";
+import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
 import TableAnalyze from "src/common/TableAnalyze";
 import { RewardCurrencyBase } from "src/common/TableObject";
+import AppCore from "src/core/App";
 import GameScript from "src/core/GameScript";
 import Core from "src/core/index";
 import LandService from "src/dataService/LandService";
@@ -36,6 +37,34 @@ export default class AddLandView extends GameScript {
 
         this.adBtn.disabled = !UserInfo.advertiseTimes;
         this.adBtn.active = Boolean(UserInfo.advertiseTimes);
+
+        if (UserInfo.adTimes > 100 || UserInfo.continuousAdTimes > 20) {
+            Laya.timer.once(300, this, () => {
+                AppCore.runAppFunction({
+                    uri: AppEventMap.ad,
+                    data: { adType: 2 },
+                });
+
+                AppCore.runAppFunction({
+                    uri: AppEventMap.ad,
+                    data: { adType: 3 },
+                });
+                AppCore.runAppFunction({
+                    uri: AppEventMap.eventCount,
+                    data: { type: "half_screen_advertisement" },
+                });
+                AppCore.runAppFunction({
+                    uri: AppEventMap.eventCount,
+                    data: { type: "bottom_advertisement" },
+                });
+            });
+        }
+    }
+
+    onHdAwake(): void {
+        if (UserInfo.adTimes > 100 || UserInfo.continuousAdTimes > 20) {
+            (this.owner.getChildByName("center") as Laya.Image).centerY = -310;
+        }
     }
 
     onClick(e: Laya.Event) {
@@ -94,14 +123,17 @@ export default class AddLandView extends GameScript {
                             type: ConfigGame.ApiTypeAD,
                         },
                     })
-                    .then(() => {
+                    .then((d: { adReward: ReturnUserInfo["adReward"] }) => {
                         this.canClick = true;
                         if (this.data?.call) {
                             this.data.call();
                             Core.view.close(Res.views.AddLandView);
                         }
 
-                        Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
+                        Core.eventGlobal.event(EventMaps.play_ad_get_reward, [
+                            e.target,
+                            d.adReward,
+                        ]);
                     })
                     .catch(() => {
                         this.canClick = true;
@@ -109,5 +141,12 @@ export default class AddLandView extends GameScript {
 
                 break;
         }
+    }
+
+    onHdDestroy(): void {
+        AppCore.runAppFunction({
+            uri: AppEventMap.closeAd,
+            data: {},
+        });
     }
 }

@@ -13,6 +13,7 @@ let baseUrl = "http://game.ahd168.com:3000";
 switch (BUILD_TYPE) {
     case BuildType.debug:
         baseUrl = "//192.168.101.50:3000";
+        // baseUrl = "//192.168.50.87:3000";
         break;
     case BuildType.online:
         baseUrl = "http://game.ahd168.com:3100";
@@ -28,7 +29,7 @@ export default {
     /** 金币id */
     goldId: 1002,
     /** 狗狗消化食物间隔时间 秒 */
-    petDigestIntervalTime: 60,
+    petDigestIntervalTime: 60 * 3600,
     /** 游戏本地储存key */
     localKey: "love_HD_farm",
     /** 用户体力上限 */

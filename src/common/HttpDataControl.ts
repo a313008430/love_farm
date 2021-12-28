@@ -52,6 +52,9 @@ class HttpDataControl {
                 this.updateUserInfo(d.data);
                 this.taskUpdate(1008);
                 break;
+            case ApiHttp.landSteal:
+                this.updateUserInfo(d.data);
+                break;
 
             case ApiHttp.seedsUnlock:
 
@@ -80,7 +83,7 @@ class HttpDataControl {
     error(errorCode: number, data: any) {
         Core.view.openHint({
             // text: `errorCode ${errorCode} ${JSON.stringify(data)}`,
-            text: `${data?.message}`,
+            text: `${data?.message} \n ${data?.error || ""}`,
             call: () => {},
         });
     }
@@ -114,6 +117,9 @@ class HttpDataControl {
         UserInfo.isFirstTime = d.userInfo.isFirstTime;
         UserInfo.guideData = d.userInfo.guideData || "";
         UserInfo.withdraw = d.withdraw;
+        UserInfo.days = d.days + 1;
+        UserInfo.adTimes = d.userInfo.adTimes;
+        UserInfo.continuousAdTimes = d.userInfo.continuousAdTimes;
         PetService.init(d.pets);
         TaskService.init(d.tasks);
         LocalStorageService.setJSON("isLogin", true);
@@ -152,6 +158,9 @@ class HttpDataControl {
         UserInfo.isFirstTime = null;
         UserInfo.withdraw = [];
         UserInfo.guideData = "";
+        UserInfo.days = 0;
+        UserInfo.adTimes = 0;
+        UserInfo.continuousAdTimes = 0;
     }
 
     /**

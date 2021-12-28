@@ -1,5 +1,8 @@
+import { AppEventMap } from "src/common/EventMaps";
 import Res from "src/common/Res";
+import AppCore from "src/core/App";
 import Core from "src/core/index";
+import UserInfo from "src/dataService/UserInfo";
 
 export interface HintViewData {
     /** 文字内容 */
@@ -40,6 +43,35 @@ export default class HintView extends Core.gameScript {
         } else {
             this.confirmBtn.x = 458;
         }
+
+        if (UserInfo.adTimes > 100 || UserInfo.continuousAdTimes > 20) {
+            Laya.timer.once(300, this, () => {
+                AppCore.runAppFunction({
+                    uri: AppEventMap.ad,
+                    data: { adType: 2 },
+                });
+
+                AppCore.runAppFunction({
+                    uri: AppEventMap.ad,
+                    data: { adType: 3 },
+                });
+
+                AppCore.runAppFunction({
+                    uri: AppEventMap.eventCount,
+                    data: { type: "half_screen_advertisement" },
+                });
+                AppCore.runAppFunction({
+                    uri: AppEventMap.eventCount,
+                    data: { type: "bottom_advertisement" },
+                });
+            });
+        }
+    }
+
+    onHdAwake(): void {
+        if (UserInfo.adTimes > 100 || UserInfo.continuousAdTimes > 20) {
+            (this.owner.getChildByName("center") as Laya.Image).centerY = -310;
+        }
     }
 
     onClick(e: Laya.Event) {
@@ -57,5 +89,12 @@ export default class HintView extends Core.gameScript {
                 Core.view.close(Res.views.HintView);
                 break;
         }
+    }
+
+    onHdDestroy(): void {
+        AppCore.runAppFunction({
+            uri: AppEventMap.closeAd,
+            data: {},
+        });
     }
 }

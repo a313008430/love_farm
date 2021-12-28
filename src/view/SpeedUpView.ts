@@ -29,6 +29,24 @@ export default class SpeedUpView extends Core.gameScript {
         if (UserInfo.advertiseTimes <= 0) {
             this.speedUpBtn.disabled = true;
         }
+        Laya.timer.once(300, this, () => {
+            AppCore.runAppFunction({
+                uri: AppEventMap.ad,
+                data: { adType: 3 },
+            });
+            AppCore.runAppFunction({
+                uri: AppEventMap.ad,
+                data: { adType: 2 },
+            });
+            AppCore.runAppFunction({
+                uri: AppEventMap.eventCount,
+                data: { type: "half_screen_advertisement" },
+            });
+            AppCore.runAppFunction({
+                uri: AppEventMap.eventCount,
+                data: { type: "bottom_advertisement" },
+            });
+        });
     }
 
     onClick(e: Laya.Event) {
@@ -44,31 +62,47 @@ export default class SpeedUpView extends Core.gameScript {
                         api: ApiHttp.landSpeedUp,
                         data: { type: ConfigGame.ApiTypeAD },
                     })
-                    .then((d: { advertiseTimes: number; speedUpTimes: number }) => {
-                        UserInfo.speedUpTimes = d.speedUpTimes;
-                        UserInfo.advertiseTimes = d.advertiseTimes;
+                    .then(
+                        (d: {
+                            advertiseTimes: number;
+                            speedUpTimes: number;
+                            adReward: ReturnUserInfo["adReward"];
+                        }) => {
+                            UserInfo.speedUpTimes = d.speedUpTimes;
+                            UserInfo.advertiseTimes = d.advertiseTimes;
 
-                        if (UserInfo.speedUpTimes == ConfigGame.ADSpeedUpTimes) {
-                            UserInfo.signInDays++;
+                            if (UserInfo.speedUpTimes == ConfigGame.ADSpeedUpTimes) {
+                                UserInfo.signInDays++;
+                                AppCore.runAppFunction({
+                                    uri: AppEventMap.eventCount,
+                                    data: { type: "punchtheclock" },
+                                });
+                            }
+
                             AppCore.runAppFunction({
                                 uri: AppEventMap.eventCount,
-                                data: { type: "punchtheclock" },
+                                data: { type: "Advertisingacceleration" },
                             });
+
+                            Core.view.close(Res.views.SpeedUpView);
+                            Core.eventGlobal.event(EventMaps.land_speed_up);
+
+                            Core.eventGlobal.event(EventMaps.play_ad_get_reward, [
+                                e.target,
+                                d.adReward,
+                            ]);
+
+                            if (this.call) this.call();
                         }
-
-                        AppCore.runAppFunction({
-                            uri: AppEventMap.eventCount,
-                            data: { type: "Advertisingacceleration" },
-                        });
-
-                        Core.view.close(Res.views.SpeedUpView);
-                        Core.eventGlobal.event(EventMaps.land_speed_up);
-
-                        Core.eventGlobal.event(EventMaps.play_ad_get_reward, e.target);
-
-                        if (this.call) this.call();
-                    });
+                    );
                 break;
         }
+    }
+
+    onHdDestroy(): void {
+        AppCore.runAppFunction({
+            uri: AppEventMap.closeAd,
+            data: {},
+        });
     }
 }

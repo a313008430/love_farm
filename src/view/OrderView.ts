@@ -1,10 +1,13 @@
 import ConfigGame from "src/common/ConfigGame";
+import { EventMaps } from "src/common/EventMaps";
 import Res from "src/common/Res";
 import TableAnalyze from "src/common/TableAnalyze";
 import { OrderBase, RewardCurrencyBase } from "src/common/TableObject";
+import Tools from "src/common/Tools";
 import Core from "src/core/index";
 import UserInfo from "src/dataService/UserInfo";
 import WarehouseService from "src/dataService/WarehouseService";
+import MainView from "./MainView";
 
 //class OrderView extends Laya.Script
 export default class OrderView extends Core.gameScript {
@@ -33,34 +36,40 @@ export default class OrderView extends Core.gameScript {
         this.orderList.array = this.dataList;
         this.orderList.renderHandler = new Laya.Handler(this, this.renderList);
         this.orderList.vScrollBarSkin = null;
-        let step = 0,
-            reward: RewardCurrencyBase;
+        let reward: number = 0;
         for (let x = 0; x < this.dataList.length; x++) {
-            if (this.dataList[x].id >= UserInfo.orderLevel) {
-                step++;
-                if (this.dataList[x].extraReward) {
-                    reward = this.dataList[x].extraReward;
-                    break;
-                }
-            }
+            // if (this.dataList[x].id >= UserInfo.orderLevel) {
+            let addDiamond = 0;
+            this.dataList[x].condition.forEach((d) => {
+                d.plant.gain.forEach((p) => {
+                    if (p.obj.id === ConfigGame.diamondId) {
+                        addDiamond += p.count * d.count;
+                    }
+                });
+            });
+
+            reward +=
+                this.dataList[x].extraReward.count +
+                addDiamond +
+                Math.round(addDiamond * this.dataList[x].commission);
+            // }
         }
-        if (step) {
-            let withdrawal = TableAnalyze.table("config").get("withdrawal").value as string[];
-            (this.topDesc.getChildAt(0) as Laya.Label).text =
-                step == 1 ? "完成当前订单可获得红包" : `再完成${step}单可获得红包`;
-            (this.topDesc.getChildAt(1) as Laya.Label).text = `${(
-                (Number(withdrawal[2]) / Number(withdrawal[1])) *
-                reward.count
-            )
-                .toString()
-                .match(/^\d+(?:\.\d{0,2})?/)}`;
-        }
+
+        let withdrawal = TableAnalyze.table("config").get("withdrawal").value as string[];
+
+        (this.topDesc.getChildAt(0) as Laya.Label).text = "完成所有订单可获得";
+
+        (this.topDesc.getChildAt(1) as Laya.Label).text = `${reward}`;
+        // (this.topDesc.getChildAt(1) as Laya.Label).text = `${Tools.formatMoney(
+        //     (Number(withdrawal[2]) / Number(withdrawal[1])) * reward
+        // )}`;
     }
 
     private renderList(cell: Laya.Image, i: number) {
         let d = this.dataList[i],
             reward: RewardCurrencyBase,
             rewardCount: number = 0,
+            rewardDiamondCount: number = 0,
             curCount = 0,
             maxCount = 0,
             progress = 0,
@@ -96,6 +105,8 @@ export default class OrderView extends Core.gameScript {
                             reward = e;
                         }
                         rewardCount += e.count * d.condition[x].count;
+                    } else {
+                        rewardDiamondCount += e.count * d.condition[x].count;
                     }
                 });
             } else {
@@ -107,14 +118,17 @@ export default class OrderView extends Core.gameScript {
         let btn = cell.getChildByName("btn") as Laya.Image,
             finishIcon = cell.getChildByName("finish") as Laya.Image,
             curIcon = cell.getChildByName("cur_icon") as Laya.Image,
+            receiveBtn = cell.getChildByName("receive_btn") as Laya.Image,
             lv_box = cell.getChildByName("lv_box") as Laya.Image;
         finishIcon.visible = false;
         curIcon.visible = false;
         diamond.visible = false;
         btn.visible = true;
         rewardBox.y = 57;
+        rewardBox.visible = true;
         lv_box.visible = true;
         order_lv.visible = true;
+        receiveBtn.visible = false;
         if (d.id > UserInfo.orderLevel + 1) {
             //未激活
             btn.skin = this.btnLockRes;
@@ -122,7 +136,11 @@ export default class OrderView extends Core.gameScript {
             if (d.extraReward) {
                 btn.visible = false;
                 (diamond.getChildByName("icon") as Laya.Image).skin = d.extraReward.obj.icon;
-                (diamond.getChildByName("value") as Laya.Label).text = `+${d.extraReward.count}`;
+                (diamond.getChildByName("value") as Laya.Label).text = `+${
+                    d.extraReward.count +
+                    rewardDiamondCount +
+                    Math.round(rewardDiamondCount * d.commission)
+                }`;
                 diamond.visible = true;
             } else {
                 btn.visible = true;
@@ -134,14 +152,23 @@ export default class OrderView extends Core.gameScript {
                     curIcon.visible = true;
                     lv_box.visible = false;
                     btn.visible = false;
+
                     order_lv.visible = false;
                     (diamond.getChildByName("icon") as Laya.Image).skin = d.extraReward.obj.icon;
-                    (
-                        diamond.getChildByName("value") as Laya.Label
-                    ).text = `+${d.extraReward.count}`;
+                    (diamond.getChildByName("value") as Laya.Label).text = `+${
+                        d.extraReward.count +
+                        rewardDiamondCount +
+                        Math.round(rewardDiamondCount * d.commission)
+                    }`;
                     diamond.visible = true;
                 } else {
                     btn.skin = this.btnResCur;
+                }
+
+                if (progress == d.condition.length) {
+                    receiveBtn.visible = true;
+                    rewardBox.visible = false;
+                    diamond.visible = false;
                 }
             } else {
                 console.log("已完成");
@@ -157,7 +184,6 @@ export default class OrderView extends Core.gameScript {
                 }
             }
         }
-
         if (reward) {
             (rewardBox.getChildByName("icon") as Laya.Image).skin = reward.obj.icon;
             (rewardBox.getChildByName("value") as Laya.Label).text = `+${
@@ -169,6 +195,11 @@ export default class OrderView extends Core.gameScript {
     onClick(e: Laya.Event) {
         switch (e.target.name) {
             case "close":
+                Core.view.close(Res.views.OrderView);
+                break;
+            case "receive_btn":
+                MainView.inst.hindOrderLevel = 0;
+                Core.eventGlobal.event(EventMaps.update_Order);
                 Core.view.close(Res.views.OrderView);
                 break;
         }

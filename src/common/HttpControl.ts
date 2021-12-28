@@ -33,7 +33,7 @@ export default class HttpControl {
 
     baseUrl: string = null;
 
-    private sendData: HttpSendData;
+    private sendData: { xhr: XMLHttpRequest; data: HttpSendData }[] = [];
 
     /** 事件列表 */
     private eventMap: Map<string, XMLHttpRequest> = new Map();
@@ -61,11 +61,10 @@ export default class HttpControl {
                         if (!data.code) {
                             if (ad) {
                                 TaskService.taskAddTimes(1001);
-                                TaskService.taskAddTimes(1012);
                             }
                         }
 
-                        this.completeHandler(data, resolve, reject);
+                        this.completeHandler(data, resolve, reject, xmlhttp);
                         this.clearOneInEventMap(xmlhttp);
                         break;
 
@@ -80,7 +79,7 @@ export default class HttpControl {
                             } else {
                                 // console.log(d);
                                 d.code = 999;
-                                this.completeHandler(d, resolve, reject);
+                                this.completeHandler(d, resolve, reject, xmlhttp);
                             }
                             this.clearOneInEventMap(xmlhttp);
                             // reject();
@@ -94,7 +93,8 @@ export default class HttpControl {
                                     uri: "",
                                 },
                                 resolve,
-                                reject
+                                reject,
+                                xmlhttp
                             );
                             this.clearOneInEventMap(xmlhttp);
                             // reject();
@@ -112,13 +112,13 @@ export default class HttpControl {
      * @param xml
      */
     private clearOneInEventMap(xml: XMLHttpRequest) {
-        Laya.timer.frameOnce(1, this, () => {
-            this.eventMap.forEach((e, v) => {
-                if (e == xml) {
-                    this.eventMap.delete(v);
-                }
-            });
+        // Laya.timer.frameOnce(1, this, () => {
+        this.eventMap.forEach((e, v) => {
+            if (e == xml) {
+                this.eventMap.delete(v);
+            }
         });
+        // });
     }
 
     async send(data: HttpSendData): Promise<any> {
@@ -159,13 +159,26 @@ export default class HttpControl {
                 });
             } else {
                 ad = true;
+                UserInfo.adTimes++;
+
+                if (adData?.data["hasClicked"]) {
+                    UserInfo.continuousAdTimes = 0;
+                } else {
+                    UserInfo.continuousAdTimes++;
+                }
+                HttpControl.inst.send({
+                    api: ApiHttp.adRecordNotClick,
+                    data: { times: UserInfo.continuousAdTimes },
+                });
             }
         }
 
         return new Promise(async (resolve, reject) => {
             const xhr = this.createXhr(resolve, reject, ad);
 
-            this.sendData = data;
+            this.eventMap.set(uri + sendDataString, xhr);
+
+            this.sendData.push({ xhr: xhr, data: data });
 
             if (data?.before) {
                 data.before();
@@ -195,29 +208,37 @@ export default class HttpControl {
             xhr.setRequestHeader("Authorization", `Bearer ${LocalStorageService.getJSON().token}`);
 
             xhr.send(sendDataString);
-
-            this.eventMap.set(uri + sendDataString, xhr);
         });
     }
 
-    private completeHandler(e, resolve: Function, reject: Function) {
+    private completeHandler(e, resolve: Function, reject: Function, xhr) {
+        // TODO 临时处理方法，这里的队列 没有处理好，消息体回来，会覆盖之前的协议，
+        let curData: HttpSendData;
+        for (let x = 0; x < this.sendData.length; x++) {
+            if (this.sendData[x].xhr == xhr) {
+                curData = this.sendData[x].data;
+                this.sendData.slice(x, 1);
+                break;
+            }
+        }
         if (e.code) {
             reject(e.code);
-            if (this.sendData?.error) {
-                this.sendData.error(e.code, e.data);
+            if (curData?.error) {
+                curData.error(e.code, e.data);
             }
             HttpDataControl.error(e.code, e.data);
             return console.error(e);
         } else {
+            let api = curData.api;
             console.log(
-                `%c <== back %c${this.sendData.api} `,
+                `%c <== back %c${api} `,
                 `color:#b8e994;font-weight:700;`,
                 `color:#78e08f;font-weight:700;`,
                 e.data
             );
             if (e.code === 0) {
                 HttpDataControl.forward({
-                    api: this.sendData.api,
+                    api: api,
                     data: e.data,
                     resolveEvent: resolve,
                 });

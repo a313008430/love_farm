@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":27,
+    "selectedBox":5,
+    "selecteID":6,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#ffffff","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":28,
+    "maxID":29,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -35,13 +35,14 @@
             "props":{"skin":"res/img_farmlandLogo.png","centerY":-400,"centerX":0},
             "nodeParent":2,
             "label":"Image",
-            "isOpen":false,
+            "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":5,
             "child":[
                 {
+                    "x":30,
                     "type":"Image",
                     "searchKey":"Image",
                     "props":{"y":414,"x":717,"skin":"res/img_hongbaoban.png"},
@@ -53,48 +54,191 @@
                     "compId":18,
                     "child":[
                         ]
-                }]
-        },
-        {
-            "x":15,
-            "type":"Image",
-            "searchKey":"Image,load_box",
-            "props":{"width":660,"skin":"load/img_loadingScroll1.png","name":"load_box","centerX":0,"bottom":630},
-            "nodeParent":2,
-            "label":"load_box",
-            "isOpen":false,
-            "isDirectory":true,
-            "isAniNode":true,
-            "hasChild":true,
-            "compId":6,
-            "child":[
+                },
                 {
+                    "x":30,
                     "type":"Image",
-                    "searchKey":"Image,load_bar",
-                    "props":{"y":8,"x":8,"width":643,"skin":"load/img_loadingScroll2.png","name":"load_bar","height":40},
-                    "nodeParent":6,
-                    "label":"load_bar",
+                    "searchKey":"Image",
+                    "props":{"y":506,"x":99,"skin":"load/img_slogan.png"},
+                    "nodeParent":5,
+                    "label":"Image",
                     "isDirectory":false,
                     "isAniNode":true,
                     "hasChild":false,
-                    "compId":7,
+                    "compId":28,
                     "child":[
                         ]
                 },
                 {
-                    "type":"Label",
-                    "searchKey":"Label",
-                    "props":{"y":71,"x":135.556640625,"text":"登录成功，正在加载...","fontSize":40,"font":"Microsoft YaHei","color":"#5b3f2a"},
-                    "nodeParent":6,
-                    "label":"Label",
-                    "isDirectory":false,
+                    "x":30,
+                    "type":"Box",
+                    "searchKey":"Box,privacy_box",
+                    "props":{"y":946,"x":159,"name":"privacy_box"},
+                    "nodeParent":5,
+                    "label":"privacy_box",
+                    "isOpen":false,
+                    "isDirectory":true,
                     "isAniNode":true,
-                    "hasChild":false,
-                    "compId":8,
+                    "hasChild":true,
+                    "compId":24,
                     "child":[
-                        ]
-                }],
-            "$HIDDEN":true
+                        {
+                            "type":"Label",
+                            "searchKey":"Label,privacy_lb",
+                            "props":{"y":22,"x":349,"text":"请阅读后同意《用户隐私协议》","name":"privacy_lb","mouseEnabled":true,"fontSize":40,"font":"Microsoft YaHei","color":"#5b3f2a","anchorY":0.5,"anchorX":0.5},
+                            "nodeParent":24,
+                            "label":"privacy_lb",
+                            "isOpen":null,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":19,
+                            "child":[
+                                {
+                                    "type":"Script",
+                                    "switchAble":true,
+                                    "source":"src/components/Button.ts",
+                                    "searchKey":"Script,Button",
+                                    "removeAble":true,
+                                    "props":{"isScale":true},
+                                    "nodeParent":19,
+                                    "label":"Button",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":26,
+                                    "child":[
+                                        ]
+                                }]
+                        },
+                        {
+                            "type":"Image",
+                            "searchKey":"Image,check_box",
+                            "props":{"y":22,"x":22,"stateNum":"2","skin":"load/img_checkBox1.png","name":"check_box","anchorY":0.5,"anchorX":0.5},
+                            "nodeParent":24,
+                            "label":"check_box",
+                            "isOpen":true,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":20,
+                            "child":[
+                                {
+                                    "type":"Image",
+                                    "searchKey":"Image,icon",
+                                    "props":{"visible":false,"skin":"load/img_checkBox2.png","name":"icon"},
+                                    "nodeParent":20,
+                                    "label":"icon",
+                                    "isOpen":true,
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":21,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Script",
+                                    "switchAble":true,
+                                    "source":"src/components/Button.ts",
+                                    "searchKey":"Script,Button",
+                                    "removeAble":true,
+                                    "props":{"isScale":true},
+                                    "nodeParent":20,
+                                    "label":"Button",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":22,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Circle",
+                                    "searchKey":"Circle",
+                                    "props":{"y":23,"x":26,"renderType":"hit","radius":50,"lineWidth":1,"fillColor":"#ff0000"},
+                                    "nodeParent":20,
+                                    "label":"Circle",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":25,
+                                    "child":[
+                                        ]
+                                }]
+                        }]
+                },
+                {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image,login_btn",
+                    "props":{"y":837,"x":484,"skin":"load/img_weChantBtn.png","name":"login_btn","anchorY":0.5,"anchorX":0.5},
+                    "nodeParent":5,
+                    "label":"login_btn",
+                    "isOpen":false,
+                    "isDirectory":true,
+                    "isAniNode":true,
+                    "hasChild":true,
+                    "compId":10,
+                    "child":[
+                        {
+                            "type":"Script",
+                            "switchAble":true,
+                            "source":"src/components/Button.ts",
+                            "searchKey":"Script,Button",
+                            "removeAble":true,
+                            "props":{"isScale":true},
+                            "nodeParent":10,
+                            "label":"Button",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":11,
+                            "child":[
+                                ]
+                        }]
+                },
+                {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image,load_box",
+                    "props":{"width":660,"skin":"load/img_loadingScroll1.png","name":"load_box","centerX":0,"bottom":-530},
+                    "nodeParent":5,
+                    "label":"load_box",
+                    "isOpen":false,
+                    "isDirectory":true,
+                    "isAniNode":true,
+                    "hasChild":true,
+                    "compId":6,
+                    "child":[
+                        {
+                            "type":"Image",
+                            "searchKey":"Image,load_bar",
+                            "props":{"y":8,"x":8,"width":643,"skin":"load/img_loadingScroll2.png","name":"load_bar","height":40},
+                            "nodeParent":6,
+                            "label":"load_bar",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":7,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "type":"Label",
+                            "searchKey":"Label",
+                            "props":{"y":71,"x":135.556640625,"text":"登录成功，正在加载...","fontSize":40,"font":"Microsoft YaHei","color":"#5b3f2a"},
+                            "nodeParent":6,
+                            "label":"Label",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":8,
+                            "child":[
+                                ]
+                        }],
+                    "$HIDDEN":false
+                }]
         },
         {
             "x":15,
@@ -112,141 +256,6 @@
             "compId":9,
             "child":[
                 ]
-        },
-        {
-            "x":15,
-            "type":"Image",
-            "searchKey":"Image,login_btn",
-            "props":{"y":1165,"x":523,"skin":"load/img_weChantBtn.png","name":"login_btn","anchorY":0.5,"anchorX":0.5},
-            "nodeParent":2,
-            "label":"login_btn",
-            "isOpen":true,
-            "isDirectory":true,
-            "isAniNode":true,
-            "hasChild":true,
-            "compId":10,
-            "child":[
-                {
-                    "x":30,
-                    "type":"Script",
-                    "switchAble":true,
-                    "source":"src/components/Button.ts",
-                    "searchKey":"Script,Button",
-                    "removeAble":true,
-                    "props":{"isScale":true},
-                    "nodeParent":10,
-                    "label":"Button",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":11,
-                    "child":[
-                        ]
-                }]
-        },
-        {
-            "x":15,
-            "type":"Box",
-            "searchKey":"Box,privacy_box",
-            "props":{"y":1274,"x":198,"name":"privacy_box"},
-            "nodeParent":2,
-            "label":"privacy_box",
-            "isOpen":true,
-            "isDirectory":true,
-            "isAniNode":true,
-            "hasChild":true,
-            "compId":24,
-            "child":[
-                {
-                    "x":30,
-                    "type":"Label",
-                    "searchKey":"Label,privacy_lb",
-                    "props":{"y":22,"x":349,"text":"请阅读后同意《用户隐私协议》","name":"privacy_lb","mouseEnabled":true,"fontSize":40,"font":"Microsoft YaHei","color":"#5b3f2a","anchorY":0.5,"anchorX":0.5},
-                    "nodeParent":24,
-                    "label":"privacy_lb",
-                    "isOpen":null,
-                    "isDirectory":true,
-                    "isAniNode":true,
-                    "hasChild":true,
-                    "compId":19,
-                    "child":[
-                        {
-                            "type":"Script",
-                            "switchAble":true,
-                            "source":"src/components/Button.ts",
-                            "searchKey":"Script,Button",
-                            "removeAble":true,
-                            "props":{"isScale":true},
-                            "nodeParent":19,
-                            "label":"Button",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":26,
-                            "child":[
-                                ]
-                        }]
-                },
-                {
-                    "x":30,
-                    "type":"Image",
-                    "searchKey":"Image,check_box",
-                    "props":{"y":22,"x":22,"stateNum":"2","skin":"load/img_checkBox1.png","name":"check_box","anchorY":0.5,"anchorX":0.5},
-                    "nodeParent":24,
-                    "label":"check_box",
-                    "isOpen":true,
-                    "isDirectory":true,
-                    "isAniNode":true,
-                    "hasChild":true,
-                    "compId":20,
-                    "child":[
-                        {
-                            "x":45,
-                            "type":"Image",
-                            "searchKey":"Image,icon",
-                            "props":{"visible":false,"skin":"load/img_checkBox2.png","name":"icon"},
-                            "nodeParent":20,
-                            "label":"icon",
-                            "isOpen":true,
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":21,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "x":45,
-                            "type":"Script",
-                            "switchAble":true,
-                            "source":"src/components/Button.ts",
-                            "searchKey":"Script,Button",
-                            "removeAble":true,
-                            "props":{"isScale":true},
-                            "nodeParent":20,
-                            "label":"Button",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":22,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "x":45,
-                            "type":"Circle",
-                            "searchKey":"Circle",
-                            "props":{"y":23,"x":26,"renderType":"hit","radius":50,"lineWidth":1,"fillColor":"#ff0000"},
-                            "nodeParent":20,
-                            "label":"Circle",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":25,
-                            "child":[
-                                ]
-                        }]
-                }]
         },
         {
             "x":15,

@@ -41,7 +41,11 @@ export default class TaskView extends GameScript {
 
     private itemRender(cell: Laya.Box, i: number) {
         let obj = TaskService.list[i].base;
-        const task = TaskService.getTask(obj.id);
+        const task = TaskService.getTask(obj?.id);
+        if (!task) {
+            Core.view.openHint({ text: `任务配置出错,配置不存在`, call: () => {} });
+            return;
+        }
         (cell.getChildByName("icon") as Laya.Image).skin = obj.icon;
         (cell.getChildByName("title") as Laya.Label).text = obj.title;
 
@@ -56,8 +60,13 @@ export default class TaskView extends GameScript {
             const reward = (
                 TableAnalyze.table("config").get("Videorewards").value as RewardCurrencyBase
             ).count;
-            (rewardBox.getChildByName("amount") as Laya.Label).text =
-                "x" + (obj.reward.count + (obj.times - (task?.times || 0)) * reward);
+
+            let price = obj.reward.count + (obj.times - (task?.times || 0)) * reward;
+            if (price < obj.reward.count) {
+                price = obj.reward.count;
+            }
+
+            (rewardBox.getChildByName("amount") as Laya.Label).text = "x" + price;
         } else {
             (rewardBox.getChildByName("amount") as Laya.Label).text = "x" + obj.reward.count;
         }
@@ -159,49 +168,61 @@ export default class TaskView extends GameScript {
                 HttpControl.inst
                     .send({
                         api: ApiHttp.ad,
-                        data: {},
+                        data: {
+                            taskId: id == 1012 ? 1012 : null,
+                        },
                     })
-                    .then(() => {
-                        Core.eventGlobal.event(EventMaps.play_ad_get_reward, target);
+                    .then((d: { adReward: ReturnUserInfo["adReward"] }) => {
+                        Core.eventGlobal.event(EventMaps.play_ad_get_reward, [target, d.adReward]);
                         this.taskList.refresh();
                         TaskService.taskAddTimes(1001);
-                        TaskService.taskAddTimes(1012);
+                        if (id == 1012) TaskService.taskAddTimes(1012);
                         this.canClick = true;
                     });
+
+                if (adData?.data["hasClicked"]) {
+                    UserInfo.continuousAdTimes = 0;
+                } else {
+                    UserInfo.continuousAdTimes++;
+                }
+                HttpControl.inst.send({
+                    api: ApiHttp.adRecordNotClick,
+                    data: { times: UserInfo.continuousAdTimes },
+                });
 
                 break;
             case 1002:
-                adData = await AppCore.runAppFunction({
-                    uri: AppEventMap.ad,
-                    data: {},
-                    timestamp: Date.now(),
-                });
+            // adData = await AppCore.runAppFunction({
+            //     uri: AppEventMap.ad,
+            //     data: {},
+            //     timestamp: Date.now(),
+            // });
 
-                if (adData?.code) {
-                    Core.view.openHint({
-                        text: `${adData.data["message"]}[${adData.code}]`,
-                        call: () => {},
-                    });
-                    this.canClick = true;
-                    return;
-                }
+            // if (adData?.code) {
+            //     Core.view.openHint({
+            //         text: `${adData.data["message"]}[${adData.code}]`,
+            //         call: () => {},
+            //     });
+            //     this.canClick = true;
+            //     return;
+            // }
 
-                HttpControl.inst
-                    .send({
-                        api: ApiHttp.ad,
-                        data: {
-                            taskId: 1002,
-                        },
-                    })
-                    .then(() => {
-                        Core.eventGlobal.event(EventMaps.play_ad_get_reward, target);
-                        this.taskList.refresh();
-                        TaskService.taskAddTimes(1001);
-                        TaskService.taskAddTimes(1012);
-                        TaskService.taskAddTimes(1002);
-                        this.canClick = true;
-                    });
-                break;
+            // HttpControl.inst
+            //     .send({
+            //         api: ApiHttp.ad,
+            //         data: {
+            //             taskId: 1002,
+            //         },
+            //     })
+            //     .then((d: { adReward: ReturnUserInfo["adReward"] }) => {
+            //         Core.eventGlobal.event(EventMaps.play_ad_get_reward, [target, d.adReward]);
+            //         this.taskList.refresh();
+            //         TaskService.taskAddTimes(1001);
+            //         TaskService.taskAddTimes(1012);
+            //         TaskService.taskAddTimes(1002);
+            //         this.canClick = true;
+            //     });
+            // break;
             case 1003:
                 Core.view.close(Res.views.TaskView);
                 break;
@@ -231,20 +252,28 @@ export default class TaskView extends GameScript {
                 break;
             case 1010:
                 Core.view.close(Res.views.TaskView);
-                // Core.eventGlobal.event(EventMaps.open_friend, [1]);
-                HttpControl.inst
-                    .send({
-                        api: ApiHttp.friendInviteList,
-                        data: {},
-                    })
-                    .then((d: InviteList) => {
-                        Core.view.open(Res.views.FriendsRewardView, {
-                            parm: {
-                                list: d.list,
-                                call: () => {},
-                            },
-                        });
-                    });
+                AppCore.runAppFunction({
+                    uri: AppEventMap.wxShare,
+                    data: {},
+                    timestamp: Date.now(),
+                }).then((d) => {
+                    if (!d || d?.code) {
+                        Core.view.openHint({ text: d.data["message"], call: () => {} });
+                    } else {
+                        Core.view.openHint({ text: d.data["message"], call: () => {} });
+                        HttpControl.inst
+                            .send({
+                                api: ApiHttp.friendShare,
+                            })
+                            .then(() => {
+                                TaskService.taskAddTimes(1010);
+                                AppCore.runAppFunction({
+                                    uri: AppEventMap.eventCount,
+                                    data: { type: "share" },
+                                });
+                            });
+                    }
+                });
                 break;
             case 1011:
                 Core.view.close(Res.views.TaskView);

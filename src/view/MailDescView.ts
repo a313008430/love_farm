@@ -29,7 +29,7 @@ export default class MailDescView extends Core.gameScript {
         this.call = d.call;
         this.mailId = d.data.id;
         this.centerPanel.vScrollBarSkin = null;
-        this.title.text = `${data.message}潜入了你的菜地采青`;
+        this.title.text = `${data.message}潜入了你的菜地偷菜`;
         console.log(d);
         const itemsLost: { id: number; amount: number }[] = [],
             itemsBack: { id: number; amount: number }[] = [];

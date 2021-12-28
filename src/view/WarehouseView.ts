@@ -12,6 +12,8 @@ import UserInfo from "src/dataService/UserInfo";
 import WarehouseService, { WareHouseData } from "src/dataService/WarehouseService";
 import { GetFloatRewardObj } from "./MainView";
 
+let sellNum = 0;
+
 /**
  * 仓库
  */
@@ -59,6 +61,14 @@ export default class WarehouseView extends Core.gameScript {
         Core.audio.playSound(Res.audios.dakaicangku);
         this.sellAdBtn.disabled = !UserInfo.advertiseTimes;
         this.sellAdBtn.active = Boolean(UserInfo.advertiseTimes);
+        AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 3 },
+        });
+        AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "bottom_advertisement" },
+        });
     }
 
     onHdAwake() {
@@ -169,6 +179,21 @@ export default class WarehouseView extends Core.gameScript {
                     this.canClick = false;
                     let btnName = e.target.name,
                         target = e.target;
+
+                    if (btnName == "sellBtn") {
+                        if (sellNum && !(sellNum % 10)) {
+                            AppCore.runAppFunction({
+                                uri: AppEventMap.ad,
+                                data: { adType: 1 },
+                            });
+                            AppCore.runAppFunction({
+                                uri: AppEventMap.eventCount,
+                                data: { type: "full_Screen" },
+                            });
+                        }
+                        sellNum++;
+                    }
+
                     HttpControl.inst
                         .send({
                             api: ApiHttp.warehouseSell,
@@ -181,7 +206,7 @@ export default class WarehouseView extends Core.gameScript {
                                         : ConfigGame.ApiTypeAD,
                             },
                         })
-                        .then(() => {
+                        .then((d: { adReward: ReturnUserInfo["adReward"] }) => {
                             this.sellAdBtn.disabled = !UserInfo.advertiseTimes;
                             this.sellAdBtn.active = Boolean(UserInfo.advertiseTimes);
                             this.canClick = true;
@@ -220,7 +245,10 @@ export default class WarehouseView extends Core.gameScript {
                             }
 
                             if (btnName == "sellBtnAd") {
-                                Core.eventGlobal.event(EventMaps.play_ad_get_reward, target);
+                                Core.eventGlobal.event(EventMaps.play_ad_get_reward, [
+                                    target,
+                                    d.adReward,
+                                ]);
                                 AppCore.runAppFunction({
                                     uri: AppEventMap.eventCount,
                                     data: { type: "Doublesale" },
@@ -232,6 +260,26 @@ export default class WarehouseView extends Core.gameScript {
                                 list: rewardList,
                                 callBack: () => {},
                             });
+
+                            if (UserInfo.adTimes > 100 || UserInfo.continuousAdTimes > 20) {
+                                AppCore.runAppFunction({
+                                    uri: AppEventMap.ad,
+                                    data: { adType: 1 },
+                                });
+
+                                AppCore.runAppFunction({
+                                    uri: AppEventMap.ad,
+                                    data: { adType: 3 },
+                                });
+                                AppCore.runAppFunction({
+                                    uri: AppEventMap.eventCount,
+                                    data: { type: "full_Screen" },
+                                });
+                                AppCore.runAppFunction({
+                                    uri: AppEventMap.eventCount,
+                                    data: { type: "bottom_advertisement" },
+                                });
+                            }
                         })
                         .catch(() => {
                             this.canClick = true;
@@ -291,5 +339,12 @@ export default class WarehouseView extends Core.gameScript {
             this.selectItemSellCount * this.unitPriceGold + "";
         (this.itemSellDiamond.getChildByName("price") as Laya.Label).text =
             this.selectItemSellCount * this.unitPriceDiamond + "";
+    }
+
+    onHdDestroy(): void {
+        AppCore.runAppFunction({
+            uri: AppEventMap.closeAd,
+            data: {},
+        });
     }
 }

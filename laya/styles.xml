@@ -45,4 +45,5 @@
    <item name="main_scene/img_landUpdate3.png" type="Image" compress="0" pack="0" quality="80" props="anchorX=0.5" picType="0" scale="0"/>
    <item name="main_scene/img_landUpdate4.png" type="Image" compress="0" pack="0" quality="80" props="anchorX=0.5" picType="0" scale="0"/>
    <item name="main_scene/img_landUpdate5.png" type="Image" compress="0" pack="0" quality="80" props="anchorX=0.5" picType="0" scale="0"/>
+   <item name="game/img_progressBg.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,18,0,20" picType="0" scale="0"/>
 </res>
