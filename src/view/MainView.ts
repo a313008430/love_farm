@@ -1082,6 +1082,8 @@ export default class MainView extends Core.gameScript {
         });
 
         obj.list.forEach((d, i) => {
+            if (!d.obj) return;
+
             let node: Laya.Box = Laya.Pool.getItemByCreateFun(
                 "floatRewardBox",
                 this.getRewardPrefab.create,
