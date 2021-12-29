@@ -12,7 +12,7 @@ import Core from "src/core/index";
 import { ViewManager } from "src/core/ViewManager";
 import FeedService, { FeedDataBase } from "src/dataService/FeedService";
 import PetService from "src/dataService/PetService";
-import PlantService from "src/dataService/PlantService";
+import PlantService, { PlantDataBase } from "src/dataService/PlantService";
 import UserInfo from "src/dataService/UserInfo";
 import MainView, { GetFloatRewardObj } from "./MainView";
 
@@ -122,6 +122,12 @@ export default class ShopView extends GameScript {
                 .toString()
                 .match(/^\d+(?:\.\d{0,2})?/)}元`;
         });
+
+        (this.lockBtnBox.getChildByName("ad_unlock") as Laya.Image).disabled =
+            !UserInfo.advertiseTimes;
+        (this.lockBtnBox.getChildByName("ad_unlock") as Laya.Image).active = Boolean(
+            UserInfo.advertiseTimes
+        );
     }
 
     onOpened(e: ShopViewData) {
@@ -243,6 +249,9 @@ export default class ShopView extends GameScript {
 
         // if (this.data?.call) {
         this.itemBuyBtn.visible = !d.lock;
+        if (MainView.inst.isOuter) {
+            this.itemBuyBtn.visible = false;
+        }
         // } else {
         //     this.itemBuyBtn.visible = !d.lock;
         // }
@@ -298,6 +307,17 @@ export default class ShopView extends GameScript {
                     return;
                 }
 
+                if (
+                    (this.getDataList()[this.itemListSelectIndex] as PlantDataBase).base.seed_price
+                        .count > UserInfo.gold
+                ) {
+                    Core.view.openHint({
+                        text: "金币不足，去仓库出售可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
+                        call: () => {},
+                    });
+                    return;
+                }
+
                 let landId = this.data?.parm?.landId;
                 if (!landId) {
                     landId = MainView.inst.getEmptyLandId();
@@ -339,6 +359,18 @@ export default class ShopView extends GameScript {
                 if (!this.canClick) {
                     return;
                 }
+                if (
+                    e.target.name == "unlock_buy" &&
+                    (this.getDataList()[this.itemListSelectIndex] as PlantDataBase).base.unlock_cost
+                        .count > UserInfo.gold
+                ) {
+                    Core.view.openHint({
+                        text: "金币不足，去仓库出售可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
+                        call: () => {},
+                    });
+                    return;
+                }
+
                 this.canClick = false;
                 HttpControl.inst
                     .send({
@@ -467,6 +499,20 @@ export default class ShopView extends GameScript {
         if (!this.canClick) {
             return;
         }
+
+        if (!UserInfo.warePetId) {
+            Core.view.openHint({ text: "您还没有购买宠物哦！", call: () => {} });
+            return;
+        }
+
+        if (feed.base.cost.count > UserInfo.gold) {
+            Core.view.openHint({
+                text: "金币不足，去仓库出售可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
+                call: () => {},
+            });
+            return;
+        }
+
         this.canClick = false;
         HttpControl.inst
             .send({
@@ -531,6 +577,15 @@ export default class ShopView extends GameScript {
         if (!this.canClick) {
             return;
         }
+
+        if (PetService.list[this.selectPetIndex].base.cost.count > UserInfo.gold) {
+            Core.view.openHint({
+                text: "金币不足，去仓库出售可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
+                call: () => {},
+            });
+            return;
+        }
+
         this.canClick = false;
         HttpControl.inst
             .send({
@@ -803,14 +858,14 @@ export default class ShopView extends GameScript {
             // (cell.getChildByName("times_box").getChildByName("times") as Laya.Label).text = `剩余${
             //     times < 0 ? 0 : times
             // }次`;
-            (
-                cell.getChildByName("times_box").getChildByName("times") as Laya.Label
-            ).text = `新手奖励`;
+            // (
+            //     cell.getChildByName("times_box").getChildByName("times") as Laya.Label
+            // ).text = `新手奖励`;
             if (times <= 0) {
                 cell.disabled = true;
             }
 
-            if (data.price > 0.3) (cell.getChildByName("times_box") as Laya.Box).visible = false;
+            (cell.getChildByName("times_box") as Laya.Box).visible = false;
         } else {
             (cell.getChildByName("times_box") as Laya.Box).visible = false;
         }

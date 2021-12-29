@@ -16,16 +16,19 @@ export default class GatherDescView extends Core.gameScript {
     private order: Laya.Panel;
     /** @prop {name:closeBtn, tips:"关闭按钮", type:Node,}*/
     private closeBtn: Laya.Image;
+    /** @prop {name:adBtn, tips:"双倍广告按钮", type:Node,}*/
+    private adBtn: Laya.Image;
     /** @prop {name:item, tips:"物品节点", type:Prefab}*/
     private item: Laya.Prefab;
 
+    type: number;
     private data: {
-        type: number;
         data: any;
         call: Function;
         diamond: number;
         closeEvent: Function;
         nickname: string;
+        type: number;
     };
     private canClick: boolean = true;
 
@@ -36,6 +39,9 @@ export default class GatherDescView extends Core.gameScript {
 
         this.stealGet.vScrollBarSkin = null;
         this.order.vScrollBarSkin = null;
+
+        this.adBtn.disabled = !UserInfo.advertiseTimes;
+        this.adBtn.active = Boolean(UserInfo.advertiseTimes);
 
         Laya.timer.once(300, this, () => {
             AppCore.runAppFunction({
@@ -190,6 +196,10 @@ export default class GatherDescView extends Core.gameScript {
                         })
                         .catch(() => {
                             this.canClick = true;
+                            AppCore.runAppFunction({
+                                uri: AppEventMap.closeAd,
+                                data: {},
+                            });
                         });
                 } else {
                     if (e.target.name == "receive_double") {
@@ -233,7 +243,13 @@ export default class GatherDescView extends Core.gameScript {
                                         }
                                         Core.view.close(Res.views.GatherDescView);
                                     }
-                                );
+                                )
+                                .catch(() => {
+                                    AppCore.runAppFunction({
+                                        uri: AppEventMap.closeAd,
+                                        data: {},
+                                    });
+                                });
                         }
                     } else {
                         if (this.data.call) {
@@ -255,6 +271,10 @@ export default class GatherDescView extends Core.gameScript {
 
         if (this.data.closeEvent) {
             this.data.closeEvent();
+        }
+
+        if (this.data.type == 2) {
+            Core.eventGlobal.event(EventMaps.update_Order);
         }
     }
 }

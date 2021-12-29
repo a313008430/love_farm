@@ -556,12 +556,11 @@
     BuildType2["online"] = "online";
     BuildType2["debug"] = "debug";
   })(BuildType || (BuildType = {}));
-  console.log("online");
+  console.log("test");
   var baseUrl = "http://game.ahd168.com:3000";
-  switch ("online") {
+  switch ("test") {
     case BuildType.debug:
       baseUrl = "//192.168.101.50:3000";
-      baseUrl = "//192.168.101.50:3100";
       break;
     case BuildType.online:
       baseUrl = "http://game.ahd168.com:3100";
@@ -757,7 +756,7 @@
   var LocalStorageService_default = new LocalStorageService();
 
   // src/common/Table.ts
-  var Table = { "task": [{ "id": 1001, "reward": "1001:50", "times": 1, "title": "\u7B7E\u5230\u9886\u94BB\u77F3", "desc": "\u770B\u89C6\u9891\u7B7E\u5230", "icon": null }, { "id": 1002, "reward": "1001:100", "times": 10, "title": "\u83DC\u5730\u65BD\u80A510\u6B21", "desc": "\u83DC\u5730\u52A0\u901F10\u6B21", "icon": null }, { "id": 1003, "reward": "1001:50", "times": 10, "title": "\u83DC\u5730\u6536\u83B710\u6B21", "desc": "\u83DC\u5730\u6536\u83B710\u6B21", "icon": null }, { "id": 1004, "reward": "1001:50", "times": 5, "title": "\u5077\u83DC5\u6B21", "desc": "\u5077\u83DC5\u6B21", "icon": null }, { "id": 1005, "reward": "1002:200", "times": 3, "title": "\u5582\u517B\u72D7\u72D73\u6B21", "desc": "\u5582\u517B\u72D7\u72D73\u6B21", "icon": null }, { "id": 1013, "reward": "1001:50", "times": 5, "title": "\u9080\u8BF7\u597D\u53CB", "desc": "\u9080\u8BF75\u4E2A\u597D\u53CB", "icon": null }, { "id": 1007, "reward": "1001:20", "times": 10, "title": "\u8D2D\u4E70\u79CD\u5B5010\u6B21", "desc": "\u8D2D\u4E70\u79CD\u5B5010\u6B21", "icon": null }, { "id": 1008, "reward": "1002:500", "times": 3, "title": "\u51FA\u552E\u4F5C\u72693\u6B21", "desc": "\u51FA\u552E\u4F5C\u72693\u6B21", "icon": null }, { "id": 1009, "reward": "1001:100", "times": 5, "title": "\u6DFB\u52A0\u597D\u53CB", "desc": "\u6DFB\u52A0\u597D\u53CB5\u4E2A", "icon": null }, { "id": 1010, "reward": "1001:100", "times": 10, "title": "\u5206\u4EAB\u5F97\u597D\u793C", "desc": "\u5206\u4EAB10\u6B21", "icon": null }, { "id": 1011, "reward": "1002:500", "times": 3, "title": "\u4EFB\u610F\u79CD\u690D", "desc": "\u4EFB\u610F\u79CD\u690D3\u6B21", "icon": null }, { "id": 1012, "reward": "1001:50", "times": 5, "title": "\u770B\u89C6\u9891\u9886\u798F\u5229", "desc": "\u770B\u89C6\u98915\u6B21", "icon": null }], "signIn": [{ "id": 1001, "days": 7, "reward": "1001:20000" }, { "id": 1002, "days": 10, "reward": "1001:30000" }, { "id": 1003, "days": 15, "reward": "1001:50000" }, { "id": 1004, "days": 20, "reward": "1001:80000" }, { "id": 1005, "days": 30, "reward": "1001:120000" }, { "id": 1006, "days": 50, "reward": "1001:180000" }, { "id": 1007, "days": 80, "reward": "1001:300000" }, { "id": 1008, "days": 100, "reward": "1001:350000" }, { "id": 1009, "days": 150, "reward": "1001:500000" }], "plant": [{ "id": 1001, "name": "\u6C34\u7A3B", "icon": "plant_icon/1002_seed.png", "seed_price": "1002:50", "gain": "1001:0,1002:50", "harvest": "1~2", "mature_time": "180", "unlock_cost": null, "unlock_reward": null, "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1002, "name": "\u5927\u8C46", "icon": "plant_icon/1004_seed.png", "seed_price": "1002:50", "gain": "1001:0,1002:50", "harvest": "1~2", "mature_time": "180", "unlock_cost": null, "unlock_reward": null, "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1003, "name": "\u5927\u849C", "icon": "plant_icon/1012_seed.png", "seed_price": "1002:50", "gain": "1001:0,1002:50", "harvest": "1~2", "mature_time": "240", "unlock_cost": null, "unlock_reward": null, "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1004, "name": "\u5305\u5FC3\u83DC", "icon": "plant_icon/1006_seed.png", "seed_price": "1002:75", "gain": "1001:1,1002:75", "harvest": "1~2", "mature_time": "300", "unlock_cost": "1002:1000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1005, "name": "\u571F\u8C46", "icon": "plant_icon/1007_seed.png", "seed_price": "1002:75", "gain": "1001:1,1002:75", "harvest": "2~3", "mature_time": "300", "unlock_cost": "1002:1000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1006, "name": "\u841D\u535C", "icon": "plant_icon/1005_seed.png", "seed_price": "1002:75", "gain": "1001:1,1002:75", "harvest": "2~3", "mature_time": "480", "unlock_cost": "1002:1000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1007, "name": "\u5C0F\u9EA6", "icon": "plant_icon/1001_seed.png", "seed_price": "1002:120", "gain": "1001:3,1002:120", "harvest": "2~3", "mature_time": "480", "unlock_cost": "1002:1500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1008, "name": "\u8FA3\u6912", "icon": "plant_icon/1010_seed.png", "seed_price": "1002:120", "gain": "1001:3,1002:120", "harvest": "2~3", "mature_time": "600", "unlock_cost": "1002:2000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1009, "name": "\u9EC4\u74DC", "icon": "plant_icon/1011_seed.png", "seed_price": "1002:200", "gain": "1001:5,1002:200", "harvest": "3~4", "mature_time": "720", "unlock_cost": "1002:3000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1010, "name": "\u8304\u5B50", "icon": "plant_icon/1013_seed.png", "seed_price": "1002:200", "gain": "1001:5,1002:200", "harvest": "3~4", "mature_time": "720", "unlock_cost": "1002:3500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1011, "name": "\u80E1\u841D\u535C", "icon": "plant_icon/1008_seed.png", "seed_price": "1002:350", "gain": "1001:7,1002:350", "harvest": "3~4", "mature_time": "900", "unlock_cost": "1002:4500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1012, "name": "\u5357\u74DC", "icon": "plant_icon/1014_seed.png", "seed_price": "1002:350", "gain": "1001:7,1002:350", "harvest": "3~4", "mature_time": "900", "unlock_cost": "1002:5000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1013, "name": "\u7389\u7C73", "icon": "plant_icon/1003_seed.png", "seed_price": "1002:500", "gain": "1001:10,1002:500", "harvest": "3~5", "mature_time": "1200", "unlock_cost": "1002:5500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1014, "name": "\u7518\u8517", "icon": "plant_icon/1015_seed.png", "seed_price": "1002:500", "gain": "1001:10,1002:500", "harvest": "3~5", "mature_time": "1200", "unlock_cost": "1002:6000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1015, "name": "\u756A\u8304", "icon": "plant_icon/1009_seed.png", "seed_price": "1002:500", "gain": "1001:10,1002:500", "harvest": "3~5", "mature_time": "1200", "unlock_cost": "1002:6500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }], "pet": [{ "id": 1001, "name": "\u65FA\u8D22", "icon": "pet_feed/1001_dog.png", "vitality_max": 100, "vitality_consume": 10, "cost": "1002:3000", "desc": "\u7231\u5B83\u5C31\u4E70\u5B83~\u5B83\u5C31\u662F\u6709\u70B9\u61D2~", "sensitive": 34, "ability": 42 }, { "id": 1002, "name": "\u6C64\u5706", "icon": "pet_feed/1007_dog.png", "vitality_max": 100, "vitality_consume": 15, "cost": "1002:4000", "desc": "\u989C\u503C\u3001\u667A\u5546\u53CC\u53CC\u5728\u7EBF", "sensitive": 40, "ability": 48 }, { "id": 1003, "name": "\u8089\u5E72", "icon": "pet_feed/1009_dog.png", "vitality_max": 100, "vitality_consume": 16, "cost": "1002:4500", "desc": "\u6700\u5FE0\u8BDA\u7684\u4F19\u4F34", "sensitive": 45, "ability": 55 }, { "id": 1004, "name": "\u4E8C\u54C8", "icon": "pet_feed/1002_dog.png", "vitality_max": 100, "vitality_consume": 16, "cost": "1002:5000", "desc": "\u7EDD\u4E0D\u62C6\u5BB6\uFF01", "sensitive": 48, "ability": 60 }, { "id": 1005, "name": "\u5927\u773C\u775B", "icon": "pet_feed/1005_dog.png", "vitality_max": 100, "vitality_consume": 17, "cost": "1002:7000", "desc": "\u6D3B\u597D\u5403\u7684\u5C11", "sensitive": 50, "ability": 75 }, { "id": 1006, "name": "\u5C0F\u5C3E\u5DF4", "icon": "pet_feed/1004_dog.png", "vitality_max": 100, "vitality_consume": 18, "cost": "1002:7500", "desc": "\u6B66\u529B\u5929\u8D4B\u5DF2\u70B9\u6EE1~\u62FF\u634F\uFF01", "sensitive": 60, "ability": 80 }, { "id": 1007, "name": "\u7403\u7403", "icon": "pet_feed/1008_dog.png", "vitality_max": 100, "vitality_consume": 18, "cost": "1002:8000", "desc": "\u5C31\u4E24\u4E2A\u5B57\uFF0C\u542C\u8BDD\uFF01", "sensitive": 69, "ability": 85 }, { "id": 1008, "name": "\u5C0F\u767D", "icon": "pet_feed/1003_dog.png", "vitality_max": 100, "vitality_consume": 18, "cost": "1002:8000", "desc": "\u770B\u5BB6\u3001\u770B\u83DC\u3001\u770B\u5B69\u5B50", "sensitive": 76, "ability": 88 }, { "id": 1009, "name": "\u70B9\u70B9", "icon": "pet_feed/1006_dog.png", "vitality_max": 100, "vitality_consume": 19, "cost": "1002:10000", "desc": "\u4F60\u503C\u5F97\u62E5\u6709\uFF01", "sensitive": 85, "ability": 93 }, { "id": 1010, "name": "\u95F7\u58A9", "icon": "pet_feed/1010_dog.png", "vitality_max": 100, "vitality_consume": 30, "cost": "1002:15000", "desc": "\u957F\u5F97\u5C31\u5F88\u51F6\uFF0C\u6293\u5C0F\u5077\u66F4\u51F6", "sensitive": 90, "ability": 99 }], "order": [{ "id": 1, "commission": "1.12", "condition": "1001:2", "extra_reward": "1001:80" }, { "id": 2, "commission": "0.87", "condition": "1001:1,1002:2", "extra_reward": "1001:80" }, { "id": 3, "commission": "0.69", "condition": "1001:1,1003:2,1002:3", "extra_reward": "1001:80" }, { "id": 4, "commission": "0.61", "condition": "1002:4,1003:3,1004:3,1001:4", "extra_reward": "1001:80" }, { "id": 5, "commission": "0.61", "condition": "1004:6,1002:5,1005:4,1001:5", "extra_reward": "1001:80" }, { "id": 6, "commission": "0.68", "condition": "1003:10,1004:5,1005:3,1006:3", "extra_reward": "1001:80" }, { "id": 7, "commission": "0.43", "condition": "1007:4,1003:5,1004:7,1006:10", "extra_reward": "1001:80" }, { "id": 8, "commission": "0.56", "condition": "1008:13,1007:3,1005:5,1002:5", "extra_reward": "1001:80" }, { "id": 9, "commission": "0.39", "condition": "1006:2,1009:10,1007:8,1003:8", "extra_reward": "1001:80" }, { "id": 10, "commission": "0.22", "condition": "1006:10,1010:5,1008:10,1009:6", "extra_reward": "1001:80" }, { "id": 11, "commission": "0.76", "condition": "1009:5,1004:10,1001:9,1002:10", "extra_reward": "1001:100" }, { "id": 12, "commission": "0.43", "condition": "1007:6,1003:11,1011:6,1005:10", "extra_reward": "1001:100" }, { "id": 13, "commission": "0.17", "condition": "1010:5,1005:13,1001:8,1012:8", "extra_reward": "1001:100" }, { "id": 14, "commission": "0.55", "condition": "1013:10,1008:8,1006:6,1001:10", "extra_reward": "1001:100" }, { "id": 15, "commission": "0.48", "condition": "1002:10,1005:10,1011:12,1001:10", "extra_reward": "1001:100" }, { "id": 16, "commission": 0.29, "condition": "1008:11,1014:4,1006:8,1005:17", "extra_reward": "1001:100" }, { "id": 17, "commission": 0.37, "condition": "1006:14,1007:6,1015:12,1001:14", "extra_reward": "1001:100" }, { "id": 18, "commission": 0.48, "condition": "1008:14,1011:12,1009:15,1002:5", "extra_reward": "1001:100" }, { "id": 19, "commission": 0.75, "condition": "1013:10,1003:20,1014:11,1001:7", "extra_reward": "1001:100" }, { "id": 20, "commission": 0.67, "condition": "1003:10,1011:17,1002:14,1005:12", "extra_reward": "1001:100" }, { "id": 21, "commission": 0.64, "condition": "1010:10,1003:14,1005:16,1007:15", "extra_reward": "1001:120" }, { "id": 22, "commission": "0.4", "condition": "1015:19,1007:12,1011:5,1004:17", "extra_reward": "1001:120" }, { "id": 23, "commission": "0.4", "condition": "1003:19,1014:22,1015:16,1008:14", "extra_reward": "1001:120" }, { "id": 24, "commission": 0.77, "condition": "1014:13,1001:17,1008:18,1004:15", "extra_reward": "1001:120" }, { "id": 25, "commission": "0.39", "condition": "1012:23,1011:19,1010:15,1015:20", "extra_reward": "1001:120" }, { "id": 26, "commission": 0.03, "condition": "1002:21,1011:12,1012:22,1003:19", "extra_reward": "1001:120" }, { "id": 27, "commission": 0.49, "condition": "1007:16,1014:16,1006:20,1011:17", "extra_reward": "1001:120" }, { "id": 28, "commission": 0.53, "condition": "1014:17,1007:12,1011:17,1003:17", "extra_reward": "1001:120" }, { "id": 29, "commission": 0.77, "condition": "1012:10,1005:16,1010:14,1015:18", "extra_reward": "1001:120" }, { "id": 30, "commission": "0.34", "condition": "1011:17,1014:19,1006:14,1004:30", "extra_reward": "1001:120" }, { "id": 31, "commission": 0.53, "condition": "1007:18,1010:14,1013:19,1006:11", "extra_reward": "1001:150" }, { "id": 32, "commission": 0.46, "condition": "1013:19,1005:22,1012:12,1008:20", "extra_reward": "1001:150" }, { "id": 33, "commission": "0.44", "condition": "1012:16,1013:20,1002:23,1009:16", "extra_reward": "1001:150" }, { "id": 34, "commission": "0.42", "condition": "1009:19,1010:12,1011:14,1012:20", "extra_reward": "1001:150" }, { "id": 35, "commission": "0.33", "condition": "1001:18,1004:19,1013:16,1003:20", "extra_reward": "1001:150" }, { "id": 36, "commission": 0.21, "condition": "1003:11,1008:17,1014:17,1007:19", "extra_reward": "1001:150" }, { "id": 37, "commission": 0.44, "condition": "1012:19,1010:20,1002:14,1011:11", "extra_reward": "1001:150" }, { "id": 38, "commission": 0.22, "condition": "1014:13,1004:19,1002:11,1015:18", "extra_reward": "1001:150" }, { "id": 39, "commission": 0.36, "condition": "1007:18,1012:13,1004:16,1002:26", "extra_reward": "1001:150" }, { "id": 40, "commission": 0.28, "condition": "1004:30,1005:10,1008:18,1011:16", "extra_reward": "1001:150" }, { "id": 41, "commission": "0.48", "condition": "1010:18,1009:18,1008:17,1011:26", "extra_reward": "1001:500" }, { "id": 42, "commission": 0.43, "condition": "1009:21,1005:18,1007:20,1002:23", "extra_reward": "1001:800" }, { "id": 43, "commission": "0.24", "condition": "1006:30,1004:14,1014:11,1008:15", "extra_reward": "1001:1000" }, { "id": 44, "commission": 0.62, "condition": "1009:15,1003:28,1002:34,1007:19", "extra_reward": "1001:1600" }, { "id": 45, "commission": "0.41", "condition": "1012:15,1010:23,1007:13,1011:13", "extra_reward": "1001:2200" }, { "id": 46, "commission": 0.39, "condition": "1003:22,1007:23,1010:16,1002:24", "extra_reward": "1001:2800" }, { "id": 47, "commission": 0.49, "condition": "1010:24,1015:20,1003:25,1014:16", "extra_reward": "1001:3400" }, { "id": 48, "commission": "0.26", "condition": "1013:17,1007:24,1008:37,1001:30", "extra_reward": "1001:4000" }, { "id": 49, "commission": 0.48, "condition": "1002:26,1004:21,1009:22,1006:20", "extra_reward": "1001:4600" }, { "id": 50, "commission": "0.25", "condition": "1006:27,1012:19,1008:20,1015:11", "extra_reward": "1001:5200" }, { "id": 51, "commission": "0.34", "condition": "1011:18,1004:19,1002:25,1003:11", "extra_reward": "1001:5800" }, { "id": 52, "commission": 0.43, "condition": "1015:15,1013:20,1001:25,1004:26", "extra_reward": "1001:6400" }, { "id": 53, "commission": "0.28", "condition": "1014:14,1012:12,1010:20,1015:18", "extra_reward": "1001:7000" }, { "id": 54, "commission": 0.45, "condition": "1005:22,1002:33,1009:16,1015:17", "extra_reward": "1001:7600" }, { "id": 55, "commission": "0.56", "condition": "1001:23,1014:19,1005:17,1010:15", "extra_reward": "1001:8200" }, { "id": 56, "commission": "0.35", "condition": "1006:27,1005:29,1009:17,1003:18", "extra_reward": "1001:8800" }, { "id": 57, "commission": 0.67, "condition": "1007:21,1008:17,1002:16,1009:25", "extra_reward": "1001:9400" }, { "id": 58, "commission": 0.32, "condition": "1006:20,1008:25,1005:24,1007:19", "extra_reward": "1001:10000" }, { "id": 59, "commission": 0.79, "condition": "1012:25,1009:30,1013:16,1008:15", "extra_reward": "1001:10600" }, { "id": 60, "commission": 0.69, "condition": "1015:26,1012:27,1010:31,1001:23", "extra_reward": "1001:11200" }, { "id": 61, "commission": 0.39, "condition": "1015:12,1006:25,1011:15,1002:17", "extra_reward": "1001:11800" }, { "id": 62, "commission": 0.44, "condition": "1015:21,1007:15,1011:18,1006:26", "extra_reward": "1001:12400" }, { "id": 63, "commission": 0.01, "condition": "1010:18,1005:16,1009:13,1003:27", "extra_reward": "1001:13000" }, { "id": 64, "commission": 0.27, "condition": "1007:17,1006:10,1005:29,1004:25", "extra_reward": "1001:13600" }, { "id": 65, "commission": 0.39, "condition": "1008:15,1003:30,1014:20,1005:15", "extra_reward": "1001:14200" }, { "id": 66, "commission": 0.73, "condition": "1004:25,1008:25,1002:34,1012:14", "extra_reward": "1001:14800" }, { "id": 67, "commission": 0.13, "condition": "1001:36,1012:20,1011:20,1003:20", "extra_reward": "1001:15400" }, { "id": 68, "commission": 0.69, "condition": "1013:24,1008:23,1006:16,1007:17", "extra_reward": "1001:16000" }, { "id": 69, "commission": 0.37, "condition": "1015:30,1004:29,1013:17,1009:10", "extra_reward": "1001:16600" }, { "id": 70, "commission": 0.71, "condition": "1010:23,1004:31,1011:17,1012:11", "extra_reward": "1001:17200" }, { "id": 71, "commission": 0.29, "condition": "1008:11,1002:26,1003:28,1015:13", "extra_reward": "1001:17800" }, { "id": 72, "commission": 0.31, "condition": "1005:25,1002:38,1012:19,1010:14", "extra_reward": "1001:18400" }, { "id": 73, "commission": 0.39, "condition": "1012:34,1006:22,1003:27,1004:20", "extra_reward": "1001:19000" }, { "id": 74, "commission": 0.26, "condition": "1003:20,1012:18,1002:30,1001:20", "extra_reward": "1001:19600" }, { "id": 75, "commission": 0.18, "condition": "1006:31,1014:30,1008:12,1002:25", "extra_reward": "1001:20200" }, { "id": 76, "commission": 0.51, "condition": "1007:21,1012:20,1004:11,1014:20", "extra_reward": "1001:20800" }, { "id": 77, "commission": 0.21, "condition": "1008:15,1009:16,1012:24,1007:30", "extra_reward": "1001:21400" }, { "id": 78, "commission": 0.73, "condition": "1015:16,1012:16,1006:20,1008:22", "extra_reward": "1001:22000" }, { "id": 79, "commission": 0.65, "condition": "1006:26,1004:18,1007:12,1011:27", "extra_reward": "1001:22600" }, { "id": 80, "commission": 0.39, "condition": "1009:15,1003:16,1004:19,1007:24", "extra_reward": "1001:23200" }, { "id": 81, "commission": 0.14, "condition": "1012:20,1015:28,1002:24,1003:38", "extra_reward": "1001:23800" }, { "id": 82, "commission": 0.2, "condition": "1005:12,1011:19,1009:18,1002:14", "extra_reward": "1001:24400" }, { "id": 83, "commission": 0.53, "condition": "1010:19,1003:38,1007:22,1015:20", "extra_reward": "1001:25000" }, { "id": 84, "commission": 0.62, "condition": "1005:29,1014:26,1002:18,1007:38", "extra_reward": "1001:25600" }, { "id": 85, "commission": 0.37, "condition": "1011:20,1001:17,1012:12,1004:32", "extra_reward": "1001:26200" }, { "id": 86, "commission": 0.59, "condition": "1009:25,1011:20,1006:14,1015:21", "extra_reward": "1001:26800" }, { "id": 87, "commission": "0.31", "condition": "1006:26,1005:19,1013:20,1014:29", "extra_reward": "1001:27400" }, { "id": 88, "commission": "0.48", "condition": "1008:37,1011:24,1015:12,1014:11", "extra_reward": "1001:28000" }, { "id": 89, "commission": "0.22", "condition": "1002:17,1003:28,1005:22,1010:31", "extra_reward": "1001:28600" }, { "id": 90, "commission": 0.32, "condition": "1002:39,1013:28,1007:25,1001:33", "extra_reward": "1001:29200" }, { "id": 91, "commission": 0.19, "condition": "1008:15,1013:20,1014:10,1007:26", "extra_reward": "1001:29800" }, { "id": 92, "commission": 0.13, "condition": "1004:38,1011:13,1008:15,1007:29", "extra_reward": "1001:30400" }, { "id": 93, "commission": 0.34, "condition": "1013:12,1001:39,1006:38,1008:31", "extra_reward": "1001:31000" }, { "id": 94, "commission": 0.22, "condition": "1002:36,1014:27,1013:16,1005:31", "extra_reward": "1001:31600" }, { "id": 95, "commission": 0.15, "condition": "1005:26,1011:34,1015:34,1008:16", "extra_reward": "1001:32200" }, { "id": 96, "commission": "0.49", "condition": "1003:24,1001:34,1007:28,1005:30", "extra_reward": "1001:32800" }, { "id": 97, "commission": "0.6", "condition": "1013:32,1009:33,1006:30,1011:40", "extra_reward": "1001:33400" }, { "id": 98, "commission": "0.35", "condition": "1014:40,1009:43,1015:33,1012:45", "extra_reward": "1001:34000" }, { "id": 99, "commission": "0.44", "condition": "1011:39,1008:37,1009:30,1013:42", "extra_reward": "1001:34600" }, { "id": 100, "commission": "0.49", "condition": "1012:40,1010:33,1013:30,1011:40", "extra_reward": "1001:35200" }], "lang": [], "landLevel": [{ "id": 1, "reward": "1002:0", "cost": "1002:0", "gain": null, "probability": 0.1, "get_diamond": 1 }, { "id": 2, "reward": "1002:1500", "cost": "1002:5000", "gain": 0.1, "probability": 0.13, "get_diamond": 1 }, { "id": 3, "reward": "1002:2000", "cost": "1002:10000", "gain": 0.25, "probability": 0.25, "get_diamond": 2 }, { "id": 4, "reward": "1002:2500", "cost": "1002:20000", "gain": 0.4, "probability": 0.38, "get_diamond": 3 }, { "id": 5, "reward": "1002:3000", "cost": "1002:50000", "gain": 0.55, "probability": 0.5, "get_diamond": 5 }], "feed": [{ "id": 1001, "name": "\u997C\u5E72", "icon": "pet_feed/1001_feed.png", "vitality": 1, "cost": "1002:30", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1002, "name": "\u575A\u679C", "icon": "pet_feed/1002_feed.png", "vitality": 2, "cost": "1002:50", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1003, "name": "\u706B\u817F", "icon": "pet_feed/1003_feed.png", "vitality": 5, "cost": "1002:100", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1004, "name": "\u725B\u8089", "icon": "pet_feed/1004_feed.png", "vitality": 50, "cost": "1002:900", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1005, "name": "\u732A\u8089", "icon": "pet_feed/1005_feed.png", "vitality": 20, "cost": "1002:460", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1006, "name": "\u9E21\u8089", "icon": "pet_feed/1006_feed.png", "vitality": 10, "cost": "1002:270", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }], "currency": [{ "id": 1001, "name": "\u94BB\u77F3", "icon": "main_scene/img_diamond.png" }, { "id": 1002, "name": "\u91D1\u5E01", "icon": "main_scene/img_coin.png" }], "config": [{ "id": "all_speed_up_times", "value": 30 }, { "id": "all_speed_up_time", "value": 600 }, { "id": "unlock_land_cost", "value": "1002:0,1002:0,1002:5000,1002:10000,1002:20000,1002:30000,1002:40000,1002:50000,1002:60000" }, { "id": "goldDefault", "value": "1002:100" }, { "id": "diamondDefault", "value": "1001:50" }, { "id": "ADTimesLimit", "value": 50 }, { "id": "ADSpeedUptimes", "value": 6 }, { "id": "vitalityBuyCostGold", "value": "1002:10000" }, { "id": "vitalityLimit", "value": 10 }, { "id": "Initial_physical_strength", "value": 10 }, { "id": "landAmountMax", "value": 9 }, { "id": "petDefaultVitality", "value": 100 }, { "id": "petDigestIntervalTime", "value": 3600 }, { "id": "Videorewards", "value": "1001:450:600,1001:250:350,1001:200:300,1001:100:200,1001:80:100" }, { "id": "withdrawal", "value": "1001:10000:1" }, { "id": "Invitation_rewards", "value": "1001:5000" }, { "id": "withdrawal_times", "value": "0.3:1:0:0,5:1:6:30,10:1:15:60,50:1:50:80,100:1:100:90,200:0:200:97" }] };
+  var Table = { "task": [{ "id": 1001, "reward": "1001:50", "times": 1, "title": "\u7B7E\u5230\u9886\u94BB\u77F3", "desc": "\u770B\u89C6\u9891\u7B7E\u5230", "icon": null }, { "id": 1002, "reward": "1001:100", "times": 10, "title": "\u83DC\u5730\u65BD\u80A510\u6B21", "desc": "\u83DC\u5730\u52A0\u901F10\u6B21", "icon": null }, { "id": 1003, "reward": "1001:50", "times": 10, "title": "\u83DC\u5730\u6536\u83B710\u6B21", "desc": "\u83DC\u5730\u6536\u83B710\u6B21", "icon": null }, { "id": 1004, "reward": "1001:50", "times": 5, "title": "\u5077\u83DC5\u6B21", "desc": "\u5077\u83DC5\u6B21", "icon": null }, { "id": 1005, "reward": "1002:200", "times": 3, "title": "\u5582\u517B\u72D7\u72D73\u6B21", "desc": "\u5582\u517B\u72D7\u72D73\u6B21", "icon": null }, { "id": 1013, "reward": "1001:50", "times": 5, "title": "\u9080\u8BF7\u597D\u53CB", "desc": "\u9080\u8BF75\u4E2A\u597D\u53CB", "icon": null }, { "id": 1007, "reward": "1001:20", "times": 10, "title": "\u8D2D\u4E70\u79CD\u5B5010\u6B21", "desc": "\u8D2D\u4E70\u79CD\u5B5010\u6B21", "icon": null }, { "id": 1008, "reward": "1002:500", "times": 3, "title": "\u51FA\u552E\u4F5C\u72693\u6B21", "desc": "\u51FA\u552E\u4F5C\u72693\u6B21", "icon": null }, { "id": 1009, "reward": "1001:100", "times": 5, "title": "\u6DFB\u52A0\u597D\u53CB", "desc": "\u6DFB\u52A0\u597D\u53CB5\u4E2A", "icon": null }, { "id": 1010, "reward": "1001:100", "times": 10, "title": "\u5206\u4EAB\u5F97\u597D\u793C", "desc": "\u5206\u4EAB10\u6B21", "icon": null }, { "id": 1011, "reward": "1002:500", "times": 3, "title": "\u4EFB\u610F\u79CD\u690D", "desc": "\u4EFB\u610F\u79CD\u690D3\u6B21", "icon": null }, { "id": 1012, "reward": "1001:50", "times": 5, "title": "\u770B\u89C6\u9891\u9886\u798F\u5229", "desc": "\u770B\u89C6\u98915\u6B21", "icon": null }], "signIn": [{ "id": 1001, "days": 7, "reward": "1001:20000" }, { "id": 1002, "days": 10, "reward": "1001:30000" }, { "id": 1003, "days": 15, "reward": "1001:50000" }, { "id": 1004, "days": 20, "reward": "1001:80000" }, { "id": 1005, "days": 30, "reward": "1001:120000" }, { "id": 1006, "days": 50, "reward": "1001:180000" }, { "id": 1007, "days": 80, "reward": "1001:300000" }, { "id": 1008, "days": 100, "reward": "1001:350000" }, { "id": 1009, "days": 150, "reward": "1001:500000" }], "plant": [{ "id": 1001, "name": "\u6C34\u7A3B", "icon": "plant_icon/1002_seed.png", "seed_price": "1002:50", "gain": "1001:0,1002:50", "harvest": "1~2", "mature_time": "180", "unlock_cost": null, "unlock_reward": null, "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1002, "name": "\u5927\u8C46", "icon": "plant_icon/1004_seed.png", "seed_price": "1002:50", "gain": "1001:0,1002:50", "harvest": "1~2", "mature_time": "180", "unlock_cost": null, "unlock_reward": null, "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1003, "name": "\u5927\u849C", "icon": "plant_icon/1012_seed.png", "seed_price": "1002:50", "gain": "1001:0,1002:50", "harvest": "1~2", "mature_time": "240", "unlock_cost": null, "unlock_reward": null, "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1004, "name": "\u5305\u5FC3\u83DC", "icon": "plant_icon/1006_seed.png", "seed_price": "1002:75", "gain": "1001:1,1002:75", "harvest": "1~2", "mature_time": "300", "unlock_cost": "1002:1000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1005, "name": "\u571F\u8C46", "icon": "plant_icon/1007_seed.png", "seed_price": "1002:75", "gain": "1001:1,1002:75", "harvest": "2~3", "mature_time": "300", "unlock_cost": "1002:1000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1006, "name": "\u841D\u535C", "icon": "plant_icon/1005_seed.png", "seed_price": "1002:75", "gain": "1001:1,1002:75", "harvest": "2~3", "mature_time": "480", "unlock_cost": "1002:1000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1007, "name": "\u5C0F\u9EA6", "icon": "plant_icon/1001_seed.png", "seed_price": "1002:120", "gain": "1001:3,1002:120", "harvest": "2~3", "mature_time": "480", "unlock_cost": "1002:1500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1008, "name": "\u8FA3\u6912", "icon": "plant_icon/1010_seed.png", "seed_price": "1002:120", "gain": "1001:3,1002:120", "harvest": "2~3", "mature_time": "600", "unlock_cost": "1002:2000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1009, "name": "\u9EC4\u74DC", "icon": "plant_icon/1011_seed.png", "seed_price": "1002:200", "gain": "1001:5,1002:200", "harvest": "3~4", "mature_time": "720", "unlock_cost": "1002:3000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1010, "name": "\u8304\u5B50", "icon": "plant_icon/1013_seed.png", "seed_price": "1002:200", "gain": "1001:5,1002:200", "harvest": "3~4", "mature_time": "720", "unlock_cost": "1002:3500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1011, "name": "\u80E1\u841D\u535C", "icon": "plant_icon/1008_seed.png", "seed_price": "1002:350", "gain": "1001:7,1002:350", "harvest": "3~4", "mature_time": "900", "unlock_cost": "1002:4500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1012, "name": "\u5357\u74DC", "icon": "plant_icon/1014_seed.png", "seed_price": "1002:350", "gain": "1001:7,1002:350", "harvest": "3~4", "mature_time": "900", "unlock_cost": "1002:5000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1013, "name": "\u7389\u7C73", "icon": "plant_icon/1003_seed.png", "seed_price": "1002:500", "gain": "1001:10,1002:500", "harvest": "3~5", "mature_time": "1200", "unlock_cost": "1002:5500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1014, "name": "\u7518\u8517", "icon": "plant_icon/1015_seed.png", "seed_price": "1002:500", "gain": "1001:10,1002:500", "harvest": "3~5", "mature_time": "1200", "unlock_cost": "1002:6000", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }, { "id": 1015, "name": "\u756A\u8304", "icon": "plant_icon/1009_seed.png", "seed_price": "1002:500", "gain": "1001:10,1002:500", "harvest": "3~5", "mature_time": "1200", "unlock_cost": "1002:6500", "unlock_reward": "1001:0,1002:0", "desc": "\u79CD\u4E0B\u4E00\u7C92\u79CD\u5B50\uFF0C\u6536\u83B7\u6574\u4E2A\u4E16\u754C" }], "pet": [{ "id": 1001, "name": "\u65FA\u8D22", "icon": "pet_feed/1001_dog.png", "vitality_max": 100, "vitality_consume": 10, "cost": "1002:3000", "desc": "\u7231\u5B83\u5C31\u4E70\u5B83~\u5B83\u5C31\u662F\u6709\u70B9\u61D2~", "sensitive": 30, "ability": 35 }, { "id": 1002, "name": "\u6C64\u5706", "icon": "pet_feed/1007_dog.png", "vitality_max": 100, "vitality_consume": 15, "cost": "1002:4000", "desc": "\u989C\u503C\u3001\u667A\u5546\u53CC\u53CC\u5728\u7EBF", "sensitive": 35, "ability": 35 }, { "id": 1003, "name": "\u8089\u5E72", "icon": "pet_feed/1009_dog.png", "vitality_max": 100, "vitality_consume": 16, "cost": "1002:4500", "desc": "\u6700\u5FE0\u8BDA\u7684\u4F19\u4F34", "sensitive": 40, "ability": 40 }, { "id": 1004, "name": "\u4E8C\u54C8", "icon": "pet_feed/1002_dog.png", "vitality_max": 100, "vitality_consume": 16, "cost": "1002:5000", "desc": "\u7EDD\u4E0D\u62C6\u5BB6\uFF01", "sensitive": 45, "ability": 45 }, { "id": 1005, "name": "\u5927\u773C\u775B", "icon": "pet_feed/1005_dog.png", "vitality_max": 100, "vitality_consume": 17, "cost": "1002:7000", "desc": "\u6D3B\u597D\u5403\u7684\u5C11", "sensitive": 50, "ability": 50 }, { "id": 1006, "name": "\u5C0F\u5C3E\u5DF4", "icon": "pet_feed/1004_dog.png", "vitality_max": 100, "vitality_consume": 18, "cost": "1002:7500", "desc": "\u6B66\u529B\u5929\u8D4B\u5DF2\u70B9\u6EE1~\u62FF\u634F\uFF01", "sensitive": 50, "ability": 55 }, { "id": 1007, "name": "\u7403\u7403", "icon": "pet_feed/1008_dog.png", "vitality_max": 100, "vitality_consume": 18, "cost": "1002:8000", "desc": "\u5C31\u4E24\u4E2A\u5B57\uFF0C\u542C\u8BDD\uFF01", "sensitive": 53, "ability": 60 }, { "id": 1008, "name": "\u5C0F\u767D", "icon": "pet_feed/1003_dog.png", "vitality_max": 100, "vitality_consume": 18, "cost": "1002:8000", "desc": "\u770B\u5BB6\u3001\u770B\u83DC\u3001\u770B\u5B69\u5B50", "sensitive": 58, "ability": 65 }, { "id": 1009, "name": "\u70B9\u70B9", "icon": "pet_feed/1006_dog.png", "vitality_max": 100, "vitality_consume": 19, "cost": "1002:10000", "desc": "\u4F60\u503C\u5F97\u62E5\u6709\uFF01", "sensitive": 60, "ability": 70 }, { "id": 1010, "name": "\u95F7\u58A9", "icon": "pet_feed/1010_dog.png", "vitality_max": 100, "vitality_consume": 30, "cost": "1002:15000", "desc": "\u957F\u5F97\u5C31\u5F88\u51F6\uFF0C\u6293\u5C0F\u5077\u66F4\u51F6", "sensitive": 65, "ability": 80 }], "order": [{ "id": 1, "commission": "1.12", "condition": "1001:2", "extra_reward": "1001:80" }, { "id": 2, "commission": "0.87", "condition": "1001:1,1002:2", "extra_reward": "1001:80" }, { "id": 3, "commission": "0.69", "condition": "1001:1,1003:2,1002:3", "extra_reward": "1001:80" }, { "id": 4, "commission": "0.61", "condition": "1002:4,1003:3,1004:3,1001:4", "extra_reward": "1001:80" }, { "id": 5, "commission": "0.61", "condition": "1004:6,1002:5,1005:4,1001:5", "extra_reward": "1001:80" }, { "id": 6, "commission": "0.68", "condition": "1003:10,1004:5,1005:3,1006:3", "extra_reward": "1001:80" }, { "id": 7, "commission": "0.43", "condition": "1007:4,1003:5,1004:7,1006:10", "extra_reward": "1001:80" }, { "id": 8, "commission": "0.56", "condition": "1008:13,1007:3,1005:5,1002:5", "extra_reward": "1001:80" }, { "id": 9, "commission": "0.39", "condition": "1006:2,1009:10,1007:8,1003:8", "extra_reward": "1001:80" }, { "id": 10, "commission": "0.22", "condition": "1006:10,1010:5,1008:10,1009:6", "extra_reward": "1001:80" }, { "id": 11, "commission": "0.76", "condition": "1009:5,1004:10,1001:9,1002:10", "extra_reward": "1001:100" }, { "id": 12, "commission": "0.43", "condition": "1007:6,1003:11,1011:6,1005:10", "extra_reward": "1001:100" }, { "id": 13, "commission": "0.17", "condition": "1010:5,1005:13,1001:8,1012:8", "extra_reward": "1001:100" }, { "id": 14, "commission": "0.55", "condition": "1013:10,1008:8,1006:6,1001:10", "extra_reward": "1001:100" }, { "id": 15, "commission": "0.48", "condition": "1002:10,1005:10,1011:12,1001:10", "extra_reward": "1001:100" }, { "id": 16, "commission": 0.29, "condition": "1008:11,1014:4,1006:8,1005:17", "extra_reward": "1001:100" }, { "id": 17, "commission": 0.37, "condition": "1006:14,1007:6,1015:12,1001:14", "extra_reward": "1001:100" }, { "id": 18, "commission": 0.48, "condition": "1008:14,1011:12,1009:15,1002:5", "extra_reward": "1001:100" }, { "id": 19, "commission": 0.75, "condition": "1013:10,1003:20,1014:11,1001:7", "extra_reward": "1001:100" }, { "id": 20, "commission": 0.67, "condition": "1003:10,1011:17,1002:14,1005:12", "extra_reward": "1001:100" }, { "id": 21, "commission": 0.64, "condition": "1010:10,1003:14,1005:16,1007:15", "extra_reward": "1001:120" }, { "id": 22, "commission": "0.4", "condition": "1015:19,1007:12,1011:5,1004:17", "extra_reward": "1001:120" }, { "id": 23, "commission": "0.4", "condition": "1003:19,1014:22,1015:16,1008:14", "extra_reward": "1001:120" }, { "id": 24, "commission": 0.77, "condition": "1014:13,1001:17,1008:18,1004:15", "extra_reward": "1001:120" }, { "id": 25, "commission": "0.39", "condition": "1012:23,1011:19,1010:15,1015:20", "extra_reward": "1001:120" }, { "id": 26, "commission": 0.03, "condition": "1002:21,1011:12,1012:22,1003:19", "extra_reward": "1001:120" }, { "id": 27, "commission": 0.49, "condition": "1007:16,1014:16,1006:20,1011:17", "extra_reward": "1001:120" }, { "id": 28, "commission": 0.53, "condition": "1014:17,1007:12,1011:17,1003:17", "extra_reward": "1001:120" }, { "id": 29, "commission": 0.77, "condition": "1012:10,1005:16,1010:14,1015:18", "extra_reward": "1001:120" }, { "id": 30, "commission": "0.34", "condition": "1011:17,1014:19,1006:14,1004:30", "extra_reward": "1001:120" }, { "id": 31, "commission": 0.53, "condition": "1007:18,1010:14,1013:19,1006:11", "extra_reward": "1001:150" }, { "id": 32, "commission": 0.46, "condition": "1013:19,1005:22,1012:12,1008:20", "extra_reward": "1001:150" }, { "id": 33, "commission": "0.44", "condition": "1012:16,1013:20,1002:23,1009:16", "extra_reward": "1001:150" }, { "id": 34, "commission": "0.42", "condition": "1009:19,1010:12,1011:14,1012:20", "extra_reward": "1001:150" }, { "id": 35, "commission": "0.33", "condition": "1001:18,1004:19,1013:16,1003:20", "extra_reward": "1001:150" }, { "id": 36, "commission": 0.21, "condition": "1003:11,1008:17,1014:17,1007:19", "extra_reward": "1001:150" }, { "id": 37, "commission": 0.44, "condition": "1012:19,1010:20,1002:14,1011:11", "extra_reward": "1001:150" }, { "id": 38, "commission": 0.22, "condition": "1014:13,1004:19,1002:11,1015:18", "extra_reward": "1001:150" }, { "id": 39, "commission": 0.36, "condition": "1007:18,1012:13,1004:16,1002:26", "extra_reward": "1001:150" }, { "id": 40, "commission": 0.28, "condition": "1004:30,1005:10,1008:18,1011:16", "extra_reward": "1001:150" }, { "id": 41, "commission": "0.48", "condition": "1010:18,1009:18,1008:17,1011:26", "extra_reward": "1001:500" }, { "id": 42, "commission": 0.43, "condition": "1009:21,1005:18,1007:20,1002:23", "extra_reward": "1001:800" }, { "id": 43, "commission": "0.24", "condition": "1006:30,1004:14,1014:11,1008:15", "extra_reward": "1001:1000" }, { "id": 44, "commission": 0.62, "condition": "1009:15,1003:28,1002:34,1007:19", "extra_reward": "1001:1600" }, { "id": 45, "commission": "0.41", "condition": "1012:15,1010:23,1007:13,1011:13", "extra_reward": "1001:2200" }, { "id": 46, "commission": 0.39, "condition": "1003:22,1007:23,1010:16,1002:24", "extra_reward": "1001:2800" }, { "id": 47, "commission": 0.49, "condition": "1010:24,1015:20,1003:25,1014:16", "extra_reward": "1001:3400" }, { "id": 48, "commission": "0.26", "condition": "1013:17,1007:24,1008:37,1001:30", "extra_reward": "1001:4000" }, { "id": 49, "commission": 0.48, "condition": "1002:26,1004:21,1009:22,1006:20", "extra_reward": "1001:4600" }, { "id": 50, "commission": "0.25", "condition": "1006:27,1012:19,1008:20,1015:11", "extra_reward": "1001:5200" }, { "id": 51, "commission": "0.34", "condition": "1011:18,1004:19,1002:25,1003:11", "extra_reward": "1001:5800" }, { "id": 52, "commission": 0.43, "condition": "1015:15,1013:20,1001:25,1004:26", "extra_reward": "1001:6400" }, { "id": 53, "commission": "0.28", "condition": "1014:14,1012:12,1010:20,1015:18", "extra_reward": "1001:7000" }, { "id": 54, "commission": 0.45, "condition": "1005:22,1002:33,1009:16,1015:17", "extra_reward": "1001:7600" }, { "id": 55, "commission": "0.56", "condition": "1001:23,1014:19,1005:17,1010:15", "extra_reward": "1001:8200" }, { "id": 56, "commission": "0.35", "condition": "1006:27,1005:29,1009:17,1003:18", "extra_reward": "1001:8800" }, { "id": 57, "commission": 0.67, "condition": "1007:21,1008:17,1002:16,1009:25", "extra_reward": "1001:9400" }, { "id": 58, "commission": 0.32, "condition": "1006:20,1008:25,1005:24,1007:19", "extra_reward": "1001:10000" }, { "id": 59, "commission": 0.79, "condition": "1012:25,1009:30,1013:16,1008:15", "extra_reward": "1001:10600" }, { "id": 60, "commission": 0.69, "condition": "1015:26,1012:27,1010:31,1001:23", "extra_reward": "1001:11200" }, { "id": 61, "commission": 0.39, "condition": "1015:12,1006:25,1011:15,1002:17", "extra_reward": "1001:11800" }, { "id": 62, "commission": 0.44, "condition": "1015:21,1007:15,1011:18,1006:26", "extra_reward": "1001:12400" }, { "id": 63, "commission": 0.01, "condition": "1010:18,1005:16,1009:13,1003:27", "extra_reward": "1001:13000" }, { "id": 64, "commission": 0.27, "condition": "1007:17,1006:10,1005:29,1004:25", "extra_reward": "1001:13600" }, { "id": 65, "commission": 0.39, "condition": "1008:15,1003:30,1014:20,1005:15", "extra_reward": "1001:14200" }, { "id": 66, "commission": 0.73, "condition": "1004:25,1008:25,1002:34,1012:14", "extra_reward": "1001:14800" }, { "id": 67, "commission": 0.13, "condition": "1001:36,1012:20,1011:20,1003:20", "extra_reward": "1001:15400" }, { "id": 68, "commission": 0.69, "condition": "1013:24,1008:23,1006:16,1007:17", "extra_reward": "1001:16000" }, { "id": 69, "commission": 0.37, "condition": "1015:30,1004:29,1013:17,1009:10", "extra_reward": "1001:16600" }, { "id": 70, "commission": 0.71, "condition": "1010:23,1004:31,1011:17,1012:11", "extra_reward": "1001:17200" }, { "id": 71, "commission": 0.29, "condition": "1008:11,1002:26,1003:28,1015:13", "extra_reward": "1001:17800" }, { "id": 72, "commission": 0.31, "condition": "1005:25,1002:38,1012:19,1010:14", "extra_reward": "1001:18400" }, { "id": 73, "commission": 0.39, "condition": "1012:34,1006:22,1003:27,1004:20", "extra_reward": "1001:19000" }, { "id": 74, "commission": 0.26, "condition": "1003:20,1012:18,1002:30,1001:20", "extra_reward": "1001:19600" }, { "id": 75, "commission": 0.18, "condition": "1006:31,1014:30,1008:12,1002:25", "extra_reward": "1001:20200" }, { "id": 76, "commission": 0.51, "condition": "1007:21,1012:20,1004:11,1014:20", "extra_reward": "1001:20800" }, { "id": 77, "commission": 0.21, "condition": "1008:15,1009:16,1012:24,1007:30", "extra_reward": "1001:21400" }, { "id": 78, "commission": 0.73, "condition": "1015:16,1012:16,1006:20,1008:22", "extra_reward": "1001:22000" }, { "id": 79, "commission": 0.65, "condition": "1006:26,1004:18,1007:12,1011:27", "extra_reward": "1001:22600" }, { "id": 80, "commission": 0.39, "condition": "1009:15,1003:16,1004:19,1007:24", "extra_reward": "1001:23200" }, { "id": 81, "commission": 0.14, "condition": "1012:20,1015:28,1002:24,1003:38", "extra_reward": "1001:23800" }, { "id": 82, "commission": 0.2, "condition": "1005:12,1011:19,1009:18,1002:14", "extra_reward": "1001:24400" }, { "id": 83, "commission": 0.53, "condition": "1010:19,1003:38,1007:22,1015:20", "extra_reward": "1001:25000" }, { "id": 84, "commission": 0.62, "condition": "1005:29,1014:26,1002:18,1007:38", "extra_reward": "1001:25600" }, { "id": 85, "commission": 0.37, "condition": "1011:20,1001:17,1012:12,1004:32", "extra_reward": "1001:26200" }, { "id": 86, "commission": 0.59, "condition": "1009:25,1011:20,1006:14,1015:21", "extra_reward": "1001:26800" }, { "id": 87, "commission": "0.31", "condition": "1006:26,1005:19,1013:20,1014:29", "extra_reward": "1001:27400" }, { "id": 88, "commission": "0.48", "condition": "1008:37,1011:24,1015:12,1014:11", "extra_reward": "1001:28000" }, { "id": 89, "commission": "0.22", "condition": "1002:17,1003:28,1005:22,1010:31", "extra_reward": "1001:28600" }, { "id": 90, "commission": 0.32, "condition": "1002:39,1013:28,1007:25,1001:33", "extra_reward": "1001:29200" }, { "id": 91, "commission": 0.19, "condition": "1008:15,1013:20,1014:10,1007:26", "extra_reward": "1001:29800" }, { "id": 92, "commission": 0.13, "condition": "1004:38,1011:13,1008:15,1007:29", "extra_reward": "1001:30400" }, { "id": 93, "commission": 0.34, "condition": "1013:12,1001:39,1006:38,1008:31", "extra_reward": "1001:31000" }, { "id": 94, "commission": 0.22, "condition": "1002:36,1014:27,1013:16,1005:31", "extra_reward": "1001:31600" }, { "id": 95, "commission": 0.15, "condition": "1005:26,1011:34,1015:34,1008:16", "extra_reward": "1001:32200" }, { "id": 96, "commission": "0.49", "condition": "1003:24,1001:34,1007:28,1005:30", "extra_reward": "1001:32800" }, { "id": 97, "commission": "0.6", "condition": "1013:32,1009:33,1006:30,1011:40", "extra_reward": "1001:33400" }, { "id": 98, "commission": "0.35", "condition": "1014:40,1009:43,1015:33,1012:45", "extra_reward": "1001:34000" }, { "id": 99, "commission": "0.44", "condition": "1011:39,1008:37,1009:30,1013:42", "extra_reward": "1001:34600" }, { "id": 100, "commission": "0.49", "condition": "1012:40,1010:33,1013:30,1011:40", "extra_reward": "1001:35200" }], "lang": [], "landLevel": [{ "id": 1, "reward": "1002:0", "cost": "1002:0", "gain": null, "probability": 0.1, "get_diamond": 1 }, { "id": 2, "reward": "1002:1500", "cost": "1002:5000", "gain": 0.1, "probability": 0.13, "get_diamond": 1 }, { "id": 3, "reward": "1002:2000", "cost": "1002:10000", "gain": 0.25, "probability": 0.25, "get_diamond": 2 }, { "id": 4, "reward": "1002:2500", "cost": "1002:20000", "gain": 0.4, "probability": 0.38, "get_diamond": 3 }, { "id": 5, "reward": "1002:3000", "cost": "1002:50000", "gain": 0.55, "probability": 0.5, "get_diamond": 5 }], "feed": [{ "id": 1001, "name": "\u997C\u5E72", "icon": "pet_feed/1001_feed.png", "vitality": 1, "cost": "1002:30", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1002, "name": "\u575A\u679C", "icon": "pet_feed/1002_feed.png", "vitality": 2, "cost": "1002:50", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1003, "name": "\u706B\u817F", "icon": "pet_feed/1003_feed.png", "vitality": 5, "cost": "1002:100", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1004, "name": "\u725B\u8089", "icon": "pet_feed/1004_feed.png", "vitality": 50, "cost": "1002:900", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1005, "name": "\u732A\u8089", "icon": "pet_feed/1005_feed.png", "vitality": 20, "cost": "1002:460", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }, { "id": 1006, "name": "\u9E21\u8089", "icon": "pet_feed/1006_feed.png", "vitality": 10, "cost": "1002:270", "desc": "\u53EF\u589E\u52A0\u5BA0\u7269&\u70B9\u4F53\u529B" }], "currency": [{ "id": 1001, "name": "\u94BB\u77F3", "icon": "main_scene/img_diamond.png" }, { "id": 1002, "name": "\u91D1\u5E01", "icon": "main_scene/img_coin.png" }], "config": [{ "id": "all_speed_up_times", "value": 30 }, { "id": "all_speed_up_time", "value": 600 }, { "id": "unlock_land_cost", "value": "1002:0,1002:0,1002:5000,1002:10000,1002:20000,1002:30000,1002:40000,1002:50000,1002:60000" }, { "id": "goldDefault", "value": "1002:100" }, { "id": "diamondDefault", "value": "1001:50" }, { "id": "ADTimesLimit", "value": 50 }, { "id": "ADSpeedUptimes", "value": 6 }, { "id": "vitalityBuyCostGold", "value": "1002:10000" }, { "id": "vitalityLimit", "value": 3 }, { "id": "Initial_physical_strength", "value": 3 }, { "id": "landAmountMax", "value": 9 }, { "id": "petDefaultVitality", "value": 100 }, { "id": "petDigestIntervalTime", "value": 3600 }, { "id": "Videorewards", "value": "1001:450:600,1001:250:350,1001:200:300,1001:100:200,1001:80:100" }, { "id": "withdrawal", "value": "1001:10000:1" }, { "id": "Invitation_rewards", "value": "1001:5000" }, { "id": "withdrawal_times", "value": "0.3:1:0:0,5:1:6:30,10:1:15:60,50:1:50:80,100:1:100:90,200:0:200:97" }] };
 
   // src/common/Tools.ts
   var Tools = class {
@@ -1477,6 +1476,7 @@
       this.baseUrl = null;
       this.sendData = [];
       this.eventMap = new Map();
+      this.xhrList = [];
     }
     init(url) {
       this.baseUrl = url;
@@ -1496,6 +1496,7 @@
               }
               this.completeHandler(data, resolve, reject, xmlhttp);
               this.clearOneInEventMap(xmlhttp);
+              this.queueXhrEvent();
               break;
             default:
               if (xmlhttp.responseText) {
@@ -1520,6 +1521,7 @@
                 }, resolve, reject, xmlhttp);
                 this.clearOneInEventMap(xmlhttp);
               }
+              this.queueXhrEvent();
               break;
           }
         }
@@ -1579,9 +1581,11 @@
             } else {
               UserInfo_default.continuousAdTimes++;
             }
-            _HttpControl.inst.send({
-              api: ApiHttp.adRecordNotClick,
-              data: { times: UserInfo_default.continuousAdTimes }
+            Laya.timer.once(100, this, () => {
+              _HttpControl.inst.send({
+                api: ApiHttp.adRecordNotClick,
+                data: { times: UserInfo_default.continuousAdTimes }
+              });
             });
           }
         }
@@ -1595,7 +1599,6 @@
           if (!data.headers) {
             data.headers = ["Authorization", `Bearer ${LocalStorageService_default.getJSON().token}`];
           }
-          console.log(`%c ==> send %c${data.api} %c${JSON.stringify(data.data)}`, `color:#82ccdd;font-weight:700;`, `color:#eb4d4b;font-weight:700;`, `color:#f8c291;font-weight:700;`);
           if (!data.api) {
             core_default.view.open(Res_default.views.HintView, {
               parm: { text: `http \u5730\u5740\u4E0D\u80FD\u4E3A\u7A7A` }
@@ -1605,9 +1608,21 @@
           xhr.open("POST", uri, true);
           xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
           xhr.setRequestHeader("Authorization", `Bearer ${LocalStorageService_default.getJSON().token}`);
-          xhr.send(sendDataString);
+          this.xhrList.push({ xhr, data: sendDataString, sendData: data });
+          if (this.xhrList.length > 1) {
+            return;
+          }
+          this.queueXhrEvent(true);
         }));
       });
+    }
+    queueXhrEvent(first = false) {
+      if (!first)
+        this.xhrList.splice(0, 1);
+      if (this.xhrList.length) {
+        console.log(`%c ==> send %c${this.xhrList[0].sendData.api} %c${JSON.stringify(this.xhrList[0].sendData.data)}`, `color:#82ccdd;font-weight:700;`, `color:#eb4d4b;font-weight:700;`, `color:#f8c291;font-weight:700;`);
+        this.xhrList[0].xhr.send(this.xhrList[0].data);
+      }
     }
     completeHandler(e, resolve, reject, xhr) {
       let curData;
@@ -1701,8 +1716,11 @@
             return;
           }
           if (this.landData.obj.id == ConfigGame_default.goldId && this.landData.count > UserInfo_default.gold) {
-            core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3", call: () => {
-            } });
+            core_default.view.openHint({
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
+              call: () => {
+              }
+            });
             return;
           }
           if (this.landData.obj.id == ConfigGame_default.diamondId && this.landData.count > UserInfo_default.diamond) {
@@ -1793,8 +1811,11 @@
             return;
           }
           if (e.target.name == "buyBtn" && UserInfo_default.gold < this.costGoldCount) {
-            core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3", call: () => {
-            } });
+            core_default.view.openHint({
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
+              call: () => {
+              }
+            });
             return;
           }
           HttpControl.inst.send({
@@ -1831,12 +1852,14 @@
       this.reward = null;
       this.probability = null;
       this.adBtn = null;
+      this.cost = 0;
     }
     onOpened(e) {
       this.data = e;
       let nextLand = TableAnalyze_default.table("landLevel").get(e.obj.level + 1);
       this.priceLabel.text = `\u4EF7\u683C\uFF1A${nextLand.cost.count}`;
       this.priceIcon.skin = nextLand.cost.obj.icon;
+      this.cost = nextLand.cost.count;
       this.lv.text = `${e.obj.level + 1}\u7EA7`;
       this.reward.text = `+${Number((nextLand.gain * 100).toFixed(2))}%`;
       this.probability.text = `+${Number((nextLand.probability * 100).toFixed(2))}%`;
@@ -1875,6 +1898,14 @@
           break;
         case "upgradeBtn":
         case "upgradeAdBtn":
+          if (e.target.name == "upgradeBtn" && this.cost > UserInfo_default.gold) {
+            core_default.view.openHint({
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
+              call: () => {
+              }
+            });
+            return;
+          }
           HttpControl.inst.send({
             api: ApiHttp.landUpgrade,
             data: {
@@ -2463,13 +2494,18 @@
         if (!data.productId || data.matureTimeLeft) {
           return;
         }
+        if (UserInfo_default.vitality <= 0) {
+          core_default.view.openHint({ text: "\u4F53\u529B\u4E0D\u8DB3", call: () => {
+          } });
+          this.canClick = true;
+          return;
+        }
         if (!this.canSteal || this.stealUid && !((_a = this.data) == null ? void 0 : _a.canSteal)) {
           console.log("\u5DF2\u7ECF\u4E0D\u53EF\u5077");
           core_default.view.openHint({ text: "\u7ED9\u6211\u7559\u70B9\u5427", call: () => {
           } });
           return;
         }
-        core_default.audio.playSound(Res_default.audios.goujiaosheng);
         this.canClick = false;
         HttpControl.inst.send({
           api: ApiHttp.landSteal,
@@ -2524,6 +2560,7 @@
           });
         }
       } else {
+        core_default.audio.playSound(Res_default.audios.goujiaosheng);
         if (!dog) {
           return;
         }
@@ -2884,7 +2921,7 @@
           Laya.timer.once(e * 1e3, this, this.digestCountDown);
         }
       }).key("vitality", (e) => {
-        let vitality = e / ConfigGame_default.userVitalityLimit;
+        let vitality = e / TableAnalyze_default.table("config").get("vitalityLimit").value;
         Laya.timer.frameOnce(1, this, () => {
           core_default.eventGlobal.event(EventMaps.update_red_dot, [
             RedDotType.anyDoor,
@@ -3017,6 +3054,12 @@
         }
         this.canClick = false;
         if (this.isOuter) {
+          if (UserInfo_default.vitality <= 0) {
+            core_default.view.openHint({ text: "\u4F53\u529B\u4E0D\u8DB3", call: () => {
+            } });
+            this.canClick = true;
+            return;
+          }
           let lands = [], landComList = [];
           for (let x = 0; x < this.landList.length; x++) {
             if (((_a = this.landList[x].data) == null ? void 0 : _a.productId) && !((_b = this.landList[x].data) == null ? void 0 : _b.matureTimeLeft) && ((_c = this.landList[x].data) == null ? void 0 : _c.canSteal)) {
@@ -3165,6 +3208,7 @@
     }
     updateOrder() {
       var _a;
+      console.log(this.isOuter);
       if (this.isOuter)
         return;
       let box = this.orderBox.getChildByName("order_box"), d = TableAnalyze_default.table("order").get(UserInfo_default.orderLevel + 1), reward, rewardCount = 0, rewardDiamondCount = 0, curCount = 0, maxCount = 0, progress = 0;
@@ -3224,57 +3268,59 @@
             return;
           }
           this.hindOrderLevel = 1;
-          core_default.view.open(Res_default.views.GatherDescView, {
-            parm: {
-              type: 1,
-              data: {
-                diamond: adDiamond,
-                gold: adGold
-              },
-              call: (double) => {
-                this.hindOrderLevel = 0;
-                condition.forEach((e) => {
-                  WarehouseService_default.reduceAmount(e.plant.id, e.count);
-                });
-                this.orderQueueIng = false;
-                UserInfo_default.orderLevel++;
-                let reward2 = [];
-                reward2.push({
-                  obj: TableAnalyze_default.table("currency").get(ConfigGame_default.goldId),
-                  count: adGold * (double ? 2 : 1),
-                  posType: 1
-                });
-                if (d.extraReward) {
+          Laya.timer.once(500, this, () => {
+            core_default.view.open(Res_default.views.GatherDescView, {
+              parm: {
+                type: 1,
+                data: {
+                  diamond: adDiamond,
+                  gold: adGold
+                },
+                call: (double) => {
+                  this.hindOrderLevel = 0;
+                  condition.forEach((e) => {
+                    WarehouseService_default.reduceAmount(e.plant.id, e.count);
+                  });
+                  this.orderQueueIng = false;
+                  UserInfo_default.orderLevel++;
+                  let reward2 = [];
                   reward2.push({
-                    obj: TableAnalyze_default.table("currency").get(d.extraReward.obj.id),
-                    count: adDiamond * (double ? 2 : 1),
-                    posType: 2
+                    obj: TableAnalyze_default.table("currency").get(ConfigGame_default.goldId),
+                    count: adGold * (double ? 2 : 1),
+                    posType: 1
                   });
-                }
-                this.playGetRewardAni({
-                  node: box.getChildByName("gold_box"),
-                  list: reward2,
-                  callBack: () => {
-                    this.updateOrder();
+                  if (d.extraReward) {
+                    reward2.push({
+                      obj: TableAnalyze_default.table("currency").get(d.extraReward.obj.id),
+                      count: adDiamond * (double ? 2 : 1),
+                      posType: 2
+                    });
                   }
-                });
-                if (!double && !(UserInfo_default.orderLevel % 3)) {
-                  Laya.timer.once(300, this, () => {
-                    AppCore.runAppFunction({
-                      uri: AppEventMap.ad,
-                      data: { adType: 1 }
-                    });
-                    AppCore.runAppFunction({
-                      uri: AppEventMap.eventCount,
-                      data: { type: "full_Screen" }
-                    });
+                  this.playGetRewardAni({
+                    node: box.getChildByName("gold_box"),
+                    list: reward2,
+                    callBack: () => {
+                      this.updateOrder();
+                    }
                   });
+                  if (!double && !(UserInfo_default.orderLevel % 3)) {
+                    Laya.timer.once(300, this, () => {
+                      AppCore.runAppFunction({
+                        uri: AppEventMap.ad,
+                        data: { adType: 1 }
+                      });
+                      AppCore.runAppFunction({
+                        uri: AppEventMap.eventCount,
+                        data: { type: "full_Screen" }
+                      });
+                    });
+                  }
+                },
+                closeEvent: () => {
+                  this.orderQueueIng = false;
                 }
-              },
-              closeEvent: () => {
-                this.orderQueueIng = false;
               }
-            }
+            });
           });
         } else {
           Laya.timer.frameOnce(1, this, () => {
@@ -3608,7 +3654,7 @@
       this.updateFriendView(d, friendData);
     }
     updateFriendView(d, friendData) {
-      const nickname = d == null ? void 0 : d.nickname, pedId = d == null ? void 0 : d.dogId, avatar = (friendData == null ? void 0 : friendData.avatar) || (d == null ? void 0 : d.avatar);
+      const nickname = d == null ? void 0 : d.nickname, pedId = d == null ? void 0 : d.dogId, avatar = (friendData == null ? void 0 : friendData.avatar) || (d == null ? void 0 : d.avatar) || "main_scene/img_defaultPortrait.png";
       const topBox = this.orderBox.parent, moneyBox = topBox.getChildByName("money_box"), countDown = topBox.getChildByName("count_down"), orderBox = this.orderBox.getChildByName("order_box"), friendName = this.orderBox.getChildByName("friend_name"), bottomList = [
         this.bottomBox.getChildByName("task"),
         this.bottomBox.getChildByName("order_box"),
@@ -3622,7 +3668,6 @@
         countDown.visible = true;
         this.stealAll.nickname = nickname;
         countDown.text = Tools.formatSeconds(this.outCountDownNumber);
-        Laya.timer.loop(1e3, this, this.outCountDownEvent, [countDown]);
         if (avatar)
           this.avatarNode.skin = avatar;
         if (pedId) {
@@ -3635,6 +3680,7 @@
         this.figureBox.visible = false;
         this.figureBox2.visible = false;
         this.fastGetBtn.skin = "main_scene/img_ongkeySteel.png";
+        Laya.timer.loop(1e3, this, this.outCountDownEvent, [countDown]);
       } else {
         this.fastGetBtn.skin = "main_scene/img_ongkeyGet.png";
         this.figureBox.visible = true;
@@ -4119,6 +4165,8 @@
       this.data = d;
       this.stealGet.vScrollBarSkin = null;
       this.order.vScrollBarSkin = null;
+      this.adBtn.disabled = !UserInfo_default.advertiseTimes;
+      this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
       Laya.timer.once(300, this, () => {
         AppCore.runAppFunction({
           uri: AppEventMap.ad,
@@ -4217,6 +4265,10 @@
               }
             }).catch(() => {
               this.canClick = true;
+              AppCore.runAppFunction({
+                uri: AppEventMap.closeAd,
+                data: {}
+              });
             });
           } else {
             if (e.target.name == "receive_double") {
@@ -4243,6 +4295,11 @@
                     ]);
                   }
                   core_default.view.close(Res_default.views.GatherDescView);
+                }).catch(() => {
+                  AppCore.runAppFunction({
+                    uri: AppEventMap.closeAd,
+                    data: {}
+                  });
                 });
               }
             } else {
@@ -4262,6 +4319,9 @@
       });
       if (this.data.closeEvent) {
         this.data.closeEvent();
+      }
+      if (this.data.type == 2) {
+        core_default.eventGlobal.event(EventMaps.update_Order);
       }
     }
   };
@@ -4524,7 +4584,7 @@
     }
     getBuildType() {
       let buildType = null;
-      switch ("online") {
+      switch ("test") {
         case BuildType.debug:
           buildType = 3;
           break;
@@ -4668,7 +4728,7 @@
             return;
           }
           let testK = location.search.match(/\?id=(.+)/), testKe = null;
-          if (testK && testK.length > 1 && BuildType.online != "online") {
+          if (testK && testK.length > 1 && BuildType.online != "test") {
             testKe = testK[1];
           }
           let wxOpenId = testKe, nickname = "", avatar = "";
@@ -5354,6 +5414,8 @@
         let withdrawal = TableAnalyze_default.table("config").get("withdrawal").value;
         this.proportion.text = ` = \xA5${(Number(withdrawal[2]) / Number(withdrawal[1]) * v).toString().match(/^\d+(?:\.\d{0,2})?/)}\u5143`;
       });
+      this.lockBtnBox.getChildByName("ad_unlock").disabled = !UserInfo_default.advertiseTimes;
+      this.lockBtnBox.getChildByName("ad_unlock").active = Boolean(UserInfo_default.advertiseTimes);
     }
     onOpened(e) {
       this.data = e;
@@ -5438,6 +5500,9 @@
       this.seedDesc.text = base.desc;
       this.matureTime.text = Tools.formatSeconds(base.mature_time);
       this.itemBuyBtn.visible = !d.lock;
+      if (MainView.inst.isOuter) {
+        this.itemBuyBtn.visible = false;
+      }
       this.lockBtnBox.visible = d.lock;
       this.lockBtnBox.active = d.lock;
       let gainList = base.gain;
@@ -5478,6 +5543,14 @@
           if (!this.canClick) {
             return;
           }
+          if (this.getDataList()[this.itemListSelectIndex].base.seed_price.count > UserInfo_default.gold) {
+            core_default.view.openHint({
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
+              call: () => {
+              }
+            });
+            return;
+          }
           let landId = (_b = (_a = this.data) == null ? void 0 : _a.parm) == null ? void 0 : _b.landId;
           if (!landId) {
             landId = MainView.inst.getEmptyLandId();
@@ -5513,6 +5586,14 @@
         case "unlock_buy":
         case "ad_unlock":
           if (!this.canClick) {
+            return;
+          }
+          if (e.target.name == "unlock_buy" && this.getDataList()[this.itemListSelectIndex].base.unlock_cost.count > UserInfo_default.gold) {
+            core_default.view.openHint({
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
+              call: () => {
+              }
+            });
             return;
           }
           this.canClick = false;
@@ -5617,6 +5698,19 @@
       if (!this.canClick) {
         return;
       }
+      if (!UserInfo_default.warePetId) {
+        core_default.view.openHint({ text: "\u60A8\u8FD8\u6CA1\u6709\u8D2D\u4E70\u5BA0\u7269\u54E6\uFF01", call: () => {
+        } });
+        return;
+      }
+      if (feed.base.cost.count > UserInfo_default.gold) {
+        core_default.view.openHint({
+          text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
+          call: () => {
+          }
+        });
+        return;
+      }
       this.canClick = false;
       HttpControl.inst.send({
         api: ApiHttp.feedBuy,
@@ -5664,6 +5758,14 @@
     petBuy() {
       let { base } = PetService_default.list[this.selectPetIndex];
       if (!this.canClick) {
+        return;
+      }
+      if (PetService_default.list[this.selectPetIndex].base.cost.count > UserInfo_default.gold) {
+        core_default.view.openHint({
+          text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
+          call: () => {
+          }
+        });
         return;
       }
       this.canClick = false;
@@ -5868,12 +5970,10 @@
       if (data.times) {
         let times = data.times - userData.times;
         cell.getChildByName("times_box").visible = true;
-        cell.getChildByName("times_box").getChildByName("times").text = `\u65B0\u624B\u5956\u52B1`;
         if (times <= 0) {
           cell.disabled = true;
         }
-        if (data.price > 0.3)
-          cell.getChildByName("times_box").visible = false;
+        cell.getChildByName("times_box").visible = false;
       } else {
         cell.getChildByName("times_box").visible = false;
       }
@@ -6194,16 +6294,16 @@
               if (id == 1012)
                 TaskService_default.taskAddTimes(1012);
               this.canClick = true;
+              HttpControl.inst.send({
+                api: ApiHttp.adRecordNotClick,
+                data: { times: UserInfo_default.continuousAdTimes }
+              });
             });
             if (adData == null ? void 0 : adData.data["hasClicked"]) {
               UserInfo_default.continuousAdTimes = 0;
             } else {
               UserInfo_default.continuousAdTimes++;
             }
-            HttpControl.inst.send({
-              api: ApiHttp.adRecordNotClick,
-              data: { times: UserInfo_default.continuousAdTimes }
-            });
             break;
           case 1002:
           case 1003:
@@ -6632,7 +6732,7 @@
         Laya.Stat.show();
       Laya.alertGlobalError(true);
       Laya.stage.bgColor = "#ffffff";
-      BuildType.debug == "online" && GameConfig.stat && Laya.Stat.show();
+      BuildType.debug == "test" && GameConfig.stat && Laya.Stat.show();
       Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
     }
     onVersionLoaded() {

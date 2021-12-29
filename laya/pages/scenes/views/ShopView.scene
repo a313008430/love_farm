@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":243,
-    "selecteID":248,
+    "selectedBox":210,
+    "selecteID":208,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/ShopView.jpg","right":0,"left":0,"height":1920,"btnList":"@arr:,,","bottom":0},
     "nodeParent":-1,
@@ -316,13 +316,14 @@
                             "props":{"y":-853,"x":14,"visible":false,"name":"itemBox"},
                             "nodeParent":40,
                             "label":"itemBox",
-                            "isOpen":false,
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":90,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Box",
                                     "searchKey":"Box,item_box",
                                     "props":{"y":853,"x":100,"width":100,"name":"item_box","height":100},
@@ -335,6 +336,7 @@
                                     "compId":43,
                                     "child":[
                                         {
+                                            "x":75,
                                             "type":"List",
                                             "searchKey":"List,item_list",
                                             "props":{"y":-833,"x":-92,"width":836,"spaceY":30,"spaceX":28,"selectedIndex":0,"selectEnable":true,"repeatY":3,"repeatX":3,"name":"item_list","height":714,"gray":false},
@@ -440,6 +442,7 @@
                                             "$HIDDEN":false
                                         },
                                         {
+                                            "x":75,
                                             "type":"Image",
                                             "searchKey":"Image",
                                             "props":{"y":-172,"x":-105,"width":862,"skin":"game/img_cover.png","height":80},
@@ -453,6 +456,7 @@
                                                 ]
                                         },
                                         {
+                                            "x":75,
                                             "type":"Box",
                                             "searchKey":"Box,plant_desc_box",
                                             "props":{"y":-53,"x":-77,"name":"plant_desc_box"},
@@ -637,6 +641,7 @@
                                             "$HIDDEN":false
                                         },
                                         {
+                                            "x":75,
                                             "type":"Label",
                                             "searchKey":"Label,feed_desc",
                                             "props":{"y":23.5,"x":-77,"wordWrap":true,"width":629,"text":"维生素，和膳食纤维","overflow":"hidden","name":"feed_desc","leading":16,"height":41,"fontSize":38,"font":"Microsoft YaHei","color":"#906344"},
@@ -653,18 +658,20 @@
                                     "$HIDDEN":false
                                 },
                                 {
+                                    "x":60,
                                     "type":"Box",
                                     "searchKey":"Box,plant_btn_box",
                                     "props":{"y":1023,"x":35,"name":"plant_btn_box"},
                                     "nodeParent":90,
                                     "label":"plant_btn_box",
-                                    "isOpen":false,
+                                    "isOpen":true,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
                                     "compId":212,
                                     "child":[
                                         {
+                                            "x":75,
                                             "type":"Image",
                                             "searchKey":"Image,buy_btn",
                                             "props":{"y":45,"x":389,"skin":"game/img_buybtm.png","name":"buy_btn","mouseEnabled":true,"anchorY":0.5,"anchorX":0.5},
@@ -708,6 +715,7 @@
                                             "$HIDDEN":true
                                         },
                                         {
+                                            "x":75,
                                             "type":"Box",
                                             "searchKey":"Box,lock_btn_box",
                                             "props":{"width":796,"name":"lock_btn_box","height":140},
@@ -720,12 +728,13 @@
                                             "compId":210,
                                             "child":[
                                                 {
+                                                    "x":90,
                                                     "type":"Image",
                                                     "searchKey":"Image,unlock_buy",
                                                     "props":{"y":47.5,"x":200,"skin":"game/img_buybtm.png","name":"unlock_buy","mouseEnabled":true,"anchorY":0.5,"anchorX":0.5},
                                                     "nodeParent":210,
                                                     "label":"unlock_buy",
-                                                    "isOpen":true,
+                                                    "isOpen":false,
                                                     "isDirectory":true,
                                                     "isAniNode":true,
                                                     "hasChild":true,
@@ -789,6 +798,7 @@
                                                     "$HIDDEN":false
                                                 },
                                                 {
+                                                    "x":90,
                                                     "type":"Image",
                                                     "searchKey":"Image,ad_unlock",
                                                     "props":{"y":46.5,"x":581,"skin":"game/img_unlockFree.png","name":"ad_unlock","anchorY":0.5,"anchorX":0.5},
@@ -821,6 +831,7 @@
                                     "$HIDDEN":false
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,feed_buy",
                                     "props":{"y":1071,"x":415.5,"skin":"game/img_buybtm.png","name":"feed_buy","mouseEnabled":true,"anchorY":0.5,"anchorX":0.5},
@@ -890,7 +901,7 @@
                                     "$HIDDEN":false
                                 }],
                             "$LOCKED":true,
-                            "$HIDDEN":true
+                            "$HIDDEN":false
                         },
                         {
                             "x":45,
@@ -1811,7 +1822,7 @@
                                                 }]
                                         }]
                                 }],
-                            "$HIDDEN":false
+                            "$HIDDEN":true
                         }],
                     "$LOCKED":true,
                     "$HIDDEN":false

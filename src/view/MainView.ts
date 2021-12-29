@@ -461,7 +461,8 @@ export default class MainView extends Core.gameScript {
                 }
             })
             .key("vitality", (e) => {
-                let vitality = e / ConfigGame.userVitalityLimit;
+                let vitality =
+                    e / (TableAnalyze.table("config").get("vitalityLimit").value as number);
 
                 Laya.timer.frameOnce(1, this, () => {
                     Core.eventGlobal.event(EventMaps.update_red_dot, [
@@ -618,6 +619,12 @@ export default class MainView extends Core.gameScript {
         }
         this.canClick = false;
         if (this.isOuter) {
+            if (UserInfo.vitality <= 0) {
+                Core.view.openHint({ text: "体力不足", call: () => {} });
+                this.canClick = true;
+                return;
+            }
+
             //偷菜
             let lands: number[] = [],
                 landComList: FieldComponent[] = [];
@@ -838,7 +845,7 @@ export default class MainView extends Core.gameScript {
     @Core.eventOn(EventMaps.update_Order)
     private updateOrder() {
         // return;
-
+        console.log(this.isOuter);
         if (this.isOuter) return;
 
         let box = this.orderBox.getChildByName("order_box"),
@@ -932,58 +939,62 @@ export default class MainView extends Core.gameScript {
 
                 this.hindOrderLevel = 1;
 
-                Core.view.open(Res.views.GatherDescView, {
-                    parm: {
-                        type: 1,
-                        data: {
-                            diamond: adDiamond,
-                            gold: adGold,
-                        },
-                        call: (double: boolean) => {
-                            this.hindOrderLevel = 0;
-                            condition.forEach((e) => {
-                                WarehouseService.reduceAmount(e.plant.id, e.count);
-                            });
-                            this.orderQueueIng = false;
-                            UserInfo.orderLevel++;
-                            let reward = [];
-                            reward.push({
-                                obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
-                                count: adGold * (double ? 2 : 1),
-                                posType: 1,
-                            });
-                            if (d.extraReward) {
+                Laya.timer.once(500, this, () => {
+                    Core.view.open(Res.views.GatherDescView, {
+                        parm: {
+                            type: 1,
+                            data: {
+                                diamond: adDiamond,
+                                gold: adGold,
+                            },
+                            call: (double: boolean) => {
+                                this.hindOrderLevel = 0;
+                                condition.forEach((e) => {
+                                    WarehouseService.reduceAmount(e.plant.id, e.count);
+                                });
+                                this.orderQueueIng = false;
+                                UserInfo.orderLevel++;
+                                let reward = [];
                                 reward.push({
-                                    obj: TableAnalyze.table("currency").get(d.extraReward.obj.id),
-                                    count: adDiamond * (double ? 2 : 1),
-                                    posType: 2,
+                                    obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
+                                    count: adGold * (double ? 2 : 1),
+                                    posType: 1,
                                 });
-                            }
-                            this.playGetRewardAni({
-                                node: box.getChildByName("gold_box") as any,
-                                list: reward,
-                                callBack: () => {
-                                    this.updateOrder();
-                                },
-                            });
+                                if (d.extraReward) {
+                                    reward.push({
+                                        obj: TableAnalyze.table("currency").get(
+                                            d.extraReward.obj.id
+                                        ),
+                                        count: adDiamond * (double ? 2 : 1),
+                                        posType: 2,
+                                    });
+                                }
+                                this.playGetRewardAni({
+                                    node: box.getChildByName("gold_box") as any,
+                                    list: reward,
+                                    callBack: () => {
+                                        this.updateOrder();
+                                    },
+                                });
 
-                            if (!double && !(UserInfo.orderLevel % 3)) {
-                                Laya.timer.once(300, this, () => {
-                                    AppCore.runAppFunction({
-                                        uri: AppEventMap.ad,
-                                        data: { adType: 1 },
+                                if (!double && !(UserInfo.orderLevel % 3)) {
+                                    Laya.timer.once(300, this, () => {
+                                        AppCore.runAppFunction({
+                                            uri: AppEventMap.ad,
+                                            data: { adType: 1 },
+                                        });
+                                        AppCore.runAppFunction({
+                                            uri: AppEventMap.eventCount,
+                                            data: { type: "full_Screen" },
+                                        });
                                     });
-                                    AppCore.runAppFunction({
-                                        uri: AppEventMap.eventCount,
-                                        data: { type: "full_Screen" },
-                                    });
-                                });
-                            }
+                                }
+                            },
+                            closeEvent: () => {
+                                this.orderQueueIng = false;
+                            },
                         },
-                        closeEvent: () => {
-                            this.orderQueueIng = false;
-                        },
-                    },
+                    });
                 });
             } else {
                 Laya.timer.frameOnce(1, this, () => {
@@ -1483,7 +1494,7 @@ export default class MainView extends Core.gameScript {
     private updateFriendView(d?: ReturnNeighbor, friendData?: FriendData) {
         const nickname = d?.nickname,
             pedId = d?.dogId,
-            avatar = friendData?.avatar || d?.avatar;
+            avatar = friendData?.avatar || d?.avatar || "main_scene/img_defaultPortrait.png";
 
         const topBox = this.orderBox.parent as Laya.Box,
             moneyBox = topBox.getChildByName("money_box") as Laya.Box,
@@ -1506,7 +1517,7 @@ export default class MainView extends Core.gameScript {
             this.stealAll.nickname = nickname;
 
             countDown.text = Tools.formatSeconds(this.outCountDownNumber);
-            Laya.timer.loop(1000, this, this.outCountDownEvent, [countDown]);
+
             if (avatar) this.avatarNode.skin = avatar;
             if (pedId) {
                 this.petBox.visible = true;
@@ -1520,6 +1531,7 @@ export default class MainView extends Core.gameScript {
             this.figureBox.visible = false;
             this.figureBox2.visible = false;
             this.fastGetBtn.skin = "main_scene/img_ongkeySteel.png";
+            Laya.timer.loop(1000, this, this.outCountDownEvent, [countDown]);
         } else {
             this.fastGetBtn.skin = "main_scene/img_ongkeyGet.png";
             this.figureBox.visible = true;

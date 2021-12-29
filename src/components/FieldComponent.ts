@@ -579,12 +579,18 @@ export default class FieldComponent extends Core.gameScript {
             return;
         }
 
+        if (UserInfo.vitality <= 0) {
+            Core.view.openHint({ text: "体力不足", call: () => {} });
+            this.canClick = true;
+            return;
+        }
+
         if (!this.canSteal || (this.stealUid && !this.data?.canSteal)) {
             console.log("已经不可偷");
             Core.view.openHint({ text: "给我留点吧", call: () => {} });
             return;
         }
-        Core.audio.playSound(Res.audios.goujiaosheng);
+
         this.canClick = false;
         //偷菜
         HttpControl.inst
@@ -669,6 +675,7 @@ export default class FieldComponent extends Core.gameScript {
                 });
             }
         } else {
+            Core.audio.playSound(Res.audios.goujiaosheng);
             if (!dog) {
                 return;
             }

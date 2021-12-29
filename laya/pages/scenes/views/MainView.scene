@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":233,
-    "selecteID":981,
+    "selectedBox":2,
+    "selecteID":96,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -2052,13 +2052,14 @@
                     "props":{"zOrder":10,"y":1058,"x":718,"width":237,"name":"dog_box","mouseEnabled":true,"height":256},
                     "nodeParent":96,
                     "label":"dog_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":870,
                     "child":[
                         {
+                            "x":45,
                             "type":"Animation",
                             "searchKey":"Animation,dog_ani",
                             "props":{"y":-37,"x":-30,"width":185,"source":"res/dog_1001.atlas","name":"dog_ani","mouseEnabled":true,"interval":150,"height":249,"autoPlay":true},
@@ -2073,9 +2074,10 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,box",
-                            "props":{"y":182,"x":12,"width":143,"skin":"main_scene/img_progressBarBg.png","name":"box"},
+                            "props":{"y":160,"x":202,"width":143,"skin":"main_scene/img_progressBarBg.png","name":"box"},
                             "nodeParent":870,
                             "label":"box",
                             "isOpen":true,
@@ -2085,6 +2087,7 @@
                             "compId":871,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,vitality_bar",
                                     "props":{"y":5,"x":6,"width":130,"skin":"main_scene/img_dogProgress.png","name":"vitality_bar","height":20},
@@ -2098,9 +2101,10 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,hungry",
-                                    "props":{"y":-391,"x":-417,"skin":"main_scene/img_dialogBg.png","name":"hungry"},
+                                    "props":{"y":-317,"x":-601,"skin":"main_scene/img_dialogBg.png","name":"hungry"},
                                     "nodeParent":871,
                                     "label":"hungry",
                                     "isOpen":true,
@@ -2110,6 +2114,7 @@
                                     "compId":967,
                                     "child":[
                                         {
+                                            "x":75,
                                             "type":"Label",
                                             "searchKey":"Label,lb",
                                             "props":{"y":54,"x":76,"text":"我饿了。。。","name":"lb","fontSize":38,"font":"Microsoft YaHei","color":"#906344","bold":true,"align":"center"},
@@ -2123,6 +2128,7 @@
                                                 ]
                                         },
                                         {
+                                            "x":75,
                                             "type":"Image",
                                             "searchKey":"Image",
                                             "props":{"y":167,"x":369.5,"skin":"main_scene/img_dialogBg2.png"},
