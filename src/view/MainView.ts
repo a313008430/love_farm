@@ -913,7 +913,9 @@ export default class MainView extends Core.gameScript {
         }级订单`;
 
         if (!this.orderQueueIng) {
+            console.log(11);
             if (progress == d.condition.length) {
+                console.log(22);
                 const condition = d.condition;
                 this.orderQueueIng = true;
                 let adDiamond =
@@ -933,58 +935,62 @@ export default class MainView extends Core.gameScript {
 
                 this.hindOrderLevel = 1;
 
-                Core.view.open(Res.views.GatherDescView, {
-                    parm: {
-                        type: 1,
-                        data: {
-                            diamond: adDiamond,
-                            gold: adGold,
-                        },
-                        call: (double: boolean) => {
-                            this.hindOrderLevel = 0;
-                            condition.forEach((e) => {
-                                WarehouseService.reduceAmount(e.plant.id, e.count);
-                            });
-                            this.orderQueueIng = false;
-                            UserInfo.orderLevel++;
-                            let reward = [];
-                            reward.push({
-                                obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
-                                count: adGold * (double ? 2 : 1),
-                                posType: 1,
-                            });
-                            if (d.extraReward) {
+                Laya.timer.once(500, this, () => {
+                    Core.view.open(Res.views.GatherDescView, {
+                        parm: {
+                            type: 1,
+                            data: {
+                                diamond: adDiamond,
+                                gold: adGold,
+                            },
+                            call: (double: boolean) => {
+                                this.hindOrderLevel = 0;
+                                condition.forEach((e) => {
+                                    WarehouseService.reduceAmount(e.plant.id, e.count);
+                                });
+                                this.orderQueueIng = false;
+                                UserInfo.orderLevel++;
+                                let reward = [];
                                 reward.push({
-                                    obj: TableAnalyze.table("currency").get(d.extraReward.obj.id),
-                                    count: adDiamond * (double ? 2 : 1),
-                                    posType: 2,
+                                    obj: TableAnalyze.table("currency").get(ConfigGame.goldId),
+                                    count: adGold * (double ? 2 : 1),
+                                    posType: 1,
                                 });
-                            }
-                            this.playGetRewardAni({
-                                node: box.getChildByName("gold_box") as any,
-                                list: reward,
-                                callBack: () => {
-                                    this.updateOrder();
-                                },
-                            });
+                                if (d.extraReward) {
+                                    reward.push({
+                                        obj: TableAnalyze.table("currency").get(
+                                            d.extraReward.obj.id
+                                        ),
+                                        count: adDiamond * (double ? 2 : 1),
+                                        posType: 2,
+                                    });
+                                }
+                                this.playGetRewardAni({
+                                    node: box.getChildByName("gold_box") as any,
+                                    list: reward,
+                                    callBack: () => {
+                                        this.updateOrder();
+                                    },
+                                });
 
-                            if (!double && !(UserInfo.orderLevel % 3)) {
-                                Laya.timer.once(300, this, () => {
-                                    AppCore.runAppFunction({
-                                        uri: AppEventMap.ad,
-                                        data: { adType: 1 },
+                                if (!double && !(UserInfo.orderLevel % 3)) {
+                                    Laya.timer.once(300, this, () => {
+                                        AppCore.runAppFunction({
+                                            uri: AppEventMap.ad,
+                                            data: { adType: 1 },
+                                        });
+                                        AppCore.runAppFunction({
+                                            uri: AppEventMap.eventCount,
+                                            data: { type: "full_Screen" },
+                                        });
                                     });
-                                    AppCore.runAppFunction({
-                                        uri: AppEventMap.eventCount,
-                                        data: { type: "full_Screen" },
-                                    });
-                                });
-                            }
+                                }
+                            },
+                            closeEvent: () => {
+                                this.orderQueueIng = false;
+                            },
                         },
-                        closeEvent: () => {
-                            this.orderQueueIng = false;
-                        },
-                    },
+                    });
                 });
             } else {
                 Laya.timer.frameOnce(1, this, () => {

@@ -311,7 +311,10 @@ export default class ShopView extends GameScript {
                     (this.getDataList()[this.itemListSelectIndex] as PlantDataBase).base.seed_price
                         .count > UserInfo.gold
                 ) {
-                    Core.view.openHint({ text: "金币不足", call: () => {} });
+                    Core.view.openHint({
+                        text: "金币不足，去仓库出售可以获得金币哦！",
+                        call: () => {},
+                    });
                     return;
                 }
 
@@ -361,7 +364,10 @@ export default class ShopView extends GameScript {
                     (this.getDataList()[this.itemListSelectIndex] as PlantDataBase).base.unlock_cost
                         .count > UserInfo.gold
                 ) {
-                    Core.view.openHint({ text: "金币不足", call: () => {} });
+                    Core.view.openHint({
+                        text: "金币不足，去仓库出售可以获得金币哦！",
+                        call: () => {},
+                    });
                     return;
                 }
 
@@ -500,7 +506,7 @@ export default class ShopView extends GameScript {
         }
 
         if (feed.base.cost.count > UserInfo.gold) {
-            Core.view.openHint({ text: "金币不足", call: () => {} });
+            Core.view.openHint({ text: "金币不足，去仓库出售可以获得金币哦！", call: () => {} });
             return;
         }
 
@@ -570,7 +576,7 @@ export default class ShopView extends GameScript {
         }
 
         if (PetService.list[this.selectPetIndex].base.cost.count > UserInfo.gold) {
-            Core.view.openHint({ text: "金币不足", call: () => {} });
+            Core.view.openHint({ text: "金币不足，去仓库出售可以获得金币哦！", call: () => {} });
             return;
         }
 
@@ -846,14 +852,14 @@ export default class ShopView extends GameScript {
             // (cell.getChildByName("times_box").getChildByName("times") as Laya.Label).text = `剩余${
             //     times < 0 ? 0 : times
             // }次`;
-            (
-                cell.getChildByName("times_box").getChildByName("times") as Laya.Label
-            ).text = `新手奖励`;
+            // (
+            //     cell.getChildByName("times_box").getChildByName("times") as Laya.Label
+            // ).text = `新手奖励`;
             if (times <= 0) {
                 cell.disabled = true;
             }
 
-            if (data.price > 0.3) (cell.getChildByName("times_box") as Laya.Box).visible = false;
+            (cell.getChildByName("times_box") as Laya.Box).visible = false;
         } else {
             (cell.getChildByName("times_box") as Laya.Box).visible = false;
         }

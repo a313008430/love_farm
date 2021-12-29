@@ -80,7 +80,10 @@ export default class FieldLevelUpView extends GameScript {
             case "upgradeBtn":
             case "upgradeAdBtn":
                 if (e.target.name == "upgradeBtn" && this.cost > UserInfo.gold) {
-                    Core.view.openHint({ text: "金币不足", call: () => {} });
+                    Core.view.openHint({
+                        text: "金币不足，去仓库出售可以获得金币哦！",
+                        call: () => {},
+                    });
                     return;
                 }
 

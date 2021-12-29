@@ -1717,8 +1717,11 @@
             return;
           }
           if (this.landData.obj.id == ConfigGame_default.goldId && this.landData.count > UserInfo_default.gold) {
-            core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3", call: () => {
-            } });
+            core_default.view.openHint({
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\u54E6\uFF01",
+              call: () => {
+              }
+            });
             return;
           }
           if (this.landData.obj.id == ConfigGame_default.diamondId && this.landData.count > UserInfo_default.diamond) {
@@ -1809,8 +1812,11 @@
             return;
           }
           if (e.target.name == "buyBtn" && UserInfo_default.gold < this.costGoldCount) {
-            core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3", call: () => {
-            } });
+            core_default.view.openHint({
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\u54E6\uFF01",
+              call: () => {
+              }
+            });
             return;
           }
           HttpControl.inst.send({
@@ -1894,8 +1900,11 @@
         case "upgradeBtn":
         case "upgradeAdBtn":
           if (e.target.name == "upgradeBtn" && this.cost > UserInfo_default.gold) {
-            core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3", call: () => {
-            } });
+            core_default.view.openHint({
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\u54E6\uFF01",
+              call: () => {
+              }
+            });
             return;
           }
           HttpControl.inst.send({
@@ -3235,7 +3244,9 @@
       }
       box.getChildByName("name_title").text = `\u5B8C\u6210${UserInfo_default.orderLevel + 1}\u7EA7\u8BA2\u5355`;
       if (!this.orderQueueIng) {
+        console.log(11);
         if (progress == d.condition.length) {
+          console.log(22);
           const condition = d.condition;
           this.orderQueueIng = true;
           let adDiamond = d.extraReward.count + rewardDiamondCount + Math.round(rewardDiamondCount * d.commission), adGold = rewardCount + Math.round(rewardCount * d.commission);
@@ -3247,57 +3258,59 @@
             return;
           }
           this.hindOrderLevel = 1;
-          core_default.view.open(Res_default.views.GatherDescView, {
-            parm: {
-              type: 1,
-              data: {
-                diamond: adDiamond,
-                gold: adGold
-              },
-              call: (double) => {
-                this.hindOrderLevel = 0;
-                condition.forEach((e) => {
-                  WarehouseService_default.reduceAmount(e.plant.id, e.count);
-                });
-                this.orderQueueIng = false;
-                UserInfo_default.orderLevel++;
-                let reward2 = [];
-                reward2.push({
-                  obj: TableAnalyze_default.table("currency").get(ConfigGame_default.goldId),
-                  count: adGold * (double ? 2 : 1),
-                  posType: 1
-                });
-                if (d.extraReward) {
+          Laya.timer.once(500, this, () => {
+            core_default.view.open(Res_default.views.GatherDescView, {
+              parm: {
+                type: 1,
+                data: {
+                  diamond: adDiamond,
+                  gold: adGold
+                },
+                call: (double) => {
+                  this.hindOrderLevel = 0;
+                  condition.forEach((e) => {
+                    WarehouseService_default.reduceAmount(e.plant.id, e.count);
+                  });
+                  this.orderQueueIng = false;
+                  UserInfo_default.orderLevel++;
+                  let reward2 = [];
                   reward2.push({
-                    obj: TableAnalyze_default.table("currency").get(d.extraReward.obj.id),
-                    count: adDiamond * (double ? 2 : 1),
-                    posType: 2
+                    obj: TableAnalyze_default.table("currency").get(ConfigGame_default.goldId),
+                    count: adGold * (double ? 2 : 1),
+                    posType: 1
                   });
-                }
-                this.playGetRewardAni({
-                  node: box.getChildByName("gold_box"),
-                  list: reward2,
-                  callBack: () => {
-                    this.updateOrder();
+                  if (d.extraReward) {
+                    reward2.push({
+                      obj: TableAnalyze_default.table("currency").get(d.extraReward.obj.id),
+                      count: adDiamond * (double ? 2 : 1),
+                      posType: 2
+                    });
                   }
-                });
-                if (!double && !(UserInfo_default.orderLevel % 3)) {
-                  Laya.timer.once(300, this, () => {
-                    AppCore.runAppFunction({
-                      uri: AppEventMap.ad,
-                      data: { adType: 1 }
-                    });
-                    AppCore.runAppFunction({
-                      uri: AppEventMap.eventCount,
-                      data: { type: "full_Screen" }
-                    });
+                  this.playGetRewardAni({
+                    node: box.getChildByName("gold_box"),
+                    list: reward2,
+                    callBack: () => {
+                      this.updateOrder();
+                    }
                   });
+                  if (!double && !(UserInfo_default.orderLevel % 3)) {
+                    Laya.timer.once(300, this, () => {
+                      AppCore.runAppFunction({
+                        uri: AppEventMap.ad,
+                        data: { adType: 1 }
+                      });
+                      AppCore.runAppFunction({
+                        uri: AppEventMap.eventCount,
+                        data: { type: "full_Screen" }
+                      });
+                    });
+                  }
+                },
+                closeEvent: () => {
+                  this.orderQueueIng = false;
                 }
-              },
-              closeEvent: () => {
-                this.orderQueueIng = false;
               }
-            }
+            });
           });
         } else {
           Laya.timer.frameOnce(1, this, () => {
@@ -5518,8 +5531,11 @@
             return;
           }
           if (this.getDataList()[this.itemListSelectIndex].base.seed_price.count > UserInfo_default.gold) {
-            core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3", call: () => {
-            } });
+            core_default.view.openHint({
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\u54E6\uFF01",
+              call: () => {
+              }
+            });
             return;
           }
           let landId = (_b = (_a = this.data) == null ? void 0 : _a.parm) == null ? void 0 : _b.landId;
@@ -5560,8 +5576,11 @@
             return;
           }
           if (e.target.name == "unlock_buy" && this.getDataList()[this.itemListSelectIndex].base.unlock_cost.count > UserInfo_default.gold) {
-            core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3", call: () => {
-            } });
+            core_default.view.openHint({
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\u54E6\uFF01",
+              call: () => {
+              }
+            });
             return;
           }
           this.canClick = false;
@@ -5672,7 +5691,7 @@
         return;
       }
       if (feed.base.cost.count > UserInfo_default.gold) {
-        core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3", call: () => {
+        core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\u54E6\uFF01", call: () => {
         } });
         return;
       }
@@ -5726,7 +5745,7 @@
         return;
       }
       if (PetService_default.list[this.selectPetIndex].base.cost.count > UserInfo_default.gold) {
-        core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3", call: () => {
+        core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\u54E6\uFF01", call: () => {
         } });
         return;
       }
@@ -5932,12 +5951,10 @@
       if (data.times) {
         let times = data.times - userData.times;
         cell.getChildByName("times_box").visible = true;
-        cell.getChildByName("times_box").getChildByName("times").text = `\u65B0\u624B\u5956\u52B1`;
         if (times <= 0) {
           cell.disabled = true;
         }
-        if (data.price > 0.3)
-          cell.getChildByName("times_box").visible = false;
+        cell.getChildByName("times_box").visible = false;
       } else {
         cell.getChildByName("times_box").visible = false;
       }
