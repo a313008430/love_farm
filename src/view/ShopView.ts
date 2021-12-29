@@ -485,6 +485,11 @@ export default class ShopView extends GameScript {
             return;
         }
 
+        if (!UserInfo.warePetId) {
+            Core.view.openHint({ text: "您还没有购买宠物哦！", call: () => {} });
+            return;
+        }
+
         if (feed.base.cost.count > UserInfo.gold) {
             Core.view.openHint({ text: "金币不足", call: () => {} });
             return;

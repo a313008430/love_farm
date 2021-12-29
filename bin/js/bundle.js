@@ -5661,6 +5661,11 @@
       if (!this.canClick) {
         return;
       }
+      if (!UserInfo_default.warePetId) {
+        core_default.view.openHint({ text: "\u60A8\u8FD8\u6CA1\u6709\u8D2D\u4E70\u5BA0\u7269\u54E6\uFF01", call: () => {
+        } });
+        return;
+      }
       if (feed.base.cost.count > UserInfo_default.gold) {
         core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3", call: () => {
         } });
