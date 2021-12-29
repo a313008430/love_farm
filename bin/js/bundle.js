@@ -1847,12 +1847,14 @@
       this.reward = null;
       this.probability = null;
       this.adBtn = null;
+      this.cost = 0;
     }
     onOpened(e) {
       this.data = e;
       let nextLand = TableAnalyze_default.table("landLevel").get(e.obj.level + 1);
       this.priceLabel.text = `\u4EF7\u683C\uFF1A${nextLand.cost.count}`;
       this.priceIcon.skin = nextLand.cost.obj.icon;
+      this.cost = nextLand.cost.count;
       this.lv.text = `${e.obj.level + 1}\u7EA7`;
       this.reward.text = `+${Number((nextLand.gain * 100).toFixed(2))}%`;
       this.probability.text = `+${Number((nextLand.probability * 100).toFixed(2))}%`;
@@ -1891,6 +1893,11 @@
           break;
         case "upgradeBtn":
         case "upgradeAdBtn":
+          if (e.target.name == "upgradeBtn" && this.cost > UserInfo_default.gold) {
+            core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3", call: () => {
+            } });
+            return;
+          }
           HttpControl.inst.send({
             api: ApiHttp.landUpgrade,
             data: {
@@ -3624,7 +3631,7 @@
       this.updateFriendView(d, friendData);
     }
     updateFriendView(d, friendData) {
-      const nickname = d == null ? void 0 : d.nickname, pedId = d == null ? void 0 : d.dogId, avatar = (friendData == null ? void 0 : friendData.avatar) || (d == null ? void 0 : d.avatar);
+      const nickname = d == null ? void 0 : d.nickname, pedId = d == null ? void 0 : d.dogId, avatar = (friendData == null ? void 0 : friendData.avatar) || (d == null ? void 0 : d.avatar) || "main_scene/img_defaultPortrait.png";
       const topBox = this.orderBox.parent, moneyBox = topBox.getChildByName("money_box"), countDown = topBox.getChildByName("count_down"), orderBox = this.orderBox.getChildByName("order_box"), friendName = this.orderBox.getChildByName("friend_name"), bottomList = [
         this.bottomBox.getChildByName("task"),
         this.bottomBox.getChildByName("order_box"),
@@ -3638,7 +3645,6 @@
         countDown.visible = true;
         this.stealAll.nickname = nickname;
         countDown.text = Tools.formatSeconds(this.outCountDownNumber);
-        Laya.timer.loop(1e3, this, this.outCountDownEvent, [countDown]);
         if (avatar)
           this.avatarNode.skin = avatar;
         if (pedId) {
@@ -3651,6 +3657,7 @@
         this.figureBox.visible = false;
         this.figureBox2.visible = false;
         this.fastGetBtn.skin = "main_scene/img_ongkeySteel.png";
+        Laya.timer.loop(1e3, this, this.outCountDownEvent, [countDown]);
       } else {
         this.fastGetBtn.skin = "main_scene/img_ongkeyGet.png";
         this.figureBox.visible = true;
@@ -4135,6 +4142,8 @@
       this.data = d;
       this.stealGet.vScrollBarSkin = null;
       this.order.vScrollBarSkin = null;
+      this.adBtn.disabled = !UserInfo_default.advertiseTimes;
+      this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
       Laya.timer.once(300, this, () => {
         AppCore.runAppFunction({
           uri: AppEventMap.ad,
@@ -4233,6 +4242,10 @@
               }
             }).catch(() => {
               this.canClick = true;
+              AppCore.runAppFunction({
+                uri: AppEventMap.closeAd,
+                data: {}
+              });
             });
           } else {
             if (e.target.name == "receive_double") {
@@ -4259,6 +4272,11 @@
                     ]);
                   }
                   core_default.view.close(Res_default.views.GatherDescView);
+                }).catch(() => {
+                  AppCore.runAppFunction({
+                    uri: AppEventMap.closeAd,
+                    data: {}
+                  });
                 });
               }
             } else {
@@ -5494,6 +5512,11 @@
           if (!this.canClick) {
             return;
           }
+          if (this.getDataList()[this.itemListSelectIndex].base.seed_price.count > UserInfo_default.gold) {
+            core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3", call: () => {
+            } });
+            return;
+          }
           let landId = (_b = (_a = this.data) == null ? void 0 : _a.parm) == null ? void 0 : _b.landId;
           if (!landId) {
             landId = MainView.inst.getEmptyLandId();
@@ -5529,6 +5552,11 @@
         case "unlock_buy":
         case "ad_unlock":
           if (!this.canClick) {
+            return;
+          }
+          if (e.target.name == "unlock_buy" && this.getDataList()[this.itemListSelectIndex].base.unlock_cost.count > UserInfo_default.gold) {
+            core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3", call: () => {
+            } });
             return;
           }
           this.canClick = false;
@@ -5633,6 +5661,11 @@
       if (!this.canClick) {
         return;
       }
+      if (feed.base.cost.count > UserInfo_default.gold) {
+        core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3", call: () => {
+        } });
+        return;
+      }
       this.canClick = false;
       HttpControl.inst.send({
         api: ApiHttp.feedBuy,
@@ -5680,6 +5713,11 @@
     petBuy() {
       let { base } = PetService_default.list[this.selectPetIndex];
       if (!this.canClick) {
+        return;
+      }
+      if (PetService_default.list[this.selectPetIndex].base.cost.count > UserInfo_default.gold) {
+        core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3", call: () => {
+        } });
         return;
       }
       this.canClick = false;

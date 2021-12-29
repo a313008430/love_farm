@@ -27,12 +27,14 @@ export default class FieldLevelUpView extends GameScript {
     private adBtn: Laya.Image = null;
 
     private data: { obj: LandObj; call: Function };
+    private cost: number = 0;
 
     onOpened(e: { obj: LandObj; call: Function }) {
         this.data = e;
         let nextLand = TableAnalyze.table("landLevel").get(e.obj.level + 1);
         this.priceLabel.text = `价格：${nextLand.cost.count}`;
         this.priceIcon.skin = nextLand.cost.obj.icon;
+        this.cost = nextLand.cost.count;
 
         this.lv.text = `${e.obj.level + 1}级`;
         this.reward.text = `+${Number((nextLand.gain * 100).toFixed(2))}%`;
@@ -77,6 +79,11 @@ export default class FieldLevelUpView extends GameScript {
                 break;
             case "upgradeBtn":
             case "upgradeAdBtn":
+                if (e.target.name == "upgradeBtn" && this.cost > UserInfo.gold) {
+                    Core.view.openHint({ text: "金币不足", call: () => {} });
+                    return;
+                }
+
                 HttpControl.inst
                     .send({
                         api: ApiHttp.landUpgrade,

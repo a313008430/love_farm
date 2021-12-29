@@ -12,7 +12,7 @@ import Core from "src/core/index";
 import { ViewManager } from "src/core/ViewManager";
 import FeedService, { FeedDataBase } from "src/dataService/FeedService";
 import PetService from "src/dataService/PetService";
-import PlantService from "src/dataService/PlantService";
+import PlantService, { PlantDataBase } from "src/dataService/PlantService";
 import UserInfo from "src/dataService/UserInfo";
 import MainView, { GetFloatRewardObj } from "./MainView";
 
@@ -298,6 +298,14 @@ export default class ShopView extends GameScript {
                     return;
                 }
 
+                if (
+                    (this.getDataList()[this.itemListSelectIndex] as PlantDataBase).base.seed_price
+                        .count > UserInfo.gold
+                ) {
+                    Core.view.openHint({ text: "金币不足", call: () => {} });
+                    return;
+                }
+
                 let landId = this.data?.parm?.landId;
                 if (!landId) {
                     landId = MainView.inst.getEmptyLandId();
@@ -339,6 +347,15 @@ export default class ShopView extends GameScript {
                 if (!this.canClick) {
                     return;
                 }
+                if (
+                    e.target.name == "unlock_buy" &&
+                    (this.getDataList()[this.itemListSelectIndex] as PlantDataBase).base.unlock_cost
+                        .count > UserInfo.gold
+                ) {
+                    Core.view.openHint({ text: "金币不足", call: () => {} });
+                    return;
+                }
+
                 this.canClick = false;
                 HttpControl.inst
                     .send({
@@ -467,6 +484,12 @@ export default class ShopView extends GameScript {
         if (!this.canClick) {
             return;
         }
+
+        if (feed.base.cost.count > UserInfo.gold) {
+            Core.view.openHint({ text: "金币不足", call: () => {} });
+            return;
+        }
+
         this.canClick = false;
         HttpControl.inst
             .send({
@@ -531,6 +554,12 @@ export default class ShopView extends GameScript {
         if (!this.canClick) {
             return;
         }
+
+        if (PetService.list[this.selectPetIndex].base.cost.count > UserInfo.gold) {
+            Core.view.openHint({ text: "金币不足", call: () => {} });
+            return;
+        }
+
         this.canClick = false;
         HttpControl.inst
             .send({

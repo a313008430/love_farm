@@ -1484,7 +1484,7 @@ export default class MainView extends Core.gameScript {
     private updateFriendView(d?: ReturnNeighbor, friendData?: FriendData) {
         const nickname = d?.nickname,
             pedId = d?.dogId,
-            avatar = friendData?.avatar || d?.avatar;
+            avatar = friendData?.avatar || d?.avatar || "main_scene/img_defaultPortrait.png";
 
         const topBox = this.orderBox.parent as Laya.Box,
             moneyBox = topBox.getChildByName("money_box") as Laya.Box,
@@ -1507,7 +1507,7 @@ export default class MainView extends Core.gameScript {
             this.stealAll.nickname = nickname;
 
             countDown.text = Tools.formatSeconds(this.outCountDownNumber);
-            Laya.timer.loop(1000, this, this.outCountDownEvent, [countDown]);
+
             if (avatar) this.avatarNode.skin = avatar;
             if (pedId) {
                 this.petBox.visible = true;
@@ -1521,6 +1521,7 @@ export default class MainView extends Core.gameScript {
             this.figureBox.visible = false;
             this.figureBox2.visible = false;
             this.fastGetBtn.skin = "main_scene/img_ongkeySteel.png";
+            Laya.timer.loop(1000, this, this.outCountDownEvent, [countDown]);
         } else {
             this.fastGetBtn.skin = "main_scene/img_ongkeyGet.png";
             this.figureBox.visible = true;
