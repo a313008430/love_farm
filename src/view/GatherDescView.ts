@@ -249,6 +249,7 @@ export default class GatherDescView extends Core.gameScript {
                                         uri: AppEventMap.closeAd,
                                         data: {},
                                     });
+                                    this.canClick = true;
                                 });
                         }
                     } else {

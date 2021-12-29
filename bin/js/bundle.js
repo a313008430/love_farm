@@ -561,6 +561,7 @@
   switch ("test") {
     case BuildType.debug:
       baseUrl = "//192.168.101.50:3000";
+      baseUrl = "//192.168.101.50:3100";
       break;
     case BuildType.online:
       baseUrl = "http://game.ahd168.com:3100";
@@ -3391,6 +3392,8 @@
       });
       obj.list.forEach((d, i) => {
         var _a;
+        if (!d.obj)
+          return;
         let node = Laya.Pool.getItemByCreateFun("floatRewardBox", this.getRewardPrefab.create, this.getRewardPrefab);
         let icon = node.getChildByName("icon");
         icon.skin = ((_a = d.obj) == null ? void 0 : _a.icon) || "";
@@ -4300,6 +4303,7 @@
                     uri: AppEventMap.closeAd,
                     data: {}
                   });
+                  this.canClick = true;
                 });
               }
             } else {
