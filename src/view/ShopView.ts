@@ -122,6 +122,12 @@ export default class ShopView extends GameScript {
                 .toString()
                 .match(/^\d+(?:\.\d{0,2})?/)}元`;
         });
+
+        (this.lockBtnBox.getChildByName("ad_unlock") as Laya.Image).disabled =
+            !UserInfo.advertiseTimes;
+        (this.lockBtnBox.getChildByName("ad_unlock") as Laya.Image).active = Boolean(
+            UserInfo.advertiseTimes
+        );
     }
 
     onOpened(e: ShopViewData) {
@@ -243,6 +249,9 @@ export default class ShopView extends GameScript {
 
         // if (this.data?.call) {
         this.itemBuyBtn.visible = !d.lock;
+        if (MainView.inst.isOuter) {
+            this.itemBuyBtn.visible = false;
+        }
         // } else {
         //     this.itemBuyBtn.visible = !d.lock;
         // }

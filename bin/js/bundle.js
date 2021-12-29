@@ -5388,6 +5388,8 @@
         let withdrawal = TableAnalyze_default.table("config").get("withdrawal").value;
         this.proportion.text = ` = \xA5${(Number(withdrawal[2]) / Number(withdrawal[1]) * v).toString().match(/^\d+(?:\.\d{0,2})?/)}\u5143`;
       });
+      this.lockBtnBox.getChildByName("ad_unlock").disabled = !UserInfo_default.advertiseTimes;
+      this.lockBtnBox.getChildByName("ad_unlock").active = Boolean(UserInfo_default.advertiseTimes);
     }
     onOpened(e) {
       this.data = e;
@@ -5472,6 +5474,9 @@
       this.seedDesc.text = base.desc;
       this.matureTime.text = Tools.formatSeconds(base.mature_time);
       this.itemBuyBtn.visible = !d.lock;
+      if (MainView.inst.isOuter) {
+        this.itemBuyBtn.visible = false;
+      }
       this.lockBtnBox.visible = d.lock;
       this.lockBtnBox.active = d.lock;
       let gainList = base.gain;
