@@ -461,7 +461,8 @@ export default class MainView extends Core.gameScript {
                 }
             })
             .key("vitality", (e) => {
-                let vitality = e / ConfigGame.userVitalityLimit;
+                let vitality =
+                    e / (TableAnalyze.table("config").get("vitalityLimit").value as number);
 
                 Laya.timer.frameOnce(1, this, () => {
                     Core.eventGlobal.event(EventMaps.update_red_dot, [

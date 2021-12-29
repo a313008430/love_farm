@@ -66,6 +66,7 @@ export default class HttpControl {
 
                         this.completeHandler(data, resolve, reject, xmlhttp);
                         this.clearOneInEventMap(xmlhttp);
+                        this.queueXhrEvent();
                         break;
 
                     default:
@@ -99,6 +100,7 @@ export default class HttpControl {
                             this.clearOneInEventMap(xmlhttp);
                             // reject();
                         }
+                        this.queueXhrEvent();
                         break;
                 }
             }
@@ -120,6 +122,9 @@ export default class HttpControl {
         });
         // });
     }
+
+    /** 协议队列 */
+    private xhrList: { xhr: XMLHttpRequest; data: string; sendData: HttpSendData }[] = [];
 
     async send(data: HttpSendData): Promise<any> {
         if (!data.method) data.method = "post";
@@ -166,9 +171,11 @@ export default class HttpControl {
                 } else {
                     UserInfo.continuousAdTimes++;
                 }
-                HttpControl.inst.send({
-                    api: ApiHttp.adRecordNotClick,
-                    data: { times: UserInfo.continuousAdTimes },
+                Laya.timer.once(100, this, () => {
+                    HttpControl.inst.send({
+                        api: ApiHttp.adRecordNotClick,
+                        data: { times: UserInfo.continuousAdTimes },
+                    });
                 });
             }
         }
@@ -188,13 +195,6 @@ export default class HttpControl {
                 data.headers = ["Authorization", `Bearer ${LocalStorageService.getJSON().token}`];
             }
 
-            console.log(
-                `%c ==> send %c${data.api} %c${JSON.stringify(data.data)}`,
-                `color:#82ccdd;font-weight:700;`,
-                `color:#eb4d4b;font-weight:700;`,
-                `color:#f8c291;font-weight:700;`
-            );
-
             if (!data.api) {
                 Core.view.open(Res.views.HintView, {
                     parm: { text: `http 地址不能为空` },
@@ -207,8 +207,28 @@ export default class HttpControl {
             // xhr.setRequestHeader("Content-type", "application/json");
             xhr.setRequestHeader("Authorization", `Bearer ${LocalStorageService.getJSON().token}`);
 
-            xhr.send(sendDataString);
+            this.xhrList.push({ xhr: xhr, data: sendDataString, sendData: data });
+            if (this.xhrList.length > 1) {
+                return;
+            }
+            this.queueXhrEvent(true);
         });
+    }
+
+    private queueXhrEvent(first: boolean = false) {
+        if (!first) this.xhrList.splice(0, 1);
+        if (this.xhrList.length) {
+            console.log(
+                `%c ==> send %c${this.xhrList[0].sendData.api} %c${JSON.stringify(
+                    this.xhrList[0].sendData.data
+                )}`,
+                `color:#82ccdd;font-weight:700;`,
+                `color:#eb4d4b;font-weight:700;`,
+                `color:#f8c291;font-weight:700;`
+            );
+
+            this.xhrList[0].xhr.send(this.xhrList[0].data);
+        }
     }
 
     private completeHandler(e, resolve: Function, reject: Function, xhr) {

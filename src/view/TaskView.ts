@@ -178,6 +178,10 @@ export default class TaskView extends GameScript {
                         TaskService.taskAddTimes(1001);
                         if (id == 1012) TaskService.taskAddTimes(1012);
                         this.canClick = true;
+                        HttpControl.inst.send({
+                            api: ApiHttp.adRecordNotClick,
+                            data: { times: UserInfo.continuousAdTimes },
+                        });
                     });
 
                 if (adData?.data["hasClicked"]) {
@@ -185,10 +189,6 @@ export default class TaskView extends GameScript {
                 } else {
                     UserInfo.continuousAdTimes++;
                 }
-                HttpControl.inst.send({
-                    api: ApiHttp.adRecordNotClick,
-                    data: { times: UserInfo.continuousAdTimes },
-                });
 
                 break;
             case 1002:
