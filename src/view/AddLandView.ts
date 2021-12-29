@@ -81,7 +81,7 @@ export default class AddLandView extends GameScript {
                     this.landData.count > UserInfo.gold
                 ) {
                     Core.view.openHint({
-                        text: "金币不足，去仓库出售可以获得金币哦！",
+                        text: "金币不足，去仓库出售可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
                         call: () => {},
                     });
                     return;

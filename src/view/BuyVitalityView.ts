@@ -46,7 +46,7 @@ export default class BuyVitalityView extends GameScript {
                 }
                 if (e.target.name == "buyBtn" && UserInfo.gold < this.costGoldCount) {
                     Core.view.openHint({
-                        text: "金币不足，去仓库出售可以获得金币哦！",
+                        text: "金币不足，去仓库出售可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
                         call: () => {},
                     });
                     return;

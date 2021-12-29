@@ -619,6 +619,12 @@ export default class MainView extends Core.gameScript {
         }
         this.canClick = false;
         if (this.isOuter) {
+            if (UserInfo.vitality <= 0) {
+                Core.view.openHint({ text: "体力不足", call: () => {} });
+                this.canClick = true;
+                return;
+            }
+
             //偷菜
             let lands: number[] = [],
                 landComList: FieldComponent[] = [];
@@ -839,7 +845,7 @@ export default class MainView extends Core.gameScript {
     @Core.eventOn(EventMaps.update_Order)
     private updateOrder() {
         // return;
-
+        console.log(this.isOuter);
         if (this.isOuter) return;
 
         let box = this.orderBox.getChildByName("order_box"),
@@ -913,9 +919,7 @@ export default class MainView extends Core.gameScript {
         }级订单`;
 
         if (!this.orderQueueIng) {
-            console.log(11);
             if (progress == d.condition.length) {
-                console.log(22);
                 const condition = d.condition;
                 this.orderQueueIng = true;
                 let adDiamond =

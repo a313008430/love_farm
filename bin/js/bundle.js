@@ -561,7 +561,6 @@
   switch ("test") {
     case BuildType.debug:
       baseUrl = "//192.168.101.50:3000";
-      baseUrl = "//192.168.101.50:3100";
       break;
     case BuildType.online:
       baseUrl = "http://game.ahd168.com:3100";
@@ -1718,7 +1717,7 @@
           }
           if (this.landData.obj.id == ConfigGame_default.goldId && this.landData.count > UserInfo_default.gold) {
             core_default.view.openHint({
-              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\u54E6\uFF01",
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
               call: () => {
               }
             });
@@ -1813,7 +1812,7 @@
           }
           if (e.target.name == "buyBtn" && UserInfo_default.gold < this.costGoldCount) {
             core_default.view.openHint({
-              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\u54E6\uFF01",
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
               call: () => {
               }
             });
@@ -1901,7 +1900,7 @@
         case "upgradeAdBtn":
           if (e.target.name == "upgradeBtn" && this.cost > UserInfo_default.gold) {
             core_default.view.openHint({
-              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\u54E6\uFF01",
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
               call: () => {
               }
             });
@@ -2495,6 +2494,12 @@
         if (!data.productId || data.matureTimeLeft) {
           return;
         }
+        if (UserInfo_default.vitality <= 0) {
+          core_default.view.openHint({ text: "\u4F53\u529B\u4E0D\u8DB3", call: () => {
+          } });
+          this.canClick = true;
+          return;
+        }
         if (!this.canSteal || this.stealUid && !((_a = this.data) == null ? void 0 : _a.canSteal)) {
           console.log("\u5DF2\u7ECF\u4E0D\u53EF\u5077");
           core_default.view.openHint({ text: "\u7ED9\u6211\u7559\u70B9\u5427", call: () => {
@@ -3049,6 +3054,12 @@
         }
         this.canClick = false;
         if (this.isOuter) {
+          if (UserInfo_default.vitality <= 0) {
+            core_default.view.openHint({ text: "\u4F53\u529B\u4E0D\u8DB3", call: () => {
+            } });
+            this.canClick = true;
+            return;
+          }
           let lands = [], landComList = [];
           for (let x = 0; x < this.landList.length; x++) {
             if (((_a = this.landList[x].data) == null ? void 0 : _a.productId) && !((_b = this.landList[x].data) == null ? void 0 : _b.matureTimeLeft) && ((_c = this.landList[x].data) == null ? void 0 : _c.canSteal)) {
@@ -3197,6 +3208,7 @@
     }
     updateOrder() {
       var _a;
+      console.log(this.isOuter);
       if (this.isOuter)
         return;
       let box = this.orderBox.getChildByName("order_box"), d = TableAnalyze_default.table("order").get(UserInfo_default.orderLevel + 1), reward, rewardCount = 0, rewardDiamondCount = 0, curCount = 0, maxCount = 0, progress = 0;
@@ -3244,9 +3256,7 @@
       }
       box.getChildByName("name_title").text = `\u5B8C\u6210${UserInfo_default.orderLevel + 1}\u7EA7\u8BA2\u5355`;
       if (!this.orderQueueIng) {
-        console.log(11);
         if (progress == d.condition.length) {
-          console.log(22);
           const condition = d.condition;
           this.orderQueueIng = true;
           let adDiamond = d.extraReward.count + rewardDiamondCount + Math.round(rewardDiamondCount * d.commission), adGold = rewardCount + Math.round(rewardCount * d.commission);
@@ -4309,6 +4319,9 @@
       });
       if (this.data.closeEvent) {
         this.data.closeEvent();
+      }
+      if (this.data.type == 2) {
+        core_default.eventGlobal.event(EventMaps.update_Order);
       }
     }
   };
@@ -5532,7 +5545,7 @@
           }
           if (this.getDataList()[this.itemListSelectIndex].base.seed_price.count > UserInfo_default.gold) {
             core_default.view.openHint({
-              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\u54E6\uFF01",
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
               call: () => {
               }
             });
@@ -5577,7 +5590,7 @@
           }
           if (e.target.name == "unlock_buy" && this.getDataList()[this.itemListSelectIndex].base.unlock_cost.count > UserInfo_default.gold) {
             core_default.view.openHint({
-              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\u54E6\uFF01",
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
               call: () => {
               }
             });
@@ -5691,8 +5704,11 @@
         return;
       }
       if (feed.base.cost.count > UserInfo_default.gold) {
-        core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\u54E6\uFF01", call: () => {
-        } });
+        core_default.view.openHint({
+          text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
+          call: () => {
+          }
+        });
         return;
       }
       this.canClick = false;
@@ -5745,8 +5761,11 @@
         return;
       }
       if (PetService_default.list[this.selectPetIndex].base.cost.count > UserInfo_default.gold) {
-        core_default.view.openHint({ text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\u54E6\uFF01", call: () => {
-        } });
+        core_default.view.openHint({
+          text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
+          call: () => {
+          }
+        });
         return;
       }
       this.canClick = false;

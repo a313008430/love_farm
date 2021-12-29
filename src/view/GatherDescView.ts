@@ -21,13 +21,14 @@ export default class GatherDescView extends Core.gameScript {
     /** @prop {name:item, tips:"物品节点", type:Prefab}*/
     private item: Laya.Prefab;
 
+    type: number;
     private data: {
-        type: number;
         data: any;
         call: Function;
         diamond: number;
         closeEvent: Function;
         nickname: string;
+        type: number;
     };
     private canClick: boolean = true;
 
@@ -270,6 +271,10 @@ export default class GatherDescView extends Core.gameScript {
 
         if (this.data.closeEvent) {
             this.data.closeEvent();
+        }
+
+        if (this.data.type == 2) {
+            Core.eventGlobal.event(EventMaps.update_Order);
         }
     }
 }
