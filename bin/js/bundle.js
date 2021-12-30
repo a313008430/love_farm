@@ -1577,17 +1577,19 @@
           } else {
             ad = true;
             UserInfo_default.adTimes++;
-            if (adData == null ? void 0 : adData.data["hasClicked"]) {
-              UserInfo_default.continuousAdTimes = 0;
-            } else {
-              UserInfo_default.continuousAdTimes++;
-            }
-            Laya.timer.once(100, this, () => {
-              _HttpControl.inst.send({
-                api: ApiHttp.adRecordNotClick,
-                data: { times: UserInfo_default.continuousAdTimes }
+            if (UserInfo_default.days > 1) {
+              if (adData == null ? void 0 : adData.data["hasClicked"]) {
+                UserInfo_default.continuousAdTimes = 0;
+              } else {
+                UserInfo_default.continuousAdTimes++;
+              }
+              Laya.timer.once(100, this, () => {
+                _HttpControl.inst.send({
+                  api: ApiHttp.adRecordNotClick,
+                  data: { times: UserInfo_default.continuousAdTimes }
+                });
               });
-            });
+            }
           }
         }
         return new Promise((resolve, reject) => __async(this, null, function* () {
@@ -6298,10 +6300,12 @@
               if (id == 1012)
                 TaskService_default.taskAddTimes(1012);
               this.canClick = true;
-              HttpControl.inst.send({
-                api: ApiHttp.adRecordNotClick,
-                data: { times: UserInfo_default.continuousAdTimes }
-              });
+              if (UserInfo_default.days > 1) {
+                HttpControl.inst.send({
+                  api: ApiHttp.adRecordNotClick,
+                  data: { times: UserInfo_default.continuousAdTimes }
+                });
+              }
             });
             if (adData == null ? void 0 : adData.data["hasClicked"]) {
               UserInfo_default.continuousAdTimes = 0;

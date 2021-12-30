@@ -166,17 +166,19 @@ export default class HttpControl {
                 ad = true;
                 UserInfo.adTimes++;
 
-                if (adData?.data["hasClicked"]) {
-                    UserInfo.continuousAdTimes = 0;
-                } else {
-                    UserInfo.continuousAdTimes++;
-                }
-                Laya.timer.once(100, this, () => {
-                    HttpControl.inst.send({
-                        api: ApiHttp.adRecordNotClick,
-                        data: { times: UserInfo.continuousAdTimes },
+                if (UserInfo.days > 1) {
+                    if (adData?.data["hasClicked"]) {
+                        UserInfo.continuousAdTimes = 0;
+                    } else {
+                        UserInfo.continuousAdTimes++;
+                    }
+                    Laya.timer.once(100, this, () => {
+                        HttpControl.inst.send({
+                            api: ApiHttp.adRecordNotClick,
+                            data: { times: UserInfo.continuousAdTimes },
+                        });
                     });
-                });
+                }
             }
         }
 

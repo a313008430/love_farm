@@ -38,13 +38,13 @@ class UserInfo {
     proportion: number = 0.0001;
     /** 邀请者 */
     invitePeople: string;
-    /** 第一次登录 11 表示 才表示新手引导完全结束  */
+    /** 第一次登录 11 表示 才表示新手引导完全结束  todo 这里已改动 */
     isFirstTime: number;
     /** 用户提现数据 */
     withdraw: WithdrawData[];
     /** 新手引导数据 */
     guideData: string = "";
-    /** 玩家在线天数 */
+    /** 玩家在线天数 默认第一天为1*/
     days: number = 0;
     /** 用户看广告总次数 */
     adTimes: number = 0;
