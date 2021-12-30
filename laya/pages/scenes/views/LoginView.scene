@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":5,
-    "selecteID":6,
+    "selectedBox":20,
+    "selecteID":21,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#ffffff","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -76,13 +76,14 @@
                     "props":{"y":946,"x":159,"name":"privacy_box"},
                     "nodeParent":5,
                     "label":"privacy_box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":24,
                     "child":[
                         {
+                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,privacy_lb",
                             "props":{"y":22,"x":349,"text":"请阅读后同意《用户隐私协议》","name":"privacy_lb","mouseEnabled":true,"fontSize":40,"font":"Microsoft YaHei","color":"#5b3f2a","anchorY":0.5,"anchorX":0.5},
@@ -112,6 +113,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,check_box",
                             "props":{"y":22,"x":22,"stateNum":"2","skin":"load/img_checkBox1.png","name":"check_box","anchorY":0.5,"anchorX":0.5},
@@ -124,9 +126,10 @@
                             "compId":20,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,icon",
-                                    "props":{"visible":false,"skin":"load/img_checkBox2.png","name":"icon"},
+                                    "props":{"visible":true,"skin":"load/img_checkBox2.png","name":"icon"},
                                     "nodeParent":20,
                                     "label":"icon",
                                     "isOpen":true,
@@ -138,6 +141,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Script",
                                     "switchAble":true,
                                     "source":"src/components/Button.ts",
@@ -154,6 +158,7 @@
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Circle",
                                     "searchKey":"Circle",
                                     "props":{"y":23,"x":26,"renderType":"hit","radius":50,"lineWidth":1,"fillColor":"#ff0000"},
