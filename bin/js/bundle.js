@@ -5916,7 +5916,7 @@
         this.descPriceBox.visible = false;
         desc.getChildByName("lb1").text = `\u9080\u8BF7`;
         desc.getChildByName("lb2").text = `${data.inviteAmount}`;
-        desc.getChildByName("lb3").text = `\u4E2A\u5373\u53EF\u63D0\u73B0`;
+        desc.getChildByName("lb3").text = `\u4E2A\u597D\u53CB\u5373\u53EF\u63D0\u73B0`;
         barBox.getChildByName("bar").width = (this.inviteNum > data.inviteAmount ? 1 : this.inviteNum / data.inviteAmount) * 434;
         barBox.getChildByName("lb").text = `${this.inviteNum > data.inviteAmount ? data.inviteAmount : this.inviteNum}/${data.inviteAmount}`;
         btn.skin = `game/img_goToInvite.png`;

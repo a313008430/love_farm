@@ -783,7 +783,7 @@ export default class ShopView extends GameScript {
             this.descPriceBox.visible = false;
             (desc.getChildByName("lb1") as Laya.Label).text = `邀请`;
             (desc.getChildByName("lb2") as Laya.Label).text = `${data.inviteAmount}`;
-            (desc.getChildByName("lb3") as Laya.Label).text = `个即可提现`;
+            (desc.getChildByName("lb3") as Laya.Label).text = `个好友即可提现`;
             (barBox.getChildByName("bar") as Laya.Image).width =
                 (this.inviteNum > data.inviteAmount ? 1 : this.inviteNum / data.inviteAmount) * 434;
             (barBox.getChildByName("lb") as Laya.Label).text = `${
