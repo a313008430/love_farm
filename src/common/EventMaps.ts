@@ -72,10 +72,10 @@ export const enum AppEventMap {
     closeAd = "closeAd",
     /** 关闭安卓启动遮罩 */
     closeImage = "closeImage",
+    /** 苹果登录 */
+    appleLogin = "appleLogin",
     /** 微信登录 */
     wxLogin = "wxLogin",
-    /** 微信登录成功 */
-    wxLoginSuccess = "wxLoginSuccess",
     /** 微信分享 */
     wxShare = "wxShare",
     /** 友盟事件统计 数据格式 {type:对应要统计的点} */

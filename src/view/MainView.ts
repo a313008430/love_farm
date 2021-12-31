@@ -203,7 +203,7 @@ export default class MainView extends Core.gameScript {
 
         this.guidHandAnimation();
         this.guideHand.visible = false;
-        this.friendShareGuide(true);
+        // this.friendShareGuide(true);
     }
 
     onHdAwake() {
@@ -845,7 +845,6 @@ export default class MainView extends Core.gameScript {
     @Core.eventOn(EventMaps.update_Order)
     private updateOrder() {
         // return;
-        console.log(this.isOuter);
         if (this.isOuter) return;
 
         let box = this.orderBox.getChildByName("order_box"),

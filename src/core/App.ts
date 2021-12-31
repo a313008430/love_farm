@@ -47,13 +47,9 @@ export default class AppCore {
                     resolve(null);
                 }
             } else {
-                // alert(JSON.stringify(data));
-                // alert(window["$App"] && window["$App"]["webRequest"]);
                 if (window["$App"] && window["$App"]["webRequest"]) {
-                    // return new Promise((resolve) => {
                     window["$App"]["webRequest"](JSON.stringify(data));
-                    // console.log(`send => ${data}`);
-                    // alert(`send => ${JSON.stringify(data)}`);
+
                     if (data.timestamp) {
                         EventMap.set(data.timestamp, resolve);
                     }
@@ -62,6 +58,17 @@ export default class AppCore {
                     // resolve(null); //如果写这个会成功，所以正常不通过应用，一些功能这里不让用，就注释
                     resolve(null);
                 }
+
+                // if (window["webRequest"]) {
+                //     window["webRequest"].postMessage(JSON.stringify(data));
+                //     if (data.timestamp) {
+                //         EventMap.set(data.timestamp, resolve);
+                //     }
+                //     // });
+                // } else {
+                //     // resolve(null); //如果写这个会成功，所以正常不通过应用，一些功能这里不让用，就注释
+                //     resolve(null);
+                // }
             }
         });
     }
