@@ -2527,13 +2527,15 @@
         }
       });
       if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
-        AppCore.runAppFunction({
-          uri: AppEventMap.ad,
-          data: { adType: 1 }
-        });
-        AppCore.runAppFunction({
-          uri: AppEventMap.ad,
-          data: { adType: 3 }
+        Laya.timer.once(300, this, () => {
+          AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 1 }
+          });
+          AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 3 }
+          });
         });
         AppCore.runAppFunction({
           uri: AppEventMap.eventCount,
@@ -5364,9 +5366,11 @@
     onOpened() {
       this.musicChange();
       this.soundChange();
-      AppCore.runAppFunction({
-        uri: AppEventMap.ad,
-        data: { adType: 3 }
+      Laya.timer.once(300, this, () => {
+        AppCore.runAppFunction({
+          uri: AppEventMap.ad,
+          data: { adType: 3 }
+        });
       });
       AppCore.runAppFunction({
         uri: AppEventMap.eventCount,
@@ -6528,9 +6532,11 @@
       core_default.audio.playSound(Res_default.audios.dakaicangku);
       this.sellAdBtn.disabled = !UserInfo_default.advertiseTimes;
       this.sellAdBtn.active = Boolean(UserInfo_default.advertiseTimes);
-      AppCore.runAppFunction({
-        uri: AppEventMap.ad,
-        data: { adType: 3 }
+      Laya.timer.once(300, this, () => {
+        AppCore.runAppFunction({
+          uri: AppEventMap.ad,
+          data: { adType: 3 }
+        });
       });
       AppCore.runAppFunction({
         uri: AppEventMap.eventCount,

@@ -22,9 +22,11 @@ export default class SettingView extends Core.gameScript {
     onOpened() {
         this.musicChange();
         this.soundChange();
-        AppCore.runAppFunction({
-            uri: AppEventMap.ad,
-            data: { adType: 3 },
+        Laya.timer.once(300, this, () => {
+            AppCore.runAppFunction({
+                uri: AppEventMap.ad,
+                data: { adType: 3 },
+            });
         });
 
         AppCore.runAppFunction({

@@ -524,14 +524,16 @@ export default class FieldComponent extends Core.gameScript {
         });
 
         if (UserInfo.adTimes > 100 || UserInfo.continuousAdTimes > 20) {
-            AppCore.runAppFunction({
-                uri: AppEventMap.ad,
-                data: { adType: 1 },
-            });
+            Laya.timer.once(300, this, () => {
+                AppCore.runAppFunction({
+                    uri: AppEventMap.ad,
+                    data: { adType: 1 },
+                });
 
-            AppCore.runAppFunction({
-                uri: AppEventMap.ad,
-                data: { adType: 3 },
+                AppCore.runAppFunction({
+                    uri: AppEventMap.ad,
+                    data: { adType: 3 },
+                });
             });
 
             AppCore.runAppFunction({

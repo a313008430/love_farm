@@ -61,9 +61,11 @@ export default class WarehouseView extends Core.gameScript {
         Core.audio.playSound(Res.audios.dakaicangku);
         this.sellAdBtn.disabled = !UserInfo.advertiseTimes;
         this.sellAdBtn.active = Boolean(UserInfo.advertiseTimes);
-        AppCore.runAppFunction({
-            uri: AppEventMap.ad,
-            data: { adType: 3 },
+        Laya.timer.once(300, this, () => {
+            AppCore.runAppFunction({
+                uri: AppEventMap.ad,
+                data: { adType: 3 },
+            });
         });
         AppCore.runAppFunction({
             uri: AppEventMap.eventCount,
