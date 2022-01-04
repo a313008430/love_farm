@@ -1458,6 +1458,7 @@ export default class MainView extends Core.gameScript {
             if (this.isOuter) {
                 land.isOuter = true;
                 land.stealUid = d.uid;
+                FieldComponent.stealUidState = false;
                 land.updateData({ list: otherLands });
 
                 if (d.protectedTime) {
@@ -1470,6 +1471,7 @@ export default class MainView extends Core.gameScript {
                 land.canSteal = false;
                 land.isOuter = false;
                 land.stealUid = null;
+                FieldComponent.stealUidState = false;
                 land.updateData({ list: null });
             }
 

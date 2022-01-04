@@ -12,8 +12,8 @@ console.log(BUILD_TYPE);
 let baseUrl = "http://game.ahd168.com:3000";
 switch (BUILD_TYPE) {
     case BuildType.debug:
-        baseUrl = "//192.168.101.50:3000";
-        // baseUrl = "//192.168.101.50:3100";
+        baseUrl = "//192.168.101.6:3000";
+        // baseUrl = "//192.168.101.6:3100";
         // baseUrl = "//192.168.50.87:3000";
         break;
     case BuildType.online:
