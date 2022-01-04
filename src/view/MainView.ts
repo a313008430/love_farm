@@ -619,7 +619,7 @@ export default class MainView extends Core.gameScript {
         }
         this.canClick = false;
         if (this.isOuter) {
-            if (UserInfo.vitality <= 0) {
+            if (UserInfo.vitality <= 0 && !FieldComponent.stealUidState) {
                 Core.view.openHint({ text: "体力不足", call: () => {} });
                 this.canClick = true;
                 return;
@@ -644,6 +644,8 @@ export default class MainView extends Core.gameScript {
                 this.canClick = true;
                 return;
             }
+
+            FieldComponent.stealUidState = true;
             HttpControl.inst
                 .send({
                     api: ApiHttp.landSteal,
