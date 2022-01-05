@@ -993,6 +993,10 @@ export default class MainView extends Core.gameScript {
 
         if (!this.orderQueueIng) {
             if (progress == d.condition.length) {
+                if (this.getGuideStep() <= 3) {
+                    return;
+                }
+
                 const condition = d.condition;
                 this.orderQueueIng = true;
                 let adDiamond =

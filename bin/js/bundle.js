@@ -3056,6 +3056,9 @@
       box.getChildByName("name_title").text = `\u5B8C\u6210${UserInfo_default.orderLevel + 1}\u7EA7\u8BA2\u5355`;
       if (!this.orderQueueIng) {
         if (progress == d.condition.length) {
+          if (this.getGuideStep() <= 3) {
+            return;
+          }
           const condition = d.condition;
           this.orderQueueIng = true;
           let adDiamond = d.extraReward.count + rewardDiamondCount + Math.round(rewardDiamondCount * d.commission), adGold = rewardCount + Math.round(rewardCount * d.commission);
