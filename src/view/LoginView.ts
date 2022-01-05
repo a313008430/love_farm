@@ -177,6 +177,11 @@ export default class LoginView extends GameScript {
     private async login(isWx: boolean) {
         if (!this.canClick) return;
         this.canClick = false;
+
+        //优化如果微信那边取消登录之后 不可再点击问题
+        Laya.timer.once(1000, this, () => {
+            this.canClick = true;
+        });
         if (LocalStorageService.getJSON().token) {
             HttpControl.inst
                 .send({

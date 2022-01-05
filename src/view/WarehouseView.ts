@@ -5,12 +5,13 @@ import { ApiHttp } from "src/common/NetMaps";
 import Res from "src/common/Res";
 import TableAnalyze from "src/common/TableAnalyze";
 import { RewardCurrencyBase } from "src/common/TableObject";
+import { GuideComponentData } from "src/components/GuideComponent";
 import AppCore from "src/core/App";
 import Core from "src/core/index";
 import PlantService from "src/dataService/PlantService";
 import UserInfo from "src/dataService/UserInfo";
 import WarehouseService, { WareHouseData } from "src/dataService/WarehouseService";
-import { GetFloatRewardObj } from "./MainView";
+import MainView, { GetFloatRewardObj } from "./MainView";
 
 let sellNum = 0;
 
@@ -96,6 +97,24 @@ export default class WarehouseView extends Core.gameScript {
 
             this.updateSelectSellCount();
         });
+
+        //新手引导
+        if (MainView.inst.getGuideStep() == 3) {
+            Laya.timer.once(300, this, () => {
+                Core.eventGlobal.event(EventMaps.update_guid, <GuideComponentData>{
+                    nodeList: [this.sellBtn],
+                    call: () => {
+                        this.onClick({ target: { name: "sellBtn" } } as any);
+                        Laya.timer.frameOnce(6, this, () => {
+                            MainView.inst.guide();
+                            Core.view.close(Res.views.WarehouseView);
+                        });
+                    },
+                    addPos: { x: 100, y: 120 },
+                    step: 3,
+                });
+            });
+        }
     }
 
     updateList() {

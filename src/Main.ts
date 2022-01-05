@@ -111,7 +111,6 @@ class Main {
 
                 Laya.timer.frameOnce(1, this, () => {
                     Laya.View.hideLoadingPage(1000);
-                    console.log(1);
                     ViewManager.inst.open(GameConfig.startScene);
                 });
             }),

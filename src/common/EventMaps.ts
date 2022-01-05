@@ -24,6 +24,10 @@ export const enum EventMaps {
     update_guid_hand = "update_guid_hand",
     /** 好友分享引导 */
     update_friend_share_guide = "update_friend_share_guide",
+    /** 更新新手引导 */
+    update_guid = "update_guid",
+    /** 更新新手引导数据  0购买种子→种菜→1加速→2收获→3出售→进入其他玩家农场→5偷菜→6恢复体力 */
+    update_guid_data = "update_guid_data",
     /** 更新红点 */
     update_red_dot = "update_red_dot",
 

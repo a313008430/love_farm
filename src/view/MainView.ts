@@ -6,6 +6,7 @@ import TableAnalyze from "src/common/TableAnalyze";
 import { RewardCurrencyBase } from "src/common/TableObject";
 import Tools from "src/common/Tools";
 import FieldComponent from "src/components/FieldComponent";
+import { GuideComponentData } from "src/components/GuideComponent";
 import { RedDotType } from "src/components/RedDotComponent";
 import AppCore from "src/core/App";
 import Core from "src/core/index";
@@ -108,24 +109,17 @@ export default class MainView extends Core.gameScript {
     private taskBox: Laya.Image = null;
 
     //新手引导
-    /** @prop {name:step1, tips:"需要引导的按钮", type:Node}*/
-    private step1: Laya.Box = null;
-    /** @prop {name:step2, tips:"需要引导的按钮", type:Node}*/
-    private step2: Laya.Box = null;
-    /** @prop {name:step3, tips:"需要引导的按钮", type:Node}*/
-    private step3: Laya.Box = null;
-    /** @prop {name:step4, tips:"需要引导的按钮", type:Node}*/
+    /** @prop {name:step4, tips:"暂时未用做新手引导", type:Node}*/
     private step4: Laya.Box = null;
-    /** @prop {name:step5, tips:"需要引导的按钮", type:Node}*/
+    /** @prop {name:step5, tips:"暂时未用做新手引导", type:Node}*/
     private step5: Laya.Box = null;
-    /** @prop {name:step6, tips:"需要引导的按钮", type:Node}*/
-    private step6: Laya.Box = null;
-    /** @prop {name:step7, tips:"需要引导的按钮", type:Node}*/
-    private step7: Laya.Box = null;
-    /** @prop {name:step8, tips:"需要引导的按钮", type:Node}*/
-    private step8: Laya.Box = null;
-    /** @prop {name:step9, tips:"需要引导的按钮", type:Node}*/
+    /** @prop {name:step6, tips:"暂时未用做新手引导", type:Node}*/
     private step9: Laya.Box = null;
+
+    /** @prop {name:step1, tips:"第一步引导， 种菜", type:Node}*/
+    private step1: Laya.Box = null;
+    /** @prop {name:guideLayer, tips:"新手引导引导层", type:Node}*/
+    private guideLayer: Laya.Box = null;
 
     /** 土地组件 列表 */
     private landList: FieldComponent[] = [];
@@ -165,41 +159,7 @@ export default class MainView extends Core.gameScript {
             this.updateTask();
         });
 
-        //新手引导
-        let ok = false,
-            step = 0;
-        if (UserInfo.guideData.length) {
-            UserInfo.guideData.split("").forEach((d) => {
-                if (d == "1") {
-                    step++;
-                }
-            });
-            if (step >= 9) {
-                ok = true;
-            }
-        }
-        if (!UserInfo.guideData.length || !ok) {
-            Core.view.open(Res.views.GuideView, {
-                parm: {
-                    nodeList: [
-                        this.step1,
-                        this.step2,
-                        this.step3,
-                        this.step4,
-                        this.step5,
-                        this.step6,
-                        this.step7,
-                        this.step8,
-                        this.step9,
-                    ],
-                    call: () => {
-                        this.timeGuide();
-                    },
-                },
-            });
-        } else {
-            this.timeGuide();
-        }
+        this.guide();
 
         this.guidHandAnimation();
         this.guideHand.visible = false;
@@ -231,6 +191,117 @@ export default class MainView extends Core.gameScript {
         });
     }
 
+    /**
+     * 获取新手引导当前在哪一步
+     */
+    getGuideStep() {
+        let step = 0;
+        if (UserInfo.guideData.length) {
+            UserInfo.guideData.forEach((d) => {
+                if (d == "1") {
+                    step++;
+                }
+            });
+            if (step > 5) {
+                step = -1;
+            }
+        }
+
+        return step;
+    }
+
+    /**
+     * 新手引导
+     */
+    guide() {
+        //新手引导
+        const step = this.getGuideStep();
+        if (step == 5 && !this.isOuter) {
+            this.guideLayer.visible = false;
+            this.guideLayer.disabled = false;
+            this.timeGuide();
+            return;
+        }
+
+        if (!UserInfo.guideData.length || step > -1) {
+            this.figureBox.visible = false;
+            this.figureBox2.visible = false;
+
+            switch (step) {
+                case 0:
+                    Core.eventGlobal.event(EventMaps.update_guid, <GuideComponentData>{
+                        nodeList: [this.step1],
+                        call: () => {},
+                        addPos: { x: 100, y: 120 },
+                    });
+                    break;
+                case 1:
+                    Core.eventGlobal.event(EventMaps.update_guid, <GuideComponentData>{
+                        nodeList: [this.step1],
+                        call: () => {},
+                        addPos: { x: 100, y: 120 },
+                    });
+                    break;
+                case 2:
+                    //收菜
+                    Core.eventGlobal.event(EventMaps.update_guid, <GuideComponentData>{
+                        nodeList: [this.step1],
+                        call: () => {},
+                        addPos: { x: 100, y: 120 },
+                        step: 2,
+                    });
+                    break;
+                case 3:
+                    //打开仓库
+                    console.log("打开仓库");
+                    Core.eventGlobal.event(EventMaps.update_guid, <GuideComponentData>{
+                        nodeList: [this.warehouseBtn],
+                        call: () => {
+                            this.onClick({ target: { name: "warehouse" } } as any);
+                        },
+                        addPos: { x: 100, y: 120 },
+                    });
+                    break;
+                case 4:
+                    //偷菜
+                    console.log("偷菜");
+                    Core.eventGlobal.event(EventMaps.update_guid, <GuideComponentData>{
+                        nodeList: [this.anyDoor],
+                        call: () => {
+                            this.onClick({ target: { name: "any_door" } } as any);
+                        },
+                        addPos: { x: 100, y: 120 },
+                    });
+                    break;
+                case 5:
+                    if (this.isOuter) {
+                        //恢复体力
+                        Core.eventGlobal.event(EventMaps.update_guid, <GuideComponentData>{
+                            nodeList: [this.vitalityBuyBtn],
+                            call: () => {
+                                this.onClick({ target: { name: "add_vitality" } } as any);
+                            },
+                            addPos: { x: 100, y: 120 },
+                        });
+                    }
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            if (this.isOuter) {
+                Laya.timer.once(600, this, () => {
+                    this.goHome();
+                    (this.guideLayer.parent as Laya.Box).mouseEnabled = false;
+                    this.guideLayer.destroy();
+                });
+            }
+            this.timeGuide();
+            this.figureBox.visible = true;
+            this.figureBox2.visible = true;
+        }
+    }
+
     // #region 待机引导
 
     private guidHandAni: Laya.TimeLine;
@@ -240,6 +311,7 @@ export default class MainView extends Core.gameScript {
      * 待机功能引导
      */
     private timeGuide() {
+        if (this.getGuideStep() != -1) return;
         Laya.stage.on(Laya.Event.MOUSE_DOWN, this, this.timeGuideTouch);
         this.timeGuideTouch();
     }
@@ -1402,9 +1474,15 @@ export default class MainView extends Core.gameScript {
             HttpControl.inst
                 .send({
                     api: ApiHttp.neighbor,
-                    data: <NetSendApi["gather"]>{
-                        type: ConfigGame.ApiTypeDefault,
-                    },
+                    data:
+                        MainView.inst.getGuideStep() == 4
+                            ? {
+                                  type: ConfigGame.ApiTypeDefault,
+                                  isGuide: "11",
+                              }
+                            : {
+                                  type: ConfigGame.ApiTypeDefault,
+                              },
                 })
                 .then((d: ReturnNeighbor) => {
                     //离开
@@ -1413,6 +1491,15 @@ export default class MainView extends Core.gameScript {
 
                     Laya.timer.once(300, this, () => {
                         Core.view.setOverView(false);
+                        if (MainView.inst.getGuideStep() == 4) {
+                            Laya.timer.once(300, this, () => {
+                                Core.eventGlobal.event(EventMaps.update_guid, <GuideComponentData>{
+                                    nodeList: [this.step1],
+                                    call: () => {},
+                                    addPos: { x: 100, y: 120 },
+                                });
+                            });
+                        }
                     });
                 });
         });
@@ -1436,6 +1523,11 @@ export default class MainView extends Core.gameScript {
             userLands = LandService.list;
         let otherLands: Map<number, LandObj> = new Map();
         if (this.isOuter) {
+            if (MainView.inst.getGuideStep() == 5 && UserInfo.vitality < 3) {
+                Laya.timer.once(300, this, () => {
+                    this.guide();
+                });
+            }
             d.lands.forEach((e) => {
                 otherLands.set(e.id, e);
             });
@@ -1536,7 +1628,11 @@ export default class MainView extends Core.gameScript {
             this.figureBox.visible = false;
             this.figureBox2.visible = false;
             this.fastGetBtn.skin = "main_scene/img_ongkeySteel.png";
-            Laya.timer.loop(1000, this, this.outCountDownEvent, [countDown]);
+            if (MainView.inst.getGuideStep() == -1) {
+                Laya.timer.loop(1000, this, this.outCountDownEvent, [countDown]);
+            } else {
+                countDown.set_visible(false);
+            }
         } else {
             this.fastGetBtn.skin = "main_scene/img_ongkeyGet.png";
             this.figureBox.visible = true;

@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":5,
-    "selecteID":33,
+    "selectedBox":2,
+    "selecteID":7,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -123,14 +123,13 @@
                     "props":{"y":22,"x":870,"skin":"game/img_x.png","name":"closeAddLandLayer","mouseEnabled":true,"anchorY":0.5,"anchorX":0.5},
                     "nodeParent":5,
                     "label":"closeAddLandLayer",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":12,
                     "child":[
                         {
-                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -147,7 +146,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Circle",
                             "searchKey":"Circle",
                             "props":{"y":41.5,"x":41,"renderType":"hit","radius":77,"lineWidth":1,"fillColor":"#ff0000"},
@@ -275,7 +273,7 @@
             "source":"src/view/BuyVitalityView.ts",
             "searchKey":"Script,BuyVitalityView",
             "removeAble":true,
-            "props":{"priceLabel":"@node:26","priceIcon":"@node:25","adBtn":"@node:7"},
+            "props":{"priceLabel":"@node:26","priceIcon":"@node:25","buyBtn":"@node:15","adBtn":"@node:7"},
             "nodeParent":2,
             "label":"BuyVitalityView",
             "isDirectory":false,

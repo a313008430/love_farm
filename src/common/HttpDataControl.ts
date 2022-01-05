@@ -81,11 +81,22 @@ class HttpDataControl {
     }
 
     error(errorCode: number, data: any) {
-        Core.view.openHint({
-            // text: `errorCode ${errorCode} ${JSON.stringify(data)}`,
-            text: `${data?.message} \n ${data?.error || ""}`,
-            call: () => {},
-        });
+        switch (errorCode) {
+            case 401:
+                Core.view.openHint({
+                    text: `登录已过期，请重新登录`,
+                    call: () => {},
+                });
+                break;
+
+            default:
+                Core.view.openHint({
+                    // text: `errorCode ${errorCode} ${JSON.stringify(data)}`,
+                    text: `${data?.message} \n ${data?.error || ""}`,
+                    call: () => {},
+                });
+                break;
+        }
     }
 
     /**
@@ -115,7 +126,7 @@ class HttpDataControl {
         UserInfo.vitality = d.userInfo.vitality;
         UserInfo.invitePeople = d.userInfo.invitePeople;
         UserInfo.isFirstTime = d.userInfo.isFirstTime;
-        UserInfo.guideData = d.userInfo.guideData || "";
+        UserInfo.guideData = d.userInfo.guideData.split("") || [];
         UserInfo.withdraw = d.withdraw;
         UserInfo.days = d.days + 1;
         UserInfo.adTimes = d.userInfo.adTimes;
@@ -158,7 +169,7 @@ class HttpDataControl {
         UserInfo.invitePeople = null;
         UserInfo.isFirstTime = null;
         UserInfo.withdraw = [];
-        UserInfo.guideData = "";
+        UserInfo.guideData = [];
         UserInfo.days = 0;
         UserInfo.adTimes = 0;
         UserInfo.continuousAdTimes = 0;
