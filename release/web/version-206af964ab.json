@@ -97,7 +97,7 @@
   "scenes/views/LoginView.json": "scenes/views/LoginView-d4dd5b09a9.json",
   "scenes/views/MailDescView.json": "scenes/views/MailDescView-d3fa224a4c.json",
   "scenes/views/MailView.json": "scenes/views/MailView-8beb5f2aac.json",
-  "scenes/views/MainView.json": "scenes/views/MainView-28f3993b68.json",
+  "scenes/views/MainView.json": "scenes/views/MainView-08e43486cf.json",
   "scenes/views/OrderView.json": "scenes/views/OrderView-4263e6281d.json",
   "scenes/views/OverView.json": "scenes/views/OverView-1fd4e68b13.json",
   "scenes/views/SettingView.json": "scenes/views/SettingView-0d69c9b5a6.json",
@@ -109,5 +109,5 @@
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-fd8ebc8e36.json",
   "scenes/views/WithdrawRecordView.json": "scenes/views/WithdrawRecordView-da13a8c1de.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-70ab448de8.json"
+  "version.json": "version-206af964ab.json"
 }
