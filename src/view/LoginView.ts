@@ -14,8 +14,10 @@ export default class LoginView extends GameScript {
     private loadBar: Laya.Image = null;
     /** @prop {name:loadBox, tips:"加载容器", type:Node}*/
     private loadBox: Laya.Box = null;
-    /** @prop {name:loginBox, tips:"登陆容器", type:Node}*/
+    /** @prop {name:loginBox, tips:"登陆微信按钮", type:Node}*/
     private loginBox: Laya.Box = null;
+    /** @prop {name:appleBtn, tips:"苹果登陆按钮", type:Node}*/
+    private appleBtn: Laya.Box = null;
     /** @prop {name:privacyBox, tips:"隐私协议容器", type:Node}*/
     private privacyBox: Laya.Box = null;
     /** @prop {name:privacyCheckIcon, tips:"隐私icon", type:Node}*/
@@ -30,17 +32,18 @@ export default class LoginView extends GameScript {
 
     async onOpened(d) {
         this.data = d;
-        this.loginBox.visible = false;
+
+        this.setLoginBtnState(false);
         this.loadBox.visible = false;
         this.privacyBox.visible = false;
         await this.version();
 
         if (LocalStorageService.getJSON()?.isLogin) {
             this.login(false);
-            this.loginBox.visible = false;
+
             this.loadBox.visible = true;
         } else {
-            this.loginBox.visible = true;
+            this.setLoginBtnState(true);
             this.loadBox.visible = false;
             this.privacyBox.visible = true;
         }
@@ -56,6 +59,23 @@ export default class LoginView extends GameScript {
         // this.loadLabel.text = "Load....0%";
         this.loadBarOldWidth = this.loadBar.width;
         this.loadBar.width = 0;
+    }
+
+    /**
+     *  设置登录按钮状态
+     * @param show
+     */
+    private setLoginBtnState(show: boolean) {
+        if (show) {
+            if (Laya.Browser.onIOS) {
+                this.appleBtn.visible = true;
+            } else {
+                this.loginBox.visible = true;
+            }
+        } else {
+            this.loginBox.visible = false;
+            this.appleBtn.visible = false;
+        }
     }
 
     private getBuildType() {
@@ -139,6 +159,8 @@ export default class LoginView extends GameScript {
         switch (e.target.name) {
             case "login_btn":
                 this.login(true);
+            case "apple_btn":
+                this.login(false);
                 break;
             case "check_box":
                 this.privacyCheckIcon.visible = !this.privacyCheckIcon.visible;
@@ -161,14 +183,13 @@ export default class LoginView extends GameScript {
                     api: ApiHttp.loginToken,
                     error: (code, data) => {
                         LocalStorageService.clear();
-                        this.loginBox.visible = true;
-
+                        this.setLoginBtnState(true);
                         this.loadBox.visible = false;
                     },
                 })
                 .then((d: NetInit) => {
                     if (this.data?.call) this.data.call(d);
-                    this.loginBox.visible = false;
+                    this.setLoginBtnState(false);
                     this.loadBox.visible = true;
                     this.canClick = true;
                     AppCore.runAppFunction({
@@ -192,7 +213,7 @@ export default class LoginView extends GameScript {
                 })
                 .catch(() => {
                     this.canClick = true;
-                    this.loginBox.visible = true;
+                    this.setLoginBtnState(true);
                     this.loadBox.visible = false;
                     this.privacyBox.visible = true;
                 });
@@ -205,7 +226,7 @@ export default class LoginView extends GameScript {
                     text: "请阅读《用户隐私协议》",
                     call: () => {
                         LocalStorageService.clear();
-                        this.loginBox.visible = true;
+                        this.setLoginBtnState(true);
                         this.canClick = true;
                         this.loadBox.visible = false;
                     },
@@ -220,53 +241,87 @@ export default class LoginView extends GameScript {
                 testKe = testK[1];
             }
 
-            let wxOpenId = testKe,
+            let loginOpenId = testKe,
                 nickname = "",
-                avatar = "";
-            if (isWx && !wxOpenId) {
-                const data = await AppCore.runAppFunction({
-                    uri: AppEventMap.wxLogin,
-                    data: {},
-                    timestamp: Date.now(),
-                });
+                avatar = "",
+                loginData = { account: loginOpenId, avatar: avatar, nickname: nickname };
+            if (isWx) {
+                if (!loginOpenId) {
+                    const data = await AppCore.runAppFunction({
+                        uri: AppEventMap.wxLogin,
+                        data: {},
+                        timestamp: Date.now(),
+                    });
 
-                if (data) {
-                    if (data.code) {
-                        Core.view.openHint({
-                            text: `微信登录失败[${data.code}]，请重试`,
-                            call: () => {
-                                location.reload();
-                            },
-                        });
-                    } else {
-                        wxOpenId = data.data["openid"];
-                        avatar = data.data["iconurl"];
-                        nickname = data.data["name"];
+                    if (data) {
+                        if (data.code) {
+                            Core.view.openHint({
+                                text: `微信登录失败[${data.code}]，请重试`,
+                                call: () => {
+                                    location.reload();
+                                },
+                            });
+                        } else {
+                            loginOpenId = data.data["openid"];
+                            avatar = data.data["iconurl"];
+                            nickname = data.data["name"];
+                        }
+                    }
+
+                    loginData = <NetSendApi["login"]>{
+                        wxId: loginOpenId,
+                        avatar: avatar,
+                        nickname: nickname,
+                    };
+                }
+            } else {
+                if (Laya.Browser.onIOS) {
+                    const data = await AppCore.runAppFunction({
+                        uri: AppEventMap.appleLogin,
+                        data: {},
+                        timestamp: Date.now(),
+                    });
+
+                    if (data) {
+                        if (data.code) {
+                            Core.view.openHint({
+                                text: `苹果登录失败[${data.code}]，请重试`,
+                                call: () => {
+                                    location.reload();
+                                },
+                            });
+                        } else {
+                            loginOpenId = data.data["openid"];
+                        }
                     }
                 }
+
+                //账号登录
+                loginData = <NetSendApi["login"]>{
+                    account: loginOpenId,
+                    avatar: avatar,
+                    nickname: nickname,
+                };
             }
-            if (!wxOpenId) {
+
+            if (!loginOpenId) {
                 Core.view.openHint({
-                    text: "未获取到微信id",
+                    text: "未获取到账号id",
                     call: () => {
                         this.canClick = true;
                     },
                 });
                 return;
             }
+
             this.privacyBox.visible = false;
             HttpControl.inst
                 .send({
                     api: ApiHttp.login,
-                    data: <NetSendApi["login"]>{
-                        // account: isWx ? null : this.userInput.text,
-                        wxId: wxOpenId,
-                        avatar: avatar,
-                        nickname: nickname,
-                    },
+                    data: loginData,
                     error: (code, data) => {
                         LocalStorageService.clear();
-                        this.loginBox.visible = true;
+                        this.setLoginBtnState(true);
 
                         this.loadBox.visible = false;
                         this.canClick = true;
@@ -274,13 +329,9 @@ export default class LoginView extends GameScript {
                 })
                 .then((d: NetInit) => {
                     if (this.data?.call) this.data.call(d);
-                    this.loginBox.visible = false;
+                    this.setLoginBtnState(false);
                     this.loadBox.visible = true;
                     this.canClick = true;
-                    // AppCore.runAppFunction({
-                    //     uri: AppEventMap.wxLoginSuccess,
-                    //     data: {},
-                    // });
                     if (!UserInfo.isFirstTime) {
                         AppCore.runAppFunction({
                             uri: AppEventMap.registerSuccess,

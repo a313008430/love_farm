@@ -1,3 +1,4 @@
+import BindWx from "src/common/BindWx";
 import ConfigGame from "src/common/ConfigGame";
 import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
@@ -812,6 +813,9 @@ export default class ShopView extends GameScript {
             return;
         }
         if (!this.canClick) {
+            return;
+        }
+        if (!BindWx.isBindWx) {
             return;
         }
         this.canClick = false;

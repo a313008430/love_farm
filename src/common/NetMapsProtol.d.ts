@@ -82,6 +82,8 @@ interface NetInit extends NetBase {
         adTimes: number;
         /** 连续未点击广告次数 */
         continuousAdTimes: number;
+        /** 是否绑定微信 */
+        isBindWx: number;
     };
     lands: [
         {

@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":20,
-    "selecteID":21,
+    "selectedBox":2,
+    "selecteID":29,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#ffffff","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":29,
+    "maxID":31,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -76,14 +76,13 @@
                     "props":{"y":946,"x":159,"name":"privacy_box"},
                     "nodeParent":5,
                     "label":"privacy_box",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":24,
                     "child":[
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,privacy_lb",
                             "props":{"y":22,"x":349,"text":"请阅读后同意《用户隐私协议》","name":"privacy_lb","mouseEnabled":true,"fontSize":40,"font":"Microsoft YaHei","color":"#5b3f2a","anchorY":0.5,"anchorX":0.5},
@@ -113,7 +112,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,check_box",
                             "props":{"y":22,"x":22,"stateNum":"2","skin":"load/img_checkBox1.png","name":"check_box","anchorY":0.5,"anchorX":0.5},
@@ -126,7 +124,6 @@
                             "compId":20,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,icon",
                                     "props":{"visible":true,"skin":"load/img_checkBox2.png","name":"icon"},
@@ -141,7 +138,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Script",
                                     "switchAble":true,
                                     "source":"src/components/Button.ts",
@@ -158,7 +154,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Circle",
                                     "searchKey":"Circle",
                                     "props":{"y":23,"x":26,"renderType":"hit","radius":50,"lineWidth":1,"fillColor":"#ff0000"},
@@ -243,6 +238,36 @@
                                 ]
                         }],
                     "$HIDDEN":false
+                },
+                {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image,apple_btn",
+                    "props":{"y":837,"x":501,"skin":"load/img_iosLoading.png","name":"apple_btn","anchorY":0.5,"anchorX":0.5},
+                    "nodeParent":5,
+                    "label":"apple_btn",
+                    "isOpen":null,
+                    "isDirectory":true,
+                    "isAniNode":true,
+                    "hasChild":true,
+                    "compId":29,
+                    "child":[
+                        {
+                            "type":"Script",
+                            "switchAble":true,
+                            "source":"src/components/Button.ts",
+                            "searchKey":"Script,Button",
+                            "removeAble":true,
+                            "props":{"isScale":true},
+                            "nodeParent":29,
+                            "label":"Button",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":30,
+                            "child":[
+                                ]
+                        }]
                 }]
         },
         {
@@ -252,7 +277,7 @@
             "source":"src/view/LoginView.ts",
             "searchKey":"Script,LoginView",
             "removeAble":true,
-            "props":{"userInput":"@node:12","test_btn":"@node:15","privacyCheckIcon":"@node:21","privacyBox":"@node:24","loginBox":"@node:10","loadBox":"@node:6","loadBar":"@node:7"},
+            "props":{"userInput":"@node:12","test_btn":"@node:15","privacyCheckIcon":"@node:21","privacyBox":"@node:24","loginBox":"@node:10","loadBox":"@node:6","loadBar":"@node:7","appleBtn":"@node:29"},
             "nodeParent":2,
             "label":"LoginView",
             "isDirectory":false,

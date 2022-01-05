@@ -57,8 +57,8 @@
     AppEventMap2["ad"] = "ad";
     AppEventMap2["closeAd"] = "closeAd";
     AppEventMap2["closeImage"] = "closeImage";
+    AppEventMap2["appleLogin"] = "appleLogin";
     AppEventMap2["wxLogin"] = "wxLogin";
-    AppEventMap2["wxLoginSuccess"] = "wxLoginSuccess";
     AppEventMap2["wxShare"] = "wxShare";
     AppEventMap2["eventCount"] = "eventCount";
     AppEventMap2["privacyAgreement"] = "privacyAgreement";
@@ -560,8 +560,7 @@
   var baseUrl = "http://game.ahd168.com:3000";
   switch ("online") {
     case BuildType.debug:
-      baseUrl = "//192.168.101.50:3000";
-      baseUrl = "//192.168.101.50:3100";
+      baseUrl = "//192.168.101.6:3000";
       break;
     case BuildType.online:
       baseUrl = "http://game.ahd168.com:3100";
@@ -1084,6 +1083,7 @@
       this.days = 0;
       this.adTimes = 0;
       this.continuousAdTimes = 0;
+      this.isBindWx = 0;
     }
     get ttt() {
       return this.orderLevel;
@@ -1274,6 +1274,7 @@
     ApiHttp2["configClient"] = "/config/client";
     ApiHttp2["guide"] = "/guide";
     ApiHttp2["adRecordNotClick"] = "/ad/record/not/click";
+    ApiHttp2["userBind"] = "/user/bind";
   })(ApiHttp || (ApiHttp = {}));
 
   // src/common/Heartbeat.ts
@@ -1282,10 +1283,6 @@
       this.intervalTime = 60;
     }
     init() {
-      setTimeout(() => {
-        this.updateMsg();
-      }, 2e3);
-      this.updateTime();
     }
     updateTime() {
       if (this.timeId) {
@@ -1300,6 +1297,8 @@
       return __async(this, null, function* () {
         let d = yield HttpControl.inst.send({
           api: ApiHttp.mailList
+        }).catch(() => {
+          this.error();
         });
         let hasRed = false;
         for (let x = 0; x < d.length; x++) {
@@ -1311,6 +1310,8 @@
         core_default.eventGlobal.event(EventMaps.update_red_dot, [RedDotType.mail, hasRed]);
         let friendData = yield HttpControl.inst.send({
           api: ApiHttp.friendList
+        }).catch(() => {
+          this.error();
         });
         hasRed = false;
         for (let x = 0; x < friendData.list.length; x++) {
@@ -1321,6 +1322,11 @@
         }
         core_default.eventGlobal.event(EventMaps.update_red_dot, [RedDotType.friend, hasRed]);
       });
+    }
+    error() {
+      if (this.timeId) {
+        clearTimeout(this.timeId);
+      }
     }
     destroy() {
       clearTimeout(this.timeId);
@@ -1419,6 +1425,7 @@
       UserInfo_default.days = d.days + 1;
       UserInfo_default.adTimes = d.userInfo.adTimes;
       UserInfo_default.continuousAdTimes = d.userInfo.continuousAdTimes;
+      UserInfo_default.isBindWx = d.userInfo.isBindWx;
       PetService_default.init(d.pets);
       TaskService_default.init(d.tasks);
       LocalStorageService_default.setJSON("isLogin", true);
@@ -1459,6 +1466,7 @@
       UserInfo_default.days = 0;
       UserInfo_default.adTimes = 0;
       UserInfo_default.continuousAdTimes = 0;
+      UserInfo_default.isBindWx = 0;
     }
     updateUserInfo(d) {
       UserInfo_default.gold = d.gold;
@@ -1970,6 +1978,74 @@
     }
   };
 
+  // src/common/BindWx.ts
+  var WxBindControl = class {
+    get isBindWx() {
+      if (!UserInfo_default.isBindWx) {
+        core_default.view.openHint({
+          text: "\u63D0\u73B0\u9700\u8981\u7ED1\u5B9A\u5FAE\u4FE1\u8D26\u53F7",
+          call: () => {
+            this.bindWx();
+          },
+          cancelCall: () => {
+          }
+        });
+      }
+      return UserInfo_default.isBindWx;
+    }
+    bindWx() {
+      return __async(this, null, function* () {
+        const data = yield AppCore.runAppFunction({
+          uri: AppEventMap.wxLogin,
+          data: {},
+          timestamp: Date.now()
+        });
+        if (data) {
+          if (data.code) {
+            core_default.view.openHint({
+              text: `\u83B7\u53D6\u5FAE\u4FE1openid\u5931\u8D25[${data.code}]\uFF0C\u8BF7\u91CD\u8BD5`,
+              call: () => {
+                this.bindWx();
+              },
+              cancelCall: () => {
+              }
+            });
+          } else {
+            HttpControl.inst.send({
+              api: ApiHttp.userBind,
+              data: {
+                openid: data.data["openid"],
+                avatar: data.data["iconurl"],
+                nickname: data.data["name"]
+              }
+            }).then(() => {
+              UserInfo_default.isBindWx = 1;
+              if (data.data["name"])
+                UserInfo_default.nickname = data.data["name"];
+              if (data.data["iconurl"])
+                UserInfo_default.avatar = data.data["iconurl"];
+              core_default.view.openHint({
+                text: `\u7ED1\u5B9A\u6210\u529F`,
+                call: () => {
+                }
+              });
+            }).catch(() => {
+              core_default.view.openHint({
+                text: `\u7ED1\u5B9A\u5931\u8D25\uFF0C\u662F\u5426\u91CD\u8BD5\uFF1F`,
+                call: () => {
+                  this.bindWx();
+                },
+                cancelCall: () => {
+                }
+              });
+            });
+          }
+        }
+      });
+    }
+  };
+  var BindWx_default = new WxBindControl();
+
   // src/view/FriendsRewardView.ts
   var FriendsRewardView = class extends core_default.gameScript {
     constructor() {
@@ -2036,6 +2112,9 @@
     withdraw(i) {
       if (!this.canClick)
         return;
+      if (!BindWx_default.isBindWx) {
+        return;
+      }
       this.canClick = false;
       HttpControl.inst.send({
         api: ApiHttp.friendInviteReceive,
@@ -2111,7 +2190,7 @@
   var ErrorCode_default = ErrorCode;
 
   // src/components/FieldComponent.ts
-  var FieldComponent = class extends core_default.gameScript {
+  var _FieldComponent = class extends core_default.gameScript {
     constructor() {
       super(...arguments);
       this.icon = null;
@@ -2448,13 +2527,15 @@
         }
       });
       if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
-        AppCore.runAppFunction({
-          uri: AppEventMap.ad,
-          data: { adType: 1 }
-        });
-        AppCore.runAppFunction({
-          uri: AppEventMap.ad,
-          data: { adType: 3 }
+        Laya.timer.once(300, this, () => {
+          AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 1 }
+          });
+          AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 3 }
+          });
         });
         AppCore.runAppFunction({
           uri: AppEventMap.eventCount,
@@ -2497,12 +2578,12 @@
         if (!data.productId || data.matureTimeLeft) {
           return;
         }
-        if (UserInfo_default.vitality <= 0) {
-          core_default.view.openHint({ text: "\u4F53\u529B\u4E0D\u8DB3", call: () => {
-          } });
+        if (UserInfo_default.vitality <= 0 && !_FieldComponent.stealUidState) {
+          core_default.view.open(Res_default.views.BuyVitalityView);
           this.canClick = true;
           return;
         }
+        _FieldComponent.stealUidState = true;
         if (!this.canSteal || this.stealUid && !((_a = this.data) == null ? void 0 : _a.canSteal)) {
           console.log("\u5DF2\u7ECF\u4E0D\u53EF\u5077");
           core_default.view.openHint({ text: "\u7ED9\u6211\u7559\u70B9\u5427", call: () => {
@@ -2595,6 +2676,8 @@
       this.plantIconTween = null;
     }
   };
+  var FieldComponent = _FieldComponent;
+  FieldComponent.stealUidState = false;
   __decorateClass([
     core_default.findByName
   ], FieldComponent.prototype, "icon", 2);
@@ -2737,7 +2820,6 @@
       }
       this.guidHandAnimation();
       this.guideHand.visible = false;
-      this.friendShareGuide(true);
     }
     onHdAwake() {
       Laya.stage.addChild(this.topLayerOnStage);
@@ -3057,9 +3139,8 @@
         }
         this.canClick = false;
         if (this.isOuter) {
-          if (UserInfo_default.vitality <= 0) {
-            core_default.view.openHint({ text: "\u4F53\u529B\u4E0D\u8DB3", call: () => {
-            } });
+          if (UserInfo_default.vitality <= 0 && !FieldComponent.stealUidState) {
+            core_default.view.open(Res_default.views.BuyVitalityView);
             this.canClick = true;
             return;
           }
@@ -3076,6 +3157,7 @@
             this.canClick = true;
             return;
           }
+          FieldComponent.stealUidState = true;
           HttpControl.inst.send({
             api: ApiHttp.landSteal,
             data: {
@@ -3211,7 +3293,6 @@
     }
     updateOrder() {
       var _a;
-      console.log(this.isOuter);
       if (this.isOuter)
         return;
       let box = this.orderBox.getChildByName("order_box"), d = TableAnalyze_default.table("order").get(UserInfo_default.orderLevel + 1), reward, rewardCount = 0, rewardDiamondCount = 0, curCount = 0, maxCount = 0, progress = 0;
@@ -3635,6 +3716,7 @@
         if (this.isOuter) {
           land.isOuter = true;
           land.stealUid = d.uid;
+          FieldComponent.stealUidState = false;
           land.updateData({ list: otherLands });
           if (d.protectedTime) {
             land.canSteal = false;
@@ -3646,6 +3728,7 @@
           land.canSteal = false;
           land.isOuter = false;
           land.stealUid = null;
+          FieldComponent.stealUidState = false;
           land.updateData({ list: null });
         }
         land.plantIconAni(Boolean((_a = land.data) == null ? void 0 : _a.productId));
@@ -4557,6 +4640,7 @@
       this.loadBar = null;
       this.loadBox = null;
       this.loginBox = null;
+      this.appleBtn = null;
       this.privacyBox = null;
       this.privacyCheckIcon = null;
       this.loadBarOldWidth = 0;
@@ -4566,16 +4650,15 @@
       return __async(this, null, function* () {
         var _a;
         this.data = d;
-        this.loginBox.visible = false;
+        this.setLoginBtnState(false);
         this.loadBox.visible = false;
         this.privacyBox.visible = false;
         yield this.version();
         if ((_a = LocalStorageService_default.getJSON()) == null ? void 0 : _a.isLogin) {
           this.login(false);
-          this.loginBox.visible = false;
           this.loadBox.visible = true;
         } else {
-          this.loginBox.visible = true;
+          this.setLoginBtnState(true);
           this.loadBox.visible = false;
           this.privacyBox.visible = true;
         }
@@ -4587,6 +4670,18 @@
     onHdEnable() {
       this.loadBarOldWidth = this.loadBar.width;
       this.loadBar.width = 0;
+    }
+    setLoginBtnState(show) {
+      if (show) {
+        if (Laya.Browser.onIOS) {
+          this.appleBtn.visible = true;
+        } else {
+          this.loginBox.visible = true;
+        }
+      } else {
+        this.loginBox.visible = false;
+        this.appleBtn.visible = false;
+      }
     }
     getBuildType() {
       let buildType = null;
@@ -4662,6 +4757,8 @@
       switch (e.target.name) {
         case "login_btn":
           this.login(true);
+        case "apple_btn":
+          this.login(false);
           break;
         case "check_box":
           this.privacyCheckIcon.visible = !this.privacyCheckIcon.visible;
@@ -4684,14 +4781,14 @@
             api: ApiHttp.loginToken,
             error: (code, data) => {
               LocalStorageService_default.clear();
-              this.loginBox.visible = true;
+              this.setLoginBtnState(true);
               this.loadBox.visible = false;
             }
           }).then((d) => {
             var _a;
             if ((_a = this.data) == null ? void 0 : _a.call)
               this.data.call(d);
-            this.loginBox.visible = false;
+            this.setLoginBtnState(false);
             this.loadBox.visible = true;
             this.canClick = true;
             AppCore.runAppFunction({
@@ -4714,7 +4811,7 @@
             });
           }).catch(() => {
             this.canClick = true;
-            this.loginBox.visible = true;
+            this.setLoginBtnState(true);
             this.loadBox.visible = false;
             this.privacyBox.visible = true;
           });
@@ -4726,7 +4823,7 @@
               text: "\u8BF7\u9605\u8BFB\u300A\u7528\u6237\u9690\u79C1\u534F\u8BAE\u300B",
               call: () => {
                 LocalStorageService_default.clear();
-                this.loginBox.visible = true;
+                this.setLoginBtnState(true);
                 this.canClick = true;
                 this.loadBox.visible = false;
               }
@@ -4737,31 +4834,63 @@
           if (testK && testK.length > 1 && BuildType.online != "online") {
             testKe = testK[1];
           }
-          let wxOpenId = testKe, nickname = "", avatar = "";
-          if (isWx && !wxOpenId) {
-            const data = yield AppCore.runAppFunction({
-              uri: AppEventMap.wxLogin,
-              data: {},
-              timestamp: Date.now()
-            });
-            if (data) {
-              if (data.code) {
-                core_default.view.openHint({
-                  text: `\u5FAE\u4FE1\u767B\u5F55\u5931\u8D25[${data.code}]\uFF0C\u8BF7\u91CD\u8BD5`,
-                  call: () => {
-                    location.reload();
-                  }
-                });
-              } else {
-                wxOpenId = data.data["openid"];
-                avatar = data.data["iconurl"];
-                nickname = data.data["name"];
+          let loginOpenId = testKe, nickname = "", avatar = "", loginData = { account: loginOpenId, avatar, nickname };
+          if (isWx) {
+            if (!loginOpenId) {
+              const data = yield AppCore.runAppFunction({
+                uri: AppEventMap.wxLogin,
+                data: {},
+                timestamp: Date.now()
+              });
+              if (data) {
+                if (data.code) {
+                  core_default.view.openHint({
+                    text: `\u5FAE\u4FE1\u767B\u5F55\u5931\u8D25[${data.code}]\uFF0C\u8BF7\u91CD\u8BD5`,
+                    call: () => {
+                      location.reload();
+                    }
+                  });
+                } else {
+                  loginOpenId = data.data["openid"];
+                  avatar = data.data["iconurl"];
+                  nickname = data.data["name"];
+                }
+              }
+              loginData = {
+                wxId: loginOpenId,
+                avatar,
+                nickname
+              };
+            }
+          } else {
+            if (Laya.Browser.onIOS) {
+              const data = yield AppCore.runAppFunction({
+                uri: AppEventMap.appleLogin,
+                data: {},
+                timestamp: Date.now()
+              });
+              if (data) {
+                if (data.code) {
+                  core_default.view.openHint({
+                    text: `\u82F9\u679C\u767B\u5F55\u5931\u8D25[${data.code}]\uFF0C\u8BF7\u91CD\u8BD5`,
+                    call: () => {
+                      location.reload();
+                    }
+                  });
+                } else {
+                  loginOpenId = data.data["openid"];
+                }
               }
             }
+            loginData = {
+              account: loginOpenId,
+              avatar,
+              nickname
+            };
           }
-          if (!wxOpenId) {
+          if (!loginOpenId) {
             core_default.view.openHint({
-              text: "\u672A\u83B7\u53D6\u5230\u5FAE\u4FE1id",
+              text: "\u672A\u83B7\u53D6\u5230\u8D26\u53F7id",
               call: () => {
                 this.canClick = true;
               }
@@ -4771,14 +4900,10 @@
           this.privacyBox.visible = false;
           HttpControl.inst.send({
             api: ApiHttp.login,
-            data: {
-              wxId: wxOpenId,
-              avatar,
-              nickname
-            },
+            data: loginData,
             error: (code, data) => {
               LocalStorageService_default.clear();
-              this.loginBox.visible = true;
+              this.setLoginBtnState(true);
               this.loadBox.visible = false;
               this.canClick = true;
             }
@@ -4786,7 +4911,7 @@
             var _a;
             if ((_a = this.data) == null ? void 0 : _a.call)
               this.data.call(d);
-            this.loginBox.visible = false;
+            this.setLoginBtnState(false);
             this.loadBox.visible = true;
             this.canClick = true;
             if (!UserInfo_default.isFirstTime) {
@@ -5241,9 +5366,11 @@
     onOpened() {
       this.musicChange();
       this.soundChange();
-      AppCore.runAppFunction({
-        uri: AppEventMap.ad,
-        data: { adType: 3 }
+      Laya.timer.once(300, this, () => {
+        AppCore.runAppFunction({
+          uri: AppEventMap.ad,
+          data: { adType: 3 }
+        });
       });
       AppCore.runAppFunction({
         uri: AppEventMap.eventCount,
@@ -5943,6 +6070,9 @@
       if (!this.canClick) {
         return;
       }
+      if (!BindWx_default.isBindWx) {
+        return;
+      }
       this.canClick = false;
       HttpControl.inst.send({
         api: ApiHttp.withdraw,
@@ -6402,9 +6532,11 @@
       core_default.audio.playSound(Res_default.audios.dakaicangku);
       this.sellAdBtn.disabled = !UserInfo_default.advertiseTimes;
       this.sellAdBtn.active = Boolean(UserInfo_default.advertiseTimes);
-      AppCore.runAppFunction({
-        uri: AppEventMap.ad,
-        data: { adType: 3 }
+      Laya.timer.once(300, this, () => {
+        AppCore.runAppFunction({
+          uri: AppEventMap.ad,
+          data: { adType: 3 }
+        });
       });
       AppCore.runAppFunction({
         uri: AppEventMap.eventCount,
@@ -6779,6 +6911,7 @@
         core_default.audio.playMusic(Res_default.audios.BGM, 0);
         Laya.timer.frameOnce(1, this, () => {
           Laya.View.hideLoadingPage(1e3);
+          console.log(1);
           ViewManager.inst.open(GameConfig.startScene);
         });
       }), Laya.Handler.create(this, (e) => {

@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
-    "selecteID":7,
+    "selectedBox":5,
+    "selecteID":33,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":33,
+    "maxID":34,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -46,7 +46,7 @@
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image",
-                    "props":{"y":175,"x":367.501953125,"skin":"game/img_energylogo.png"},
+                    "props":{"y":153,"x":366,"width":232,"skin":"game/img_energylogo.png","height":314,"alpha":0.3},
                     "nodeParent":5,
                     "label":"Image",
                     "isDirectory":false,
@@ -201,14 +201,13 @@
                     "props":{"y":542,"x":455,"space":20,"anchorX":0.5,"align":"middle"},
                     "nodeParent":5,
                     "label":"HBox",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":24,
                     "child":[
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,price",
                             "props":{"y":-173,"x":0,"text":"价格：100","name":"price","fontSize":40,"font":"Microsoft YaHei","color":"#906344","bold":true,"anchorY":0.5},
@@ -222,7 +221,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":27,"x":0,"width":55,"skin":"main_scene/img_coin.png","height":55,"anchorY":0.5},
@@ -235,6 +233,20 @@
                             "child":[
                                 ]
                         }]
+                },
+                {
+                    "x":30,
+                    "type":"Label",
+                    "searchKey":"Label,price",
+                    "props":{"y":313,"x":189,"text":"体力不足，恢复体力后可偷菜。","name":"price","fontSize":40,"font":"Microsoft YaHei","color":"#906344","bold":true,"anchorY":0.5},
+                    "nodeParent":5,
+                    "label":"price",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":33,
+                    "child":[
+                        ]
                 }],
             "$HIDDEN":false
         },

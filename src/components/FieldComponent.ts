@@ -22,6 +22,8 @@ import { ShopViewData } from "src/view/ShopView";
  * 田地组件
  */
 export default class FieldComponent extends Core.gameScript {
+    static stealUidState: boolean = false;
+
     /** 植物icon */
     @Core.findByName
     private icon: Laya.Image = null;
@@ -522,14 +524,16 @@ export default class FieldComponent extends Core.gameScript {
         });
 
         if (UserInfo.adTimes > 100 || UserInfo.continuousAdTimes > 20) {
-            AppCore.runAppFunction({
-                uri: AppEventMap.ad,
-                data: { adType: 1 },
-            });
+            Laya.timer.once(300, this, () => {
+                AppCore.runAppFunction({
+                    uri: AppEventMap.ad,
+                    data: { adType: 1 },
+                });
 
-            AppCore.runAppFunction({
-                uri: AppEventMap.ad,
-                data: { adType: 3 },
+                AppCore.runAppFunction({
+                    uri: AppEventMap.ad,
+                    data: { adType: 3 },
+                });
             });
 
             AppCore.runAppFunction({
@@ -579,11 +583,14 @@ export default class FieldComponent extends Core.gameScript {
             return;
         }
 
-        if (UserInfo.vitality <= 0) {
-            Core.view.openHint({ text: "体力不足", call: () => {} });
+        //体力不足
+        if (UserInfo.vitality <= 0 && !FieldComponent.stealUidState) {
+            Core.view.open(Res.views.BuyVitalityView);
             this.canClick = true;
             return;
         }
+
+        FieldComponent.stealUidState = true;
 
         if (!this.canSteal || (this.stealUid && !this.data?.canSteal)) {
             console.log("已经不可偷");

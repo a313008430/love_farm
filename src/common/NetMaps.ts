@@ -80,4 +80,6 @@ export const enum ApiHttp {
     guide = "/guide",
     /** 统计未点击次数 */
     adRecordNotClick = "/ad/record/not/click",
+    /** 用户信息绑定，默认绑定微信 */
+    userBind = "/user/bind",
 }

@@ -203,7 +203,7 @@ export default class MainView extends Core.gameScript {
 
         this.guidHandAnimation();
         this.guideHand.visible = false;
-        this.friendShareGuide(true);
+        // this.friendShareGuide(true);
     }
 
     onHdAwake() {
@@ -619,8 +619,8 @@ export default class MainView extends Core.gameScript {
         }
         this.canClick = false;
         if (this.isOuter) {
-            if (UserInfo.vitality <= 0) {
-                Core.view.openHint({ text: "体力不足", call: () => {} });
+            if (UserInfo.vitality <= 0 && !FieldComponent.stealUidState) {
+                Core.view.open(Res.views.BuyVitalityView);
                 this.canClick = true;
                 return;
             }
@@ -644,6 +644,8 @@ export default class MainView extends Core.gameScript {
                 this.canClick = true;
                 return;
             }
+
+            FieldComponent.stealUidState = true;
             HttpControl.inst
                 .send({
                     api: ApiHttp.landSteal,
@@ -845,7 +847,6 @@ export default class MainView extends Core.gameScript {
     @Core.eventOn(EventMaps.update_Order)
     private updateOrder() {
         // return;
-        console.log(this.isOuter);
         if (this.isOuter) return;
 
         let box = this.orderBox.getChildByName("order_box"),
@@ -1459,6 +1460,7 @@ export default class MainView extends Core.gameScript {
             if (this.isOuter) {
                 land.isOuter = true;
                 land.stealUid = d.uid;
+                FieldComponent.stealUidState = false;
                 land.updateData({ list: otherLands });
 
                 if (d.protectedTime) {
@@ -1471,6 +1473,7 @@ export default class MainView extends Core.gameScript {
                 land.canSteal = false;
                 land.isOuter = false;
                 land.stealUid = null;
+                FieldComponent.stealUidState = false;
                 land.updateData({ list: null });
             }
 

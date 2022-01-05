@@ -120,6 +120,7 @@ class HttpDataControl {
         UserInfo.days = d.days + 1;
         UserInfo.adTimes = d.userInfo.adTimes;
         UserInfo.continuousAdTimes = d.userInfo.continuousAdTimes;
+        UserInfo.isBindWx = d.userInfo.isBindWx;
         PetService.init(d.pets);
         TaskService.init(d.tasks);
         LocalStorageService.setJSON("isLogin", true);
@@ -161,6 +162,7 @@ class HttpDataControl {
         UserInfo.days = 0;
         UserInfo.adTimes = 0;
         UserInfo.continuousAdTimes = 0;
+        UserInfo.isBindWx = 0;
     }
 
     /**

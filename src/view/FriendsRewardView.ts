@@ -1,3 +1,4 @@
+import BindWx from "src/common/BindWx";
 import { AppEventMap, EventMaps } from "src/common/EventMaps";
 import HttpControl from "src/common/HttpControl";
 import { ApiHttp } from "src/common/NetMaps";
@@ -94,6 +95,9 @@ export default class FriendsRewardView extends Core.gameScript {
      */
     private withdraw(i: number) {
         if (!this.canClick) return;
+        if (!BindWx.isBindWx) {
+            return;
+        }
         this.canClick = false;
         HttpControl.inst
             .send({
