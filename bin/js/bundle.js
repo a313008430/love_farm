@@ -1407,7 +1407,7 @@
       }
     }
     login(d) {
-      var _a, _b, _c;
+      var _a, _b, _c, _d;
       if (!d) {
         core_default.view.openHint({ text: "\u767B\u5F55\u9519\u8BEF,\u8BF7\u91CD\u8BD5", call: () => {
         } });
@@ -1431,7 +1431,7 @@
       UserInfo_default.vitality = d.userInfo.vitality;
       UserInfo_default.invitePeople = d.userInfo.invitePeople;
       UserInfo_default.isFirstTime = d.userInfo.isFirstTime;
-      UserInfo_default.guideData = d.userInfo.guideData.split("") || [];
+      UserInfo_default.guideData = ((_d = d.userInfo.guideData) == null ? void 0 : _d.split("")) || [];
       UserInfo_default.withdraw = d.withdraw;
       UserInfo_default.days = d.days + 1;
       UserInfo_default.adTimes = d.userInfo.adTimes;

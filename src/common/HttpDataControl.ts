@@ -126,7 +126,7 @@ class HttpDataControl {
         UserInfo.vitality = d.userInfo.vitality;
         UserInfo.invitePeople = d.userInfo.invitePeople;
         UserInfo.isFirstTime = d.userInfo.isFirstTime;
-        UserInfo.guideData = d.userInfo.guideData.split("") || [];
+        UserInfo.guideData = d.userInfo.guideData?.split("") || [];
         UserInfo.withdraw = d.withdraw;
         UserInfo.days = d.days + 1;
         UserInfo.adTimes = d.userInfo.adTimes;
