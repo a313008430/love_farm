@@ -1,13 +1,7 @@
 {
-<<<<<<<< HEAD:release/web/version-42f2e30373.json
-  "fileconfig.json": "fileconfig-faef2b3344.json",
-  "index.js": "index-f221e24b5a.js",
-  "js/bundle.js": "js/bundle-176b18d9ac.js",
-========
   "fileconfig.json": "fileconfig-9a6dd71e17.json",
-  "index.js": "index-088caeacdb.js",
-  "js/bundle.js": "js/bundle-10df269d1c.js",
->>>>>>>> dev:release/web/version-b6e7ecd41c.json
+  "index.js": "index-db27e621ee.js",
+  "js/bundle.js": "js/bundle-bf8297e754.js",
   "js/ps-N3BPHYGU.fs": "js/ps-N3BPHYGU-319562bd17.fs",
   "libs/min/bytebuffer.min.js": "libs/min/bytebuffer-9637a546e0.min.js",
   "libs/min/laya.ani.min.js": "libs/min/laya-a72326a604.ani.min.js",
@@ -116,9 +110,5 @@
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-fd8ebc8e36.json",
   "scenes/views/WithdrawRecordView.json": "scenes/views/WithdrawRecordView-da13a8c1de.json",
   "unpack.json": "unpack-2e418a710a.json",
-<<<<<<<< HEAD:release/web/version-42f2e30373.json
-  "version.json": "version-42f2e30373.json"
-========
-  "version.json": "version-b6e7ecd41c.json"
->>>>>>>> dev:release/web/version-b6e7ecd41c.json
+  "version.json": "version-f706774d2d.json"
 }
