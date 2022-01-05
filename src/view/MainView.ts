@@ -620,7 +620,7 @@ export default class MainView extends Core.gameScript {
         this.canClick = false;
         if (this.isOuter) {
             if (UserInfo.vitality <= 0 && !FieldComponent.stealUidState) {
-                Core.view.openHint({ text: "体力不足", call: () => {} });
+                Core.view.open(Res.views.BuyVitalityView);
                 this.canClick = true;
                 return;
             }

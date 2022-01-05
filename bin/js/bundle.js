@@ -3140,8 +3140,7 @@
         this.canClick = false;
         if (this.isOuter) {
           if (UserInfo_default.vitality <= 0 && !FieldComponent.stealUidState) {
-            core_default.view.openHint({ text: "\u4F53\u529B\u4E0D\u8DB3", call: () => {
-            } });
+            core_default.view.open(Res_default.views.BuyVitalityView);
             this.canClick = true;
             return;
           }
