@@ -69,6 +69,17 @@ export default class LoginView extends GameScript {
         if (show) {
             if (Laya.Browser.onIOS) {
                 this.appleBtn.visible = true;
+
+                AppCore.runAppFunction({
+                    uri: AppEventMap.installWechat_ios,
+                    data: {},
+                    timestamp: Date.now(),
+                }).then((data) => {
+                    if (!data.code) {
+                        this.loginBox.visible = true;
+                        this.loginBox.y = 769;
+                    }
+                });
             } else {
                 this.loginBox.visible = true;
             }

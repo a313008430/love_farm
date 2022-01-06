@@ -96,4 +96,6 @@ export const enum AppEventMap {
     clearCache = "clearCache",
     /** 打开遮罩背景 */
     showBackground = "showBackground",
+    /** 苹果判定是否安装微信 */
+    installWechat_ios = "installWechat",
 }
