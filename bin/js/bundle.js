@@ -556,11 +556,11 @@
     BuildType2["online"] = "online";
     BuildType2["debug"] = "debug";
   })(BuildType || (BuildType = {}));
-  console.log("test");
   var baseUrl = "http://game.ahd168.com:3000";
   switch ("test") {
     case BuildType.debug:
       baseUrl = "//192.168.101.6:3000";
+      baseUrl = "//192.168.101.6:81";
       break;
     case BuildType.online:
       baseUrl = "http://game.ahd168.com:3100";
@@ -3056,7 +3056,7 @@
       box.getChildByName("name_title").text = `\u5B8C\u6210${UserInfo_default.orderLevel + 1}\u7EA7\u8BA2\u5355`;
       if (!this.orderQueueIng) {
         if (progress == d.condition.length) {
-          if (this.getGuideStep() <= 3) {
+          if (this.getGuideStep() != -1 && this.getGuideStep() <= 3) {
             return;
           }
           const condition = d.condition;

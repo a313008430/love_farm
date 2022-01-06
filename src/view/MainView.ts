@@ -993,7 +993,7 @@ export default class MainView extends Core.gameScript {
 
         if (!this.orderQueueIng) {
             if (progress == d.condition.length) {
-                if (this.getGuideStep() <= 3) {
+                if (this.getGuideStep() != -1 && this.getGuideStep() <= 3) {
                     return;
                 }
 
