@@ -556,14 +556,14 @@
     BuildType2["online"] = "online";
     BuildType2["debug"] = "debug";
   })(BuildType || (BuildType = {}));
-  var baseUrl = "http://game.ahd168.com:3000";
+  console.log("test");
+  var baseUrl = "http://game.ahd168.com/farm/s/dev";
   switch ("test") {
     case BuildType.debug:
-      baseUrl = "//192.168.101.6:3000";
-      baseUrl = "//192.168.101.6:81";
+      baseUrl = "//192.168.101.6/farm/dev";
       break;
     case BuildType.online:
-      baseUrl = "http://game.ahd168.com:3100";
+      baseUrl = "http://game.ahd168.com/farm/s/release";
       break;
   }
   var ConfigGame_default = {
