@@ -175,7 +175,7 @@ export default class ShopView extends GameScript {
             UserInfo.gold
         ) {
             Core.view.openHint({
-                text: "金币不足，去仓库出售可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
+                text: "金币不足，去仓库出售蔬菜可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
                 call: () => {},
             });
             return;
@@ -381,7 +381,7 @@ export default class ShopView extends GameScript {
                         .count > UserInfo.gold
                 ) {
                     Core.view.openHint({
-                        text: "金币不足，去仓库出售可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
+                        text: "金币不足，去仓库出售蔬菜可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
                         call: () => {},
                     });
                     return;
@@ -523,7 +523,7 @@ export default class ShopView extends GameScript {
 
         if (feed.base.cost.count > UserInfo.gold) {
             Core.view.openHint({
-                text: "金币不足，去仓库出售可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
+                text: "金币不足，去仓库出售蔬菜可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
                 call: () => {},
             });
             return;
@@ -596,7 +596,7 @@ export default class ShopView extends GameScript {
 
         if (PetService.list[this.selectPetIndex].base.cost.count > UserInfo.gold) {
             Core.view.openHint({
-                text: "金币不足，去仓库出售可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
+                text: "金币不足，去仓库出售蔬菜可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
                 call: () => {},
             });
             return;

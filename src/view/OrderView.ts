@@ -139,7 +139,7 @@ export default class OrderView extends Core.gameScript {
                 (diamond.getChildByName("value") as Laya.Label).text = `+${
                     d.extraReward.count +
                     rewardDiamondCount +
-                    Math.round(rewardDiamondCount * d.commission)
+                    Math.floor(rewardDiamondCount * d.commission)
                 }`;
                 diamond.visible = true;
             } else {
@@ -158,7 +158,7 @@ export default class OrderView extends Core.gameScript {
                     (diamond.getChildByName("value") as Laya.Label).text = `+${
                         d.extraReward.count +
                         rewardDiamondCount +
-                        Math.round(rewardDiamondCount * d.commission)
+                        Math.floor(rewardDiamondCount * d.commission)
                     }`;
                     diamond.visible = true;
                 } else {
@@ -186,9 +186,9 @@ export default class OrderView extends Core.gameScript {
         }
         if (reward) {
             (rewardBox.getChildByName("icon") as Laya.Image).skin = reward.obj.icon;
-            (rewardBox.getChildByName("value") as Laya.Label).text = `+${
-                rewardCount + Math.round(rewardCount * d.commission)
-            }`;
+            (rewardBox.getChildByName("value") as Laya.Label).text = `+${Math.floor(
+                rewardCount * (1 + d.commission)
+            )}`;
         }
     }
 

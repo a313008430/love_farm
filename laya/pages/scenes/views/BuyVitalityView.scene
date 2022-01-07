@@ -1,7 +1,7 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":2,
+    "selectedBox":5,
     "selecteID":7,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","right":0,"mouseEnabled":true,"left":0,"height":1920,"bottom":0},
@@ -60,7 +60,7 @@
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image,buyAdBtn",
-                    "props":{"y":652,"x":654,"skin":"game/img_recoveryFree.png","name":"buyAdBtn","anchorY":0.5,"anchorX":0.5},
+                    "props":{"y":652,"x":654,"skin":"game/img_recoverAll.png","name":"buyAdBtn","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":5,
                     "label":"buyAdBtn",
                     "isOpen":null,

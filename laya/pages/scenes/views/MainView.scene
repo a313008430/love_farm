@@ -1,12 +1,12 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":101,
-    "selecteID":989,
+    "selectedBox":243,
+    "selecteID":970,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/MainView.png","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":990,
+    "maxID":991,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -192,7 +192,6 @@
                             "compId":989,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,warehouse",
                                     "props":{"y":230.5,"x":270.5,"skin":"main_scene/img_storehouseBuilding.png","name":"warehouse","anchorY":0.5,"anchorX":0.5},
@@ -237,7 +236,6 @@
                             "compId":942,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure_ani",
                                     "props":{"width":100,"source":"res/figure.atlas","name":"figure_ani","interval":150,"height":100,"autoPlay":true},
@@ -267,7 +265,6 @@
                                         }]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Animation",
                                     "searchKey":"Animation,figure4_ani",
                                     "props":{"y":-171,"x":267,"width":100,"source":"res/figure4.atlas","name":"figure4_ani","interval":150,"height":100,"autoPlay":true},
@@ -312,7 +309,6 @@
                             "compId":97,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Script",
                                     "switchAble":true,
                                     "source":"src/components/Button.ts",
@@ -2086,7 +2082,7 @@
                             "x":45,
                             "type":"Animation",
                             "searchKey":"Animation,dog_ani",
-                            "props":{"y":-37,"x":-30,"width":185,"source":"res/dog_1001.atlas","name":"dog_ani","mouseEnabled":true,"interval":150,"height":249,"autoPlay":true},
+                            "props":{"y":-95,"x":0,"width":185,"source":"res/dog_1001.atlas","name":"dog_ani","mouseEnabled":true,"interval":150,"height":249,"autoPlay":true},
                             "nodeParent":870,
                             "label":"dog_ani",
                             "isOpen":true,
@@ -2177,14 +2173,13 @@
             "props":{"y":49,"x":120,"width":932,"top":49,"name":"top_box","mouseEnabled":true,"hitTestPrior":false,"height":123},
             "nodeParent":2,
             "label":"top_box",
-            "isOpen":true,
+            "isOpen":false,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
             "compId":67,
             "child":[
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,money_box",
                     "props":{"width":932,"skin":"main_scene/img_portraitBg.png","name":"money_box","mouseEnabled":true},
@@ -2197,7 +2192,6 @@
                     "compId":908,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,money_red_box",
                             "props":{"y":26,"x":108,"width":233,"skin":"main_scene/img_coinbg.png","name":"money_red_box","mouseEnabled":true,"height":64},
@@ -2237,7 +2231,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,gold_box",
                             "props":{"y":26,"x":378,"width":233,"skin":"main_scene/img_coinbg.png","name":"gold_box"},
@@ -2277,7 +2270,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,diamond_box",
                             "props":{"y":26,"x":668,"width":233,"skin":"main_scene/img_coinbg.png","name":"diamond_box","mouseEnabled":true},
@@ -2290,7 +2282,6 @@
                             "compId":77,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":-7,"x":-23,"skin":"main_scene/img_diamond.png"},
@@ -2304,7 +2295,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"FontClip",
                                     "searchKey":"FontClip,diamon",
                                     "props":{"y":13,"x":138,"value":"12345","spaceX":-6,"skin":"main_scene/fontClip_head.png","sheet":"0123456789","name":"diamon","anchorX":0.5,"align":"center"},
@@ -2319,7 +2309,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"FontClip",
                             "searchKey":"FontClip,glod_add",
                             "props":{"y":30,"x":513,"visible":false,"value":"+0","spaceX":-6,"skin":"main_scene/fontClip_addNum.png","sheet":"0123456789+","name":"glod_add","anchorX":0.5},
@@ -2333,7 +2322,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"FontClip",
                             "searchKey":"FontClip,diamond_add",
                             "props":{"y":30,"x":813,"visible":false,"value":"+0","spaceX":-6,"skin":"main_scene/fontClip_addNum.png","sheet":"0123456789+","name":"diamond_add","anchorX":0.5},
@@ -2348,7 +2336,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,avater",
                     "props":{"y":53,"x":11,"width":92,"skin":"main_scene/img_defaultPortrait.png","name":"avater","height":90,"anchorY":0.5,"anchorX":0.5},
@@ -2363,7 +2350,6 @@
                         ]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,head",
                     "props":{"y":-15,"x":-58,"skin":"main_scene/img_portrait.png","name":"head","mouseEnabled":true},
@@ -2376,7 +2362,6 @@
                     "compId":68,
                     "child":[
                         {
-                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -2394,7 +2379,6 @@
                         }]
                 },
                 {
-                    "x":30,
                     "type":"Image",
                     "searchKey":"Image,order_box_outer",
                     "props":{"y":120,"x":417,"skin":"main_scene/img_taskbg.png","name":"order_box_outer","mouseEnabled":true,"anchorX":0.5},
@@ -2802,7 +2786,6 @@
                     "$HIDDEN":false
                 },
                 {
-                    "x":30,
                     "type":"Label",
                     "searchKey":"Label,count_down",
                     "props":{"y":27,"x":431,"visible":false,"text":"00:00","name":"count_down","fontSize":60,"font":"Microsoft YaHei","color":"#755037","bold":true,"anchorX":0.5},
@@ -2852,14 +2835,13 @@
                     "props":{"zOrder":1,"y":167,"x":169,"skin":"main_scene/img_daytimeTask.png","name":"task","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":243,
                     "label":"task",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":117,
                     "child":[
                         {
-                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -2876,7 +2858,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,red",
                             "props":{"y":10,"x":132,"visible":false,"skin":"game/img_readTag.png","name":"red"},
@@ -2889,7 +2870,6 @@
                             "compId":973,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Script",
                                     "switchAble":true,
                                     "source":"src/components/RedDotComponent.ts",
@@ -2914,14 +2894,13 @@
                     "props":{"y":167,"x":362,"skin":"main_scene/img_order.png","name":"order_box","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":243,
                     "label":"order_box",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":233,
                     "child":[
                         {
-                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -2938,7 +2917,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,red",
                             "props":{"y":10,"x":132,"visible":false,"skin":"game/img_readTag.png","name":"red"},
@@ -2951,7 +2929,6 @@
                             "compId":981,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Script",
                                     "switchAble":true,
                                     "source":"src/components/RedDotComponent.ts",
@@ -2972,77 +2949,17 @@
                 {
                     "x":30,
                     "type":"Image",
-                    "searchKey":"Image,mail",
-                    "props":{"zOrder":1,"y":167,"x":747,"skin":"main_scene/img_emailMenu.png","name":"mail","anchorY":0.5,"anchorX":0.5},
-                    "nodeParent":243,
-                    "label":"mail",
-                    "isOpen":false,
-                    "isDirectory":true,
-                    "isAniNode":true,
-                    "hasChild":true,
-                    "compId":239,
-                    "child":[
-                        {
-                            "type":"Script",
-                            "switchAble":true,
-                            "source":"src/components/Button.ts",
-                            "searchKey":"Script,Button",
-                            "removeAble":true,
-                            "props":{"isScale":true},
-                            "nodeParent":239,
-                            "label":"Button",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":240,
-                            "child":[
-                                ]
-                        },
-                        {
-                            "type":"Image",
-                            "searchKey":"Image,red",
-                            "props":{"y":-1,"x":112,"visible":false,"skin":"game/img_readTag.png","name":"red"},
-                            "nodeParent":239,
-                            "label":"red",
-                            "isOpen":null,
-                            "isDirectory":true,
-                            "isAniNode":true,
-                            "hasChild":true,
-                            "compId":974,
-                            "child":[
-                                {
-                                    "type":"Script",
-                                    "switchAble":true,
-                                    "source":"src/components/RedDotComponent.ts",
-                                    "searchKey":"Script,RedDotComponent",
-                                    "removeAble":true,
-                                    "props":{"redDotType":"mail"},
-                                    "nodeParent":974,
-                                    "label":"RedDotComponent",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":978,
-                                    "child":[
-                                        ]
-                                }]
-                        }]
-                },
-                {
-                    "x":30,
-                    "type":"Image",
                     "searchKey":"Image,any_door",
                     "props":{"zOrder":1,"y":167,"x":939,"skin":"main_scene/img_steelVegetable.png","name":"any_door","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":243,
                     "label":"any_door",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":241,
                     "child":[
                         {
-                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -3059,7 +2976,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,red",
                             "props":{"y":-3,"x":102,"visible":false,"skin":"game/img_readTag.png","name":"red"},
@@ -3150,14 +3066,13 @@
                     "props":{"zOrder":1,"y":171,"x":936,"width":136,"skin":"game/img_goHome.png","name":"go_home","height":146,"anchorY":0.5,"anchorX":0.5},
                     "nodeParent":243,
                     "label":"go_home",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":875,
                     "child":[
                         {
-                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -3183,14 +3098,13 @@
                     "props":{"y":-51,"x":134,"skin":"game/img_energyBarBg.png","name":"vitality_box"},
                     "nodeParent":243,
                     "label":"vitality_box",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":877,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,bar",
                             "props":{"y":5,"x":6,"width":268,"skin":"game/img_energyBar.png","name":"bar","height":46},
@@ -3204,7 +3118,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,add_vitality",
                             "props":{"y":29,"x":347,"skin":"game/img_addEnergytnm.png","name":"add_vitality","anchorY":0.5,"anchorX":0.5},
@@ -3234,7 +3147,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":5.5,"x":-113,"skin":"game/img_energy.png"},
@@ -3246,22 +3158,21 @@
                             "compId":881,
                             "child":[
                                 ]
+                        },
+                        {
+                            "type":"Label",
+                            "searchKey":"Label,bar_num",
+                            "props":{"y":31,"x":140,"text":"10/10","name":"bar_num","fontSize":36,"color":"#ffffff","bold":true,"anchorY":0.5,"anchorX":0.5},
+                            "nodeParent":877,
+                            "label":"bar_num",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":990,
+                            "child":[
+                                ]
                         }],
                     "$HIDDEN":false
-                },
-                {
-                    "x":30,
-                    "type":"Image",
-                    "searchKey":"Image,reward_share_guide",
-                    "props":{"y":76,"x":652,"width":328,"skin":"main_scene/img_notReceived.png","pivotY":166,"pivotX":81,"name":"reward_share_guide","mouseEnabled":true,"height":191},
-                    "nodeParent":243,
-                    "label":"reward_share_guide",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":970,
-                    "child":[
-                        ]
                 },
                 {
                     "x":30,
@@ -3270,14 +3181,13 @@
                     "props":{"y":141,"x":554,"skin":"main_scene/img_friend.png","name":"friends","anchorY":0.5,"anchorX":0.5},
                     "nodeParent":243,
                     "label":"friends",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":237,
                     "child":[
                         {
-                            "x":45,
                             "type":"Script",
                             "switchAble":true,
                             "source":"src/components/Button.ts",
@@ -3294,7 +3204,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,red",
                             "props":{"y":-4,"x":189,"visible":false,"skin":"game/img_readTag.png","name":"red"},
@@ -3307,7 +3216,6 @@
                             "compId":975,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Script",
                                     "switchAble":true,
                                     "source":"src/components/RedDotComponent.ts",
@@ -3320,6 +3228,79 @@
                                     "isAniNode":true,
                                     "hasChild":false,
                                     "compId":977,
+                                    "child":[
+                                        ]
+                                }]
+                        }]
+                },
+                {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image,reward_share_guide",
+                    "props":{"y":120,"x":633,"width":328,"skin":"main_scene/img_notReceived.png","pivotY":166,"pivotX":81,"name":"reward_share_guide","mouseEnabled":true,"height":191},
+                    "nodeParent":243,
+                    "label":"reward_share_guide",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":970,
+                    "child":[
+                        ]
+                },
+                {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image,mail",
+                    "props":{"zOrder":1,"y":167,"x":747,"skin":"main_scene/img_emailMenu.png","name":"mail","anchorY":0.5,"anchorX":0.5},
+                    "nodeParent":243,
+                    "label":"mail",
+                    "isOpen":false,
+                    "isDirectory":true,
+                    "isAniNode":true,
+                    "hasChild":true,
+                    "compId":239,
+                    "child":[
+                        {
+                            "type":"Script",
+                            "switchAble":true,
+                            "source":"src/components/Button.ts",
+                            "searchKey":"Script,Button",
+                            "removeAble":true,
+                            "props":{"isScale":true},
+                            "nodeParent":239,
+                            "label":"Button",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":240,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "type":"Image",
+                            "searchKey":"Image,red",
+                            "props":{"y":-1,"x":112,"visible":false,"skin":"game/img_readTag.png","name":"red"},
+                            "nodeParent":239,
+                            "label":"red",
+                            "isOpen":null,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":974,
+                            "child":[
+                                {
+                                    "type":"Script",
+                                    "switchAble":true,
+                                    "source":"src/components/RedDotComponent.ts",
+                                    "searchKey":"Script,RedDotComponent",
+                                    "removeAble":true,
+                                    "props":{"redDotType":"mail"},
+                                    "nodeParent":974,
+                                    "label":"RedDotComponent",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":978,
                                     "child":[
                                         ]
                                 }]

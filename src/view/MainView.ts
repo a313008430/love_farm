@@ -152,7 +152,7 @@ export default class MainView extends Core.gameScript {
             "res/atlas/pet_feed.png",
             "res/atlas/main_scene.png",
         ].forEach((e) => {
-            if (e.endsWith("png")) Laya.loader.clearTextureRes(e);
+            // if (e.endsWith("png")) Laya.loader.clearTextureRes(e);
         });
 
         Laya.timer.frameOnce(1, this, () => {
@@ -163,7 +163,7 @@ export default class MainView extends Core.gameScript {
 
         this.guidHandAnimation();
         this.guideHand.visible = false;
-        // this.friendShareGuide(true);
+        this.friendShareGuide(true);
     }
 
     onHdAwake() {
@@ -533,8 +533,8 @@ export default class MainView extends Core.gameScript {
                 }
             })
             .key("vitality", (e) => {
-                let vitality =
-                    e / (TableAnalyze.table("config").get("vitalityLimit").value as number);
+                let max = TableAnalyze.table("config").get("vitalityLimit").value as number;
+                let vitality = e / max;
 
                 Laya.timer.frameOnce(1, this, () => {
                     Core.eventGlobal.event(EventMaps.update_red_dot, [
@@ -557,6 +557,7 @@ export default class MainView extends Core.gameScript {
                 }
                 if (this.vitalityBox.getChildByName("bar"))
                     (this.vitalityBox.getChildByName("bar") as Laya.Image).width = 268 * vitality;
+                (this.vitalityBox.getChildByName("bar_num") as Laya.Label).text = `${e}/${max}`;
             });
 
         this.addLandLayer.visible = false;
@@ -968,7 +969,7 @@ export default class MainView extends Core.gameScript {
                 diamondBox = box.getChildByName("diamond_box") as Laya.Box;
             (goldBox.getChildByName("icon") as Laya.Image).skin = reward.obj.icon;
             (goldBox.getChildByName("value") as Laya.FontClip).value = `${
-                rewardCount + Math.round(rewardCount * d.commission)
+                rewardCount + Math.floor(rewardCount * d.commission)
             }`;
 
             if (d.extraReward) {
@@ -976,7 +977,7 @@ export default class MainView extends Core.gameScript {
                 (diamondBox.getChildByName("value") as Laya.FontClip).value = `${
                     d.extraReward.count +
                     rewardDiamondCount +
-                    Math.round(rewardDiamondCount * d.commission)
+                    Math.floor(rewardDiamondCount * d.commission)
                 }`;
 
                 diamondBox.visible = true;
@@ -1002,8 +1003,8 @@ export default class MainView extends Core.gameScript {
                 let adDiamond =
                         d.extraReward.count +
                         rewardDiamondCount +
-                        Math.round(rewardDiamondCount * d.commission),
-                    adGold = rewardCount + Math.round(rewardCount * d.commission);
+                        Math.floor(rewardDiamondCount * d.commission),
+                    adGold = rewardCount + Math.floor(rewardCount * d.commission);
 
                 Laya.timer.frameOnce(1, this, () => {
                     Core.eventGlobal.event(EventMaps.update_red_dot, [RedDotType.order, true]);
