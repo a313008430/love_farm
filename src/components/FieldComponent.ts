@@ -87,6 +87,10 @@ export default class FieldComponent extends Core.gameScript {
         this.fieldNode = <Laya.Image>this.owner;
         this.countDownLb = this.timeBox.getChildByName("countDownLb") as any;
         this.init();
+
+        this.owner.on(Laya.Event.CLICK, this, () => {
+            console.log(1);
+        });
     }
 
     init() {

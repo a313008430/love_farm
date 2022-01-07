@@ -233,6 +233,8 @@ export default class MainView extends Core.gameScript {
                         nodeList: [this.step1],
                         call: () => {},
                         addPos: { x: 100, y: 120 },
+                        text: "开始播种",
+                        testAddPos: { x: -100, y: 0 },
                     });
                     break;
                 case 1:
@@ -240,6 +242,8 @@ export default class MainView extends Core.gameScript {
                         nodeList: [this.step1],
                         call: () => {},
                         addPos: { x: 100, y: 120 },
+                        text: "作物种植好后，\n点击可以加速生长",
+                        testAddPos: { x: -200, y: 100 },
                     });
                     break;
                 case 2:
@@ -249,6 +253,8 @@ export default class MainView extends Core.gameScript {
                         call: () => {},
                         addPos: { x: 100, y: 120 },
                         step: 2,
+                        text: "作物已经成熟了，\n点击收获",
+                        testAddPos: { x: -200, y: 100 },
                     });
                     break;
                 case 3:
@@ -260,10 +266,12 @@ export default class MainView extends Core.gameScript {
                             this.onClick({ target: { name: "warehouse" } } as any);
                         },
                         addPos: { x: 100, y: 120 },
+                        text: "点击进入仓库",
+                        testAddPos: { x: 200, y: 230 },
                     });
                     break;
                 case 4:
-                    //偷菜
+                    //去偷菜
                     console.log("偷菜");
                     Core.eventGlobal.event(EventMaps.update_guid, <GuideComponentData>{
                         nodeList: [this.anyDoor],
@@ -271,6 +279,8 @@ export default class MainView extends Core.gameScript {
                             this.onClick({ target: { name: "any_door" } } as any);
                         },
                         addPos: { x: 100, y: 120 },
+                        text: "点击这里，可以去别人的农场偷菜哦",
+                        testAddPos: { x: -140, y: -180 },
                     });
                     break;
                 case 5:
@@ -282,6 +292,8 @@ export default class MainView extends Core.gameScript {
                                 this.onClick({ target: { name: "add_vitality" } } as any);
                             },
                             addPos: { x: 100, y: 120 },
+                            text: "体力消耗完了就不能偷菜了，\n点这里恢复体力",
+                            testAddPos: { x: -140, y: -200 },
                         });
                     }
                     break;
@@ -1502,6 +1514,8 @@ export default class MainView extends Core.gameScript {
                                     nodeList: [this.step1],
                                     call: () => {},
                                     addPos: { x: 100, y: 120 },
+                                    text: "点击有小手的作物即可偷菜",
+                                    testAddPos: { x: -160, y: -180 },
                                 });
                             });
                         }

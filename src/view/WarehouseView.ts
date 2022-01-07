@@ -112,6 +112,8 @@ export default class WarehouseView extends Core.gameScript {
                     },
                     addPos: { x: 100, y: 120 },
                     step: 3,
+                    text: "出售作物\n可获得金币或钻石",
+                    testAddPos: { x: 0, y: -150 },
                 });
             });
         }

@@ -126,5 +126,10 @@ export default class FieldLevelUpView extends GameScript {
             uri: AppEventMap.closeImage,
             data: {},
         });
+
+        AppCore.runAppFunction({
+            uri: AppEventMap.closeAd,
+            data: {},
+        });
     }
 }

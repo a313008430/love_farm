@@ -885,7 +885,14 @@
         case "petDigestIntervalTime":
           return { id: "petDigestIntervalTime", value: d.value };
         case "Videorewards":
-          return { id: "Videorewards", value: getRewardCurrencyBase(d.value) };
+          let v = d.value.split(",")[0].split(":");
+          return {
+            id: "Videorewards",
+            value: {
+              obj: TableAnalyze.table("currency").get(Number(v[0])),
+              count: Number(v[2])
+            }
+          };
         case "withdrawal":
           return { id: "withdrawal", value: Tools.parseString(d.value, ":") };
         case "Invitation_rewards":
@@ -896,13 +903,13 @@
         case "withdrawal_times":
           return {
             id: "withdrawal_times",
-            value: Tools.parseString(d.value).map((v) => {
-              v = Tools.parseString(v, ":");
+            value: Tools.parseString(d.value).map((v2) => {
+              v2 = Tools.parseString(v2, ":");
               return {
-                price: Number(v[0]) || 0,
-                times: Number(v[1]) || 0,
-                inviteAmount: Number(v[2]) || 0,
-                orderLv: Number(v[3]) || 0
+                price: Number(v2[0]) || 0,
+                times: Number(v2[1]) || 0,
+                inviteAmount: Number(v2[2]) || 0,
+                orderLv: Number(v2[3]) || 0
               };
             })
           };
@@ -1858,6 +1865,9 @@
       this.fieldNode = this.owner;
       this.countDownLb = this.timeBox.getChildByName("countDownLb");
       this.init();
+      this.owner.on(Laya.Event.CLICK, this, () => {
+        console.log(1);
+      });
     }
     init() {
       this.icon.skin = null;
@@ -2487,7 +2497,9 @@
               nodeList: [this.step1],
               call: () => {
               },
-              addPos: { x: 100, y: 120 }
+              addPos: { x: 100, y: 120 },
+              text: "\u5F00\u59CB\u64AD\u79CD",
+              testAddPos: { x: -100, y: 0 }
             });
             break;
           case 1:
@@ -2495,7 +2507,9 @@
               nodeList: [this.step1],
               call: () => {
               },
-              addPos: { x: 100, y: 120 }
+              addPos: { x: 100, y: 120 },
+              text: "\u4F5C\u7269\u79CD\u690D\u597D\u540E\uFF0C\n\u70B9\u51FB\u53EF\u4EE5\u52A0\u901F\u751F\u957F",
+              testAddPos: { x: -200, y: 100 }
             });
             break;
           case 2:
@@ -2504,7 +2518,9 @@
               call: () => {
               },
               addPos: { x: 100, y: 120 },
-              step: 2
+              step: 2,
+              text: "\u4F5C\u7269\u5DF2\u7ECF\u6210\u719F\u4E86\uFF0C\n\u70B9\u51FB\u6536\u83B7",
+              testAddPos: { x: -200, y: 100 }
             });
             break;
           case 3:
@@ -2514,7 +2530,9 @@
               call: () => {
                 this.onClick({ target: { name: "warehouse" } });
               },
-              addPos: { x: 100, y: 120 }
+              addPos: { x: 100, y: 120 },
+              text: "\u70B9\u51FB\u8FDB\u5165\u4ED3\u5E93",
+              testAddPos: { x: 200, y: 230 }
             });
             break;
           case 4:
@@ -2524,7 +2542,9 @@
               call: () => {
                 this.onClick({ target: { name: "any_door" } });
               },
-              addPos: { x: 100, y: 120 }
+              addPos: { x: 100, y: 120 },
+              text: "\u70B9\u51FB\u8FD9\u91CC\uFF0C\u53EF\u4EE5\u53BB\u522B\u4EBA\u7684\u519C\u573A\u5077\u83DC\u54E6",
+              testAddPos: { x: -140, y: -180 }
             });
             break;
           case 5:
@@ -2534,7 +2554,9 @@
                 call: () => {
                   this.onClick({ target: { name: "add_vitality" } });
                 },
-                addPos: { x: 100, y: 120 }
+                addPos: { x: 100, y: 120 },
+                text: "\u4F53\u529B\u6D88\u8017\u5B8C\u4E86\u5C31\u4E0D\u80FD\u5077\u83DC\u4E86\uFF0C\n\u70B9\u8FD9\u91CC\u6062\u590D\u4F53\u529B",
+                testAddPos: { x: -140, y: -200 }
               });
             }
             break;
@@ -3406,7 +3428,9 @@
                   nodeList: [this.step1],
                   call: () => {
                   },
-                  addPos: { x: 100, y: 120 }
+                  addPos: { x: 100, y: 120 },
+                  text: "\u70B9\u51FB\u6709\u5C0F\u624B\u7684\u4F5C\u7269\u5373\u53EF\u5077\u83DC",
+                  testAddPos: { x: -160, y: -180 }
                 });
               });
             }
@@ -3797,6 +3821,10 @@
     onHdDestroy() {
       AppCore.runAppFunction({
         uri: AppEventMap.closeImage,
+        data: {}
+      });
+      AppCore.runAppFunction({
+        uri: AppEventMap.closeAd,
         data: {}
       });
     }
@@ -5211,6 +5239,7 @@
       this.descLb = null;
       this.nodeBox = null;
       this.bg = null;
+      this.hintLb = null;
       this.canClick = true;
     }
     onHdAwake() {
@@ -5235,13 +5264,18 @@
         if (data.call) {
           data.call();
         }
-        Laya.timer.frameOnce(1, this, () => {
-          if (node && this.oldParent) {
-            const pos2 = this.oldParent.globalToLocal(this.nodeBox.localToGlobal(new Laya.Point(node.x, node.y)));
-            this.oldParent.addChild(node);
-            node.zOrder = 0;
-            node.updateZOrder();
-            node.pos(pos2.x, pos2.y);
+        this.hintLb.visible = false;
+        Laya.timer.once(1, this, (_node, _p) => {
+          if (_node && _p) {
+            if (_p.destroyed) {
+              _node.destroy();
+            } else {
+              const pos2 = _p.globalToLocal(this.nodeBox.localToGlobal(new Laya.Point(_node.x, _node.y)));
+              _p.addChild(_node);
+              _node.zOrder = 0;
+              _node.updateZOrder();
+              _node.pos(pos2.x, pos2.y);
+            }
           }
           switch (data.step) {
             case 0:
@@ -5253,11 +5287,22 @@
             default:
               break;
           }
-        });
+        }, [node, this.oldParent]);
       }));
       this.nodeBox.addChild(node);
       node.pos(pos.x, pos.y);
       Laya.Tween.to(this.guideHand, { x: pos.x + data.addPos.x, y: pos.y + data.addPos.y, alpha: 1 }, 300);
+      if (data.text) {
+        this.hintLb.visible = true;
+        this.hintLb.text = data.text;
+        this.hintLb.alpha = 0;
+        this.hintLb.pos(pos.x + data.testAddPos.x, pos.y + data.testAddPos.y);
+        Laya.timer.once(300, this, () => {
+          Laya.Tween.to(this.hintLb, { x: pos.x + data.testAddPos.x + 50, y: pos.y + data.testAddPos.y, alpha: 1 }, 300);
+        });
+      } else {
+        this.hintLb.visible = false;
+      }
     }
     updateGuidData(step) {
       UserInfo_default.guideData[step] = "1";
@@ -5673,17 +5718,19 @@
       }).catch(() => {
         this.canClick = true;
       });
-      Laya.timer.once(300, this, () => {
-        if (MainView.inst.getGuideStep() == 0) {
+      if (MainView.inst.getGuideStep() == 0) {
+        Laya.timer.once(300, this, () => {
           core_default.eventGlobal.event(EventMaps.update_guid, {
             nodeList: [this.itemBuyBtn],
             call: () => {
             },
             addPos: { x: 100, y: 120 },
-            step: 0
+            step: 0,
+            text: "\u8D2D\u4E70\u79CD\u5B50\u5E76\u79CD\u690D",
+            testAddPos: { x: -30, y: -60 }
           });
-        }
-      });
+        });
+      }
       this.itemBuyBtn.on(Laya.Event.CLICK, this, this.plantBuy);
     }
     plantBuy() {
@@ -6711,7 +6758,9 @@
               });
             },
             addPos: { x: 100, y: 120 },
-            step: 3
+            step: 3,
+            text: "\u51FA\u552E\u4F5C\u7269\n\u53EF\u83B7\u5F97\u91D1\u5E01\u6216\u94BB\u77F3",
+            testAddPos: { x: 0, y: -150 }
           });
         });
       }

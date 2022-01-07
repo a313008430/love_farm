@@ -151,16 +151,18 @@ export default class ShopView extends GameScript {
             });
 
         //新手引导
-        Laya.timer.once(300, this, () => {
-            if (MainView.inst.getGuideStep() == 0) {
+        if (MainView.inst.getGuideStep() == 0) {
+            Laya.timer.once(300, this, () => {
                 Core.eventGlobal.event(EventMaps.update_guid, <GuideComponentData>{
                     nodeList: [this.itemBuyBtn],
                     call: () => {},
                     addPos: { x: 100, y: 120 },
                     step: 0,
+                    text: "购买种子并种植",
+                    testAddPos: { x: -30, y: -60 },
                 });
-            }
-        });
+            });
+        }
 
         this.itemBuyBtn.on(Laya.Event.CLICK, this, this.plantBuy);
     }

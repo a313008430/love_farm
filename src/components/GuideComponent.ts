@@ -12,6 +12,10 @@ export interface GuideComponentData {
     addPos: { x: number; y: number };
     /** 要记录的步骤 */
     step?: number;
+    /** 步骤文字描述 */
+    text?: string;
+    /** 文字位置 */
+    testAddPos?: { x: number; y: number };
 }
 
 //default class GuideComponent extends Laya.Script {
@@ -25,6 +29,8 @@ export default class GuideComponent extends Core.gameScript {
     private nodeBox: Laya.Box = null;
     /** @prop {name:bg, tips:"背景", type:Node}*/
     private bg: Laya.Box = null;
+    /** @prop {name:hintLb, tips:"文字提示", type:Node}*/
+    private hintLb: Laya.Label = null;
 
     private canClick = true;
 
@@ -38,6 +44,7 @@ export default class GuideComponent extends Core.gameScript {
         this.updateState(false);
         this.guidHandAni();
         // this.bg.visible = false;
+        // this.hintLb.visible = false;
     }
 
     /**
@@ -60,42 +67,70 @@ export default class GuideComponent extends Core.gameScript {
             if (data.step != null) {
                 await this.updateGuidData(data.step);
             }
+
             if (data.call) {
                 data.call();
             }
 
-            Laya.timer.frameOnce(1, this, () => {
-                if (node && this.oldParent) {
-                    const pos = this.oldParent.globalToLocal(
-                        this.nodeBox.localToGlobal(new Laya.Point(node.x, node.y))
-                    );
+            this.hintLb.visible = false;
 
-                    this.oldParent.addChild(node);
-                    node.zOrder = 0;
-                    node.updateZOrder();
-                    node.pos(pos.x, pos.y);
-                }
+            Laya.timer.once(
+                1,
+                this,
+                (_node: Laya.Image, _p: Laya.Image) => {
+                    if (_node && _p) {
+                        if (_p.destroyed) {
+                            _node.destroy();
+                        } else {
+                            const pos = _p.globalToLocal(
+                                this.nodeBox.localToGlobal(new Laya.Point(_node.x, _node.y))
+                            );
 
-                switch (data.step) {
-                    case 0:
-                        MainView.inst.guide();
-                        break;
-                    case 2:
-                        MainView.inst.guide();
-                        break;
-                    default:
-                        break;
-                }
-            });
+                            _p.addChild(_node);
+                            _node.zOrder = 0;
+                            _node.updateZOrder();
+                            _node.pos(pos.x, pos.y);
+                        }
+                    }
+
+                    switch (data.step) {
+                        case 0:
+                            MainView.inst.guide();
+                            break;
+                        case 2:
+                            MainView.inst.guide();
+                            break;
+                        default:
+                            break;
+                    }
+                },
+                [node, this.oldParent]
+            );
         });
 
         this.nodeBox.addChild(node);
         node.pos(pos.x, pos.y);
+
         Laya.Tween.to(
             this.guideHand,
             { x: pos.x + data.addPos.x, y: pos.y + data.addPos.y, alpha: 1 },
             300
         );
+        if (data.text) {
+            this.hintLb.visible = true;
+            this.hintLb.text = data.text;
+            this.hintLb.alpha = 0;
+            this.hintLb.pos(pos.x + data.testAddPos.x, pos.y + data.testAddPos.y);
+            Laya.timer.once(300, this, () => {
+                Laya.Tween.to(
+                    this.hintLb,
+                    { x: pos.x + data.testAddPos.x + 50, y: pos.y + data.testAddPos.y, alpha: 1 },
+                    300
+                );
+            });
+        } else {
+            this.hintLb.visible = false;
+        }
     }
 
     /**
