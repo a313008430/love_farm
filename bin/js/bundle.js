@@ -3715,12 +3715,10 @@
             if ((_a = this.data) == null ? void 0 : _a.call) {
               this.data.call();
             }
-            if (e.target.name == "buyBtn") {
-              AppCore.runAppFunction({
-                uri: AppEventMap.eventCount,
-                data: { type: "physicalstrength" }
-              });
-            }
+            AppCore.runAppFunction({
+              uri: AppEventMap.eventCount,
+              data: { type: "physicalstrength" }
+            });
             core_default.view.close(Res_default.views.BuyVitalityView);
           });
           break;

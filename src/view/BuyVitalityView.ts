@@ -89,12 +89,10 @@ export default class BuyVitalityView extends GameScript {
                             this.data.call();
                         }
 
-                        if (e.target.name == "buyBtn") {
-                            AppCore.runAppFunction({
-                                uri: AppEventMap.eventCount,
-                                data: { type: "physicalstrength" },
-                            });
-                        }
+                        AppCore.runAppFunction({
+                            uri: AppEventMap.eventCount,
+                            data: { type: "physicalstrength" },
+                        });
 
                         Core.view.close(Res.views.BuyVitalityView);
                     });
