@@ -101,6 +101,7 @@
   "scenes/views/OrderView.json": "scenes/views/OrderView-4263e6281d.json",
   "scenes/views/OverView.json": "scenes/views/OverView-1fd4e68b13.json",
   "scenes/views/SettingView.json": "scenes/views/SettingView-0d69c9b5a6.json",
+  "scenes/views/ShopView.json": "scenes/views/ShopView-9ffa21b708.json",
   "scenes/views/SignInDescView.json": "scenes/views/SignInDescView-eeba6f7252.json",
   "scenes/views/SignInView.json": "scenes/views/SignInView-74ba044ace.json",
   "scenes/views/SpeedUpView.json": "scenes/views/SpeedUpView-3d7bbe2bbe.json",
@@ -108,5 +109,5 @@
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-fd8ebc8e36.json",
   "scenes/views/WithdrawRecordView.json": "scenes/views/WithdrawRecordView-da13a8c1de.json",
   "unpack.json": "unpack-2e418a710a.json",
-  "version.json": "version-ad15a752a2.json"
+  "version.json": "version-91e511cc6a.json"
 }
