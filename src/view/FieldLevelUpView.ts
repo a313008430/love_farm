@@ -81,7 +81,7 @@ export default class FieldLevelUpView extends GameScript {
             case "upgradeAdBtn":
                 if (e.target.name == "upgradeBtn" && this.cost > UserInfo.gold) {
                     Core.view.openHint({
-                        text: "金币不足，去仓库出售可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
+                        text: "金币不足，去仓库出售蔬菜可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
                         call: () => {},
                     });
                     return;
@@ -124,6 +124,11 @@ export default class FieldLevelUpView extends GameScript {
     onHdDestroy(): void {
         AppCore.runAppFunction({
             uri: AppEventMap.closeImage,
+            data: {},
+        });
+
+        AppCore.runAppFunction({
+            uri: AppEventMap.closeAd,
             data: {},
         });
     }

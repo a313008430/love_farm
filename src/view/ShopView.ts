@@ -7,6 +7,7 @@ import Res from "src/common/Res";
 import TableAnalyze from "src/common/TableAnalyze";
 import { FeedBase, PlantBase } from "src/common/TableObject";
 import Tools from "src/common/Tools";
+import { GuideComponentData } from "src/components/GuideComponent";
 import AppCore from "src/core/App";
 import GameScript from "src/core/GameScript";
 import Core from "src/core/index";
@@ -144,6 +145,73 @@ export default class ShopView extends GameScript {
             .then((d: FriendListData) => {
                 this.canClick = true;
                 this.inviteNum = d.list.length;
+            })
+            .catch(() => {
+                this.canClick = true;
+            });
+
+        //新手引导
+        if (MainView.inst.getGuideStep() == 0) {
+            Laya.timer.once(300, this, () => {
+                Core.eventGlobal.event(EventMaps.update_guid, <GuideComponentData>{
+                    nodeList: [this.itemBuyBtn],
+                    call: () => {},
+                    addPos: { x: 100, y: 120 },
+                    step: 0,
+                    text: "购买种子并种植",
+                    testAddPos: { x: -30, y: -60 },
+                });
+            });
+        }
+
+        this.itemBuyBtn.on(Laya.Event.CLICK, this, this.plantBuy);
+    }
+
+    private plantBuy() {
+        if (!this.canClick) {
+            return;
+        }
+
+        if (
+            (this.getDataList()[this.itemListSelectIndex] as PlantDataBase).base.seed_price.count >
+            UserInfo.gold
+        ) {
+            Core.view.openHint({
+                text: "金币不足，去仓库出售蔬菜可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
+                call: () => {},
+            });
+            return;
+        }
+
+        let landId = this.data?.parm?.landId;
+        if (!landId) {
+            landId = MainView.inst.getEmptyLandId();
+        }
+        if (!landId) {
+            Core.view.openHint({ text: "没有空的土地哦！", call: () => {} });
+            return;
+        }
+
+        this.canClick = false;
+        HttpControl.inst
+            .send({
+                api: ApiHttp.landSow,
+                data: <NetSendApi["sow"]>{
+                    landId: landId,
+                    plantId: this.getDataList()[this.itemListSelectIndex].base.id,
+                    type: ConfigGame.ApiTypeDefault,
+                },
+            })
+            .then(() => {
+                ViewManager.inst.close(Res.views.ShopView);
+                if (this.data?.call) {
+                    this.data.call(this.getDataList()[this.itemListSelectIndex]);
+                } else {
+                    Core.eventGlobal.event(EventMaps.plant_sow, [
+                        true,
+                        this.getDataList()[this.itemListSelectIndex],
+                    ]);
+                }
             })
             .catch(() => {
                 this.canClick = true;
@@ -302,58 +370,7 @@ export default class ShopView extends GameScript {
                     this.updateTopBtnState();
                 }
                 break;
-            //播种
-            case "buy_btn":
-                if (!this.canClick) {
-                    return;
-                }
 
-                if (
-                    (this.getDataList()[this.itemListSelectIndex] as PlantDataBase).base.seed_price
-                        .count > UserInfo.gold
-                ) {
-                    Core.view.openHint({
-                        text: "金币不足，去仓库出售可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
-                        call: () => {},
-                    });
-                    return;
-                }
-
-                let landId = this.data?.parm?.landId;
-                if (!landId) {
-                    landId = MainView.inst.getEmptyLandId();
-                }
-                if (!landId) {
-                    Core.view.openHint({ text: "没有空的土地哦！", call: () => {} });
-                    return;
-                }
-
-                this.canClick = false;
-                HttpControl.inst
-                    .send({
-                        api: ApiHttp.landSow,
-                        data: <NetSendApi["sow"]>{
-                            landId: landId,
-                            plantId: this.getDataList()[this.itemListSelectIndex].base.id,
-                            type: ConfigGame.ApiTypeDefault,
-                        },
-                    })
-                    .then(() => {
-                        ViewManager.inst.close(Res.views.ShopView);
-                        if (this.data?.call) {
-                            this.data.call(this.getDataList()[this.itemListSelectIndex]);
-                        } else {
-                            Core.eventGlobal.event(EventMaps.plant_sow, [
-                                true,
-                                this.getDataList()[this.itemListSelectIndex],
-                            ]);
-                        }
-                    })
-                    .catch(() => {
-                        this.canClick = true;
-                    });
-
-                break;
             //广告解锁，或是金币解锁1
             case "unlock_buy":
             case "ad_unlock":
@@ -366,7 +383,7 @@ export default class ShopView extends GameScript {
                         .count > UserInfo.gold
                 ) {
                     Core.view.openHint({
-                        text: "金币不足，去仓库出售可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
+                        text: "金币不足，去仓库出售蔬菜可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
                         call: () => {},
                     });
                     return;
@@ -508,7 +525,7 @@ export default class ShopView extends GameScript {
 
         if (feed.base.cost.count > UserInfo.gold) {
             Core.view.openHint({
-                text: "金币不足，去仓库出售可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
+                text: "金币不足，去仓库出售蔬菜可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
                 call: () => {},
             });
             return;
@@ -581,7 +598,7 @@ export default class ShopView extends GameScript {
 
         if (PetService.list[this.selectPetIndex].base.cost.count > UserInfo.gold) {
             Core.view.openHint({
-                text: "金币不足，去仓库出售可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
+                text: "金币不足，去仓库出售蔬菜可以获得金币，偷菜获得的蔬菜也可以出售获得金币哦",
                 call: () => {},
             });
             return;

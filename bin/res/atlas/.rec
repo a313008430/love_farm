@@ -128,7 +128,7 @@ P AC3D3C17 img_readTag.png
 P 3B73EA7B img_received.png
 P 98446E8C img_recommend.png
 P EF767E19 img_record.png
-P 0D880031 img_recoveryFree.png
+P 42986C2E img_recoverAll.png
 P 1B9D1CE8 img_recoveryOnePoint.png
 P 92602026 img_residue.png
 P 56B29CFE img_rest.png
@@ -179,6 +179,7 @@ P 56728B6A img_withdrawbtn.png
 P 6ABCA748 img_x.png
 D load
 P F02E4566 img_cadpa12.png
+P BE280272 img_cancelBtn.png
 P D9834561 img_checkBox1.png
 P A3BD2BFE img_checkBox2.png
 P BCBEBC71 img_cloud1.png
@@ -189,6 +190,9 @@ P 0916A055 img_getDiamondBtn.png
 P D01E03C8 img_iosLoading.png
 P FF133540 img_loadingScroll1.png
 P 56432ECB img_loadingScroll2.png
+P 0395F97A img_OKBtn.png
+P 0B3BA3D3 img_prompting.png
+P 767D073B img_shield.png
 P 9BFC981B img_slogan.png
 P 47A3CB01 img_weChantBtn.png
 D main_scene

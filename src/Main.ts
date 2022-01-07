@@ -99,8 +99,9 @@ class Main {
 
     loginGame() {
         Laya.loader.load(
-            Res.scenes,
-            // ['scenes/views/MainView.scene'] ,
+            // Res.scenes,
+            // [],
+            ["scenes/views/MainView.scene", "main_scene/img_landUpdate1.png"],
             Laya.Handler.create(this, () => {
                 console.log("ok");
                 // Res.scenes.forEach((e) => {
@@ -111,7 +112,6 @@ class Main {
 
                 Laya.timer.frameOnce(1, this, () => {
                     Laya.View.hideLoadingPage(1000);
-                    console.log(1);
                     ViewManager.inst.open(GameConfig.startScene);
                 });
             }),

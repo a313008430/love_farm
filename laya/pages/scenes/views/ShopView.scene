@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":210,
-    "selecteID":208,
+    "selectedBox":212,
+    "selecteID":41,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/ShopView.jpg","right":0,"left":0,"height":1920,"btnList":"@arr:,,","bottom":0},
     "nodeParent":-1,
@@ -677,13 +677,14 @@
                                             "props":{"y":45,"x":389,"skin":"game/img_buybtm.png","name":"buy_btn","mouseEnabled":true,"anchorY":0.5,"anchorX":0.5},
                                             "nodeParent":212,
                                             "label":"buy_btn",
-                                            "isOpen":false,
+                                            "isOpen":true,
                                             "isDirectory":true,
                                             "isAniNode":true,
                                             "hasChild":true,
                                             "compId":41,
                                             "child":[
                                                 {
+                                                    "x":90,
                                                     "type":"Image",
                                                     "searchKey":"Image",
                                                     "props":{"y":17,"x":103.5,"skin":"game/img_buy.png"},
@@ -697,6 +698,7 @@
                                                         ]
                                                 },
                                                 {
+                                                    "x":90,
                                                     "type":"Script",
                                                     "switchAble":true,
                                                     "source":"src/components/Button.ts",
@@ -712,7 +714,7 @@
                                                     "child":[
                                                         ]
                                                 }],
-                                            "$HIDDEN":true
+                                            "$HIDDEN":false
                                         },
                                         {
                                             "x":75,

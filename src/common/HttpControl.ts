@@ -79,7 +79,7 @@ export default class HttpControl {
                                 });
                             } else {
                                 // console.log(d);
-                                d.code = 999;
+                                // d.code = 999;
                                 this.completeHandler(d, resolve, reject, xmlhttp);
                             }
                             this.clearOneInEventMap(xmlhttp);
@@ -148,7 +148,9 @@ export default class HttpControl {
         }
 
         let ad = false;
-        if (data.data?.type == ConfigGame.ApiTypeAD) {
+
+        if (data.data?.type == ConfigGame.ApiTypeAD && this.guideAd()) {
+            console.log("run ad");
             const adData = await AppCore.runAppFunction({
                 uri: AppEventMap.ad,
                 data: {},
@@ -215,6 +217,32 @@ export default class HttpControl {
             }
             this.queueXhrEvent(true);
         });
+    }
+
+    /**
+     * 新手引导是否播放广告
+     */
+    guideAd() {
+        let step = 0;
+        if (UserInfo.guideData.length) {
+            UserInfo.guideData.forEach((d) => {
+                if (d == "1") {
+                    step++;
+                }
+            });
+            if (step > 5) {
+                step = -1;
+            }
+        }
+
+        switch (step) {
+            case 1:
+            case 5:
+                return false;
+
+            default:
+                return true;
+        }
     }
 
     private queueXhrEvent(first: boolean = false) {

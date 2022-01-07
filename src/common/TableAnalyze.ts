@@ -159,7 +159,14 @@ const TablePropertyEvent = {
             case "petDigestIntervalTime":
                 return { id: "petDigestIntervalTime", value: d.value };
             case "Videorewards":
-                return { id: "Videorewards", value: getRewardCurrencyBase(d.value as string) };
+                let v = (d.value as string).split(",")[0].split(":");
+                return {
+                    id: "Videorewards",
+                    value: <RewardCurrencyBase>{
+                        obj: TableAnalyze.table("currency").get(Number(v[0])),
+                        count: Number(v[2]),
+                    },
+                };
             case "withdrawal": //提现比例
                 return { id: "withdrawal", value: Tools.parseString(d.value as string, ":") };
             case "Invitation_rewards": //邀请好友奖励

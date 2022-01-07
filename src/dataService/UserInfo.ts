@@ -42,8 +42,8 @@ class UserInfo {
     isFirstTime: number;
     /** 用户提现数据 */
     withdraw: WithdrawData[];
-    /** 新手引导数据 */
-    guideData: string = "";
+    /** 新手引导数据  0购买种子→种菜→1加速→2收获→3出售→进入其他玩家农场→4偷菜→5恢复体力 */
+    guideData: string[] = [];
     /** 玩家在线天数 默认第一天为1*/
     days: number = 0;
     /** 用户看广告总次数 */

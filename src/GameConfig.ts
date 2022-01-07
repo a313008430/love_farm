@@ -9,7 +9,6 @@ import FriendsDescView from "./view/FriendsDescView"
 import FriendsRewardView from "./view/FriendsRewardView"
 import FriendsView from "./view/FriendsView"
 import GatherDescView from "./view/GatherDescView"
-import GuideView from "./view/GuideView"
 import HintView from "./view/HintView"
 import LoginView from "./view/LoginView"
 import MailDescView from "./view/MailDescView"
@@ -18,6 +17,7 @@ import MainView from "./view/MainView"
 import FigureAni from "./components/FigureAni"
 import FieldComponent from "./components/FieldComponent"
 import RedDotComponent from "./components/RedDotComponent"
+import GuideComponent from "./components/GuideComponent"
 import OrderView from "./view/OrderView"
 import OverView from "./view/OverView"
 import SettingView from "./view/SettingView"
@@ -57,7 +57,6 @@ export default class GameConfig{
         reg("view/FriendsRewardView.ts",FriendsRewardView);
         reg("view/FriendsView.ts",FriendsView);
         reg("view/GatherDescView.ts",GatherDescView);
-        reg("view/GuideView.ts",GuideView);
         reg("view/HintView.ts",HintView);
         reg("view/LoginView.ts",LoginView);
         reg("view/MailDescView.ts",MailDescView);
@@ -66,6 +65,7 @@ export default class GameConfig{
         reg("components/FigureAni.ts",FigureAni);
         reg("components/FieldComponent.ts",FieldComponent);
         reg("components/RedDotComponent.ts",RedDotComponent);
+        reg("components/GuideComponent.ts",GuideComponent);
         reg("view/OrderView.ts",OrderView);
         reg("view/OverView.ts",OverView);
         reg("view/SettingView.ts",SettingView);

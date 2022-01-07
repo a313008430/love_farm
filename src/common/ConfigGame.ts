@@ -9,15 +9,16 @@ export const enum BuildType {
 
 console.log(BUILD_TYPE);
 
-let baseUrl = "http://game.ahd168.com:3000";
+let baseUrl = "http://game-s.ahd168.com/farm/dev";
 switch (BUILD_TYPE) {
     case BuildType.debug:
-        baseUrl = "//192.168.101.6:3000";
+        // baseUrl = "//192.168.101.6:3000";
+        baseUrl = "//192.168.101.6/farm/dev";
         // baseUrl = "//192.168.101.6:3100";
         // baseUrl = "//192.168.50.87:3000";
         break;
     case BuildType.online:
-        baseUrl = "http://game.ahd168.com:3100";
+        baseUrl = "http://game-s.ahd168.com/farm/release";
         break;
 }
 

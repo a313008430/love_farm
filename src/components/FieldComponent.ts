@@ -16,6 +16,7 @@ import UserInfo from "src/dataService/UserInfo";
 import WarehouseService from "src/dataService/WarehouseService";
 import MainView, { GetFloatRewardObj } from "src/view/MainView";
 import { ShopViewData } from "src/view/ShopView";
+import { GuideComponentData } from "./GuideComponent";
 
 //  FieldComponent extends Laya.Script {
 /**
@@ -86,6 +87,10 @@ export default class FieldComponent extends Core.gameScript {
         this.fieldNode = <Laya.Image>this.owner;
         this.countDownLb = this.timeBox.getChildByName("countDownLb") as any;
         this.init();
+
+        this.owner.on(Laya.Event.CLICK, this, () => {
+            console.log(1);
+        });
     }
 
     init() {
@@ -486,6 +491,11 @@ export default class FieldComponent extends Core.gameScript {
                         Laya.timer.frameOnce(1, this, () => {
                             this.mainViewCom.updateAllStateIcon();
                         });
+
+                        //新手引导
+                        if (MainView.inst.getGuideStep() == 1) {
+                            Core.eventGlobal.event(EventMaps.update_guid_data, 1);
+                        }
                     }
                 )
                 .catch(() => {
@@ -619,6 +629,15 @@ export default class FieldComponent extends Core.gameScript {
                     this.canClick = true;
                     UserInfo.vitality = d.vitality;
                     this.stealFoodEvent(d.list[0]);
+
+                    //新手引导
+                    if (MainView.inst.getGuideStep() == 4) {
+                        Core.eventGlobal.event(EventMaps.update_guid_data, 4);
+
+                        Laya.timer.frameOnce(1, this, () => {
+                            this.mainViewCom.guide();
+                        });
+                    }
                 }
             )
             .catch((code: number) => {

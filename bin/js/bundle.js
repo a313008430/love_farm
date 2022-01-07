@@ -43,6 +43,8 @@
     EventMaps3["update_task"] = "update_task";
     EventMaps3["update_guid_hand"] = "update_guid_hand";
     EventMaps3["update_friend_share_guide"] = "update_friend_share_guide";
+    EventMaps3["update_guid"] = "update_guid";
+    EventMaps3["update_guid_data"] = "update_guid_data";
     EventMaps3["update_red_dot"] = "update_red_dot";
     EventMaps3["play_get_reward"] = "play_get_reward";
     EventMaps3["play_ad_get_reward"] = "play_ad_get_reward";
@@ -67,6 +69,7 @@
     AppEventMap2["loginSuccess"] = "LoginSuccess";
     AppEventMap2["clearCache"] = "clearCache";
     AppEventMap2["showBackground"] = "showBackground";
+    AppEventMap2["installWechat_ios"] = "installWechat";
   })(AppEventMap || (AppEventMap = {}));
 
   // src/common/Res.ts
@@ -80,7 +83,6 @@
     views3["FriendsRewardView"] = "scenes/views/FriendsRewardView.scene";
     views3["FriendsView"] = "scenes/views/FriendsView.scene";
     views3["GatherDescView"] = "scenes/views/GatherDescView.scene";
-    views3["GuideView"] = "scenes/views/GuideView.scene";
     views3["HintView"] = "scenes/views/HintView.scene";
     views3["LoginView"] = "scenes/views/LoginView.scene";
     views3["MailDescView"] = "scenes/views/MailDescView.scene";
@@ -123,7 +125,6 @@
     "scenes/views/MailDescView.scene",
     "scenes/views/LoginView.scene",
     "scenes/views/HintView.scene",
-    "scenes/views/GuideView.scene",
     "scenes/views/GatherDescView.scene",
     "scenes/views/FriendsView.scene",
     "scenes/views/FriendsRewardView.scene",
@@ -556,14 +557,14 @@
     BuildType2["online"] = "online";
     BuildType2["debug"] = "debug";
   })(BuildType || (BuildType = {}));
-  console.log("online");
-  var baseUrl = "http://game.ahd168.com:3000";
-  switch ("online") {
+  console.log("test");
+  var baseUrl = "http://game-s.ahd168.com/farm/dev";
+  switch ("test") {
     case BuildType.debug:
-      baseUrl = "//192.168.101.6:3000";
+      baseUrl = "//192.168.101.6/farm/dev";
       break;
     case BuildType.online:
-      baseUrl = "http://game.ahd168.com:3100";
+      baseUrl = "http://game-s.ahd168.com/farm/release";
       break;
   }
   var ConfigGame_default = {
@@ -884,7 +885,14 @@
         case "petDigestIntervalTime":
           return { id: "petDigestIntervalTime", value: d.value };
         case "Videorewards":
-          return { id: "Videorewards", value: getRewardCurrencyBase(d.value) };
+          let v = d.value.split(",")[0].split(":");
+          return {
+            id: "Videorewards",
+            value: {
+              obj: TableAnalyze.table("currency").get(Number(v[0])),
+              count: Number(v[2])
+            }
+          };
         case "withdrawal":
           return { id: "withdrawal", value: Tools.parseString(d.value, ":") };
         case "Invitation_rewards":
@@ -895,13 +903,13 @@
         case "withdrawal_times":
           return {
             id: "withdrawal_times",
-            value: Tools.parseString(d.value).map((v) => {
-              v = Tools.parseString(v, ":");
+            value: Tools.parseString(d.value).map((v2) => {
+              v2 = Tools.parseString(v2, ":");
               return {
-                price: Number(v[0]) || 0,
-                times: Number(v[1]) || 0,
-                inviteAmount: Number(v[2]) || 0,
-                orderLv: Number(v[3]) || 0
+                price: Number(v2[0]) || 0,
+                times: Number(v2[1]) || 0,
+                inviteAmount: Number(v2[2]) || 0,
+                orderLv: Number(v2[3]) || 0
               };
             })
           };
@@ -1079,7 +1087,7 @@
       this.speedUpTimes = 0;
       this.vitality = 0;
       this.proportion = 1e-4;
-      this.guideData = "";
+      this.guideData = [];
       this.days = 0;
       this.adTimes = 0;
       this.continuousAdTimes = 0;
@@ -1388,15 +1396,26 @@
       core_default.eventGlobal.event(d.api, d.data);
     }
     error(errorCode, data) {
-      core_default.view.openHint({
-        text: `${data == null ? void 0 : data.message} 
+      switch (errorCode) {
+        case 401:
+          core_default.view.openHint({
+            text: `\u767B\u5F55\u5DF2\u8FC7\u671F\uFF0C\u8BF7\u91CD\u65B0\u767B\u5F55`,
+            call: () => {
+            }
+          });
+          break;
+        default:
+          core_default.view.openHint({
+            text: `${data == null ? void 0 : data.message} 
  ${(data == null ? void 0 : data.error) || ""}`,
-        call: () => {
-        }
-      });
+            call: () => {
+            }
+          });
+          break;
+      }
     }
     login(d) {
-      var _a, _b, _c;
+      var _a, _b, _c, _d;
       if (!d) {
         core_default.view.openHint({ text: "\u767B\u5F55\u9519\u8BEF,\u8BF7\u91CD\u8BD5", call: () => {
         } });
@@ -1420,7 +1439,7 @@
       UserInfo_default.vitality = d.userInfo.vitality;
       UserInfo_default.invitePeople = d.userInfo.invitePeople;
       UserInfo_default.isFirstTime = d.userInfo.isFirstTime;
-      UserInfo_default.guideData = d.userInfo.guideData || "";
+      UserInfo_default.guideData = ((_d = d.userInfo.guideData) == null ? void 0 : _d.split("")) || [];
       UserInfo_default.withdraw = d.withdraw;
       UserInfo_default.days = d.days + 1;
       UserInfo_default.adTimes = d.userInfo.adTimes;
@@ -1462,7 +1481,7 @@
       UserInfo_default.invitePeople = null;
       UserInfo_default.isFirstTime = null;
       UserInfo_default.withdraw = [];
-      UserInfo_default.guideData = "";
+      UserInfo_default.guideData = [];
       UserInfo_default.days = 0;
       UserInfo_default.adTimes = 0;
       UserInfo_default.continuousAdTimes = 0;
@@ -1517,7 +1536,6 @@
                     }
                   });
                 } else {
-                  d.code = 999;
                   this.completeHandler(d, resolve, reject, xmlhttp);
                 }
                 this.clearOneInEventMap(xmlhttp);
@@ -1567,7 +1585,8 @@
           });
         }
         let ad = false;
-        if (((_a = data.data) == null ? void 0 : _a.type) == ConfigGame_default.ApiTypeAD) {
+        if (((_a = data.data) == null ? void 0 : _a.type) == ConfigGame_default.ApiTypeAD && this.guideAd()) {
+          console.log("run ad");
           const adData = yield AppCore.runAppFunction({
             uri: AppEventMap.ad,
             data: {},
@@ -1626,6 +1645,26 @@
           this.queueXhrEvent(true);
         }));
       });
+    }
+    guideAd() {
+      let step = 0;
+      if (UserInfo_default.guideData.length) {
+        UserInfo_default.guideData.forEach((d) => {
+          if (d == "1") {
+            step++;
+          }
+        });
+        if (step > 5) {
+          step = -1;
+        }
+      }
+      switch (step) {
+        case 1:
+        case 5:
+          return false;
+        default:
+          return true;
+      }
     }
     queueXhrEvent(first = false) {
       if (!first)
@@ -1728,7 +1767,7 @@
           }
           if (this.landData.obj.id == ConfigGame_default.goldId && this.landData.count > UserInfo_default.gold) {
             core_default.view.openHint({
-              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u852C\u83DC\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
               call: () => {
               }
             });
@@ -1793,395 +1832,6 @@
     }
   };
 
-  // src/view/BuyVitalityView.ts
-  var BuyVitalityView = class extends GameScript {
-    constructor() {
-      super(...arguments);
-      this.priceLabel = null;
-      this.priceIcon = null;
-      this.adBtn = null;
-    }
-    onOpened(e) {
-      this.data = e;
-      let costGoldCount = TableAnalyze_default.table("config").get("vitalityBuyCostGold").value;
-      this.costGoldCount = costGoldCount;
-      this.priceLabel.text = `\u4EF7\u683C\uFF1A${costGoldCount}`;
-      this.adBtn.disabled = !UserInfo_default.advertiseTimes;
-      this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
-    }
-    onClick(e) {
-      switch (e.target.name) {
-        case "closeAddLandLayer":
-          core_default.view.close(Res_default.views.BuyVitalityView);
-          break;
-        case "buyAdBtn":
-        case "buyBtn":
-          if (UserInfo_default.vitality >= TableAnalyze_default.table("config").get("vitalityLimit").value) {
-            core_default.view.openHint({ text: "\u4F53\u529B\u5DF2\u6EE1", call: () => {
-            } });
-            return;
-          }
-          if (e.target.name == "buyBtn" && UserInfo_default.gold < this.costGoldCount) {
-            core_default.view.openHint({
-              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
-              call: () => {
-              }
-            });
-            return;
-          }
-          HttpControl.inst.send({
-            api: ApiHttp.vitalityBuy,
-            data: {
-              type: e.target.name == "buyBtn" ? ConfigGame_default.ApiTypeDefault : ConfigGame_default.ApiTypeAD
-            }
-          }).then((d) => {
-            var _a;
-            UserInfo_default.vitality = d.vitality;
-            if ((_a = this.data) == null ? void 0 : _a.call) {
-              this.data.call();
-            }
-            if (e.target.name == "buyBtn") {
-              AppCore.runAppFunction({
-                uri: AppEventMap.eventCount,
-                data: { type: "physicalstrength" }
-              });
-            }
-            core_default.view.close(Res_default.views.BuyVitalityView);
-          });
-          break;
-      }
-    }
-  };
-
-  // src/view/FieldLevelUpView.ts
-  var FieldLevelUpView = class extends GameScript {
-    constructor() {
-      super(...arguments);
-      this.priceLabel = null;
-      this.priceIcon = null;
-      this.lv = null;
-      this.reward = null;
-      this.probability = null;
-      this.adBtn = null;
-      this.cost = 0;
-    }
-    onOpened(e) {
-      this.data = e;
-      let nextLand = TableAnalyze_default.table("landLevel").get(e.obj.level + 1);
-      this.priceLabel.text = `\u4EF7\u683C\uFF1A${nextLand.cost.count}`;
-      this.priceIcon.skin = nextLand.cost.obj.icon;
-      this.cost = nextLand.cost.count;
-      this.lv.text = `${e.obj.level + 1}\u7EA7`;
-      this.reward.text = `+${Number((nextLand.gain * 100).toFixed(2))}%`;
-      this.probability.text = `+${Number((nextLand.probability * 100).toFixed(2))}%`;
-      this.adBtn.disabled = !UserInfo_default.advertiseTimes;
-      this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
-      if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
-        Laya.timer.once(300, this, () => {
-          AppCore.runAppFunction({
-            uri: AppEventMap.ad,
-            data: { adType: 2 }
-          });
-          AppCore.runAppFunction({
-            uri: AppEventMap.ad,
-            data: { adType: 3 }
-          });
-          AppCore.runAppFunction({
-            uri: AppEventMap.eventCount,
-            data: { type: "half_screen_advertisement" }
-          });
-          AppCore.runAppFunction({
-            uri: AppEventMap.eventCount,
-            data: { type: "bottom_advertisement" }
-          });
-        });
-      }
-    }
-    onHdAwake() {
-      if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
-        this.owner.getChildByName("center").centerY = -310;
-      }
-    }
-    onClick(e) {
-      switch (e.target.name) {
-        case "closeAddLandLayer":
-          core_default.view.close(Res_default.views.FieldLevelUpView);
-          break;
-        case "upgradeBtn":
-        case "upgradeAdBtn":
-          if (e.target.name == "upgradeBtn" && this.cost > UserInfo_default.gold) {
-            core_default.view.openHint({
-              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
-              call: () => {
-              }
-            });
-            return;
-          }
-          HttpControl.inst.send({
-            api: ApiHttp.landUpgrade,
-            data: {
-              landId: this.data.obj.id,
-              type: e.target.name == "upgradeBtn" ? ConfigGame_default.ApiTypeDefault : ConfigGame_default.ApiTypeAD
-            }
-          }).then((d) => {
-            if (e.target.name == "upgradeAdBtn") {
-              core_default.eventGlobal.event(EventMaps.play_ad_get_reward, [
-                e.target,
-                d.adReward
-              ]);
-            } else {
-              AppCore.runAppFunction({
-                uri: AppEventMap.eventCount,
-                data: { type: "Landupgrading" }
-              });
-            }
-            if (this.data.call) {
-              this.data.call();
-            }
-            core_default.view.close(Res_default.views.FieldLevelUpView);
-          });
-          break;
-      }
-    }
-    onHdDestroy() {
-      AppCore.runAppFunction({
-        uri: AppEventMap.closeImage,
-        data: {}
-      });
-    }
-  };
-
-  // src/view/FriendsDescView.ts
-  var FriendsDescView = class extends core_default.gameScript {
-    onOpened(e) {
-      this.call = e == null ? void 0 : e.call;
-    }
-    onHdAwake() {
-      this.panelNode.vScrollBarSkin = null;
-    }
-    onClick(e) {
-      switch (e.target.name) {
-        case "close":
-          core_default.view.close(Res_default.views.FriendsDescView);
-          break;
-        case "invite_btn":
-          core_default.view.close(Res_default.views.FriendsDescView);
-          if (this.call) {
-            this.call();
-            core_default.view.close(Res_default.views.FriendsView);
-          }
-          break;
-      }
-    }
-    onHdDestroy() {
-      Laya.loader.clearTextureRes("res/img_inviteBg1.png");
-    }
-  };
-
-  // src/common/BindWx.ts
-  var WxBindControl = class {
-    get isBindWx() {
-      if (!UserInfo_default.isBindWx) {
-        core_default.view.openHint({
-          text: "\u63D0\u73B0\u9700\u8981\u7ED1\u5B9A\u5FAE\u4FE1\u8D26\u53F7",
-          call: () => {
-            this.bindWx();
-          },
-          cancelCall: () => {
-          }
-        });
-      }
-      return UserInfo_default.isBindWx;
-    }
-    bindWx() {
-      return __async(this, null, function* () {
-        const data = yield AppCore.runAppFunction({
-          uri: AppEventMap.wxLogin,
-          data: {},
-          timestamp: Date.now()
-        });
-        if (data) {
-          if (data.code) {
-            core_default.view.openHint({
-              text: `\u83B7\u53D6\u5FAE\u4FE1openid\u5931\u8D25[${data.code}]\uFF0C\u8BF7\u91CD\u8BD5`,
-              call: () => {
-                this.bindWx();
-              },
-              cancelCall: () => {
-              }
-            });
-          } else {
-            HttpControl.inst.send({
-              api: ApiHttp.userBind,
-              data: {
-                openid: data.data["openid"],
-                avatar: data.data["iconurl"],
-                nickname: data.data["name"]
-              }
-            }).then(() => {
-              UserInfo_default.isBindWx = 1;
-              if (data.data["name"])
-                UserInfo_default.nickname = data.data["name"];
-              if (data.data["iconurl"])
-                UserInfo_default.avatar = data.data["iconurl"];
-              core_default.view.openHint({
-                text: `\u7ED1\u5B9A\u6210\u529F`,
-                call: () => {
-                }
-              });
-            }).catch(() => {
-              core_default.view.openHint({
-                text: `\u7ED1\u5B9A\u5931\u8D25\uFF0C\u662F\u5426\u91CD\u8BD5\uFF1F`,
-                call: () => {
-                  this.bindWx();
-                },
-                cancelCall: () => {
-                }
-              });
-            });
-          }
-        }
-      });
-    }
-  };
-  var BindWx_default = new WxBindControl();
-
-  // src/view/FriendsRewardView.ts
-  var FriendsRewardView = class extends core_default.gameScript {
-    constructor() {
-      super(...arguments);
-      this.inviteList = [];
-      this.rewardValue = 0;
-      this.proportion = 0;
-      this.canClick = true;
-    }
-    onHdAwake() {
-      this.priceList.vScrollBarSkin = null;
-      this.priceList.array = new Array(6);
-      this.priceList.renderHandler = new Laya.Handler(this, this.renderItem);
-    }
-    onOpened(data) {
-      this.inviteList = data.list || [];
-      this.call = data.call;
-      if (UserInfo_default.invitePeople) {
-        this.inviteBox.visible = false;
-        this.inviteBox.active = false;
-      }
-      this.rewardValue = TableAnalyze_default.table("config").get("Invitation_rewards").value.count;
-      const withdrawal = TableAnalyze_default.table("config").get("withdrawal").value;
-      this.proportion = Number(withdrawal[1]);
-    }
-    onClick(e) {
-      switch (e.target.name) {
-        case "close":
-          core_default.view.close(Res_default.views.FriendsRewardView);
-          break;
-        case "invite_btn":
-          AppCore.runAppFunction({
-            uri: AppEventMap.wxShare,
-            data: {},
-            timestamp: Date.now()
-          }).then((d) => {
-            if (!d || (d == null ? void 0 : d.code)) {
-              core_default.view.openHint({ text: d.data["message"], call: () => {
-              } });
-            } else {
-              core_default.view.openHint({ text: d.data["message"], call: () => {
-              } });
-              HttpControl.inst.send({
-                api: ApiHttp.friendShare
-              }).then(() => {
-                TaskService_default.taskAddTimes(1010);
-                AppCore.runAppFunction({
-                  uri: AppEventMap.eventCount,
-                  data: { type: "share" }
-                });
-              });
-            }
-          });
-          break;
-        case "submit":
-          this.submit();
-          break;
-        case "btn":
-          const i = e.target.dataSource;
-          this.withdraw(i);
-          break;
-      }
-    }
-    withdraw(i) {
-      if (!this.canClick)
-        return;
-      if (!BindWx_default.isBindWx) {
-        return;
-      }
-      this.canClick = false;
-      HttpControl.inst.send({
-        api: ApiHttp.friendInviteReceive,
-        data: { index: i }
-      }).then(() => {
-        this.canClick = true;
-        core_default.view.openHint({ text: "\u63D0\u73B0\u6210\u529F", call: () => {
-        } });
-        this.inviteList[i].receivedReward = 1;
-        this.priceList.refresh();
-        core_default.eventGlobal.event(EventMaps.update_friend_share_guide, [this.inviteList]);
-      }).catch(() => {
-        this.canClick = true;
-      });
-    }
-    renderItem(cell, i) {
-      cell.getChildByName("top").text = `\u7B2C${i + 1}\u4F4D`;
-      const btn = cell.getChildByName("btn");
-      cell.getChildByName("price_box").getChildByName("price").text = `${this.rewardValue / this.proportion}`;
-      btn.skin = "game/img_extractActive.png";
-      if (this.inviteList.length > i) {
-        if (this.inviteList[i].receivedReward) {
-          btn.disabled = true;
-          btn.skin = "game/img_cashDone.png";
-        } else {
-          btn.disabled = false;
-        }
-      } else {
-        btn.disabled = true;
-      }
-      if (i > 2) {
-        btn.disabled = false;
-        btn.visible = false;
-      }
-      btn.dataSource = i;
-    }
-    submit() {
-      if (!this.inviteInput.text || !this.inviteInput.text.length) {
-        core_default.view.openHint({ text: "\u9080\u8BF7\u7801\u4E0D\u80FD\u4E3A\u7A7A\uFF01", call: () => {
-        } });
-        return;
-      }
-      if (!this.canClick)
-        return;
-      this.canClick = false;
-      HttpControl.inst.send({
-        api: ApiHttp.friendInvitePeople,
-        data: {
-          key: this.inviteInput.text
-        }
-      }).then(() => {
-        UserInfo_default.invitePeople = this.inviteInput.text;
-        core_default.view.openHint({ text: "\u7ED1\u5B9A\u6210\u529F", call: () => {
-        } });
-        this.inviteBox.visible = false;
-        this.inviteBox.active = false;
-        this.canClick = true;
-        if (this.call)
-          this.call();
-      }).catch(() => {
-        this.canClick = true;
-      });
-    }
-    onHdDestroy() {
-    }
-  };
-
   // src/common/ErrorCode.ts
   var ErrorCode;
   (function(ErrorCode2) {
@@ -2215,6 +1865,9 @@
       this.fieldNode = this.owner;
       this.countDownLb = this.timeBox.getChildByName("countDownLb");
       this.init();
+      this.owner.on(Laya.Event.CLICK, this, () => {
+        console.log(1);
+      });
     }
     init() {
       this.icon.skin = null;
@@ -2497,6 +2150,9 @@
           Laya.timer.frameOnce(1, this, () => {
             this.mainViewCom.updateAllStateIcon();
           });
+          if (MainView.inst.getGuideStep() == 1) {
+            core_default.eventGlobal.event(EventMaps.update_guid_data, 1);
+          }
         }).catch(() => {
           this.canClick = true;
           resolve(null);
@@ -2602,6 +2258,12 @@
           this.canClick = true;
           UserInfo_default.vitality = d.vitality;
           this.stealFoodEvent(d.list[0]);
+          if (MainView.inst.getGuideStep() == 4) {
+            core_default.eventGlobal.event(EventMaps.update_guid_data, 4);
+            Laya.timer.frameOnce(1, this, () => {
+              this.mainViewCom.guide();
+            });
+          }
         }).catch((code) => {
           this.canClick = true;
           if (code === ErrorCode_default._2001) {
@@ -2741,15 +2403,11 @@
       this.vitalityBuyBtn = null;
       this.petBox = null;
       this.taskBox = null;
-      this.step1 = null;
-      this.step2 = null;
-      this.step3 = null;
       this.step4 = null;
       this.step5 = null;
-      this.step6 = null;
-      this.step7 = null;
-      this.step8 = null;
       this.step9 = null;
+      this.step1 = null;
+      this.guideLayer = null;
       this.landList = [];
       this.isOuter = false;
       this.outCountDownNumber = 60;
@@ -2779,47 +2437,14 @@
         "res/atlas/pet_feed.png",
         "res/atlas/main_scene.png"
       ].forEach((e) => {
-        if (e.endsWith("png"))
-          Laya.loader.clearTextureRes(e);
       });
       Laya.timer.frameOnce(1, this, () => {
         this.updateTask();
       });
-      let ok = false, step = 0;
-      if (UserInfo_default.guideData.length) {
-        UserInfo_default.guideData.split("").forEach((d) => {
-          if (d == "1") {
-            step++;
-          }
-        });
-        if (step >= 9) {
-          ok = true;
-        }
-      }
-      if (!UserInfo_default.guideData.length || !ok) {
-        core_default.view.open(Res_default.views.GuideView, {
-          parm: {
-            nodeList: [
-              this.step1,
-              this.step2,
-              this.step3,
-              this.step4,
-              this.step5,
-              this.step6,
-              this.step7,
-              this.step8,
-              this.step9
-            ],
-            call: () => {
-              this.timeGuide();
-            }
-          }
-        });
-      } else {
-        this.timeGuide();
-      }
+      this.guide();
       this.guidHandAnimation();
       this.guideHand.visible = false;
+      this.friendShareGuide(true);
     }
     onHdAwake() {
       Laya.stage.addChild(this.topLayerOnStage);
@@ -2841,7 +2466,119 @@
         this.updateAllStateIcon();
       });
     }
+    getGuideStep() {
+      let step = 0;
+      if (UserInfo_default.guideData.length) {
+        UserInfo_default.guideData.forEach((d) => {
+          if (d == "1") {
+            step++;
+          }
+        });
+        if (step > 5) {
+          step = -1;
+        }
+      }
+      return step;
+    }
+    guide() {
+      const step = this.getGuideStep();
+      if (step == 5 && !this.isOuter) {
+        this.guideLayer.visible = false;
+        this.guideLayer.disabled = false;
+        this.timeGuide();
+        return;
+      }
+      if (!UserInfo_default.guideData.length || step > -1) {
+        this.figureBox.visible = false;
+        this.figureBox2.visible = false;
+        switch (step) {
+          case 0:
+            core_default.eventGlobal.event(EventMaps.update_guid, {
+              nodeList: [this.step1],
+              call: () => {
+              },
+              addPos: { x: 100, y: 120 },
+              text: "\u5F00\u59CB\u64AD\u79CD",
+              testAddPos: { x: -100, y: 0 }
+            });
+            break;
+          case 1:
+            core_default.eventGlobal.event(EventMaps.update_guid, {
+              nodeList: [this.step1],
+              call: () => {
+              },
+              addPos: { x: 100, y: 120 },
+              text: "\u4F5C\u7269\u79CD\u690D\u597D\u540E\uFF0C\n\u70B9\u51FB\u53EF\u4EE5\u52A0\u901F\u751F\u957F",
+              testAddPos: { x: -200, y: 100 }
+            });
+            break;
+          case 2:
+            core_default.eventGlobal.event(EventMaps.update_guid, {
+              nodeList: [this.step1],
+              call: () => {
+              },
+              addPos: { x: 100, y: 120 },
+              step: 2,
+              text: "\u4F5C\u7269\u5DF2\u7ECF\u6210\u719F\u4E86\uFF0C\n\u70B9\u51FB\u6536\u83B7",
+              testAddPos: { x: -200, y: 100 }
+            });
+            break;
+          case 3:
+            console.log("\u6253\u5F00\u4ED3\u5E93");
+            core_default.eventGlobal.event(EventMaps.update_guid, {
+              nodeList: [this.warehouseBtn],
+              call: () => {
+                this.onClick({ target: { name: "warehouse" } });
+              },
+              addPos: { x: 100, y: 120 },
+              text: "\u70B9\u51FB\u8FDB\u5165\u4ED3\u5E93",
+              testAddPos: { x: 200, y: 230 }
+            });
+            break;
+          case 4:
+            console.log("\u5077\u83DC");
+            core_default.eventGlobal.event(EventMaps.update_guid, {
+              nodeList: [this.anyDoor],
+              call: () => {
+                this.onClick({ target: { name: "any_door" } });
+              },
+              addPos: { x: 100, y: 120 },
+              text: "\u70B9\u51FB\u8FD9\u91CC\uFF0C\u53EF\u4EE5\u53BB\u522B\u4EBA\u7684\u519C\u573A\u5077\u83DC\u54E6",
+              testAddPos: { x: -140, y: -180 }
+            });
+            break;
+          case 5:
+            if (this.isOuter) {
+              core_default.eventGlobal.event(EventMaps.update_guid, {
+                nodeList: [this.vitalityBuyBtn],
+                call: () => {
+                  this.onClick({ target: { name: "add_vitality" } });
+                },
+                addPos: { x: 100, y: 120 },
+                text: "\u4F53\u529B\u6D88\u8017\u5B8C\u4E86\u5C31\u4E0D\u80FD\u5077\u83DC\u4E86\uFF0C\n\u70B9\u8FD9\u91CC\u6062\u590D\u4F53\u529B",
+                testAddPos: { x: -140, y: -200 }
+              });
+            }
+            break;
+          default:
+            break;
+        }
+      } else {
+        if (this.isOuter) {
+          Laya.timer.once(600, this, () => {
+            this.goHome();
+            this.guideLayer.parent.mouseEnabled = false;
+            this.guideLayer.destroy();
+          });
+        }
+        this.timeGuide();
+        this.figureBox.visible = true;
+        this.figureBox2.visible = true;
+      }
+    }
     timeGuide() {
+      if (this.getGuideStep() != -1)
+        return;
       Laya.stage.on(Laya.Event.MOUSE_DOWN, this, this.timeGuideTouch);
       this.timeGuideTouch();
     }
@@ -3006,7 +2743,8 @@
           Laya.timer.once(e * 1e3, this, this.digestCountDown);
         }
       }).key("vitality", (e) => {
-        let vitality = e / TableAnalyze_default.table("config").get("vitalityLimit").value;
+        let max = TableAnalyze_default.table("config").get("vitalityLimit").value;
+        let vitality = e / max;
         Laya.timer.frameOnce(1, this, () => {
           core_default.eventGlobal.event(EventMaps.update_red_dot, [
             RedDotType.anyDoor,
@@ -3027,6 +2765,7 @@
         }
         if (this.vitalityBox.getChildByName("bar"))
           this.vitalityBox.getChildByName("bar").width = 268 * vitality;
+        this.vitalityBox.getChildByName("bar_num").text = `${e}/${max}`;
       });
       this.addLandLayer.visible = false;
       this.updateOrder();
@@ -3327,10 +3066,10 @@
       if (reward) {
         let goldBox = box.getChildByName("gold_box"), diamondBox = box.getChildByName("diamond_box");
         goldBox.getChildByName("icon").skin = reward.obj.icon;
-        goldBox.getChildByName("value").value = `${rewardCount + Math.round(rewardCount * d.commission)}`;
+        goldBox.getChildByName("value").value = `${rewardCount + Math.floor(rewardCount * d.commission)}`;
         if (d.extraReward) {
           diamondBox.getChildByName("icon").skin = d.extraReward.obj.icon;
-          diamondBox.getChildByName("value").value = `${d.extraReward.count + rewardDiamondCount + Math.round(rewardDiamondCount * d.commission)}`;
+          diamondBox.getChildByName("value").value = `${d.extraReward.count + rewardDiamondCount + Math.floor(rewardDiamondCount * d.commission)}`;
           diamondBox.visible = true;
           goldBox.y = 46;
         } else {
@@ -3341,9 +3080,12 @@
       box.getChildByName("name_title").text = `\u5B8C\u6210${UserInfo_default.orderLevel + 1}\u7EA7\u8BA2\u5355`;
       if (!this.orderQueueIng) {
         if (progress == d.condition.length) {
+          if (this.getGuideStep() != -1 && this.getGuideStep() <= 3) {
+            return;
+          }
           const condition = d.condition;
           this.orderQueueIng = true;
-          let adDiamond = d.extraReward.count + rewardDiamondCount + Math.round(rewardDiamondCount * d.commission), adGold = rewardCount + Math.round(rewardCount * d.commission);
+          let adDiamond = d.extraReward.count + rewardDiamondCount + Math.floor(rewardDiamondCount * d.commission), adGold = rewardCount + Math.floor(rewardCount * d.commission);
           Laya.timer.frameOnce(1, this, () => {
             core_default.eventGlobal.event(EventMaps.update_red_dot, [RedDotType.order, true]);
           });
@@ -3669,7 +3411,10 @@
         this.stealAll = { list: [], rewardDiamond: 0, nickname: null };
         HttpControl.inst.send({
           api: ApiHttp.neighbor,
-          data: {
+          data: _MainView.inst.getGuideStep() == 4 ? {
+            type: ConfigGame_default.ApiTypeDefault,
+            isGuide: "11"
+          } : {
             type: ConfigGame_default.ApiTypeDefault
           }
         }).then((d) => {
@@ -3677,6 +3422,18 @@
           this.goFriend(d);
           Laya.timer.once(300, this, () => {
             core_default.view.setOverView(false);
+            if (_MainView.inst.getGuideStep() == 4) {
+              Laya.timer.once(300, this, () => {
+                core_default.eventGlobal.event(EventMaps.update_guid, {
+                  nodeList: [this.step1],
+                  call: () => {
+                  },
+                  addPos: { x: 100, y: 120 },
+                  text: "\u70B9\u51FB\u6709\u5C0F\u624B\u7684\u4F5C\u7269\u5373\u53EF\u5077\u83DC",
+                  testAddPos: { x: -160, y: -180 }
+                });
+              });
+            }
           });
         });
       });
@@ -3694,6 +3451,11 @@
       let lands = this.landList, userLands = LandService_default.list;
       let otherLands = new Map();
       if (this.isOuter) {
+        if (_MainView.inst.getGuideStep() == 5 && UserInfo_default.vitality < 3) {
+          Laya.timer.once(300, this, () => {
+            this.guide();
+          });
+        }
         d.lands.forEach((e) => {
           otherLands.set(e.id, e);
         });
@@ -3768,7 +3530,11 @@
         this.figureBox.visible = false;
         this.figureBox2.visible = false;
         this.fastGetBtn.skin = "main_scene/img_ongkeySteel.png";
-        Laya.timer.loop(1e3, this, this.outCountDownEvent, [countDown]);
+        if (_MainView.inst.getGuideStep() == -1) {
+          Laya.timer.loop(1e3, this, this.outCountDownEvent, [countDown]);
+        } else {
+          countDown.set_visible(false);
+        }
       } else {
         this.fastGetBtn.skin = "main_scene/img_ongkeyGet.png";
         this.figureBox.visible = true;
@@ -3886,6 +3652,413 @@
     core_default.eventOn(EventMaps.update_friend_share_guide)
   ], MainView.prototype, "friendShareGuide", 1);
 
+  // src/view/BuyVitalityView.ts
+  var BuyVitalityView = class extends GameScript {
+    constructor() {
+      super(...arguments);
+      this.priceLabel = null;
+      this.priceIcon = null;
+      this.adBtn = null;
+      this.buyBtn = null;
+    }
+    onOpened(e) {
+      this.data = e;
+      let costGoldCount = TableAnalyze_default.table("config").get("vitalityBuyCostGold").value;
+      this.costGoldCount = costGoldCount;
+      this.priceLabel.text = `\u4EF7\u683C\uFF1A${costGoldCount}`;
+      this.adBtn.disabled = !UserInfo_default.advertiseTimes;
+      this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
+      if (MainView.inst.getGuideStep() == 5) {
+        Laya.timer.once(500, this, () => {
+          core_default.eventGlobal.event(EventMaps.update_guid, {
+            nodeList: [this.adBtn],
+            call: () => {
+              this.onClick({ target: { name: "buyAdBtn" } });
+              Laya.timer.frameOnce(1, this, () => {
+                core_default.eventGlobal.event(EventMaps.update_guid_data, 5);
+                MainView.inst.guide();
+              });
+            },
+            addPos: { x: 100, y: 120 }
+          });
+        });
+      }
+    }
+    onClick(e) {
+      switch (e.target.name) {
+        case "closeAddLandLayer":
+          core_default.view.close(Res_default.views.BuyVitalityView);
+          break;
+        case "buyAdBtn":
+        case "buyBtn":
+          if (UserInfo_default.vitality >= TableAnalyze_default.table("config").get("vitalityLimit").value) {
+            core_default.view.openHint({ text: "\u4F53\u529B\u5DF2\u6EE1", call: () => {
+            } });
+            return;
+          }
+          if (e.target.name == "buyBtn" && UserInfo_default.gold < this.costGoldCount) {
+            core_default.view.openHint({
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u852C\u83DC\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
+              call: () => {
+              }
+            });
+            return;
+          }
+          HttpControl.inst.send({
+            api: ApiHttp.vitalityBuy,
+            data: {
+              type: e.target.name == "buyBtn" ? ConfigGame_default.ApiTypeDefault : ConfigGame_default.ApiTypeAD
+            }
+          }).then((d) => {
+            var _a;
+            UserInfo_default.vitality = d.vitality;
+            if ((_a = this.data) == null ? void 0 : _a.call) {
+              this.data.call();
+            }
+            AppCore.runAppFunction({
+              uri: AppEventMap.eventCount,
+              data: { type: "physicalstrength" }
+            });
+            core_default.view.close(Res_default.views.BuyVitalityView);
+          });
+          break;
+      }
+    }
+  };
+
+  // src/view/FieldLevelUpView.ts
+  var FieldLevelUpView = class extends GameScript {
+    constructor() {
+      super(...arguments);
+      this.priceLabel = null;
+      this.priceIcon = null;
+      this.lv = null;
+      this.reward = null;
+      this.probability = null;
+      this.adBtn = null;
+      this.cost = 0;
+    }
+    onOpened(e) {
+      this.data = e;
+      let nextLand = TableAnalyze_default.table("landLevel").get(e.obj.level + 1);
+      this.priceLabel.text = `\u4EF7\u683C\uFF1A${nextLand.cost.count}`;
+      this.priceIcon.skin = nextLand.cost.obj.icon;
+      this.cost = nextLand.cost.count;
+      this.lv.text = `${e.obj.level + 1}\u7EA7`;
+      this.reward.text = `+${Number((nextLand.gain * 100).toFixed(2))}%`;
+      this.probability.text = `+${Number((nextLand.probability * 100).toFixed(2))}%`;
+      this.adBtn.disabled = !UserInfo_default.advertiseTimes;
+      this.adBtn.active = Boolean(UserInfo_default.advertiseTimes);
+      if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
+        Laya.timer.once(300, this, () => {
+          AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 2 }
+          });
+          AppCore.runAppFunction({
+            uri: AppEventMap.ad,
+            data: { adType: 3 }
+          });
+          AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "half_screen_advertisement" }
+          });
+          AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "bottom_advertisement" }
+          });
+        });
+      }
+    }
+    onHdAwake() {
+      if (UserInfo_default.adTimes > 100 || UserInfo_default.continuousAdTimes > 20) {
+        this.owner.getChildByName("center").centerY = -310;
+      }
+    }
+    onClick(e) {
+      switch (e.target.name) {
+        case "closeAddLandLayer":
+          core_default.view.close(Res_default.views.FieldLevelUpView);
+          break;
+        case "upgradeBtn":
+        case "upgradeAdBtn":
+          if (e.target.name == "upgradeBtn" && this.cost > UserInfo_default.gold) {
+            core_default.view.openHint({
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u852C\u83DC\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
+              call: () => {
+              }
+            });
+            return;
+          }
+          HttpControl.inst.send({
+            api: ApiHttp.landUpgrade,
+            data: {
+              landId: this.data.obj.id,
+              type: e.target.name == "upgradeBtn" ? ConfigGame_default.ApiTypeDefault : ConfigGame_default.ApiTypeAD
+            }
+          }).then((d) => {
+            if (e.target.name == "upgradeAdBtn") {
+              core_default.eventGlobal.event(EventMaps.play_ad_get_reward, [
+                e.target,
+                d.adReward
+              ]);
+            } else {
+              AppCore.runAppFunction({
+                uri: AppEventMap.eventCount,
+                data: { type: "Landupgrading" }
+              });
+            }
+            if (this.data.call) {
+              this.data.call();
+            }
+            core_default.view.close(Res_default.views.FieldLevelUpView);
+          });
+          break;
+      }
+    }
+    onHdDestroy() {
+      AppCore.runAppFunction({
+        uri: AppEventMap.closeImage,
+        data: {}
+      });
+      AppCore.runAppFunction({
+        uri: AppEventMap.closeAd,
+        data: {}
+      });
+    }
+  };
+
+  // src/view/FriendsDescView.ts
+  var FriendsDescView = class extends core_default.gameScript {
+    onOpened(e) {
+      this.call = e == null ? void 0 : e.call;
+    }
+    onHdAwake() {
+      this.panelNode.vScrollBarSkin = null;
+    }
+    onClick(e) {
+      switch (e.target.name) {
+        case "close":
+          core_default.view.close(Res_default.views.FriendsDescView);
+          break;
+        case "invite_btn":
+          core_default.view.close(Res_default.views.FriendsDescView);
+          if (this.call) {
+            this.call();
+            core_default.view.close(Res_default.views.FriendsView);
+          }
+          break;
+      }
+    }
+    onHdDestroy() {
+      Laya.loader.clearTextureRes("res/img_inviteBg1.png");
+    }
+  };
+
+  // src/common/BindWx.ts
+  var WxBindControl = class {
+    get isBindWx() {
+      if (!UserInfo_default.isBindWx) {
+        core_default.view.openHint({
+          text: "\u63D0\u73B0\u9700\u8981\u7ED1\u5B9A\u5FAE\u4FE1\u8D26\u53F7",
+          call: () => {
+            this.bindWx();
+          },
+          cancelCall: () => {
+          }
+        });
+      }
+      return UserInfo_default.isBindWx;
+    }
+    bindWx() {
+      return __async(this, null, function* () {
+        const data = yield AppCore.runAppFunction({
+          uri: AppEventMap.wxLogin,
+          data: {},
+          timestamp: Date.now()
+        });
+        if (data) {
+          if (data.code) {
+            core_default.view.openHint({
+              text: `\u83B7\u53D6\u5FAE\u4FE1openid\u5931\u8D25[${data.code}]\uFF0C\u8BF7\u91CD\u8BD5`,
+              call: () => {
+                this.bindWx();
+              },
+              cancelCall: () => {
+              }
+            });
+          } else {
+            HttpControl.inst.send({
+              api: ApiHttp.userBind,
+              data: {
+                openid: data.data["openid"],
+                avatar: data.data["iconurl"],
+                nickname: data.data["name"]
+              }
+            }).then(() => {
+              UserInfo_default.isBindWx = 1;
+              if (data.data["name"])
+                UserInfo_default.nickname = data.data["name"];
+              if (data.data["iconurl"])
+                UserInfo_default.avatar = data.data["iconurl"];
+              core_default.view.openHint({
+                text: `\u7ED1\u5B9A\u6210\u529F`,
+                call: () => {
+                }
+              });
+            }).catch(() => {
+              core_default.view.openHint({
+                text: `\u7ED1\u5B9A\u5931\u8D25\uFF0C\u662F\u5426\u91CD\u8BD5\uFF1F`,
+                call: () => {
+                  this.bindWx();
+                },
+                cancelCall: () => {
+                }
+              });
+            });
+          }
+        }
+      });
+    }
+  };
+  var BindWx_default = new WxBindControl();
+
+  // src/view/FriendsRewardView.ts
+  var FriendsRewardView = class extends core_default.gameScript {
+    constructor() {
+      super(...arguments);
+      this.inviteList = [];
+      this.rewardValue = 0;
+      this.proportion = 0;
+      this.canClick = true;
+    }
+    onHdAwake() {
+      this.priceList.vScrollBarSkin = null;
+      this.priceList.array = new Array(6);
+      this.priceList.renderHandler = new Laya.Handler(this, this.renderItem);
+    }
+    onOpened(data) {
+      this.inviteList = data.list || [];
+      this.call = data.call;
+      if (UserInfo_default.invitePeople) {
+        this.inviteBox.visible = false;
+        this.inviteBox.active = false;
+      }
+      this.rewardValue = TableAnalyze_default.table("config").get("Invitation_rewards").value.count;
+      const withdrawal = TableAnalyze_default.table("config").get("withdrawal").value;
+      this.proportion = Number(withdrawal[1]);
+    }
+    onClick(e) {
+      switch (e.target.name) {
+        case "close":
+          core_default.view.close(Res_default.views.FriendsRewardView);
+          break;
+        case "invite_btn":
+          AppCore.runAppFunction({
+            uri: AppEventMap.wxShare,
+            data: {},
+            timestamp: Date.now()
+          }).then((d) => {
+            if (!d || (d == null ? void 0 : d.code)) {
+              core_default.view.openHint({ text: d.data["message"], call: () => {
+              } });
+            } else {
+              core_default.view.openHint({ text: d.data["message"], call: () => {
+              } });
+              HttpControl.inst.send({
+                api: ApiHttp.friendShare
+              }).then(() => {
+                TaskService_default.taskAddTimes(1010);
+                AppCore.runAppFunction({
+                  uri: AppEventMap.eventCount,
+                  data: { type: "share" }
+                });
+              });
+            }
+          });
+          break;
+        case "submit":
+          this.submit();
+          break;
+        case "btn":
+          const i = e.target.dataSource;
+          this.withdraw(i);
+          break;
+      }
+    }
+    withdraw(i) {
+      if (!this.canClick)
+        return;
+      if (!BindWx_default.isBindWx) {
+        return;
+      }
+      this.canClick = false;
+      HttpControl.inst.send({
+        api: ApiHttp.friendInviteReceive,
+        data: { index: i }
+      }).then(() => {
+        this.canClick = true;
+        core_default.view.openHint({ text: "\u63D0\u73B0\u6210\u529F", call: () => {
+        } });
+        this.inviteList[i].receivedReward = 1;
+        this.priceList.refresh();
+        core_default.eventGlobal.event(EventMaps.update_friend_share_guide, [this.inviteList]);
+      }).catch(() => {
+        this.canClick = true;
+      });
+    }
+    renderItem(cell, i) {
+      cell.getChildByName("top").text = `\u7B2C${i + 1}\u4F4D`;
+      const btn = cell.getChildByName("btn");
+      cell.getChildByName("price_box").getChildByName("price").text = `${this.rewardValue / this.proportion}`;
+      btn.skin = "game/img_extractActive.png";
+      if (this.inviteList.length > i) {
+        if (this.inviteList[i].receivedReward) {
+          btn.disabled = true;
+          btn.skin = "game/img_cashDone.png";
+        } else {
+          btn.disabled = false;
+        }
+      } else {
+        btn.disabled = true;
+      }
+      if (i > 2) {
+        btn.disabled = false;
+        btn.visible = false;
+      }
+      btn.dataSource = i;
+    }
+    submit() {
+      if (!this.inviteInput.text || !this.inviteInput.text.length) {
+        core_default.view.openHint({ text: "\u9080\u8BF7\u7801\u4E0D\u80FD\u4E3A\u7A7A\uFF01", call: () => {
+        } });
+        return;
+      }
+      if (!this.canClick)
+        return;
+      this.canClick = false;
+      HttpControl.inst.send({
+        api: ApiHttp.friendInvitePeople,
+        data: {
+          key: this.inviteInput.text
+        }
+      }).then(() => {
+        UserInfo_default.invitePeople = this.inviteInput.text;
+        core_default.view.openHint({ text: "\u7ED1\u5B9A\u6210\u529F", call: () => {
+        } });
+        this.inviteBox.visible = false;
+        this.inviteBox.active = false;
+        this.canClick = true;
+        if (this.call)
+          this.call();
+      }).catch(() => {
+        this.canClick = true;
+      });
+    }
+    onHdDestroy() {
+    }
+  };
+
   // src/view/FriendsView.ts
   var FriendsView = class extends core_default.gameScript {
     constructor() {
@@ -3907,10 +4080,12 @@
       this.itemList.renderHandler = new Laya.Handler(this, this.itemRender);
       this.itemList.vScrollBarSkin = null;
       this.userKey.text = `\u6211\u7684\u53CB\u60C5\u7801\uFF1A${UserInfo_default.key}`;
-      console.log(data.type);
       if (data.type && data.type == 1) {
         this.addFriendEvent();
       }
+      let rewardBtnAni = Laya.TimeLine.to(this.rewardBtn, { scaleX: 1.2, scaleY: 1.2, y: 10 }, 1e3, Laya.Ease.bounceOut).to(this.rewardBtn, { scaleX: 1, scaleY: 1, y: 19 }, 300);
+      rewardBtnAni.play(null, true);
+      this.rewardBtnAni = rewardBtnAni;
     }
     isEmpty() {
       this.empty_lb.visible = !this.itemList.array.length;
@@ -4238,6 +4413,9 @@
       core_default.view.openHint({ text: "\u590D\u5236\u6210\u529F", call: () => {
       } });
     }
+    onHdDestroy() {
+      this.rewardBtnAni.destroy();
+    }
   };
 
   // src/view/GatherDescView.ts
@@ -4415,152 +4593,6 @@
     }
   };
 
-  // src/view/GuideView.ts
-  var GuideView = class extends core_default.gameScript {
-    constructor() {
-      super(...arguments);
-      this.guideHand = null;
-      this.descLb = null;
-      this.nodeBox = null;
-      this.textList = [
-        "\u60A8\u7684\u94B1\u5305\u4F59\u989D",
-        "\u5B8C\u6210\u8BA2\u5355\u83B7\u5F97\u94BB\u77F3\u53EF\u4EE5\u5151\u6362\u7EA2\u5305\u3002",
-        "\u8FD9\u91CC\u662F\u4ED3\u5E93,\u6536\u83B7\u7684\u4F5C\u7269\u90FD\u5B58\u653E\u5728\u8FD9\u91CC\uFF0C\u51FA\u552E\u4F5C\u7269\u4E5F\u5728\u8FD9\u91CC\u3002",
-        "\u8FD9\u91CC\u662F\u96C6\u5E02,\u8D2D\u4E70\u79CD\u5B50\u3001\u72D7\u7CAE\u7684\u5730\u65B9\u8FD8\u6709\u6700\u91CD\u8981\u7684\u94B1\u5E84\u4E5F\u5728\u8FD9\u91CC,\u63D0\u73B0\u7684\u65F6\u5019\u60A8\u4F1A\u7ECF\u5E38\u6765\u7684\u3002",
-        "\u571F\u5730\u5347\u7EA7\u5728\u8FD9\u91CC,\u571F\u5730\u7B49\u7EA7\u8D8A\u9AD8,\u8D8A\u80A5\u6C83\uFF0C\u6536\u83B7\u5C31\u8D8A\u591A\u3002",
-        "\u8FD9\u91CC\u662F\u60A8\u7684\u519C\u573A\u3002\u79CD\u690D\u3001\u6536\u83B7\u90FD\u5728\u8FD9\u91CC,\u6084\u6084\u544A\u8BC9\u4F60\u8FD9\u5757\u5730\u6536\u83B7\u7684\u65F6\u5019\u53EF\u80FD\u4F1A\u4EA7\u51FA\u94BB\u77F3\u54E6\u3002",
-        "\u60A8\u7684\u4EFB\u52A1",
-        "\u60A8\u7684\u4FE1\u4EF6",
-        "\u8FD9\u91CC\u53EF\u4EE5\u53BB\u522B\u4EBA\u7684\u519C\u573A\u8F6C\u8F6C,\u5E2E\u522B\u4EBA\u6536\u7684\u83DC\u90FD\u5F52\u60A8,\u4F46\u662F\u8981\u5C0F\u5FC3\u72D7\u72D7\u54E6\u3002"
-      ];
-      this.step = 0;
-      this.canClick = true;
-    }
-    onOpened(data) {
-      if (!data)
-        return;
-      if (!data.nodeList)
-        data.nodeList = [];
-      this.data = data;
-      this.guideHand.alpha = 0;
-      this.userStep = UserInfo_default.guideData.split("");
-      if (!this.userStep.length) {
-        this.step = 0;
-      } else {
-        for (let x = 0; x < 9; x++) {
-          if (!this.userStep[x] || this.userStep[x] == "0") {
-            this.step = x;
-            break;
-          }
-        }
-      }
-      this.guidHandAni();
-      this.updateStep();
-    }
-    updateStep() {
-      let pos;
-      const preNode = this.data.nodeList[this.step - 1];
-      if (preNode && this.oldParent) {
-        pos = this.oldParent.globalToLocal(this.nodeBox.localToGlobal(new Laya.Point(preNode.x, preNode.y)));
-        this.oldParent.addChildAt(preNode, this.oldZOrder);
-        preNode.pos(pos.x, pos.y);
-      }
-      if (!this.textList[this.step]) {
-        core_default.view.close(Res_default.views.GuideView);
-        if (this.data.call)
-          this.data.call();
-        return;
-      }
-      const node = this.data.nodeList[this.step];
-      this.oldZOrder = node.zOrder;
-      this.oldParent = node.parent;
-      pos = this.nodeBox.globalToLocal(this.oldParent.localToGlobal(new Laya.Point(node.x, node.y)));
-      this.nodeBox.addChild(node);
-      node.pos(pos.x, pos.y);
-      this.guideHand.scaleX = 1;
-      const textPosAdd = new Laya.Point();
-      switch (this.step) {
-        case 0:
-          pos.x += 200;
-          pos.y += 150;
-          textPosAdd.setTo(-100, 80);
-          break;
-        case 1:
-          pos.x += 200;
-          pos.y += 250;
-          textPosAdd.setTo(-300, 80);
-          break;
-        case 2:
-          pos.x += 200;
-          pos.y += 250;
-          textPosAdd.setTo(-200, 80);
-          break;
-        case 3:
-          pos.x += -100;
-          pos.y += 250;
-          this.guideHand.scaleX = -1;
-          textPosAdd.setTo(-400, 80);
-          break;
-        case 4:
-          pos.x += 200;
-          pos.y += 250;
-          textPosAdd.setTo(-200, 80);
-          break;
-        case 5:
-          pos.x += 600;
-          pos.y += 450;
-          textPosAdd.setTo(-200, 80);
-          break;
-        case 6:
-          pos.x += 160;
-          pos.y += 100;
-          textPosAdd.setTo(-200, -280);
-          break;
-        case 7:
-          pos.x += 160;
-          pos.y += 100;
-          textPosAdd.setTo(-200, -280);
-          break;
-        case 8:
-          pos.x += 140;
-          pos.y += 100;
-          textPosAdd.setTo(-560, -380);
-          break;
-      }
-      Laya.Tween.to(this.guideHand, { x: pos.x, y: pos.y, alpha: 1 }, 300);
-      this.descLb.alpha = 0;
-      Laya.Tween.to(this.descLb, { alpha: 1 }, 150);
-      this.descLb.pos(pos.x + textPosAdd.x, pos.y + textPosAdd.y);
-      this.descLb.text = this.textList[this.step];
-      this.step++;
-    }
-    onClick(e) {
-      if (!this.canClick)
-        return;
-      this.canClick = false;
-      this.userStep[this.step] = "1";
-      HttpControl.inst.send({
-        api: ApiHttp.guide,
-        data: {
-          data: this.userStep.join("")
-        }
-      }).then(() => {
-        this.updateStep();
-        this.canClick = true;
-      }).catch(() => {
-        this.canClick = true;
-      });
-    }
-    guidHandAni() {
-      this.guidAni = Laya.TimeLine.to(this.guideHand, { rotation: -15 }, 400, null).to(this.guideHand, { rotation: 0 }, 400);
-      this.guidAni.play(null, true);
-    }
-    onHdDisable() {
-      var _a;
-      (_a = this.guidAni) == null ? void 0 : _a.destroy();
-    }
-  };
-
   // src/view/HintView.ts
   var HintView = class extends core_default.gameScript {
     onOpened(d) {
@@ -4675,6 +4707,16 @@
       if (show) {
         if (Laya.Browser.onIOS) {
           this.appleBtn.visible = true;
+          AppCore.runAppFunction({
+            uri: AppEventMap.installWechat_ios,
+            data: {},
+            timestamp: Date.now()
+          }).then((data) => {
+            if (!data.code) {
+              this.loginBox.visible = true;
+              this.loginBox.y = 769;
+            }
+          });
         } else {
           this.loginBox.visible = true;
         }
@@ -4685,7 +4727,7 @@
     }
     getBuildType() {
       let buildType = null;
-      switch ("online") {
+      switch ("test") {
         case BuildType.debug:
           buildType = 3;
           break;
@@ -4776,6 +4818,9 @@
         if (!this.canClick)
           return;
         this.canClick = false;
+        Laya.timer.once(1e3, this, () => {
+          this.canClick = true;
+        });
         if (LocalStorageService_default.getJSON().token) {
           HttpControl.inst.send({
             api: ApiHttp.loginToken,
@@ -4831,7 +4876,7 @@
             return;
           }
           let testK = location.search.match(/\?id=(.+)/), testKe = null;
-          if (testK && testK.length > 1 && BuildType.online != "online") {
+          if (testK && testK.length > 1 && BuildType.online != "test") {
             testKe = testK[1];
           }
           let loginOpenId = testKe, nickname = "", avatar = "", loginData = { account: loginOpenId, avatar, nickname };
@@ -5184,6 +5229,115 @@
     }
   };
 
+  // src/components/GuideComponent.ts
+  var GuideComponent = class extends core_default.gameScript {
+    constructor() {
+      super(...arguments);
+      this.guideHand = null;
+      this.descLb = null;
+      this.nodeBox = null;
+      this.bg = null;
+      this.hintLb = null;
+      this.canClick = true;
+    }
+    onHdAwake() {
+      this.updateState(false);
+      this.guidHandAni();
+    }
+    updateStep(data) {
+      if (!data)
+        return;
+      this.data = data;
+      this.updateState(true);
+      if (!data.addPos)
+        data.addPos = { x: 0, y: 0 };
+      const node = this.data.nodeList[0];
+      this.oldZOrder = node.zOrder;
+      this.oldParent = node.parent;
+      const pos = this.nodeBox.globalToLocal(this.oldParent.localToGlobal(new Laya.Point(node.x, node.y)));
+      node.once(Laya.Event.CLICK, this, () => __async(this, null, function* () {
+        if (data.step != null) {
+          yield this.updateGuidData(data.step);
+        }
+        if (data.call) {
+          data.call();
+        }
+        this.hintLb.visible = false;
+        Laya.timer.once(1, this, (_node, _p) => {
+          if (_node && _p) {
+            if (_p.destroyed) {
+              _node.destroy();
+            } else {
+              const pos2 = _p.globalToLocal(this.nodeBox.localToGlobal(new Laya.Point(_node.x, _node.y)));
+              _p.addChild(_node);
+              _node.zOrder = 0;
+              _node.updateZOrder();
+              _node.pos(pos2.x, pos2.y);
+            }
+          }
+          switch (data.step) {
+            case 0:
+              MainView.inst.guide();
+              break;
+            case 2:
+              MainView.inst.guide();
+              break;
+            default:
+              break;
+          }
+        }, [node, this.oldParent]);
+      }));
+      this.nodeBox.addChild(node);
+      node.pos(pos.x, pos.y);
+      Laya.Tween.to(this.guideHand, { x: pos.x + data.addPos.x, y: pos.y + data.addPos.y, alpha: 1 }, 300);
+      if (data.text) {
+        this.hintLb.visible = true;
+        this.hintLb.text = data.text;
+        this.hintLb.alpha = 0;
+        this.hintLb.pos(pos.x + data.testAddPos.x, pos.y + data.testAddPos.y);
+        Laya.timer.once(300, this, () => {
+          Laya.Tween.to(this.hintLb, { x: pos.x + data.testAddPos.x + 50, y: pos.y + data.testAddPos.y, alpha: 1 }, 300);
+        });
+      } else {
+        this.hintLb.visible = false;
+      }
+    }
+    updateGuidData(step) {
+      UserInfo_default.guideData[step] = "1";
+      return HttpControl.inst.send({
+        api: ApiHttp.guide,
+        data: {
+          data: UserInfo_default.guideData.join("")
+        }
+      }).then(() => {
+        this.canClick = true;
+      }).catch(() => {
+        this.canClick = true;
+      });
+    }
+    updateState(show) {
+      let node = this.owner;
+      node.visible = show;
+      node.disabled = !show;
+      node.active = show;
+    }
+    guidHandAni() {
+      this.guidAni = Laya.TimeLine.to(this.guideHand, { rotation: -15 }, 400, null).to(this.guideHand, { rotation: 0 }, 400);
+      this.guidAni.play(null, true);
+    }
+    onHdDestroy() {
+      var _a, _b;
+      (_a = this.guidAni) == null ? void 0 : _a.pause();
+      (_b = this.guidAni) == null ? void 0 : _b.destroy();
+    }
+  };
+  __decorateClass([
+    core_default.eventOn(EventMaps.update_guid)
+  ], GuideComponent.prototype, "updateStep", 1);
+  __decorateClass([
+    core_default.eventOn(EventMaps.update_guid_data)
+  ], GuideComponent.prototype, "updateGuidData", 1);
+
   // src/view/OrderView.ts
   var OrderView = class extends core_default.gameScript {
     constructor() {
@@ -5270,7 +5424,7 @@
         if (d.extraReward) {
           btn.visible = false;
           diamond.getChildByName("icon").skin = d.extraReward.obj.icon;
-          diamond.getChildByName("value").text = `+${d.extraReward.count + rewardDiamondCount + Math.round(rewardDiamondCount * d.commission)}`;
+          diamond.getChildByName("value").text = `+${d.extraReward.count + rewardDiamondCount + Math.floor(rewardDiamondCount * d.commission)}`;
           diamond.visible = true;
         } else {
           btn.visible = true;
@@ -5283,7 +5437,7 @@
             btn.visible = false;
             order_lv.visible = false;
             diamond.getChildByName("icon").skin = d.extraReward.obj.icon;
-            diamond.getChildByName("value").text = `+${d.extraReward.count + rewardDiamondCount + Math.round(rewardDiamondCount * d.commission)}`;
+            diamond.getChildByName("value").text = `+${d.extraReward.count + rewardDiamondCount + Math.floor(rewardDiamondCount * d.commission)}`;
             diamond.visible = true;
           } else {
             btn.skin = this.btnResCur;
@@ -5307,7 +5461,7 @@
       }
       if (reward) {
         rewardBox.getChildByName("icon").skin = reward.obj.icon;
-        rewardBox.getChildByName("value").text = `+${rewardCount + Math.round(rewardCount * d.commission)}`;
+        rewardBox.getChildByName("value").text = `+${Math.floor(rewardCount * (1 + d.commission))}`;
       }
     }
     onClick(e) {
@@ -5562,6 +5716,65 @@
       }).catch(() => {
         this.canClick = true;
       });
+      if (MainView.inst.getGuideStep() == 0) {
+        Laya.timer.once(300, this, () => {
+          core_default.eventGlobal.event(EventMaps.update_guid, {
+            nodeList: [this.itemBuyBtn],
+            call: () => {
+            },
+            addPos: { x: 100, y: 120 },
+            step: 0,
+            text: "\u8D2D\u4E70\u79CD\u5B50\u5E76\u79CD\u690D",
+            testAddPos: { x: -30, y: -60 }
+          });
+        });
+      }
+      this.itemBuyBtn.on(Laya.Event.CLICK, this, this.plantBuy);
+    }
+    plantBuy() {
+      var _a, _b;
+      if (!this.canClick) {
+        return;
+      }
+      if (this.getDataList()[this.itemListSelectIndex].base.seed_price.count > UserInfo_default.gold) {
+        core_default.view.openHint({
+          text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u852C\u83DC\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
+          call: () => {
+          }
+        });
+        return;
+      }
+      let landId = (_b = (_a = this.data) == null ? void 0 : _a.parm) == null ? void 0 : _b.landId;
+      if (!landId) {
+        landId = MainView.inst.getEmptyLandId();
+      }
+      if (!landId) {
+        core_default.view.openHint({ text: "\u6CA1\u6709\u7A7A\u7684\u571F\u5730\u54E6\uFF01", call: () => {
+        } });
+        return;
+      }
+      this.canClick = false;
+      HttpControl.inst.send({
+        api: ApiHttp.landSow,
+        data: {
+          landId,
+          plantId: this.getDataList()[this.itemListSelectIndex].base.id,
+          type: ConfigGame_default.ApiTypeDefault
+        }
+      }).then(() => {
+        var _a2;
+        ViewManager.inst.close(Res_default.views.ShopView);
+        if ((_a2 = this.data) == null ? void 0 : _a2.call) {
+          this.data.call(this.getDataList()[this.itemListSelectIndex]);
+        } else {
+          core_default.eventGlobal.event(EventMaps.plant_sow, [
+            true,
+            this.getDataList()[this.itemListSelectIndex]
+          ]);
+        }
+      }).catch(() => {
+        this.canClick = true;
+      });
     }
     onSelect(e) {
       this.itemListSelectIndex = e;
@@ -5656,7 +5869,6 @@
       box.getChildByName("value").value = ((_c = base.unlock_cost) == null ? void 0 : _c.count) + "";
     }
     onClick(e) {
-      var _a, _b;
       switch (e.target.name) {
         case "close":
           ViewManager.inst.close(Res_default.views.ShopView);
@@ -5672,50 +5884,6 @@
             this.updateTopBtnState();
           }
           break;
-        case "buy_btn":
-          if (!this.canClick) {
-            return;
-          }
-          if (this.getDataList()[this.itemListSelectIndex].base.seed_price.count > UserInfo_default.gold) {
-            core_default.view.openHint({
-              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
-              call: () => {
-              }
-            });
-            return;
-          }
-          let landId = (_b = (_a = this.data) == null ? void 0 : _a.parm) == null ? void 0 : _b.landId;
-          if (!landId) {
-            landId = MainView.inst.getEmptyLandId();
-          }
-          if (!landId) {
-            core_default.view.openHint({ text: "\u6CA1\u6709\u7A7A\u7684\u571F\u5730\u54E6\uFF01", call: () => {
-            } });
-            return;
-          }
-          this.canClick = false;
-          HttpControl.inst.send({
-            api: ApiHttp.landSow,
-            data: {
-              landId,
-              plantId: this.getDataList()[this.itemListSelectIndex].base.id,
-              type: ConfigGame_default.ApiTypeDefault
-            }
-          }).then(() => {
-            var _a2;
-            ViewManager.inst.close(Res_default.views.ShopView);
-            if ((_a2 = this.data) == null ? void 0 : _a2.call) {
-              this.data.call(this.getDataList()[this.itemListSelectIndex]);
-            } else {
-              core_default.eventGlobal.event(EventMaps.plant_sow, [
-                true,
-                this.getDataList()[this.itemListSelectIndex]
-              ]);
-            }
-          }).catch(() => {
-            this.canClick = true;
-          });
-          break;
         case "unlock_buy":
         case "ad_unlock":
           if (!this.canClick) {
@@ -5723,7 +5891,7 @@
           }
           if (e.target.name == "unlock_buy" && this.getDataList()[this.itemListSelectIndex].base.unlock_cost.count > UserInfo_default.gold) {
             core_default.view.openHint({
-              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
+              text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u852C\u83DC\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
               call: () => {
               }
             });
@@ -5838,7 +6006,7 @@
       }
       if (feed.base.cost.count > UserInfo_default.gold) {
         core_default.view.openHint({
-          text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
+          text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u852C\u83DC\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
           call: () => {
           }
         });
@@ -5895,7 +6063,7 @@
       }
       if (PetService_default.list[this.selectPetIndex].base.cost.count > UserInfo_default.gold) {
         core_default.view.openHint({
-          text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
+          text: "\u91D1\u5E01\u4E0D\u8DB3\uFF0C\u53BB\u4ED3\u5E93\u51FA\u552E\u852C\u83DC\u53EF\u4EE5\u83B7\u5F97\u91D1\u5E01\uFF0C\u5077\u83DC\u83B7\u5F97\u7684\u852C\u83DC\u4E5F\u53EF\u4EE5\u51FA\u552E\u83B7\u5F97\u91D1\u5E01\u54E6",
           call: () => {
           }
         });
@@ -6254,6 +6422,51 @@
           data: { type: "bottom_advertisement" }
         });
       });
+      if (MainView.inst.getGuideStep() == 1) {
+        Laya.timer.once(300, this, () => {
+          core_default.eventGlobal.event(EventMaps.update_guid, {
+            nodeList: [this.speedUpBtn],
+            call: () => {
+            },
+            addPos: { x: 100, y: 120 }
+          });
+        });
+      }
+      this.speedUpBtn.on(Laya.Event.CLICK, this, () => {
+        if (!this.canClick)
+          return;
+        this.canClick = false;
+        HttpControl.inst.send({
+          api: ApiHttp.landSpeedUp,
+          data: { type: ConfigGame_default.ApiTypeAD }
+        }).then((d) => {
+          UserInfo_default.speedUpTimes = d.speedUpTimes;
+          UserInfo_default.advertiseTimes = d.advertiseTimes;
+          if (UserInfo_default.speedUpTimes == ConfigGame_default.ADSpeedUpTimes) {
+            UserInfo_default.signInDays++;
+            AppCore.runAppFunction({
+              uri: AppEventMap.eventCount,
+              data: { type: "punchtheclock" }
+            });
+          }
+          AppCore.runAppFunction({
+            uri: AppEventMap.eventCount,
+            data: { type: "Advertisingacceleration" }
+          });
+          core_default.view.close(Res_default.views.SpeedUpView);
+          core_default.eventGlobal.event(EventMaps.land_speed_up);
+          core_default.eventGlobal.event(EventMaps.play_ad_get_reward, [
+            this.speedUpBtn,
+            d.adReward
+          ]);
+          if (this.call)
+            this.call();
+          if (MainView.inst.getGuideStep() == 1) {
+            core_default.eventGlobal.event(EventMaps.update_guid_data, 1);
+            MainView.inst.guide();
+          }
+        });
+      });
     }
     onClick(e) {
       switch (e.target.name) {
@@ -6261,35 +6474,6 @@
           core_default.view.close(Res_default.views.SpeedUpView);
           break;
         case "speed_up":
-          if (!this.canClick)
-            return;
-          this.canClick = false;
-          HttpControl.inst.send({
-            api: ApiHttp.landSpeedUp,
-            data: { type: ConfigGame_default.ApiTypeAD }
-          }).then((d) => {
-            UserInfo_default.speedUpTimes = d.speedUpTimes;
-            UserInfo_default.advertiseTimes = d.advertiseTimes;
-            if (UserInfo_default.speedUpTimes == ConfigGame_default.ADSpeedUpTimes) {
-              UserInfo_default.signInDays++;
-              AppCore.runAppFunction({
-                uri: AppEventMap.eventCount,
-                data: { type: "punchtheclock" }
-              });
-            }
-            AppCore.runAppFunction({
-              uri: AppEventMap.eventCount,
-              data: { type: "Advertisingacceleration" }
-            });
-            core_default.view.close(Res_default.views.SpeedUpView);
-            core_default.eventGlobal.event(EventMaps.land_speed_up);
-            core_default.eventGlobal.event(EventMaps.play_ad_get_reward, [
-              e.target,
-              d.adReward
-            ]);
-            if (this.call)
-              this.call();
-          });
           break;
       }
     }
@@ -6560,6 +6744,24 @@
           this.selectItemSellCount = this.selectItemData.count;
         this.updateSelectSellCount();
       });
+      if (MainView.inst.getGuideStep() == 3) {
+        Laya.timer.once(300, this, () => {
+          core_default.eventGlobal.event(EventMaps.update_guid, {
+            nodeList: [this.sellBtn],
+            call: () => {
+              this.onClick({ target: { name: "sellBtn" } });
+              Laya.timer.frameOnce(6, this, () => {
+                MainView.inst.guide();
+                core_default.view.close(Res_default.views.WarehouseView);
+              });
+            },
+            addPos: { x: 100, y: 120 },
+            step: 3,
+            text: "\u51FA\u552E\u4F5C\u7269\n\u53EF\u83B7\u5F97\u91D1\u5E01\u6216\u94BB\u77F3",
+            testAddPos: { x: 0, y: -150 }
+          });
+        });
+      }
     }
     updateList() {
       let i = 0, y = 0, hasSelect = false;
@@ -6812,7 +7014,6 @@
       reg("view/FriendsRewardView.ts", FriendsRewardView);
       reg("view/FriendsView.ts", FriendsView);
       reg("view/GatherDescView.ts", GatherDescView);
-      reg("view/GuideView.ts", GuideView);
       reg("view/HintView.ts", HintView);
       reg("view/LoginView.ts", LoginView);
       reg("view/MailDescView.ts", MailDescView);
@@ -6821,6 +7022,7 @@
       reg("components/FigureAni.ts", FigureAni);
       reg("components/FieldComponent.ts", FieldComponent);
       reg("components/RedDotComponent.ts", RedDotComponent);
+      reg("components/GuideComponent.ts", GuideComponent);
       reg("view/OrderView.ts", OrderView);
       reg("view/OverView.ts", OverView);
       reg("view/SettingView.ts", SettingView);
@@ -6872,7 +7074,7 @@
         Laya.Stat.show();
       Laya.alertGlobalError(true);
       Laya.stage.bgColor = "#ffffff";
-      BuildType.debug == "online" && GameConfig.stat && Laya.Stat.show();
+      BuildType.debug == "test" && GameConfig.stat && Laya.Stat.show();
       Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
     }
     onVersionLoaded() {
@@ -6906,12 +7108,11 @@
       });
     }
     loginGame() {
-      Laya.loader.load(Res_default.scenes, Laya.Handler.create(this, () => {
+      Laya.loader.load(["scenes/views/MainView.scene", "main_scene/img_landUpdate1.png"], Laya.Handler.create(this, () => {
         console.log("ok");
         core_default.audio.playMusic(Res_default.audios.BGM, 0);
         Laya.timer.frameOnce(1, this, () => {
           Laya.View.hideLoadingPage(1e3);
-          console.log(1);
           ViewManager.inst.open(GameConfig.startScene);
         });
       }), Laya.Handler.create(this, (e) => {

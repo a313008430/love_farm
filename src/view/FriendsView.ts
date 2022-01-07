@@ -21,6 +21,8 @@ export default class FriendsView extends Core.gameScript {
     private keyInputNode: Laya.TextInput;
     /** @prop {name:addFriend, tips:"添加好友按钮", type:Node}*/
     private addFriend: Laya.Image;
+    /** @prop {name:rewardBtn, tips:"好友奖励按钮", type:Node}*/
+    private rewardBtn: Laya.Image;
 
     /** @prop {name:empty_lb, tips:"空的提示", type:Node}*/
     private empty_lb: Laya.Image = null;
@@ -33,6 +35,8 @@ export default class FriendsView extends Core.gameScript {
     private friendsList: FriendData[] = [];
 
     private canClick: boolean = true;
+
+    private rewardBtnAni: Laya.TimeLine;
 
     onOpened(data: {
         friendData: FriendListData;
@@ -49,10 +53,18 @@ export default class FriendsView extends Core.gameScript {
         this.itemList.renderHandler = new Laya.Handler(this, this.itemRender);
         this.itemList.vScrollBarSkin = null;
         this.userKey.text = `我的友情码：${UserInfo.key}`;
-        console.log(data.type);
         if (data.type && data.type == 1) {
             this.addFriendEvent();
         }
+
+        let rewardBtnAni = Laya.TimeLine.to(
+            this.rewardBtn,
+            { scaleX: 1.2, scaleY: 1.2, y: 10 },
+            1000,
+            Laya.Ease.bounceOut
+        ).to(this.rewardBtn, { scaleX: 1, scaleY: 1, y: 19 }, 300);
+        rewardBtnAni.play(null, true);
+        this.rewardBtnAni = rewardBtnAni;
     }
 
     private isEmpty() {
@@ -452,5 +464,9 @@ export default class FriendsView extends Core.gameScript {
         document.execCommand("copy");
         a.remove();
         Core.view.openHint({ text: "复制成功", call: () => {} });
+    }
+
+    onHdDestroy(): void {
+        this.rewardBtnAni.destroy();
     }
 }
