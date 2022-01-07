@@ -1,13 +1,7 @@
 {
-<<<<<<<< HEAD:release/web/version-f706774d2d.json
-  "fileconfig.json": "fileconfig-9a6dd71e17.json",
-  "index.js": "index-db27e621ee.js",
-  "js/bundle.js": "js/bundle-bf8297e754.js",
-========
   "fileconfig.json": "fileconfig-a77d15099c.json",
-  "index.js": "index-868008aef2.js",
-  "js/bundle.js": "js/bundle-a0ae30c50d.js",
->>>>>>>> dev:release/web/version-49c073cd0c.json
+  "index.js": "index-1a080cae85.js",
+  "js/bundle.js": "js/bundle-61aa297db7.js",
   "js/ps-N3BPHYGU.fs": "js/ps-N3BPHYGU-319562bd17.fs",
   "libs/min/bytebuffer.min.js": "libs/min/bytebuffer-9637a546e0.min.js",
   "libs/min/laya.ani.min.js": "libs/min/laya-a72326a604.ani.min.js",
@@ -107,7 +101,6 @@
   "scenes/views/OrderView.json": "scenes/views/OrderView-4263e6281d.json",
   "scenes/views/OverView.json": "scenes/views/OverView-1fd4e68b13.json",
   "scenes/views/SettingView.json": "scenes/views/SettingView-0d69c9b5a6.json",
-  "scenes/views/ShopView.json": "scenes/views/ShopView-9ffa21b708.json",
   "scenes/views/SignInDescView.json": "scenes/views/SignInDescView-eeba6f7252.json",
   "scenes/views/SignInView.json": "scenes/views/SignInView-74ba044ace.json",
   "scenes/views/SpeedUpView.json": "scenes/views/SpeedUpView-3d7bbe2bbe.json",
@@ -115,9 +108,5 @@
   "scenes/views/WarehouseView.json": "scenes/views/WarehouseView-fd8ebc8e36.json",
   "scenes/views/WithdrawRecordView.json": "scenes/views/WithdrawRecordView-da13a8c1de.json",
   "unpack.json": "unpack-2e418a710a.json",
-<<<<<<<< HEAD:release/web/version-f706774d2d.json
-  "version.json": "version-f706774d2d.json"
-========
-  "version.json": "version-49c073cd0c.json"
->>>>>>>> dev:release/web/version-49c073cd0c.json
+  "version.json": "version-ad15a752a2.json"
 }
