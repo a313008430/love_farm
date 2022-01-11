@@ -1343,6 +1343,10 @@ export default class MainView extends Core.gameScript {
             desc = box.getChildByName("lb") as Laya.Label,
             list = TaskService.getList(),
             task = list[0];
+
+        if (this.isOuter) {
+            box.visible = false;
+        }
         if (task.receive == 1 || this.isOuter) {
             box.visible = false;
             return;

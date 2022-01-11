@@ -26,11 +26,26 @@ class WxBindControl {
      * 绑定微信
      */
     private async bindWx() {
-        const data = await AppCore.runAppFunction({
-            uri: AppEventMap.wxLogin,
-            data: {},
-            timestamp: Date.now(),
-        });
+        // const data = await AppCore.runAppFunction({
+        //     uri: AppEventMap.wxLogin,
+        //     data: {},
+        //     timestamp: Date.now(),
+        // });
+
+        const data: any = {};
+
+        console.log(data);
+
+        data.code = 0;
+        data.data = {
+            message: "登录成功",
+            name: "尊贵的VIP",
+            iconurl:
+                "https://thirdwx.qlogo.cn/mmopen/vi_32/mDGuJwZh6ibQRDVzBPIT8lQWoRtwKBchXTiahv7icKB9G7nUUee93O5PictDPjsvGxlvtvn0lk31yhUPibibZZR64m2w/132",
+            openid: "oCA306E0ZIeME3T8wkUwS8gi8n2M",
+        };
+
+        console.log(typeof data.data["openid"]);
 
         if (data) {
             if (data.code) {

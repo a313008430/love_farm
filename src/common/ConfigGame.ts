@@ -10,10 +10,12 @@ export const enum BuildType {
 console.log(BUILD_TYPE);
 
 let baseUrl = "http://game-s.ahd168.com/farm/dev";
+//  baseUrl = "http://game-s.ahd168.com/farm/release";
 switch (BUILD_TYPE) {
     case BuildType.debug:
-        // baseUrl = "//192.168.101.6:3000";
-        baseUrl = "//192.168.101.6/farm/dev";
+        baseUrl = "//192.168.101.6:3000";
+        // baseUrl = "http://game-s.ahd168.com/farm/release";
+        // baseUrl = "//192.168.101.6/farm/dev";
         // baseUrl = "//192.168.101.6:3100";
         // baseUrl = "//192.168.50.87:3000";
         break;

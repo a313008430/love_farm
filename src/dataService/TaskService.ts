@@ -74,7 +74,7 @@ class TaskService {
             //默认不创建任务
             // task = { id: id, times: 0, receive: 0, base: TableAnalyze.table("task").get(id) };
             // this.list.push(task);
-
+            console.error(`任务id ${id} 未创建`);
             return;
         }
         task.times++;

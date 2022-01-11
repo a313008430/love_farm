@@ -36,7 +36,10 @@ export default class LoginView extends GameScript {
         this.setLoginBtnState(false);
         this.loadBox.visible = false;
         this.privacyBox.visible = false;
-        await this.version();
+
+        if (!Laya.Browser.onIOS) {
+            await this.version();
+        }
 
         if (LocalStorageService.getJSON()?.isLogin) {
             this.login(false);
