@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":31,
-    "selecteID":16,
+    "selectedBox":6,
+    "selecteID":54,
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/SettingView.jpg","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
@@ -222,14 +222,13 @@
                             "props":{"y":257,"x":20,"name":"music","mouseEnabled":true},
                             "nodeParent":31,
                             "label":"music",
-                            "isOpen":true,
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":26,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image",
                                     "props":{"y":9,"skin":"game/img_music.png"},
@@ -243,7 +242,6 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
                                     "type":"Image",
                                     "searchKey":"Image,box",
                                     "props":{"y":9,"x":142,"skin":"game/img_switchOn.png","name":"box"},
@@ -256,7 +254,6 @@
                                     "compId":25,
                                     "child":[
                                         {
-                                            "x":75,
                                             "type":"Image",
                                             "searchKey":"Image,icon",
                                             "props":{"y":-9,"x":-14,"skin":"game/img_musicOnBtn.png","name":"icon"},
@@ -387,7 +384,7 @@
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image,customer",
-                    "props":{"y":602,"x":130,"skin":"game/img_service.png","name":"customer","mouseEnabled":true},
+                    "props":{"y":602,"x":130,"visible":false,"skin":"game/img_service.png","name":"customer","mouseEnabled":true},
                     "nodeParent":6,
                     "label":"customer",
                     "isOpen":false,
@@ -437,13 +434,14 @@
                             "compId":61,
                             "child":[
                                 ]
-                        }]
+                        }],
+                    "$HIDDEN":false
                 },
                 {
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image,user_agreement",
-                    "props":{"y":737,"x":130,"skin":"game/img_protcol.png","name":"user_agreement","mouseEnabled":true},
+                    "props":{"y":603,"x":130,"skin":"game/img_protcol.png","name":"user_agreement","mouseEnabled":true},
                     "nodeParent":6,
                     "label":"user_agreement",
                     "isOpen":false,
@@ -499,7 +497,7 @@
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image,privacy",
-                    "props":{"y":871,"x":130,"skin":"game/img_privacy.png","name":"privacy","mouseEnabled":true},
+                    "props":{"y":737,"x":130,"skin":"game/img_privacy.png","name":"privacy","mouseEnabled":true},
                     "nodeParent":6,
                     "label":"privacy",
                     "isOpen":false,
@@ -555,7 +553,7 @@
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image,about",
-                    "props":{"y":1006,"x":130,"skin":"game/img_aboutUs.png","name":"about","mouseEnabled":true},
+                    "props":{"y":872,"x":130,"skin":"game/img_aboutUs.png","name":"about","mouseEnabled":true},
                     "nodeParent":6,
                     "label":"about",
                     "isOpen":false,
@@ -611,7 +609,7 @@
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image,sign_out",
-                    "props":{"y":1139,"x":130,"skin":"game/img_quit.png","name":"sign_out","mouseEnabled":true},
+                    "props":{"y":1005,"x":130,"skin":"game/img_quit.png","name":"sign_out","mouseEnabled":true},
                     "nodeParent":6,
                     "label":"sign_out",
                     "isOpen":false,
