@@ -6,7 +6,7 @@
     "searchKey":"View",
     "props":{"width":1080,"top":0,"sceneColor":"#000000","sceneBg":"laya/views/scenes/views/SettingView.jpg","right":0,"left":0,"height":1920,"bottom":0},
     "nodeParent":-1,
-    "maxID":67,
+    "maxID":75,
     "label":"View",
     "isOpen":true,
     "isDirectory":true,
@@ -135,14 +135,13 @@
                     "props":{"y":156,"x":130,"name":"top"},
                     "nodeParent":6,
                     "label":"top",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":31,
                     "child":[
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image",
                             "props":{"y":-47,"x":-87,"width":884,"skin":"game/img_window.png","height":447},
@@ -157,7 +156,6 @@
                             "$HIDDEN":true
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,avater",
                             "props":{"y":69,"x":69,"width":94,"skin":"main_scene/img_defaultPortrait.png","name":"avater","height":92,"anchorY":0.5,"anchorX":0.5},
@@ -172,7 +170,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Image",
                             "searchKey":"Image,head",
                             "props":{"skin":"main_scene/img_portrait.png","name":"head"},
@@ -187,7 +184,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,nickname",
                             "props":{"y":52,"x":157,"text":"江洋大道","strokeColor":"#9D682F","stroke":2,"name":"nickname","fontSize":50,"font":"Microsoft YaHei","color":"#ffffff"},
@@ -201,7 +197,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Label",
                             "searchKey":"Label,id",
                             "props":{"y":88,"x":162,"visible":false,"text":"ID:1234","strokeColor":"#9D682F","stroke":2,"name":"id","fontSize":36,"font":"Microsoft YaHei","color":"#ffffff"},
@@ -216,7 +211,6 @@
                             "$HIDDEN":false
                         },
                         {
-                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,music",
                             "props":{"y":257,"x":20,"name":"music","mouseEnabled":true},
@@ -269,7 +263,6 @@
                                 }]
                         },
                         {
-                            "x":45,
                             "type":"Box",
                             "searchKey":"Box,sound",
                             "props":{"y":257,"x":430,"name":"sound","mouseEnabled":true},
@@ -323,7 +316,6 @@
                             "$HIDDEN":false
                         },
                         {
-                            "x":45,
                             "type":"HBox",
                             "searchKey":"HBox",
                             "props":{"y":151,"x":162,"space":50},
@@ -435,7 +427,7 @@
                             "child":[
                                 ]
                         }],
-                    "$HIDDEN":false
+                    "$HIDDEN":true
                 },
                 {
                     "x":30,
@@ -491,13 +483,14 @@
                             "compId":58,
                             "child":[
                                 ]
-                        }]
+                        }],
+                    "$HIDDEN":false
                 },
                 {
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image,privacy",
-                    "props":{"y":737,"x":130,"skin":"game/img_privacy.png","name":"privacy","mouseEnabled":true},
+                    "props":{"y":739,"x":130,"skin":"game/img_privacy.png","name":"privacy","mouseEnabled":true},
                     "nodeParent":6,
                     "label":"privacy",
                     "isOpen":false,
@@ -553,7 +546,7 @@
                     "x":30,
                     "type":"Image",
                     "searchKey":"Image,about",
-                    "props":{"y":872,"x":130,"skin":"game/img_aboutUs.png","name":"about","mouseEnabled":true},
+                    "props":{"y":877,"x":130,"skin":"game/img_aboutUs.png","name":"about","mouseEnabled":true},
                     "nodeParent":6,
                     "label":"about",
                     "isOpen":false,
@@ -608,10 +601,10 @@
                 {
                     "x":30,
                     "type":"Image",
-                    "searchKey":"Image,sign_out",
-                    "props":{"y":1005,"x":130,"skin":"game/img_quit.png","name":"sign_out","mouseEnabled":true},
+                    "searchKey":"Image,contact",
+                    "props":{"y":1011,"x":130,"skin":"game/img_contact CustomService.png","name":"contact","mouseEnabled":true},
                     "nodeParent":6,
-                    "label":"sign_out",
+                    "label":"contact",
                     "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
@@ -657,6 +650,62 @@
                             "isAniNode":true,
                             "hasChild":false,
                             "compId":62,
+                            "child":[
+                                ]
+                        }]
+                },
+                {
+                    "x":30,
+                    "type":"Image",
+                    "searchKey":"Image,sign_out",
+                    "props":{"y":1147,"x":130,"skin":"game/img_quit.png","name":"sign_out","mouseEnabled":true},
+                    "nodeParent":6,
+                    "label":"sign_out",
+                    "isOpen":false,
+                    "isDirectory":true,
+                    "isAniNode":true,
+                    "hasChild":true,
+                    "compId":71,
+                    "child":[
+                        {
+                            "type":"Image",
+                            "searchKey":"Image",
+                            "props":{"y":5.5,"x":672,"skin":"game/img_more.png"},
+                            "nodeParent":71,
+                            "label":"Image",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":72,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "type":"Rect",
+                            "searchKey":"Rect",
+                            "props":{"y":0,"x":0,"width":725,"renderType":"hit","lineWidth":1,"height":57,"fillColor":"#ff0000"},
+                            "nodeParent":71,
+                            "label":"Rect",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":73,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "type":"Script",
+                            "switchAble":true,
+                            "source":"src/components/Button.ts",
+                            "searchKey":"Script,Button",
+                            "removeAble":true,
+                            "props":{},
+                            "nodeParent":71,
+                            "label":"Button",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":74,
                             "child":[
                                 ]
                         }]

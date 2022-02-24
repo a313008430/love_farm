@@ -557,9 +557,9 @@
     BuildType2["online"] = "online";
     BuildType2["debug"] = "debug";
   })(BuildType || (BuildType = {}));
-  console.log("online");
+  console.log("test");
   var baseUrl = "http://game-s.ahd168.com/farm/dev";
-  switch ("online") {
+  switch ("test") {
     case BuildType.debug:
       baseUrl = "//192.168.101.6:3000";
       break;
@@ -4735,7 +4735,7 @@
     }
     getBuildType() {
       let buildType = null;
-      switch ("online") {
+      switch ("test") {
         case BuildType.debug:
           buildType = 3;
           break;
@@ -4884,7 +4884,7 @@
             return;
           }
           let testK = location.search.match(/\?id=(.+)/), testKe = null;
-          if (testK && testK.length > 1 && BuildType.online != "online") {
+          if (testK && testK.length > 1 && BuildType.online != "test") {
             testKe = testK[1];
           }
           let loginOpenId = testKe, nickname = "", avatar = "", loginData = { account: loginOpenId, avatar, nickname };
@@ -5597,6 +5597,13 @@
           break;
         case "copy_btn":
           this.copy();
+          break;
+        case "contact":
+          core_default.view.openHint({
+            text: "\u6709\u5173\u6E38\u620F\u7684\u4EFB\u4F55\u95EE\u9898\uFF0C\u8BF7\u6DFB\u52A0\u5BA2\u670D\nQQ:924157692",
+            call: () => {
+            }
+          });
           break;
       }
     }
@@ -7082,7 +7089,7 @@
         Laya.Stat.show();
       Laya.alertGlobalError(true);
       Laya.stage.bgColor = "#ffffff";
-      BuildType.debug == "online" && GameConfig.stat && Laya.Stat.show();
+      BuildType.debug == "test" && GameConfig.stat && Laya.Stat.show();
       Laya.ResourceVersion.enable("version.json", Laya.Handler.create(this, this.onVersionLoaded), Laya.ResourceVersion.FILENAME_VERSION);
     }
     onVersionLoaded() {
